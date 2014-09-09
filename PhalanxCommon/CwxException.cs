@@ -30,7 +30,7 @@ namespace PhalanxCommon
                 }
             }  
         }
-
+        // test2
         public CwxException(string FriendlyMessage)
         {
             _friendly_message = FriendlyMessage;
