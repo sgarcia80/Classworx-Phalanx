@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.PhxVersionEntity,PhalanxCommon" table="phx_version">
+
+		<id name="Id" column="phx_version_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+		<property column="version" type="String" name="Version" not-null="true" length="20" />
+		<property name="FechaImplementacion" column="implementation_date" type="DateTime" insert="false" />
+
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.MailAlertEntity, PhalanxCommon" table="mail_alert">
+
+		<id name="Id" column="mail_alert_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+    <many-to-one column="mail_type_id" class="PhalanxCommon.Entities.MailTypeEntity,PhalanxCommon" name="MailType" />
+    <property column="mail_creation_date" type="DateTime" name="CreationDate" />
+    <property column="mail_send_date" type="DateTime" name="SendDate" />
+    <property column="mail_subject" type="String" name="Subject" not-null="true" length="100" />
+    <property column="mail_to_name" type="String" name="ToName" length="100" />
+    <property column="mail_to_address" type="String" name="ToAddress" not-null="true" length="150" />
+    <property column="mail_cc1_name" type="String" name="Cc1Name" length="100" />
+    <property column="mail_cc1_address" type="String" name="Cc1Address" length="150" />
+    <property column="mail_cc2_name" type="String" name="Cc2Name" length="100" />
+    <property column="mail_cc2_address" type="String" name="Cc2Address" length="150" />
+		<property column="mail_cc3_name" type="String" name="Cc3Name" length="100" />
+		<property column="mail_cc3_address" type="String" name="Cc3Address" length="150" />
+		<property column="mail_cc4_name" type="String" name="Cc4Name" length="100" />
+		<property column="mail_cc4_address" type="String" name="Cc4Address" length="150" />
+		<property column="mail_cc5_name" type="String" name="Cc5Name" length="100" />
+		<property column="mail_cc5_address" type="String" name="Cc5Address" length="150" />
+		<property column="mail_cc6_name" type="String" name="Cc6Name" length="100" />
+		<property column="mail_cc6_address" type="String" name="Cc6Address" length="150" />
+		<property column="mail_cc7_name" type="String" name="Cc7Name" length="100" />
+		<property column="mail_cc7_address" type="String" name="Cc7Address" length="150" />
+		<property column="mail_cc8_name" type="String" name="Cc8Name" length="100" />
+		<property column="mail_cc8_address" type="String" name="Cc8Address" length="150" />
+		<property column="mail_cc9_name" type="String" name="Cc9Name" length="100" />
+		<property column="mail_cc9_address" type="String" name="Cc9Address" length="150" />
+		<property column="mail_cc10_name" type="String" name="Cc10Name" length="100" />
+		<property column="mail_cc10_address" type="String" name="Cc10Address" length="150" />
+		<property column="mail_cc11_name" type="String" name="Cc11Name" length="100" />
+		<property column="mail_cc11_address" type="String" name="Cc11Address" length="150" />
+		<property column="mail_cc12_name" type="String" name="Cc12Name" length="100" />
+		<property column="mail_cc12_address" type="String" name="Cc12Address" length="150" />
+		<property column="mail_body" type="String" name="Body" not-null="true" length="1000" />
+    <property column="mail_send_attemp" type="Int32" name="SendAttemp" />
+
+	</class>
+</hibernate-mapping>

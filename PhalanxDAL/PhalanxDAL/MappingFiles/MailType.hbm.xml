@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.MailTypeEntity, PhalanxCommon" table="Mail_type">
+
+		<id name="Id" column="mail_type_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+		<bag name="MailsList" inverse="true" lazy="true" >
+			<key column="mail_type_id" />
+			<one-to-many class="PhalanxCommon.Entities.MailAlertEntity, PhalanxCommon" />
+		</bag>
+		<property column="mail_type_name" type="String" name="Name" not-null="true" length="50" />
+		
+	</class>
+</hibernate-mapping>

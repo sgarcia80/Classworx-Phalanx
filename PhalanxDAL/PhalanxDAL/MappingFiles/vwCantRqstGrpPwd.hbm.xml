@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.vwCantFollowRqstGrpPwdEntity,PhalanxCommon" table="vwCantFollowRqstGrpPwd">
+
+		<id name="Id" column="frgp_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+		<property column="frg_id" type="Int32" name="FollowRqstGrpId" not-null="true" />
+		<property column="user_password_id" type="Int32" name="UserPasswordId" not-null="true" />
+		<property column="Cant" type="Int32" name="CantPwdAssoc" not-null="true" />
+
+	</class>
+</hibernate-mapping>

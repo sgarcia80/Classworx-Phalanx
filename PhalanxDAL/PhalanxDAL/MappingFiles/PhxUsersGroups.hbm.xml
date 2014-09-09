@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.PhxUserGroupEntity,PhalanxCommon" table="Phx_Users_Groups">
+
+		<id name="Id" column="phx_usr_grp_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+		<many-to-one name="PhxUser" column="phx_user_id" class="PhalanxCommon.Entities.PhxUserEntity,PhalanxCommon" />
+		<many-to-one name="RqstGrp" column="rqst_grp_id" class="PhalanxCommon.Entities.RequestGroupEntity,PhalanxCommon" />
+		
+	</class>
+</hibernate-mapping>

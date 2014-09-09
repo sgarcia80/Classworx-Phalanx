@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.UserEntity,PhalanxCommon" table="Users" dynamic-update="true">
+
+		<id name="Id" column="user_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+		<property column="username" type="String" name="Username" not-null="true" length="50" />
+		<property column="active_user" type="Boolean" name="ActiveUser" />
+		<many-to-one name="UserPassword" column="user_password_id" class="PhalanxCommon.Entities.UserPasswordEntity,PhalanxCommon" />
+		<many-to-one name="UserType" column="user_type_id" class="PhalanxCommon.Entities.UserTypeEntity,PhalanxCommon" />
+		<property column="user_desc" type="String" name="Desc" length="100" />
+		<property column="user_critical" type="Boolean" name="Critical" />
+		<property column="modifying_date" type="DateTime" name="ModifyingDate" />
+		<many-to-one name="ModifyingUser" column="modifying_user" class="PhalanxCommon.Entities.PhxUserEntity,PhalanxCommon" />
+
+		<bag name="PwdChangesList" inverse="true" lazy="true" >
+			<key column="user_id" />
+			<one-to-many class="PhalanxCommon.Entities.HistPasswordChangeEntity,PhalanxCommon" />
+		</bag>
+
+		<joined-subclass name="PhalanxCommon.Entities.WinLocalUserEntity,PhalanxCommon" table="Win_Local_Users" lazy="false">
+			<key column="user_id"/>
+			<many-to-one name="WinPc" column="win_pc_id" class="PhalanxCommon.Entities.WinPCEntity,PhalanxCommon" />
+		</joined-subclass>
+
+		<joined-subclass name="PhalanxCommon.Entities.WinDomainUserEntity,PhalanxCommon" table="Win_Domain_Users" lazy="false">
+			<key column="user_id"/>
+			<bag name="WinDomainControllersList" inverse="true" lazy="true" >
+				<key column="impersonate_user_id" />
+				<one-to-many class="PhalanxCommon.Entities.WinDomainControllerEntity,PhalanxCommon" />
+			</bag>
+			<many-to-one name="WinDomainId" column="win_domain_id" class="PhalanxCommon.Entities.WinDomainEntity,PhalanxCommon" />
+			<property column="user_domain_id" type="Int32" name="UserDomainId" />
+		</joined-subclass>
+
+		<joined-subclass name="PhalanxCommon.Entities.ApplicationUserEntity,PhalanxCommon" table="Applications_Users">
+			<key column="user_id"/>
+			<many-to-one name="Application" column="app_id" class="PhalanxCommon.Entities.ApplicationEntity,PhalanxCommon" />
+			<property column="app_field1_value" type="String" name="Field1Value" length="50" />
+			<property column="app_field2_value" type="String" name="Field2Value" length="50" />
+			<property column="app_field3_value" type="String" name="Field3Value" length="50" />
+
+		</joined-subclass>
+		<joined-subclass name="PhalanxCommon.Entities.DatabaseUserEntity,PhalanxCommon" table="Databases_Users">
+			<key column="user_id"/>
+			<many-to-one name="Db" column="db_id" class="PhalanxCommon.Entities.DataBaseEntity,PhalanxCommon" />
+
+		</joined-subclass>
+
+		<joined-subclass name="PhalanxCommon.Entities.UnixUserEntity,PhalanxCommon" table="Unix_users">
+			<key column="user_id"/>
+			<many-to-one name="Unix" column="unx_id" class="PhalanxCommon.Entities.UnixEntity,PhalanxCommon" />
+
+		</joined-subclass>
+
+		<joined-subclass name="PhalanxCommon.Entities.AS400UserEntity,PhalanxCommon" table="AS400_users">
+			<key column="user_id"/>
+			<many-to-one name="AS400" column="as_id" class="PhalanxCommon.Entities.AS400Entity,PhalanxCommon" />
+
+		</joined-subclass>
+
+		<joined-subclass name="PhalanxCommon.Entities.CommunicationDeviceUserEntity,PhalanxCommon" table="Communication_Device_Users">
+			<key column="user_id"/>
+			<many-to-one name="CommunicationDevice" column="cm_dv_id" class="PhalanxCommon.Entities.CommunicationDeviceEntity,PhalanxCommon" />
+			<bag name="Protocols" table="Communication_Device_User_Protocol" cascade="all">
+				<key column="cm_dv_user_id" />
+				<many-to-many column="cm_dv_protocol_id" class="PhalanxCommon.Entities.CommunicationDeviceProtocolEntity,PhalanxCommon" />
+			</bag>
+		</joined-subclass>
+
+		<joined-subclass name="PhalanxCommon.Entities.ATMUserEntity,PhalanxCommon" table="ATMs_Users">
+			<key column="user_id"/>
+			<property column="ATM_name" type="String" name="ATMName" length="150" />
+			<property column="componente" type="String" name="Componente" length="50" />
+
+		</joined-subclass>
+
+	</class>
+</hibernate-mapping>

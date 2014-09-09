@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+  <class name="PhalanxCommon.Entities.CommunicationDeviceEntity,PhalanxCommon" table="Communication_Devices">
+    <id name="Id" column="cm_dv_id" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <bag name="Users" inverse="true" lazy="true" >
+      <key column="cm_dv_id" />
+      <one-to-many class="PhalanxCommon.Entities.CommunicationDeviceUserEntity,PhalanxCommon" />
+    </bag>
+    <many-to-one name="Type" column="cm_dv_type_id" class="PhalanxCommon.Entities.CommunicationDeviceTypeEntity,PhalanxCommon" />
+    <property column="cm_dv_name" type="String" name="Name" not-null="true" length="100" />
+    <property column="cm_dv_description" type="String" name="Description" length="200" />
+    <property column="cm_dv_ip" type="String" name="IP" length="15" />
+    <property column="cm_dv_active" type="Boolean" name="Active" />
+    <bag name="Protocols" table="Protocol_Communication_Device" cascade="all">
+      <key column="cm_dv_id" />
+      <many-to-many column="cm_dv_protocol_id" class="PhalanxCommon.Entities.CommunicationDeviceProtocolEntity,PhalanxCommon" />
+    </bag>
+  </class>
+</hibernate-mapping>
+

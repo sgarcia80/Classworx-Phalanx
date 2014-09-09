@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.PwdLockTypeEntity,PhalanxCommon" table="Pwd_Lock_types">
+
+		<id name="Id" column="pwd_lock_type_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+		<bag name="UsersPasswordsList" inverse="true" lazy="true" >
+			<key column="pwd_lock_type_id" />
+			<one-to-many class="PhalanxCommon.Entities.UserPasswordEntity,PhalanxCommon" />
+		</bag>
+		<property column="pwd_lock_type_code" type="String" name="Code" not-null="true" length="50" />
+		<property column="pwd_lock_type_desc" type="String" name="Desc" length="150" />
+		
+	</class>
+</hibernate-mapping>

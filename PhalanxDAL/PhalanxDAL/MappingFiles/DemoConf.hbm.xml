@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.DemoConf,PhalanxCommon" table="Demo_Conf">
+
+		<id name="Id" column="demo_conf_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+		<property column="conf_code" type="String" name="Code" not-null="true" length="50" />
+		<property column="conf_value" type="String" name="Value" length="100" />
+		
+	</class>
+</hibernate-mapping>

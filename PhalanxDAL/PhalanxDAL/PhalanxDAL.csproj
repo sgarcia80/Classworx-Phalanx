@@ -1,0 +1,569 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3447B917-0A54-460E-AB95-84BBF24BAF35}</ProjectGuid>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccProvider>
+    </SccProvider>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>PhalanxDAL</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>PhalanxDAL</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <SccAuxPath>
+    </SccAuxPath>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'App Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\App Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Web Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Web Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'WS Test|AnyCPU'">
+    <OutputPath>bin\WS Test\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DbgAutCOBIS|AnyCPU'">
+    <OutputPath>bin\DbgAutCOBIS\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AutCOBIS Release|AnyCPU'">
+    <OutputPath>bin\AutCOBIS Release\</OutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.DynamicProxy, Version=1.1.5.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dlls\Castle.DynamicProxy.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=1.0.0.3, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dlls\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dlls\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=1.0.0.0, Culture=neutral, PublicKeyToken=154fdcb44c4484fc">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dlls\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Nullables, Version=1.0.0.0, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dlls\Nullables.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DBMgr.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Factories\DelegationRequestsFactory.cs" />
+    <Compile Include="Factories\DemoConfFactory.cs" />
+    <Compile Include="Factories\GlobalWinGroupsFactory.cs" />
+    <Compile Include="Factories\LocalWinGroupsFactory.cs" />
+    <Compile Include="Factories\PasswordsRequestsFactory.cs" />
+    <Compile Include="Factories\PhxRolesFactory.cs" />
+    <Compile Include="Factories\PhxRolesUsersFactory.cs" />
+    <Compile Include="Factories\PhxUsersFactory.cs" />
+    <Compile Include="Factories\PwdLockTypesFactory.cs" />
+    <Compile Include="Factories\RequestsGroupsFactory.cs" />
+    <Compile Include="Factories\RequestStatesFactory.cs" />
+    <Compile Include="Factories\RqstGrpsDelegFactory.cs" />
+    <Compile Include="Factories\RqstGrpsPwdsFactory.cs" />
+    <Compile Include="Factories\UsersFactory.cs" />
+    <Compile Include="Factories\UsersPasswordsFactory.cs" />
+    <Compile Include="Factories\UserTypesFactory.cs" />
+    <Compile Include="Factories\WinDCFactory.cs" />
+    <Compile Include="Factories\WinDomainsFactory.cs" />
+    <Compile Include="Factories\WinDomainUsersFactory.cs" />
+    <Compile Include="Factories\WinGroupsFactory.cs" />
+    <Compile Include="Factories\WinLocalUsersFactory.cs" />
+    <Compile Include="Factories\WinPCsFactory.cs" />
+    <Compile Include="PhxDALUtil.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\PhalanxCommon\PhalanxCommon.csproj">
+      <Project>{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}</Project>
+      <Name>PhalanxCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\phxCryptMgr\phxCryptMgr.csproj">
+      <Project>{F0941A5C-7856-42E9-9544-CDAC11F3C285}</Project>
+      <Name>phxCryptMgr</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\phxLog\phxLog.csproj">
+      <Project>{E8F94161-3F1A-4491-92B4-9AE6777DF183}</Project>
+      <Name>phxLog</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\UserTypes.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\UsersPasswords.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\PwdLockTypes.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\Users.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\WinPCs.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\WinGroups.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\WinDomainControllers.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\Requests.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\WinDomains.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\RqstGrpsDeleg.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\PhxUsersGroups.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\RqstGrpsPwds.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\RequestsGroups.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\PhxRolesUsers.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\PhxRoles.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\PhxUsers.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\RequestStates.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\DemoConf.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\VwPhxUsersRqstDelGroups.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\VwPhxUsersRqstPwdGroups.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BLL\DelegationRequests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BLL\DemoConf.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="BLL\DemoConf.hbm.xml" />
+    <Compile Include="BLL\GlobalWinGroups.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BLL\LocalWinGroups.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BLL\PasswordsRequests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BLL\PhxLog.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="BLL\PhxLog.hbm.xml" />
+    <Compile Include="BLL\PhxRoles.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="BLL\PhxRoles.hbm.xml" />
+    <Compile Include="BLL\PhxRolesUsers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="BLL\PhxRolesUsers.hbm.xml" />
+    <Compile Include="BLL\PhxUsers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="BLL\PhxUsers.hbm.xml" />
+    <Compile Include="BLL\PhxUsersGroups.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="BLL\PhxUsersGroups.hbm.xml" />
+    <Compile Include="BLL\PwdLockTypes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="BLL\PwdLockTypes.hbm.xml" />
+    <Compile Include="BLL\Requests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="BLL\Requests.hbm.xml" />
+    <Compile Include="BLL\RequestsGroups.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="BLL\RequestsGroups.hbm.xml" />
+    <Compile Include="BLL\RequestStates.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="BLL\RequestStates.hbm.xml" />
+    <Compile Include="BLL\RqstGrpsDeleg.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="BLL\RqstGrpsDeleg.hbm.xml" />
+    <Compile Include="BLL\RqstGrpsPwds.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="BLL\RqstGrpsPwds.hbm.xml" />
+    <Compile Include="BLL\Users.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="BLL\Users.hbm.xml" />
+    <Compile Include="BLL\UsersPasswords.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="BLL\UsersPasswords.hbm.xml" />
+    <Compile Include="BLL\UserTypes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="BLL\UserTypes.hbm.xml" />
+    <Compile Include="BLL\VwPhxUsersRqstDelGroups.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="BLL\VwPhxUsersRqstDelGroups.hbm.xml" />
+    <Compile Include="BLL\VwPhxUsersRqstPwdGroups.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="BLL\VwPhxUsersRqstPwdGroups.hbm.xml" />
+    <Compile Include="BLL\WinDomainControllers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="BLL\WinDomainControllers.hbm.xml" />
+    <Compile Include="BLL\WinDomains.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="BLL\WinDomains.hbm.xml" />
+    <Compile Include="BLL\WinDomainUsers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BLL\WinGroups.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="BLL\WinGroups.hbm.xml" />
+    <Compile Include="BLL\WinLocalUsers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BLL\WinPCs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Factories\AccionItemChkWinLocalUserFactory.cs" />
+    <Compile Include="Factories\ApplicationFactory.cs" />
+    <Compile Include="Factories\ApplicationUserFactory.cs" />
+    <Compile Include="Factories\AS400UsersFactory.cs" />
+    <Compile Include="Factories\AS400Factory.cs" />
+    <Compile Include="Factories\AuditLoginFactory.cs" />
+    <Compile Include="Factories\AuditPermisosFactory.cs" />
+    <Compile Include="Factories\AuditUsuariosFactory.cs" />
+    <Compile Include="Factories\BuildingFactory.cs" />
+    <Compile Include="Factories\AuditPhxRoleFactory.cs" />
+    <Compile Include="Factories\AuditPhxPrivilegeRoleFactory.cs" />
+    <Compile Include="Factories\CommunicationDeviceFactory.cs" />
+    <Compile Include="Factories\CommunicationDeviceProtocolFactory.cs" />
+    <Compile Include="Factories\CommunicationDeviceTypesFactory.cs" />
+    <Compile Include="Factories\CommunicationDeviceUserFactory.cs" />
+    <Compile Include="Factories\ATMUserFactory.cs" />
+    <Compile Include="Factories\vwCantRqstGrpPwdFactory.cs" />
+    <Compile Include="Factories\vwCantFollowRqstGrpPwdFactory.cs" />
+    <Compile Include="Factories\FollowupRequestGroupDefaultFactory.cs" />
+    <Compile Include="Factories\ItemLoteChkWinLocalUsersFactory.cs" />
+    <Compile Include="Factories\FollowupRequestGroupFactory.cs" />
+    <Compile Include="Factories\LoteChkWinLocalUsersFactory.cs" />
+    <Compile Include="Factories\PhxContingenciaFactory.cs" />
+    <Compile Include="Factories\PhxVersionFactory.cs" />
+    <Compile Include="Factories\VwPermisoPerfilFactory.cs" />
+    <Compile Include="Factories\VwPerfilUsuarioFactory.cs" />
+    <Compile Include="Factories\PhxPrivilegeRoleFactory.cs" />
+    <Compile Include="Factories\EventoLoginFactory.cs" />
+    <Compile Include="Factories\MailTypeFactory.cs" />
+    <Compile Include="Factories\GetDateFactory.cs" />
+    <Compile Include="Factories\HistPasswordChangeFactory.cs" />
+    <Compile Include="Factories\MailAlertFactory.cs" />
+    <Compile Include="Factories\PhxConfigFactory.cs" />
+    <Compile Include="Factories\PhxPrivilegeGroupFactory.cs" />
+    <Compile Include="Factories\PhxUserSuperiorFactory.cs" />
+    <Compile Include="Factories\UnixUsersFactory.cs" />
+    <Compile Include="Factories\UnixPCsFactory.cs" />
+    <Compile Include="Factories\DatabaseFactory.cs" />
+    <Compile Include="Factories\DatabaseTypesFactory.cs" />
+    <Compile Include="Factories\DatabaseUserFactory.cs" />
+    <Compile Include="Factories\vwHistPwdChgFactory.cs" />
+    <Compile Include="Factories\VwInventarioFactory.cs" />
+    <Compile Include="IniFile.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <None Include="BLL\WinPCs.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\Applications.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\DataBases.hbm.xml" />
+    <EmbeddedResource Include="MappingFiles\DatabaseTypes.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\Unix.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\RequestsNotes.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\VwDate.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\VwInventario.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\HistChangePassword.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\VwHistPwdChg.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\PhxConfig.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\PhxUserSuperior.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\AS400.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\Building.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\MailType.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\MailAlert.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\AuditPhxUser.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\AuditUsuarios.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\EventoLogin.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\AuditLogin.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\AuditPermisos.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\PhxPrivilegeGroup.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\PhxPrivilege.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\PhxPrivilegeRole.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\AuditPhxRole.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\AuditPhxPrivilegeRole.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\VwPerfilUsuario.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\VwPermisoPerfil.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\FollowupRequestGroup.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\FollowupRequestGroupPassword.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\FollowupRequestGroupUser.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\PhxVersion.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\PhxContingencia.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\LoteChkWinLocalUsers.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\ItemLoteChkWinLocalUsers.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\AccionItemChkWinLocalUser.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\CommunicationDeviceTypes.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\CommunicationDeviceProtocols.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\CommunicationDevices.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\FollowupRequestGroupDefault.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\vwCantFollowRqstGrpPwd.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\vwCantRqstGrpPwd.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

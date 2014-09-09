@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.ItemLoteChkWinLocalUsersEntity,PhalanxCommon" table="item_lote_chk_win_local_users">
+	
+		<id name="Id" column="id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+
+		<many-to-one name="Lote" column="lote" class="PhalanxCommon.Entities.LoteChkWinLocalUsersEntity,PhalanxCommon" />
+		<many-to-one name="WinLocalUser" column="win_local_user" class="PhalanxCommon.Entities.WinLocalUserEntity,PhalanxCommon" />
+		<property name="FechaChk" column="fecha_chk" type="datetime" not-null="false"  />
+		<property name="ChkPingNombreEquipo" column="chk_ping_nombre_equipo" type="Boolean" not-null="false" />
+		<property name="ChkPingIPEquipo" column="chk_ping_ip_equipo" type="Boolean" not-null="false" />
+		<property name="ChkPwd" column="chk_pwd" type="Boolean" not-null="false" />
+		<property name="ChkUsername" column="chk_username" type="Boolean" not-null="false" />
+		<property name="NombreEquipoPingIP" column="nombre_equipo_ping_ip" type="String" length="150" />
+		<many-to-one name="Accion" column="accion" class="PhalanxCommon.Entities.AccionItemChkWinLocalUserEntity,PhalanxCommon" />
+
+
+	</class>
+</hibernate-mapping>

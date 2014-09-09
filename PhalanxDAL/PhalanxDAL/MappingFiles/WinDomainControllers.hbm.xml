@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.WinDomainControllerEntity,PhalanxCommon" table="Win_Domain_Controllers">
+
+		<id name="Id" column="win_dc_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+		<many-to-one name="WinDomain" column="win_domain_id" class="PhalanxCommon.Entities.WinDomainEntity,PhalanxCommon" />
+		<property column="dc_type" type="String" name="Type" not-null="true" length="1" />
+		<many-to-one name="WinPc" column="win_pc_id" class="PhalanxCommon.Entities.WinPCEntity,PhalanxCommon" />
+		<many-to-one name="ImpersonateUser" column="impersonate_user_id" class="PhalanxCommon.Entities.WinDomainUserEntity,PhalanxCommon" />
+		
+	</class>
+</hibernate-mapping>

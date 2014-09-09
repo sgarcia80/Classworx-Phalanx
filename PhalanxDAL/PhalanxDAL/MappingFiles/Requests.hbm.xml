@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.RequestEntity,PhalanxCommon" table="Requests">
+
+		<id name="Id" column="request_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+		<bag name="DelegationRequestsList" inverse="true" lazy="true" >
+			<key column="request_id" />
+			<one-to-many class="PhalanxCommon.Entities.DelegationRequestEntity,PhalanxCommon" />
+		</bag>
+		<bag name="PasswordsRequestsList" inverse="true" lazy="true" >
+			<key column="request_id" />
+			<one-to-many class="PhalanxCommon.Entities.PasswordRequestEntity,PhalanxCommon" />
+		</bag>
+		<many-to-one name="RqstUser" column="rqst_user_id" class="PhalanxCommon.Entities.PhxUserEntity,PhalanxCommon"/>
+		<property column="request_date" type="DateTime" name="RequestDate" not-null="true" />
+		<many-to-one name="Auth1Usr" column="auth1_usr_id" class="PhalanxCommon.Entities.PhxUserEntity,PhalanxCommon"/>
+		<property column="auth1_date" type="DateTime" name="Auth1Date" />
+		<many-to-one name="Auth2Usr" column="auth2_usr_id" class="PhalanxCommon.Entities.PhxUserEntity,PhalanxCommon"/>
+		<property column="auth2_date" type="DateTime" name="Auth2Date" />
+		<many-to-one name="RqstState" column="rqst_state_id" class="PhalanxCommon.Entities.RequestStateEntity,PhalanxCommon"/>
+		<property column="hours_requested" type="Int32" name="HoursRequested" />
+		<property column="hours_given" type="Int32" name="HoursGiven" />
+		<property column="request_desc" type="String" name="RequestDesc" length="500" />
+		<property column="auth_desc" type="String" name="AuthDesc" length="500" />
+		<property column="expiration_date" type="DateTime" name="ExpirationDate" />
+		<property column="expirada_sin_visualizar" type="Boolean" name="ExpiradaSinVisualizar" />
+		<property column="unit_requested" type="String" name="UnitRequested" length="1" />
+		<property column="unit_given" type="String" name="UnitGiven" length="1" />
+		<property column="return_date" type="DateTime" name="ReturnDate" />
+		<property column="return_note" type="String" name="ReturnNote" length="200" />
+		<many-to-one name="ReturnUser" column="return_usr_id" class="PhalanxCommon.Entities.PhxUserEntity,PhalanxCommon"/>
+
+		<property column="close_date" type="DateTime" name="CloseDate" />
+		<property column="close_note" type="String" name="CloseNote" length="200" />
+		<many-to-one name="CloseUser" column="close_usr_id" class="PhalanxCommon.Entities.PhxUserEntity,PhalanxCommon"/>
+
+		<joined-subclass name="PhalanxCommon.Entities.DelegationRequestEntity,PhalanxCommon" table="Delegation_Requests">
+			<key column="request_id"/>
+			<many-to-one name="WinGroup" column="win_group_id" class="PhalanxCommon.Entities.WinGroupEntity,PhalanxCommon" />
+		</joined-subclass>
+
+		<joined-subclass name="PhalanxCommon.Entities.PasswordRequestEntity,PhalanxCommon" table="Passwords_Requests">
+			<key column="request_id"/>
+			<many-to-one name="UserPassword" column="user_password_id" class="PhalanxCommon.Entities.UserPasswordEntity,PhalanxCommon" />
+		</joined-subclass>
+
+	</class>
+</hibernate-mapping>

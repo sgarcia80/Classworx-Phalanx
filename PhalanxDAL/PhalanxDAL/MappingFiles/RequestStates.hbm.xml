@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.RequestStateEntity,PhalanxCommon" table="Request_States">
+
+		<id name="Id" column="rqst_state_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+		<bag name="RequestsList" inverse="true" lazy="true" >
+			<key column="rqst_state_id" />
+			<one-to-many class="PhalanxCommon.Entities.RequestEntity,PhalanxCommon" />
+		</bag>
+		<property column="rqst_state_desc" type="String" name="RqstStateDesc" not-null="true" length="100" />
+		
+	</class>
+</hibernate-mapping>

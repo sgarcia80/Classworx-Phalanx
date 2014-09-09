@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.UserTypeEntity, PhalanxCommon" table="User_Types">
+
+		<id name="Id" column="user_type_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+		<bag name="UsersList" inverse="true" lazy="true" >
+			<key column="user_type_id" />
+			<one-to-many class="PhalanxCommon.Entities.UserEntity, PhalanxCommon" />
+		</bag>
+		<property column="user_type_desc" type="String" name="Desc" not-null="true" length="50" />
+		
+	</class>
+</hibernate-mapping>

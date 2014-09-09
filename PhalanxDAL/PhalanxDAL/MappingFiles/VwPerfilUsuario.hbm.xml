@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.VwPerfilUsuarioEntity,PhalanxCommon" table="vwPerfilUsuario">
+
+		<!-- could not find a primary key for this table/view. NHibernate requires an 'id' element, so you'll have to define one manually. -->
+		<id name="Id" column="Id" type="Int32" unsaved-value="0">
+			<generator class="assigned"/>
+		</id>
+
+		<property column="UserId" type="Int32" name="UserId" not-null="true" />
+		<property column="UserName" type="String" name="UserName" not-null="true" length="50" />
+		<property column="FullName" type="String" name="FullName" not-null="true" length="100" />
+		<property column="UserDomain" type="String" name="UserDomain" length="50" />
+		<property column="RoleId" type="Int32" name="RoleId" not-null="true" />
+		<property column="RoleName" type="String" name="RoleName" not-null="true" length="200" />
+
+	</class>
+</hibernate-mapping>

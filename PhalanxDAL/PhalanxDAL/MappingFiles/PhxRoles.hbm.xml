@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.PhxRoleEntity,PhalanxCommon" table="Phx_Roles">
+
+		<id name="Id" column="phx_role_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+		<bag name="PhxRolesUsersList" inverse="true" lazy="true" >
+			<key column="phx_role_id" />
+			<one-to-many class="PhalanxCommon.Entities.PhxRoleUserEntity,PhalanxCommon" />
+		</bag>
+		<property column="role_name" type="String" name="Name" not-null="true" length="200" />
+		<property column="role_code" type="String" name="Code" not-null="false" length="20" />
+		<bag name="PhxPrivilegeRoleList" inverse="true" lazy="true" >
+			<key column="phx_role_id" />
+			<one-to-many class="PhalanxCommon.Entities.PhxPrivilegeRoleEntity,PhalanxCommon" />
+		</bag>
+	</class>
+</hibernate-mapping>

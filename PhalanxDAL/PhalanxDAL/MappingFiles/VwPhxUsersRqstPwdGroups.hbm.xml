@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.VwPhxUserRqstPwdGroupEntity,PhalanxCommon" table="vwPhxUsersRqstPwdGroups">
+
+		<!-- could not find a primary key for this table/view. NHibernate requires an 'id' element, so you'll have to define one manually. -->
+		<id name="PwdrqstGrpPwdId" column="pwdrqst_grp_pwd_id" type="Int32" unsaved-value="0">
+			<generator class="assigned"/>
+		</id>
+
+		<property column="rqst_grp_id" type="Int32" name="RqstGrpId" not-null="true" />
+		<property column="rqst_grp_name" type="String" name="RqstGrpName" not-null="true" length="50" />
+		<property column="user_password_id" type="Int32" name="UserPasswordId" not-null="true" />
+		<property column="auth1_usr_id" type="Int32" name="Auth1UsrId" />
+		<property column="auth2_usr_id" type="Int32" name="Auth2UsrId" />
+		<property column="phx_user_id" type="Int32" name="PhxUserId" not-null="true" />
+		<property column="username" type="String" name="Username" not-null="true" length="50" />
+		<property column="fullname" type="String" name="Fullname" not-null="true" length="100" />
+		
+	</class>
+</hibernate-mapping>

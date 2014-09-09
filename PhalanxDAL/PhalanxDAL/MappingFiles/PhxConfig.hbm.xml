@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.PhxConfigEntity,PhalanxCommon" table="phx_config">
+
+		<id name="Code" column="code" type="String" length="30" unsaved-value="">
+			<generator class="native"/>
+		</id>
+    <property column="name" type="String" name="Name" length="100" />
+    <property column="description" type="String" name="Description" length="400" />
+    <property column="short_txt_value" type="String" name="ShortTxtValue" length="400" />
+    <property column="long_txt_value" type="String" name="LongTxtValue" length="8000" />
+
+  </class>
+</hibernate-mapping>

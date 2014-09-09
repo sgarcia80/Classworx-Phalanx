@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.WinDomainEntity,PhalanxCommon" table="Win_Domains">
+
+		<id name="Id" column="win_domain_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+		<bag name="GlobalWinGroupsList" inverse="true" lazy="true" >
+			<key column="win_domain_id" />
+			<one-to-many class="PhalanxCommon.Entities.GlobalWinGroupEntity,PhalanxCommon" />
+		</bag>
+		<bag name="WinDomainControllersList" inverse="true" lazy="true" >
+			<key column="win_domain_id" />
+			<one-to-many class="PhalanxCommon.Entities.WinDomainControllerEntity,PhalanxCommon" />
+		</bag>
+		<bag name="WinDomainUsersList" inverse="true" lazy="true" >
+			<key column="win_domain_id" />
+			<one-to-many class="PhalanxCommon.Entities.WinDomainUserEntity,PhalanxCommon" />
+		</bag>
+		<bag name="WinPCsList" inverse="true" lazy="true" >
+			<key column="win_domain_id" />
+			<one-to-many class="PhalanxCommon.Entities.WinPCEntity,PhalanxCommon" />
+		</bag>
+		<property column="nt_name" type="String" name="NtName" length="50" />
+		<property column="ad_name" type="String" name="AdName" length="100" />
+		<property column="comments" type="String" name="Comments" length="255" />
+		
+	</class>
+</hibernate-mapping>

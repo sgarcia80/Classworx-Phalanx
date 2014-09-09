@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.RqstGrpPwdEntity,PhalanxCommon" table="Rqst_Grps_Pwds">
+
+		<id name="Id" column="pwdrqst_grp_pwd_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+		<many-to-one name="RqstGrp" column="rqst_grp_id" class="PhalanxCommon.Entities.RequestGroupEntity,PhalanxCommon" />
+		<many-to-one name="UserPassword" column="user_password_id" class="PhalanxCommon.Entities.UserPasswordEntity,PhalanxCommon" />
+		<many-to-one name="Auth1Usr" column="auth1_usr_id" class="PhalanxCommon.Entities.PhxUserEntity,PhalanxCommon" />
+		<many-to-one name="Auth2Usr" column="auth2_usr_id" class="PhalanxCommon.Entities.PhxUserEntity,PhalanxCommon" />
+		
+	</class>
+</hibernate-mapping>

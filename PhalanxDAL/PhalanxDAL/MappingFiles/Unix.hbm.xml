@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.UnixEntity,PhalanxCommon" table="Unix">
+
+		<id name="Id" column="unx_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+		<bag name="UnixUsersList" inverse="true" lazy="true" >
+			<key column="unx_id" />
+			<one-to-many class="PhalanxCommon.Entities.UnixUserEntity,PhalanxCommon" />
+		</bag>
+		<property column="unx_server_name" type="String" name="ServerName" not-null="true" length="100" />
+		<property column="unx_server_ip1" type="Byte" name="Ip1" />
+		<property column="unx_server_ip2" type="Byte" name="Ip2" />
+		<property column="unx_server_ip3" type="Byte" name="Ip3" />
+		<property column="unx_server_ip4" type="Byte" name="Ip4" />
+		<property column="unx_desc" type="String" name="Desc" length="200" />
+		<property column="unx_ip" type="String" name="Ip" length="15" />
+		<property column="active" type="Boolean" name="Active" />
+
+	</class>
+</hibernate-mapping>

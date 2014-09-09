@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.PhxUserEntity,PhalanxCommon" table="Phx_Users">
+	
+		<id name="Id" column="phx_user_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+		<bag name="PhxRolesUsersList" inverse="true" lazy="true" >
+			<key column="phx_user_id" />
+			<one-to-many class="PhalanxCommon.Entities.PhxRoleUserEntity,PhalanxCommon" />
+		</bag>
+		<bag name="PhxUsersGroupsList" inverse="true" lazy="true" >
+			<key column="phx_user_id" />
+			<one-to-many class="PhalanxCommon.Entities.PhxUserGroupEntity,PhalanxCommon" />
+		</bag>
+		<bag name="PhxUsersFollowupGroupsList" inverse="true" lazy="true" >
+			<key column="phx_user_id" />
+			<one-to-many class="PhalanxCommon.Entities.FollowupRequestGroupUserEntity,PhalanxCommon" />
+		</bag>
+		<bag name="RequestsList" inverse="true" lazy="true" >
+			<key column="rqst_user_id" />
+			<one-to-many class="PhalanxCommon.Entities.RequestEntity,PhalanxCommon" />
+		</bag>
+		<bag name="RequestsListAuth1" inverse="true" lazy="true" >
+			<key column="auth1_usr_id" />
+			<one-to-many class="PhalanxCommon.Entities.RequestEntity,PhalanxCommon" />
+		</bag>
+		<bag name="RequestsListAuth2" inverse="true" lazy="true" >
+			<key column="auth2_usr_id" />
+			<one-to-many class="PhalanxCommon.Entities.RequestEntity,PhalanxCommon" />
+		</bag>
+		<bag name="RqstGrpsDelegListAuth1" inverse="true" lazy="true" >
+			<key column="auth1_usr_id" />
+			<one-to-many class="PhalanxCommon.Entities.RqstGrpDelegEntity,PhalanxCommon" />
+		</bag>
+		<bag name="RqstGrpsDelegListAuth2" inverse="true" lazy="true" >
+			<key column="auth2_usr_id" />
+			<one-to-many class="PhalanxCommon.Entities.RqstGrpDelegEntity,PhalanxCommon" />
+		</bag>
+		<bag name="RqstGrpsPwdsListAuth1" inverse="true" lazy="true" >
+			<key column="auth1_usr_id" />
+			<one-to-many class="PhalanxCommon.Entities.RqstGrpPwdEntity,PhalanxCommon" />
+		</bag>
+		<bag name="RqstGrpsPwdsListAuth2" inverse="true" lazy="true" >
+			<key column="auth2_usr_id" />
+			<one-to-many class="PhalanxCommon.Entities.RqstGrpPwdEntity,PhalanxCommon" />
+		</bag>
+		<property column="username" type="String" name="Username" not-null="true" length="50" />
+		<property column="fullname" type="String" name="Fullname" not-null="true" length="100" />
+		<property column="user_domain" type="String" name="Domain" length="50" />
+		<property column="user_email" type="String" name="Email" length="150" />
+		<property column="creation_date" type="DateTime" name="CreationDate"/>
+		<property column="delete_date" type="DateTime" name="DeleteDate" />
+
+    <property column="phx_user_file_number" type="String" name="FileNumber" not-null="false" length="10" />
+    <property column="phx_user_relation_type" type="String" name="RelationType" not-null="false" length="1" />
+    <property column="phx_user_branch" type="String" name="Branch" not-null="false" length="100" />
+    <property column="phx_user_function" type="String" name="Function" not-null="false" length="50" />
+    <property column="phx_user_building_adress" type="String" name="BuildingAdress" not-null="false" length="50" />
+    <property column="phx_user_building_floor" type="String" name="BuildingFloor" not-null="false" length="5" />
+    <property column="phx_user_extension_number" type="String" name="ExtensionNumber" not-null="false" length="4" />
+    <property column="active" type="Boolean" name="Active" />
+    <many-to-one name="PhxUserSuperior" column="sup_id" class="PhalanxCommon.Entities.PhxUserSuperiorEntity,PhalanxCommon" not-null="false" />
+
+
+  </class>
+</hibernate-mapping>

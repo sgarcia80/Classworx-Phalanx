@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.PhxRoleUserEntity,PhalanxCommon" table="Phx_Roles_Users">
+
+		<id name="Id" column="phx_role_usr_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+		<many-to-one name="PhxRole" column="phx_role_id" class="PhalanxCommon.Entities.PhxRoleEntity,PhalanxCommon" />
+		<many-to-one name="PhxUser" column="phx_user_id" class="PhalanxCommon.Entities.PhxUserEntity,PhalanxCommon" />
+		
+	</class>
+</hibernate-mapping>

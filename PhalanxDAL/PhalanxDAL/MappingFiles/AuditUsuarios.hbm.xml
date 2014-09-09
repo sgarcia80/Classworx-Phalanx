@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.AuditUsuariosEntity,PhalanxCommon" table="audit_usuarios">
+	
+		<id name="Id" column="aud_usr_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+		<property column="recurso" type="String" name="Recurso" not-null="true" length="50" />
+		<property column="id_usuario" type="Int32" name="IdUsuario" not-null="true" />
+		<property column="username" type="String" name="Username" not-null="true" length="50" />
+		<property column="fullname" type="String" name="Fullname" not-null="true" length="100" />
+		<property column="fecha" type="DateTime" name="Fecha" insert="false"/>
+		<property column="operacion" type="String" name="Operacion" length="50" />
+		<property column="id_usuario_abm" type="Int32" name="IdUsuarioABM" not-null="true" />
+		<property column="username_abm" type="String" name="UsernameABM" not-null="true" length="50" />
+		<property column="fullname_abm" type="String" name="FullnameABM" not-null="true" length="100" />
+		<property column="terminal_abm" type="String" name="TerminalABM" not-null="true" length="150" />
+		<property column="accion_satisfactoria" type="Boolean" name="AccionSatisfactoria" />
+		<many-to-one name="AuditPhxUserNew" column="audit_phx_user_id_new" class="PhalanxCommon.Entities.AuditPhxUserEntity,PhalanxCommon" not-null="false" />
+		<many-to-one name="AuditPhxUserOld" column="audit_phx_user_id_old" class="PhalanxCommon.Entities.AuditPhxUserEntity,PhalanxCommon" not-null="false" />
+
+
+	</class>
+</hibernate-mapping>
