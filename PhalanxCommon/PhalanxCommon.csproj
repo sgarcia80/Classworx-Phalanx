@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PhalanxCommon</RootNamespace>
+    <AssemblyName>PhalanxCommon</AssemblyName>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'App Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\App Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Web Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Web Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'WS Test|AnyCPU'">
+    <OutputPath>bin\WS Test\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DbgAutCOBIS|AnyCPU'">
+    <OutputPath>bin\DbgAutCOBIS\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AutCOBIS Release|AnyCPU'">
+    <OutputPath>bin\AutCOBIS Release\</OutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Collections\AccionItemChkWinLocalUserEntityCollection.cs" />
+    <Compile Include="Collections\ApplicationEntityCollection.cs" />
+    <Compile Include="Collections\BaseEntityCollection.cs" />
+    <Compile Include="Collections\ApplicationUserEntityCollection.cs" />
+    <Compile Include="Collections\AS400EntityCollection.cs" />
+    <Compile Include="Collections\AS400UserEntityCollection.cs" />
+    <Compile Include="Collections\BuildingEntityCollection.cs" />
+    <Compile Include="Collections\AuditUsuariosEntityCollection.cs" />
+    <Compile Include="Collections\AuditLoginEntityCollection.cs" />
+    <Compile Include="Collections\AuditPermisosEntityCollection.cs" />
+    <Compile Include="Collections\AuditPhxRoleEntityCollection.cs" />
+    <Compile Include="Collections\AuditPhxPrivilegeRoleEntityCollection.cs" />
+    <Compile Include="Collections\CommunicationDeviceEntityCollection.cs" />
+    <Compile Include="Collections\CommunicationDeviceProtocolEntityCollection.cs" />
+    <Compile Include="Collections\CommunicationDeviceTypeEntityCollection.cs" />
+    <Compile Include="Collections\CommunicationDeviceUserEntityCollection.cs" />
+    <Compile Include="Collections\ATMUserEntityCollection.cs" />
+    <Compile Include="Collections\vwCantRqstGrpPwdEntityCollection.cs" />
+    <Compile Include="Collections\vwCantFollowRqstGrpPwdEntityCollection.cs" />
+    <Compile Include="Collections\FollowupRequestGroupDefaultEntityCollection.cs" />
+    <Compile Include="Collections\LoteChkWinLocalUsersEntityCollection.cs" />
+    <Compile Include="Collections\ItemLoteChkWinLocalUsersEntityCollection.cs" />
+    <Compile Include="Collections\PhxContingenciaEntityCollection.cs" />
+    <Compile Include="Collections\PhxVersionEntityCollection.cs" />
+    <Compile Include="Collections\FollowupRequestGroupUserEntityCollection.cs" />
+    <Compile Include="Collections\FollowupRequestGroupEntityCollection.cs" />
+    <Compile Include="Collections\FollowupRequestGroupPasswordEntityCollection.cs" />
+    <Compile Include="Collections\VwPermisoPerfilEntityCollection.cs" />
+    <Compile Include="Collections\VwPerfilUsuarioEntityCollection.cs" />
+    <Compile Include="Collections\PhxPrivilegeRoleEntityCollection.cs" />
+    <Compile Include="Collections\PhxPrivilegeGroupEntityCollection.cs" />
+    <Compile Include="Collections\PhxPrivilegeEntityCollection.cs" />
+    <Compile Include="Collections\EventoLoginEntityCollection.cs" />
+    <Compile Include="Collections\ReporteDeUsoEntityCollection.cs" />
+    <Compile Include="Collections\MailAlertEntityCollection.cs" />
+    <Compile Include="Collections\MailTypeEntityCollection.cs" />
+    <Compile Include="Collections\HistPasswordChangeEntityCollection.cs" />
+    <Compile Include="Collections\PhxConfigEntityCollection.cs" />
+    <Compile Include="Collections\PhxUserSuperiorEntityCollection.cs" />
+    <Compile Include="Collections\UnixUserEntityCollection.cs" />
+    <Compile Include="Collections\UnixPCEntityCollection.cs" />
+    <Compile Include="Collections\DataBaseUserEntityCollection.cs" />
+    <Compile Include="Collections\DataBaseEntityCollection.cs" />
+    <Compile Include="Collections\DatabaseTypeEntityCollection.cs" />
+    <Compile Include="Collections\PasswordRequestEntityCollection.cs" />
+    <Compile Include="Collections\PhxRoleEntityCollection.cs" />
+    <Compile Include="Collections\PhxRoleUserEntityCollection.cs" />
+    <Compile Include="Collections\PhxUserEntityCollection.cs" />
+    <Compile Include="Collections\PhxUserGroupEntityCollection.cs" />
+    <Compile Include="Collections\RequestGroupEntityCollection.cs" />
+    <Compile Include="Collections\RequestStateEntityCollection.cs" />
+    <Compile Include="Collections\RqstGrpPwdEntityCollection.cs" />
+    <Compile Include="Collections\UserPasswordEntityCollection.cs" />
+    <Compile Include="Collections\UsersPasswordEntityCollection.cs" />
+    <Compile Include="Collections\UserTypeEntityCollection.cs" />
+    <Compile Include="Collections\vwHistPwdChgEntityCollection.cs" />
+    <Compile Include="Collections\VwInventarioEntityCollection.cs" />
+    <Compile Include="Collections\WinDomainControllerEntityCollection.cs" />
+    <Compile Include="Collections\WinDomainEntityCollection.cs" />
+    <Compile Include="Collections\WinLocalUserEntityCollection.cs" />
+    <Compile Include="Collections\WinPCEntityCollection.cs" />
+    <Compile Include="CwxException.cs" />
+    <Compile Include="cwxSorter.cs" />
+    <Compile Include="Entities\AccionItemChkWinLocalUserEntity.cs" />
+    <Compile Include="Entities\ApplicationEntity.cs" />
+    <Compile Include="Entities\ApplicationUserEntity.cs" />
+    <Compile Include="Entities\BaseEntity.cs" />
+    <Compile Include="Entities\AS400Entity.cs" />
+    <Compile Include="Entities\AS400UserEntity.cs" />
+    <Compile Include="Entities\BuildingEntity.cs" />
+    <Compile Include="Entities\AuditPhxUserEntity.cs" />
+    <Compile Include="Entities\AuditUsuariosEntity.cs" />
+    <Compile Include="Entities\AuditLoginEntity.cs" />
+    <Compile Include="Entities\AuditPermisosEntity.cs" />
+    <Compile Include="Entities\AuditPhxRoleEntity.cs" />
+    <Compile Include="Entities\AuditPhxPrivilegeRoleEntity.cs" />
+    <Compile Include="Entities\CommunicationDeviceEntity.cs" />
+    <Compile Include="Entities\CommunicationDeviceProtocolEntity.cs" />
+    <Compile Include="Entities\CommunicationDeviceTypeEntity.cs" />
+    <Compile Include="Entities\CommunicationDeviceUserEntity.cs" />
+    <Compile Include="Entities\ATMUserEntity.cs" />
+    <Compile Include="Entities\vwCantRqstGrpPwdPwdEntity.cs" />
+    <Compile Include="Entities\vwCantFollowRqstGrpPwdEntity.cs" />
+    <Compile Include="Entities\FollowupRequestGroupDefaultEntity.cs" />
+    <Compile Include="Entities\ItemLoteChkWinLocalUsersEntity.cs" />
+    <Compile Include="Entities\LoteChkWinLocalUsersEntity.cs" />
+    <Compile Include="Entities\PhxContingenciaEntity.cs" />
+    <Compile Include="Entities\PhxVersionEntity.cs" />
+    <Compile Include="Entities\FollowupRequestGroupUserEntity.cs" />
+    <Compile Include="Entities\FollowupRequestGroupPasswordEntity.cs" />
+    <Compile Include="Entities\FollowupRequestGroupEntity.cs" />
+    <Compile Include="Entities\VwPermisoPerfilEntity.cs" />
+    <Compile Include="Entities\VwPerfilUsuarioEntity.cs" />
+    <Compile Include="Entities\PhxPrivilegeRoleEntity.cs" />
+    <Compile Include="Entities\PhxPrivilegeEntity.cs" />
+    <Compile Include="Entities\PhxPrivilegeGroupEntity.cs" />
+    <Compile Include="Entities\EventoLoginEntity.cs" />
+    <Compile Include="Entities\MailAlertEntity.cs" />
+    <Compile Include="Entities\MailTypeEntity.cs" />
+    <Compile Include="Entities\HistPasswordChangeEntity.cs" />
+    <Compile Include="Entities\PhxConfigEntity.cs" />
+    <Compile Include="Entities\PhxUserSuperiorEntity.cs" />
+    <Compile Include="Entities\ReporteDeUsoEntity.cs" />
+    <Compile Include="Entities\vwHistPwdChgEntity.cs" />
+    <Compile Include="Entities\VwInventarioEntity.cs" />
+    <Compile Include="Entities\DataBaseEntity.cs" />
+    <Compile Include="Entities\DatabaseUserEntity.cs" />
+    <Compile Include="Entities\DatabaseTypeEntity.cs" />
+    <Compile Include="Entities\DelegationRequestEntity.cs" />
+    <Compile Include="Entities\DemoConf.cs" />
+    <Compile Include="Entities\FreqUnitEntity.cs" />
+    <Compile Include="Entities\GlobalWinGroupEntity.cs" />
+    <Compile Include="Entities\LocalWinGroupEntity.cs" />
+    <Compile Include="Entities\PasswordRequestEntity.cs" />
+    <Compile Include="Entities\PhxRoleEntity.cs" />
+    <Compile Include="Entities\PhxRoleUserEntity.cs" />
+    <Compile Include="Entities\PhxUserGroupEntity.cs" />
+    <Compile Include="Entities\PhxUserEntity.cs" />
+    <Compile Include="Entities\PwdLockTypeEntity.cs" />
+    <Compile Include="Entities\RequestEntity.cs" />
+    <Compile Include="Entities\RequestGroupEntity.cs" />
+    <Compile Include="Entities\RequestNoteEntity.cs" />
+    <Compile Include="Entities\RequestStateEntity.cs" />
+    <Compile Include="Entities\RqstGrpDelegEntity.cs" />
+    <Compile Include="Entities\RqstGrpPwdEntity.cs" />
+    <Compile Include="Entities\UnixEntity.cs" />
+    <Compile Include="Entities\UnixUserEntity.cs" />
+    <Compile Include="Entities\UserEntity.cs" />
+    <Compile Include="Entities\UserPasswordEntity.cs" />
+    <Compile Include="Entities\UserTypeEntity.cs" />
+    <Compile Include="Entities\VwDateEntity.cs" />
+    <Compile Include="Entities\VwPhxUserRqstDelGroupEntity.cs" />
+    <Compile Include="Entities\VwPhxUserRqstPwdGroupEntity.cs" />
+    <Compile Include="Entities\WinDomainControllerEntity.cs" />
+    <Compile Include="Entities\WinDomainEntity.cs" />
+    <Compile Include="Entities\WinDomainUserEntity.cs" />
+    <Compile Include="Entities\WinGroupEntity.cs" />
+    <Compile Include="Entities\WinLocalUserEntity.cs" />
+    <Compile Include="Entities\WinPasswordRequestEntity.cs" />
+    <Compile Include="Entities\WinPCEntity.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\phxCryptMgr\phxCryptMgr.csproj">
+      <Project>{F0941A5C-7856-42E9-9544-CDAC11F3C285}</Project>
+      <Name>phxCryptMgr</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\DataSources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

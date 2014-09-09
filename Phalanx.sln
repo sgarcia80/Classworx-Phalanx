@@ -1,0 +1,67 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhalanxCommon", "PhalanxCommon\PhalanxCommon.csproj", "{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phxCryptMgr", "phxCryptMgr\phxCryptMgr.csproj", "{F0941A5C-7856-42E9-9544-CDAC11F3C285}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phxBlowfish", "phxBlowfish\phxBlowfish.csproj", "{78D7CC00-F303-476C-A329-0B25856A0B07}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		App Debug|Any CPU = App Debug|Any CPU
+		AutCOBIS Release|Any CPU = AutCOBIS Release|Any CPU
+		DbgAutCOBIS|Any CPU = DbgAutCOBIS|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Web Debug|Any CPU = Web Debug|Any CPU
+		WS Test|Any CPU = WS Test|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}.App Debug|Any CPU.ActiveCfg = App Debug|Any CPU
+		{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}.App Debug|Any CPU.Build.0 = App Debug|Any CPU
+		{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}.AutCOBIS Release|Any CPU.ActiveCfg = AutCOBIS Release|Any CPU
+		{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}.AutCOBIS Release|Any CPU.Build.0 = AutCOBIS Release|Any CPU
+		{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}.DbgAutCOBIS|Any CPU.ActiveCfg = DbgAutCOBIS|Any CPU
+		{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}.DbgAutCOBIS|Any CPU.Build.0 = DbgAutCOBIS|Any CPU
+		{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}.Web Debug|Any CPU.ActiveCfg = Web Debug|Any CPU
+		{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}.Web Debug|Any CPU.Build.0 = Web Debug|Any CPU
+		{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}.WS Test|Any CPU.ActiveCfg = WS Test|Any CPU
+		{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}.WS Test|Any CPU.Build.0 = WS Test|Any CPU
+		{F0941A5C-7856-42E9-9544-CDAC11F3C285}.App Debug|Any CPU.ActiveCfg = App Debug|Any CPU
+		{F0941A5C-7856-42E9-9544-CDAC11F3C285}.App Debug|Any CPU.Build.0 = App Debug|Any CPU
+		{F0941A5C-7856-42E9-9544-CDAC11F3C285}.AutCOBIS Release|Any CPU.ActiveCfg = AutCOBIS Release|Any CPU
+		{F0941A5C-7856-42E9-9544-CDAC11F3C285}.AutCOBIS Release|Any CPU.Build.0 = AutCOBIS Release|Any CPU
+		{F0941A5C-7856-42E9-9544-CDAC11F3C285}.DbgAutCOBIS|Any CPU.ActiveCfg = DbgAutCOBIS|Any CPU
+		{F0941A5C-7856-42E9-9544-CDAC11F3C285}.DbgAutCOBIS|Any CPU.Build.0 = DbgAutCOBIS|Any CPU
+		{F0941A5C-7856-42E9-9544-CDAC11F3C285}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0941A5C-7856-42E9-9544-CDAC11F3C285}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0941A5C-7856-42E9-9544-CDAC11F3C285}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0941A5C-7856-42E9-9544-CDAC11F3C285}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0941A5C-7856-42E9-9544-CDAC11F3C285}.Web Debug|Any CPU.ActiveCfg = Web Debug|Any CPU
+		{F0941A5C-7856-42E9-9544-CDAC11F3C285}.Web Debug|Any CPU.Build.0 = Web Debug|Any CPU
+		{F0941A5C-7856-42E9-9544-CDAC11F3C285}.WS Test|Any CPU.ActiveCfg = WS Test|Any CPU
+		{F0941A5C-7856-42E9-9544-CDAC11F3C285}.WS Test|Any CPU.Build.0 = WS Test|Any CPU
+		{78D7CC00-F303-476C-A329-0B25856A0B07}.App Debug|Any CPU.ActiveCfg = App Debug|Any CPU
+		{78D7CC00-F303-476C-A329-0B25856A0B07}.App Debug|Any CPU.Build.0 = App Debug|Any CPU
+		{78D7CC00-F303-476C-A329-0B25856A0B07}.AutCOBIS Release|Any CPU.ActiveCfg = AutCOBIS Release|Any CPU
+		{78D7CC00-F303-476C-A329-0B25856A0B07}.AutCOBIS Release|Any CPU.Build.0 = AutCOBIS Release|Any CPU
+		{78D7CC00-F303-476C-A329-0B25856A0B07}.DbgAutCOBIS|Any CPU.ActiveCfg = DbgAutCOBIS|Any CPU
+		{78D7CC00-F303-476C-A329-0B25856A0B07}.DbgAutCOBIS|Any CPU.Build.0 = DbgAutCOBIS|Any CPU
+		{78D7CC00-F303-476C-A329-0B25856A0B07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78D7CC00-F303-476C-A329-0B25856A0B07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78D7CC00-F303-476C-A329-0B25856A0B07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78D7CC00-F303-476C-A329-0B25856A0B07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78D7CC00-F303-476C-A329-0B25856A0B07}.Web Debug|Any CPU.ActiveCfg = Web Debug|Any CPU
+		{78D7CC00-F303-476C-A329-0B25856A0B07}.Web Debug|Any CPU.Build.0 = Web Debug|Any CPU
+		{78D7CC00-F303-476C-A329-0B25856A0B07}.WS Test|Any CPU.ActiveCfg = WS Test|Any CPU
+		{78D7CC00-F303-476C-A329-0B25856A0B07}.WS Test|Any CPU.Build.0 = WS Test|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
