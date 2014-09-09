@@ -30,7 +30,11 @@ namespace PhalanxCommon
                 }
             }  
         }
-        // test2 ahora pasa al 3
+<<<<<<< HEAD
+
+=======
+        // test2
+>>>>>>> parent of b90cd10... test3
         public CwxException(string FriendlyMessage)
         {
             _friendly_message = FriendlyMessage;

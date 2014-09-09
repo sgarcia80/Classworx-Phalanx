@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phxCryptMgr", "phxCryptMgr\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phxBlowfish", "phxBlowfish\phxBlowfish.csproj", "{78D7CC00-F303-476C-A329-0B25856A0B07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhalanxConfig", "PhalanxConfig\PhalanxConfig.csproj", "{FEE92345-C680-4986-AC1A-46C2D4712929}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		App Debug|Any CPU = App Debug|Any CPU
@@ -62,20 +60,6 @@ Global
 		{78D7CC00-F303-476C-A329-0B25856A0B07}.Web Debug|Any CPU.Build.0 = Web Debug|Any CPU
 		{78D7CC00-F303-476C-A329-0B25856A0B07}.WS Test|Any CPU.ActiveCfg = WS Test|Any CPU
 		{78D7CC00-F303-476C-A329-0B25856A0B07}.WS Test|Any CPU.Build.0 = WS Test|Any CPU
-		{FEE92345-C680-4986-AC1A-46C2D4712929}.App Debug|Any CPU.ActiveCfg = App Debug|Any CPU
-		{FEE92345-C680-4986-AC1A-46C2D4712929}.App Debug|Any CPU.Build.0 = App Debug|Any CPU
-		{FEE92345-C680-4986-AC1A-46C2D4712929}.AutCOBIS Release|Any CPU.ActiveCfg = AutCOBIS Release|Any CPU
-		{FEE92345-C680-4986-AC1A-46C2D4712929}.AutCOBIS Release|Any CPU.Build.0 = AutCOBIS Release|Any CPU
-		{FEE92345-C680-4986-AC1A-46C2D4712929}.DbgAutCOBIS|Any CPU.ActiveCfg = DbgAutCOBIS|Any CPU
-		{FEE92345-C680-4986-AC1A-46C2D4712929}.DbgAutCOBIS|Any CPU.Build.0 = DbgAutCOBIS|Any CPU
-		{FEE92345-C680-4986-AC1A-46C2D4712929}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FEE92345-C680-4986-AC1A-46C2D4712929}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FEE92345-C680-4986-AC1A-46C2D4712929}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FEE92345-C680-4986-AC1A-46C2D4712929}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FEE92345-C680-4986-AC1A-46C2D4712929}.Web Debug|Any CPU.ActiveCfg = Web Debug|Any CPU
-		{FEE92345-C680-4986-AC1A-46C2D4712929}.Web Debug|Any CPU.Build.0 = Web Debug|Any CPU
-		{FEE92345-C680-4986-AC1A-46C2D4712929}.WS Test|Any CPU.ActiveCfg = WS Test|Any CPU
-		{FEE92345-C680-4986-AC1A-46C2D4712929}.WS Test|Any CPU.Build.0 = WS Test|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
