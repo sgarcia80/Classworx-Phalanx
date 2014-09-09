@@ -28,7 +28,7 @@ namespace PhalanxCommon
                 {
                     return _friendly_message;
                 }
-            }
+            }  
         }
 
         public CwxException(string FriendlyMessage)
