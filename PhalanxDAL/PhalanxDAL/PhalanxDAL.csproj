@@ -273,107 +273,6 @@
     <EmbeddedResource Include="MappingFiles\VwPhxUsersRqstPwdGroups.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BLL\DelegationRequests.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="BLL\DemoConf.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <EmbeddedResource Include="BLL\DemoConf.hbm.xml" />
-    <Compile Include="BLL\GlobalWinGroups.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="BLL\LocalWinGroups.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="BLL\PasswordsRequests.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="BLL\PhxLog.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <EmbeddedResource Include="BLL\PhxLog.hbm.xml" />
-    <Compile Include="BLL\PhxRoles.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <EmbeddedResource Include="BLL\PhxRoles.hbm.xml" />
-    <Compile Include="BLL\PhxRolesUsers.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <EmbeddedResource Include="BLL\PhxRolesUsers.hbm.xml" />
-    <Compile Include="BLL\PhxUsers.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <EmbeddedResource Include="BLL\PhxUsers.hbm.xml" />
-    <Compile Include="BLL\PhxUsersGroups.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <EmbeddedResource Include="BLL\PhxUsersGroups.hbm.xml" />
-    <Compile Include="BLL\PwdLockTypes.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <EmbeddedResource Include="BLL\PwdLockTypes.hbm.xml" />
-    <Compile Include="BLL\Requests.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <EmbeddedResource Include="BLL\Requests.hbm.xml" />
-    <Compile Include="BLL\RequestsGroups.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <EmbeddedResource Include="BLL\RequestsGroups.hbm.xml" />
-    <Compile Include="BLL\RequestStates.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <EmbeddedResource Include="BLL\RequestStates.hbm.xml" />
-    <Compile Include="BLL\RqstGrpsDeleg.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <EmbeddedResource Include="BLL\RqstGrpsDeleg.hbm.xml" />
-    <Compile Include="BLL\RqstGrpsPwds.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <EmbeddedResource Include="BLL\RqstGrpsPwds.hbm.xml" />
-    <Compile Include="BLL\Users.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <EmbeddedResource Include="BLL\Users.hbm.xml" />
-    <Compile Include="BLL\UsersPasswords.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <EmbeddedResource Include="BLL\UsersPasswords.hbm.xml" />
-    <Compile Include="BLL\UserTypes.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <EmbeddedResource Include="BLL\UserTypes.hbm.xml" />
-    <Compile Include="BLL\VwPhxUsersRqstDelGroups.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <EmbeddedResource Include="BLL\VwPhxUsersRqstDelGroups.hbm.xml" />
-    <Compile Include="BLL\VwPhxUsersRqstPwdGroups.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <EmbeddedResource Include="BLL\VwPhxUsersRqstPwdGroups.hbm.xml" />
-    <Compile Include="BLL\WinDomainControllers.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <EmbeddedResource Include="BLL\WinDomainControllers.hbm.xml" />
-    <Compile Include="BLL\WinDomains.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <EmbeddedResource Include="BLL\WinDomains.hbm.xml" />
-    <Compile Include="BLL\WinDomainUsers.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="BLL\WinGroups.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <EmbeddedResource Include="BLL\WinGroups.hbm.xml" />
-    <Compile Include="BLL\WinLocalUsers.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="BLL\WinPCs.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Factories\AccionItemChkWinLocalUserFactory.cs" />
     <Compile Include="Factories\ApplicationFactory.cs" />
     <Compile Include="Factories\ApplicationUserFactory.cs" />
@@ -419,7 +318,6 @@
     <Compile Include="IniFile.cs">
       <SubType>Code</SubType>
     </Compile>
-    <None Include="BLL\WinPCs.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MappingFiles\Applications.hbm.xml" />
@@ -558,6 +456,17 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="dlls\Castle.DynamicProxy.dll" />
+    <None Include="dlls\HashCodeProvider.dll" />
+    <None Include="dlls\Iesi.Collections.dll" />
+    <None Include="dlls\log4net.dll" />
+    <None Include="dlls\Microsoft.ApplicationBlocks.Data.dll" />
+    <None Include="dlls\NHibernate.dll" />
+    <None Include="dlls\NHibernate.Mapping.Attributes.dll" />
+    <None Include="dlls\Nullables.dll" />
+    <None Include="dlls\Nullables.NHibernate.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

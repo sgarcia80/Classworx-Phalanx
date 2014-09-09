@@ -1,0 +1,4 @@
+C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\phxLog\bin\Debug\phxLog.dll
+C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\phxLog\bin\Debug\phxLog.pdb
+C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\phxLog\obj\Debug\phxLog.dll
+C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\phxLog\obj\Debug\phxLog.pdb
