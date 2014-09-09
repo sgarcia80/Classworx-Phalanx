@@ -1,0 +1,182 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+using PhalanxCommon.Entities;
+using PhalanxCommon.Collections;
+using PhalanxDAL.Factories;
+using PhalanxCommon;
+
+namespace PhalanxBL
+{
+    public class PhxConfigBusiness
+    {
+        /// <summary>
+        /// Convierte el enum en el codigo de la base de datos
+        /// </summary>
+        /// <param name="ParamCode"></param>
+        /// <returns></returns>
+        public string ParamCodeToString(ConfigCodes ParamCode)
+        {
+            string strParamCode = "";
+            switch (ParamCode)
+            {
+                case ConfigCodes.AdmMailGrp:
+                    strParamCode = "@ADM_MAIL_GRP@";
+                    break;
+                case ConfigCodes.FromExpMails:
+                    strParamCode = "@FROM_EXP_MAILS@";
+                    break;
+                case ConfigCodes.SubjectExpMails:
+                    strParamCode = "@SUBJECT_EXP_MAILS@";
+                    break;
+                case ConfigCodes.BodyExpMails:
+                    strParamCode = "@BODY_EXP_MAILS@";
+                    break;
+                case ConfigCodes.SMTPExpMails:
+                    strParamCode = "@SMTP_EXP_MAILS@";
+                    break;
+                case ConfigCodes.SMTPPwd:
+                    strParamCode = "@SMTP_PWD@";
+                    break;
+                case ConfigCodes.SMTPUsr:
+                    strParamCode = "@SMTP_USR@";
+                    break;
+                case ConfigCodes.SMTPDir:
+                    strParamCode = "@SMTP_DIR@";
+                    break;
+                case ConfigCodes.BodySolicPwdMails:
+                    strParamCode = "@BODY_PWDRQST_MAILS@";
+                    break;
+                case ConfigCodes.SMTPPort:
+                    strParamCode = "@SMTP_PORT@";
+                    break;
+                case ConfigCodes.SubjectPwdRqstMails:
+                    strParamCode = "@SUBJECT_PWDRQST_MAILS@";
+                    break;
+                case ConfigCodes.SubjectRespPwdRqstMails:
+                    strParamCode = "@SUBJECT_PWDRQST_RESP_MAILS@";
+                    break;
+                case ConfigCodes.BodyRespSolicPwdMails:
+                    strParamCode = "@BODY_PWDRQST_RESP_MAILS@";
+                    break;
+                case ConfigCodes.TecMicroEmail:
+                    strParamCode = "@TEC_MICRO_MAIL@";
+                    break;
+                case ConfigCodes.SubjectAltaUsuarioRedMail:
+                    strParamCode = "@SUBJECT_ALTA_USUARIO_RED@";
+                    break;
+                case ConfigCodes.BodyAltaUsuarioRedMail:
+                    strParamCode = "@BODY_ALTA_USUARIO_RED@";
+                    break;
+                case ConfigCodes.SubjectAltaUsuarioAplicativoSeguridadIntegradaMail:
+                    strParamCode = "@SUBJECT_ALTA_US_APP_SEG_INT@";
+                    break;
+                case ConfigCodes.BodyAltaUsuarioAplicativoSeguridadIntegradaMail:
+                    strParamCode = "@BODY_ALTA_US_APP_SEG_INT@";
+                    break;
+                case ConfigCodes.SubjectAltaUsuarioAplicativoSeguridadPropiaMail:
+                    strParamCode = "@SUBJECT_ALTA_US_APP_SEG_PROP@";
+                    break;
+                case ConfigCodes.BodyAltaUsuarioAplicativoSeguridadPropiaMail:
+                    strParamCode = "@BODY_ALTA_US_APP_SEG_PROP@";
+                    break;
+                case ConfigCodes.SubjectDevMails:
+                    strParamCode = "@SUBJECT_DEV_CRITICA@";
+                    break;
+                case ConfigCodes.BodyDevMails:
+                    strParamCode = "@BODY_DEV_CRITICA@";
+                    break;
+                default:
+                    break;
+            }
+            return strParamCode;
+
+        }
+        /// <summary>
+        /// Busca la entidad de configuración para un codigo determinado
+        /// </summary>
+        /// <param name="ParamCode"></param>
+        /// <returns></returns>
+        public PhxConfigEntity GetConfigParam(ConfigCodes ParamCode)
+        {
+            PhxConfigFactory ConfFac = new PhxConfigFactory();
+            return ConfFac.GetConfigParam(this.ParamCodeToString(ParamCode));
+        }
+        public PhxConfigEntity GetConfigParam(ConfigCodes ParamCode, bool AllowNull)
+        {
+            PhxConfigFactory ConfFac = new PhxConfigFactory();
+            PhxConfigEntity ConfigParam = ConfFac.GetConfigParam(this.ParamCodeToString(ParamCode));
+            if (!AllowNull && ConfigParam == null)
+            {
+                throw new CwxException("Parámetro no seteado");
+            }
+            return ConfigParam;
+        }
+        public PhxConfigEntity GetConfigParam(ConfigCodes ParamCode, bool AllowNull, bool ValueEmpty)
+        {
+            PhxConfigFactory ConfFac = new PhxConfigFactory();
+            PhxConfigEntity ConfigParam = ConfFac.GetConfigParam(this.ParamCodeToString(ParamCode));
+            if ((!AllowNull && ConfigParam == null) 
+                || (AllowNull && ConfigParam != null && !(ValueEmpty) && ConfigParam.ShortTxtValue == "" 
+                && ConfigParam.LongTxtValue == ""))
+            {
+                throw new CwxException("Parámetro no seteado");
+            }
+            return ConfigParam;
+        }
+        /// <summary>
+        /// Trae los parametros de configuración de mails de expiracion de
+        /// solicitud de contraseña.
+        /// Se usa para cargar el combo en el modulo de configuración
+        /// </summary>
+        /// <returns></returns>
+        public PhxConfigEntityCollection GetMailsExpPqdRqstParams()
+        {
+            PhxConfigEntityCollection ConfEC = new PhxConfigEntityCollection();
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.AdmMailGrp));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyExpMails));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.FromExpMails));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.SMTPExpMails));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectExpMails));
+            return ConfEC;
+
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public PhxConfigEntityCollection GetMailsParams()
+        {
+            PhxConfigEntityCollection ConfEC = new PhxConfigEntityCollection();
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.AdmMailGrp));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyExpMails));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.FromExpMails));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.SMTPExpMails));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectExpMails));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.SMTPDir));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.SMTPPort));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.SMTPUsr));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.SMTPPwd));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.BodySolicPwdMails));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectPwdRqstMails));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectRespPwdRqstMails));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyRespSolicPwdMails));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.TecMicroEmail));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectAltaUsuarioRedMail));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyAltaUsuarioRedMail));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectAltaUsuarioAplicativoSeguridadIntegradaMail));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyAltaUsuarioAplicativoSeguridadIntegradaMail));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectAltaUsuarioAplicativoSeguridadPropiaMail));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyAltaUsuarioAplicativoSeguridadPropiaMail));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectDevMails));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyDevMails));
+            return ConfEC;
+
+        }
+        public void Save(PhxConfigEntity ConfigParam)
+        {
+            PhxConfigFactory ConfFac = new PhxConfigFactory();
+            ConfFac.Save(ConfigParam);
+        }
+    }
+}
