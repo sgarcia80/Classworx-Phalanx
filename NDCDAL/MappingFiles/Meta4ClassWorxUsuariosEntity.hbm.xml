@@ -1,0 +1,19 @@
+﻿<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+  <class name="NDCCommon.Entities.Meta4ClassWorxUsuariosEntity,NDCCommon" table="M4_CLASSWORX_USUARIOS">
+    
+    <id name="Ordinal" column="ORDINAL" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+
+    <property column="ID_SOCIEDAD" type="String" name="Id_Sociedad" />
+    <property column="ID_EMPLEADO" type="String" name="Id_Empleado" />
+    <property column="TIPO_DOC" type="String" name="TipoDocumento" />
+    <property column="NUM_DOCUMENTO" type="String" name="Num_Documento" />
+    <property column="COD_APLICACION" type="String" name="Cod_Aplicacion" />
+    <property column="COD_NOVEDAD" type="String" name="Cod_Novedad" />
+    <property column="DOMINIO_RED" type="String" name="Dominio_Red" />
+    <property column="ID_USUARIO_RED" type="String" name="IdUsuarioRed" />
+    <property column="ID_USUARIO_CORE" type="String" name="IdUsuarioCore" />
+    <property column="NOVEDAD_FECHA" type="DateTime" name="FechaNovedad" insert="false"/>
+  </class>
+</hibernate-mapping>

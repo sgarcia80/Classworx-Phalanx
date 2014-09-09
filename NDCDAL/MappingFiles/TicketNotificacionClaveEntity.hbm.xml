@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+  <class name="NDCCommon.Entities.TicketNotificacionClaveEntity,NDCCommon" table="ticket_notificacion_clave">
+
+    <id name="Id" column="tnc_id" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <property column="tnc_numero" type="Int32" name="NumeroSolicitud" not-null="true" />
+    <many-to-one name="Aplicacion" column="tnc_app_id" class="NDCCommon.Entities.AplicacionNotificacionClaveEntity,NDCCommon" />
+    <property column="tnc_app_user" type="String" name="UsuarioAplicacion" not-null="true" length="50" />
+    <property column="tnc_app_user_pass" type="String" name="PasswordUsuarioAplicacion" not-null="true" length="50" />
+    <property column="tnc_user_domain" type="String" name="DominioUsuario" not-null="true" length="50" />
+    <property column="tnc_user" type="String" name="Usuario" not-null="true" length="50" />
+    <property column="tnc_legajo" type="String" name="Legajo" not-null="false" length="50" />
+    <property column="tnc_tipo_doc" type="String" name="TipoDocumento" not-null="true" length="50" />
+    <property column="tnc_nro_doc" type="String" name="Documento" not-null="true" length="50" />
+    <property column="tnc_is_dom_pass" type="Boolean" name="EsPasswordDominio" not-null="true" />
+    <property column="tnc_fecha" type="DateTime" name="Fecha" insert="false"/>
+    <property column="tnc_fecha_ace_tyc" type="DateTime" name="FechaAceptacionTyC" />
+    <property column="tnc_errado" type="Boolean" name="Errado" not-null="true" />
+	  <property column="tnc_fecha_procesado" type="DateTime" name="FechaProcesado" not-null="false" />
+    <property column="tnc_num_sol_alta" type="Int32" name="NumeroSolicitudAltaApp" not-null="false" />
+    <property column="tnc_num_leg_solicitud" type="String" name="NumeroLegajoEmpleadoSolicitud" not-null="false" length="10" />
+    <property column="tnc_nomb_emp_sol" type="String" name="NombreSolicitante" not-null="false" length="255" />
+    <property column="tnc_ape_emp_sol" type="String" name="ApellidoSolicitante" not-null="false" length="255" />
+    <property column="tnc_fecha_vigencia" type="DateTime" name="FechaVigencia" not-null="false" />
+    <property column="tnc_codigo_gerencia" type="String" name="CodigoGerenciaDestino" not-null="false" length="3" />
+    <property column="tnc_nombre_gerencia" type="String" name="NombreGerenciaDestino" not-null="false" length="40" />
+    <property column="tnc_sigla_area" type="String" name="CodigoAreaDestino" not-null="false" length="10" />
+    <property column="tnc_desc_area" type="String" name="NombreAreaDestino" not-null="false" length="40" />
+    <property column="tnc_cod_emp_sub" type="String" name="CodigoEmpresaSubsidiaria" not-null="false" length="10" />
+    <property column="tnc_nomb_emp_sub" type="String" name="NombreEmpresaSubsidiaria" not-null="false" length="40" />
+    <property column="m_tnc_corregido" type="Boolean" name="Corregido" not-null="true" />
+  </class>
+</hibernate-mapping>

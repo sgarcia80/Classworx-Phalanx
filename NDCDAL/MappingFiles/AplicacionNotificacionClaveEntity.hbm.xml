@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+  <class name="NDCCommon.Entities.AplicacionNotificacionClaveEntity,NDCCommon" table="aplicacion_notificacion_clave">
+
+    <id name="Id" column="anc_id" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <property column="anc_name" type="String" name="Nombre" not-null="true" length="50" />
+    <property column="anc_code" type="String" name="Codigo" not-null="true" length="50" />
+    <property column="anc_notificable " type="Boolean" name="Notificable" not-null="true" />
+  </class>
+</hibernate-mapping>

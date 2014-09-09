@@ -1,0 +1,319 @@
+using System;
+using System.Data;
+using System.Configuration;
+using NHibernate;
+using NDCCommon.Entities;
+using NDCDAL;
+using NDCCommon.Collections;
+using System.Collections.Generic;
+using NHibernate.Expression;
+using PhalanxDAL;
+
+/// <summary>
+/// Summary description for BPMSolicitudFactory
+/// </summary>
+namespace NDCDAL.Factories
+{
+    public class TicketNotificacionClaveFactory
+    {
+        private AplicacionNotificacionClaveEntity _filApp = null;
+        private string _filUsuario;
+        private string _filDominio;
+        private DateTime? _filFecha;
+        private DateTime? _filFechaDesde;
+        private DateTime? _filFechaHasta;
+        private string _filTipoDoc;
+        private string _filDoc;
+        private bool _filFechaTyCNull = false;
+        private bool? _filErrado;
+        private bool? _filSinLegajo;
+        private int? _filTicket;
+        private bool? _filCorregido = false;
+
+        public AplicacionNotificacionClaveEntity FilAplicacion
+        {
+            set { _filApp = value; }
+        }
+
+        public string FilUsuario
+        {
+            set { _filUsuario = value; }
+        }
+
+        public string FilDominio
+        {
+            set { _filDominio = value; }
+        }
+
+        public DateTime? FilFecha
+        {
+            set { _filFecha = value; }
+        }
+
+        public DateTime? FilFechaDesde
+        {
+            set { _filFechaDesde = value; }
+        }
+
+        public DateTime? FilFechaHasta
+        {
+            set { _filFechaHasta = value; }
+        }
+
+        public string FilTipoDocumento
+        {
+            set { _filTipoDoc = value; }
+        }
+
+        public string FilDocumento
+        {
+            set { _filDoc = value; }
+        }
+
+        public bool FilFechaTyCNull
+        {
+            set { _filFechaTyCNull = value; }
+        }
+
+        public bool FilErrado
+        {
+            set { _filErrado = value; }
+        }
+
+        public bool? FilSinLegajo
+        {
+            set { _filSinLegajo = value; }
+        }
+
+        public int? FilTicket
+        {
+            set { _filTicket = value; }
+        }
+
+        public bool? FilCorregido
+        {
+            set { _filCorregido = value; }
+        }
+
+        public TicketNotificacionClaveFactory()
+        {
+            //
+            // TODO: Add constructor logic here
+            //
+        }
+
+        public void SaveBPMSolicitud(TicketNotificacionClaveEntity entidad)
+        {
+            ITransaction tx = null;
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                try
+                {
+                    // crear la PC
+                    tx = session.BeginTransaction();
+                    session.SaveOrUpdate(entidad);
+                    //session.Refresh(entidad);
+                    tx.Commit();
+                    session.Refresh(entidad);
+                }
+                catch (Exception e)
+                {
+                    if (tx != null)
+                        tx.Rollback();
+                    throw e; //new SystemException(e.Message);
+                }
+            }
+        }
+
+        public void DeleteBPMSolicitud(TicketNotificacionClaveEntity entidad)
+        {
+            ITransaction tx = null;
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                try
+                {
+                    // crear la PC
+                    tx = session.BeginTransaction();
+                    session.Delete(entidad);
+                    tx.Commit();
+                }
+                catch (Exception e)
+                {
+                    if (tx != null)
+                        tx.Rollback();
+                    throw e; //new SystemException(e.Message);
+                }
+            }
+        }
+
+        public TicketNotificacionClaveEntityCollection GetAll()
+        {
+            IList<TicketNotificacionClaveEntity> tickets;
+
+            TicketNotificacionClaveEntityCollection TiNotClaEC = new TicketNotificacionClaveEntityCollection();
+
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                ICriteria DataSearch = session.CreateCriteria(typeof(TicketNotificacionClaveEntity), "TNC");
+
+                if (_filApp != null)
+                    DataSearch.Add(Expression.Eq("TNC.Aplicacion", _filApp));
+
+                if (_filUsuario != null)
+                    DataSearch = DataSearch.Add(Expression.Eq("TNC.Usuario", _filUsuario));
+
+                if (_filDominio != null)
+                    DataSearch = DataSearch.Add(Expression.Eq("TNC.DominioUsuario", _filDominio));
+
+                if (_filFecha != null)
+                    DataSearch = DataSearch.Add(Expression.Eq("TNC.Fecha", _filFecha));
+
+                if (_filFechaDesde != null)
+                    DataSearch = DataSearch.Add(Expression.Ge("TNC.Fecha", _filFechaDesde));
+
+                if (_filFechaHasta != null)
+                    DataSearch = DataSearch.Add(Expression.Ge("TNC.Fecha", _filFechaHasta));
+
+                if (_filTipoDoc != null)
+                    DataSearch = DataSearch.Add(Expression.Eq("TNC.TipoDocumento", _filTipoDoc));
+
+                if (_filTicket != null)
+                    DataSearch = DataSearch.Add(Expression.Eq("TNC.NumeroSolicitud", _filTicket));
+
+                if (_filDoc != null)
+                    DataSearch = DataSearch.Add(Expression.Eq("TNC.Documento", _filDoc));
+
+                if (_filFechaTyCNull)
+                    DataSearch = DataSearch.Add(Expression.IsNull("TNC.FechaAceptacionTyC"));
+
+                if (_filErrado != null)
+                    DataSearch = DataSearch.Add(Expression.Eq("TNC.Errado", _filErrado));
+
+                if (_filSinLegajo != null)
+                {
+                    if (_filSinLegajo.Value)
+                    {
+                        DataSearch.Add(Expression.Or(
+                            Expression.IsNull("TNC.Legajo"), Expression.Eq("TNC.Legajo", "")));
+                    }
+                    else
+                    {
+                        DataSearch.Add(Expression.IsNotNull("TNC.Legajo")).Add(Expression.Eq("TNC.Legajo", ""));
+                    }
+                }
+
+                try
+                {
+                    tickets = DataSearch.List<TicketNotificacionClaveEntity>();
+                }
+                catch
+                {
+                    tickets = null;
+                }
+
+                TiNotClaEC.Add(tickets);
+            }
+
+            return TiNotClaEC;
+        }
+
+
+        public TicketNotificacionClaveEntityCollection GetAllByUser(string dominio, string usuario)
+        {
+            IList<TicketNotificacionClaveEntity> tickets;
+
+            TicketNotificacionClaveEntityCollection TiNotClaEC = new TicketNotificacionClaveEntityCollection();
+
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                ICriteria DataSearch = session.CreateCriteria(typeof(TicketNotificacionClaveEntity), "TNC");
+                DataSearch = DataSearch.Add(Expression.Eq("TNC.Usuario", usuario).IgnoreCase());
+                DataSearch = DataSearch.Add(Expression.Eq("TNC.DominioUsuario", dominio).IgnoreCase());
+
+                if (_filCorregido != null)
+                    DataSearch = DataSearch.Add(Expression.Eq("TNC.Corregido", _filCorregido.Value));
+
+                DataSearch.CreateCriteria("Aplicacion")
+                            .Add(Expression.Eq("Notificable", true));
+
+                try
+                {
+                    tickets = DataSearch.List<TicketNotificacionClaveEntity>();
+                }
+                catch
+                {
+                    tickets = null;
+                }
+
+                TiNotClaEC.Add(tickets);
+            }
+
+            return TiNotClaEC;
+        }
+
+        public TicketNotificacionClaveEntity GetById(int id)
+        {
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                return session.Get<TicketNotificacionClaveEntity>(id);
+            }
+        }
+
+        public TicketNotificacionClaveEntity Load(int Id)
+        {
+            TicketNotificacionClaveEntity PwdRqst;
+            IList<TicketNotificacionClaveEntity> lstRqsts = null;
+            try
+            {
+                using (ISession session = DBMgr.factory.OpenSession())
+                {
+                    PwdRqst = session.Load<TicketNotificacionClaveEntity>(Id);
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            //lstRqsts[0].UserPassword.UsersList
+            return PwdRqst;
+        }
+
+        public void UpdateUsuarioAplicacion(TicketNotificacionClaveEntity entidad, bool esAplicacionRed)
+        {
+            ITransaction tx = null;
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                try
+                {
+                    // crear la PC
+                    tx = session.BeginTransaction();
+
+                    session.SaveOrUpdate(entidad);
+
+                    if (esAplicacionRed)
+                    {
+                        ICriteria criteria = session.CreateCriteria(typeof(TicketNotificacionClaveEntity))
+                                                .Add(Expression.Eq("Legajo", entidad.Legajo))
+                                                .Add(Expression.Eq("EsPasswordDominio", true));
+
+                        foreach (TicketNotificacionClaveEntity ticket in criteria.List<TicketNotificacionClaveEntity>())
+                        {
+                            ticket.UsuarioAplicacion = entidad.UsuarioAplicacion;
+
+                            session.SaveOrUpdate(ticket);
+                        }
+                    }
+
+                    tx.Commit();
+                }
+                catch
+                {
+                    if (tx != null)
+                        tx.Rollback();
+                    
+                    throw; //new SystemException(e.Message);
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,22 @@
+﻿<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+  <class name="NDCCommon.Entities.Meta4LegajoEntity,NDCCommon" table="M4_CLASSWORX_EMPLEADOS">
+
+    <id name="Id" column="ID_EMPLEADO" type="String">
+      <generator class="native"/>
+    </id>
+    <property column="NOMBRE" type="String" name="Nombre" />
+    <property column="APELLIDO" type="String" name="Apellido" />
+	  <property column="TIPO_DOC" type="String" name="TipoDocumento" />
+	  <property column="ID_TIPO_DOC" type="String" name="IdTipoDocumento" />
+	  <property column="NUM_DOCUMENTO" type="String" name="Documento" />
+    <property column="CALLE" type="String" name="Calle" />
+    <property column="NUM_CALLE" type="String" name="Numero" />
+    <property column="PISO" type="String" name="Piso" />
+    <property column="DEPARTAMENTO" type="String" name="Departamento" />
+	  <property column="N_ESTADO_CIVIL" type="String" name="EstadoCivil" />
+	  <property column="DIRECCION_MAIL" type="String" name="EMail" />
+	  <property column="FEC_NACIMIENTO" type="DateTime" name="FechaNacimiento" />
+    <many-to-one name="Sociedad" column="ID_SOCIEDAD" class="NDCCommon.Entities.Meta4SociedadEntity,NDCCommon" />
+	  
+  </class>
+</hibernate-mapping>
