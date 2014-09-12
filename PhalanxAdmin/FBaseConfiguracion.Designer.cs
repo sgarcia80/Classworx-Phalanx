@@ -1,0 +1,157 @@
+namespace PhalanxAdmin
+{
+    partial class FBaseConfiguracion
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.xppnlConfig = new UIComponents.XPPanel(141);
+            this.lnkEsquemas = new System.Windows.Forms.LinkLabel();
+            this.lnkATMs = new System.Windows.Forms.LinkLabel();
+            this.lnkconfigMailsExpPwd = new System.Windows.Forms.LinkLabel();
+            ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
+            this.pnlXPGrps.SuspendLayout();
+            this.pnlIzq.SuspendLayout();
+            this.xppnlConfig.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // pnlXPGrps
+            // 
+            this.pnlXPGrps.Controls.Add(this.xppnlConfig);
+            this.pnlXPGrps.Size = new System.Drawing.Size(200, 522);
+            this.pnlXPGrps.Controls.SetChildIndex(this.xppnlMenu, 0);
+            this.pnlXPGrps.Controls.SetChildIndex(this.xppnlConfig, 0);
+            // 
+            // pnlIzq
+            // 
+            this.pnlIzq.Size = new System.Drawing.Size(200, 522);
+            // 
+            // xppnlMenu
+            // 
+            this.xppnlMenu.ImageItems.ImageSet = null;
+            this.xppnlMenu.Location = new System.Drawing.Point(8, 157);
+            // 
+            // xppnlConfig
+            // 
+            this.xppnlConfig.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.xppnlConfig.BackColor = System.Drawing.Color.Transparent;
+            this.xppnlConfig.Caption = "Configuración";
+            this.xppnlConfig.CaptionCornerType = ((UIComponents.CornerType)((UIComponents.CornerType.TopLeft | UIComponents.CornerType.TopRight)));
+            this.xppnlConfig.CaptionGradient.End = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(213)))), ((int)(((byte)(247)))));
+            this.xppnlConfig.CaptionGradient.Start = System.Drawing.Color.White;
+            this.xppnlConfig.CaptionGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.xppnlConfig.CaptionUnderline = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.xppnlConfig.Controls.Add(this.lnkEsquemas);
+            this.xppnlConfig.Controls.Add(this.lnkATMs);
+            this.xppnlConfig.Controls.Add(this.lnkconfigMailsExpPwd);
+            this.xppnlConfig.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.xppnlConfig.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.xppnlConfig.HorzAlignment = System.Drawing.StringAlignment.Near;
+            this.xppnlConfig.ImageItems.ImageSet = null;
+            this.xppnlConfig.Location = new System.Drawing.Point(8, 8);
+            this.xppnlConfig.Name = "xppnlConfig";
+            this.xppnlConfig.PanelGradient.End = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(223)))), ((int)(((byte)(247)))));
+            this.xppnlConfig.PanelGradient.Start = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(223)))), ((int)(((byte)(247)))));
+            this.xppnlConfig.PanelGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.xppnlConfig.Size = new System.Drawing.Size(184, 141);
+            this.xppnlConfig.TabIndex = 4;
+            this.xppnlConfig.TextColors.Foreground = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(93)))), ((int)(((byte)(198)))));
+            this.xppnlConfig.TextHighlightColors.Foreground = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(142)))), ((int)(((byte)(255)))));
+            this.xppnlConfig.VertAlignment = System.Drawing.StringAlignment.Center;
+            // 
+            // lnkEsquemas
+            // 
+            this.lnkEsquemas.ActiveLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkEsquemas.AutoSize = true;
+            this.lnkEsquemas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.lnkEsquemas.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.lnkEsquemas.LinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkEsquemas.Location = new System.Drawing.Point(18, 70);
+            this.lnkEsquemas.Name = "lnkEsquemas";
+            this.lnkEsquemas.Size = new System.Drawing.Size(64, 13);
+            this.lnkEsquemas.TabIndex = 11;
+            this.lnkEsquemas.TabStop = true;
+            this.lnkEsquemas.Text = "Esquemas";
+            this.lnkEsquemas.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkEsquemas.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkEsquemas_LinkClicked);
+            // 
+            // lnkATMs
+            // 
+            this.lnkATMs.ActiveLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkATMs.AutoSize = true;
+            this.lnkATMs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.lnkATMs.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.lnkATMs.LinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkATMs.Location = new System.Drawing.Point(18, 92);
+            this.lnkATMs.Name = "lnkATMs";
+            this.lnkATMs.Size = new System.Drawing.Size(39, 13);
+            this.lnkATMs.TabIndex = 10;
+            this.lnkATMs.TabStop = true;
+            this.lnkATMs.Text = "ATMs";
+            this.lnkATMs.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkATMs.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkATMs_LinkClicked);
+            // 
+            // lnkconfigMailsExpPwd
+            // 
+            this.lnkconfigMailsExpPwd.ActiveLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkconfigMailsExpPwd.AutoSize = true;
+            this.lnkconfigMailsExpPwd.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.lnkconfigMailsExpPwd.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.lnkconfigMailsExpPwd.LinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkconfigMailsExpPwd.Location = new System.Drawing.Point(18, 50);
+            this.lnkconfigMailsExpPwd.Name = "lnkconfigMailsExpPwd";
+            this.lnkconfigMailsExpPwd.Size = new System.Drawing.Size(36, 13);
+            this.lnkconfigMailsExpPwd.TabIndex = 8;
+            this.lnkconfigMailsExpPwd.TabStop = true;
+            this.lnkconfigMailsExpPwd.Text = "Mails";
+            this.lnkconfigMailsExpPwd.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkconfigMailsExpPwd.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkconfigMailsExpPwd_LinkClicked);
+            // 
+            // FBaseConfiguracion
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.ClientSize = new System.Drawing.Size(769, 522);
+            this.Name = "FBaseConfiguracion";
+            this.Load += new System.EventHandler(this.FBaseConfiguracion_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).EndInit();
+            this.pnlXPGrps.ResumeLayout(false);
+            this.pnlIzq.ResumeLayout(false);
+            this.xppnlConfig.ResumeLayout(false);
+            this.xppnlConfig.PerformLayout();
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private UIComponents.XPPanel xppnlConfig;
+        protected System.Windows.Forms.LinkLabel lnkEsquemas;
+        protected System.Windows.Forms.LinkLabel lnkATMs;
+        protected System.Windows.Forms.LinkLabel lnkconfigMailsExpPwd;
+
+    }
+}

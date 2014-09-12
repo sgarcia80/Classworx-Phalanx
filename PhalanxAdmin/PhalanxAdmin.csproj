@@ -1,0 +1,1345 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{352BB670-458F-41CC-BFA1-FCE10C91E502}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PhalanxAdmin</RootNamespace>
+    <AssemblyName>PhalanxAdmin</AssemblyName>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <ApplicationIcon>icons\Phalanx.ico</ApplicationIcon>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <ManifestCertificateThumbprint>FC529578FAFA5D6FB0693BB35C564DB2A1C51C55</ManifestCertificateThumbprint>
+    <ManifestKeyFile>PhalanxAdmin_TemporaryKey.pfx</ManifestKeyFile>
+    <GenerateManifests>true</GenerateManifests>
+    <SignManifests>true</SignManifests>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>C:\Documents and Settings\cas\My Documents\Phalanx\Instaladores\PhalanxAdmin v1.1\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>3.1.0.0</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'App Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\App Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Web Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Web Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=10.2.3600.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Enterprise.Framework, Version=10.2.3600.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Enterprise.InfoStore, Version=10.2.3600.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=10.2.3600.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Shared, Version=10.2.3600.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=10.2.3600.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="Iesi.Collections, Version=1.0.0.3, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\PhalanxDAL\PhalanxDAL\dlls\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\PhalanxDAL\PhalanxDAL\dlls\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\WINDOWS\assembly\GAC_MSIL\System.Web.Services\2.0.0.0__b03f5f7f11d50a3a\System.Web.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="XPPanel, Version=1.0.0.0, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\XPPanel.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FDepuracionLogs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FDepuracionLogs.Designer.cs">
+      <DependentUpon>FDepuracionLogs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FTicketControl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FTicketControl.Designer.cs">
+      <DependentUpon>FTicketControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FABMAplicativoBPM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FABMAplicativoBPM.Designer.cs">
+      <DependentUpon>FABMAplicativoBPM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FAplicativosBPM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FAplicativosBPM.Designer.cs">
+      <DependentUpon>FAplicativosBPM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FBaseAuditoria.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FBaseAuditoria.Designer.cs">
+      <DependentUpon>FBaseAuditoria.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FConfATMs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FConfATMs.Designer.cs">
+      <DependentUpon>FConfATMs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FABMATMPwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FABMATMPwd.Designer.cs">
+      <DependentUpon>FABMATMPwd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FATMPwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FATMPwd.Designer.cs">
+      <DependentUpon>FATMPwd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FTicketsAltaTempUsrExt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FTicketsAltaTempUsrExt.Designer.cs">
+      <DependentUpon>FTicketsAltaTempUsrExt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FRptUsuariosPorPerfil.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FRptUsuariosPorPerfil.Designer.cs">
+      <DependentUpon>FRptUsuariosPorPerfil.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FRptTickets.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FRptTickets.designer.cs">
+      <DependentUpon>FRptTickets.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FRptTicketsClaves.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FRptTicketsClaves.Designer.cs">
+      <DependentUpon>FRptTicketsClaves.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FTicketUsrExtDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FTicketUsrExtDetail.Designer.cs">
+      <DependentUpon>FTicketUsrExtDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FUsProtocolo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FUsProtocolo.Designer.cs">
+      <DependentUpon>FUsProtocolo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FABMECPwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FABMECPwd.Designer.cs">
+      <DependentUpon>FABMECPwd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FECPwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FECPwd.Designer.cs">
+      <DependentUpon>FECPwd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FABMEquiposCom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FABMEquiposCom.Designer.cs">
+      <DependentUpon>FABMEquiposCom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FEquiposCom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FEquiposCom.Designer.cs">
+      <DependentUpon>FEquiposCom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="cwxSorter.cs" />
+    <Compile Include="FABMGrpsSeguimSolic.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FABMGrpsSeguimSolic.Designer.cs">
+      <DependentUpon>FABMGrpsSeguimSolic.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FABMLoteChkWinPwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FABMLoteChkWinPwd.Designer.cs">
+      <DependentUpon>FABMLoteChkWinPwd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FAccionItemLoteChkWinPwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FAccionItemLoteChkWinPwd.Designer.cs">
+      <DependentUpon>FAccionItemLoteChkWinPwd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FChkWinPwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FChkWinPwd.Designer.cs">
+      <DependentUpon>FChkWinPwd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FEsquemas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FEsquemas.Designer.cs">
+      <DependentUpon>FEsquemas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FGrpsSeguimSolic.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FGrpsSeguimSolic.Designer.cs">
+      <DependentUpon>FGrpsSeguimSolic.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FABMPerfil.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FABMPerfil.Designer.cs">
+      <DependentUpon>FABMPerfil.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FLogAuditUsr.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FLogAuditUsr.Designer.cs">
+      <DependentUpon>FLogAuditUsr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FLogPwdChg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FLogPwdChg.Designer.cs">
+      <DependentUpon>FLogPwdChg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FABMAS400UsrPwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FABMAS400UsrPwd.Designer.cs">
+      <DependentUpon>FABMAS400UsrPwd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FABMEdificio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FABMEdificio.Designer.cs">
+      <DependentUpon>FABMEdificio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FABMEquipo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FABMEquipo.Designer.cs">
+      <DependentUpon>FABMEquipo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FABMSupervisor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FABMSupervisor.Designer.cs">
+      <DependentUpon>FABMSupervisor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FAS400Pwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FAS400Pwd.Designer.cs">
+      <DependentUpon>FAS400Pwd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FBaseConfiguracion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FBaseConfiguracion.Designer.cs">
+      <DependentUpon>FBaseConfiguracion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FBaseReportes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FBaseReportes.Designer.cs">
+      <DependentUpon>FBaseReportes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FConfigMailsExpPwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FConfigMailsExpPwd.Designer.cs">
+      <DependentUpon>FConfigMailsExpPwd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FEdificios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FEdificios.Designer.cs">
+      <DependentUpon>FEdificios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FEqPwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FEqPwd.Designer.cs">
+      <DependentUpon>FEqPwd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FEquiposAS400.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FEquiposAS400.Designer.cs">
+      <DependentUpon>FEquiposAS400.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FEquiposUnix.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FEquiposUnix.Designer.cs">
+      <DependentUpon>FEquiposUnix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FEquiposWin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FEquiposWin.Designer.cs">
+      <DependentUpon>FEquiposWin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FHistPwdChg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FHistPwdChg.Designer.cs">
+      <DependentUpon>FHistPwdChg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FMailsAlert.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FMailsAlert.Designer.cs">
+      <DependentUpon>FMailsAlert.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FPerfiles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FPerfiles.Designer.cs">
+      <DependentUpon>FPerfiles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FPwdListadoContingencia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FPwdListadoContingencia.Designer.cs">
+      <DependentUpon>FPwdListadoContingencia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FABMAplicativos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FABMAplicativos.Designer.cs">
+      <DependentUpon>FABMAplicativos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FABMAppPwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FABMAppPwd.Designer.cs">
+      <DependentUpon>FABMAppPwd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FABMBaseDeDatos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FABMBaseDeDatos.Designer.cs">
+      <DependentUpon>FABMBaseDeDatos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FABMDBPwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FABMDBPwd.Designer.cs">
+      <DependentUpon>FABMDBPwd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FABMGrpsSolic.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FABMGrpsSolic.Designer.cs">
+      <DependentUpon>FABMGrpsSolic.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FABMUnixUsrPwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FABMUnixUsrPwd.Designer.cs">
+      <DependentUpon>FABMUnixUsrPwd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FABMUsuarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FABMUsuarios.Designer.cs">
+      <DependentUpon>FABMUsuarios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FABMWinUsrPwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FABMWinUsrPwd.Designer.cs">
+      <DependentUpon>FABMWinUsrPwd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FAdmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FAdmin.Designer.cs">
+      <DependentUpon>FAdmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FAltaDominio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FAltaDominio.Designer.cs">
+      <DependentUpon>FAltaDominio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FAltaPc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FAltaPc.Designer.cs">
+      <DependentUpon>FAltaPc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FAplicativos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FAplicativos.Designer.cs">
+      <DependentUpon>FAplicativos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FAppPwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FAppPwd.Designer.cs">
+      <DependentUpon>FAppPwd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FBase.Designer.cs">
+      <DependentUpon>FBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FBaseAdmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FBaseAdmin.Designer.cs">
+      <DependentUpon>FBaseAdmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FBaseContrasenas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FBaseContrasenas.Designer.cs">
+      <DependentUpon>FBaseContrasenas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FBaseDeDatos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FBaseDeDatos.Designer.cs">
+      <DependentUpon>FBaseDeDatos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FBasePanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FBasePanel.Designer.cs">
+      <DependentUpon>FBasePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FBaseSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FBaseSelect.Designer.cs">
+      <DependentUpon>FBaseSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FBaseSistema.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FBaseSistema.Designer.cs">
+      <DependentUpon>FBaseSistema.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FBienvenida.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FBienvenida.Designer.cs">
+      <DependentUpon>FBienvenida.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FConfiguracion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FConfiguracion.Designer.cs">
+      <DependentUpon>FConfiguracion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FContrasenas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FContrasenas.Designer.cs">
+      <DependentUpon>FContrasenas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FDBPwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FDBPwd.Designer.cs">
+      <DependentUpon>FDBPwd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FDominios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FDominios.Designer.cs">
+      <DependentUpon>FDominios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FGrpsSolic.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FGrpsSolic.Designer.cs">
+      <DependentUpon>FGrpsSolic.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FModalBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FModalBase.Designer.cs">
+      <DependentUpon>FModalBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FPCs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FPCs.Designer.cs">
+      <DependentUpon>FPCs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FPrincipal.Designer.cs">
+      <DependentUpon>FPrincipal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FPwdListados.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FPwdListados.Designer.cs">
+      <DependentUpon>FPwdListados.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FQuestion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FQuestion.Designer.cs">
+      <DependentUpon>FQuestion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FReportes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FReportes.Designer.cs">
+      <DependentUpon>FReportes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FRptABMPerfiles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FRptABMPerfiles.Designer.cs">
+      <DependentUpon>FRptABMPerfiles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FRptABMUsuarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FRptABMUsuarios.Designer.cs">
+      <DependentUpon>FRptABMUsuarios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FRptABMUsuariosDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FRptABMUsuariosDetail.Designer.cs">
+      <DependentUpon>FRptABMUsuariosDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FRptInventarioPwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FRptInventarioPwd.Designer.cs">
+      <DependentUpon>FRptInventarioPwd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FRptLogueos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FRptLogueos.Designer.cs">
+      <DependentUpon>FRptLogueos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FRptLstPerfiles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FRptLstPerfiles.Designer.cs">
+      <DependentUpon>FRptLstPerfiles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FRptLstUsuarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FRptLstUsuarios.Designer.cs">
+      <DependentUpon>FRptLstUsuarios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FRptPerfilesUsrs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FRptPerfilesUsrs.Designer.cs">
+      <DependentUpon>FRptPerfilesUsrs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FRptPermisosPerf.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FRptPermisosPerf.Designer.cs">
+      <DependentUpon>FRptPermisosPerf.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FRptUso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FRptUso.Designer.cs">
+      <DependentUpon>FRptUso.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FSelectPhxUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FSelectPhxUser.Designer.cs">
+      <DependentUpon>FSelectPhxUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FSelectUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FSelectUser.Designer.cs">
+      <DependentUpon>FSelectUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FSelectWinDomains.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FSelectWinDomains.designer.cs">
+      <DependentUpon>FSelectWinDomains.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FSelectWinPC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FSelectWinPC.Designer.cs">
+      <DependentUpon>FSelectWinPC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FSelectWinUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FSelectWinUsers.designer.cs">
+      <DependentUpon>FSelectWinUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FSelEquipo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FSelEquipo.Designer.cs">
+      <DependentUpon>FSelEquipo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FSistema.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FSistema.Designer.cs">
+      <DependentUpon>FSistema.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FSolicitudes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FSolicitudes.designer.cs">
+      <DependentUpon>FSolicitudes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FSupervisores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FSupervisores.Designer.cs">
+      <DependentUpon>FSupervisores.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FTestMail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FTestMail.Designer.cs">
+      <DependentUpon>FTestMail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FUnixPwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FUnixPwd.Designer.cs">
+      <DependentUpon>FUnixPwd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FUsuarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FUsuarios.Designer.cs">
+      <DependentUpon>FUsuarios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FViewLoteChkWinPwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FViewLoteChkWinPwd.Designer.cs">
+      <DependentUpon>FViewLoteChkWinPwd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FWinPwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FWinPwd.Designer.cs">
+      <DependentUpon>FWinPwd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FDepuracionLogs.resx">
+      <DependentUpon>FDepuracionLogs.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FTicketControl.resx">
+      <DependentUpon>FTicketControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FABMAplicativoBPM.resx">
+      <DependentUpon>FABMAplicativoBPM.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAplicativosBPM.resx">
+      <DependentUpon>FAplicativosBPM.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FBaseAuditoria.resx">
+      <DependentUpon>FBaseAuditoria.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UsersPasswordList_ATM.rdlc" />
+    <EmbeddedResource Include="FConfATMs.resx">
+      <DependentUpon>FConfATMs.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FABMATMPwd.resx">
+      <DependentUpon>FABMATMPwd.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FATMPwd.resx">
+      <DependentUpon>FATMPwd.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FTicketsAltaTempUsrExt.resx">
+      <DependentUpon>FTicketsAltaTempUsrExt.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FTicketUsrExtDetail.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FTicketUsrExtDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RptListadoUsuariosPorPerfil.rdlc" />
+    <EmbeddedResource Include="FRptTickets.resx">
+      <DependentUpon>FRptTickets.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FRptTicketsClaves.resx">
+      <DependentUpon>FRptTicketsClaves.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FRptUsuariosPorPerfil.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FRptUsuariosPorPerfil.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UsersPasswordList_ec.rdlc" />
+    <EmbeddedResource Include="FUsProtocolo.resx">
+      <DependentUpon>FUsProtocolo.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FABMECPwd.resx">
+      <DependentUpon>FABMECPwd.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FECPwd.resx">
+      <DependentUpon>FECPwd.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FABMEquiposCom.resx">
+      <DependentUpon>FABMEquiposCom.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FEquiposCom.resx">
+      <DependentUpon>FEquiposCom.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FABMGrpsSeguimSolic.resx">
+      <DependentUpon>FABMGrpsSeguimSolic.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FABMLoteChkWinPwd.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FABMLoteChkWinPwd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAccionItemLoteChkWinPwd.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FAccionItemLoteChkWinPwd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FChkWinPwd.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FChkWinPwd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FEsquemas.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FEsquemas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FGrpsSeguimSolic.resx">
+      <DependentUpon>FGrpsSeguimSolic.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FABMPerfil.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FABMPerfil.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FLogAuditUsr.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FLogAuditUsr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FLogPwdChg.resx">
+      <DependentUpon>FLogPwdChg.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FABMEdificio.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FABMEdificio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FABMSupervisor.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FABMSupervisor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FEdificios.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FEdificios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FEqPwd.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FEqPwd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FMailsAlert.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FMailsAlert.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FPerfiles.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FPerfiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FRptABMPerfiles.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FRptABMPerfiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FRptABMUsuarios.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FRptABMUsuarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FRptABMUsuariosDetail.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FRptABMUsuariosDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FRptLogueos.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FRptLogueos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FRptLstPerfiles.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FRptLstPerfiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FRptLstUsuarios.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FRptLstUsuarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FRptPerfilesUsrs.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FRptPerfilesUsrs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FRptPermisosPerf.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FRptPermisosPerf.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FRptUso.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FRptUso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FSupervisores.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FSupervisores.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FViewLoteChkWinPwd.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FViewLoteChkWinPwd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteDeUsoDePwd.rdlc" />
+    <EmbeddedResource Include="RptListadoPerfiles.rdlc" />
+    <EmbeddedResource Include="RptListadoUsuarios.rdlc" />
+    <EmbeddedResource Include="UsersPasswordList_as400.rdlc" />
+    <EmbeddedResource Include="FABMAS400UsrPwd.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FABMAS400UsrPwd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FABMEquipo.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FABMEquipo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAS400Pwd.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FAS400Pwd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FBaseConfiguracion.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FBaseConfiguracion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FBaseReportes.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FBaseReportes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FConfigMailsExpPwd.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FConfigMailsExpPwd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FEquiposAS400.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FEquiposAS400.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FEquiposUnix.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FEquiposUnix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FEquiposWin.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FEquiposWin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FHistPwdChg.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FHistPwdChg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FReportes.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FReportes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FRptInventarioPwd.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FRptInventarioPwd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FSelectPhxUser.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FSelectPhxUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FSelectUser.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FSelectUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FSelEquipo.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FSelEquipo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FTestMail.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FTestMail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RptInventarioDePwd.rdlc" />
+    <EmbeddedResource Include="PasswordContingenciaList.rdlc" />
+    <EmbeddedResource Include="FPwdListadoContingencia.resx">
+      <DependentUpon>FPwdListadoContingencia.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UsersPasswordList.rdlc" />
+    <EmbeddedResource Include="UsersPasswordList_unix.rdlc" />
+    <EmbeddedResource Include="FABMAplicativos.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FABMAplicativos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FABMAppPwd.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FABMAppPwd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FABMBaseDeDatos.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FABMBaseDeDatos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FABMDBPwd.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FABMDBPwd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FABMGrpsSolic.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FABMGrpsSolic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FABMUnixUsrPwd.resx">
+      <DependentUpon>FABMUnixUsrPwd.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FABMUsuarios.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FABMUsuarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FABMWinUsrPwd.resx">
+      <DependentUpon>FABMWinUsrPwd.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAdmin.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAltaDominio.resx">
+      <DependentUpon>FAltaDominio.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAltaPc.resx">
+      <DependentUpon>FAltaPc.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAplicativos.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FAplicativos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAppPwd.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FAppPwd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FBase.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FBaseAdmin.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FBaseAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FBaseContrasenas.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FBaseContrasenas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FBaseDeDatos.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FBaseDeDatos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FBasePanel.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FBasePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FBaseSelect.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FBaseSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FBaseSistema.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FBaseSistema.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FBienvenida.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FBienvenida.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FConfiguracion.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FConfiguracion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FContrasenas.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FContrasenas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FDBPwd.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FDBPwd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FDominios.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FDominios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FGrpsSolic.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FGrpsSolic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FModalBase.resx">
+      <DependentUpon>FModalBase.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FPCs.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FPCs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FPrincipal.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FPwdListados.resx">
+      <DependentUpon>FPwdListados.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FQuestion.resx">
+      <DependentUpon>FQuestion.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FSelectWinDomains.resx">
+      <DependentUpon>FSelectWinDomains.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FSelectWinPC.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FSelectWinPC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FSelectWinUsers.resx">
+      <DependentUpon>FSelectWinUsers.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FSistema.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FSistema.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FSolicitudes.resx">
+      <DependentUpon>FSolicitudes.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FUnixPwd.resx">
+      <DependentUpon>FUnixPwd.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FUsuarios.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FUsuarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FWinPwd.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FWinPwd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrueFormSel.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PrueFormSel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCListaSBar.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>UCListaSBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UsersPasswordList_win.rdlc" />
+    <EmbeddedResource Include="UsersPasswordList_app.rdlc" />
+    <EmbeddedResource Include="UsersPasswordList_db.rdlc" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="App.config" />
+    <None Include="icons\fondo.psd" />
+    <None Include="PhalanxAdmin_TemporaryKey.pfx" />
+    <None Include="PhalanxCommon.Entities.ApplicationUserEntity.datasource" />
+    <None Include="PhalanxCommon.Entities.AS400UserEntity.datasource" />
+    <None Include="PhalanxCommon.Entities.DatabaseUserEntity.datasource" />
+    <None Include="PhalanxCommon.Entities.PasswordRequestEntity.datasource" />
+    <None Include="PhalanxCommon.Entities.UnixUserEntity.datasource" />
+    <None Include="PhalanxCommon.Entities.WinLocalUserEntity.datasource" />
+    <None Include="Properties\DataSources\PhalanxBL.VwInventarioBusiness.datasource" />
+    <None Include="Properties\DataSources\PhalanxCommon.Entities.AS400UserEntity.datasource" />
+    <None Include="Properties\DataSources\PhalanxCommon.Entities.BuildingEntity.datasource" />
+    <None Include="Properties\DataSources\PhalanxCommon.Entities.ReporteDeUsoEntity.datasource" />
+    <None Include="Properties\DataSources\PhalanxCommon.Entities.VwInventarioEntity.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="PrueFormSel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PrueFormSel.Designer.cs">
+      <DependentUpon>PrueFormSel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs" />
+    <Compile Include="UCListaSBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCListaSBar.Designer.cs">
+      <DependentUpon>UCListaSBar.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{66EAFA01-8DD4-4B02-8BB3-716A216844C4}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NDCBL\NDCBL.csproj">
+      <Project>{B3B9B7E1-EAF0-4AD4-9C99-BC0CF980840F}</Project>
+      <Name>NDCBL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NDCCommon\NDCCommon.csproj">
+      <Project>{3744DE9E-912E-4A88-8897-73FFF9C8DD48}</Project>
+      <Name>NDCCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NDCDAL\NDCDAL.csproj">
+      <Project>{C9E3767E-ADE2-4B50-AED1-47FC226CD539}</Project>
+      <Name>NDCDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PhalanxBL\PhalanxBL.csproj">
+      <Project>{515C8382-4032-4840-A587-9725F9F6FD19}</Project>
+      <Name>PhalanxBL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PhalanxCommon\PhalanxCommon.csproj">
+      <Project>{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}</Project>
+      <Name>PhalanxCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PhalanxDAL\PhalanxDAL\PhalanxDAL.csproj">
+      <Project>{3447B917-0A54-460E-AB95-84BBF24BAF35}</Project>
+      <Name>PhalanxDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PhalanxMAL\PhalanxMAL.csproj">
+      <Project>{4CFFA156-7992-4D21-ABDC-056C31F2AA51}</Project>
+      <Name>PhalanxMAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\phxCryptMgr\phxCryptMgr.csproj">
+      <Project>{F0941A5C-7856-42E9-9544-CDAC11F3C285}</Project>
+      <Name>phxCryptMgr</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\phxLog\phxLog.csproj">
+      <Project>{E8F94161-3F1A-4491-92B4-9AE6777DF183}</Project>
+      <Name>phxLog</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icons\Active.ico" />
+    <Content Include="icons\Active.jpg" />
+    <Content Include="icons\admin.ico" />
+    <Content Include="icons\BAR_Sitios.ico" />
+    <Content Include="icons\Base.ico" />
+    <Content Include="icons\Clipboard.ico" />
+    <Content Include="icons\Config16x16.gif" />
+    <Content Include="icons\Desactivo.jpg" />
+    <Content Include="icons\find.ico" />
+    <Content Include="icons\fondo.gif" />
+    <Content Include="icons\fondo.jpg" />
+    <Content Include="icons\fondo2.gif" />
+    <Content Include="icons\IconWarning.gif" />
+    <Content Include="icons\logo-macro.jpg" />
+    <Content Include="icons\LogoPresentApp.gif" />
+    <Content Include="icons\NetFind.gif" />
+    <Content Include="icons\Netfind2.ico" />
+    <Content Include="icons\password32x32.gif" />
+    <Content Include="icons\Phalanx.ico" />
+    <Content Include="icons\PuntaDer.gif" />
+    <Content Include="icons\PuntaIzq.gif" />
+    <Content Include="icons\reports.gif" />
+    <Content Include="icons\User.ico" />
+    <Content Include="icons\wi0111-32x32.png" />
+    <Content Include="icons\wi0111-48x48.png" />
+    <Content Include="icons\wi0111.ico" />
+    <Content Include="icons\Work.ico" />
+    <None Include="PhalanxCommon.Entities.ATMUserEntity.datasource" />
+    <None Include="Properties\DataSources\PhalanxBL.VwPerfilUsuarioBusiness.datasource" />
+    <None Include="Properties\DataSources\PhalanxCommon.Entities.ATMUserEntity.datasource" />
+    <None Include="Properties\DataSources\PhalanxCommon.Entities.CommunicationDeviceUserEntity.datasource" />
+    <None Include="Properties\DataSources\PhalanxCommon.Entities.VwPerfilUsuarioEntity.datasource" />
+    <None Include="Properties\DataSources\PhalanxCommon.Entities.VwPermisoPerfilEntity.datasource" />
+    <None Include="Resources\AdmHeaderRightMacro.gif" />
+    <Content Include="XPPanel.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.ReportViewer.8.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft Visual Studio 2005 Report Viewer</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="Microsoft.ReportViewer.Common">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Microsoft.ReportViewer.ProcessingObjectModel">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Microsoft.ReportViewer.WinForms">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Microsoft.Web.Services3">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
