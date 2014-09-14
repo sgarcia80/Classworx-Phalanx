@@ -1,0 +1,176 @@
+﻿body { color: #6d72b4 }
+
+input.btn 
+{
+	background-color: White;
+    /*background: none repeat scroll 0 0;*/
+    border: 1px solid #6d72b4;
+    font-family: Tahoma;
+    font-weight: bold;
+    min-width: 100px;
+    color: #6d72b4;
+    font-size: 12px;
+ }
+
+.title 
+{
+	color: White; font-family: Tahoma; font-size: 25px; padding-bottom: 10px; vertical-align: bottom;
+}
+
+.login
+{
+	font-family: Tahoma;
+    font-size: 11px;
+    font-weight: bold;
+    margin: auto;
+}
+
+.tyc
+{
+	margin: auto;
+}
+
+.header { background-color: #0190cc; height: 100px;	width: 100%; }
+.header #logo { width: 144px; height: 40px; background-image: url('../image/logo.png'); float: left; margin-top: 20px; }
+.header #title { margin-right: 144px; text-align: center; color: white; font-family: Arial; font-size: x-large; padding-top: 30px; }
+.header #usuario { float: right; color: white; font-family: tahoma; font-size: 14px; margin-right: 10px; }
+
+.mensaje {	color: red; text-align: center; }
+
+.choice { vertical-align: top; }
+
+.titulo { text-align: center; font-family: Tahoma; font-size: 15px; }
+
+.logout { text-decoration: none; color: White }
+
+.LabelOption
+{
+	font-weight: bold;
+	font-size: 11px;
+	cursor: hand;
+	color: navy;
+	font-family: Tahoma;
+	font-variant: small-caps;
+}
+.TextoErrorValidators
+{
+	font-size: 0.6em;
+	color: red;
+	font-family: Verdana, Arial;
+}
+
+.LabelNormal
+{
+	font-weight: bold;
+	font-size: 11px;
+	color: navy;
+	font-family: Tahoma;
+	font-variant: small-caps;
+}
+
+.LabelInInfo
+{
+	font-weight: bold;
+	font-size: 11px;
+	color: gray;
+	font-family: Tahoma;
+	font-variant: normal;
+}
+
+.LabelInError
+{
+	font-weight: bold;
+	font-size: 11px;
+	color: red;
+	font-family: Tahoma;
+	font-variant: normal;
+}
+
+.LabelReadOnly
+{
+	font-weight: bold;
+	font-size: 11px;
+	color: gray;
+	font-family: Tahoma;
+	font-variant: normal;
+}
+
+.labelCombo
+{
+	font-weight: normal;
+	font-size: 11px;
+	color: #003399;
+	font-family: Tahoma;
+	font-variant: normal;
+}
+
+.boton
+{
+	font-weight: normal;
+	font-size: 11px;
+	cursor: hand;
+	color: #003399;
+	font-family: Tahoma;
+	font-variant: normal;
+}
+
+.tdTitulo
+{
+	font-weight: normal;
+	font-size: x-small;
+	color: #ffffff;
+	font-family: Arial;
+	background-color: #336699;
+	text-align: center;
+	font-variant: normal;
+}
+
+.tdTituloPage
+{
+	font-weight: bold;
+	font-size: 12px;
+	color: #4a4a4a;
+	font-family: Tahoma;
+	background-color: transparent;
+	font-weight: bold
+}
+
+.tdTituloSub
+{
+	font-weight: bold;
+	font-size: 12px;
+	color: #4a4a4a;
+	font-family: Tahoma;
+	background-color: transparent;
+	text-align: center;
+	font-variant: normal;
+}
+
+.tdDato
+{
+	font-size: x-small;
+	color: #000099;
+	font-family: Arial;
+	background-color: gainsboro;
+}
+
+
+.division { background-color: #0190cc; height: 20px; width: 100%; }
+
+.leyenda { font-size: 14px; }
+
+/* NoPermitido */
+.noPermitido
+{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-family: Tahoma;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.botonVolver
+{
+    display: block;
+    margin: auto;
+}
