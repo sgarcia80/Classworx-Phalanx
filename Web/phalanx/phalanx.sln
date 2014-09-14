@@ -1,0 +1,231 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "http://localhost/phalanx/", "http://localhost/phalanx", "{D30FE680-3852-4994-9BF3-FE1C79CC3DA2}"
+	ProjectSection(WebsiteProperties) = preProject
+		SccProjectName = ""$/PhalanxSM/Fuentes.Net2.0", ZWFBAAAA"
+		SccAuxPath = ""
+		SccLocalPath = "."
+		SccProvider = "MSSCCI:Microsoft Visual SourceSafe"
+		ProjectReferences = "{515C8382-4032-4840-A587-9725F9F6FD19}|PhalanxBL.dll;{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}|PhalanxCommon.dll;{3447B917-0A54-460E-AB95-84BBF24BAF35}|PhalanxDAL.dll;{78D7CC00-F303-476C-A329-0B25856A0B07}|phxBlowfish.dll;{F0941A5C-7856-42E9-9544-CDAC11F3C285}|phxCryptMgr.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/phalanx"
+		Debug.AspNetCompiler.PhysicalPath = "..\..\..\..\..\..\inetpub\wwwroot\phalanx\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\phalanx\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/phalanx"
+		Release.AspNetCompiler.PhysicalPath = "..\..\..\..\..\..\inetpub\wwwroot\phalanx\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\phalanx\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "..\..\..\..\..\..\inetpub\wwwroot\phalanx\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhalanxDAL", "PhalanxDAL\PhalanxDAL\PhalanxDAL.csproj", "{3447B917-0A54-460E-AB95-84BBF24BAF35}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phxLog", "phxLog\phxLog.csproj", "{E8F94161-3F1A-4491-92B4-9AE6777DF183}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhalanxDALTest", "PhalanxDAL\PhalanxDALTest\PhalanxDALTest.csproj", "{8966F24B-A329-4121-A0EF-CF42280DF1C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhalanxCommon", "PhalanxCommon\PhalanxCommon.csproj", "{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhalanxBL", "PhalanxBL\PhalanxBL.csproj", "{515C8382-4032-4840-A587-9725F9F6FD19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhxPing", "PhxPing\PhxPing.csproj", "{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhalanxNAL", "PhalanxNAL\PhalanxNAL.csproj", "{D31089F5-A197-4808-B865-C7062DA477AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phxCryptMgr", "phxCryptMgr\phxCryptMgr.csproj", "{F0941A5C-7856-42E9-9544-CDAC11F3C285}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phxBlowfish", "phxBlowfish\phxBlowfish.csproj", "{78D7CC00-F303-476C-A329-0B25856A0B07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhalanxAdmin", "PhalanxAdmin\PhalanxAdmin.csproj", "{352BB670-458F-41CC-BFA1-FCE10C91E502}"
+EndProject
+Project("{4F174C21-8C12-11D0-8340-0000F80270F8}") = "PhalanxDB", "PhalanxDB\PhalanxDB.dbp", "{03C295A8-E5DE-4006-A509-8A08212EA98B}"
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 13
+		SccProjectName0 = \u0022$/PhalanxSM/Fuentes.Net2.0\u0022,\u0020ZWFBAAAA
+		SccLocalPath0 = .
+		SccProvider0 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
+		CanCheckoutShared = false
+		SccProjectUniqueName1 = PhalanxAdmin\\PhalanxAdmin.csproj
+		SccLocalPath1 = .
+		CanCheckoutShared = false
+		SccProjectFilePathRelativizedFromConnection1 = PhalanxAdmin\\
+		SccProjectUniqueName2 = PhalanxBL\\PhalanxBL.csproj
+		SccLocalPath2 = .
+		CanCheckoutShared = false
+		SccProjectFilePathRelativizedFromConnection2 = PhalanxBL\\
+		SccProjectUniqueName3 = PhalanxCommon\\PhalanxCommon.csproj
+		SccLocalPath3 = .
+		CanCheckoutShared = false
+		SccProjectFilePathRelativizedFromConnection3 = PhalanxCommon\\
+		SccProjectUniqueName4 = PhalanxDAL\\PhalanxDAL\\PhalanxDAL.csproj
+		SccLocalPath4 = .
+		CanCheckoutShared = false
+		SccProjectFilePathRelativizedFromConnection4 = PhalanxDAL\\PhalanxDAL\\
+		SccProjectUniqueName5 = PhalanxDAL\\PhalanxDALTest\\PhalanxDALTest.csproj
+		SccLocalPath5 = .
+		CanCheckoutShared = false
+		SccProjectFilePathRelativizedFromConnection5 = PhalanxDAL\\PhalanxDALTest\\
+		SccProjectUniqueName6 = PhalanxNAL\\PhalanxNAL.csproj
+		SccLocalPath6 = .
+		CanCheckoutShared = false
+		SccProjectFilePathRelativizedFromConnection6 = PhalanxNAL\\
+		SccProjectUniqueName7 = phxBlowfish\\phxBlowfish.csproj
+		SccLocalPath7 = .
+		CanCheckoutShared = false
+		SccProjectFilePathRelativizedFromConnection7 = phxBlowfish\\
+		SccProjectUniqueName8 = phxCryptMgr\\phxCryptMgr.csproj
+		SccLocalPath8 = .
+		CanCheckoutShared = false
+		SccProjectFilePathRelativizedFromConnection8 = phxCryptMgr\\
+		SccProjectUniqueName9 = phxLog\\phxLog.csproj
+		SccLocalPath9 = .
+		CanCheckoutShared = false
+		SccProjectFilePathRelativizedFromConnection9 = phxLog\\
+		SccProjectUniqueName10 = PhxPing\\PhxPing.csproj
+		SccLocalPath10 = .
+		CanCheckoutShared = false
+		SccProjectFilePathRelativizedFromConnection10 = PhxPing\\
+		SccWebProject11 = true
+		SccProjectUniqueName11 = http://localhost/phalanx
+		SccLocalPath11 = ..\\..\\..\\..\\..\\..\\inetpub\\wwwroot\\phalanx
+		CanCheckoutShared = false
+		SccProjectEnlistmentChoice11 = 2
+		SccProjectUniqueName12 = PhalanxDB\\PhalanxDB.dbp
+		SccLocalPath12 = .
+		CanCheckoutShared = false
+		SccProjectFilePathRelativizedFromConnection12 = PhalanxDB\\
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|.NET = Debug|.NET
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Release|.NET = Release|.NET
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D30FE680-3852-4994-9BF3-FE1C79CC3DA2}.Debug|.NET.ActiveCfg = Debug|.NET
+		{D30FE680-3852-4994-9BF3-FE1C79CC3DA2}.Debug|.NET.Build.0 = Debug|.NET
+		{D30FE680-3852-4994-9BF3-FE1C79CC3DA2}.Debug|Any CPU.ActiveCfg = Debug|.NET
+		{D30FE680-3852-4994-9BF3-FE1C79CC3DA2}.Debug|Mixed Platforms.ActiveCfg = Debug|.NET
+		{D30FE680-3852-4994-9BF3-FE1C79CC3DA2}.Debug|Mixed Platforms.Build.0 = Debug|.NET
+		{D30FE680-3852-4994-9BF3-FE1C79CC3DA2}.Release|.NET.ActiveCfg = Debug|.NET
+		{D30FE680-3852-4994-9BF3-FE1C79CC3DA2}.Release|.NET.Build.0 = Debug|.NET
+		{D30FE680-3852-4994-9BF3-FE1C79CC3DA2}.Release|Any CPU.ActiveCfg = Debug|.NET
+		{D30FE680-3852-4994-9BF3-FE1C79CC3DA2}.Release|Mixed Platforms.ActiveCfg = Debug|.NET
+		{D30FE680-3852-4994-9BF3-FE1C79CC3DA2}.Release|Mixed Platforms.Build.0 = Debug|.NET
+		{3447B917-0A54-460E-AB95-84BBF24BAF35}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{3447B917-0A54-460E-AB95-84BBF24BAF35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3447B917-0A54-460E-AB95-84BBF24BAF35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3447B917-0A54-460E-AB95-84BBF24BAF35}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3447B917-0A54-460E-AB95-84BBF24BAF35}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3447B917-0A54-460E-AB95-84BBF24BAF35}.Release|.NET.ActiveCfg = Release|Any CPU
+		{3447B917-0A54-460E-AB95-84BBF24BAF35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3447B917-0A54-460E-AB95-84BBF24BAF35}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3447B917-0A54-460E-AB95-84BBF24BAF35}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{3447B917-0A54-460E-AB95-84BBF24BAF35}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{E8F94161-3F1A-4491-92B4-9AE6777DF183}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{E8F94161-3F1A-4491-92B4-9AE6777DF183}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8F94161-3F1A-4491-92B4-9AE6777DF183}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8F94161-3F1A-4491-92B4-9AE6777DF183}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{E8F94161-3F1A-4491-92B4-9AE6777DF183}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{E8F94161-3F1A-4491-92B4-9AE6777DF183}.Release|.NET.ActiveCfg = Release|Any CPU
+		{E8F94161-3F1A-4491-92B4-9AE6777DF183}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8F94161-3F1A-4491-92B4-9AE6777DF183}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8F94161-3F1A-4491-92B4-9AE6777DF183}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{E8F94161-3F1A-4491-92B4-9AE6777DF183}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{8966F24B-A329-4121-A0EF-CF42280DF1C7}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{8966F24B-A329-4121-A0EF-CF42280DF1C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8966F24B-A329-4121-A0EF-CF42280DF1C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8966F24B-A329-4121-A0EF-CF42280DF1C7}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{8966F24B-A329-4121-A0EF-CF42280DF1C7}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{8966F24B-A329-4121-A0EF-CF42280DF1C7}.Release|.NET.ActiveCfg = Release|Any CPU
+		{8966F24B-A329-4121-A0EF-CF42280DF1C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8966F24B-A329-4121-A0EF-CF42280DF1C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8966F24B-A329-4121-A0EF-CF42280DF1C7}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{8966F24B-A329-4121-A0EF-CF42280DF1C7}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}.Release|.NET.ActiveCfg = Release|Any CPU
+		{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{515C8382-4032-4840-A587-9725F9F6FD19}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{515C8382-4032-4840-A587-9725F9F6FD19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{515C8382-4032-4840-A587-9725F9F6FD19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{515C8382-4032-4840-A587-9725F9F6FD19}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{515C8382-4032-4840-A587-9725F9F6FD19}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{515C8382-4032-4840-A587-9725F9F6FD19}.Release|.NET.ActiveCfg = Release|Any CPU
+		{515C8382-4032-4840-A587-9725F9F6FD19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{515C8382-4032-4840-A587-9725F9F6FD19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{515C8382-4032-4840-A587-9725F9F6FD19}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{515C8382-4032-4840-A587-9725F9F6FD19}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}.Release|.NET.ActiveCfg = Release|Any CPU
+		{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D31089F5-A197-4808-B865-C7062DA477AB}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{D31089F5-A197-4808-B865-C7062DA477AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D31089F5-A197-4808-B865-C7062DA477AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D31089F5-A197-4808-B865-C7062DA477AB}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D31089F5-A197-4808-B865-C7062DA477AB}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D31089F5-A197-4808-B865-C7062DA477AB}.Release|.NET.ActiveCfg = Release|Any CPU
+		{D31089F5-A197-4808-B865-C7062DA477AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D31089F5-A197-4808-B865-C7062DA477AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D31089F5-A197-4808-B865-C7062DA477AB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D31089F5-A197-4808-B865-C7062DA477AB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{F0941A5C-7856-42E9-9544-CDAC11F3C285}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{F0941A5C-7856-42E9-9544-CDAC11F3C285}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0941A5C-7856-42E9-9544-CDAC11F3C285}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0941A5C-7856-42E9-9544-CDAC11F3C285}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F0941A5C-7856-42E9-9544-CDAC11F3C285}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F0941A5C-7856-42E9-9544-CDAC11F3C285}.Release|.NET.ActiveCfg = Release|Any CPU
+		{F0941A5C-7856-42E9-9544-CDAC11F3C285}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0941A5C-7856-42E9-9544-CDAC11F3C285}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0941A5C-7856-42E9-9544-CDAC11F3C285}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F0941A5C-7856-42E9-9544-CDAC11F3C285}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{78D7CC00-F303-476C-A329-0B25856A0B07}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{78D7CC00-F303-476C-A329-0B25856A0B07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78D7CC00-F303-476C-A329-0B25856A0B07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78D7CC00-F303-476C-A329-0B25856A0B07}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{78D7CC00-F303-476C-A329-0B25856A0B07}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{78D7CC00-F303-476C-A329-0B25856A0B07}.Release|.NET.ActiveCfg = Release|Any CPU
+		{78D7CC00-F303-476C-A329-0B25856A0B07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78D7CC00-F303-476C-A329-0B25856A0B07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78D7CC00-F303-476C-A329-0B25856A0B07}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{78D7CC00-F303-476C-A329-0B25856A0B07}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{352BB670-458F-41CC-BFA1-FCE10C91E502}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{352BB670-458F-41CC-BFA1-FCE10C91E502}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{352BB670-458F-41CC-BFA1-FCE10C91E502}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{352BB670-458F-41CC-BFA1-FCE10C91E502}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{352BB670-458F-41CC-BFA1-FCE10C91E502}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{352BB670-458F-41CC-BFA1-FCE10C91E502}.Release|.NET.ActiveCfg = Release|Any CPU
+		{352BB670-458F-41CC-BFA1-FCE10C91E502}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{352BB670-458F-41CC-BFA1-FCE10C91E502}.Release|Any CPU.Build.0 = Release|Any CPU
+		{352BB670-458F-41CC-BFA1-FCE10C91E502}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{352BB670-458F-41CC-BFA1-FCE10C91E502}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

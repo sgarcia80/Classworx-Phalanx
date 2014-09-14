@@ -29,6 +29,88 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NDCDAL", "NDCDAL\NDCDAL.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NDCBL", "NDCBL\NDCBL.csproj", "{B3B9B7E1-EAF0-4AD4-9C99-BC0CF980840F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{379FA69B-6AF9-42A3-9B62-5759C915798D}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "phalanx", "Web\phalanx\", "{60DA5784-174C-4C81-B712-4613F5872C00}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv2.0"
+		Debug.AspNetCompiler.VirtualPath = "/phalanx"
+		Debug.AspNetCompiler.PhysicalPath = "Web\phalanx\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\phalanx\"
+		Debug.AspNetCompiler.Updateable = "false"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/phalanx"
+		Release.AspNetCompiler.PhysicalPath = "Web\phalanx\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\phalanx\"
+		Release.AspNetCompiler.Updateable = "false"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "44162"
+	EndProjectSection
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WSInterfaceClaves", "Web\WSInterfaceClaves\", "{CD2BD959-1C35-46D2-931B-39B20C66A3D1}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv2.0"
+		Debug.AspNetCompiler.VirtualPath = "/WSInterfaceClaves"
+		Debug.AspNetCompiler.PhysicalPath = "Web\WSInterfaceClaves\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\WSInterfaceClaves\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/WSInterfaceClaves"
+		Release.AspNetCompiler.PhysicalPath = "Web\WSInterfaceClaves\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\WSInterfaceClaves\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "44344"
+	EndProjectSection
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AutoGestionCOBIS", "Web\AutoGestionCOBIS\", "{9D173FAD-A1D9-4A08-9F91-61EF47667D00}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv2.0"
+		Debug.AspNetCompiler.VirtualPath = "/AutoGestionCOBIS"
+		Debug.AspNetCompiler.PhysicalPath = "Web\AutoGestionCOBIS\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\AutoGestionCOBIS\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/AutoGestionCOBIS"
+		Release.AspNetCompiler.PhysicalPath = "Web\AutoGestionCOBIS\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\AutoGestionCOBIS\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "44349"
+	EndProjectSection
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "NotifClaves", "Web\NotifClaves\", "{7111D6AB-FEDA-4DF0-87D1-78889D1F0424}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv2.0"
+		Debug.AspNetCompiler.VirtualPath = "/NotifClaves"
+		Debug.AspNetCompiler.PhysicalPath = "Web\NotifClaves\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\NotifClaves\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/NotifClaves"
+		Release.AspNetCompiler.PhysicalPath = "Web\NotifClaves\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\NotifClaves\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "44351"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		App Debug|Any CPU = App Debug|Any CPU
@@ -236,8 +318,70 @@ Global
 		{B3B9B7E1-EAF0-4AD4-9C99-BC0CF980840F}.Web Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3B9B7E1-EAF0-4AD4-9C99-BC0CF980840F}.WS Test|Any CPU.ActiveCfg = WS Test|Any CPU
 		{B3B9B7E1-EAF0-4AD4-9C99-BC0CF980840F}.WS Test|Any CPU.Build.0 = WS Test|Any CPU
+		{60DA5784-174C-4C81-B712-4613F5872C00}.App Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60DA5784-174C-4C81-B712-4613F5872C00}.App Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60DA5784-174C-4C81-B712-4613F5872C00}.AutCOBIS Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{60DA5784-174C-4C81-B712-4613F5872C00}.AutCOBIS Release|Any CPU.Build.0 = Debug|Any CPU
+		{60DA5784-174C-4C81-B712-4613F5872C00}.DbgAutCOBIS|Any CPU.ActiveCfg = Debug|Any CPU
+		{60DA5784-174C-4C81-B712-4613F5872C00}.DbgAutCOBIS|Any CPU.Build.0 = Debug|Any CPU
+		{60DA5784-174C-4C81-B712-4613F5872C00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60DA5784-174C-4C81-B712-4613F5872C00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60DA5784-174C-4C81-B712-4613F5872C00}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{60DA5784-174C-4C81-B712-4613F5872C00}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{60DA5784-174C-4C81-B712-4613F5872C00}.Web Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60DA5784-174C-4C81-B712-4613F5872C00}.Web Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60DA5784-174C-4C81-B712-4613F5872C00}.WS Test|Any CPU.ActiveCfg = Debug|Any CPU
+		{60DA5784-174C-4C81-B712-4613F5872C00}.WS Test|Any CPU.Build.0 = Debug|Any CPU
+		{CD2BD959-1C35-46D2-931B-39B20C66A3D1}.App Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD2BD959-1C35-46D2-931B-39B20C66A3D1}.App Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD2BD959-1C35-46D2-931B-39B20C66A3D1}.AutCOBIS Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD2BD959-1C35-46D2-931B-39B20C66A3D1}.AutCOBIS Release|Any CPU.Build.0 = Debug|Any CPU
+		{CD2BD959-1C35-46D2-931B-39B20C66A3D1}.DbgAutCOBIS|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD2BD959-1C35-46D2-931B-39B20C66A3D1}.DbgAutCOBIS|Any CPU.Build.0 = Debug|Any CPU
+		{CD2BD959-1C35-46D2-931B-39B20C66A3D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD2BD959-1C35-46D2-931B-39B20C66A3D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD2BD959-1C35-46D2-931B-39B20C66A3D1}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD2BD959-1C35-46D2-931B-39B20C66A3D1}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{CD2BD959-1C35-46D2-931B-39B20C66A3D1}.Web Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD2BD959-1C35-46D2-931B-39B20C66A3D1}.Web Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD2BD959-1C35-46D2-931B-39B20C66A3D1}.WS Test|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD2BD959-1C35-46D2-931B-39B20C66A3D1}.WS Test|Any CPU.Build.0 = Debug|Any CPU
+		{9D173FAD-A1D9-4A08-9F91-61EF47667D00}.App Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D173FAD-A1D9-4A08-9F91-61EF47667D00}.App Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D173FAD-A1D9-4A08-9F91-61EF47667D00}.AutCOBIS Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D173FAD-A1D9-4A08-9F91-61EF47667D00}.AutCOBIS Release|Any CPU.Build.0 = Debug|Any CPU
+		{9D173FAD-A1D9-4A08-9F91-61EF47667D00}.DbgAutCOBIS|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D173FAD-A1D9-4A08-9F91-61EF47667D00}.DbgAutCOBIS|Any CPU.Build.0 = Debug|Any CPU
+		{9D173FAD-A1D9-4A08-9F91-61EF47667D00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D173FAD-A1D9-4A08-9F91-61EF47667D00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D173FAD-A1D9-4A08-9F91-61EF47667D00}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D173FAD-A1D9-4A08-9F91-61EF47667D00}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{9D173FAD-A1D9-4A08-9F91-61EF47667D00}.Web Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D173FAD-A1D9-4A08-9F91-61EF47667D00}.Web Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D173FAD-A1D9-4A08-9F91-61EF47667D00}.WS Test|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D173FAD-A1D9-4A08-9F91-61EF47667D00}.WS Test|Any CPU.Build.0 = Debug|Any CPU
+		{7111D6AB-FEDA-4DF0-87D1-78889D1F0424}.App Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7111D6AB-FEDA-4DF0-87D1-78889D1F0424}.App Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7111D6AB-FEDA-4DF0-87D1-78889D1F0424}.AutCOBIS Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{7111D6AB-FEDA-4DF0-87D1-78889D1F0424}.AutCOBIS Release|Any CPU.Build.0 = Debug|Any CPU
+		{7111D6AB-FEDA-4DF0-87D1-78889D1F0424}.DbgAutCOBIS|Any CPU.ActiveCfg = Debug|Any CPU
+		{7111D6AB-FEDA-4DF0-87D1-78889D1F0424}.DbgAutCOBIS|Any CPU.Build.0 = Debug|Any CPU
+		{7111D6AB-FEDA-4DF0-87D1-78889D1F0424}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7111D6AB-FEDA-4DF0-87D1-78889D1F0424}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7111D6AB-FEDA-4DF0-87D1-78889D1F0424}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{7111D6AB-FEDA-4DF0-87D1-78889D1F0424}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{7111D6AB-FEDA-4DF0-87D1-78889D1F0424}.Web Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7111D6AB-FEDA-4DF0-87D1-78889D1F0424}.Web Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7111D6AB-FEDA-4DF0-87D1-78889D1F0424}.WS Test|Any CPU.ActiveCfg = Debug|Any CPU
+		{7111D6AB-FEDA-4DF0-87D1-78889D1F0424}.WS Test|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{60DA5784-174C-4C81-B712-4613F5872C00} = {379FA69B-6AF9-42A3-9B62-5759C915798D}
+		{CD2BD959-1C35-46D2-931B-39B20C66A3D1} = {379FA69B-6AF9-42A3-9B62-5759C915798D}
+		{9D173FAD-A1D9-4A08-9F91-61EF47667D00} = {379FA69B-6AF9-42A3-9B62-5759C915798D}
+		{7111D6AB-FEDA-4DF0-87D1-78889D1F0424} = {379FA69B-6AF9-42A3-9B62-5759C915798D}
 	EndGlobalSection
 EndGlobal
