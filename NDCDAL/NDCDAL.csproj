@@ -94,6 +94,7 @@
     <Compile Include="Factories\Meta4ClassWorxUsuariosFactory.cs" />
     <Compile Include="Factories\Meta4LegajoFactory.cs" />
     <Compile Include="Factories\Meta4SociedadFactory.cs.cs" />
+    <Compile Include="Factories\SubsidiariaFactory.cs" />
     <Compile Include="Factories\TicketNotificacionClaveFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -145,6 +146,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\SubsidiariaEntity.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

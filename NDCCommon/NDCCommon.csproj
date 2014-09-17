@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\AplicacionNotificacionClaveEntityCollectionCollection.cs" />
+    <Compile Include="Collections\SubsidiariaEntityCollectionCollection.cs" />
     <Compile Include="Collections\DominioLoginEntityCollection.cs" />
     <Compile Include="Collections\Meta4ClassWorxUsuariosEntityCollection.cs" />
     <Compile Include="Collections\EntityCollection.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Entities\Meta4ClassWorxUsuariosEntity.cs" />
     <Compile Include="Entities\Meta4LegajoEntity.cs" />
     <Compile Include="Entities\Meta4SociedadEntity.cs" />
+    <Compile Include="Entities\SubsidiariaEntity.cs" />
     <Compile Include="Entities\TicketNotificacionClaveEntity.cs" />
     <Compile Include="Collections\Meta4LegajoEntityCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

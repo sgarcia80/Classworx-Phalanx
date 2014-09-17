@@ -33,6 +33,7 @@ namespace PhalanxAdmin
             this.lnkSuperv = new System.Windows.Forms.LinkLabel();
             this.lnkDominios = new System.Windows.Forms.LinkLabel();
             this.lnkAplicativosBPM = new System.Windows.Forms.LinkLabel();
+            this.lnkSubsidiarias = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
             this.pnlXPGrps.SuspendLayout();
             this.pnlIzq.SuspendLayout();
@@ -50,13 +51,14 @@ namespace PhalanxAdmin
             // xppnlMenu
             // 
             this.xppnlMenu.Caption = "Parametría";
+            this.xppnlMenu.Controls.Add(this.lnkSubsidiarias);
             this.xppnlMenu.Controls.Add(this.lnkAplicativosBPM);
             this.xppnlMenu.Controls.Add(this.lnkDominios);
             this.xppnlMenu.Controls.Add(this.lnkSuperv);
             this.xppnlMenu.Controls.Add(this.lnkEdificios);
             this.xppnlMenu.Controls.Add(this.lnkConfiguracion);
             this.xppnlMenu.ImageItems.ImageSet = null;
-            this.xppnlMenu.Size = new System.Drawing.Size(184, 164);
+            this.xppnlMenu.Size = new System.Drawing.Size(184, 190);
             this.xppnlMenu.TabIndex = 2;
             // 
             // lnkConfiguracion
@@ -136,6 +138,21 @@ namespace PhalanxAdmin
             this.lnkAplicativosBPM.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
             this.lnkAplicativosBPM.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAplicativosBPM_LinkClicked);
             // 
+            // lnkSubsidiarias
+            // 
+            this.lnkSubsidiarias.ActiveLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkSubsidiarias.AutoSize = true;
+            this.lnkSubsidiarias.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.lnkSubsidiarias.LinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkSubsidiarias.Location = new System.Drawing.Point(18, 154);
+            this.lnkSubsidiarias.Name = "lnkSubsidiarias";
+            this.lnkSubsidiarias.Size = new System.Drawing.Size(75, 13);
+            this.lnkSubsidiarias.TabIndex = 14;
+            this.lnkSubsidiarias.TabStop = true;
+            this.lnkSubsidiarias.Text = "Subsidiarias";
+            this.lnkSubsidiarias.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkSubsidiarias.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkSubsidiarias_LinkClicked);
+            // 
             // FBaseSistema
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -158,5 +175,6 @@ namespace PhalanxAdmin
         private System.Windows.Forms.LinkLabel lnkSuperv;
         private System.Windows.Forms.LinkLabel lnkDominios;
         private System.Windows.Forms.LinkLabel lnkAplicativosBPM;
+        private System.Windows.Forms.LinkLabel lnkSubsidiarias;
     }
 }

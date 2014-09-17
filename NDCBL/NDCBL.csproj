@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="AplicacionNotificacionClaveBusiness.cs" />
     <Compile Include="AuditTicketNotificacionBusiness.cs" />
+    <Compile Include="SubsidiariaBusiness.cs" />
     <Compile Include="DominioLoginBusiness.cs" />
     <Compile Include="Meta4ClassWorxUsuariosBusiness.cs" />
     <Compile Include="Meta4LegajoBusiness.cs" />

@@ -33,6 +33,7 @@ namespace PhalanxAdmin
             lnkSuperv.Enabled = UsrBL.AccParamSupervisores(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
             lnkDominios.Enabled = UsrBL.AccAdmDominiosWin(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
             lnkAplicativosBPM.Enabled = UsrBL.AccParamAplicativosBMP(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            lnkSubsidiarias.Enabled = UsrBL.AccParamSubsidiarias(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
         }
 
         private void lnkEdificios_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -59,6 +60,10 @@ namespace PhalanxAdmin
             ((FPrincipal)this.MdiParent).OpenForm(new FAplicativosBPM());
         }
 
+        private void lnkSubsidiarias_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ((FPrincipal)this.MdiParent).OpenForm(new FSubsidiarias());
+        }
     }
 }
 

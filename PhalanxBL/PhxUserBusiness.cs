@@ -251,6 +251,8 @@ namespace PhalanxBL
         private const string RPT_TICKETS_RED_REC_EXT = "@RPT_TICKETS_ALTA_RED_REC_EXT@"; //Listado de Perfiles
         private const string TICKETS = "@Tickets@"; //Control de notificación de tickets
         private const string DEPURACION_LOGS = "@DEPURACION_LOGS@"; //Depuración de logs
+        private const string CONF_SUBSI_RW = "@CONF_SUBSI_RW@"; //Configuración de Subsidiarias - Escritura
+        private const string CONF_SUBSI_R = "@CONF_SUBSI_R@"; //Configuración de Subsidiarias - Lectura
 
         /// <summary>
         /// Chequea si el usuario tiene acceso a la aplicación WEB
@@ -669,6 +671,18 @@ namespace PhalanxBL
         public bool AccDepuracionLogs(string usernamedomain)
         {
             string[] PrivilegiosAcceso = new string[] { DEPURACION_LOGS };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+
+        public bool AccParamSubsidiarias(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { CONF_SUBSI_RW, CONF_SUBSI_R };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+
+        public bool AccParamSubsidiariasRW(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { CONF_SUBSI_RW };
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
 
