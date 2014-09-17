@@ -86,6 +86,12 @@ namespace PhalanxBL
                 case ConfigCodes.BodyDevMails:
                     strParamCode = "@BODY_DEV_CRITICA@";
                     break;
+                case ConfigCodes.SubjectAltaUsuarioRedExternoMail:
+                    strParamCode = "@SUBJECT_ALTA_US_RED_EXT_MAIL@";
+                    break;
+                case ConfigCodes.BodyAltaUsuarioRedExternoMail:
+                    strParamCode = "@BODY_ALTA_US_RED_EXT_MAIL@";
+                    break;
                 default:
                     break;
             }
@@ -170,6 +176,8 @@ namespace PhalanxBL
             ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyAltaUsuarioAplicativoSeguridadPropiaMail));
             ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectDevMails));
             ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyDevMails));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectAltaUsuarioRedExternoMail));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyAltaUsuarioRedExternoMail));
             return ConfEC;
 
         }

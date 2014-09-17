@@ -65,6 +65,7 @@ namespace PhalanxAdmin
                 || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyAltaUsuarioAplicativoSeguridadIntegradaMail)
                 || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyAltaUsuarioAplicativoSeguridadPropiaMail)
                 || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyDevMails)
+                || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyAltaUsuarioRedExternoMail)
                 )
             {
                 txtValor.Multiline = true;
@@ -103,6 +104,8 @@ namespace PhalanxAdmin
                 btnTagFechaAlta.Enabled = false;
                 btnTagAplicativo.Enabled = false;
                 btnTagFechaDev.Enabled = false;
+                btnTagToken.Enabled = false;
+                btnTagDestino.Enabled = false;
             }
             else if (ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodySolicPwdMails))
             {
@@ -119,6 +122,8 @@ namespace PhalanxAdmin
                 btnTagFechaAlta.Enabled = false;
                 btnTagAplicativo.Enabled = false;
                 btnTagFechaDev.Enabled = false;
+                btnTagToken.Enabled = false;
+                btnTagDestino.Enabled = false;
             }
             else if (ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyRespSolicPwdMails))
             {
@@ -135,6 +140,8 @@ namespace PhalanxAdmin
                 btnTagFechaAlta.Enabled = false;
                 btnTagAplicativo.Enabled = false;
                 btnTagFechaDev.Enabled = false;
+                btnTagToken.Enabled = false;
+                btnTagDestino.Enabled = false;
             }
             else if (ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.SubjectExpMails)
                     || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.SubjectPwdRqstMails)
@@ -154,6 +161,8 @@ namespace PhalanxAdmin
                 btnTagFechaAlta.Enabled = false;
                 btnTagAplicativo.Enabled = false;
                 btnTagFechaDev.Enabled = false;
+                btnTagToken.Enabled = false;
+                btnTagDestino.Enabled = false;
             }
             else if (ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.SubjectAltaUsuarioRedMail)
                 || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyAltaUsuarioRedMail))
@@ -171,6 +180,8 @@ namespace PhalanxAdmin
                 btnTagFechaAlta.Enabled = true;
                 btnTagAplicativo.Enabled = false;
                 btnTagFechaDev.Enabled = false;
+                btnTagToken.Enabled = false;
+                btnTagDestino.Enabled = false;
             }
             else if (ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.SubjectAltaUsuarioAplicativoSeguridadIntegradaMail)
                 || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyAltaUsuarioAplicativoSeguridadIntegradaMail))
@@ -188,6 +199,8 @@ namespace PhalanxAdmin
                 btnTagFechaAlta.Enabled = true;
                 btnTagAplicativo.Enabled = true;
                 btnTagFechaDev.Enabled = false;
+                btnTagToken.Enabled = false;
+                btnTagDestino.Enabled = false;
             }
             else if (ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.SubjectAltaUsuarioAplicativoSeguridadPropiaMail)
                 || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyAltaUsuarioAplicativoSeguridadPropiaMail))
@@ -205,6 +218,8 @@ namespace PhalanxAdmin
                 btnTagFechaAlta.Enabled = true;
                 btnTagAplicativo.Enabled = true;
                 btnTagFechaDev.Enabled = false;
+                btnTagToken.Enabled = false;
+                btnTagDestino.Enabled = false;
             }
             else if (ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.SubjectDevMails)
                 || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyDevMails))
@@ -222,6 +237,26 @@ namespace PhalanxAdmin
                 btnTagFechaAlta.Enabled = false;
                 btnTagAplicativo.Enabled = false;
                 btnTagFechaDev.Enabled = true;
+                btnTagToken.Enabled = false;
+                btnTagDestino.Enabled = false;
+            }
+            else if (ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyAltaUsuarioRedExternoMail))
+            {
+                grpTags.Visible = true;
+                btnTagFechaExp.Enabled = false;
+                btnTagFechaSolic.Enabled = false;
+                btnTagNomSolic.Enabled = true;
+                btnTagPwdSolic.Enabled = false;
+                btnTagNroTicket.Enabled = true;
+                btnTagDescUso.Enabled = false;
+                btnTagTiempoUso.Enabled = false;
+                btnTagEstadoSolic.Enabled = false;
+                btnTagNombreUsuario.Enabled = false;
+                btnTagFechaAlta.Enabled = true;
+                btnTagAplicativo.Enabled = false;
+                btnTagFechaDev.Enabled = false;
+                btnTagToken.Enabled = true;
+                btnTagDestino.Enabled = true;
             }
         }
 
@@ -249,6 +284,7 @@ namespace PhalanxAdmin
                 || ConfEnt.Code == new PhxConfigBusiness().ParamCodeToString(ConfigCodes.BodyAltaUsuarioAplicativoSeguridadIntegradaMail)
                 || ConfEnt.Code == new PhxConfigBusiness().ParamCodeToString(ConfigCodes.BodyAltaUsuarioAplicativoSeguridadPropiaMail)
                 || ConfEnt.Code == new PhxConfigBusiness().ParamCodeToString(ConfigCodes.BodyDevMails)
+                || ConfEnt.Code == new PhxConfigBusiness().ParamCodeToString(ConfigCodes.BodyAltaUsuarioRedExternoMail)
                 )
             {
                 ((PhxConfigEntity)cbParams.SelectedItem).LongTxtValue = txtValor.Text;
@@ -366,6 +402,18 @@ namespace PhalanxAdmin
         private void btnTagFechaDev_Click(object sender, EventArgs e)
         {
             string strTag = "[FechaDev]";
+            AgregarTag(strTag);
+        }
+
+        private void btnTagToken_Click(object sender, EventArgs e)
+        {
+            string strTag = "[Token]";
+            AgregarTag(strTag);
+        }
+
+        private void btnTagDestino_Click(object sender, EventArgs e)
+        {
+            string strTag = "[Destino]";
             AgregarTag(strTag);
         }
     }
