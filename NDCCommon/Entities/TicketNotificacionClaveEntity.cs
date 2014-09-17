@@ -484,6 +484,12 @@ namespace NDCCommon.Entities
             }
         }
 
+        public DateTime AltaTempranaTokenFecha { set; get; }
+
+        public string AltaTempranaTokenTerminal { set; get; }
+
+        public string AltaTempranaTokenUsuario { set; get; }
+
         #endregion
 
         public string TipoDocumentoDesc
