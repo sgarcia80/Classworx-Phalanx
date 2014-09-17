@@ -40,6 +40,7 @@ namespace NDCCommon.Entities
         private string m_tnc_nomb_emp_sol;
         private string m_tnc_ape_emp_sol;
         private bool m_tnc_corregido;
+        private string m_token;
 
         #endregion
 
@@ -469,6 +470,20 @@ namespace NDCCommon.Entities
                 m_tnc_corregido = value;
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Token
+        {
+            get { return m_token; }
+            set
+            {
+                m_isChanged |= (m_token != value);
+                m_token = value;
+            }
+        }
+
         #endregion
 
         public string TipoDocumentoDesc

@@ -129,6 +129,10 @@ public class TicketsDeClaves : System.Web.Services.WebService
         solicitudBPM.NombreSolicitante = ticket.NomSolicitante;
         solicitudBPM.ApellidoSolicitante = ticket.ApeSolicitante;
 
+        if (string.IsNullOrEmpty(ticket.Legajo) && ticket.CodigoAplicacion.Trim().ToLower() == ConfigurationManager.AppSettings["CodigoAplicacionAltaRed"].Trim().ToLower())
+            //Alta de red usuario externo
+            solicitudBPM.Token = bsolb.GenerateToken();
+
         TicketNotificacionClaveEntity ticketOriginal = bsolb.GetDuplicado(ticket.IdSolicitud, aplicacion);
         bool HayQueInsertar = true;
         if (ticketOriginal != null)
@@ -264,7 +268,6 @@ public class TicketsDeClaves : System.Web.Services.WebService
                     {
                         strDebug += " | Es alta para recurso externo";
                     }
-
                 }
             }
             resultado.Exito = true;

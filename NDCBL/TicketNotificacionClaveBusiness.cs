@@ -230,5 +230,20 @@ namespace NDCBL
 
             return tickets[0];
         }
+
+        public string GenerateToken()
+        {
+            Guid token;
+
+            TicketNotificacionClaveFactory FTNC = new TicketNotificacionClaveFactory();
+
+            do
+            {
+                token = Guid.NewGuid();
+            }
+            while (FTNC.GetByToken(token.ToString()) != null);
+
+            return token.ToString();
+        }
     }
 }

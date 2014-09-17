@@ -315,5 +315,17 @@ namespace NDCDAL.Factories
                 }
             }
         }
+
+        public TicketNotificacionClaveEntity GetByToken(string token)
+        {
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                ICriteria criteria = session.CreateCriteria(typeof(TicketNotificacionClaveEntity));
+
+                criteria.Add(Expression.Eq("Token", token));
+
+                return criteria.UniqueResult<TicketNotificacionClaveEntity>();
+            }
+        }
     }
 }
