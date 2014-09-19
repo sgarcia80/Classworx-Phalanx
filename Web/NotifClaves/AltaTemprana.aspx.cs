@@ -77,6 +77,12 @@ public partial class AltaTemprana : System.Web.UI.Page
 
             return;
         }
+        else if (ticket.FechaAceptacionTyC != null)
+        {
+            lbMensajeToken.Text = "La clave ya fue notificada";
+
+            return;
+        }
 
         ticket.AltaTempranaTokenFecha = DateTime.Now;
         ticket.AltaTempranaTokenTerminal = Request.UserHostAddress;
