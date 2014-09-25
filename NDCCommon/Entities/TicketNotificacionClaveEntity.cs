@@ -484,7 +484,7 @@ namespace NDCCommon.Entities
             }
         }
 
-        public DateTime AltaTempranaTokenFecha { set; get; }
+        public DateTime? AltaTempranaTokenFecha { set; get; }
 
         public string AltaTempranaTokenTerminal { set; get; }
 

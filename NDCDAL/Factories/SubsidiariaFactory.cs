@@ -61,6 +61,20 @@ namespace NDCDAL.Factories
             }
         }
 
+        public SubsidiariaEntity GetByCodigo(string codigo)
+        {
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                ICriteria criteria = session.CreateCriteria(typeof(SubsidiariaEntity));
+
+                var a = criteria.List();
+
+                criteria.Add(Expression.Eq("Codigo", codigo));
+
+                return criteria.UniqueResult<SubsidiariaEntity>();
+            }
+        }
+
         public void Save(SubsidiariaEntity entidad)
         {
             ITransaction tx = null;

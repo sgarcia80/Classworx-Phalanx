@@ -136,19 +136,19 @@
   <ItemGroup>
     <Reference Include="Castle.DynamicProxy, Version=1.1.5.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>dlls\Castle.DynamicProxy.dll</HintPath>
+      <HintPath>..\..\Referencias\Castle.DynamicProxy.dll</HintPath>
     </Reference>
     <Reference Include="Iesi.Collections, Version=1.0.0.3, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>dlls\Iesi.Collections.dll</HintPath>
+      <HintPath>..\..\Referencias\Iesi.Collections.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>dlls\log4net.dll</HintPath>
+      <HintPath>..\..\Referencias\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="NHibernate, Version=1.0.0.0, Culture=neutral, PublicKeyToken=154fdcb44c4484fc">
+    <Reference Include="NHibernate, Version=1.2.0.3001, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>dlls\NHibernate.dll</HintPath>
+      <HintPath>..\..\Referencias\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="Nullables, Version=1.0.0.0, Culture=neutral">
       <SpecificVersion>False</SpecificVersion>
@@ -456,17 +456,6 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="dlls\Castle.DynamicProxy.dll" />
-    <None Include="dlls\HashCodeProvider.dll" />
-    <None Include="dlls\Iesi.Collections.dll" />
-    <None Include="dlls\log4net.dll" />
-    <None Include="dlls\Microsoft.ApplicationBlocks.Data.dll" />
-    <None Include="dlls\NHibernate.dll" />
-    <None Include="dlls\NHibernate.Mapping.Attributes.dll" />
-    <None Include="dlls\Nullables.dll" />
-    <None Include="dlls\Nullables.NHibernate.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -129,10 +129,6 @@ public class TicketsDeClaves : System.Web.Services.WebService
         solicitudBPM.NombreSolicitante = ticket.NomSolicitante;
         solicitudBPM.ApellidoSolicitante = ticket.ApeSolicitante;
 
-        if (string.IsNullOrEmpty(ticket.Legajo) && ticket.CodigoAplicacion.Trim().ToLower() == ConfigurationManager.AppSettings["CodigoAplicacionAltaRed"].Trim().ToLower())
-            //Alta de red usuario externo
-            solicitudBPM.Token = bsolb.GenerateToken();
-
         TicketNotificacionClaveEntity ticketOriginal = bsolb.GetDuplicado(ticket.IdSolicitud, aplicacion);
         bool HayQueInsertar = true;
         if (ticketOriginal != null)
@@ -161,10 +157,16 @@ public class TicketsDeClaves : System.Web.Services.WebService
         }
          
         bool PasaInsertM4 = true; // esto indica true si no hubo que insertar o si hubo que hacerlo y se logro
+        bool altaUsuarioRedExterno = string.IsNullOrEmpty(ticket.Legajo) && ticket.CodigoAplicacion.Trim().ToLower() == ConfigurationManager.AppSettings["CodigoAplicacionAltaRed"].Trim().ToLower();
+
         try
         {
             if (HayQueInsertar)
             {
+                if (altaUsuarioRedExterno)
+                    //Alta de red usuario externo
+                    solicitudBPM.Token = bsolb.GenerateToken();
+
                 if (_debugMode)
                 {
                     strDebug += " | Va a grabar ticket en phx";
@@ -268,6 +270,16 @@ public class TicketsDeClaves : System.Web.Services.WebService
                     {
                         strDebug += " | Es alta para recurso externo";
                     }
+
+                    if (altaUsuarioRedExterno)
+                    {
+                        string debug;
+                                                
+                        EnviarEmailAltaUsuarioRedExterno(solicitudBPM, out debug);
+
+                        if (debug != null)
+                            strDebug += " | " + debug;
+                    }
                 }
             }
             resultado.Exito = true;
@@ -364,6 +376,102 @@ public class TicketsDeClaves : System.Web.Services.WebService
         }
 
         return datosAutenticacion;
+    }
+
+    private bool EnviarEmailAltaUsuarioRedExterno(TicketNotificacionClaveEntity solicitudBPM, out string debug)
+    {
+        debug = null;
+
+        string destino;
+        List<string> mailTo = new List<string>();
+
+        if (!string.IsNullOrEmpty(solicitudBPM.CodigoEmpresaSubsidiaria))
+        {
+            //Subsidiaria
+            SubsidiariaBusiness subsidiariaBusiness = new SubsidiariaBusiness();
+
+            SubsidiariaEntity subsidiaria = subsidiariaBusiness.GetByCodigo(solicitudBPM.CodigoEmpresaSubsidiaria);
+
+            if (subsidiaria == null)
+            {
+                debug = "No se encuentra la empresa subsidiaria con código = " + solicitudBPM.CodigoEmpresaSubsidiaria;
+
+                return false;
+            }
+
+            destino = solicitudBPM.NombreEmpresaSubsidiaria;
+
+            if (!string.IsNullOrEmpty(subsidiaria.Email01))
+                mailTo.Add(subsidiaria.Email01);
+
+            if (!string.IsNullOrEmpty(subsidiaria.Email02))
+                mailTo.Add(subsidiaria.Email02);
+        }
+        else
+        {
+            destino = solicitudBPM.NombreGerenciaDestino;
+
+            string email = BuscarEmailPorLegajo(solicitudBPM.NumeroLegajoEmpleadoSolicitud);
+
+            if (email == null)
+            {
+                debug = "No se encuentra el email para el legajo = " + solicitudBPM.NumeroLegajoEmpleadoSolicitud;
+
+                return false;
+            }
+
+            mailTo.Add(email);
+        }
+
+        string solicitante = BuscarNombrePorUsername(solicitudBPM.Usuario);
+
+        MailAlertBusiness MailToSendBL = new MailAlertBusiness();
+
+        MailToSendBL.AltaUsuarioRedExternoMail(mailTo.ToArray(), solicitante, solicitudBPM.NumeroSolicitud, solicitudBPM.Fecha, solicitudBPM.Token, destino);
+
+        return true;
+    }
+
+    private string BuscarEmailPorLegajo(string legajo)
+    {
+        string path = ConfigurationManager.AppSettings["LDAPPath"];
+        string filter = ConfigurationManager.AppSettings["LDAPBuscarEmailFilter"].Replace("[legajo]", legajo);
+
+        return BuscarLDAP(path, filter, "mail");
+    }
+
+    private string BuscarNombrePorUsername(string username)
+    {
+        string path = ConfigurationManager.AppSettings["LDAPPath"];
+        string filter = ConfigurationManager.AppSettings["LDAPBuscarNombreFilter"].Replace("[username]", username);
+
+        return BuscarLDAP(path, filter, "givenName");
+    }
+
+    private string BuscarLDAP(string path, string filter, string property)
+    {
+        try
+        {
+            DirectoryEntry directoryEntry = new DirectoryEntry(path);
+
+            DirectorySearcher search = new DirectorySearcher(directoryEntry);
+
+            search.Filter = filter;
+
+            search.PropertiesToLoad.Add(property);
+
+            foreach (SearchResult sr in search.FindAll())
+            {
+                if (sr.Properties[property] != null && sr.Properties[property].Count > 0)
+                    return sr.Properties[property][0].ToString();
+            }
+        }
+        catch (Exception ex)
+        {
+
+        }
+
+        return null;
     }
 
     private struct DatosAutenticacion

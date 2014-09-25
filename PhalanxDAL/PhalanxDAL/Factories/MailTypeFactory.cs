@@ -21,7 +21,8 @@ namespace PhalanxDAL.Factories
             AltaUsuarioRed = 5,
             AltaUsuarioAplicativoSeguridadIntegrada = 6,
             AltaUsuarioAplicativoSeguridadPropia = 7,
-            DevolucionPwdRqst = 8
+            DevolucionPwdRqst = 8,
+            AltaUsuarioRedExterno = 9,
         }
         public MailTypeEntityCollection GetAll()
         {
