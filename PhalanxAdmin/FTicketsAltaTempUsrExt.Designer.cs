@@ -57,9 +57,10 @@ namespace PhalanxAdmin
 			this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
 			this.lnkCancelar = new System.Windows.Forms.ToolStripStatusLabel();
 			this.pnlList = new System.Windows.Forms.Panel();
+			this.btnReenviarMail = new System.Windows.Forms.Button();
 			this.btnVerTicket = new System.Windows.Forms.Button();
 			this.lvLista = new System.Windows.Forms.ListView();
-			this.btnReenviarMail = new System.Windows.Forms.Button();
+			this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -327,6 +328,17 @@ namespace PhalanxAdmin
 			this.pnlList.Size = new System.Drawing.Size(520, 372);
 			this.pnlList.TabIndex = 23;
 			// 
+			// btnReenviarMail
+			// 
+			this.btnReenviarMail.BackColor = System.Drawing.SystemColors.Control;
+			this.btnReenviarMail.Location = new System.Drawing.Point(100, 11);
+			this.btnReenviarMail.Name = "btnReenviarMail";
+			this.btnReenviarMail.Size = new System.Drawing.Size(103, 21);
+			this.btnReenviarMail.TabIndex = 8;
+			this.btnReenviarMail.Text = "&Reenviar email";
+			this.btnReenviarMail.UseVisualStyleBackColor = false;
+			this.btnReenviarMail.Click += new System.EventHandler(this.btnReenviarMail_Click);
+			// 
 			// btnVerTicket
 			// 
 			this.btnVerTicket.BackColor = System.Drawing.SystemColors.Control;
@@ -353,7 +365,8 @@ namespace PhalanxAdmin
             columnHeader7,
             columnHeader8,
             columnHeader1,
-            columnHeader4});
+            columnHeader4,
+            this.columnHeader10});
 			this.lvLista.FullRowSelect = true;
 			this.lvLista.HideSelection = false;
 			this.lvLista.Location = new System.Drawing.Point(18, 38);
@@ -367,16 +380,9 @@ namespace PhalanxAdmin
 			this.lvLista.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvLista_ColumnClick);
 			this.lvLista.DoubleClick += new System.EventHandler(this.lvLista_DoubleClick);
 			// 
-			// btnReenviarMail
+			// columnHeader10
 			// 
-			this.btnReenviarMail.BackColor = System.Drawing.SystemColors.Control;
-			this.btnReenviarMail.Location = new System.Drawing.Point(100, 11);
-			this.btnReenviarMail.Name = "btnReenviarMail";
-			this.btnReenviarMail.Size = new System.Drawing.Size(103, 21);
-			this.btnReenviarMail.TabIndex = 8;
-			this.btnReenviarMail.Text = "&Reenviar email";
-			this.btnReenviarMail.UseVisualStyleBackColor = false;
-			this.btnReenviarMail.Click += new System.EventHandler(this.btnReenviarMail_Click);
+			this.columnHeader10.Text = "Utilizado";
 			// 
 			// FTicketsAltaTempUsrExt
 			// 
@@ -431,5 +437,6 @@ namespace PhalanxAdmin
         private System.Windows.Forms.Label label1;
         protected System.Windows.Forms.Button btnVerTicket;
 		protected System.Windows.Forms.Button btnReenviarMail;
+		private System.Windows.Forms.ColumnHeader columnHeader10;
     }
 }

@@ -180,6 +180,7 @@ namespace PhalanxAdmin
                 lviArr[i].SubItems.Add(ticket.TipoDocumento);
                 lviArr[i].SubItems.Add(ticket.Documento);
                 lviArr[i].SubItems.Add(ticket.FechaProcesado == null ? string.Empty : ticket.FechaProcesado.Value.ToString("dd/MM/yyyy HH:m:ss"));
+				lviArr[i].SubItems.Add(ticket.AltaTempranaTokenFecha != null ? "Sí" : "No");
                 lviArr[i].Tag = ticket.Id;
                 i++;
             }
