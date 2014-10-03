@@ -594,7 +594,7 @@ namespace PhalanxBL
                 ConfigCodes.SubjectAltaUsuarioAplicativoSeguridadPropiaMail, aplicativo, numeroSolicitud, fecha);
         }
 
-        public void AltaUsuarioRedExternoMail(string[] to, string solicitante, int numeroSolicitud, DateTime fecha, string token, string destino)
+        public int? AltaUsuarioRedExternoMail(string[] to, string solicitante, int numeroSolicitud, DateTime fecha, string token, string destino)
         {
             try
             {
@@ -620,11 +620,15 @@ namespace PhalanxBL
 
                 if (IdMailAlert > 0)
                     SendMail(MailToSend);
+
+				return IdMailAlert;
             }
             catch (Exception ex)
             {
                 // no se pudo crear el mail;
             }
+
+			return null;
         }
 
         private string ReplaceExpirationRqstTokens(string MailBody, PasswordRequestEntity PwdRqst)
@@ -1277,5 +1281,21 @@ namespace PhalanxBL
                             .Replace("[Destino]", destino)
                             .Replace("[NombreSolic]", nombreSolicitante);
         }
+
+		public void Reenviar(int MailId)
+		{
+			MailAlertEntity mail;
+
+			MailAlertFactory mailAlertFactory = new MailAlertFactory();
+
+			mail = mailAlertFactory.GetMailToSend(MailId);
+
+			mail.Id = 0;
+			mail.SendAttemp = 0;
+
+			mailAlertFactory.Save(mail);
+
+			SendMail(mail);
+		}
     }
 }

@@ -490,6 +490,11 @@ namespace NDCCommon.Entities
 
         public string AltaTempranaTokenUsuario { set; get; }
 
+		/// <summary>
+		/// 
+		/// </summary>
+		public int? MailId { set; get; }
+
         #endregion
 
         public string TipoDocumentoDesc

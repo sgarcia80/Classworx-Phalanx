@@ -427,7 +427,11 @@ public class TicketsDeClaves : System.Web.Services.WebService
 
         MailAlertBusiness MailToSendBL = new MailAlertBusiness();
 
-        MailToSendBL.AltaUsuarioRedExternoMail(mailTo.ToArray(), solicitante, solicitudBPM.NumeroSolicitud, solicitudBPM.Fecha, solicitudBPM.Token, destino);
+		solicitudBPM.MailId = MailToSendBL.AltaUsuarioRedExternoMail(mailTo.ToArray(), solicitante, solicitudBPM.NumeroSolicitud, solicitudBPM.Fecha, solicitudBPM.Token, destino);
+
+		TicketNotificacionClaveBusiness bsolb = new TicketNotificacionClaveBusiness();
+
+		bsolb.Save(solicitudBPM);
 
         return true;
     }
