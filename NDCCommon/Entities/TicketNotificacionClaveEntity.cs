@@ -526,7 +526,7 @@ namespace NDCCommon.Entities
                     , FechaVigencia.Value.Minute, FechaVigencia.Value.Second);
                 DateTime D2 = new DateTime(ticket.FechaVigencia.Value.Year, ticket.FechaVigencia.Value.Month, ticket.FechaVigencia.Value.Day
                     , ticket.FechaVigencia.Value.Hour, ticket.FechaVigencia.Value.Minute, ticket.FechaVigencia.Value.Second);
-                EsEquivalente = DateTime.Compare(D1, D2) == 0;
+                EsEquivalente = EsEquivalente && (DateTime.Compare(D1, D2) == 0);
             }
             else
             {
