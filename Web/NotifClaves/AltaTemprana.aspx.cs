@@ -55,4 +55,43 @@ public partial class AltaTemprana : System.Web.UI.Page
     {
         Response.Redirect(FormsAuthentication.LoginUrl);
     }
+    
+    protected void btnAceptarToken_Click(object sender, EventArgs e)
+    {
+        string token = tbToken.Text.Trim();
+
+        if (token == string.Empty)
+        {
+            lbMensajeToken.Text = "Debe ingresar el token";
+
+            return;
+        }
+
+        TicketNotificacionClaveBusiness tncb = new TicketNotificacionClaveBusiness();
+
+        TicketNotificacionClaveEntity ticket = tncb.GetByToken(token);
+
+        if (ticket == null)
+        {
+            lbMensajeToken.Text = "No existe ticket para el token ingresado";
+
+            return;
+        }
+        else if (ticket.FechaAceptacionTyC != null)
+        {
+            lbMensajeToken.Text = "La clave ya fue notificada";
+
+            return;
+        }
+
+        ticket.AltaTempranaTokenFecha = DateTime.Now;
+        ticket.AltaTempranaTokenTerminal = Request.UserHostAddress;
+        ticket.AltaTempranaTokenUsuario = User != null && User.Identity != null ? User.Identity.Name : string.Empty;
+
+        tncb.Save(ticket);
+
+        Session["id"] = ticket.Id;
+
+        Response.Redirect("tycip.aspx");
+    }
 }

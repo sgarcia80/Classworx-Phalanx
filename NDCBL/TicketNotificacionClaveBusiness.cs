@@ -109,6 +109,11 @@ namespace NDCBL
             return Factory.GetById(id);
         }
 
+        public TicketNotificacionClaveEntity GetByToken(string token)
+        {
+            return Factory.GetByToken(token);
+        }
+
         public TicketNotificacionClaveEntity GetAltaTempranaTicket(string tipoDocumento, string documento)
         {
             AplicacionNotificacionClaveBusiness appBusiness = new AplicacionNotificacionClaveBusiness();

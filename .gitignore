@@ -1,0 +1,27 @@
+Common\obj\*/
+
+NDCBL\obj\*/
+NDCBL/obj/*
+Common/obj/Debug/*
+NDCCommon/obj/*
+NDCDAL/obj/*
+PhalanxAdmin/bin/*
+PhalanxAdmin/obj/*
+PhalanxBL/bin/
+PhalanxBL/obj/
+PhalanxCommon/obj/
+PhalanxConfig/bin/
+PhalanxConfig/obj
+PhalanxDAL/PhalanxDAL/obj/
+PhalanxMAL/obj
+PhalanxNAL/obj
+phxCryptMgr/obj/
+TestWSInterfaceClaves/bin/
+TestWSInterfaceClaves/obj/
+Installers/Phalanx Admin/Debug/
+Installers/Phalanx Admin/Release/
+Common/obj/
+phxBlowfish/obj/
+phxLog/obj/
+*.scc
+PhxPing/obj/

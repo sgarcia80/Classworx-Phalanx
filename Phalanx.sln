@@ -37,7 +37,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WSInterfaceClaves", "http:/
 	ProjectSection(WebsiteProperties) = preProject
 		UseIISExpress = "false"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv2.0"
-		ProjectReferences = "{B3B9B7E1-EAF0-4AD4-9C99-BC0CF980840F}|NDCBL.dll;{66EAFA01-8DD4-4B02-8BB3-716A216844C4}|Common.dll;{3744DE9E-912E-4A88-8897-73FFF9C8DD48}|NDCCommon.dll;{C9E3767E-ADE2-4B50-AED1-47FC226CD539}|NDCDAL.dll;{3447B917-0A54-460E-AB95-84BBF24BAF35}|PhalanxDAL.dll;{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}|PhalanxCommon.dll;{F0941A5C-7856-42E9-9544-CDAC11F3C285}|phxCryptMgr.dll;{78D7CC00-F303-476C-A329-0B25856A0B07}|phxBlowfish.dll;{E8F94161-3F1A-4491-92B4-9AE6777DF183}|phxLog.dll;"
+		ProjectReferences = "{B3B9B7E1-EAF0-4AD4-9C99-BC0CF980840F}|NDCBL.dll;{66EAFA01-8DD4-4B02-8BB3-716A216844C4}|Common.dll;{3744DE9E-912E-4A88-8897-73FFF9C8DD48}|NDCCommon.dll;{C9E3767E-ADE2-4B50-AED1-47FC226CD539}|NDCDAL.dll;{3447B917-0A54-460E-AB95-84BBF24BAF35}|PhalanxDAL.dll;{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}|PhalanxCommon.dll;{F0941A5C-7856-42E9-9544-CDAC11F3C285}|phxCryptMgr.dll;{78D7CC00-F303-476C-A329-0B25856A0B07}|phxBlowfish.dll;{E8F94161-3F1A-4491-92B4-9AE6777DF183}|phxLog.dll;{515C8382-4032-4840-A587-9725F9F6FD19}|PhalanxBL.dll;{4CFFA156-7992-4D21-ABDC-056C31F2AA51}|PhalanxMAL.dll;{D31089F5-A197-4808-B865-C7062DA477AB}|PhalanxNAL.dll;{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}|PhxPing.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/WSInterfaceClaves"
 		Debug.AspNetCompiler.PhysicalPath = "Web\WSInterfaceClaves\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\WSInterfaceClaves\"
@@ -55,35 +55,11 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WSInterfaceClaves", "http:/
 		SlnRelativePath = "Web\WSInterfaceClaves\"
 	EndProjectSection
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "phalanx", "http://localhost/phalanx", "{7FA4732D-5068-452F-9601-A522FFE5295E}"
-	ProjectSection(WebsiteProperties) = preProject
-		SccProjectName = ""
-		SccAuxPath = ""
-		SccLocalPath = ""
-		SccProvider = ""
-		UseIISExpress = "false"
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv2.0"
-		Debug.AspNetCompiler.VirtualPath = "/phalanx"
-		Debug.AspNetCompiler.PhysicalPath = "Web\phalanx\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\phalanx\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/phalanx"
-		Release.AspNetCompiler.PhysicalPath = "Web\phalanx\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\phalanx\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		SlnRelativePath = "Web\phalanx\"
-	EndProjectSection
-EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "NotifClaves", "http://localhost/NotifClaves", "{275FE192-FEE1-42E0-9828-D057C42469FA}"
 	ProjectSection(WebsiteProperties) = preProject
 		UseIISExpress = "false"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv2.0"
+		ProjectReferences = "{3447B917-0A54-460E-AB95-84BBF24BAF35}|PhalanxDAL.dll;{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}|PhalanxCommon.dll;{F0941A5C-7856-42E9-9544-CDAC11F3C285}|phxCryptMgr.dll;{78D7CC00-F303-476C-A329-0B25856A0B07}|phxBlowfish.dll;{E8F94161-3F1A-4491-92B4-9AE6777DF183}|phxLog.dll;{B3B9B7E1-EAF0-4AD4-9C99-BC0CF980840F}|NDCBL.dll;{66EAFA01-8DD4-4B02-8BB3-716A216844C4}|Common.dll;{3744DE9E-912E-4A88-8897-73FFF9C8DD48}|NDCCommon.dll;{C9E3767E-ADE2-4B50-AED1-47FC226CD539}|NDCDAL.dll;{515C8382-4032-4840-A587-9725F9F6FD19}|PhalanxBL.dll;{4CFFA156-7992-4D21-ABDC-056C31F2AA51}|PhalanxMAL.dll;{D31089F5-A197-4808-B865-C7062DA477AB}|PhalanxNAL.dll;{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}|PhxPing.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/NotifClaves"
 		Debug.AspNetCompiler.PhysicalPath = "Web\NotifClaves\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\NotifClaves\"
@@ -121,6 +97,37 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AutoGestionCOBIS", "http://
 		Release.AspNetCompiler.Debug = "False"
 		SlnRelativePath = "Web\AutoGestionCOBIS\"
 	EndProjectSection
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "phalanx", "http://localhost/phalanx", "{17E9CA5F-D855-493D-97ED-00CA4B6A2331}"
+	ProjectSection(WebsiteProperties) = preProject
+		SccProjectName = ""
+		SccAuxPath = ""
+		SccLocalPath = ""
+		SccProvider = ""
+		UseIISExpress = "false"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv2.0"
+		Debug.AspNetCompiler.VirtualPath = "/phalanx"
+		Debug.AspNetCompiler.PhysicalPath = "Web\phalanx\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\phalanx\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/phalanx"
+		Release.AspNetCompiler.PhysicalPath = "Web\phalanx\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\phalanx\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "Web\phalanx\"
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Installers", "Installers", "{2211250C-B49C-4EE6-9E0C-B78A6CF40830}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Phalanx Admin", "Installers\Phalanx Admin\Phalanx Admin.vdproj", "{32E46A22-43D0-4154-B695-945564855500}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhxPing", "PhxPing\PhxPing.csproj", "{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -357,20 +364,6 @@ Global
 		{031D3AB6-F5E1-442A-A385-E21579757AAC}.Web Debug|Any CPU.Build.0 = Debug|Any CPU
 		{031D3AB6-F5E1-442A-A385-E21579757AAC}.WS Test|Any CPU.ActiveCfg = Debug|Any CPU
 		{031D3AB6-F5E1-442A-A385-E21579757AAC}.WS Test|Any CPU.Build.0 = Debug|Any CPU
-		{7FA4732D-5068-452F-9601-A522FFE5295E}.App Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7FA4732D-5068-452F-9601-A522FFE5295E}.App Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7FA4732D-5068-452F-9601-A522FFE5295E}.AutCOBIS Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{7FA4732D-5068-452F-9601-A522FFE5295E}.AutCOBIS Release|Any CPU.Build.0 = Debug|Any CPU
-		{7FA4732D-5068-452F-9601-A522FFE5295E}.DbgAutCOBIS|Any CPU.ActiveCfg = Debug|Any CPU
-		{7FA4732D-5068-452F-9601-A522FFE5295E}.DbgAutCOBIS|Any CPU.Build.0 = Debug|Any CPU
-		{7FA4732D-5068-452F-9601-A522FFE5295E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7FA4732D-5068-452F-9601-A522FFE5295E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7FA4732D-5068-452F-9601-A522FFE5295E}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{7FA4732D-5068-452F-9601-A522FFE5295E}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{7FA4732D-5068-452F-9601-A522FFE5295E}.Web Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7FA4732D-5068-452F-9601-A522FFE5295E}.Web Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7FA4732D-5068-452F-9601-A522FFE5295E}.WS Test|Any CPU.ActiveCfg = Debug|Any CPU
-		{7FA4732D-5068-452F-9601-A522FFE5295E}.WS Test|Any CPU.Build.0 = Debug|Any CPU
 		{275FE192-FEE1-42E0-9828-D057C42469FA}.App Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{275FE192-FEE1-42E0-9828-D057C42469FA}.App Debug|Any CPU.Build.0 = Debug|Any CPU
 		{275FE192-FEE1-42E0-9828-D057C42469FA}.AutCOBIS Release|Any CPU.ActiveCfg = Debug|Any CPU
@@ -399,14 +392,57 @@ Global
 		{455F6356-D8AC-430E-BD72-B361C762846B}.Web Debug|Any CPU.Build.0 = Debug|Any CPU
 		{455F6356-D8AC-430E-BD72-B361C762846B}.WS Test|Any CPU.ActiveCfg = Debug|Any CPU
 		{455F6356-D8AC-430E-BD72-B361C762846B}.WS Test|Any CPU.Build.0 = Debug|Any CPU
+		{17E9CA5F-D855-493D-97ED-00CA4B6A2331}.App Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17E9CA5F-D855-493D-97ED-00CA4B6A2331}.App Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17E9CA5F-D855-493D-97ED-00CA4B6A2331}.AutCOBIS Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{17E9CA5F-D855-493D-97ED-00CA4B6A2331}.AutCOBIS Release|Any CPU.Build.0 = Debug|Any CPU
+		{17E9CA5F-D855-493D-97ED-00CA4B6A2331}.DbgAutCOBIS|Any CPU.ActiveCfg = Debug|Any CPU
+		{17E9CA5F-D855-493D-97ED-00CA4B6A2331}.DbgAutCOBIS|Any CPU.Build.0 = Debug|Any CPU
+		{17E9CA5F-D855-493D-97ED-00CA4B6A2331}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17E9CA5F-D855-493D-97ED-00CA4B6A2331}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17E9CA5F-D855-493D-97ED-00CA4B6A2331}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{17E9CA5F-D855-493D-97ED-00CA4B6A2331}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{17E9CA5F-D855-493D-97ED-00CA4B6A2331}.Web Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17E9CA5F-D855-493D-97ED-00CA4B6A2331}.Web Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17E9CA5F-D855-493D-97ED-00CA4B6A2331}.WS Test|Any CPU.ActiveCfg = Debug|Any CPU
+		{17E9CA5F-D855-493D-97ED-00CA4B6A2331}.WS Test|Any CPU.Build.0 = Debug|Any CPU
+		{32E46A22-43D0-4154-B695-945564855500}.App Debug|Any CPU.ActiveCfg = Debug
+		{32E46A22-43D0-4154-B695-945564855500}.App Debug|Any CPU.Build.0 = Debug
+		{32E46A22-43D0-4154-B695-945564855500}.AutCOBIS Release|Any CPU.ActiveCfg = AutCOBIS Release
+		{32E46A22-43D0-4154-B695-945564855500}.AutCOBIS Release|Any CPU.Build.0 = AutCOBIS Release
+		{32E46A22-43D0-4154-B695-945564855500}.DbgAutCOBIS|Any CPU.ActiveCfg = DbgAutCOBIS
+		{32E46A22-43D0-4154-B695-945564855500}.DbgAutCOBIS|Any CPU.Build.0 = DbgAutCOBIS
+		{32E46A22-43D0-4154-B695-945564855500}.Debug|Any CPU.ActiveCfg = Debug
+		{32E46A22-43D0-4154-B695-945564855500}.Debug|Any CPU.Build.0 = Debug
+		{32E46A22-43D0-4154-B695-945564855500}.Release|Any CPU.ActiveCfg = Release
+		{32E46A22-43D0-4154-B695-945564855500}.Release|Any CPU.Build.0 = Release
+		{32E46A22-43D0-4154-B695-945564855500}.Web Debug|Any CPU.ActiveCfg = Debug
+		{32E46A22-43D0-4154-B695-945564855500}.Web Debug|Any CPU.Build.0 = Debug
+		{32E46A22-43D0-4154-B695-945564855500}.WS Test|Any CPU.ActiveCfg = WS Test
+		{32E46A22-43D0-4154-B695-945564855500}.WS Test|Any CPU.Build.0 = WS Test
+		{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}.App Debug|Any CPU.ActiveCfg = App Debug|Any CPU
+		{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}.App Debug|Any CPU.Build.0 = App Debug|Any CPU
+		{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}.AutCOBIS Release|Any CPU.ActiveCfg = AutCOBIS Release|Any CPU
+		{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}.AutCOBIS Release|Any CPU.Build.0 = AutCOBIS Release|Any CPU
+		{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}.DbgAutCOBIS|Any CPU.ActiveCfg = DbgAutCOBIS|Any CPU
+		{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}.DbgAutCOBIS|Any CPU.Build.0 = DbgAutCOBIS|Any CPU
+		{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}.Web Debug|Any CPU.ActiveCfg = Web Debug|Any CPU
+		{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}.Web Debug|Any CPU.Build.0 = Web Debug|Any CPU
+		{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}.WS Test|Any CPU.ActiveCfg = WS Test|Any CPU
+		{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}.WS Test|Any CPU.Build.0 = WS Test|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{031D3AB6-F5E1-442A-A385-E21579757AAC} = {379FA69B-6AF9-42A3-9B62-5759C915798D}
-		{7FA4732D-5068-452F-9601-A522FFE5295E} = {379FA69B-6AF9-42A3-9B62-5759C915798D}
 		{275FE192-FEE1-42E0-9828-D057C42469FA} = {379FA69B-6AF9-42A3-9B62-5759C915798D}
 		{455F6356-D8AC-430E-BD72-B361C762846B} = {379FA69B-6AF9-42A3-9B62-5759C915798D}
+		{17E9CA5F-D855-493D-97ED-00CA4B6A2331} = {379FA69B-6AF9-42A3-9B62-5759C915798D}
+		{32E46A22-43D0-4154-B695-945564855500} = {2211250C-B49C-4EE6-9E0C-B78A6CF40830}
 	EndGlobalSection
 EndGlobal

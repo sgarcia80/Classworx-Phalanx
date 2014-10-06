@@ -28,6 +28,13 @@ namespace NDCBL
             return factory.GetById(id);
         }
 
+        public SubsidiariaEntity GetByCodigo(string codigo)
+        {
+            SubsidiariaFactory factory = new SubsidiariaFactory();
+
+            return factory.GetByCodigo(codigo);
+        }
+
         public SubsidiariaEntityCollection GetAll()
         {
             SubsidiariaFactory factory = new SubsidiariaFactory();

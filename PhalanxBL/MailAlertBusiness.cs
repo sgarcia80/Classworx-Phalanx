@@ -594,6 +594,43 @@ namespace PhalanxBL
                 ConfigCodes.SubjectAltaUsuarioAplicativoSeguridadPropiaMail, aplicativo, numeroSolicitud, fecha);
         }
 
+        public int? AltaUsuarioRedExternoMail(string[] to, string solicitante, int numeroSolicitud, DateTime fecha, string token, string destino)
+        {
+            try
+            {
+                MailAlertEntity MailToSend = new MailAlertEntity();
+                MailToSend.MailType = new MailTypeFactory().GetMailType(MailTypeFactory.MailType.AltaUsuarioRedExterno);
+
+                PhxConfigBusiness PhxConfBL = new PhxConfigBusiness();
+
+                if (to.Length > 0)
+                {
+                    MailToSend.ToAddress = to[0];
+
+                    if (to.Length > 1)
+                        MailToSend.Cc10Address = to[1];
+                }
+                
+                MailToSend.Body = ReplaceAltaUsuarioRedExternoBodyTokens(PhxConfBL.GetConfigParam(ConfigCodes.BodyAltaUsuarioRedExternoMail).LongTxtValue, fecha, numeroSolicitud, token, destino, solicitante);
+                MailToSend.Subject = PhxConfBL.GetConfigParam(ConfigCodes.SubjectAltaUsuarioRedMail).ShortTxtValue;
+
+                MailAlertFactory MAF = new MailAlertFactory();
+
+                int IdMailAlert = MAF.Save(MailToSend);
+
+                if (IdMailAlert > 0)
+                    SendMail(MailToSend);
+
+				return IdMailAlert;
+            }
+            catch (Exception ex)
+            {
+                // no se pudo crear el mail;
+            }
+
+			return null;
+        }
+
         private string ReplaceExpirationRqstTokens(string MailBody, PasswordRequestEntity PwdRqst)
         {
             /*
@@ -1221,7 +1258,7 @@ namespace PhalanxBL
                 // no se pudo crear el mail, seguramente por falta de parametros;
             }
         }
-
+        
         private string ReplaceDevRqstTokens(string MailBody, PasswordRequestEntity PwdRqst)
         {
             MailBody = MailBody.Replace("[NombreSolic]", PwdRqst.RqstUser.Fullname);
@@ -1235,5 +1272,30 @@ namespace PhalanxBL
             //PwdRqst.
             return MailBody;
         }
+
+        private string ReplaceAltaUsuarioRedExternoBodyTokens(string text, DateTime fechaAlta, int numeroSolicitud, string token, string destino, string nombreSolicitante)
+        {
+            return text.Replace("[FechaAlta]", fechaAlta.ToString("dd/MM/yyyy"))
+                            .Replace("[NroTicket]", numeroSolicitud.ToString())
+                            .Replace("[Token]", token)
+                            .Replace("[Destino]", destino)
+                            .Replace("[NombreSolic]", nombreSolicitante);
+        }
+
+		public void Reenviar(int MailId)
+		{
+			MailAlertEntity mail;
+
+			MailAlertFactory mailAlertFactory = new MailAlertFactory();
+
+			mail = mailAlertFactory.GetMailToSend(MailId);
+
+			mail.Id = 0;
+			mail.SendAttemp = 0;
+
+			mailAlertFactory.Save(mail);
+
+			SendMail(mail);
+		}
     }
 }

@@ -13,6 +13,7 @@ using NDCBL;
 using NDCCommon.Entities;
 using System.Configuration;
 using PhalanxCommon;
+using PhalanxDAL.Factories;
 
 namespace PhalanxAdmin
 {
@@ -179,6 +180,7 @@ namespace PhalanxAdmin
                 lviArr[i].SubItems.Add(ticket.TipoDocumento);
                 lviArr[i].SubItems.Add(ticket.Documento);
                 lviArr[i].SubItems.Add(ticket.FechaProcesado == null ? string.Empty : ticket.FechaProcesado.Value.ToString("dd/MM/yyyy HH:m:ss"));
+				lviArr[i].SubItems.Add(ticket.AltaTempranaTokenFecha != null ? "Sí" : "No");
                 lviArr[i].Tag = ticket.Id;
                 i++;
             }
@@ -360,6 +362,32 @@ namespace PhalanxAdmin
                 MessageBox.Show("Hubo problemas al mostrar los detalles del ticket", "Visualización de ticket");
             }
         }
+
+		private void btnReenviarMail_Click(object sender, EventArgs e)
+		{
+			if (lvLista.SelectedItems.Count < 1)
+			{
+				return;
+			}
+			try
+			{
+				int Idticket = (int)lvLista.SelectedItems[0].Tag;
+
+				TicketNotificacionClaveBusiness bsolb = new TicketNotificacionClaveBusiness();
+
+				TicketNotificacionClaveEntity ticket = bsolb.GetById(Idticket);
+
+				MailAlertBusiness mailAlertBusiness = new MailAlertBusiness();
+
+				mailAlertBusiness.Reenviar(ticket.MailId.Value);
+
+				MessageBox.Show("Email reenviado", "Reenvio de email");
+			}
+			catch
+			{
+				MessageBox.Show("Hubo problemas al reenviar el email", "Reenvio de email");
+			}
+		}
     }
 }
 

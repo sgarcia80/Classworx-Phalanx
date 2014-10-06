@@ -221,6 +221,7 @@ namespace PhalanxDAL
                         config.AddResource("NDCDAL.MappingFiles.AplicacionNotificacionClaveEntity.hbm.xml", nhAssembly);
                         config.AddResource("NDCDAL.MappingFiles.TicketNotificacionClaveEntity.hbm.xml", nhAssembly);
                         config.AddResource("NDCDAL.MappingFiles.AuditTicketNotificacionEntity.hbm.xml", nhAssembly);
+                        config.AddResource("NDCDAL.MappingFiles.SubsidiariaEntity.hbm.xml", nhAssembly);
                         //config.AddAssembly(nhAssembly);
                         InicializarMeta4();
                         break;
