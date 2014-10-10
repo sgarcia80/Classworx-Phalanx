@@ -612,7 +612,7 @@ namespace PhalanxBL
                 }
                 
                 MailToSend.Body = ReplaceAltaUsuarioRedExternoBodyTokens(PhxConfBL.GetConfigParam(ConfigCodes.BodyAltaUsuarioRedExternoMail).LongTxtValue, fecha, numeroSolicitud, token, destino, solicitante);
-                MailToSend.Subject = PhxConfBL.GetConfigParam(ConfigCodes.SubjectAltaUsuarioRedMail).ShortTxtValue;
+                MailToSend.Subject = PhxConfBL.GetConfigParam(ConfigCodes.SubjectAltaUsuarioRedExternoMail).ShortTxtValue;
 
                 MailAlertFactory MAF = new MailAlertFactory();
 
@@ -1297,5 +1297,7 @@ namespace PhalanxBL
 
 			SendMail(mail);
 		}
+
+
     }
 }

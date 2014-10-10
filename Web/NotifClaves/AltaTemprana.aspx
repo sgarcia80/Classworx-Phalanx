@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <br />
     <div class="titulo">
-        Recuros Internos
+        Recursos Internos
     </div>
     <br />
     <div class="mensaje">
@@ -39,7 +39,7 @@
     </div>
     <br />
     <div class="titulo">
-        Recuros Externos
+        Recursos Externos
     </div>
         <br />
     <div class="mensaje">

@@ -5,7 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using TestWSInterfaceClaves.WSInterfaceIngresoTickets;
+using TestWSInterfaceClaves.WSTickets;
 using System.Web.Services.Protocols;
 
 namespace TestWSInterfaceClaves
@@ -85,7 +85,7 @@ namespace TestWSInterfaceClaves
                 if (resultado.Exito)
                     txtLog.Text += "Los datos se guardaron correctamente";
                 else
-                    txtLog.Text += "Error: " + resultado.Mensaje;
+                    txtLog.Text += "Error: " + resultado.Mensaje.Replace(" | ",Environment.NewLine);
             }
             catch (SoapHeaderException ex)
             {
@@ -97,8 +97,18 @@ namespace TestWSInterfaceClaves
             catch (Exception ex)
             {
                 txtLog.Text += ex.Message;
+                if(ex.InnerException != null && !string.IsNullOrEmpty(ex.InnerException.Message))
+                    txtLog.Text += ex.InnerException.Message;
             }
 
+        }
+
+        private void btnTestLDAP_Click(object sender, EventArgs e)
+        {
+            txtTestLDAP.Text = "";
+            TicketsDeClaves serviceProxy = new TicketsDeClaves();
+            string resultado = serviceProxy.TestLDAPConfig(txtLDAPUsername.Text, txtLDAPEmployeeID.Text);
+            txtTestLDAP.Text = resultado.Replace(" | ", Environment.NewLine);
         }
 
     }

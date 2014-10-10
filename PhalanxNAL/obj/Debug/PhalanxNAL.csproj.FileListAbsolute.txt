@@ -17,3 +17,5 @@ C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\PhalanxNAL\bin\D
 C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\PhalanxNAL\obj\Debug\PhalanxNAL.csprojResolveAssemblyReference.cache
 C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\PhalanxNAL\obj\Debug\PhalanxNAL.dll
 C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\PhalanxNAL\obj\Debug\PhalanxNAL.pdb
+C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\PhalanxNAL\bin\Debug\PhxPing.dll
+C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\PhalanxNAL\bin\Debug\PhxPing.pdb

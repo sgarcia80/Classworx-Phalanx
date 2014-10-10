@@ -6,5 +6,5 @@
     cause the file to be unrecognizable by the program.
 -->
 <GenericObjectDataSource DisplayName="AgregarTicketResultado" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
-   <TypeInfo>TestWSInterfaceClaves.WSInterfaceIngresoTickets.AgregarTicketResultado, Web References.WSInterfaceIngresoTickets.Reference.cs, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
+   <TypeInfo>TestWSInterfaceClaves.WSTickets.AgregarTicketResultado, Web References.WSTickets.Reference.cs, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
 </GenericObjectDataSource>
