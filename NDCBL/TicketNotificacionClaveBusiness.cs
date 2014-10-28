@@ -77,6 +77,16 @@ namespace NDCBL
 
             return tmpCollection;
         }
+
+		public TicketNotificacionClaveEntityCollection GetAllActiveByUser(string dominio, string usuario)
+		{
+			TicketNotificacionClaveFactory factory = new TicketNotificacionClaveFactory();
+
+			TicketNotificacionClaveEntityCollection tmpCollection = factory.GetAllActiveByUser(dominio, usuario);
+
+			return tmpCollection;
+		}
+
         public TicketNotificacionClaveEntityCollection GetAllUsrExt(DateTime? fechaDesde, DateTime? fechaHasta, AplicacionNotificacionClaveEntity aplicacion, string dominio, string usuario, int? ticket)
         {
             return this.GetAll(fechaDesde, fechaHasta, aplicacion, dominio, usuario, ticket, true, false);

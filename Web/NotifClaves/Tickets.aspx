@@ -30,7 +30,7 @@
         <HeaderStyle BackColor="#0190cc" Font-Bold="True" ForeColor="White" Font-Names="Tahoma" Font-Size="14px" />
         <AlternatingRowStyle BackColor="White" Font-Bold="True" Font-Names="Tahoma" Font-Size="11px" />
     </asp:GridView>
-    <asp:ObjectDataSource ID="odsTickets" runat="server" SelectMethod="GetAllByUser" TypeName="NDCBL.TicketNotificacionClaveBusiness">
+    <asp:ObjectDataSource ID="odsTickets" runat="server" SelectMethod="GetAllActiveByUser" TypeName="NDCBL.TicketNotificacionClaveBusiness">
         <SelectParameters>
             <asp:SessionParameter Name="dominio" SessionField="Dominio" Type="String" />
             <asp:SessionParameter Name="usuario" SessionField="Usuario" Type="String" />
