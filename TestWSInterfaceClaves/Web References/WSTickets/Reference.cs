@@ -13,7 +13,7 @@
 // 
 #pragma warning disable 1591
 
-namespace TestWSInterfaceClaves.WSInterfaceIngresoTickets {
+namespace TestWSInterfaceClaves.WSTickets {
     using System;
     using System.Web.Services;
     using System.Diagnostics;
@@ -31,11 +31,13 @@ namespace TestWSInterfaceClaves.WSInterfaceIngresoTickets {
         
         private System.Threading.SendOrPostCallback AgregarTicketOperationCompleted;
         
+        private System.Threading.SendOrPostCallback TestLDAPConfigOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
         public TicketsDeClaves() {
-            this.Url = global::TestWSInterfaceClaves.Properties.Settings.Default.TestWSInterfaceClaves_WSInterfaceIngresoTickets_TicketsDeClaves;
+            this.Url = global::TestWSInterfaceClaves.Properties.Settings.Default.TestWSInterfaceClaves_WSTickets_TicketsDeClaves;
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;
@@ -73,6 +75,9 @@ namespace TestWSInterfaceClaves.WSInterfaceIngresoTickets {
         public event AgregarTicketCompletedEventHandler AgregarTicketCompleted;
         
         /// <remarks/>
+        public event TestLDAPConfigCompletedEventHandler TestLDAPConfigCompleted;
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/AgregarTicket", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public AgregarTicketResultado AgregarTicket(TicketNotificacionClave ticket) {
             object[] results = this.Invoke("AgregarTicket", new object[] {
@@ -98,6 +103,37 @@ namespace TestWSInterfaceClaves.WSInterfaceIngresoTickets {
             if ((this.AgregarTicketCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.AgregarTicketCompleted(this, new AgregarTicketCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/TestLDAPConfig", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string TestLDAPConfig(string username, string legajo) {
+            object[] results = this.Invoke("TestLDAPConfig", new object[] {
+                        username,
+                        legajo});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void TestLDAPConfigAsync(string username, string legajo) {
+            this.TestLDAPConfigAsync(username, legajo, null);
+        }
+        
+        /// <remarks/>
+        public void TestLDAPConfigAsync(string username, string legajo, object userState) {
+            if ((this.TestLDAPConfigOperationCompleted == null)) {
+                this.TestLDAPConfigOperationCompleted = new System.Threading.SendOrPostCallback(this.OnTestLDAPConfigOperationCompleted);
+            }
+            this.InvokeAsync("TestLDAPConfig", new object[] {
+                        username,
+                        legajo}, this.TestLDAPConfigOperationCompleted, userState);
+        }
+        
+        private void OnTestLDAPConfigOperationCompleted(object arg) {
+            if ((this.TestLDAPConfigCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.TestLDAPConfigCompleted(this, new TestLDAPConfigCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -462,6 +498,32 @@ namespace TestWSInterfaceClaves.WSInterfaceIngresoTickets {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((AgregarTicketResultado)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.33440")]
+    public delegate void TestLDAPConfigCompletedEventHandler(object sender, TestLDAPConfigCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.33440")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class TestLDAPConfigCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal TestLDAPConfigCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
             }
         }
     }

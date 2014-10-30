@@ -1,19 +1,83 @@
 using System;
-using System.Web;
 using System.Web.Services;
-using System.Web.Services.Protocols;
-using System.Security.Permissions;
 using NDCBL;
 using NDCCommon.Entities;
 using System.Configuration;
 using System.DirectoryServices;
 using System.Collections.Generic;
 using PhalanxBL;
+using System.Collections;
+
+using System.Web;
+using System.Web.Security;
+using System.Security.Principal;
+using System.Runtime.InteropServices;
+
+
 
 [WebService(Namespace = "http://tempuri.org/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 public class TicketsDeClaves : System.Web.Services.WebService
 {
+    public const int LOGON32_LOGON_INTERACTIVE = 2;
+    public const int LOGON32_PROVIDER_DEFAULT = 0;
+
+    WindowsImpersonationContext impersonationContext;
+
+    [DllImport("advapi32.dll")]
+    public static extern int LogonUserA(String lpszUserName,
+        String lpszDomain,
+        String lpszPassword,
+        int dwLogonType,
+        int dwLogonProvider,
+        ref IntPtr phToken);
+    [DllImport("advapi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+    public static extern int DuplicateToken(IntPtr hToken,
+        int impersonationLevel,
+        ref IntPtr hNewToken);
+
+    [DllImport("advapi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+    public static extern bool RevertToSelf();
+
+    [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
+    public static extern bool CloseHandle(IntPtr handle);
+
+    private bool impersonateValidUser(String userName, String domain, String password)
+    {
+        WindowsIdentity tempWindowsIdentity;
+        IntPtr token = IntPtr.Zero;
+        IntPtr tokenDuplicate = IntPtr.Zero;
+
+        if (RevertToSelf())
+        {
+            if (LogonUserA(userName, domain, password, LOGON32_LOGON_INTERACTIVE,
+                LOGON32_PROVIDER_DEFAULT, ref token) != 0)
+            {
+                if (DuplicateToken(token, 2, ref tokenDuplicate) != 0)
+                {
+                    tempWindowsIdentity = new WindowsIdentity(tokenDuplicate);
+                    impersonationContext = tempWindowsIdentity.Impersonate();
+                    if (impersonationContext != null)
+                    {
+                        CloseHandle(token);
+                        CloseHandle(tokenDuplicate);
+                        return true;
+                    }
+                }
+            }
+        }
+        if (token != IntPtr.Zero)
+            CloseHandle(token);
+        if (tokenDuplicate != IntPtr.Zero)
+            CloseHandle(tokenDuplicate);
+        return false;
+    }
+
+    private void undoImpersonation()
+    {
+        impersonationContext.Undo();
+    }
+
     public TicketsDeClaves () {
 
         //Uncomment the following line if using designed components 
@@ -27,12 +91,14 @@ public class TicketsDeClaves : System.Web.Services.WebService
     
         AgregarTicketResultado resultado = new AgregarTicketResultado();
 
+        // chequea si es DEBUG
         if (ticket.StringAutenticacion.Length > 5 && ticket.StringAutenticacion.Substring(ticket.StringAutenticacion.Length - 5) == "DEBUG")
         {
             ticket.StringAutenticacion = ticket.StringAutenticacion.Substring(0, ticket.StringAutenticacion.Length - 5);
             _debugMode = true;
         }
 
+        // verifica si el usuario de red informado es correcto y está autorizado para llamar al servicio
         DatosAutenticacion datosAutenticacion = ObtenerDatosAutenticacion(ticket.StringAutenticacion);
 
         string usuariosAutorizados = ConfigurationManager.AppSettings["UsuariosAutorizados"];
@@ -53,6 +119,8 @@ public class TicketsDeClaves : System.Web.Services.WebService
             return resultado;
         }
 
+
+        // verifica si la aplicación informada existe y si no, la crea
         AplicacionNotificacionClaveBusiness bamb = new AplicacionNotificacionClaveBusiness();
 
         if (_debugMode)
@@ -103,6 +171,7 @@ public class TicketsDeClaves : System.Web.Services.WebService
             }
         }
 
+        // genera un ticket con los datos recibidos
         TicketNotificacionClaveBusiness bsolb = new TicketNotificacionClaveBusiness();
 
         TicketNotificacionClaveEntity solicitudBPM = new TicketNotificacionClaveEntity();
@@ -129,6 +198,7 @@ public class TicketsDeClaves : System.Web.Services.WebService
         solicitudBPM.NombreSolicitante = ticket.NomSolicitante;
         solicitudBPM.ApellidoSolicitante = ticket.ApeSolicitante;
 
+        // verifica si el ticket ingresado ya fue ingresado anteriormente, en función de la aplicación y la solicitud (puede ser una modficación de algunos datos)
         TicketNotificacionClaveEntity ticketOriginal = bsolb.GetDuplicado(ticket.IdSolicitud, aplicacion);
         bool HayQueInsertar = true;
         if (ticketOriginal != null)
@@ -157,20 +227,31 @@ public class TicketsDeClaves : System.Web.Services.WebService
         }
          
         bool PasaInsertM4 = true; // esto indica true si no hubo que insertar o si hubo que hacerlo y se logro
-        bool altaUsuarioRedExterno = string.IsNullOrEmpty(ticket.Legajo) && ticket.CodigoAplicacion.Trim().ToLower() == ConfigurationManager.AppSettings["CodigoAplicacionAltaRed"].Trim().ToLower();
 
         try
         {
             if (HayQueInsertar)
             {
+                // verifica si es un alta de red para usuario externo
+                bool altaUsuarioRedExterno = string.IsNullOrEmpty(ticket.Legajo) && ticket.CodigoAplicacion.Trim().ToLower() == ConfigurationManager.AppSettings["CodigoAplicacionAltaRed"].Trim().ToLower();
+
                 if (altaUsuarioRedExterno)
+                {
                     //Alta de red usuario externo
+                    if (_debugMode)
+                    {
+                        strDebug += " | Es alta de red para usuario externo y va a generar token";
+                    }
+                    // genera token para alta de red de usuario externo
                     solicitudBPM.Token = bsolb.GenerateToken();
+                }
 
                 if (_debugMode)
                 {
                     strDebug += " | Va a grabar ticket en phx";
                 }
+
+                // graba el ticket
                 bsolb.Create(solicitudBPM);
                 if (_debugMode)
                 {
@@ -274,7 +355,11 @@ public class TicketsDeClaves : System.Web.Services.WebService
                     if (altaUsuarioRedExterno)
                     {
                         string debug;
-                                                
+
+                        if (_debugMode)
+                        {
+                            strDebug += " | Se va a enviar mail de alta de red para recurso externo";
+                        } 
                         EnviarEmailAltaUsuarioRedExterno(solicitudBPM, out debug);
 
                         if (debug != null)
@@ -380,13 +465,14 @@ public class TicketsDeClaves : System.Web.Services.WebService
 
     private bool EnviarEmailAltaUsuarioRedExterno(TicketNotificacionClaveEntity solicitudBPM, out string debug)
     {
-        debug = null;
+        debug = "";
 
         string destino;
         List<string> mailTo = new List<string>();
 
         if (!string.IsNullOrEmpty(solicitudBPM.CodigoEmpresaSubsidiaria))
         {
+            debug += " | Se busca por Subsidiaria";
             //Subsidiaria
             SubsidiariaBusiness subsidiariaBusiness = new SubsidiariaBusiness();
 
@@ -394,7 +480,7 @@ public class TicketsDeClaves : System.Web.Services.WebService
 
             if (subsidiaria == null)
             {
-                debug = "No se encuentra la empresa subsidiaria con código = " + solicitudBPM.CodigoEmpresaSubsidiaria;
+                debug += " | No se encuentra la empresa subsidiaria con código = " + solicitudBPM.CodigoEmpresaSubsidiaria;
 
                 return false;
             }
@@ -409,13 +495,16 @@ public class TicketsDeClaves : System.Web.Services.WebService
         }
         else
         {
+            debug += " | Se busca por Gerencia destino";
+
             destino = solicitudBPM.NombreGerenciaDestino;
 
+            debug += " | Busca mail en AD por legajo de solicitante";
             string email = BuscarEmailPorLegajo(solicitudBPM.NumeroLegajoEmpleadoSolicitud);
 
             if (email == null)
             {
-                debug = "No se encuentra el email para el legajo = " + solicitudBPM.NumeroLegajoEmpleadoSolicitud;
+                debug += " | No se encuentra el email para el legajo = " + solicitudBPM.NumeroLegajoEmpleadoSolicitud;
 
                 return false;
             }
@@ -423,15 +512,21 @@ public class TicketsDeClaves : System.Web.Services.WebService
             mailTo.Add(email);
         }
 
+        debug += " | Busca Nombre de la pesrona la que se le dió de alta el usuario en AD por usuario de red";
+
         string solicitante = BuscarNombrePorUsername(solicitudBPM.Usuario);
 
         MailAlertBusiness MailToSendBL = new MailAlertBusiness();
+
+        debug += " | Envia mail";
 
 		solicitudBPM.MailId = MailToSendBL.AltaUsuarioRedExternoMail(mailTo.ToArray(), solicitante, solicitudBPM.NumeroSolicitud, solicitudBPM.Fecha, solicitudBPM.Token, destino);
 
 		TicketNotificacionClaveBusiness bsolb = new TicketNotificacionClaveBusiness();
 
-		bsolb.Save(solicitudBPM);
+        debug += " | Graba ticket BPM";
+
+        bsolb.Save(solicitudBPM);
 
         return true;
     }
@@ -449,7 +544,7 @@ public class TicketsDeClaves : System.Web.Services.WebService
         string path = ConfigurationManager.AppSettings["LDAPPath"];
         string filter = ConfigurationManager.AppSettings["LDAPBuscarNombreFilter"].Replace("[username]", username);
 
-        return BuscarLDAP(path, filter, "givenName");
+        return BuscarLDAP(path, filter, "displayName");
     }
 
     private string BuscarLDAP(string path, string filter, string property)
@@ -484,6 +579,97 @@ public class TicketsDeClaves : System.Web.Services.WebService
         public string Usuario;
         public string Password;
     }
+    private string strDebug = "";
+    [WebMethod]
+    public string TestLDAPConfig(string username, string legajo)
+    {
+        string Result = "";
+        try
+        {
+            //if (impersonateValidUser("administrador", "Cwxtest", "cascas"))
+            //{
+            //    Result += "Hizo impersonation | " + Environment.NewLine;
+            //}
+            //else
+            //{
+            //    Result += "NO Hizo impersonation | " + Environment.NewLine;
+            //    //Your impersonation failed. Therefore, include a fail-safe mechanism here.
+            //}
+
+            Result += "Conectado como: " + System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            string path = ConfigurationManager.AppSettings["LDAPPath"];
+
+            Result += " | Objetos en el path LDAP: " + path + " | ";
+            ArrayList list = EnumerateOU(path);
+            Result += strDebug;
+            Result += " | Cantidad de objetos: " + list.Count.ToString() + " | ";
+            string result = string.Join("|", (string[])list.ToArray(typeof(string)));
+            Result += result;
+            if (!string.IsNullOrEmpty(username))
+            {
+                string filterUsername = ConfigurationManager.AppSettings["LDAPBuscarNombreFilter"].Replace("[username]", username);
+                Result += " | " + "Prueba de filtro por usuario: " + filterUsername;
+                string RespFiltUsername = BuscarLDAP(path, filterUsername, "displayName");
+                Result += " | " + "Búsqueda de nombre por usuario: " + username + " | " + RespFiltUsername;
+            }
+            if (!string.IsNullOrEmpty(username))
+            {
+                string filterEmployeeID = ConfigurationManager.AppSettings["LDAPBuscarEmailFilter"].Replace("[legajo]", legajo);
+                Result += " | " + "Prueba de filtro por legajo: " + filterEmployeeID;
+                string RespFiltEmployeeID = BuscarLDAP(path, filterEmployeeID, "mail");
+                Result += " | " + "Búsqueda de usuario: " + legajo + " | " + RespFiltEmployeeID;
+            }
+        }
+        catch (Exception ex)
+        {
+            Result += strDebug;
+            Result += " | " + ex.Message;
+
+        }
+        //finally
+        //{
+        //    undoImpersonation();
+        //    Result += "Cerro impersonation | Conectado como: " + System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+
+        //}
+
+        return Result;
+    }
+
+
+    private ArrayList EnumerateOU(string OuDn)
+    {
+        strDebug = "";
+
+        ArrayList alObjects = new ArrayList();
+        //try
+        //{
+        //DirectoryEntry directoryObject = new DirectoryEntry(@"LDAP://" + OuDn);
+        //DirectoryEntry directoryObject = new DirectoryEntry(OuDn, "administrador", "cascas");
+        DirectoryEntry directoryObject = new DirectoryEntry(OuDn);
+        //strDebug += "pasó DirectoryEntry(" + OuDn + ")";
+        foreach (DirectoryEntry child in directoryObject.Children)
+        {
+            //strDebug += "entra a foreach";
+            string childPath = child.Path.ToString();
+            alObjects.Add(childPath.Remove(0, 7));
+            //remove the LDAP prefix from the path
+
+            child.Close();
+            child.Dispose();
+        }
+        //strDebug += "directoryObject.Close";
+        directoryObject.Close();
+        //strDebug += "directoryObject.Dispose";
+        directoryObject.Dispose();
+        //}
+        //catch (DirectoryServicesCOMException e)
+        //{
+        //    Console.WriteLine("An Error Occurred: " + e.Message.ToString());
+        //}
+        return alObjects;
+    }
+
 }
 
 public class AgregarTicketResultado

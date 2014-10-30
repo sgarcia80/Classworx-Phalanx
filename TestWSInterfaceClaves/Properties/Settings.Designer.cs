@@ -26,10 +26,10 @@ namespace TestWSInterfaceClaves.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost/WSInterfaceClaves/TicketsDeClaves.asmx")]
-        public string TestWSInterfaceClaves_WSInterfaceIngresoTickets_TicketsDeClaves {
+        [global::System.Configuration.DefaultSettingValueAttribute("http://vmsrv02/WSInterfaceClaves/TicketsDeClaves.asmx")]
+        public string TestWSInterfaceClaves_WSTickets_TicketsDeClaves {
             get {
-                return ((string)(this["TestWSInterfaceClaves_WSInterfaceIngresoTickets_TicketsDeClaves"]));
+                return ((string)(this["TestWSInterfaceClaves_WSTickets_TicketsDeClaves"]));
             }
         }
     }
