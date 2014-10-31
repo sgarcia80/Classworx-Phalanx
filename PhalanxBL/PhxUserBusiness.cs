@@ -730,5 +730,10 @@ namespace PhalanxBL
 			return new PhxUsersFactory().GetAllByGrupoSolicitud(nombreGrupo, grupoActivo, usuarioActivo);
 		}
 
+		public IList GetAllByGrupoSeguimientoSolicitud(string nombreGrupo, bool? grupoActivo, bool? usuarioActivo)
+		{
+			return new PhxUsersFactory().GetAllByGrupoSeguimientoSolicitud(nombreGrupo, grupoActivo, usuarioActivo);
+		}
+
     }
 }
