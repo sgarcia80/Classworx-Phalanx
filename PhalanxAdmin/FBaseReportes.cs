@@ -17,7 +17,7 @@ namespace PhalanxAdmin
         }
         private void linkListados_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            ((FPrincipal)this.MdiParent).OpenForm(new FPwdListados());
+            ((FPrincipal)this.MdiParent).OpenForm(new FRptListadoDePwd());
         }
 
         private void linkSolicitudes_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
