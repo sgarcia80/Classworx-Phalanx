@@ -94,6 +94,12 @@ public partial class exppwdrqst : System.Web.UI.Page
                     imageUrl = "~/image/pwd_free.gif";
                     strToolTip = "Contraseña de Equipos de Comunicación";
                 }
+                if (pwdRequest.User is ATMUserEntity)
+                {
+                    e.Row.Cells[1].Text = "ATM: " + ((ATMUserEntity)pwdRequest.User).ATMName + " - Usuario: " + pwdRequest.User.Username;
+                    imageUrl = "~/image/pwd_free.gif";
+                    strToolTip = "Contraseña de ATM";
+                }
             }
             TempImage.ImageUrl = imageUrl;
             TempImage.ToolTip = strToolTip;

@@ -142,6 +142,21 @@ public partial class closeexppwdrst : System.Web.UI.Page
             txtField5.Text = appUser.Username;
         }
 
+        if (user is ATMUserEntity)
+        {
+            Session["CtrlTitle"] = "Devolución de Contraseña de ATM";
+            lblPwdType.Text = "Contraseña de ATM";
+            ATMUserEntity ATMUser = (ATMUserEntity)user;
+            colImage.RowSpan = 5;
+            lblField1.Text = "ATM";
+            txtField1.Text = ATMUser.ATMName;
+            row_Data_2.Visible = false;
+            row_Data_3.Visible = false;
+            row_Data_4.Visible = false;
+            row_Data_5.Visible = true;
+            lblField5.Text = "Usuario";
+            txtField5.Text = ATMUser.Username;
+        }
         if (user is DatabaseUserEntity)
         {
             Session["CtrlTitle"] = "Devolución de Contraseña de Base de Datos";
