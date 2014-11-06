@@ -107,7 +107,7 @@
     <Reference Include="log4net">
       <HintPath>..\Referencias\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ReportViewer.WinForms, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
@@ -123,6 +123,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FRptListadoDePwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FRptListadoDePwd.Designer.cs">
+      <DependentUpon>FRptListadoDePwd.cs</DependentUpon>
+    </Compile>
     <Compile Include="FUsuariosGruposSeguimiento.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -750,6 +756,13 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FRptListadoDePwd.rdlc">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FRptListadoDePwd.resx">
+      <DependentUpon>FRptListadoDePwd.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="FUsuariosGruposSeguimiento.resx">
       <DependentUpon>FUsuariosGruposSeguimiento.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -1209,6 +1222,7 @@
     <None Include="PhalanxCommon.Entities.PasswordRequestEntity.datasource" />
     <None Include="PhalanxCommon.Entities.UnixUserEntity.datasource" />
     <None Include="PhalanxCommon.Entities.WinLocalUserEntity.datasource" />
+    <None Include="Properties\DataSources\FRptListadoDePwdEntity.datasource" />
     <None Include="Properties\DataSources\PhalanxBL.VwInventarioBusiness.datasource" />
     <None Include="Properties\DataSources\PhalanxCommon.Entities.AS400UserEntity.datasource" />
     <None Include="Properties\DataSources\PhalanxCommon.Entities.BuildingEntity.datasource" />
