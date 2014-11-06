@@ -73,7 +73,7 @@
 
     <table class="login">
         <tr>
-            <td colspan="2" align="center">
+            <td align="center">
                 <asp:Button ID="btnVolver" Text="Volver" CssClass="btn" runat="server" OnClick="btnVolver_Click" />
             </td>
         </tr>
