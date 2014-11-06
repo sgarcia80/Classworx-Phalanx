@@ -13,7 +13,7 @@ using System.Collections;
 
 namespace PhalanxAdmin
 {
-    public partial class FUsuariosGrupos : PhalanxAdmin.FBaseAuditoria
+    public partial class FUsuariosGrupos : PhalanxAdmin.FBaseReportes
     {
         protected IList _entities;
 
