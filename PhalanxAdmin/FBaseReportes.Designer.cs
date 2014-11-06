@@ -41,6 +41,7 @@ namespace PhalanxAdmin
 			this.lnkInventario = new System.Windows.Forms.LinkLabel();
 			this.lnkABMUsr = new System.Windows.Forms.LinkLabel();
 			this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+			this.linkLabel2 = new System.Windows.Forms.LinkLabel();
 			((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
 			this.pnlXPGrps.SuspendLayout();
 			this.pnlIzq.SuspendLayout();
@@ -58,6 +59,7 @@ namespace PhalanxAdmin
 			// xppnlMenu
 			// 
 			this.xppnlMenu.Caption = "Reportes";
+			this.xppnlMenu.Controls.Add(this.linkLabel2);
 			this.xppnlMenu.Controls.Add(this.linkLabel1);
 			this.xppnlMenu.Controls.Add(this.lnkAltaTempRecExt);
 			this.xppnlMenu.Controls.Add(this.lnkUsuariosPorPerfil);
@@ -72,7 +74,7 @@ namespace PhalanxAdmin
 			this.xppnlMenu.Controls.Add(this.lnkInventario);
 			this.xppnlMenu.Controls.Add(this.lnkABMUsr);
 			this.xppnlMenu.ImageItems.ImageSet = null;
-			this.xppnlMenu.Size = new System.Drawing.Size(184, 394);
+			this.xppnlMenu.Size = new System.Drawing.Size(184, 447);
 			// 
 			// lnkAltaTempRecExt
 			// 
@@ -264,6 +266,20 @@ namespace PhalanxAdmin
 			this.linkLabel1.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
 			this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
 			// 
+			// linkLabel2
+			// 
+			this.linkLabel2.ActiveLinkColor = System.Drawing.Color.MidnightBlue;
+			this.linkLabel2.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+			this.linkLabel2.LinkColor = System.Drawing.Color.MidnightBlue;
+			this.linkLabel2.Location = new System.Drawing.Point(18, 391);
+			this.linkLabel2.Name = "linkLabel2";
+			this.linkLabel2.Size = new System.Drawing.Size(161, 42);
+			this.linkLabel2.TabIndex = 43;
+			this.linkLabel2.TabStop = true;
+			this.linkLabel2.Text = "Usuarios por Grupos de Seguimientos de Solicitudes";
+			this.linkLabel2.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
+			this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
+			// 
 			// FBaseReportes
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -294,6 +310,7 @@ namespace PhalanxAdmin
         private System.Windows.Forms.LinkLabel lnkInventario;
         private System.Windows.Forms.LinkLabel lnkABMUsr;
 		private System.Windows.Forms.LinkLabel linkLabel1;
+		private System.Windows.Forms.LinkLabel linkLabel2;
 
 
     }

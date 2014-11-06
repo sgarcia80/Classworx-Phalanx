@@ -740,5 +740,28 @@ namespace PhalanxDAL.Factories
 				return query.List();
 			}
 		}
+
+		public IList GetAllByGrupoSeguimientoSolicitud(string nombreGrupo, bool? grupoActivo, bool? usuarioActivo)
+		{
+			using (ISession session = DBMgr.factory.OpenSession())
+			{
+				IQuery query = session.GetNamedQuery("usuariosGrupoSeguimientoSolicitud");
+
+				int estadoGrupo = -1;
+				int estadoUsuario = -1;
+
+				if (grupoActivo != null)
+					estadoGrupo = grupoActivo.Value ? 1 : 0;
+
+				if (usuarioActivo != null)
+					estadoUsuario = usuarioActivo.Value ? 1 : 0;
+
+				query.SetString("nombreGrupo", nombreGrupo != null ? "%" + nombreGrupo.ToUpper() + "%" : null);
+				query.SetParameter("estadoGrupo", estadoGrupo);
+				query.SetInt32("estadoUsuario", estadoUsuario);
+
+				return query.List();
+			}
+		}
     }
 }
