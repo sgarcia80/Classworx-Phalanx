@@ -94,4 +94,33 @@
 		AND
 		(:estadoUsuario = -1 OR dbo.Phx_Users.active = :estadoUsuario)
 	</sql-query>
+
+	<sql-query name="usuariosGrupoSeguimientoSolicitud">
+		<return-scalar column="IdGrupo" type="Int32"/>
+		<return-scalar column="NombreGrupo" type="String"/>
+		<return-scalar column="GrupoActivo" type="Boolean"/>
+		<return-scalar column="IdUsuario" type="Int32"/>
+		<return-scalar column="Dominio" type="String"/>
+		<return-scalar column="UsuarioRed" type="String"/>
+		<return-scalar column="NombreCompleto" type="String"/>
+		<return-scalar column="UsuarioActivo" type="Boolean"/>
+		SELECT
+		dbo.followup_request_group.frg_id AS IdGrupo,
+		dbo.followup_request_group.frg_name AS NombreGrupo,
+		dbo.followup_request_group.frg_active AS GrupoActivo,
+		dbo.Phx_Users.phx_user_id AS IdUsuario,
+		dbo.Phx_Users.user_domain AS Dominio,
+		dbo.Phx_Users.username AS UsuarioRed,
+		dbo.Phx_Users.fullname AS NombreCompleto,
+		dbo.Phx_Users.active AS UsuarioActivo
+		FROM dbo.followup_request_group
+		INNER JOIN dbo.followup_request_group_user ON dbo.followup_request_group.frg_id = dbo.followup_request_group_user.frg_id
+		INNER JOIN dbo.Phx_Users ON dbo.followup_request_group_user.phx_user_id = dbo.Phx_Users.phx_user_id
+		WHERE
+		(:nombreGrupo IS NULL OR upper(dbo.followup_request_group.frg_name) LIKE :nombreGrupo)
+		AND
+		(:estadoGrupo = -1 OR dbo.followup_request_group.frg_active = :estadoGrupo)
+		AND
+		(:estadoUsuario = -1 OR dbo.Phx_Users.active = :estadoUsuario)
+	</sql-query>
 </hibernate-mapping>
