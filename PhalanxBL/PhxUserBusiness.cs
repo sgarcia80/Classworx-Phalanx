@@ -4,6 +4,7 @@ using System.Text;
 using PhalanxCommon.Collections;
 using PhalanxCommon.Entities;
 using PhalanxDAL.Factories;
+using System.Collections;
 
 namespace PhalanxBL
 {
@@ -723,6 +724,11 @@ namespace PhalanxBL
             PhxUsersFactory UsrFac = new PhxUsersFactory();
             UsrFac.SetGruposSeguim(Usuario, UsrGroupsSeguim);
         }
+
+		public IList GetAllByGrupoSolicitud(string nombreGrupo, bool? grupoActivo, bool? usuarioActivo)
+		{
+			return new PhxUsersFactory().GetAllByGrupoSolicitud(nombreGrupo, grupoActivo, usuarioActivo);
+		}
 
     }
 }
