@@ -118,6 +118,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common.cs" />
+    <Compile Include="DirectoryEntry.cs" />
+    <Compile Include="LDAPMgr.cs" />
     <Compile Include="NDomain.cs" />
     <Compile Include="NPc.cs" />
     <Compile Include="NUser.cs" />
