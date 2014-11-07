@@ -193,6 +193,7 @@
     <Compile Include="DBMgr.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Factories\VwPwdRqstGrpFactory.cs" />
     <Compile Include="Factories\DelegationRequestsFactory.cs" />
     <Compile Include="Factories\DemoConfFactory.cs" />
     <Compile Include="Factories\GlobalWinGroupsFactory.cs" />
@@ -372,7 +373,9 @@
     <EmbeddedResource Include="MappingFiles\PhxUserSuperior.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MappingFiles\AS400.hbm.xml" />
+    <EmbeddedResource Include="MappingFiles\AS400.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MappingFiles\Building.hbm.xml" />
@@ -393,7 +396,9 @@
     <EmbeddedResource Include="MappingFiles\EventoLogin.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MappingFiles\AuditLogin.hbm.xml" />
+    <EmbeddedResource Include="MappingFiles\AuditLogin.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MappingFiles\AuditPermisos.hbm.xml" />
@@ -477,6 +482,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\VwPwdRqstGrp.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

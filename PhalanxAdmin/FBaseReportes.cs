@@ -147,6 +147,11 @@ namespace PhalanxAdmin
 		{
 			((FPrincipal)this.MdiParent).OpenForm(new FUsuariosGruposSeguimiento());
 		}
+
+        private void lnkPwdRqstGrp_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ((FPrincipal)this.MdiParent).OpenForm(new FRptClavesGrpSol());
+        }
     }
 }
 

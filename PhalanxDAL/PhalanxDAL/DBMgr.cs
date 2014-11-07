@@ -201,6 +201,7 @@ namespace PhalanxDAL
                         config.AddResource("PhalanxDAL.MappingFiles.AccionItemChkWinLocalUser.hbm.xml", nhAssembly);
                         config.AddResource("PhalanxDAL.MappingFiles.vwCantFollowRqstGrpPwd.hbm.xml", nhAssembly);
                         config.AddResource("PhalanxDAL.MappingFiles.vwCantRqstGrpPwd.hbm.xml", nhAssembly);
+                        config.AddResource("PhalanxDAL.MappingFiles.VwPwdRqstGrp.hbm.xml", nhAssembly);
 
                         //config.AddResource("PhalanxDAL.MappingFiles.", nhAssembly);
                         config.AddResource("PhalanxDAL.MappingFiles.Building.hbm.xml", nhAssembly);
@@ -226,7 +227,7 @@ namespace PhalanxDAL
                         InicializarMeta4();
                         break;
                 }
-
+ 
                 _factory = config.BuildSessionFactory();
                 //session = factory.OpenSession();
 

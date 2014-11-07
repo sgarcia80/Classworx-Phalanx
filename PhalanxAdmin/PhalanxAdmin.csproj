@@ -123,6 +123,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FRptClavesGrpSol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FRptClavesGrpSol.Designer.cs">
+      <DependentUpon>FRptClavesGrpSol.cs</DependentUpon>
+    </Compile>
     <Compile Include="FRptListadoDePwd.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -756,6 +762,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FRptClavesGrpSol.resx">
+      <DependentUpon>FRptClavesGrpSol.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FRptListadoDePwd.rdlc">
       <SubType>Designer</SubType>
     </EmbeddedResource>

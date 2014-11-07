@@ -131,6 +131,7 @@
     <Compile Include="Collections\CommunicationDeviceTypeEntityCollection.cs" />
     <Compile Include="Collections\CommunicationDeviceUserEntityCollection.cs" />
     <Compile Include="Collections\ATMUserEntityCollection.cs" />
+    <Compile Include="Collections\vwPwdRqstGrpEntityCollection.cs" />
     <Compile Include="Collections\vwCantRqstGrpPwdEntityCollection.cs" />
     <Compile Include="Collections\vwCantFollowRqstGrpPwdEntityCollection.cs" />
     <Compile Include="Collections\FollowupRequestGroupDefaultEntityCollection.cs" />
@@ -195,6 +196,7 @@
     <Compile Include="Entities\CommunicationDeviceTypeEntity.cs" />
     <Compile Include="Entities\CommunicationDeviceUserEntity.cs" />
     <Compile Include="Entities\ATMUserEntity.cs" />
+    <Compile Include="Entities\VwPwdRqstGrpEntity.cs" />
     <Compile Include="Entities\vwCantRqstGrpPwdPwdEntity.cs" />
     <Compile Include="Entities\vwCantFollowRqstGrpPwdEntity.cs" />
     <Compile Include="Entities\FollowupRequestGroupDefaultEntity.cs" />
