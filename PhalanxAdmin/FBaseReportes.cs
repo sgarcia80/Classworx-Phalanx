@@ -114,6 +114,11 @@ namespace PhalanxAdmin
             lnkLstPerfiles.Enabled = UsrBL.AccRptLstPerf(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
             lnkLstTickets.Enabled = UsrBL.AccRptLstTickets(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
             lnkAltaTempRecExt.Enabled = UsrBL.AccRptTicketsRedRecExt(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+
+            linkLabel1.Enabled = UsrBL.AccRptUsrGrpSol(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            linkLabel2.Enabled = UsrBL.AccRptUsrGrpSegSol(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            lnkPwdRqstGrp.Enabled = UsrBL.AccRptPwdGrpSol(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+
         }
 
         private void lnkLstTickets_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

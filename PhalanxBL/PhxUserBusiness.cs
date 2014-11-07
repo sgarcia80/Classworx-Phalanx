@@ -255,6 +255,10 @@ namespace PhalanxBL
         private const string CONF_SUBSI_RW = "@CONF_SUBSI_RW@"; //Configuración de Subsidiarias - Escritura
         private const string CONF_SUBSI_R = "@CONF_SUBSI_R@"; //Configuración de Subsidiarias - Lectura
 
+        private const string RPT_USR_GRP_SOL = "@RPT_USR_GRP_SOL@"; 
+        private const string RPT_USR_GRP_SEG_SOL = "@RPT_USR_GRP_SEG_SOL@"; 
+        private const string RPT_PWD_GRP_SOL = "@RPT_PWD_GRP_SOL@"; 
+
         /// <summary>
         /// Chequea si el usuario tiene acceso a la aplicación WEB
         /// </summary>
@@ -503,6 +507,21 @@ namespace PhalanxBL
         public bool AccRptLogin(string usernamedomain)
         {
             string[] PrivilegiosAcceso = new string[] { RPT_LOGIN};
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+        public bool AccRptUsrGrpSol(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { RPT_USR_GRP_SOL };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+        public bool AccRptUsrGrpSegSol(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { RPT_USR_GRP_SEG_SOL };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+        public bool AccRptPwdGrpSol(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { RPT_PWD_GRP_SOL };
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
 
