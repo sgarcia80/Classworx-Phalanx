@@ -29,6 +29,7 @@ namespace NDCDAL.Factories
         private bool? _filSinLegajo;
         private int? _filTicket;
         private bool? _filCorregido = false;
+        private DateTime? _filFilFechaVigencia;
 
         public AplicacionNotificacionClaveEntity FilAplicacion
         {
@@ -58,6 +59,11 @@ namespace NDCDAL.Factories
         public DateTime? FilFechaHasta
         {
             set { _filFechaHasta = value; }
+        }
+
+        public DateTime? FilFechaVigencia
+        {
+            set { _filFilFechaVigencia = value; }
         }
 
         public string FilTipoDocumento
@@ -189,6 +195,12 @@ namespace NDCDAL.Factories
                 if (_filErrado != null)
                     DataSearch = DataSearch.Add(Expression.Eq("TNC.Errado", _filErrado));
 
+                if (_filFilFechaVigencia != null)
+                {
+                    DataSearch = DataSearch.Add(Expression.Or(Expression.IsNull("TNC.FechaVigencia"),
+                        Expression.Le("TNC.FechaVigencia", _filFilFechaVigencia.Value)));
+                }
+
                 if (_filSinLegajo != null)
                 {
                     if (_filSinLegajo.Value)
@@ -247,7 +259,7 @@ namespace NDCDAL.Factories
 
 				if (fechaVigenciaDesde != null)
 					DataSearch = DataSearch.Add(Expression.Or(Expression.IsNull("TNC.FechaVigencia"), 
-						Expression.Ge("TNC.FechaVigencia", fechaVigenciaDesde)));
+						Expression.Le("TNC.FechaVigencia", fechaVigenciaDesde)));
 
                 try
                 {
