@@ -71,7 +71,7 @@
 
     <br />
 
-    <table class="login">
+    <table class="login" style="width:100%">
         <tr>
             <td align="center">
                 <asp:Button ID="btnVolver" Text="Volver" CssClass="btn" runat="server" OnClick="btnVolver_Click" />
