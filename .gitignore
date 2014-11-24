@@ -26,3 +26,5 @@ phxLog/obj/
 *.scc
 PhxPing/obj/
 PrecompiledWeb/
+PhxSvcExpiratonManager/bin
+PhxSvcExpiratonManager/obj
