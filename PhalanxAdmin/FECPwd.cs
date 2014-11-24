@@ -14,7 +14,7 @@ namespace PhalanxAdmin
 {
     public partial class FECPwd : PhalanxAdmin.FBaseContrasenas
     {
-        protected CommunicationDeviceUserEntityCollection _entities;
+        protected IList _entities;
         protected string _filNombre = "";
         private bool? _filUsuariosActivos;
         private bool? _filUsuariosCriticos;
@@ -128,25 +128,12 @@ namespace PhalanxAdmin
         {
             CommunicationDeviceUserBusiness CDUsrBL = new CommunicationDeviceUserBusiness();
             // seteo filtros
+			string nombre = null;
+
             if (txtFilNombre.Text.Trim() != "")
-                CDUsrBL.FilNombre = txtFilNombre.Text.Trim();
-            
-            //if (rbOrdName.Checked)
-            //{
-            //    DBUsrBL.SetOrderByName();
-            //}
-            //else if (rbOrdFolio.Checked)
-            //{
-            //    DBUsrBL.SetOrderByFolio();
-            //}
-
-            CDUsrBL.SetOrderByName();
-            CDUsrBL.GetGruposAsignados = true;
-            CDUsrBL.FilTipoEC = _filTipoEC;
-            CDUsrBL.FilUsuariosActivos = _filUsuariosActivos;
-            CDUsrBL.FilUsuariosCriticos = _filUsuariosCriticos;
-
-            _entities = CDUsrBL.GetAll();
+                nombre = txtFilNombre.Text.Trim();
+			
+			_entities = CDUsrBL.GetAll(_filUsuariosCriticos, _filUsuariosActivos, _filTipoEC, nombre);
         }
 
         /// <summary>
@@ -190,27 +177,22 @@ namespace PhalanxAdmin
         {
             ListViewItem[] lviArr = new ListViewItem[this._entities.Count];
             int i = 0;
-            foreach (CommunicationDeviceUserEntity ECUsrEnt in this._entities)
+            foreach (object[] ECUsrEnt in this._entities)
             {
                 lviArr[i] = new ListViewItem();
                 /// hay que armar los items de lo que se traiga de la DB
                 /// 
 
-                lviArr[i].SubItems.Add(ECUsrEnt.Key);
-                lviArr[i].SubItems.Add(ECUsrEnt.CommunicationDevice.Type.Name);
-                lviArr[i].SubItems.Add(ECUsrEnt.CommunicationDevice.Name);
-                lviArr[i].SubItems.Add(ECUsrEnt.Username);
-                lviArr[i].SubItems.Add(ECUsrEnt.CommunicationDevice.IP);
-
-                if (ECUsrEnt.UserPassword.RqstGrpsPwdsList != null && ECUsrEnt.UserPassword.RqstGrpsPwdsList.Count > 0)
-                    lviArr[i].SubItems.Add(ECUsrEnt.UserPassword.RqstGrpsPwdsList.Count.ToString());
-                else
-                    lviArr[i].SubItems.Add("0");
-                lviArr[i].SubItems.Add(ECUsrEnt.Critical ? "Si" : "No");
-                lviArr[i].SubItems.Add(ECUsrEnt.LastChangeDate);
+                lviArr[i].SubItems.Add(ECUsrEnt[0].ToString());
+                lviArr[i].SubItems.Add(ECUsrEnt[7].ToString());
+                lviArr[i].SubItems.Add(ECUsrEnt[5].ToString());
+                lviArr[i].SubItems.Add(ECUsrEnt[1].ToString());
+                lviArr[i].SubItems.Add(ECUsrEnt[6].ToString());
+                lviArr[i].SubItems.Add((bool)ECUsrEnt[2] ? "Si" : "No");
+                lviArr[i].SubItems.Add(ECUsrEnt[4].ToString());
 
                 lviArr[i].Text = "";
-                lviArr[i].ImageIndex = ECUsrEnt.ActiveUser ? 0 : 1;
+                lviArr[i].ImageIndex = (bool)ECUsrEnt[3] ? 0 : 1;
                 lviArr[i].Tag = ECUsrEnt;
                 
                 i++;

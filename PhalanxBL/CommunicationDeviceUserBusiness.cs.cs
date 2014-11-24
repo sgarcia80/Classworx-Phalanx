@@ -5,6 +5,7 @@ using PhalanxCommon.Entities;
 using PhalanxDAL.Factories;
 using PhalanxCommon.Collections;
 using phxCryptMgr;
+using System.Collections;
 
 namespace PhalanxBL
 {
@@ -205,5 +206,10 @@ namespace PhalanxBL
             CommunicationDeviceUserFactory CDUsrF = new CommunicationDeviceUserFactory();
             CDUsrF.SetPwdState(Users, Active);
         }
+
+		public IList GetAll(bool? critico, bool? estadoUsuario, CommunicationDeviceTypeEntity tipo, string nombre)
+		{
+			return new CommunicationDeviceUserFactory().GetAll(critico, estadoUsuario, tipo != null ? new int?(tipo.Id) : null, nombre);
+		}
     }
 }
