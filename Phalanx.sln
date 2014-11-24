@@ -129,6 +129,8 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Phalanx Admin", "Installers
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhxPing", "PhxPing\PhxPing.csproj", "{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhxSvcExpirationManager", "PhxSvcExpiratonManager\PhxSvcExpirationManager.csproj", "{DCF4C304-6BCC-4D5E-AFD2-351D68190190}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		App Debug|Any CPU = App Debug|Any CPU
@@ -468,6 +470,22 @@ Global
 		{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}.Web Debug|Any CPU.Build.0 = Web Debug|Any CPU
 		{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}.WS Test|Any CPU.ActiveCfg = WS Test|Any CPU
 		{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}.WS Test|Any CPU.Build.0 = WS Test|Any CPU
+		{DCF4C304-6BCC-4D5E-AFD2-351D68190190}.App Debug|Any CPU.ActiveCfg = App Debug|Any CPU
+		{DCF4C304-6BCC-4D5E-AFD2-351D68190190}.App Debug|Any CPU.Build.0 = App Debug|Any CPU
+		{DCF4C304-6BCC-4D5E-AFD2-351D68190190}.AutCOBIS Release|Any CPU.ActiveCfg = AutCOBIS Release|Any CPU
+		{DCF4C304-6BCC-4D5E-AFD2-351D68190190}.AutCOBIS Release|Any CPU.Build.0 = AutCOBIS Release|Any CPU
+		{DCF4C304-6BCC-4D5E-AFD2-351D68190190}.DbgAutCOBIS|Any CPU.ActiveCfg = DbgAutCOBIS|Any CPU
+		{DCF4C304-6BCC-4D5E-AFD2-351D68190190}.DbgAutCOBIS|Any CPU.Build.0 = DbgAutCOBIS|Any CPU
+		{DCF4C304-6BCC-4D5E-AFD2-351D68190190}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCF4C304-6BCC-4D5E-AFD2-351D68190190}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCF4C304-6BCC-4D5E-AFD2-351D68190190}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCF4C304-6BCC-4D5E-AFD2-351D68190190}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCF4C304-6BCC-4D5E-AFD2-351D68190190}.Remote WS Test|Any CPU.ActiveCfg = WS Test|Any CPU
+		{DCF4C304-6BCC-4D5E-AFD2-351D68190190}.Remote WS Test|Any CPU.Build.0 = WS Test|Any CPU
+		{DCF4C304-6BCC-4D5E-AFD2-351D68190190}.Web Debug|Any CPU.ActiveCfg = Web Debug|Any CPU
+		{DCF4C304-6BCC-4D5E-AFD2-351D68190190}.Web Debug|Any CPU.Build.0 = Web Debug|Any CPU
+		{DCF4C304-6BCC-4D5E-AFD2-351D68190190}.WS Test|Any CPU.ActiveCfg = WS Test|Any CPU
+		{DCF4C304-6BCC-4D5E-AFD2-351D68190190}.WS Test|Any CPU.Build.0 = WS Test|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
