@@ -190,6 +190,7 @@ namespace PhalanxAdmin
                 lviArr[i].SubItems.Add(PxhUsrEnt.Fullname);
                 lviArr[i].SubItems.Add(PxhUsrEnt.Email);
                 lviArr[i].SubItems.Add((PxhUsrEnt.Active ? "Activo" : "Inactivo"));
+				lviArr[i].SubItems.Add(PxhUsrEnt.PhxUserSuperior != null ? PxhUsrEnt.PhxUserSuperior.Name : string.Empty);
                 lviArr[i].Text = PxhUsrEnt.Username;
                 lviArr[i].Tag = PxhUsrEnt;
                 i++;
