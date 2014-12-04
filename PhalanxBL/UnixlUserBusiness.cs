@@ -6,6 +6,7 @@ using PhalanxCommon.Entities;
 using PhalanxDAL.Factories;
 using PhalanxNAL;
 using phxCryptMgr;
+using System.Collections;
 
 namespace PhalanxBL
 {
@@ -253,5 +254,10 @@ namespace PhalanxBL
             _AvoidInactiveGrps = AvoidGrpInactive;
             SaveUser(unixUser, UpdatePassword, GruposSolicitudes, GruposSeguimiento);
         }
+
+		public IList GetAll(bool? critico, bool? estadoUsuario, string nombre)
+		{
+			return new UnixUsersFactory().GetAll(critico, estadoUsuario, nombre);
+		}
     }
 }

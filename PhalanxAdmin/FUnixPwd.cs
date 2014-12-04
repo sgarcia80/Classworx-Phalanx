@@ -8,12 +8,13 @@ using System.Windows.Forms;
 using PhalanxCommon.Entities;
 using PhalanxCommon.Collections;
 using PhalanxBL;
+using System.Collections;
 
 namespace PhalanxAdmin
 {
     public partial class FUnixPwd : PhalanxAdmin.FBaseContrasenas
     {
-        protected UnixUserEntityCollection _entities;
+		protected IList _entities;
         protected string _filNombre = "";
         protected bool? _filUsuariosActivos;
         private bool? _filUsuariosCriticos;
@@ -121,16 +122,14 @@ namespace PhalanxAdmin
         /// </example>
         private void LoadEntities()
         {
-            UnixUserBusiness UnixUsrBL = new UnixUserBusiness();
-            // seteo filtros
-            if (txtFilNombre.Text.Trim() != "")
-            {
-                UnixUsrBL.FilNombre = txtFilNombre.Text.Trim();
-            }
-            UnixUsrBL.GetGruposAsignados = true;
-            UnixUsrBL.FilUsuariosActivos = _filUsuariosActivos;
-            UnixUsrBL.FilUsuariosCriticos = _filUsuariosCriticos;
-            _entities = UnixUsrBL.GetAll();
+			UnixUserBusiness UnixUsrBL = new UnixUserBusiness();
+
+			string nombre = null;
+
+			if (txtFilNombre.Text.Trim() != "")
+				nombre = txtFilNombre.Text.Trim();
+
+			_entities = UnixUsrBL.GetAll(_filUsuariosCriticos, _filUsuariosActivos, nombre);
         }
 
         /// <summary>
@@ -174,27 +173,17 @@ namespace PhalanxAdmin
         {
             ListViewItem[] lviArr = new ListViewItem[this._entities.Count];
             int i = 0;
-            foreach (UnixUserEntity UnixUsrEnt in this._entities)
+			foreach (object[] UnixUsrEnt in this._entities)
             {
                 lviArr[i] = new ListViewItem();
                 /// hay que armar los items de lo que se traiga de la DB
-                lviArr[i].SubItems.Add(UnixUsrEnt.Key);
-                lviArr[i].SubItems.Add(UnixUsrEnt.Unix.ServerName);
-                lviArr[i].SubItems.Add(UnixUsrEnt.Username);
-                lviArr[i].SubItems.Add(UnixUsrEnt.Unix.Ip);
-                if (UnixUsrEnt.UserPassword.RqstGrpsPwdsList != null && UnixUsrEnt.UserPassword.RqstGrpsPwdsList.Count > 0)
-                {
-                    lviArr[i].SubItems.Add(UnixUsrEnt.UserPassword.RqstGrpsPwdsList.Count.ToString());
-                }
-                else
-                {
-                    lviArr[i].SubItems.Add("0");
-                }
-                lviArr[i].SubItems.Add(UnixUsrEnt.Critical ? "Si" : "No");
-                lviArr[i].SubItems.Add(UnixUsrEnt.LastChangeDate);
-
+				lviArr[i].SubItems.Add(UnixUsrEnt[0].ToString());
+				lviArr[i].SubItems.Add(UnixUsrEnt[5].ToString());
+				lviArr[i].SubItems.Add(UnixUsrEnt[1].ToString());
+				lviArr[i].SubItems.Add(UnixUsrEnt[6].ToString());
+				lviArr[i].SubItems.Add((bool)UnixUsrEnt[2] ? "Si" : "No");
                 lviArr[i].Text = "";
-                lviArr[i].ImageIndex = UnixUsrEnt.ActiveUser ? 0 : 1;
+				lviArr[i].ImageIndex = (bool)UnixUsrEnt[3] ? 0 : 1;
                 lviArr[i].Tag = UnixUsrEnt;
                 i++;
             }
