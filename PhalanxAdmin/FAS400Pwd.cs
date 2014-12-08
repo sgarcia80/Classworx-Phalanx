@@ -8,12 +8,13 @@ using System.Windows.Forms;
 using PhalanxCommon.Collections;
 using PhalanxBL;
 using PhalanxCommon.Entities;
+using System.Collections;
 
 namespace PhalanxAdmin
 {
     public partial class FAS400Pwd : PhalanxAdmin.FBaseContrasenas
     {
-        protected AS400UserEntityCollection _entities;
+		protected IList _entities;
         protected string _filNombre = "";
         protected bool? _filUsuariosActivos;
         private bool? _filUsuariosCriticos;
@@ -109,16 +110,14 @@ namespace PhalanxAdmin
         /// </example>
         private void LoadEntities()
         {
-            AS400UserBusiness AS400UsrBL = new AS400UserBusiness();
-            // seteo filtros
-            if (txtFilNombre.Text.Trim() != "")
-            {
-                AS400UsrBL.FilNombre = txtFilNombre.Text.Trim();
-            }
-            AS400UsrBL.GetGruposAsignados = true;
-            AS400UsrBL.FilUsuariosActivos = _filUsuariosActivos;
-            AS400UsrBL.FilUsuariosCriticos = _filUsuariosCriticos;
-            _entities = AS400UsrBL.GetAll();
+			AS400UserBusiness AS400UsrBL = new AS400UserBusiness();
+
+			string nombre = null;
+
+			if (txtFilNombre.Text.Trim() != "")
+				nombre = txtFilNombre.Text.Trim();
+
+			_entities = AS400UsrBL.GetAll(_filUsuariosCriticos, _filUsuariosActivos, nombre);
         }
         /// <summary>
         /// Llama a la función que genera el array de LV Items y si hay items llama a la que hace el llenado
@@ -161,27 +160,18 @@ namespace PhalanxAdmin
         {
             ListViewItem[] lviArr = new ListViewItem[this._entities.Count];
             int i = 0;
-            foreach (AS400UserEntity AS400UsrEnt in this._entities)
+			foreach (object[] AS400UsrEnt in this._entities)
             {
                 lviArr[i] = new ListViewItem();
                 /// hay que armar los items de lo que se traiga de la DB
-                lviArr[i].SubItems.Add(AS400UsrEnt.Key);
-                lviArr[i].SubItems.Add(AS400UsrEnt.AS400.ServerName);
-                lviArr[i].SubItems.Add(AS400UsrEnt.Username);
-                lviArr[i].SubItems.Add(AS400UsrEnt.AS400.Ip);
-                if (AS400UsrEnt.UserPassword.RqstGrpsPwdsList != null && AS400UsrEnt.UserPassword.RqstGrpsPwdsList.Count > 0)
-                {
-                    lviArr[i].SubItems.Add(AS400UsrEnt.UserPassword.RqstGrpsPwdsList.Count.ToString());
-                }
-                else
-                {
-                    lviArr[i].SubItems.Add("0");
-                }
-                lviArr[i].SubItems.Add(AS400UsrEnt.Critical ? "Si" : "No");
-                lviArr[i].SubItems.Add(AS400UsrEnt.LastChangeDate);
-
+				lviArr[i].SubItems.Add(AS400UsrEnt[0].ToString());
+				lviArr[i].SubItems.Add(AS400UsrEnt[5].ToString());
+				lviArr[i].SubItems.Add(AS400UsrEnt[1].ToString());
+				lviArr[i].SubItems.Add(AS400UsrEnt[6].ToString());
+				lviArr[i].SubItems.Add((bool)AS400UsrEnt[2] ? "Si" : "No");
+				lviArr[i].SubItems.Add(AS400UsrEnt[4].ToString());
                 lviArr[i].Text = "";
-                lviArr[i].ImageIndex = AS400UsrEnt.ActiveUser ? 0 : 1;
+				lviArr[i].ImageIndex = (bool)AS400UsrEnt[3] ? 0 : 1;
                 lviArr[i].Tag = AS400UsrEnt;
                 i++;
             }
@@ -340,4 +330,5 @@ namespace PhalanxAdmin
 
     }
 }
+
 
