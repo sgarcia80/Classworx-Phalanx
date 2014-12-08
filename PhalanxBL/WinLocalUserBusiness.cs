@@ -6,6 +6,7 @@ using PhalanxCommon.Entities;
 using PhalanxDAL.Factories;
 using PhalanxNAL;
 using phxCryptMgr;
+using System.Collections;
 
 namespace PhalanxBL
 {
@@ -350,6 +351,9 @@ namespace PhalanxBL
             return m_WinUserFactory.Refresh(User);
         }
 
-
+		public IList GetAll(bool? critico, bool? estadoUsuario, string nombre)
+		{
+			return new WinLocalUsersFactory().GetAll(critico, estadoUsuario, nombre);
+		}
     }
 }
