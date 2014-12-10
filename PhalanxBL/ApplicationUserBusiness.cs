@@ -5,6 +5,7 @@ using PhalanxCommon.Collections;
 using PhalanxCommon.Entities;
 using PhalanxDAL.Factories;
 using phxCryptMgr;
+using System.Collections;
 
 namespace PhalanxBL
 {
@@ -192,5 +193,10 @@ namespace PhalanxBL
             ApplicationUserFactory DBUsrF = new ApplicationUserFactory();
             DBUsrF.SetPwdState(Users, Active);
         }
+
+		public IList GetAll(bool? critico, bool? estadoUsuario, string nombre)
+		{
+			return new ApplicationUserFactory().GetAll(critico, estadoUsuario, nombre);
+		}
     }
 }

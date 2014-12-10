@@ -8,12 +8,13 @@ using System.Windows.Forms;
 using PhalanxCommon.Collections;
 using PhalanxBL;
 using PhalanxCommon.Entities;
+using System.Collections;
 
 namespace PhalanxAdmin
 {
     public partial class FAppPwd : PhalanxAdmin.FBaseContrasenas
     {
-        protected ApplicationUserEntityCollection _entities;
+		protected IList _entities;
         protected string _filNombre = "";
         private bool? _filUsuariosActivos;
         private bool? _filUsuariosCriticos;
@@ -122,24 +123,13 @@ namespace PhalanxAdmin
         private void LoadEntities()
         {
             ApplicationUserBusiness DBUsrBL = new ApplicationUserBusiness();
-            // seteo filtros
-            if (txtFilNombre.Text.Trim() != "")
-            {
-                DBUsrBL.FilUserName = txtFilNombre.Text.Trim();
-            }
-            /*
-            if (rbOrdName.Checked)
-            {
-                DBUsrBL.SetOrderByName();
-            }
-            else if (rbOrdFolio.Checked)
-            {
-                DBUsrBL.SetOrderByFolio();
-            }*/
-            DBUsrBL.GetGruposAsignados = true;
-            DBUsrBL.FilUsuariosActivos = _filUsuariosActivos;
-            DBUsrBL.FilUsuariosCriticos = _filUsuariosCriticos;
-            _entities = DBUsrBL.GetAll();
+
+			string nombre = null;
+
+			if (txtFilNombre.Text.Trim() != "")
+				nombre = txtFilNombre.Text.Trim();
+
+			_entities = DBUsrBL.GetAll(_filUsuariosCriticos, _filUsuariosActivos, nombre);
         }
 
         /// <summary>
@@ -183,27 +173,18 @@ namespace PhalanxAdmin
         {
             ListViewItem[] lviArr = new ListViewItem[this._entities.Count];
             int i = 0;
-            foreach (ApplicationUserEntity AppUsrEnt in this._entities)
+            foreach (object[] AppUsrEnt in this._entities)
             {
                 lviArr[i] = new ListViewItem();
                 /// hay que armar los items de lo que se traiga de la DB
-                lviArr[i].SubItems.Add(AppUsrEnt.Key);
-                lviArr[i].SubItems.Add(AppUsrEnt.Application.Name);
-                lviArr[i].SubItems.Add(AppUsrEnt.Username);
-                if (AppUsrEnt.UserPassword.RqstGrpsPwdsList != null && AppUsrEnt.UserPassword.RqstGrpsPwdsList.Count > 0)
-                {
-                    lviArr[i].SubItems.Add(AppUsrEnt.UserPassword.RqstGrpsPwdsList.Count.ToString());
-                }
-                else
-                {
-                    lviArr[i].SubItems.Add("0");
-                }
-                lviArr[i].SubItems.Add(AppUsrEnt.Critical ? "Si" : "No");
-                lviArr[i].SubItems.Add(AppUsrEnt.LastChangeDate);
-
-                lviArr[i].Text = "";
-                lviArr[i].ImageIndex = AppUsrEnt.ActiveUser ? 0 : 1;
-                lviArr[i].Tag = AppUsrEnt;
+				lviArr[i].SubItems.Add(AppUsrEnt[0].ToString());
+				lviArr[i].SubItems.Add(AppUsrEnt[5].ToString());
+				lviArr[i].SubItems.Add(AppUsrEnt[1].ToString());
+				lviArr[i].SubItems.Add((bool)AppUsrEnt[2] ? "Si" : "No");
+				lviArr[i].SubItems.Add(AppUsrEnt[4].ToString());
+				lviArr[i].Text = "";
+				lviArr[i].ImageIndex = (bool)AppUsrEnt[3] ? 0 : 1;
+				lviArr[i].Tag = AppUsrEnt;
                 i++;
             }
             return lviArr;
