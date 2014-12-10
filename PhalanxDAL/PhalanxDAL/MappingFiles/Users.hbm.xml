@@ -201,5 +201,31 @@
 		AND
 		(:nombre IS NULL OR upper(dbo.Users.username) LIKE :nombre)
 	</sql-query>
-	
+
+	<sql-query name="getAllATMUsers">
+		<return-scalar column="ID" type="Int32"/>
+		<return-scalar column="Username" type="String"/>
+		<return-scalar column="Critical" type="Boolean"/>
+		<return-scalar column="Active" type="Boolean"/>
+		<return-scalar column="LastChange" type="DateTime"/>
+		<return-scalar column="ATMName" type="String"/>
+		SELECT
+		dbo.Users.user_id AS ID,
+		dbo.Users.username AS Username,
+		dbo.Users.user_critical AS Critical,
+		dbo.Users.active_user AS Active,
+		dbo.Users_Passwords.d_last_change AS LastChange,
+		dbo.ATMs_Users.ATM_name AS ATMName
+		FROM
+		dbo.ATMs_Users
+		INNER JOIN dbo.Users ON dbo.ATMs_Users.user_id = dbo.Users.user_id
+		INNER JOIN dbo.Users_Passwords ON dbo.Users.user_password_id = dbo.Users_Passwords.user_password_id
+		WHERE
+		(:critico = -1 OR dbo.Users.user_critical = :critico)
+		AND
+		(:estadoUsuario = -1 OR dbo.Users.active_user = :estadoUsuario)
+		AND
+		(:nombre IS NULL OR upper(dbo.Users.username) LIKE :nombre)
+	</sql-query>
+
 </hibernate-mapping>
