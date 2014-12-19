@@ -60,10 +60,6 @@ namespace PhalanxAdmin
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // pnlchk
-            // 
-            this.pnlchk.ImageItems.ImageSet = null;
-            // 
             // pnlXPGrps
             // 
             this.pnlXPGrps.Size = new System.Drawing.Size(200, 535);
