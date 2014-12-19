@@ -33,6 +33,7 @@ namespace PhalanxAdmin
 			System.Windows.Forms.ColumnHeader columnHeader1;
 			System.Windows.Forms.ColumnHeader columnHeader2;
 			System.Windows.Forms.ColumnHeader columnHeader4;
+			System.Windows.Forms.ColumnHeader columnHeader7;
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FDBPwd));
 			this.xppnlDBPwd = new UIComponents.XPPanel(141);
 			this.lnkView = new System.Windows.Forms.LinkLabel();
@@ -67,6 +68,7 @@ namespace PhalanxAdmin
 			columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
 			this.pnlXPGrps.SuspendLayout();
 			this.pnlIzq.SuspendLayout();
@@ -118,6 +120,10 @@ namespace PhalanxAdmin
 			// 
 			columnHeader4.Text = "Server";
 			columnHeader4.Width = 79;
+			// 
+			// columnHeader7
+			// 
+			columnHeader7.Text = "IP";
 			// 
 			// xppnlDBPwd
 			// 
@@ -269,6 +275,7 @@ namespace PhalanxAdmin
             columnHeader1,
             columnHeader3,
             columnHeader4,
+            columnHeader7,
             this.columnHeader8,
             this.columnHeader9});
 			this.lvLista.FullRowSelect = true;

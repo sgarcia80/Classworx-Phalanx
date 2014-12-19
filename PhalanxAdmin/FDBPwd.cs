@@ -194,13 +194,25 @@ namespace PhalanxAdmin
 				lviArr[i].SubItems.Add(DBUsrEnt[1].ToString());
 
 				string server = string.Empty;
+				string ip = string.Empty;
 
 				if (DBUsrEnt[7] != null && DBUsrEnt[8] != null)
+				{
 					server = DBUsrEnt[7].ToString() + @"\" + DBUsrEnt[8].ToString();
+
+					if (DBUsrEnt[9] != null)
+						ip = DBUsrEnt[9].ToString();
+				}
 				else if (DBUsrEnt[10] != null)
+				{
 					server = DBUsrEnt[10].ToString();
 
+					if (DBUsrEnt[11] != null)
+						ip = DBUsrEnt[11].ToString();
+				}
+
 				lviArr[i].SubItems.Add(server);
+				lviArr[i].SubItems.Add(ip);
 				lviArr[i].SubItems.Add((bool)DBUsrEnt[2] ? "Si" : "No");
 				lviArr[i].SubItems.Add(DBUsrEnt[4].ToString());
                 lviArr[i].Text = "";
