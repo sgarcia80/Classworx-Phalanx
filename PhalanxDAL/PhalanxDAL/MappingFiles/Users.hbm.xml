@@ -255,4 +255,48 @@
 		(:nombre IS NULL OR upper(dbo.Users.username) LIKE :nombre)
 	</sql-query>
 
+	<sql-query name="getAllDatabaseUsers">
+		<return-scalar column="ID" type="Int32"/>
+		<return-scalar column="Username" type="String"/>
+		<return-scalar column="Critical" type="Boolean"/>
+		<return-scalar column="Active" type="Boolean"/>
+		<return-scalar column="LastChange" type="DateTime"/>
+		<return-scalar column="DBType" type="String"/>
+		<return-scalar column="DBName" type="String"/>
+		<return-scalar column="WinDomain" type="String"/>
+		<return-scalar column="WinPCName" type="String"/>
+		<return-scalar column="WinPCIP" type="String"/>
+		<return-scalar column="UnixPCName" type="String"/>
+		<return-scalar column="UnixPCIP" type="String"/>
+		SELECT
+		dbo.Users.user_id AS ID,
+		dbo.Users.username AS Username,
+		dbo.Users.user_critical AS Critical,
+		dbo.Users.active_user AS Active,
+		dbo.Users_Passwords.d_last_change AS LastChange,
+		dbo.Database_Types.db_type_name AS DBType,
+		dbo.Data_Bases.db_name AS DBName,
+		dbo.Win_Domains.nt_name AS WinDomain,
+		dbo.Win_PCs.pc_name AS WinPCName,
+		dbo.Win_PCs.pc_ip AS WinPCIP,
+		dbo.Unix.unx_server_name AS UnixPCName,
+		dbo.Unix.unx_server_ip1 AS UnixPCIP
+		FROM
+		dbo.Unix RIGHT
+		OUTER JOIN dbo.Users INNER JOIN dbo.Users_Passwords ON dbo.Users.user_password_id = dbo.Users_Passwords.user_password_id
+		INNER JOIN dbo.Databases_Users ON dbo.Users.user_id = dbo.Databases_Users.user_id
+		INNER JOIN dbo.Data_Bases ON dbo.Databases_Users.db_id = dbo.Data_Bases.db_id
+		INNER JOIN dbo.Database_Types ON dbo.Data_Bases.db_type_id = dbo.Database_Types.db_type_id ON dbo.Unix.unx_id = dbo.Data_Bases.unx_id
+		LEFT OUTER JOIN dbo.Win_Domains
+		RIGHT OUTER JOIN dbo.Win_PCs ON dbo.Win_Domains.win_domain_id = dbo.Win_PCs.win_domain_id ON dbo.Data_Bases.win_pc_id = dbo.Win_PCs.win_pc_id
+		WHERE
+		(:critico = -1 OR dbo.Users.user_critical = :critico)
+		AND
+		(:estadoUsuario = -1 OR dbo.Users.active_user = :estadoUsuario)
+		AND
+		(:nombre IS NULL OR upper(dbo.Users.username) LIKE :nombre)
+		AND
+		(:tipo = -1 OR dbo.Database_Types.db_type_id = :tipo)
+	</sql-query>
+
 </hibernate-mapping>

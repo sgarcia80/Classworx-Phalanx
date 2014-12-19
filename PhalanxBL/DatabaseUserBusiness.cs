@@ -196,5 +196,9 @@ namespace PhalanxBL
             return m_DBUserFactory.Refresh(User);
         }
 
+		public System.Collections.IList GetAll(bool? critico, bool? estadoUsuario, DatabaseTypeEntity tipo, string nombre)
+		{
+			return new DatabaseUserFactory().GetAll(critico, estadoUsuario, tipo != null ? new int?(tipo.Id) : null, nombre);
+		}
     }
 }
