@@ -74,10 +74,16 @@ namespace PhalanxAdmin
 			this.xppnlWinPwd.SuspendLayout();
 			this.SuspendLayout();
 			// 
+			// pnlchk
+			// 
+			this.pnlchk.ImageItems.ImageSet = null;
+			this.pnlchk.Location = new System.Drawing.Point(8, 365);
+			// 
 			// pnlXPGrps
 			// 
 			this.pnlXPGrps.Controls.Add(this.xppnlWinPwd);
 			this.pnlXPGrps.Size = new System.Drawing.Size(200, 511);
+			this.pnlXPGrps.Controls.SetChildIndex(this.pnlchk, 0);
 			this.pnlXPGrps.Controls.SetChildIndex(this.xppnlMenu, 0);
 			this.pnlXPGrps.Controls.SetChildIndex(this.xppnlWinPwd, 0);
 			// 

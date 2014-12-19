@@ -54,6 +54,7 @@ namespace PhalanxAdmin
             lnkWinPwd.Enabled = UsrBL.AccPwdWin(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
             lnkDBPwd.Enabled = UsrBL.AccPwdBD(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
             lnkUnixPwd.Enabled = UsrBL.AccPwdUnix(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            lnkChkWin.Enabled = UsrBL.AccChkWinPwd(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
             linkEcPwd.Enabled = UsrBL.AccPwdEqCom(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
             lnkATMPwd.Enabled = UsrBL.AccATM(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
         }
