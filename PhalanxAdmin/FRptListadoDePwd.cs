@@ -519,6 +519,12 @@ namespace PhalanxAdmin
 
 				return entidad.CommunicationDeviceType + "\\" + entidad.CommunicationDeviceName + "\\" + entidad.Username;
 			}
+            else if (usuario is ApplicationUserEntity)
+            {
+                ApplicationUserEntity entidad = usuario as ApplicationUserEntity;
+
+                return entidad.ApplicationName + "\\" + entidad.Username;
+            }
 
 			return usuario.Username;
 		}
