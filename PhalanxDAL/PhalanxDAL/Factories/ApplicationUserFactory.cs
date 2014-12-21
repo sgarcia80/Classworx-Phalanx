@@ -508,5 +508,15 @@ namespace PhalanxDAL.Factories
 				return query.List();
 			}
 		}
+
+        public ApplicationUserEntity Load(int ID)
+        {
+            ApplicationUserEntity objPhxUsr = null;
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                objPhxUsr = (ApplicationUserEntity)session.Load(typeof(ApplicationUserEntity), ID);
+            }
+            return objPhxUsr;
+        }
     }
 }
