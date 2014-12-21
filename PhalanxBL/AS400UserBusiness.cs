@@ -238,5 +238,10 @@ namespace PhalanxBL
 		{
 			return new AS400UsersFactory().GetAll(critico, estadoUsuario, nombre);
 		}
+        public AS400UserEntity Load(int ID)
+        {
+            return new AS400UsersFactory().Load(ID);
+        }
+
     }
 }
