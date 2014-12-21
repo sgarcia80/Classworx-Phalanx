@@ -527,5 +527,33 @@ namespace PhalanxDAL.Factories
                 }
             }
         }
+
+		public IList GetAll(bool? critico, bool? estadoUsuario, int? tipo, string nombre)
+		{
+			using (ISession session = DBMgr.factory.OpenSession())
+			{
+				IQuery query = session.GetNamedQuery("getAllDatabaseUsers");
+
+				int criticoParam = -1;
+				int estadoUsuarioParam = -1;
+				int tipoParam = -1;
+
+				if (critico != null)
+					criticoParam = critico.Value ? 1 : 0;
+
+				if (estadoUsuario != null)
+					estadoUsuarioParam = estadoUsuario.Value ? 1 : 0;
+
+				if (tipo != null)
+					tipoParam = tipo.Value;
+
+				query.SetString("nombre", nombre != null ? "%" + nombre.ToUpper() + "%" : null);
+				query.SetParameter("critico", criticoParam);
+				query.SetInt32("estadoUsuario", estadoUsuarioParam);
+				query.SetInt32("tipo", tipoParam);
+
+				return query.List();
+			}
+		}
     }
 }

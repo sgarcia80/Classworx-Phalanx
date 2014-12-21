@@ -1232,6 +1232,29 @@ namespace PhalanxDAL.Factories
             }
         }
 
+		public IList GetAll(bool? critico, bool? estadoUsuario, string nombre)
+		{
+			using (ISession session = DBMgr.factory.OpenSession())
+			{
+				IQuery query = session.GetNamedQuery("getAllWindowsUsers");
+
+				int criticoParam = -1;
+				int estadoUsuarioParam = -1;
+
+				if (critico != null)
+					criticoParam = critico.Value ? 1 : 0;
+
+				if (estadoUsuario != null)
+					estadoUsuarioParam = estadoUsuario.Value ? 1 : 0;
+
+				query.SetString("nombre", nombre != null ? "%" + nombre.ToUpper() + "%" : null);
+				query.SetParameter("critico", criticoParam);
+				query.SetInt32("estadoUsuario", estadoUsuarioParam);
+
+				return query.List();
+			}
+		}
+
 /*        public bool Refresh(WinLocalUserEntity winUser)
         {
             using (ISession session = DBMgr.factory.OpenSession())

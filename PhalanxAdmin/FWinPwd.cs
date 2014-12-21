@@ -8,12 +8,13 @@ using System.Windows.Forms;
 using PhalanxCommon.Entities;
 using PhalanxCommon.Collections;
 using PhalanxBL;
+using System.Collections;
 
 namespace PhalanxAdmin
 {
     public partial class FWinPwd : PhalanxAdmin.FBaseContrasenas
     {
-        protected WinLocalUserEntityCollection _entities;
+		protected IList _entities;
         protected string _filNombre = "";
         protected bool? _filUsuariosActivos = null;
         private bool? _filUsuariosCriticos;
@@ -122,24 +123,13 @@ namespace PhalanxAdmin
         private void LoadEntities()
         {
             WinLocalUserBusiness WinLocUsrBL = new WinLocalUserBusiness();
-            // seteo filtros
-            if (txtFilNombre.Text.Trim() != "")
-            {
-                WinLocUsrBL.FilNombre = txtFilNombre.Text.Trim();
-            }
-            /*
-            if (rbOrdName.Checked)
-            {
-                WinLocUsrBL.SetOrderByName();
-            }
-            else if (rbOrdFolio.Checked)
-            {
-                WinLocUsrBL.SetOrderByFolio();
-            }*/
-            WinLocUsrBL.GetGruposAsignados = true;
-            WinLocUsrBL.FilUsuariosActivos = _filUsuariosActivos;
-            WinLocUsrBL.FilUsuariosCriticos = _filUsuariosCriticos;
-            _entities = WinLocUsrBL.GetAll();
+
+			string nombre = null;
+
+			if (txtFilNombre.Text.Trim() != "")
+				nombre = txtFilNombre.Text.Trim();
+
+			_entities = WinLocUsrBL.GetAll(_filUsuariosCriticos, _filUsuariosActivos, nombre);
         }
 
         /// <summary>
@@ -183,27 +173,19 @@ namespace PhalanxAdmin
         {
             ListViewItem[] lviArr = new ListViewItem[this._entities.Count];
             int i = 0;
-            foreach (WinLocalUserEntity WinLocUsrEnt in this._entities)
+			foreach (object[] WinLocUsrEnt in this._entities)
             {
                 lviArr[i] = new ListViewItem();
                 /// hay que armar los items de lo que se traiga de la DB
-                lviArr[i].SubItems.Add(WinLocUsrEnt.Key);
-                lviArr[i].SubItems.Add(WinLocUsrEnt.WinPc.WinDomain.NtName);
-                lviArr[i].SubItems.Add(WinLocUsrEnt.WinPc.Name);
-                lviArr[i].SubItems.Add(WinLocUsrEnt.Username);
-                lviArr[i].SubItems.Add(WinLocUsrEnt.WinPc.PcIP);
-                if (WinLocUsrEnt.UserPassword.RqstGrpsPwdsList != null && WinLocUsrEnt.UserPassword.RqstGrpsPwdsList.Count > 0)
-                {
-                    lviArr[i].SubItems.Add(WinLocUsrEnt.UserPassword.RqstGrpsPwdsList.Count.ToString());
-                }
-                else
-                {
-                    lviArr[i].SubItems.Add("0");
-                }
-                lviArr[i].SubItems.Add(WinLocUsrEnt.Critical ? "Si" : "No");
-                lviArr[i].SubItems.Add(WinLocUsrEnt.LastChangeDate);
+				lviArr[i].SubItems.Add(WinLocUsrEnt[0].ToString());
+				lviArr[i].SubItems.Add(WinLocUsrEnt[5].ToString());
+				lviArr[i].SubItems.Add(WinLocUsrEnt[6].ToString());
+				lviArr[i].SubItems.Add(WinLocUsrEnt[1].ToString());
+				lviArr[i].SubItems.Add(WinLocUsrEnt[7].ToString());
+				lviArr[i].SubItems.Add((bool)WinLocUsrEnt[2] ? "Si" : "No");
+				lviArr[i].SubItems.Add(WinLocUsrEnt[4].ToString());
                 lviArr[i].Text = "";
-                lviArr[i].ImageIndex = WinLocUsrEnt.ActiveUser?0:1;
+				lviArr[i].ImageIndex = (bool)WinLocUsrEnt[3] ? 0 : 1; ;
                 lviArr[i].Tag = WinLocUsrEnt;
                 i++;
             }

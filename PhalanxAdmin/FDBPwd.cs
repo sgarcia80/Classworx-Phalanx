@@ -14,7 +14,7 @@ namespace PhalanxAdmin
 {
     public partial class FDBPwd : PhalanxAdmin.FBaseContrasenas
     {
-        protected DatabaseUserEntityCollection _entities;
+        protected IList _entities;
         protected string _filNombre = "";
         private bool? _filUsuariosActivos;
         private bool? _filUsuariosCriticos;
@@ -134,24 +134,12 @@ namespace PhalanxAdmin
         {
             DatabaseUserBusiness DBUsrBL = new DatabaseUserBusiness();
             // seteo filtros
-            if (txtFilNombre.Text.Trim() != "")
-            {
-                DBUsrBL.FilNombre = txtFilNombre.Text.Trim();
-            }
-            //if (rbOrdName.Checked)
-            //{
-            //    DBUsrBL.SetOrderByName();
-            //}
-            //else if (rbOrdFolio.Checked)
-            //{
-            //    DBUsrBL.SetOrderByFolio();
-            //}
-            DBUsrBL.SetOrderByName();
-            DBUsrBL.GetGruposAsignados = true;
-            DBUsrBL.FilTipoDB = _filTipoBD;
-            DBUsrBL.FilUsuariosActivos = _filUsuariosActivos;
-            DBUsrBL.FilUsuariosCriticos = _filUsuariosCriticos;
-            _entities = DBUsrBL.GetAll();
+			string nombre = null;
+
+			if (txtFilNombre.Text.Trim() != "")
+				nombre = txtFilNombre.Text.Trim();
+
+			_entities = DBUsrBL.GetAll(_filUsuariosCriticos, _filUsuariosActivos, _filTipoBD, nombre);
         }
 
         /// <summary>
@@ -195,31 +183,40 @@ namespace PhalanxAdmin
         {
             ListViewItem[] lviArr = new ListViewItem[this._entities.Count];
             int i = 0;
-            foreach (DatabaseUserEntity DBUsrEnt in this._entities)
+            foreach (object[] DBUsrEnt in this._entities)
             {
                 lviArr[i] = new ListViewItem();
                 /// hay que armar los items de lo que se traiga de la DB
                 /// 
+				lviArr[i].SubItems.Add(DBUsrEnt[0].ToString());
+				lviArr[i].SubItems.Add(DBUsrEnt[5].ToString());
+				lviArr[i].SubItems.Add(DBUsrEnt[6].ToString());
+				lviArr[i].SubItems.Add(DBUsrEnt[1].ToString());
 
-                lviArr[i].SubItems.Add(DBUsrEnt.Key);
-                lviArr[i].SubItems.Add(DBUsrEnt.Db.Type.Name);
-                lviArr[i].SubItems.Add(DBUsrEnt.Db.Name);
-                lviArr[i].SubItems.Add(DBUsrEnt.Username);
-                lviArr[i].SubItems.Add(DBUsrEnt.Db.PCName);
+				string server = string.Empty;
+				string ip = string.Empty;
 
-                if (DBUsrEnt.UserPassword.RqstGrpsPwdsList != null && DBUsrEnt.UserPassword.RqstGrpsPwdsList.Count > 0)
-                {
-                    lviArr[i].SubItems.Add(DBUsrEnt.UserPassword.RqstGrpsPwdsList.Count.ToString());
-                }
-                else
-                {
-                    lviArr[i].SubItems.Add("0");
-                }
-                lviArr[i].SubItems.Add(DBUsrEnt.Critical ? "Si" : "No");
-                lviArr[i].SubItems.Add(DBUsrEnt.LastChangeDate);
+				if (DBUsrEnt[7] != null && DBUsrEnt[8] != null)
+				{
+					server = DBUsrEnt[7].ToString() + @"\" + DBUsrEnt[8].ToString();
 
+					if (DBUsrEnt[9] != null)
+						ip = DBUsrEnt[9].ToString();
+				}
+				else if (DBUsrEnt[10] != null)
+				{
+					server = DBUsrEnt[10].ToString();
+
+					if (DBUsrEnt[11] != null)
+						ip = DBUsrEnt[11].ToString();
+				}
+
+				lviArr[i].SubItems.Add(server);
+				lviArr[i].SubItems.Add(ip);
+				lviArr[i].SubItems.Add((bool)DBUsrEnt[2] ? "Si" : "No");
+				lviArr[i].SubItems.Add(DBUsrEnt[4].ToString());
                 lviArr[i].Text = "";
-                lviArr[i].ImageIndex = DBUsrEnt.ActiveUser ? 0 : 1;
+				lviArr[i].ImageIndex = (bool)DBUsrEnt[3] ? 0 : 1;
                 lviArr[i].Tag = DBUsrEnt;
                 i++;
             }
