@@ -184,7 +184,7 @@ namespace PhalanxAdmin
 				lviArr[i].SubItems.Add((bool)UnixUsrEnt[2] ? "Si" : "No");
                 lviArr[i].Text = "";
 				lviArr[i].ImageIndex = (bool)UnixUsrEnt[3] ? 0 : 1;
-                lviArr[i].Tag = UnixUsrEnt;
+                lviArr[i].Tag = UnixUsrEnt[0].ToString();
                 i++;
             }
             return lviArr;
@@ -280,7 +280,7 @@ namespace PhalanxAdmin
 
         private void lnkModify_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            UnixUserEntity currUser = (UnixUserEntity)lvLista.SelectedItems[0].Tag;
+            UnixUserEntity currUser = new UnixUserBusiness().Load(Convert.ToInt32(lvLista.SelectedItems[0].Tag.ToString()));
             FABMUnixUsrPwd UsrPass = new FABMUnixUsrPwd(currUser, FABMUnixUsrPwd.FormType.Update);
             UsrPass.Title = "Modificación de Usuario y Contraseña";
             if (UsrPass.ShowDialog() == DialogResult.OK)
@@ -289,7 +289,7 @@ namespace PhalanxAdmin
 
         private void lnkDelete_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            UnixUserEntity currUser = (UnixUserEntity)lvLista.SelectedItems[0].Tag;
+            UnixUserEntity currUser = new UnixUserBusiness().Load(Convert.ToInt32(lvLista.SelectedItems[0].Tag.ToString()));
             if (!currUser.ActiveUser)
             {
                 MessageBox.Show("El Usuario ya se encuentra desactivado (baja)");
@@ -305,7 +305,7 @@ namespace PhalanxAdmin
 
         private void lnkView_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            UnixUserEntity currUser = (UnixUserEntity)lvLista.SelectedItems[0].Tag;
+            UnixUserEntity currUser = new UnixUserBusiness().Load(Convert.ToInt32(lvLista.SelectedItems[0].Tag.ToString()));
             FABMUnixUsrPwd UsrPass = new FABMUnixUsrPwd(currUser, FABMUnixUsrPwd.FormType.View);
             UsrPass.Title = "Visualización de Usuario y Contraseña";
             UsrPass.ShowDialog();

@@ -259,5 +259,10 @@ namespace PhalanxBL
 		{
 			return new UnixUsersFactory().GetAll(critico, estadoUsuario, nombre);
 		}
+
+        public UnixUserEntity Load(int ID)
+        {
+            return new UnixUsersFactory().Load(ID);
+        }
     }
 }
