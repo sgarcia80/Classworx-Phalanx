@@ -355,5 +355,10 @@ namespace PhalanxBL
 		{
 			return new WinLocalUsersFactory().GetAll(critico, estadoUsuario, nombre);
 		}
+
+        public WinLocalUserEntity Load(int ID)
+        {
+            return new WinLocalUsersFactory().Load(ID);
+        }
     }
 }

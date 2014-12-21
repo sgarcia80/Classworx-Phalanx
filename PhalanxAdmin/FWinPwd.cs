@@ -186,7 +186,7 @@ namespace PhalanxAdmin
 				lviArr[i].SubItems.Add(WinLocUsrEnt[4].ToString());
                 lviArr[i].Text = "";
 				lviArr[i].ImageIndex = (bool)WinLocUsrEnt[3] ? 0 : 1; ;
-                lviArr[i].Tag = WinLocUsrEnt;
+                lviArr[i].Tag = WinLocUsrEnt[0].ToString();
                 i++;
             }
             return lviArr;
@@ -282,7 +282,7 @@ namespace PhalanxAdmin
 
         private void lnkModify_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            WinLocalUserEntity currUser = (WinLocalUserEntity)lvLista.SelectedItems[0].Tag;
+            WinLocalUserEntity currUser = new WinLocalUserBusiness().Load(Convert.ToInt32(lvLista.SelectedItems[0].Tag.ToString()));
             FABMWinUsrPwd UsrPass = new FABMWinUsrPwd(currUser, FABMWinUsrPwd.FormType.Update);
             UsrPass.Title = "Modificación de Usuario y Contraseña";
             if (UsrPass.ShowDialog() == DialogResult.OK)
@@ -291,7 +291,7 @@ namespace PhalanxAdmin
 
         private void lnkDelete_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            WinLocalUserEntity currUser = (WinLocalUserEntity)lvLista.SelectedItems[0].Tag;
+            WinLocalUserEntity currUser = new WinLocalUserBusiness().Load(Convert.ToInt32(lvLista.SelectedItems[0].Tag.ToString()));
             if (!currUser.ActiveUser)
             {
                 MessageBox.Show("El Usuario ya se encuentra desactivado (baja)");
@@ -307,7 +307,7 @@ namespace PhalanxAdmin
 
         private void lnkView_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            WinLocalUserEntity currUser = (WinLocalUserEntity)lvLista.SelectedItems[0].Tag;
+            WinLocalUserEntity currUser = new WinLocalUserBusiness().Load(Convert.ToInt32(lvLista.SelectedItems[0].Tag.ToString()));
             FABMWinUsrPwd UsrPass = new FABMWinUsrPwd(currUser, FABMWinUsrPwd.FormType.View);
             UsrPass.Title = "Visualización de Usuario y Contraseña";
             UsrPass.ShowDialog();

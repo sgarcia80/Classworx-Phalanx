@@ -1270,6 +1270,16 @@ namespace PhalanxDAL.Factories
                 }
             }
         }
- */ 
+ */
+
+        public WinLocalUserEntity Load(int ID)
+        {
+            WinLocalUserEntity objPhxUsr = null;
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                objPhxUsr = (WinLocalUserEntity)session.Load(typeof(WinLocalUserEntity), ID);
+            }
+            return objPhxUsr;
+        }
     }
 }
