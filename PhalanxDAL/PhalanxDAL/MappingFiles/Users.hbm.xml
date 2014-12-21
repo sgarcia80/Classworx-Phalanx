@@ -280,7 +280,7 @@
 		dbo.Win_PCs.pc_name AS WinPCName,
 		dbo.Win_PCs.pc_ip AS WinPCIP,
 		dbo.Unix.unx_server_name AS UnixPCName,
-		dbo.Unix.unx_server_ip1 AS UnixPCIP
+		dbo.Unix.unx_ip AS UnixPCIP
 		FROM
 		dbo.Unix RIGHT
 		OUTER JOIN dbo.Users INNER JOIN dbo.Users_Passwords ON dbo.Users.user_password_id = dbo.Users_Passwords.user_password_id
