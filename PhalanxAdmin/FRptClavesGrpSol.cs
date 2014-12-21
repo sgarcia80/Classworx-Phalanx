@@ -258,8 +258,8 @@ namespace PhalanxAdmin
                         sb.Append(AppUsrEnt.Folio.ToString() + Separator);
                         sb.Append(AppUsrEnt.Ambiente + Separator);
                         sb.Append(AppUsrEnt.Usuario + Separator);
-                        sb.Append(AppUsrEnt.Critico ? "Si" : "No" + Separator);
-                        sb.Append(AppUsrEnt.Activo ? "Activo" : "Inactivo" + Separator);
+                        sb.Append((AppUsrEnt.Critico ? "Si" : "No") + Separator);
+                        sb.Append((AppUsrEnt.Activo ? "Activo" : "Inactivo") + Separator);
                         sb.Append(AppUsrEnt.Grupo + Separator);
                         sb.Append(AppUsrEnt.GrupoActivo ? "Activo" : "Inactivo");
                     }
