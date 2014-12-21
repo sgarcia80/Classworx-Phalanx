@@ -20,6 +20,7 @@ namespace PhalanxAdmin
         public FUsuarios()
         {
             InitializeComponent();
+            lvLista.ListViewItemSorter = new cwxSorter();
         }
         public override string Id
         {
@@ -389,6 +390,32 @@ namespace PhalanxAdmin
 
         }
 
+        private void lvLista_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            if (((ListView)sender).Items.Count == 0)
+            {
+                return;
+            }
+            cwxSorter s = (cwxSorter)((ListView)sender).ListViewItemSorter;
+            if (s.Column == e.Column)
+            {
+                if (s.Order == System.Windows.Forms.SortOrder.Ascending)
+                {
+                    s.Order = System.Windows.Forms.SortOrder.Descending;
+                }
+                else
+                {
+                    s.Order = System.Windows.Forms.SortOrder.Ascending;
+                }
+            }
+            else
+            {
+                s.Column = e.Column;
+                s.Order = System.Windows.Forms.SortOrder.Ascending;
+            }
+            ((ListView)sender).Sort();
+
+        }
     }
 }
 
