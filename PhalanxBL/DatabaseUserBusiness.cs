@@ -200,5 +200,10 @@ namespace PhalanxBL
 		{
 			return new DatabaseUserFactory().GetAll(critico, estadoUsuario, tipo != null ? new int?(tipo.Id) : null, nombre);
 		}
+
+        public DatabaseUserEntity Load(int ID)
+        {
+            return new DatabaseUserFactory().Load(ID);
+        }
     }
 }
