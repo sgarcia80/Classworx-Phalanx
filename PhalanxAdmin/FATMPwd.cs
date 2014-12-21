@@ -184,7 +184,7 @@ namespace PhalanxAdmin
 				lviArr[i].SubItems.Add(AppUsrEnt[4].ToString());
 				lviArr[i].Text = "";
 				lviArr[i].ImageIndex = (bool)AppUsrEnt[3] ? 0 : 1;
-                lviArr[i].Tag = AppUsrEnt;
+                lviArr[i].Tag = AppUsrEnt[0].ToString();
                 i++;
             }
             return lviArr;
@@ -289,7 +289,8 @@ namespace PhalanxAdmin
         {
             if (lvLista.SelectedIndices.Count == 1)
             {
-                FABMATMPwd FABMAppUsr = new FABMATMPwd((ATMUserEntity)lvLista.SelectedItems[0].Tag, false, FABMATMPwd.FormType.Update);
+                ATMUserEntity currUser = new ATMUserBusiness().Load(Convert.ToInt32(lvLista.SelectedItems[0].Tag.ToString()));
+                FABMATMPwd FABMAppUsr = new FABMATMPwd(currUser, false, FABMATMPwd.FormType.Update);
                 FABMAppUsr.ShowDialog();
                 if (FABMAppUsr.DialogResult == DialogResult.OK)
                 {
@@ -305,7 +306,8 @@ namespace PhalanxAdmin
         {
             if (lvLista.SelectedIndices.Count == 1)
             {
-                FABMATMPwd FABMAppUsr = new FABMATMPwd((ATMUserEntity)lvLista.SelectedItems[0].Tag, true, FABMATMPwd.FormType.View);
+                ATMUserEntity currUser = new ATMUserBusiness().Load(Convert.ToInt32(lvLista.SelectedItems[0].Tag.ToString()));
+                FABMATMPwd FABMAppUsr = new FABMATMPwd(currUser, true, FABMATMPwd.FormType.View);
                 FABMAppUsr.ShowDialog();
             }
 

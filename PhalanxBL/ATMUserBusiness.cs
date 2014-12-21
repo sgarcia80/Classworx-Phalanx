@@ -194,5 +194,10 @@ namespace PhalanxBL
 		{
 			return new ATMUserFactory().GetAll(critico, estadoUsuario, nombre);
 		}
+
+        public ATMUserEntity Load(int ID)
+        {
+            return new ATMUserFactory().Load(ID);
+        }
     }
 }
