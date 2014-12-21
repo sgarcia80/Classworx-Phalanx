@@ -172,6 +172,7 @@ namespace PhalanxAdmin
             this.pnlchk.TextColors.Foreground = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(93)))), ((int)(((byte)(198)))));
             this.pnlchk.TextHighlightColors.Foreground = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(142)))), ((int)(((byte)(255)))));
             this.pnlchk.VertAlignment = System.Drawing.StringAlignment.Center;
+            this.pnlchk.Visible = false;
             // 
             // lnkChkWin
             // 
