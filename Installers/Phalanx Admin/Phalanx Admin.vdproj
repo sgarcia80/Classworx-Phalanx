@@ -1603,7 +1603,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Phalanx Admin"
         "ProductCode" = "8:{F184BD11-8B21-48B4-A705-B393CFB1200F}"
-        "PackageCode" = "8:{0CABFA4A-AA0C-40D0-8A70-3BFA0CDCE867}"
+        "PackageCode" = "8:{0368F069-C9B0-4F7F-A8F4-37156BADE66F}"
         "UpgradeCode" = "8:{8E78FDE6-B4CE-4524-9C74-9426AAF1C2E4}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
