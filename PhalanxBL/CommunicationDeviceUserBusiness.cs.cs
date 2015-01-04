@@ -211,5 +211,9 @@ namespace PhalanxBL
 		{
 			return new CommunicationDeviceUserFactory().GetAll(critico, estadoUsuario, tipo != null ? new int?(tipo.Id) : null, nombre);
 		}
+        public CommunicationDeviceUserEntity Load(int ID)
+        {
+            return new CommunicationDeviceUserFactory().Load(ID);
+        }
     }
 }

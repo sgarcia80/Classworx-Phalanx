@@ -193,7 +193,7 @@ namespace PhalanxAdmin
 
                 lviArr[i].Text = "";
                 lviArr[i].ImageIndex = (bool)ECUsrEnt[3] ? 0 : 1;
-                lviArr[i].Tag = ECUsrEnt;
+                lviArr[i].Tag = ECUsrEnt[0].ToString();  //ECUsrEnt;
                 
                 i++;
             }
@@ -305,7 +305,9 @@ namespace PhalanxAdmin
         {
             if (lvLista.SelectedIndices.Count == 1)
             {
-                FABMECPwd FABMCommunicationDevice = new FABMECPwd((CommunicationDeviceUserEntity)lvLista.SelectedItems[0].Tag, false, FABMECPwd.FormType.Update);
+                //FABMECPwd FABMCommunicationDevice = new FABMECPwd((CommunicationDeviceUserEntity)lvLista.SelectedItems[0].Tag, false, FABMECPwd.FormType.Update);
+                CommunicationDeviceUserEntity currUser = new CommunicationDeviceUserBusiness().Load(Convert.ToInt32(lvLista.SelectedItems[0].Tag.ToString()));
+                FABMECPwd FABMCommunicationDevice = new FABMECPwd(currUser, false, FABMECPwd.FormType.Update);
                 FABMCommunicationDevice.ShowDialog();
 
                 if (FABMCommunicationDevice.DialogResult == DialogResult.OK)
@@ -320,7 +322,9 @@ namespace PhalanxAdmin
         {
             if (lvLista.SelectedIndices.Count == 1)
             {
-                FABMECPwd FABMECUsr = new FABMECPwd((CommunicationDeviceUserEntity)lvLista.SelectedItems[0].Tag, true, FABMECPwd.FormType.View);
+                //FABMECPwd FABMECUsr = new FABMECPwd((CommunicationDeviceUserEntity)lvLista.SelectedItems[0].Tag, true, FABMECPwd.FormType.View);
+                CommunicationDeviceUserEntity currUser = new CommunicationDeviceUserBusiness().Load(Convert.ToInt32(lvLista.SelectedItems[0].Tag.ToString()));
+                FABMECPwd FABMECUsr = new FABMECPwd(currUser, true, FABMECPwd.FormType.View);
                 FABMECUsr.ShowDialog();
             }
         }

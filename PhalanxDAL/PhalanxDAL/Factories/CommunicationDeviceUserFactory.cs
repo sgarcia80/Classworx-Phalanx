@@ -569,5 +569,14 @@ namespace PhalanxDAL.Factories
 				return query.List();
 			}
 		}
+        public CommunicationDeviceUserEntity Load(int ID)
+        {
+            CommunicationDeviceUserEntity objPhxUsr = null;
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                objPhxUsr = (CommunicationDeviceUserEntity)session.Load(typeof(CommunicationDeviceUserEntity), ID);
+            }
+            return objPhxUsr;
+        }
     }
 }
