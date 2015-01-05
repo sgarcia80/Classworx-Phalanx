@@ -865,7 +865,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:2.0.50727                              "
+                "FrameworkVersion" = "8:2.0.50727                                "
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=9832"
                 }
@@ -1249,7 +1249,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:phxBlowfish, Version=1.0.5468.36097, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:phxBlowfish, Version=1.0.5468.37942, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_84292E310B71AE205DDBC2492A2DB70B"
@@ -1280,7 +1280,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:phxCryptMgr, Version=1.0.5468.36098, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:phxCryptMgr, Version=1.0.5468.37942, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_874A151F34FA3A25D50D194CBE7A17B1"
@@ -1602,15 +1602,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Phalanx Admin"
-        "ProductCode" = "8:{F184BD11-8B21-48B4-A705-B393CFB1200F}"
-        "PackageCode" = "8:{0368F069-C9B0-4F7F-A8F4-37156BADE66F}"
+        "ProductCode" = "8:{7F875CA1-93BE-4A41-963D-F05C28DC5508}"
+        "PackageCode" = "8:{F150C95E-5CA2-4DAA-851B-886D7E27D6F9}"
         "UpgradeCode" = "8:{8E78FDE6-B4CE-4524-9C74-9426AAF1C2E4}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:3.13.0"
+        "ProductVersion" = "8:3.13.1"
         "Manufacturer" = "8:Classworx"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
