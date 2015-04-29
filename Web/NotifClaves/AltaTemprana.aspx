@@ -1,6 +1,9 @@
 <%@ Page Language="C#" MasterPageFile="~/Principal.master" AutoEventWireup="true" CodeFile="AltaTemprana.aspx.cs" Inherits="AltaTemprana" Title="Macro SA - Notificación de Claves" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <br />
+    <div class="tituloSeccion">
+        Alta Temprana</div>
+    <br />
     <div class="titulo">
         Recursos Internos
     </div>

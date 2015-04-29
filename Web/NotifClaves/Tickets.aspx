@@ -36,5 +36,18 @@
             <asp:SessionParameter Name="usuario" SessionField="Usuario" Type="String" />
         </SelectParameters>
     </asp:ObjectDataSource>
+     <br />
+    <div class="division">
+    </div>
+    <br />
+
+    <table class="login" style="width:100%">
+        <tr>
+            <td align="center">
+                <asp:Button ID="btnVolver" Text="Volver" CssClass="btn" runat="server" OnClick="btnVolver_Click" />
+            </td>
+        </tr>
+    </table>
+
 </asp:Content>
 

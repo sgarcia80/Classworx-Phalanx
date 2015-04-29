@@ -1,15 +1,10 @@
-using System;
-using System.Data;
-using System.Configuration;
-using System.Collections;
+﻿using System;
+using System.Collections.Generic;
 using System.Web;
-using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
 
-public partial class Tickets : System.Web.UI.Page
+public partial class AutogestionCOBIS : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -17,10 +12,16 @@ public partial class Tickets : System.Web.UI.Page
         {
             Response.Redirect("~/Login.aspx");
         }
+
     }
     protected void btnVolver_Click(object sender, EventArgs e)
     {
         Response.Redirect("ClavesAplicativos.aspx");
+
+    }
+    protected void btnDesbloqueoCOBIS_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("DesbloqueoUsuarioCOBIS.aspx");
 
     }
 }

@@ -68,7 +68,8 @@
             <td colspan="2" align="center">
                 <br />
                 <br />
-                <asp:Button ID="btnAceptar" Text="Ingresar" CssClass="btn" runat="server" OnClick="btnAceptar_Click" />
+                <asp:Button ID="btnAceptar" Text="Aceptar" CssClass="btn" runat="server" 
+                    OnClick="btnAceptar_Click" />
             </td>
         </tr>
     </table>

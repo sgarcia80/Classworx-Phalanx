@@ -32,7 +32,8 @@ public partial class Login : System.Web.UI.Page
             Session["Usuario"] = usuario;
             Session["Dominio"] = dominio;
 
-            FormsAuthentication.RedirectFromLoginPage(nombreUsuario, false);
+            //FormsAuthentication.RedirectFromLoginPage(nombreUsuario, false);
+            Response.Redirect("ClavesAplicativos.aspx");
         }
         else
         {
