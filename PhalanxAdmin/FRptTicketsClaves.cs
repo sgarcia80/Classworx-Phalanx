@@ -174,8 +174,8 @@ namespace PhalanxAdmin
                 }
                 lviArr[i].Text = ticket.NumeroSolicitud.ToString();
                 lviArr[i].SubItems.Add(ticket.Aplicacion.Nombre);
-                lviArr[i].SubItems.Add(ticket.Usuario);
-                lviArr[i].SubItems.Add(ticket.DominioUsuario);
+                lviArr[i].SubItems.Add(ticket.UsuarioAplicacion);
+                lviArr[i].SubItems.Add(ticket.DominioUsuario+@"\"+ticket.Usuario);
                 lviArr[i].SubItems.Add(ticket.Fecha.ToString("dd/MM/yyyy HH:m:ss")); // HistChgPwdEnt.User.Username;
                 string strLegajo = "";
                 if (ticket.Legajo != null)

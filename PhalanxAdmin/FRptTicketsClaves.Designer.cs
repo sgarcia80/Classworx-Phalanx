@@ -37,8 +37,8 @@ namespace PhalanxAdmin
             System.Windows.Forms.ColumnHeader columnHeader6;
             System.Windows.Forms.ColumnHeader columnHeader7;
             System.Windows.Forms.ColumnHeader columnHeader9;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FRptTicketsClaves));
             System.Windows.Forms.ColumnHeader columnHeader8;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FRptTicketsClaves));
             this.pnlFilters = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -120,10 +120,12 @@ namespace PhalanxAdmin
             // columnHeader5
             // 
             columnHeader5.Text = "Aplicación";
+            columnHeader5.Width = 74;
             // 
             // columnHeader6
             // 
-            columnHeader6.Text = "Dominio";
+            columnHeader6.Text = "Usuario Dominio";
+            columnHeader6.Width = 125;
             // 
             // columnHeader7
             // 
@@ -135,6 +137,10 @@ namespace PhalanxAdmin
             columnHeader9.Tag = "Numeric";
             columnHeader9.Text = "Nro. Tkt. BPM";
             columnHeader9.Width = 66;
+            // 
+            // columnHeader8
+            // 
+            columnHeader8.Text = "Corregido";
             // 
             // pnlFilters
             // 
@@ -382,10 +388,6 @@ namespace PhalanxAdmin
             this.imglstTickets.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imglstTickets.ImageStream")));
             this.imglstTickets.TransparentColor = System.Drawing.Color.Transparent;
             this.imglstTickets.Images.SetKeyName(0, "IconWarning.gif");
-            // 
-            // columnHeader8
-            // 
-            columnHeader8.Text = "Corregido";
             // 
             // FRptTicketsClaves
             // 
