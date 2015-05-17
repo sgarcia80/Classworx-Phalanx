@@ -110,7 +110,11 @@ namespace NDCCommon.Entities
 
         public override string ToString()
         {
-            return Nombre;
+            if (Id < 0)
+            { return Nombre; }
+            else
+            { return Nombre + " - " + Key; }
+
         }
     }
 }

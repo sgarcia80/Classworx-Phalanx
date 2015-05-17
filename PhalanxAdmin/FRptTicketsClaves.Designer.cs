@@ -120,7 +120,7 @@ namespace PhalanxAdmin
             // columnHeader5
             // 
             columnHeader5.Text = "Aplicación";
-            columnHeader5.Width = 74;
+            columnHeader5.Width = 104;
             // 
             // columnHeader6
             // 
@@ -219,7 +219,7 @@ namespace PhalanxAdmin
             this.cbFilApp.FormattingEnabled = true;
             this.cbFilApp.Location = new System.Drawing.Point(73, 58);
             this.cbFilApp.Name = "cbFilApp";
-            this.cbFilApp.Size = new System.Drawing.Size(112, 21);
+            this.cbFilApp.Size = new System.Drawing.Size(312, 21);
             this.cbFilApp.TabIndex = 17;
             // 
             // txtFHasta
