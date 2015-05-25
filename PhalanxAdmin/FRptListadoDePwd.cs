@@ -104,12 +104,12 @@ namespace PhalanxAdmin
 				
 			DatabaseUserBusiness dbb = new DatabaseUserBusiness();
 			
-			if (rbOrderFolio.Checked)
-				dbb.SetOrderByFolio();
-			else if (rbOrderUsrName.Checked)
-				dbb.SetOrderByUserName();
-			else if (rbOrderUsrPath.Checked)
-				dbb.SetOrderByName();
+            //if (rbOrderFolio.Checked)
+            //    dbb.SetOrderByFolio();
+            //else if (rbOrderUsrName.Checked)
+            //    dbb.SetOrderByUserName();
+            //else if (rbOrderUsrPath.Checked)
+            //    dbb.SetOrderByName();
 
 			DatabaseUserEntityCollection dbList = dbb.GetAll();
 
@@ -123,12 +123,12 @@ namespace PhalanxAdmin
 			
 			ApplicationUserBusiness appb = new ApplicationUserBusiness();
 			
-			if (rbOrderFolio.Checked)
-				appb.SetOrderByFolio();
-			else if (rbOrderUsrName.Checked)
-				appb.SetOrderByUserName();
-			else if (rbOrderUsrPath.Checked)
-				appb.SetOrderByName();
+            //if (rbOrderFolio.Checked)
+            //    appb.SetOrderByFolio();
+            //else if (rbOrderUsrName.Checked)
+            //    appb.SetOrderByUserName();
+            //else if (rbOrderUsrPath.Checked)
+            //    appb.SetOrderByName();
 
 			ApplicationUserEntityCollection appList = appb.GetAll();
 
@@ -142,12 +142,12 @@ namespace PhalanxAdmin
 					
 			UnixUserBusiness unixb = new UnixUserBusiness();
 				
-			if (rbOrderFolio.Checked)
-				unixb.SetOrderByFolio();
-			else if (rbOrderUsrName.Checked)
-				unixb.SetOrderByUserName();
-			else if (rbOrderUsrPath.Checked)
-				unixb.SetOrderByName();
+            //if (rbOrderFolio.Checked)
+            //    unixb.SetOrderByFolio();
+            //else if (rbOrderUsrName.Checked)
+            //    unixb.SetOrderByUserName();
+            //else if (rbOrderUsrPath.Checked)
+            //    unixb.SetOrderByName();
 			
 			UnixUserEntityCollection unixList = unixb.GetAll();
 
@@ -162,12 +162,12 @@ namespace PhalanxAdmin
 
 			AS400UserBusiness AS400b = new AS400UserBusiness();
 
-			if (rbOrderFolio.Checked)
-				AS400b.SetOrderByFolio();
-			else if (rbOrderUsrName.Checked)
-				AS400b.SetOrderByUserName();
-			else if (rbOrderUsrPath.Checked)
-				AS400b.SetOrderByName();
+            //if (rbOrderFolio.Checked)
+            //    AS400b.SetOrderByFolio();
+            //else if (rbOrderUsrName.Checked)
+            //    AS400b.SetOrderByUserName();
+            //else if (rbOrderUsrPath.Checked)
+            //    AS400b.SetOrderByName();
 	
 			AS400UserEntityCollection AS400List = AS400b.GetAll();
 
@@ -182,12 +182,12 @@ namespace PhalanxAdmin
 			
 			ATMUserBusiness ATMb = new ATMUserBusiness();
 
-			if (rbOrderFolio.Checked)
-				ATMb.SetOrderByFolio();
-			else if (rbOrderUsrName.Checked)
-				ATMb.SetOrderByUserName();
-			else if (rbOrderUsrPath.Checked)
-				ATMb.SetOrderByName();
+            //if (rbOrderFolio.Checked)
+            //    ATMb.SetOrderByFolio();
+            //else if (rbOrderUsrName.Checked)
+            //    ATMb.SetOrderByUserName();
+            //else if (rbOrderUsrPath.Checked)
+            //    ATMb.SetOrderByName();
 			
 			ATMUserEntityCollection ATMList = ATMb.GetAll();
 
@@ -201,12 +201,12 @@ namespace PhalanxAdmin
 			
 			WinLocalUserBusiness wlub = new WinLocalUserBusiness();
 			
-			if (rbOrderFolio.Checked)
-				wlub.SetOrderByFolio();
-			else if (rbOrderUsrName.Checked)
-				wlub.SetOrderByUserName();
-			else if (rbOrderUsrPath.Checked)
-				wlub.SetOrderByName();
+            //if (rbOrderFolio.Checked)
+            //    wlub.SetOrderByFolio();
+            //else if (rbOrderUsrName.Checked)
+            //    wlub.SetOrderByUserName();
+            //else if (rbOrderUsrPath.Checked)
+            //    wlub.SetOrderByName();
 			
 			WinLocalUserEntityCollection list = wlub.GetAll();
 
@@ -220,12 +220,12 @@ namespace PhalanxAdmin
 				
 			CommunicationDeviceUserBusiness cdb = new CommunicationDeviceUserBusiness();
 
-			if (rbOrderFolio.Checked)
-				cdb.SetOrderByFolio();
-			else if (rbOrderUsrName.Checked)
-				cdb.SetOrderByUserName();
-			else if (rbOrderUsrPath.Checked)
-				cdb.SetOrderByName();
+            //if (rbOrderFolio.Checked)
+            //    cdb.SetOrderByFolio();
+            //else if (rbOrderUsrName.Checked)
+            //    cdb.SetOrderByUserName();
+            //else if (rbOrderUsrPath.Checked)
+            //    cdb.SetOrderByName();
 
 			CommunicationDeviceUserEntityCollection cdList = cdb.GetAll();
 
@@ -356,46 +356,7 @@ namespace PhalanxAdmin
 
         }
 
-        private void btnExportar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                saveFileDialog1.Filter = "csv files (*.csv)|*.csv";
-                saveFileDialog1.FileName = "Phalanx ABM Perfiles";
-                saveFileDialog1.Title = "Exportar a CSV";
-                StringBuilder sb = new StringBuilder();
-                string Separator = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ListSeparator;
-                foreach (ColumnHeader ch in lvLista.Columns)
-                {
-                    sb.Append(ch.Text + Separator);
-                }
-                foreach (ListViewItem lvi in lvLista.Items)
-                {
-                    sb.AppendLine();
-                    foreach (ListViewItem.ListViewSubItem lvs in lvi.SubItems)
-                    {
-                        if (lvs.Text.Trim() == string.Empty)
-                            sb.Append(" " + Separator);
-                        else
-                            sb.Append(lvs.Text + Separator);
-                    }
-                }
-                DialogResult dr = saveFileDialog1.ShowDialog();
-                if (dr == DialogResult.OK)
-                {
-                    StreamWriter sw = new StreamWriter(saveFileDialog1.FileName, false, Encoding.Unicode);
-                    sw.Write(sb.ToString());
-                    sw.Close();
-                MessageBox.Show("La exportación ha sido completada", "Exportación a CSV", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("No se ha podido completar la exportación. (" + ex.Message + ")", "Error en Exportación a CSV", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-
-
-        }
+       
 
         private void FRptABMPerfiles_Load(object sender, EventArgs e)
         {
@@ -460,6 +421,44 @@ namespace PhalanxAdmin
 				MessageBox.Show("No se ha podido completar la exportación. (" + ex.Message + ")", "Error en Exportación a PDF", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 			}
 		}
+        private void btnExportar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                saveFileDialog1.Filter = "csv files (*.csv)|*.csv";
+                saveFileDialog1.FileName = "ListadoDeContraseñas";
+                saveFileDialog1.Title = "Exportar a CSV";
+                StringBuilder sb = new StringBuilder();
+                string Separator = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ListSeparator;
+                foreach (ColumnHeader ch in lvLista.Columns)
+                {
+                    sb.Append(ch.Text + Separator);
+                }
+                foreach (ListViewItem lvi in lvLista.Items)
+                {
+                    sb.AppendLine();
+                    foreach (ListViewItem.ListViewSubItem lvs in lvi.SubItems)
+                    {
+                        if (lvs.Text.Trim() == string.Empty)
+                            sb.Append(" " + Separator);
+                        else
+                            sb.Append(lvs.Text + Separator);
+                    }
+                }
+                DialogResult dr = saveFileDialog1.ShowDialog();
+                if (dr == DialogResult.OK)
+                {
+                    StreamWriter sw = new StreamWriter(saveFileDialog1.FileName, false, Encoding.Unicode);
+                    sw.Write(sb.ToString());
+                    sw.Close();
+                    MessageBox.Show("La exportación ha sido completada", "Exportación a CSV", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No se ha podido completar la exportación. (" + ex.Message + ")", "Error en Exportación a CSV", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
     }
 
 	public class FRptListadoDePwdEntity

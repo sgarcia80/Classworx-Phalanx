@@ -39,12 +39,9 @@ namespace PhalanxAdmin
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.lnkCancelar = new System.Windows.Forms.ToolStripStatusLabel();
             this.pnlFilters = new System.Windows.Forms.Panel();
+            this.btnExportar = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.rbOrderUsrPath = new System.Windows.Forms.RadioButton();
-            this.rbOrderFolio = new System.Windows.Forms.RadioButton();
-            this.rbOrderUsrName = new System.Windows.Forms.RadioButton();
             this.pnlList = new System.Windows.Forms.Panel();
             this.lvLista = new System.Windows.Forms.ListView();
             this.bwRefreshEntities = new System.ComponentModel.BackgroundWorker();
@@ -60,7 +57,6 @@ namespace PhalanxAdmin
             this.pnlIzq.SuspendLayout();
             this.statusbar.SuspendLayout();
             this.pnlFilters.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.pnlList.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -142,22 +138,32 @@ namespace PhalanxAdmin
             // 
             // pnlFilters
             // 
+            this.pnlFilters.Controls.Add(this.btnExportar);
             this.pnlFilters.Controls.Add(this.button1);
             this.pnlFilters.Controls.Add(this.btnBuscar);
-            this.pnlFilters.Controls.Add(this.groupBox2);
             this.pnlFilters.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlFilters.Location = new System.Drawing.Point(200, 0);
             this.pnlFilters.Name = "pnlFilters";
             this.pnlFilters.Size = new System.Drawing.Size(520, 75);
             this.pnlFilters.TabIndex = 24;
             // 
+            // btnExportar
+            // 
+            this.btnExportar.Location = new System.Drawing.Point(296, 45);
+            this.btnExportar.Name = "btnExportar";
+            this.btnExportar.Size = new System.Drawing.Size(117, 21);
+            this.btnExportar.TabIndex = 2;
+            this.btnExportar.Text = "Exportar a CSV";
+            this.btnExportar.UseVisualStyleBackColor = true;
+            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
+            // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.SystemColors.Control;
-            this.button1.Location = new System.Drawing.Point(400, 45);
+            this.button1.Location = new System.Drawing.Point(158, 45);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(117, 21);
-            this.button1.TabIndex = 18;
+            this.button1.TabIndex = 1;
             this.button1.Text = "&Exportar a PDF";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -165,57 +171,13 @@ namespace PhalanxAdmin
             // btnBuscar
             // 
             this.btnBuscar.BackColor = System.Drawing.SystemColors.Control;
-            this.btnBuscar.Location = new System.Drawing.Point(400, 12);
+            this.btnBuscar.Location = new System.Drawing.Point(18, 45);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(117, 21);
-            this.btnBuscar.TabIndex = 1;
+            this.btnBuscar.TabIndex = 0;
             this.btnBuscar.Text = "&Visualizar";
             this.btnBuscar.UseVisualStyleBackColor = false;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click_1);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.rbOrderUsrPath);
-            this.groupBox2.Controls.Add(this.rbOrderFolio);
-            this.groupBox2.Controls.Add(this.rbOrderUsrName);
-            this.groupBox2.Location = new System.Drawing.Point(18, 8);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(319, 44);
-            this.groupBox2.TabIndex = 17;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Ordenar por";
-            // 
-            // rbOrderUsrPath
-            // 
-            this.rbOrderUsrPath.AutoSize = true;
-            this.rbOrderUsrPath.Location = new System.Drawing.Point(201, 19);
-            this.rbOrderUsrPath.Name = "rbOrderUsrPath";
-            this.rbOrderUsrPath.Size = new System.Drawing.Size(102, 17);
-            this.rbOrderUsrPath.TabIndex = 2;
-            this.rbOrderUsrPath.Text = "Ruta de Usuario";
-            this.rbOrderUsrPath.UseVisualStyleBackColor = true;
-            // 
-            // rbOrderFolio
-            // 
-            this.rbOrderFolio.AutoSize = true;
-            this.rbOrderFolio.Checked = true;
-            this.rbOrderFolio.Location = new System.Drawing.Point(6, 19);
-            this.rbOrderFolio.Name = "rbOrderFolio";
-            this.rbOrderFolio.Size = new System.Drawing.Size(47, 17);
-            this.rbOrderFolio.TabIndex = 0;
-            this.rbOrderFolio.TabStop = true;
-            this.rbOrderFolio.Text = "Folio";
-            this.rbOrderFolio.UseVisualStyleBackColor = true;
-            // 
-            // rbOrderUsrName
-            // 
-            this.rbOrderUsrName.AutoSize = true;
-            this.rbOrderUsrName.Location = new System.Drawing.Point(70, 19);
-            this.rbOrderUsrName.Name = "rbOrderUsrName";
-            this.rbOrderUsrName.Size = new System.Drawing.Size(116, 17);
-            this.rbOrderUsrName.TabIndex = 1;
-            this.rbOrderUsrName.Text = "Nombre de Usuario";
-            this.rbOrderUsrName.UseVisualStyleBackColor = true;
             // 
             // pnlList
             // 
@@ -246,7 +208,7 @@ namespace PhalanxAdmin
             this.lvLista.Name = "lvLista";
             this.lvLista.Size = new System.Drawing.Size(485, 414);
             this.lvLista.Sorting = System.Windows.Forms.SortOrder.Ascending;
-            this.lvLista.TabIndex = 1;
+            this.lvLista.TabIndex = 0;
             this.lvLista.UseCompatibleStateImageBehavior = false;
             this.lvLista.View = System.Windows.Forms.View.Details;
             this.lvLista.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvLista_ColumnClick);
@@ -276,8 +238,6 @@ namespace PhalanxAdmin
             this.statusbar.ResumeLayout(false);
             this.statusbar.PerformLayout();
             this.pnlFilters.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.pnlList.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -295,12 +255,9 @@ namespace PhalanxAdmin
         protected System.Windows.Forms.ListView lvLista;
 		private System.ComponentModel.BackgroundWorker bwRefreshEntities;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
-		protected System.Windows.Forms.Button button1;
-		private System.Windows.Forms.GroupBox groupBox2;
-		private System.Windows.Forms.RadioButton rbOrderUsrPath;
-		private System.Windows.Forms.RadioButton rbOrderFolio;
-		private System.Windows.Forms.RadioButton rbOrderUsrName;
+        protected System.Windows.Forms.Button button1;
 		protected System.Windows.Forms.Button btnBuscar;
+        private System.Windows.Forms.Button btnExportar;
 
     }
 }
