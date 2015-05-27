@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Classworx")]
 [assembly: AssemblyProduct("PhalanxAdmin")]
-[assembly: AssemblyCopyright("Copyright © Classworx 2007")]
+[assembly: AssemblyCopyright("Copyright © Classworx 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -30,4 +30,4 @@ using System.Runtime.InteropServices;
 //      Revision
 //
 [assembly: AssemblyVersion("1.1.0.0")]
-[assembly: AssemblyFileVersion("3.13.0.1")]
+[assembly: AssemblyFileVersion("3.14.0.0")]
