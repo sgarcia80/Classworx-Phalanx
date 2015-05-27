@@ -47,4 +47,66 @@
 		</joined-subclass>
 
 	</class>
+  <sql-query name="getAllPasswordRequests">
+    <return-scalar column="NroSolicitud" type="Int32"/>
+    <return-scalar column="IdAmbiente" type="Int32"/>
+    <return-scalar column="Ambiente" type="String"/>
+    <return-scalar column="DetalleContraseña" type="String"/>
+    <return-scalar column="EstadoSolicitud" type="String"/>
+    <return-scalar column="FechaSolicitud" type="DateTime"/>
+    <return-scalar column="FechaUltimoEstado" type="DateTime"/>
+    <return-scalar column="Solicitante" type="String"/>
+    <return-scalar column="FechaUsrCambio" type="String"/>
+    <![CDATA[SELECT     dbo.Passwords_Requests.request_id AS NroSolicitud, dbo.Users.user_type_id AS IdAmbiente, dbo.User_Types.user_type_desc AS Ambiente,
+    CASE WHEN Users.user_type_id = 1 THEN
+    (SELECT     'Dominio: ' + Win_Domains.nt_name + ' - Server: ' + Win_PCs.pc_name + ' - Usuario: ' + Users.username AS Expr1
+    FROM          Win_Local_Users INNER JOIN
+    Win_PCs ON Win_Local_Users.win_pc_id = Win_PCs.win_pc_id INNER JOIN
+    Win_Domains ON Win_PCs.win_domain_id = Win_Domains.win_domain_id
+    WHERE      (Users.user_id = Win_Local_Users.user_id)) WHEN Users.user_type_id = 2 THEN
+    (SELECT     'Base de datos: ' + Data_Bases.db_name + ' - Tipo: ' + Database_Types.db_type_name + ' - Usuario: ' + Users.username AS Expr1
+    FROM          Databases_Users INNER JOIN
+    Data_Bases ON Databases_Users.db_id = Data_Bases.db_id INNER JOIN
+    Database_Types ON Data_Bases.db_type_id = Database_Types.db_type_id
+    WHERE      (Users.user_id = Databases_Users.user_id)) WHEN Users.user_type_id = 3 THEN
+    (SELECT     'Aplicación: ' + Applications.app_name + ' - Usuario: ' + Users.username AS Expr1
+    FROM          Applications_Users INNER JOIN
+    Applications ON Applications_Users.app_id = Applications.app_id
+    WHERE      (Users.user_id = Applications_Users.user_id)) WHEN Users.user_type_id = 4 THEN
+    (SELECT     'Servidor: ' + Unix.unx_server_name + ' - Usuario: ' + Users.username AS Expr1
+    FROM          Unix_users INNER JOIN
+    Unix ON Unix_users.unx_id = Unix.unx_id
+    WHERE      (Users.user_id = Unix_users.user_id)) WHEN Users.user_type_id = 5 THEN
+    (SELECT     'Servidor: ' + AS400.as_server_name + ' - Usuario: ' + Users.username AS Expr1
+    FROM          AS400 INNER JOIN
+    AS400_users ON AS400.as_id = AS400_users.as_id
+    WHERE      (Users.user_id = AS400_users.user_id)) WHEN Users.user_type_id = 6 THEN
+    (SELECT     'Eq. de Comunicación: ' + Communication_Devices.cm_dv_name + ' - Tipo: ' + Communication_Device_Types.cm_dv_type_name + ' - Usuario: '
+    + Users.username AS Expr1
+    FROM          Communication_Device_Users INNER JOIN
+    Communication_Devices ON Communication_Device_Users.cm_dv_id = Communication_Devices.cm_dv_id INNER JOIN
+    Communication_Device_Types ON Communication_Devices.cm_dv_type_id = Communication_Device_Types.cm_dv_type_id
+    WHERE      (Users.user_id = Communication_Device_Users.user_id)) WHEN Users.user_type_id = 7 THEN
+    (SELECT     'ATM: ' + ATM_name COLLATE DATABASE_DEFAULT + ' - Usuario: ' + Users.username COLLATE DATABASE_DEFAULT AS Expr1
+    FROM          ATMs_Users
+    WHERE      (Users.user_id = ATMs_Users.user_id)) END AS DetalleContraseña, dbo.Request_States.rqst_state_desc AS EstadoSolicitud,
+    dbo.Requests.request_date AS FechaSolicitud,
+    CASE WHEN Request_States.rqst_state_id = 9 THEN return_date WHEN Request_States.rqst_state_id = 10 THEN expiration_date WHEN Request_States.rqst_state_id
+    = 11 THEN close_date ELSE Requests.auth1_date END AS FechaUltimoEstado, dbo.Phx_Users.fullname AS Solicitante,
+    CASE WHEN requests.return_date IS NULL THEN NULL ELSE
+    (SELECT     TOP 1 CONVERT(varchar(10), hcp.d_change, 103) + ' ' + CONVERT(varchar(8), hcp.d_change, 24) + '|' + chgusr.fullname
+    FROM          hist_change_password AS hcp INNER JOIN
+    Phx_Users AS chgusr ON hcp.phx_user_id = chgusr.phx_user_id
+    WHERE      hcp.user_id = users.user_id AND hcp.d_change >= requests.return_date AND (Requests.close_date IS NULL OR
+    (Requests.close_date IS NOT NULL AND hcp.d_change <= Requests.close_date))
+    ORDER BY hcp.d_change DESC) END AS 'FechaUsrCambio'
+    FROM         dbo.Passwords_Requests INNER JOIN
+    dbo.Users_Passwords ON dbo.Passwords_Requests.user_password_id = dbo.Users_Passwords.user_password_id INNER JOIN
+    dbo.Users ON dbo.Users_Passwords.user_password_id = dbo.Users.user_password_id INNER JOIN
+    dbo.Requests ON dbo.Passwords_Requests.request_id = dbo.Requests.request_id INNER JOIN
+    dbo.Request_States ON dbo.Requests.rqst_state_id = dbo.Request_States.rqst_state_id INNER JOIN
+    dbo.Phx_Users ON dbo.Requests.rqst_user_id = dbo.Phx_Users.phx_user_id INNER JOIN
+    dbo.User_Types ON dbo.Users.user_type_id = dbo.User_Types.user_type_id]]>
+  </sql-query>
+
 </hibernate-mapping>

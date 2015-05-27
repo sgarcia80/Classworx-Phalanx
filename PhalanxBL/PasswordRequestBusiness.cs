@@ -345,6 +345,11 @@ namespace PhalanxBL
         {
             return new PasswordsRequestsFactory().IsAbleToPwdRqstFollowup(pwdRequest, Auth);
         }
+
+        public SolicitudPwdEntityCollection GetAll()
+        {
+            return new PasswordsRequestsFactory().GetAllPwdRqstForRpt();
+        }
     }
 
 }

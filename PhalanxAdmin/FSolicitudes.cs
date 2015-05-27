@@ -16,6 +16,7 @@ namespace PhalanxAdmin
 {
     public partial class FSolicitudes : PhalanxAdmin.FBaseReportes
     {
+        private SolicitudPwdEntityCollection _PwdRqst;
         private RequestGroupEntityCollection _reqGroups;
         private ArrayList _filEstados;
         private ArrayList _filGrupos;
@@ -122,8 +123,18 @@ namespace PhalanxAdmin
         private void LoadEntities()
         {
             PasswordRequestBusiness reqpwdBL = new PasswordRequestBusiness();
-            // seteo filtros
-            _entities = reqpwdBL.GetPassRqstByState(_filEstados, txtFilNroSolic.Text, _filGrupos, true);
+            //if (true) //
+                if(_filEstados == null && _filGrupos == null && txtFilNroSolic.Text.Trim() == "")
+            {
+                _entities = null;
+                _PwdRqst = reqpwdBL.GetAll();
+            }
+            else
+            {
+                _PwdRqst = null;
+                // seteo filtros
+                _entities = reqpwdBL.GetPassRqstByState(_filEstados, txtFilNroSolic.Text, _filGrupos, true);
+            }
         }
 
         //protected void gvCloseRequests_RowDataBound(object sender)
@@ -343,6 +354,60 @@ namespace PhalanxAdmin
                     lviArr[i].SubItems.Add(UsrCambio);
 
                     lviArr[i].Tag = reqpwd;
+                    i++;
+                }
+            }
+            else if (_PwdRqst != null)
+            {
+                lviArr = new ListViewItem[this._PwdRqst.Count];
+
+
+                int i = 0, imgIndex = 0;
+
+                foreach (SolicitudPwdEntity PwdRqst in this._PwdRqst)
+                {
+                    lviArr[i] = new ListViewItem();
+                    switch (PwdRqst.IdAmbiente)
+                    {
+                        case 1: // Windows
+                            imgIndex = 3;
+                            break;
+                        case 2: // Bases de datos
+                            imgIndex = 1;
+                            break;
+                        case 3: // Aplicaciones
+                            imgIndex = 0;
+                            break;
+                        case 4: // Unix
+                            imgIndex = 2;
+                            break;
+                        case 5: // AS400
+                            imgIndex = 4;
+                            break;
+                        case 6: // Eq. comunicaciones
+                            imgIndex = 5;
+                            break;
+                        case 7: // ATM
+                            imgIndex = 6;
+                            break;
+                    }
+                    lviArr[i].ImageIndex = imgIndex;
+                    lviArr[i].Text = PwdRqst.DetallePwd; // detalle contraseña
+                    lviArr[i].SubItems.Add(PwdRqst.Id.ToString()); // Nro Solic
+                    lviArr[i].SubItems.Add(PwdRqst.Solicitante); // Solicitante
+                    lviArr[i].SubItems.Add(PwdRqst.FechaSolicitud.ToString("dd/MM/yyyy HH:mm:ss")); // fecha de solic
+                    if (PwdRqst.FechaUltimoEstado == null)
+                    { lviArr[i].SubItems.Add(""); }
+                    else
+                    {
+                        lviArr[i].SubItems.Add(PwdRqst.FechaUltimoEstado.Value.ToString("dd/MM/yyyy HH:mm:ss")); // fecha de ult estado
+                    }
+                    lviArr[i].SubItems.Add(PwdRqst.EstadoSolicitud); // Estado
+                    if (PwdRqst.FechaCambio != null)
+                    {
+                        lviArr[i].SubItems.Add(PwdRqst.FechaCambio.Value.ToString("dd/MM/yyyy HH:mm:ss")); // 
+                        lviArr[i].SubItems.Add(PwdRqst.UsuarioCambio); // 
+                    }
                     i++;
                 }
             }

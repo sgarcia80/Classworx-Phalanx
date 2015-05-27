@@ -677,7 +677,18 @@ namespace PhalanxDAL.Factories
             return PwdRqstEC;
         }
 
+        public SolicitudPwdEntityCollection GetAllPwdRqstForRpt()
+        {
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                IQuery query = session.GetNamedQuery("getAllPasswordRequests");
+                IList QyrList = query.List();
+                SolicitudPwdEntityCollection SolPwdEC = new SolicitudPwdEntityCollection();
+                SolPwdEC.Add(QyrList);
+                return SolPwdEC;
+            }
 
+        }
         /// <summary>
         /// Busca las solicitudes de contraseña que estén en estado Pendiente de autorización, autorizadas y no autorizadas por usuario solicitante
         /// </summary>
