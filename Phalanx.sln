@@ -59,7 +59,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "NotifClaves", "http://local
 	ProjectSection(WebsiteProperties) = preProject
 		UseIISExpress = "false"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv2.0"
-		ProjectReferences = "{3447B917-0A54-460E-AB95-84BBF24BAF35}|PhalanxDAL.dll;{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}|PhalanxCommon.dll;{F0941A5C-7856-42E9-9544-CDAC11F3C285}|phxCryptMgr.dll;{78D7CC00-F303-476C-A329-0B25856A0B07}|phxBlowfish.dll;{E8F94161-3F1A-4491-92B4-9AE6777DF183}|phxLog.dll;{B3B9B7E1-EAF0-4AD4-9C99-BC0CF980840F}|NDCBL.dll;{66EAFA01-8DD4-4B02-8BB3-716A216844C4}|Common.dll;{3744DE9E-912E-4A88-8897-73FFF9C8DD48}|NDCCommon.dll;{C9E3767E-ADE2-4B50-AED1-47FC226CD539}|NDCDAL.dll;{515C8382-4032-4840-A587-9725F9F6FD19}|PhalanxBL.dll;{4CFFA156-7992-4D21-ABDC-056C31F2AA51}|PhalanxMAL.dll;{D31089F5-A197-4808-B865-C7062DA477AB}|PhalanxNAL.dll;{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}|PhxPing.dll;"
+		ProjectReferences = "{3447B917-0A54-460E-AB95-84BBF24BAF35}|PhalanxDAL.dll;{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}|PhalanxCommon.dll;{F0941A5C-7856-42E9-9544-CDAC11F3C285}|phxCryptMgr.dll;{78D7CC00-F303-476C-A329-0B25856A0B07}|phxBlowfish.dll;{E8F94161-3F1A-4491-92B4-9AE6777DF183}|phxLog.dll;{B3B9B7E1-EAF0-4AD4-9C99-BC0CF980840F}|NDCBL.dll;{66EAFA01-8DD4-4B02-8BB3-716A216844C4}|Common.dll;{3744DE9E-912E-4A88-8897-73FFF9C8DD48}|NDCCommon.dll;{C9E3767E-ADE2-4B50-AED1-47FC226CD539}|NDCDAL.dll;{515C8382-4032-4840-A587-9725F9F6FD19}|PhalanxBL.dll;{4CFFA156-7992-4D21-ABDC-056C31F2AA51}|PhalanxMAL.dll;{D31089F5-A197-4808-B865-C7062DA477AB}|PhalanxNAL.dll;{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}|PhxPing.dll;{1F7A5518-B545-4ACE-95A2-AC8AA4DE5146}|RemoveAddressingHeadersAssertion.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/NotifClaves"
 		Debug.AspNetCompiler.PhysicalPath = "Web\NotifClaves\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\NotifClaves\"
@@ -75,27 +75,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "NotifClaves", "http://local
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		SlnRelativePath = "Web\NotifClaves\"
-	EndProjectSection
-EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AutoGestionCOBIS", "http://localhost/AutoGestionCOBIS", "{455F6356-D8AC-430E-BD72-B361C762846B}"
-	ProjectSection(WebsiteProperties) = preProject
-		UseIISExpress = "false"
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv2.0"
-		Debug.AspNetCompiler.VirtualPath = "/AutoGestionCOBIS"
-		Debug.AspNetCompiler.PhysicalPath = "Web\AutoGestionCOBIS\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\AutoGestionCOBIS\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/AutoGestionCOBIS"
-		Release.AspNetCompiler.PhysicalPath = "Web\AutoGestionCOBIS\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\AutoGestionCOBIS\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		SlnRelativePath = "Web\AutoGestionCOBIS\"
 	EndProjectSection
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "phalanx", "http://localhost/phalanx", "{17E9CA5F-D855-493D-97ED-00CA4B6A2331}"
@@ -130,6 +109,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhxPing", "PhxPing\PhxPing.csproj", "{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhxSvcExpirationManager", "PhxSvcExpiratonManager\PhxSvcExpirationManager.csproj", "{DCF4C304-6BCC-4D5E-AFD2-351D68190190}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoveAddressingHeadersAssertion", "RemoveAddressingHeadersAssertion\RemoveAddressingHeadersAssertion.csproj", "{1F7A5518-B545-4ACE-95A2-AC8AA4DE5146}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -409,22 +390,6 @@ Global
 		{275FE192-FEE1-42E0-9828-D057C42469FA}.Web Debug|Any CPU.Build.0 = Debug|Any CPU
 		{275FE192-FEE1-42E0-9828-D057C42469FA}.WS Test|Any CPU.ActiveCfg = Debug|Any CPU
 		{275FE192-FEE1-42E0-9828-D057C42469FA}.WS Test|Any CPU.Build.0 = Debug|Any CPU
-		{455F6356-D8AC-430E-BD72-B361C762846B}.App Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{455F6356-D8AC-430E-BD72-B361C762846B}.App Debug|Any CPU.Build.0 = Debug|Any CPU
-		{455F6356-D8AC-430E-BD72-B361C762846B}.AutCOBIS Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{455F6356-D8AC-430E-BD72-B361C762846B}.AutCOBIS Release|Any CPU.Build.0 = Debug|Any CPU
-		{455F6356-D8AC-430E-BD72-B361C762846B}.DbgAutCOBIS|Any CPU.ActiveCfg = Debug|Any CPU
-		{455F6356-D8AC-430E-BD72-B361C762846B}.DbgAutCOBIS|Any CPU.Build.0 = Debug|Any CPU
-		{455F6356-D8AC-430E-BD72-B361C762846B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{455F6356-D8AC-430E-BD72-B361C762846B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{455F6356-D8AC-430E-BD72-B361C762846B}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{455F6356-D8AC-430E-BD72-B361C762846B}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{455F6356-D8AC-430E-BD72-B361C762846B}.Remote WS Test|Any CPU.ActiveCfg = Debug|Any CPU
-		{455F6356-D8AC-430E-BD72-B361C762846B}.Remote WS Test|Any CPU.Build.0 = Debug|Any CPU
-		{455F6356-D8AC-430E-BD72-B361C762846B}.Web Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{455F6356-D8AC-430E-BD72-B361C762846B}.Web Debug|Any CPU.Build.0 = Debug|Any CPU
-		{455F6356-D8AC-430E-BD72-B361C762846B}.WS Test|Any CPU.ActiveCfg = Debug|Any CPU
-		{455F6356-D8AC-430E-BD72-B361C762846B}.WS Test|Any CPU.Build.0 = Debug|Any CPU
 		{17E9CA5F-D855-493D-97ED-00CA4B6A2331}.App Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{17E9CA5F-D855-493D-97ED-00CA4B6A2331}.App Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17E9CA5F-D855-493D-97ED-00CA4B6A2331}.AutCOBIS Release|Any CPU.ActiveCfg = Debug|Any CPU
@@ -486,6 +451,22 @@ Global
 		{DCF4C304-6BCC-4D5E-AFD2-351D68190190}.Web Debug|Any CPU.Build.0 = Web Debug|Any CPU
 		{DCF4C304-6BCC-4D5E-AFD2-351D68190190}.WS Test|Any CPU.ActiveCfg = WS Test|Any CPU
 		{DCF4C304-6BCC-4D5E-AFD2-351D68190190}.WS Test|Any CPU.Build.0 = WS Test|Any CPU
+		{1F7A5518-B545-4ACE-95A2-AC8AA4DE5146}.App Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F7A5518-B545-4ACE-95A2-AC8AA4DE5146}.App Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F7A5518-B545-4ACE-95A2-AC8AA4DE5146}.AutCOBIS Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F7A5518-B545-4ACE-95A2-AC8AA4DE5146}.AutCOBIS Release|Any CPU.Build.0 = Release|Any CPU
+		{1F7A5518-B545-4ACE-95A2-AC8AA4DE5146}.DbgAutCOBIS|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F7A5518-B545-4ACE-95A2-AC8AA4DE5146}.DbgAutCOBIS|Any CPU.Build.0 = Debug|Any CPU
+		{1F7A5518-B545-4ACE-95A2-AC8AA4DE5146}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F7A5518-B545-4ACE-95A2-AC8AA4DE5146}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F7A5518-B545-4ACE-95A2-AC8AA4DE5146}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F7A5518-B545-4ACE-95A2-AC8AA4DE5146}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F7A5518-B545-4ACE-95A2-AC8AA4DE5146}.Remote WS Test|Any CPU.ActiveCfg = Release|Any CPU
+		{1F7A5518-B545-4ACE-95A2-AC8AA4DE5146}.Remote WS Test|Any CPU.Build.0 = Release|Any CPU
+		{1F7A5518-B545-4ACE-95A2-AC8AA4DE5146}.Web Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F7A5518-B545-4ACE-95A2-AC8AA4DE5146}.Web Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F7A5518-B545-4ACE-95A2-AC8AA4DE5146}.WS Test|Any CPU.ActiveCfg = Release|Any CPU
+		{1F7A5518-B545-4ACE-95A2-AC8AA4DE5146}.WS Test|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -493,7 +474,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{031D3AB6-F5E1-442A-A385-E21579757AAC} = {379FA69B-6AF9-42A3-9B62-5759C915798D}
 		{275FE192-FEE1-42E0-9828-D057C42469FA} = {379FA69B-6AF9-42A3-9B62-5759C915798D}
-		{455F6356-D8AC-430E-BD72-B361C762846B} = {379FA69B-6AF9-42A3-9B62-5759C915798D}
 		{17E9CA5F-D855-493D-97ED-00CA4B6A2331} = {379FA69B-6AF9-42A3-9B62-5759C915798D}
 		{32E46A22-43D0-4154-B695-945564855500} = {2211250C-B49C-4EE6-9E0C-B78A6CF40830}
 	EndGlobalSection
