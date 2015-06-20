@@ -13,6 +13,15 @@ public partial class DesbloqueoUsuarioCOBIS : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!Page.User.Identity.IsAuthenticated)
+        {
+            Response.Redirect("~/Login.aspx");
+        }
+        if (!Page.IsPostBack)
+        {
+            trTitRespuesta.Visible = false;
+            trRespuesta.Visible = false;
+        }
     }
     protected void btnDesbloquear_Click(object sender, EventArgs e)
     {
@@ -32,19 +41,28 @@ public partial class DesbloqueoUsuarioCOBIS : System.Web.UI.Page
             loginFiltro.i_c_estado = ConfigurationManager.AppSettings["COBISEstado"];
             loginFiltro.i_c_login = Session["Usuario"].ToString();
             loginFiltro.i_m_quien_llama = ConfigurationManager.AppSettings["COBISQuienLlama"];
+            bool ErrorExec = true;
             try
             {
+                lblUsrName.Text = loginFiltro.i_c_login;
                 COBISDesbloqueo.ExecuteRet resultado = serviceProxy.execute(requestConnection, loginFiltro);
                 if (resultado.funcionarioRet.o_error == 0)
                 {
-                    txtRespuesta.Text = "Se desbloqueó el usuario COBIS " + Session["Usuario"].ToString();
+                    //txtRespuesta.Text = "Se desbloqueó el usuario COBIS " + Session["Usuario"].ToString();
+                    trTitRespuesta.Visible = true;
+                    trRespuesta.Visible = true;
+                    lblResp2.Text = "ha sido desbloqueado en forma satisfactoria!";
+                    ErrorExec = false;
                 }
                 else
                 {
-                    txtRespuesta.Text = "Error: ";
-                    txtRespuesta.Text += resultado.funcionarioRet.o_error.ToString();
-                    txtRespuesta.Text += " - ";
-                    txtRespuesta.Text += resultado.funcionarioRet.o_mensaje;
+                    trTitRespuesta.Visible = true;
+                    trRespuesta.Visible = true;
+                    lblResp2.Text = "no se ha podido desbloquear. <br/>Por favor ingresa una solicitud vía Remedy, y te responderemos a la brevedad!";
+                    //txtRespuesta.Text = "Error: ";
+                    //txtRespuesta.Text += resultado.funcionarioRet.o_error.ToString();
+                    //txtRespuesta.Text += " - ";
+                    //txtRespuesta.Text += resultado.funcionarioRet.o_mensaje;
                     //txtRespuesta.Text += Environment.NewLine + "restultado.funcionarioRet.o_error.ToString: ";
                     //txtRespuesta.Text += resultado.funcionarioRet.o_error.ToString();
                     //txtRespuesta.Text += Environment.NewLine + "restultado.funcionarioRet.o_mensaje: ";
@@ -58,18 +76,23 @@ public partial class DesbloqueoUsuarioCOBIS : System.Web.UI.Page
             }
             catch (System.Web.Services.Protocols.SoapHeaderException ee)
             {
-                txtRespuesta.Text += ee.Message;
+                //txtRespuesta.Text += ee.Message;
             }
 
             catch (Exception ex)
             {
-                txtRespuesta.Text += ex.Message;
+                //txtRespuesta.Text += ex.Message;
             }
-           
+            if (ErrorExec)
+            {
+                trTitRespuesta.Visible = true;
+                trRespuesta.Visible = true;
+                lblResp2.Text = "no se ha podido desbloquear. <br/>Por favor ingresa una solicitud vía Remedy, y te responderemos a la brevedad!";
+            }
         }
         else
         {
-            txtRespuesta.Text = "Para solicitar el desbloqueo debe estar autenticado en el sistema";
+            //txtRespuesta.Text = "Para solicitar el desbloqueo debe estar autenticado en el sistema";
         }
     }
     protected void btnVolver_Click(object sender, EventArgs e)

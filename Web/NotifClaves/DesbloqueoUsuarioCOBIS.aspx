@@ -6,7 +6,7 @@
     <div class="tituloSeccion">
         Desbloqueo de Usuario COBIS</div>
     <br />
-    <table class="login">
+    <table class="login" style="width: 500px">
         <tr>
             <td>
                 <asp:Label ID="Label1" runat="server" Text="Label">Se solicitará desbloqueo de su usuario de COBIS </asp:Label>
@@ -28,10 +28,13 @@
             Respuesta
             </td>
         </tr>
-        <tr id="trRespuesta" runat="server">
-            <td><asp:TextBox ID="txtRespuesta" runat="server" Height="107px" TextMode="MultiLine" 
-        Width="345px"></asp:TextBox>
-            </td>
+        <tr id="trRespuesta" runat="server" class="tdTituloSub">
+            <td align="left"><br /><br />
+                <asp:Label ID="lblResp1" runat="server" Text="Tu usuario COBIS"></asp:Label>&nbsp;
+                <asp:Label ID="lblUsrName" runat="server" Text="nnnn" Font-Bold="True"></asp:Label>&nbsp;
+                <asp:Label ID="lblResp2" runat="server" Text="no se ha podido desbloquear. Por favor ingresa una solicitud vía Remedy, y te responderemos a la brevedad!"></asp:Label><br /><br /><br /><br /><br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Equipo de Seguridad Informatica
+                </td>
         </tr>
     </table>
 
