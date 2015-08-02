@@ -30,3 +30,5 @@ PhxSvcExpiratonManager/bin
 PhxSvcExpiratonManager/obj
 RemoveAddressingHeadersAssertion/bin
 RemoveAddressingHeadersAssertion/obj
+PhalanxDB/obj/
+PhalanxDB/sql/debug/
