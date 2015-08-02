@@ -317,6 +317,7 @@ namespace PhalanxAdmin
             this.btnLimpiar.TabIndex = 8;
             this.btnLimpiar.Text = "&Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = false;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // btnBuscar
             // 
@@ -327,6 +328,7 @@ namespace PhalanxAdmin
             this.btnBuscar.TabIndex = 7;
             this.btnBuscar.Text = "&Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // txtFilNombre
             // 
@@ -377,6 +379,7 @@ namespace PhalanxAdmin
             this.lnkCancelar.Size = new System.Drawing.Size(53, 17);
             this.lnkCancelar.Text = "Cancelar";
             this.lnkCancelar.ToolTipText = "Cancela la ejecución actual";
+            this.lnkCancelar.Click += new System.EventHandler(this.lnkCancelar_Click);
             // 
             // pnlList
             // 

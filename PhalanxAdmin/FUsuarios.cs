@@ -243,6 +243,7 @@ namespace PhalanxAdmin
         private void CleanFilters()
         {
             txtFilNombre.Text = "";
+            cbEstado.SelectedIndex = 0;
         }
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
