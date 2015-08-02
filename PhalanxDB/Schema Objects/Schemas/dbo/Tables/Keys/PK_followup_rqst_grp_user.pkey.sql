@@ -1,0 +1,3 @@
+﻿ALTER TABLE [dbo].[followup_request_group_user]
+    ADD CONSTRAINT [PK_followup_rqst_grp_user] PRIMARY KEY CLUSTERED ([frgu_id] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF);
+

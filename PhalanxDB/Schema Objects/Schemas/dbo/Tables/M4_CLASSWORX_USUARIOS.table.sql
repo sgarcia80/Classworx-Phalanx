@@ -1,0 +1,18 @@
+﻿CREATE TABLE [dbo].[M4_CLASSWORX_USUARIOS] (
+    [ORDINAL]                 INT          IDENTITY (1, 1) NOT NULL,
+    [ID_SOCIEDAD]             VARCHAR (2)  NULL,
+    [ID_EMPLEADO]             VARCHAR (50) NULL,
+    [TIPO_DOC]                VARCHAR (3)  NULL,
+    [NUM_DOCUMENTO]           VARCHAR (10) NULL,
+    [COD_APLICACION]          VARCHAR (50) NULL,
+    [COD_NOVEDAD]             VARCHAR (1)  NULL,
+    [DOMINIO_RED]             VARCHAR (30) NULL,
+    [ID_USUARIO_RED]          VARCHAR (50) NULL,
+    [ID_USUARIO_CORE]         VARCHAR (50) NULL,
+    [NOVEDAD_FECHA]           DATETIME     NULL,
+    [NOVEDAD_ID_USUARIO]      VARCHAR (40) NULL,
+    [ACTUALIZA_M4_FECHA]      DATETIME     NULL,
+    [ACTUALIZA_M4_ID_USUARIO] VARCHAR (40) NULL,
+    [ACTUALIZA_M4_CODIGO]     VARCHAR (20) NULL
+);
+

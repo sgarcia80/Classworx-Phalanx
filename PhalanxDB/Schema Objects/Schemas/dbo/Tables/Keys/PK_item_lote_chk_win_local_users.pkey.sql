@@ -1,0 +1,3 @@
+﻿ALTER TABLE [dbo].[item_lote_chk_win_local_users]
+    ADD CONSTRAINT [PK_item_lote_chk_win_local_users] PRIMARY KEY CLUSTERED ([id] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF);
+
