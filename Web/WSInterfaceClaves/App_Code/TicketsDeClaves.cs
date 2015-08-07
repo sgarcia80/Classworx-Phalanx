@@ -12,6 +12,7 @@ using System.Web;
 using System.Web.Security;
 using System.Security.Principal;
 using System.Runtime.InteropServices;
+using PhalanxNAL;
 
 
 
@@ -232,8 +233,10 @@ public class TicketsDeClaves : System.Web.Services.WebService
         {
             if (HayQueInsertar)
             {
+				bool altaUsuarioRed = ticket.CodigoAplicacion.Trim().ToLower() == ConfigurationManager.AppSettings["CodigoAplicacionAltaRed"].Trim().ToLower();
+
                 // verifica si es un alta de red para usuario externo
-                bool altaUsuarioRedExterno = string.IsNullOrEmpty(ticket.Legajo) && ticket.CodigoAplicacion.Trim().ToLower() == ConfigurationManager.AppSettings["CodigoAplicacionAltaRed"].Trim().ToLower();
+				bool altaUsuarioRedExterno = string.IsNullOrEmpty(ticket.Legajo) && altaUsuarioRed;
 
                 if (altaUsuarioRedExterno)
                 {
@@ -267,7 +270,7 @@ public class TicketsDeClaves : System.Web.Services.WebService
                     }
                     //y es alta de red o cobis
                     if (ticket.CodigoAplicacion.Trim().ToLower() == ConfigurationManager.AppSettings["CodigoAplicacionCOBIS"].Trim().ToLower()
-                        || ticket.CodigoAplicacion.Trim().ToLower() == ConfigurationManager.AppSettings["CodigoAplicacionAltaRed"].Trim().ToLower())
+						|| altaUsuarioRed)
                     {
                         if (_debugMode)
                         {
@@ -300,9 +303,9 @@ public class TicketsDeClaves : System.Web.Services.WebService
                         }
                         PasaInsertM4 = true;
 
-                        if (ticket.CodigoAplicacion.Trim().ToLower() == ConfigurationManager.AppSettings["CodigoAplicacionAltaRed"].Trim().ToLower())
+						if (altaUsuarioRed)
                         {
-                            if (_debugMode)
+							if (_debugMode)
                                 strDebug += " | Enviando email de alta de usuario de red";
 
 
@@ -314,7 +317,7 @@ public class TicketsDeClaves : System.Web.Services.WebService
                                 strDebug += " | Email enviado";
                         }
                     }
-                    if (ticket.CodigoAplicacion.Trim().ToLower() != ConfigurationManager.AppSettings["CodigoAplicacionAltaRed"].Trim().ToLower()
+					if (altaUsuarioRed
                         && aplicacion.Notificable)
                     {
                         if (_debugMode) strDebug += " | El alta de usuario de aplicativo";
@@ -366,6 +369,13 @@ public class TicketsDeClaves : System.Web.Services.WebService
                             strDebug += " | " + debug;
                     }
                 }
+
+				if (altaUsuarioRed)
+				{
+					strDebug += " | Se va a actualizar la descripción del usuario de red";
+					
+					ActualizarDescripcionUsuarioRed(ticket.Usuario, ref strDebug);
+				}
             }
             resultado.Exito = true;
             if (_debugMode) resultado.Mensaje = strDebug;
@@ -572,6 +582,47 @@ public class TicketsDeClaves : System.Web.Services.WebService
 
         return null;
     }
+
+	private void ActualizarDescripcionUsuarioRed(string username, ref string debug)
+	{
+		string prefijoDescripcionUsuarioRed = ConfigurationManager.AppSettings["PrefijoDescripcionUsuarioRed"];
+
+		DirectoryEntry usuario = ActiveDirectoryHelper.BuscarUsuarioPorNombre(username);
+
+		if (usuario != null)
+		{
+			usuario.Properties["description"].Value = prefijoDescripcionUsuarioRed + usuario.Properties["description"].Value;
+
+			usuario.CommitChanges();
+		}
+		else
+			debug += "No se encontró el suuario " + username;		
+	}
+
+	private DirectoryEntry BuscarLDAPEntry(string path, string filter, IEnumerable<string> properties)
+	{
+		try
+		{
+			DirectoryEntry directoryEntry = new DirectoryEntry(path);
+
+			DirectorySearcher search = new DirectorySearcher(directoryEntry);
+
+			search.Filter = filter;
+
+			foreach(string property in properties)
+					search.PropertiesToLoad.Add(property);
+
+			SearchResult sr = search.FindOne();
+
+			return sr.GetDirectoryEntry();
+		}
+		catch (Exception ex)
+		{
+
+		}
+
+		return null;
+	}
 
     private struct DatosAutenticacion
     {
