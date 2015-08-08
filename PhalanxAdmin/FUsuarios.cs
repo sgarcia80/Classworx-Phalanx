@@ -431,7 +431,7 @@ namespace PhalanxAdmin
 				message = "Se inactivaron los siguiente usuarios de Phalanx por no existir en el Active Directory:" + Environment.NewLine;
 
 				foreach (PhxUserEntity usuario in inactivados)
-					message += usuario.Domain + @"\" + usuario.Username + Environment.NewLine; 
+					message += usuario.Domain + @"\" + usuario.Username + " - " + usuario.Fullname +  Environment.NewLine; 
 			}
 			else
 				message = "Todos los usuarios activos de Phalanx existen en el Active Directory";
