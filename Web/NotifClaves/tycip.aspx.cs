@@ -9,6 +9,9 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using NDCBL;
+using System.DirectoryServices;
+using PhalanxNAL;
+using NDCCommon.Entities;
 
 public partial class tycip : System.Web.UI.Page
 {
@@ -38,11 +41,16 @@ public partial class tycip : System.Web.UI.Page
         {
             int id = (int)Session["id"];
 
-            TicketNotificacionClaveBusiness tncb = new TicketNotificacionClaveBusiness();
+			TicketNotificacionClaveBusiness tncb = new TicketNotificacionClaveBusiness();
 
-            tncb.AceptarTyC(id);
+			TicketNotificacionClaveEntity ticket = tncb.GetById(id);
 
-            Response.Redirect("DetalleTicketIp.aspx?");
+			tncb.AceptarTyC(ticket);
+
+			if (ticket.Aplicacion.Codigo == ConfigurationManager.AppSettings["CodigoAplicacionAltaRed"].Trim().ToLower())
+				ActualizarDescripcionUsuarioRed(ticket.Usuario);
+
+			Response.Redirect("DetalleTicketIp.aspx?");
         }
     }
 
@@ -50,4 +58,21 @@ public partial class tycip : System.Web.UI.Page
     {
         Response.Redirect("IdentificacionPositiva.aspx?id=" + Session["id"]);
     }
+
+	private void ActualizarDescripcionUsuarioRed(string nombreUsuario)
+	{
+		DirectoryEntry usuario = ActiveDirectoryHelper.BuscarUsuarioPorNombre(nombreUsuario);
+
+		if (usuario == null)
+			return;
+
+		string descripcion = usuario.Properties["description"].Value.ToString();
+
+		if (descripcion.StartsWith(ConfigurationManager.AppSettings["PrefijoDescripcionUsuarioRed"]))
+		{
+			usuario.Properties["description"].Value = descripcion.Remove(0, ConfigurationManager.AppSettings["PrefijoDescripcionUsuarioRed"].Length);
+
+			usuario.CommitChanges();
+		}
+	}
 }

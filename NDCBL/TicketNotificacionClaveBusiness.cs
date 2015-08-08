@@ -146,17 +146,18 @@ namespace NDCBL
 
         public void AceptarTyC(int id)
         {
-            TicketNotificacionClaveEntity ticket = GetById(id);
-
-            if (ticket == null)
-                return;
-
-            ticket.FechaAceptacionTyC = DateTime.Now;
-
-            Factory.SaveBPMSolicitud(ticket);
-
-            return;
+			AceptarTyC(GetById(id));
         }
+
+		public void AceptarTyC(TicketNotificacionClaveEntity ticket)
+		{
+			if (ticket == null)
+				return;
+
+			ticket.FechaAceptacionTyC = DateTime.Now;
+
+			Factory.SaveBPMSolicitud(ticket);
+		}
 
         public void Save(TicketNotificacionClaveEntity ticket)
         {
