@@ -5,6 +5,7 @@ using PhalanxCommon.Collections;
 using PhalanxCommon.Entities;
 using PhalanxDAL.Factories;
 using System.Collections;
+using PhalanxNAL;
 
 namespace PhalanxBL
 {
@@ -170,6 +171,8 @@ namespace PhalanxBL
             return PhxUsrE;
 
         }
+
+
         private const string ADMIN_ACCESS = "ADMINACC";
         private const string WEBAPP_ACCESS = "WEBAPPACC";
         private const string ADMINMENU_ACCESS = "ADMMENUACC";
@@ -754,5 +757,35 @@ namespace PhalanxBL
 			return new PhxUsersFactory().GetAllByGrupoSeguimientoSolicitud(nombreGrupo, grupoActivo, usuarioActivo);
 		}
 
+		public IList<PhxUserEntity> InactivarInexistentesEnAD()
+		{
+			IList<PhxUserEntity> listaUsuariosInactivados = new List<PhxUserEntity>();
+
+			PhxUsersFactory WDF = new PhxUsersFactory();
+            
+            WDF.FilDeleted = false; // solo los activos
+
+			PhxLogUsuarioInactivadoBusiness luib = new PhxLogUsuarioInactivadoBusiness();
+
+			foreach (PhxUserEntity usuario in WDF.GetAll())
+			{
+				if (!ActiveDirectoryHelper.UsuarioExiste(usuario.Domain, usuario.Username))
+				{
+					InactivateUser(usuario, System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+
+					PhxLogUsuarioInactivado logUsuario = new PhxLogUsuarioInactivado();
+					logUsuario.Domain = usuario.Domain;
+					logUsuario.Fullname = usuario.Fullname;
+					logUsuario.PhxUser = usuario;
+					logUsuario.Username = usuario.Username;
+
+					luib.Save(logUsuario);
+
+					listaUsuariosInactivados.Add(usuario);
+				}
+			}
+
+			return listaUsuariosInactivados;
+		}
     }
 }

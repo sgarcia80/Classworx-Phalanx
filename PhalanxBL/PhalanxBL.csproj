@@ -130,6 +130,7 @@
     <Compile Include="CommunicationDeviceTypeBusiness.cs" />
     <Compile Include="CommunicationDeviceUserBusiness.cs.cs" />
     <Compile Include="ATMUserBusiness.cs" />
+    <Compile Include="PhxLogUsuarioInactivadoBusiness.cs" />
     <Compile Include="vwPwdRqstGrpBusiness.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

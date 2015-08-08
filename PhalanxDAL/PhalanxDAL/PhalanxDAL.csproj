@@ -193,6 +193,7 @@
     <Compile Include="DBMgr.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Factories\PhxLogUsuarioInactivadoFactory.cs" />
     <Compile Include="Factories\VwPwdRqstGrpFactory.cs" />
     <Compile Include="Factories\DelegationRequestsFactory.cs" />
     <Compile Include="Factories\DemoConfFactory.cs" />
@@ -485,6 +486,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MappingFiles\VwPwdRqstGrp.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\PhxLogUsuariosInactivados.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

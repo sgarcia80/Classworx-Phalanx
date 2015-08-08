@@ -417,6 +417,27 @@ namespace PhalanxAdmin
             ((ListView)sender).Sort();
 
         }
+
+		private void btnInactivar_Click(object sender, EventArgs e)
+		{
+			PhxUserBusiness pub = new PhxUserBusiness();
+
+			IList<PhxUserEntity> inactivados = pub.InactivarInexistentesEnAD();
+
+			string message;
+
+			if (inactivados.Count > 0)
+			{
+				message = "Se inactivaron los siguiente usuarios de Phalanx por no existir en el Active Directory:" + Environment.NewLine;
+
+				foreach (PhxUserEntity usuario in inactivados)
+					message += usuario.Domain + @"\" + usuario.Username + Environment.NewLine; 
+			}
+			else
+				message = "Todos los usuarios activos de Phalanx existen en el Active Directory";
+
+			MessageBox.Show(message);
+		}
     }
 }
 

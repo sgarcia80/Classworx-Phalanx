@@ -40,6 +40,21 @@ namespace PhalanxNAL
 			return BuscarLDAPEntry(LDAPPath, LDAPBuscarNombreFilter.Replace("[username]", username), new string[] { "description" });
 		}
 
+		public static bool UsuarioExiste(string dominio, string usuario)
+		{
+			string path = String.Format("WinNT://{0}/{1},user", dominio, usuario);
+
+			try
+			{
+				DirectoryEntry.Exists(path);
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}
+		}
+
 		private static DirectoryEntry BuscarLDAPEntry(string path, string filter, IEnumerable<string> properties)
 		{
 			try

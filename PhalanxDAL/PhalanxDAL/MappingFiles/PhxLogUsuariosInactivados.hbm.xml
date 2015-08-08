@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.PhxLogUsuarioInactivado,PhalanxCommon" table="Phx_Log_Usuarios_Inactivados">
+	
+		<id name="Id" column="phx_log_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+		<property column="username" type="String" name="Username" not-null="true" length="50" />
+		<property column="fullname" type="String" name="Fullname" not-null="true" length="100" />
+		<property column="user_domain" type="String" name="Domain" length="50" not-null="true" />
+		<property column="fecha_inactivacion" type="DateTime" name="FechaInactivacion" not-null="true" insert="false"/>
+		<many-to-one name="PhxUser" column="phx_user_id" class="PhalanxCommon.Entities.PhxUserEntity,PhalanxCommon" not-null="true" />
+
+  </class>
+	
+</hibernate-mapping>

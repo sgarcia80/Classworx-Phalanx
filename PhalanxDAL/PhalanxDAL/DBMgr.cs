@@ -208,6 +208,7 @@ namespace PhalanxDAL
                         config.AddResource("PhalanxDAL.MappingFiles.CommunicationDeviceTypes.hbm.xml", nhAssembly);
                         config.AddResource("PhalanxDAL.MappingFiles.CommunicationDeviceProtocols.hbm.xml", nhAssembly);
                         config.AddResource("PhalanxDAL.MappingFiles.CommunicationDevices.hbm.xml", nhAssembly);
+						config.AddResource("PhalanxDAL.MappingFiles.PhxLogUsuariosInactivados.hbm.xml", nhAssembly);
                         try
                         {
                             nhAssembly = Assembly.Load("NDCDAL");
