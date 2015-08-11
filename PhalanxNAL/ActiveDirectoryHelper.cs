@@ -46,13 +46,38 @@ namespace PhalanxNAL
 
 		public static bool UsuarioExiste(string ldapPath, string usuario)
 		{
-			return BuscarUsuarioPorNombre(@"LDAP://" + ldapPath, usuario, new string[] {}) != null;
+            //return BuscarUsuarioPorNombre(@"LDAP://" + ldapPath, usuario, new string[] { }) != null;
+            if (ldapPath.ToLower().StartsWith("winnt"))
+            {
+                ldapPath = "WinNT"+ldapPath.Substring(5);
+                //DirectoryEntry obDirEntry2 = new DirectoryEntry("WinNT://castab/Cristian,user");
+                //if (obDirEntry2.Properties.Count > 0)
+                //{ }
+                //DirectoryEntry obDirEntry3 = new DirectoryEntry("WinNT://castab/AAACristian,user");
+                //if (obDirEntry3.Properties.Count > 0)
+                //{ }
+                DirectoryEntry obDirEntry = new DirectoryEntry(ldapPath + "/" + usuario + ",user");
+                try
+                {
+                    if (obDirEntry.Properties.Count > 0)
+                    { return true; }
+                }
+                catch
+                {
+                    return false;
+                }
+                return false;
+
+            }
+            else
+                return BuscarUsuarioPorNombre(ldapPath, usuario, new string[] { }) != null;
 		}
 
 		private static DirectoryEntry BuscarLDAPEntry(string path, string filter, IEnumerable<string> properties)
 		{
 			try
 			{
+
 				DirectoryEntry directoryEntry = new DirectoryEntry(path);
 
 				DirectorySearcher search = new DirectorySearcher(directoryEntry);

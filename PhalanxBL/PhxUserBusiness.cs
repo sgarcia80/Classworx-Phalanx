@@ -1,4 +1,4 @@
-using System;
+Ôªøusing System;
 using System.Collections.Generic;
 using System.Text;
 using PhalanxCommon.Collections;
@@ -41,7 +41,7 @@ namespace PhalanxBL
 
         }
         public int Save(PhxUserEntity Usuario, string Responsable)
-        {   
+        {
             PhxUsersFactory DerivFac = new PhxUsersFactory();
             PhxUsersFactory PUF = new PhxUsersFactory();
             PhxUserEntity PhxUsrE = PUF.GetPhxUser(Responsable);
@@ -57,7 +57,7 @@ namespace PhalanxBL
         }
         /// <summary>
         /// Setea los roles para ese usuario. Solo setea los que se pasan. Borra los
-        /// que tenga asignados y no estÈn en la collection
+        /// que tenga asignados y no est√©n en la collection
         /// </summary>
         /// <param name="Usuario"></param>
         /// <param name="UsrRoles"></param>
@@ -75,7 +75,8 @@ namespace PhalanxBL
         }
         public int InactivateUser(PhxUserEntity Usuario, string Responsable)
         {
-            Usuario.DeleteDate = DateTime.Now;
+            //Usuario.DeleteDate = DateTime.Now;
+            Usuario.Active = false;
             return this.Save(Usuario, Responsable);
         }
         public bool IsDeleteable(PhxUserEntity Usuario)
@@ -116,7 +117,7 @@ namespace PhalanxBL
         /// Busca el usuario en la base de datos por dominio\usuario
         /// </summary>
         /// <param name="usernamedomain">Dominio\usuario</param>
-        /// <returns>Objeto SysUser correspondiente al usuario buscado. Null si no se encontrÛ usuario</returns>
+        /// <returns>Objeto SysUser correspondiente al usuario buscado. Null si no se encontr√≥ usuario</returns>
         public PhxUserEntity IsSysUser(string usernamedomain)
         {
             PhxUsersFactory PUF = new PhxUsersFactory();
@@ -163,7 +164,7 @@ namespace PhalanxBL
                 }
                 else
                 {
-                    // loguea que est· bloqueado
+                    // loguea que est√° bloqueado
                     AudLogBL.LogDeshab(PhxUsrE);
                     return null;
                 }
@@ -187,83 +188,83 @@ namespace PhalanxBL
         private const string AUTH_DELEGRQST = "AUTHDELEGRQSTS";
 
 
-        private const string CONF_MAILS_RW = "@CONF_MAILS_RW@"; //ConfiguraciÛn de ParametrÌa de Mails - Escritura
-        private const string CONF_MAILS_R = "@CONF_MAILS_R@"; //ConfiguraciÛn de ParametrÌa de Mails - Lectura
-        private const string CONF_EDIFICIOS_RW = "@CONF_EDIFICIOS_RW@"; //ConfiguraciÛn de Edificios - Escritura
-        private const string CONF_EDIFICIOS_R = "@CONF_EDIFICIOS_R@"; //ConfiguraciÛn de Edificios - Lectura
-        private const string CONF_SUPERV_RW = "@CONF_SUPERV_RW@"; //ConfiguraciÛn de Supervisores - Escritura
-        private const string CONF_SUPERV_R = "@CONF_SUPERV_R@"; //ConfiguraciÛn de Supervisores - Lectura
-        private const string CONF_GRUPO_SEGUIM_ATM_RW = "@CONF_GRUPO_SEGUIM_ATM_RW@"; //ConfiguraciÛn de Grupo de Seguimiento de Solicitudes por Defecto para ATMs - Escritura
-        private const string CONF_GRUPO_SEGUIM_ATM_R = "@CONF_GRUPO_SEGUIM_ATM_R@"; //ConfiguraciÛn de Grupo de Seguimiento de Solicitudes por Defecto para ATMs - Lectura
-        private const string ADM_DOMINIOS_RW = "@ADM_DOMINIOS_RW@"; //AdministraciÛn de Dominios - Escritura
-        private const string ADM_DOMINIOS_R = "@ADM_DOMINIOS_R@"; //AdministraciÛn de Dominios - Lectura
-        private const string CONF_APP_BPM_RW = "@CONF_APP_BPM_RW@"; //AdministraciÛn de Aplicativos BPM - Escritura
-        private const string CONF_APP_BPM_R = "@CONF_APP_BPM_R@"; //AdministraciÛn de Aplicativos BPM - Lectura
-        private const string ADM_EQ_WIN_RW = "@ADM_EQ_WIN_RW@"; //AdministraciÛn de Equipos Windows - Escritura
-        private const string ADM_EQ_WIN_R = "@ADM_EQ_WIN_R@"; //AdministraciÛn de Equipos Windows - Lectura
-        private const string ADM_EQ_AS400_RW = "@ADM_EQ_AS400_RW@"; //AdministraciÛn de Equipos AS400 - Escritura
-        private const string ADM_EQ_AS400_R = "@ADM_EQ_AS400_R@"; //AdministraciÛn de Equipos AS400 - Lectura
-        private const string ADM_EQ_UNIX_RW = "@ADM_EQ_UNIX_RW@"; //AdministraciÛn de Equipos Unix - Escritura
-        private const string ADM_EQ_UNIX_R = "@ADM_EQ_UNIX_R@"; //AdministraciÛn de Equipos Unix - Lectura
-        private const string ADM_BD_RW = "@ADM_BD_RW@"; //AdministraciÛn de Bases de Datos - Escritura
-        private const string ADM_BD_R = "@ADM_BD_R@"; //AdministraciÛn de Bases de Datos - Lectura
-        private const string ADM_APP_RW = "@ADM_APP_RW@"; //AdministraciÛn de Aplicativos - Escritura
-        private const string ADM_APP_R = "@ADM_APP_R@"; //AdministraciÛn de Aplicativos - Lectura
-        private const string ADM_EQ_COM_RW = "@ADM_EQ_COM_RW@"; //AdministraciÛn de Equipos de ComunicaciÛn - Escritura
-        private const string ADM_EQ_COM_R = "@ADM_EQ_COM_R@"; //AdministraciÛn de Equipos de ComunicaciÛn - Lectura
-        private const string ADM_USR_RW = "@ADM_USR_RW@"; //AdministraciÛn de Usuarios del Sistema - Escritura
-        private const string ADM_USR_R = "@ADM_USR_R@"; //AdministraciÛn de Usuarios del Sistema - Lectura
-        private const string ADM_GRP_SOLIC_RW = "@ADM_GRP_SOLIC_RW@"; //AdministraciÛn de Grupos de Solicitudes - Escritura
-        private const string ADM_GRP_SOLIC_R = "@ADM_GRP_SOLIC_R@"; //AdministraciÛn de Grupos de Solicitudes - Lectura
-        private const string PWD_WIN_R = "@PWD_WIN_R@"; //AdministraciÛn de ContraseÒas Windows - Lectura
-        private const string PWD_WIN_RW = "@PWD_WIN_RW@"; //AdministraciÛn de ContraseÒas Windows - Escritura
-        private const string PWD_AS400_RW = "@PWD_AS400_RW@"; //AdministraciÛn de ContraseÒas AS400 - Escritura
-        private const string PWD_AS400_R = "@PWD_AS400_R@"; //AdministraciÛn de ContraseÒas AS400 - Lectura
-        private const string PWD_UNIX_RW = "@PWD_UNIX_RW@"; //AdministraciÛn de ContraseÒas Unix - Escritura
-        private const string PWD_UNIX_R = "@PWD_UNIX_R@"; //AdministraciÛn de ContraseÒas Unix - Lectura
-        private const string PWD_BD_RW = "@PWD_BD_RW@"; //AdministraciÛn de ContraseÒas de Bases de Datos - Escritura
-        private const string PWD_BD_R = "@PWD_BD_R@"; //AdministraciÛn de ContraseÒas de Bases de Datos - Lectura
-        private const string PWD_APP_RW = "@PWD_APP_RW@"; //AdministraciÛn de ContraseÒas de Aplicativos - Escritura
-        private const string PWD_APP_R = "@PWD_APP_R@"; //AdministraciÛn de ContraseÒas de Aplicativos - Lectura
-        private const string PWD_EQ_COM_RW = "@PWD_EQ_COM_RW@"; //AdministraciÛn de ContraseÒas de Equipos de ComunicaciÛn - Escritura
-        private const string PWD_EQ_COM_R = "@PWD_EQ_COM_R@"; //AdministraciÛn de ContraseÒas de Equipos de ComunicaciÛn - Lectura
-        private const string PWD_ATM_RW = "@PWD_ATM_RW@"; //AdministraciÛn de ContraseÒas de ATMs - Escritura
-        private const string PWD_ATM_R = "@PWD_ATM_R@"; //AdministraciÛn de ContraseÒas de ATMs - Lectura
-        private const string RPT_LIST_PWD = "@RPT_LIST_PWD@"; //Listado de ContraseÒas
-        private const string RPT_PLAN_CTRL_CLAVES = "@RPT_PLAN_CTRL_CLAVES@"; //Planilla de Control de UtilizaciÛn de Claves en Custodia
+        private const string CONF_MAILS_RW = "@CONF_MAILS_RW@"; //Configuraci√≥n de Parametr√≠a de Mails - Escritura
+        private const string CONF_MAILS_R = "@CONF_MAILS_R@"; //Configuraci√≥n de Parametr√≠a de Mails - Lectura
+        private const string CONF_EDIFICIOS_RW = "@CONF_EDIFICIOS_RW@"; //Configuraci√≥n de Edificios - Escritura
+        private const string CONF_EDIFICIOS_R = "@CONF_EDIFICIOS_R@"; //Configuraci√≥n de Edificios - Lectura
+        private const string CONF_SUPERV_RW = "@CONF_SUPERV_RW@"; //Configuraci√≥n de Supervisores - Escritura
+        private const string CONF_SUPERV_R = "@CONF_SUPERV_R@"; //Configuraci√≥n de Supervisores - Lectura
+        private const string CONF_GRUPO_SEGUIM_ATM_RW = "@CONF_GRUPO_SEGUIM_ATM_RW@"; //Configuraci√≥n de Grupo de Seguimiento de Solicitudes por Defecto para ATMs - Escritura
+        private const string CONF_GRUPO_SEGUIM_ATM_R = "@CONF_GRUPO_SEGUIM_ATM_R@"; //Configuraci√≥n de Grupo de Seguimiento de Solicitudes por Defecto para ATMs - Lectura
+        private const string ADM_DOMINIOS_RW = "@ADM_DOMINIOS_RW@"; //Administraci√≥n de Dominios - Escritura
+        private const string ADM_DOMINIOS_R = "@ADM_DOMINIOS_R@"; //Administraci√≥n de Dominios - Lectura
+        private const string CONF_APP_BPM_RW = "@CONF_APP_BPM_RW@"; //Administraci√≥n de Aplicativos BPM - Escritura
+        private const string CONF_APP_BPM_R = "@CONF_APP_BPM_R@"; //Administraci√≥n de Aplicativos BPM - Lectura
+        private const string ADM_EQ_WIN_RW = "@ADM_EQ_WIN_RW@"; //Administraci√≥n de Equipos Windows - Escritura
+        private const string ADM_EQ_WIN_R = "@ADM_EQ_WIN_R@"; //Administraci√≥n de Equipos Windows - Lectura
+        private const string ADM_EQ_AS400_RW = "@ADM_EQ_AS400_RW@"; //Administraci√≥n de Equipos AS400 - Escritura
+        private const string ADM_EQ_AS400_R = "@ADM_EQ_AS400_R@"; //Administraci√≥n de Equipos AS400 - Lectura
+        private const string ADM_EQ_UNIX_RW = "@ADM_EQ_UNIX_RW@"; //Administraci√≥n de Equipos Unix - Escritura
+        private const string ADM_EQ_UNIX_R = "@ADM_EQ_UNIX_R@"; //Administraci√≥n de Equipos Unix - Lectura
+        private const string ADM_BD_RW = "@ADM_BD_RW@"; //Administraci√≥n de Bases de Datos - Escritura
+        private const string ADM_BD_R = "@ADM_BD_R@"; //Administraci√≥n de Bases de Datos - Lectura
+        private const string ADM_APP_RW = "@ADM_APP_RW@"; //Administraci√≥n de Aplicativos - Escritura
+        private const string ADM_APP_R = "@ADM_APP_R@"; //Administraci√≥n de Aplicativos - Lectura
+        private const string ADM_EQ_COM_RW = "@ADM_EQ_COM_RW@"; //Administraci√≥n de Equipos de Comunicaci√≥n - Escritura
+        private const string ADM_EQ_COM_R = "@ADM_EQ_COM_R@"; //Administraci√≥n de Equipos de Comunicaci√≥n - Lectura
+        private const string ADM_USR_RW = "@ADM_USR_RW@"; //Administraci√≥n de Usuarios del Sistema - Escritura
+        private const string ADM_USR_R = "@ADM_USR_R@"; //Administraci√≥n de Usuarios del Sistema - Lectura
+        private const string ADM_GRP_SOLIC_RW = "@ADM_GRP_SOLIC_RW@"; //Administraci√≥n de Grupos de Solicitudes - Escritura
+        private const string ADM_GRP_SOLIC_R = "@ADM_GRP_SOLIC_R@"; //Administraci√≥n de Grupos de Solicitudes - Lectura
+        private const string PWD_WIN_R = "@PWD_WIN_R@"; //Administraci√≥n de Contrase√±as Windows - Lectura
+        private const string PWD_WIN_RW = "@PWD_WIN_RW@"; //Administraci√≥n de Contrase√±as Windows - Escritura
+        private const string PWD_AS400_RW = "@PWD_AS400_RW@"; //Administraci√≥n de Contrase√±as AS400 - Escritura
+        private const string PWD_AS400_R = "@PWD_AS400_R@"; //Administraci√≥n de Contrase√±as AS400 - Lectura
+        private const string PWD_UNIX_RW = "@PWD_UNIX_RW@"; //Administraci√≥n de Contrase√±as Unix - Escritura
+        private const string PWD_UNIX_R = "@PWD_UNIX_R@"; //Administraci√≥n de Contrase√±as Unix - Lectura
+        private const string PWD_BD_RW = "@PWD_BD_RW@"; //Administraci√≥n de Contrase√±as de Bases de Datos - Escritura
+        private const string PWD_BD_R = "@PWD_BD_R@"; //Administraci√≥n de Contrase√±as de Bases de Datos - Lectura
+        private const string PWD_APP_RW = "@PWD_APP_RW@"; //Administraci√≥n de Contrase√±as de Aplicativos - Escritura
+        private const string PWD_APP_R = "@PWD_APP_R@"; //Administraci√≥n de Contrase√±as de Aplicativos - Lectura
+        private const string PWD_EQ_COM_RW = "@PWD_EQ_COM_RW@"; //Administraci√≥n de Contrase√±as de Equipos de Comunicaci√≥n - Escritura
+        private const string PWD_EQ_COM_R = "@PWD_EQ_COM_R@"; //Administraci√≥n de Contrase√±as de Equipos de Comunicaci√≥n - Lectura
+        private const string PWD_ATM_RW = "@PWD_ATM_RW@"; //Administraci√≥n de Contrase√±as de ATMs - Escritura
+        private const string PWD_ATM_R = "@PWD_ATM_R@"; //Administraci√≥n de Contrase√±as de ATMs - Lectura
+        private const string RPT_LIST_PWD = "@RPT_LIST_PWD@"; //Listado de Contrase√±as
+        private const string RPT_PLAN_CTRL_CLAVES = "@RPT_PLAN_CTRL_CLAVES@"; //Planilla de Control de Utilizaci√≥n de Claves en Custodia
         private const string RPT_INVENT_CLAVES = "@RPT_INVENT_CLAVES@"; //Inventario de Claves en Custodia
-        private const string RPT_LOG_MODIF_PWD = "@RPT_LOG_MODIF_PWD@"; //Log de ModificaciÛn de ContraseÒas
+        private const string RPT_LOG_MODIF_PWD = "@RPT_LOG_MODIF_PWD@"; //Log de Modificaci√≥n de Contrase√±as
         private const string RPT_MAILS = "@RPT_MAILS@"; //Reporte de Mails y Notificaciones
-        private const string RPT_HIST_PWD = "@RPT_HIST_PWD@"; //HistÛrico de ContraseÒas
+        private const string RPT_HIST_PWD = "@RPT_HIST_PWD@"; //Hist√≥rico de Contrase√±as
         private const string RPT_ABM_USR = "@RPT_ABM_USR@"; //Reporte de ABM de Usuarios
-        private const string RPT_ASIG_PERF = "@RPT_ASIG_PERF@"; //Reporte de asginaciÛn de Perfiles
+        private const string RPT_ASIG_PERF = "@RPT_ASIG_PERF@"; //Reporte de asginaci√≥n de Perfiles
         private const string RPT_LOGIN = "@RPT_LOGIN@"; //Reporte de Logueos al sistema
         private const string RPT_LIST_USR_PWD = "@RPT_LIST_USR_PWD@"; //Listado de Usuarios
         private const string RPT_USR_POR_PERF = "@RPT_USR_POR_PERF@"; //Listado de Usuarios Por Perfil
         private const string RPT_LIST_PERFILES_PWD = "@RPT_LIST_PERFILES_PWD@"; //Listado de Perfiles
-        private const string ADM_GRP_SEG_SOLIC_R = "@ADM_GRP_SEG_SOLIC_R@"; //AdministraciÛn de grupos de seguimientos de solicitudes - Lectura
-        private const string ADM_GRP_SEG_SOLIC_RW = "@ADM_GRP_SEG_SOLIC_RW@"; //AdministraciÛn de grupos de seguimientos de solicitudes - Escritura
-        private const string ADM_PERFILES_R = "@ADM_PERFILES_R@"; //AdministraciÛn de Perfiles - Lectura
-        private const string ADM_PERFILES_RW = "@ADM_PERFILES_RW@"; //AdministraciÛn de Perfiles - Escritura
+        private const string ADM_GRP_SEG_SOLIC_R = "@ADM_GRP_SEG_SOLIC_R@"; //Administraci√≥n de grupos de seguimientos de solicitudes - Lectura
+        private const string ADM_GRP_SEG_SOLIC_RW = "@ADM_GRP_SEG_SOLIC_RW@"; //Administraci√≥n de grupos de seguimientos de solicitudes - Escritura
+        private const string ADM_PERFILES_R = "@ADM_PERFILES_R@"; //Administraci√≥n de Perfiles - Lectura
+        private const string ADM_PERFILES_RW = "@ADM_PERFILES_RW@"; //Administraci√≥n de Perfiles - Escritura
         private const string SEGUIMIENTO_SOLIC = "@SEGUIMIENTO_SOLIC@"; //Seguimiento de solicitudes
-        private const string CONSULTA_PWD = "@CONSULTA_PWD@"; //Consulta de ContraseÒas
+        private const string CONSULTA_PWD = "@CONSULTA_PWD@"; //Consulta de Contrase√±as
         private const string RPT_ABM_PERF = "@RPT_ABM_PERF@"; //Reporte de ABM de Perfiles
-        private const string RPT_ASIG_PERM = "@RPT_ASIG_PERM@"; //Reporte de asginaciÛn de Permisos
+        private const string RPT_ASIG_PERM = "@RPT_ASIG_PERM@"; //Reporte de asginaci√≥n de Permisos
         private const string ACTIVACION_ESQUEMA = "@ACTIVACION_ESQUEMA@"; //Activacion de esquema de conexion ya sea produccion o contingencia
-        private const string CHK_WIN_PWD = "@CHK_WIN_PWD@"; //manejo de lotes de chequeos de contraseÒas de usuarios de equipos windows
+        private const string CHK_WIN_PWD = "@CHK_WIN_PWD@"; //manejo de lotes de chequeos de contrase√±as de usuarios de equipos windows
         private const string RPT_LIST_TICKETS_PWD = "@RPT_LIST_TICKETS_PWD@"; //Listado de Perfiles
         private const string RPT_TICKETS_RED_REC_EXT = "@RPT_TICKETS_ALTA_RED_REC_EXT@"; //Listado de Perfiles
-        private const string TICKETS = "@Tickets@"; //Control de notificaciÛn de tickets
-        private const string DEPURACION_LOGS = "@DEPURACION_LOGS@"; //DepuraciÛn de logs
-        private const string CONF_SUBSI_RW = "@CONF_SUBSI_RW@"; //ConfiguraciÛn de Subsidiarias - Escritura
-        private const string CONF_SUBSI_R = "@CONF_SUBSI_R@"; //ConfiguraciÛn de Subsidiarias - Lectura
+        private const string TICKETS = "@Tickets@"; //Control de notificaci√≥n de tickets
+        private const string DEPURACION_LOGS = "@DEPURACION_LOGS@"; //Depuraci√≥n de logs
+        private const string CONF_SUBSI_RW = "@CONF_SUBSI_RW@"; //Configuraci√≥n de Subsidiarias - Escritura
+        private const string CONF_SUBSI_R = "@CONF_SUBSI_R@"; //Configuraci√≥n de Subsidiarias - Lectura
 
-        private const string RPT_USR_GRP_SOL = "@RPT_USR_GRP_SOL@"; 
-        private const string RPT_USR_GRP_SEG_SOL = "@RPT_USR_GRP_SEG_SOL@"; 
-        private const string RPT_PWD_GRP_SOL = "@RPT_PWD_GRP_SOL@"; 
+        private const string RPT_USR_GRP_SOL = "@RPT_USR_GRP_SOL@";
+        private const string RPT_USR_GRP_SEG_SOL = "@RPT_USR_GRP_SEG_SOL@";
+        private const string RPT_PWD_GRP_SOL = "@RPT_PWD_GRP_SOL@";
 
         /// <summary>
-        /// Chequea si el usuario tiene acceso a la aplicaciÛn WEB
+        /// Chequea si el usuario tiene acceso a la aplicaci√≥n WEB
         /// </summary>
         /// <returns>True si el usuario tiene acceso. False si no lo tiene</returns>
         public bool ChkAccWebApp(PhxUserEntity PhxUser)
@@ -292,7 +293,7 @@ namespace PhalanxBL
             return this.UsrHasAnyPrivilege(Usuario, Privileges);
         }
         /// <summary>
-        /// Chequea si el usuario tiene acceso a la aplicaciÛn administrativa
+        /// Chequea si el usuario tiene acceso a la aplicaci√≥n administrativa
         /// </summary>
         /// <param name="PhxUser"></param>
         /// <returns></returns>
@@ -378,7 +379,7 @@ namespace PhalanxBL
         }
         public bool AccParamSupervisores(string usernamedomain)
         {
-            string[] PrivilegiosAcceso = new string[] { CONF_SUPERV_RW,CONF_SUPERV_R };
+            string[] PrivilegiosAcceso = new string[] { CONF_SUPERV_RW, CONF_SUPERV_R };
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
         public bool AccParamGrpSeguimATM(string usernamedomain)
@@ -400,27 +401,27 @@ namespace PhalanxBL
         }
         public bool AccPwdWin(string usernamedomain)
         {
-            string[] PrivilegiosAcceso = new string[] { PWD_WIN_R, PWD_WIN_RW};
+            string[] PrivilegiosAcceso = new string[] { PWD_WIN_R, PWD_WIN_RW };
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
         public bool AccPwdUnix(string usernamedomain)
         {
-            string[] PrivilegiosAcceso = new string[] { PWD_UNIX_RW,PWD_UNIX_R};
+            string[] PrivilegiosAcceso = new string[] { PWD_UNIX_RW, PWD_UNIX_R };
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
         public bool AccPwdAS400(string usernamedomain)
         {
-            string[] PrivilegiosAcceso = new string[] { PWD_AS400_RW, PWD_AS400_R};
+            string[] PrivilegiosAcceso = new string[] { PWD_AS400_RW, PWD_AS400_R };
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
         public bool AccPwdBD(string usernamedomain)
         {
-            string[] PrivilegiosAcceso = new string[] { PWD_BD_RW, PWD_BD_R};
+            string[] PrivilegiosAcceso = new string[] { PWD_BD_RW, PWD_BD_R };
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
         public bool AccPwdApp(string usernamedomain)
         {
-            string[] PrivilegiosAcceso = new string[] { PWD_APP_RW, PWD_APP_R};
+            string[] PrivilegiosAcceso = new string[] { PWD_APP_RW, PWD_APP_R };
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
 
@@ -444,7 +445,7 @@ namespace PhalanxBL
 
         public bool AccRptLstPwd(string usernamedomain)
         {
-            string[] PrivilegiosAcceso = new string[] {RPT_LIST_PWD };
+            string[] PrivilegiosAcceso = new string[] { RPT_LIST_PWD };
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
         public bool AccRptPlanCtrlPwd(string usernamedomain)
@@ -471,7 +472,7 @@ namespace PhalanxBL
         {
             string[] PrivilegiosAcceso = new string[] { RPT_LIST_USR_PWD };
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
-        } 
+        }
         public bool AccRptUsrPorPerf(string usernamedomain)
         {
             string[] PrivilegiosAcceso = new string[] { RPT_USR_POR_PERF };
@@ -489,27 +490,27 @@ namespace PhalanxBL
         }
         public bool AccRptLstPerf(string usernamedomain)
         {
-            string[] PrivilegiosAcceso = new string[] { RPT_LIST_PERFILES_PWD};
+            string[] PrivilegiosAcceso = new string[] { RPT_LIST_PERFILES_PWD };
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
         public bool AccRptLogModifPwd(string usernamedomain)
         {
-            string[] PrivilegiosAcceso = new string[] { RPT_LOG_MODIF_PWD};
+            string[] PrivilegiosAcceso = new string[] { RPT_LOG_MODIF_PWD };
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
         public bool AccRptMailsNotif(string usernamedomain)
         {
-            string[] PrivilegiosAcceso = new string[] {RPT_MAILS };
+            string[] PrivilegiosAcceso = new string[] { RPT_MAILS };
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
         public bool AccRptHistPwd(string usernamedomain)
         {
-            string[] PrivilegiosAcceso = new string[] { RPT_HIST_PWD};
+            string[] PrivilegiosAcceso = new string[] { RPT_HIST_PWD };
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
         public bool AccRptLogin(string usernamedomain)
         {
-            string[] PrivilegiosAcceso = new string[] { RPT_LOGIN};
+            string[] PrivilegiosAcceso = new string[] { RPT_LOGIN };
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
         public bool AccRptUsrGrpSol(string usernamedomain)
@@ -535,7 +536,7 @@ namespace PhalanxBL
         }
         public bool AccParamEdificiosRW(string usernamedomain)
         {
-            string[] PrivilegiosAcceso = new string[] { CONF_EDIFICIOS_RW};
+            string[] PrivilegiosAcceso = new string[] { CONF_EDIFICIOS_RW };
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
         public bool AccParamSupervisoresRW(string usernamedomain)
@@ -747,59 +748,59 @@ namespace PhalanxBL
             UsrFac.SetGruposSeguim(Usuario, UsrGroupsSeguim);
         }
 
-		public IList GetAllByGrupoSolicitud(string nombreGrupo, bool? grupoActivo, bool? usuarioActivo)
-		{
-			return new PhxUsersFactory().GetAllByGrupoSolicitud(nombreGrupo, grupoActivo, usuarioActivo);
-		}
+        public IList GetAllByGrupoSolicitud(string nombreGrupo, bool? grupoActivo, bool? usuarioActivo)
+        {
+            return new PhxUsersFactory().GetAllByGrupoSolicitud(nombreGrupo, grupoActivo, usuarioActivo);
+        }
 
-		public IList GetAllByGrupoSeguimientoSolicitud(string nombreGrupo, bool? grupoActivo, bool? usuarioActivo)
-		{
-			return new PhxUsersFactory().GetAllByGrupoSeguimientoSolicitud(nombreGrupo, grupoActivo, usuarioActivo);
-		}
+        public IList GetAllByGrupoSeguimientoSolicitud(string nombreGrupo, bool? grupoActivo, bool? usuarioActivo)
+        {
+            return new PhxUsersFactory().GetAllByGrupoSeguimientoSolicitud(nombreGrupo, grupoActivo, usuarioActivo);
+        }
 
-		public IList<PhxUserEntity> InactivarInexistentesEnAD()
-		{
-			IList<PhxUserEntity> listaUsuariosInactivados = new List<PhxUserEntity>();
+        public IList<PhxUserEntity> InactivarInexistentesEnAD()
+        {
+            IList<PhxUserEntity> listaUsuariosInactivados = new List<PhxUserEntity>();
 
-			PhxUsersFactory WDF = new PhxUsersFactory();
-            
-            WDF.FilDeleted = false; // solo los activos
+            PhxUsersFactory WDF = new PhxUsersFactory();
 
-			PhxLogUsuarioInactivadoBusiness luib = new PhxLogUsuarioInactivadoBusiness();
+            WDF.FilActive = true; // solo los activos
 
-			WinDomainBusiness wdb = new WinDomainBusiness();
+            PhxLogUsuarioInactivadoBusiness luib = new PhxLogUsuarioInactivadoBusiness();
 
-			IDictionary<string, string> ldapPaths = new Dictionary<string, string>();
+            WinDomainBusiness wdb = new WinDomainBusiness();
 
-			foreach (PhxUserEntity usuario in WDF.GetAll())
-			{
-				if (!ldapPaths.ContainsKey(usuario.Domain))
-				{
-					WinDomainEntity winDomain = wdb.GetByNtName(usuario.Domain);
+            IDictionary<string, string> ldapPaths = new Dictionary<string, string>();
 
-					ldapPaths[usuario.Domain] = winDomain != null ? winDomain.LDAPPath : string.Empty;
-				}
+            foreach (PhxUserEntity usuario in WDF.GetAll())
+            {
+                if (!ldapPaths.ContainsKey(usuario.Domain))
+                {
+                    WinDomainEntity winDomain = wdb.GetByNtName(usuario.Domain);
 
-				string ldapPath = ldapPaths[usuario.Domain];
+                    ldapPaths[usuario.Domain] = winDomain != null ? winDomain.LDAPPath : string.Empty;
+                }
 
-				if (!string.IsNullOrEmpty(ldapPath) 
-					&& !ActiveDirectoryHelper.UsuarioExiste(ldapPath, usuario.Username))
-				{
-					InactivateUser(usuario, System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+                string ldapPath = ldapPaths[usuario.Domain];
 
-					PhxLogUsuarioInactivado logUsuario = new PhxLogUsuarioInactivado();
-					logUsuario.Domain = usuario.Domain;
-					logUsuario.Fullname = usuario.Fullname;
-					logUsuario.PhxUser = usuario;
-					logUsuario.Username = usuario.Username;
+                if (!string.IsNullOrEmpty(ldapPath)
+                    && !ActiveDirectoryHelper.UsuarioExiste(ldapPath, usuario.Username))
+                {
+                    InactivateUser(usuario, System.Security.Principal.WindowsIdentity.GetCurrent().Name);
 
-					luib.Save(logUsuario);
+                    PhxLogUsuarioInactivado logUsuario = new PhxLogUsuarioInactivado();
+                    logUsuario.Domain = usuario.Domain;
+                    logUsuario.Fullname = usuario.Fullname;
+                    logUsuario.PhxUser = usuario;
+                    logUsuario.Username = usuario.Username;
 
-					listaUsuariosInactivados.Add(usuario);
-				}
-			}
+                    luib.Save(logUsuario);
 
-			return listaUsuariosInactivados;
-		}
+                    listaUsuariosInactivados.Add(usuario);
+                }
+            }
+
+            return listaUsuariosInactivados;
+        }
     }
 }

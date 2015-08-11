@@ -131,6 +131,7 @@
     <Compile Include="CommunicationDeviceUserBusiness.cs.cs" />
     <Compile Include="ATMUserBusiness.cs" />
     <Compile Include="PhxLogUsuarioInactivadoBusiness.cs" />
+    <Compile Include="PhxUserBusiness.cs" />
     <Compile Include="vwPwdRqstGrpBusiness.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -163,7 +164,6 @@
     <Compile Include="PhxConfigBusiness.cs" />
     <Compile Include="PhxPrivilegeGroupBusiness.cs" />
     <Compile Include="PhxRoleBusiness.cs" />
-    <Compile Include="PhxUserBusiness.cs" />
     <Compile Include="PhxUserSuperiorBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestGroupBusiness.cs" />

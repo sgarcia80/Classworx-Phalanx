@@ -32,3 +32,7 @@ RemoveAddressingHeadersAssertion/bin
 RemoveAddressingHeadersAssertion/obj
 PhalanxDB/obj/
 PhalanxDB/sql/debug/
+PhalanxBL/bin.kk
+PhalanxCommon/obj
+PhalanxCommon/obj/
+PhalanxCommon/obj/Debug/PhalanxCommon.csproj.FileListAbsolute.txt
