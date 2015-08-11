@@ -24,6 +24,7 @@
 		<property column="nt_name" type="String" name="NtName" length="50" />
 		<property column="ad_name" type="String" name="AdName" length="100" />
 		<property column="comments" type="String" name="Comments" length="255" />
+		<property column="LDAPPath" type="String" name="LDAPPath" length="100" />
 		
 	</class>
 </hibernate-mapping>

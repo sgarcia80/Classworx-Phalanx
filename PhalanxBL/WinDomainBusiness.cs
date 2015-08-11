@@ -65,5 +65,9 @@ namespace PhalanxBL
             return new NDomain().FindDomains(filter);
         }
 
+		public WinDomainEntity GetByNtName(string ntName)
+		{
+			return new WinDomainsFactory().GetWinDomain(ntName);
+		}
     }
 }

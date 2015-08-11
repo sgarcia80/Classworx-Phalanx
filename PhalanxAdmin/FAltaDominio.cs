@@ -35,6 +35,7 @@ namespace PhalanxAdmin
             m_CurrentDomain = currDomain;
             txtDomName.Text = m_CurrentDomain.NtName;
             txtComment.Text = m_CurrentDomain.Comments;
+			txtLDAPPath.Text = currDomain.LDAPPath;
             pNetFind.Visible = false;
             m_FormType = FormType.Update;
         }
@@ -72,6 +73,7 @@ namespace PhalanxAdmin
                     PhalanxCommon.Entities.WinDomainEntity dom = new PhalanxCommon.Entities.WinDomainEntity();
                     dom.NtName = txtDomName.Text;
                     dom.Comments = txtComment.Text;
+					dom.LDAPPath = txtLDAPPath.Text;
                     mWinDomBus.Save(dom);
                     MessageBox.Show("Se ha creado el Dominio satisfactoriamente");
                 }
@@ -84,6 +86,7 @@ namespace PhalanxAdmin
                         m_CurrentDomain = mWinDomBus.FillData(m_CurrentDomain);
                         m_CurrentDomain.NtName = txtDomName.Text;
                         m_CurrentDomain.Comments = txtComment.Text;
+						m_CurrentDomain.LDAPPath = txtLDAPPath.Text;
                         mWinDomBus.Save(m_CurrentDomain);
                         MessageBox.Show("Se ha actualizado el Dominio satisfactoriamente");
                     }
@@ -102,6 +105,7 @@ namespace PhalanxAdmin
             {
                 m_CurrentDomain.NtName = txtDomName.Text;
                 m_CurrentDomain.Comments = txtComment.Text;
+				m_CurrentDomain.LDAPPath = txtLDAPPath.Text;
                 mWinDomBus.Save(m_CurrentDomain);
                 MessageBox.Show("Se ha modificado el Dominio satisfactoriamente");
             }
@@ -129,9 +133,15 @@ namespace PhalanxAdmin
                     m_CurrentDomain = selectedDomain;
                     txtDomName.Text = selectedDomain.NtName;
                     txtComment.Text = selectedDomain.Comments;
+					txtLDAPPath.Text = selectedDomain.LDAPPath;
                 }
             }
         }
+
+		private void FAltaDominio_Load(object sender, EventArgs e)
+		{
+
+		}
 
 
     }

@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using PhalanxCommon.Entities;
 using PhalanxBL;
 using PhalanxCommon.Collections;
+using PhalanxNAL;
+using System.DirectoryServices;
 
 namespace PhalanxAdmin
 {
@@ -112,7 +114,7 @@ namespace PhalanxAdmin
                     this.tpgDatosUsr.Controls.Add(txtSuperior);
                     cbSuperior.Visible = false;
 
-
+					btnCargarDatos.Enabled = false;
                 }
             }
             CargarPermisosDelUsuario();
@@ -729,6 +731,28 @@ namespace PhalanxAdmin
         {
             PasarGrupoSeguimDeUsraDB();
         }
+
+		private void btnCargarDatos_Click(object sender, EventArgs e)
+		{					
+			string path = "LDAP://" + (cbDominio.SelectedItem as WinDomainEntity).LDAPPath;
+
+			DirectoryEntry usuario = ActiveDirectoryHelper.BuscarUsuarioPorNombre(path, txtUserName.Text.Trim(), new string[] { "givenName", "sn", "streetAddress", "mail" });
+
+			if (usuario == null)
+				MessageBox.Show("No se encontró el usuario");
+			else
+			{
+				txtFullName.Text = usuario.Properties["givenName"].Value.ToString() + " " + usuario.Properties["sn"].Value.ToString();
+				txtEmail.Text = usuario.Properties["mail"].Value.ToString();
+
+				string edificio = usuario.Properties["streetAddress"].Value.ToString();
+
+				int edificioIndex = cboEdificio.FindStringExact(edificio);
+
+				if (edificioIndex > 0)
+					cboEdificio.SelectedIndex = edificioIndex;
+			}
+		}
 
     }
 }

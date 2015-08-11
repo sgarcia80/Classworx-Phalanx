@@ -767,9 +767,23 @@ namespace PhalanxBL
 
 			PhxLogUsuarioInactivadoBusiness luib = new PhxLogUsuarioInactivadoBusiness();
 
+			WinDomainBusiness wdb = new WinDomainBusiness();
+
+			IDictionary<string, string> ldapPaths = new Dictionary<string, string>();
+
 			foreach (PhxUserEntity usuario in WDF.GetAll())
 			{
-				if (!ActiveDirectoryHelper.UsuarioExiste(usuario.Domain, usuario.Username))
+				if (!ldapPaths.ContainsKey(usuario.Domain))
+				{
+					WinDomainEntity winDomain = wdb.GetByNtName(usuario.Domain);
+
+					ldapPaths[usuario.Domain] = winDomain != null ? winDomain.LDAPPath : string.Empty;
+				}
+
+				string ldapPath = ldapPaths[usuario.Domain];
+
+				if (!string.IsNullOrEmpty(ldapPath) 
+					&& !ActiveDirectoryHelper.UsuarioExiste(ldapPath, usuario.Username))
 				{
 					InactivateUser(usuario, System.Security.Principal.WindowsIdentity.GetCurrent().Name);
 

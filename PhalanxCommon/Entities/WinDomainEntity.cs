@@ -24,6 +24,7 @@ namespace PhalanxCommon.Entities
 		private string m_ad_name; 
 		private IList m_WinPCsList;
         private string m_Comments;
+		private string m_ldap_path; 
 		#endregion
 
 		#region Default ( Empty ) Class Constuctor
@@ -172,6 +173,24 @@ namespace PhalanxCommon.Entities
 					throw new ArgumentOutOfRangeException("Invalid value for AdName", value, value.ToString());
 				
 				m_isChanged |= (m_ad_name != value); m_ad_name = value;
+			}
+		}
+
+		/// <summary>
+		/// ldap path
+		/// </summary>
+		public string LDAPPath
+		{
+			get { return m_ldap_path; }
+
+			set
+			{
+				if (value != null && value.Length > 100)
+					throw new ArgumentOutOfRangeException("Invalid value for LDAPPath", value, value.ToString());
+
+				m_isChanged |= (m_ldap_path != value);
+
+				m_ldap_path = value;
 			}
 		}
 			

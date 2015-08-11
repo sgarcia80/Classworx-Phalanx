@@ -34,25 +34,19 @@ namespace PhalanxNAL
 			return (T) settings[nombre];
 		}
 
-
 		public static DirectoryEntry BuscarUsuarioPorNombre(string username)
 		{
-			return BuscarLDAPEntry(LDAPPath, LDAPBuscarNombreFilter.Replace("[username]", username), new string[] { "description" });
+			return BuscarUsuarioPorNombre(LDAPPath, username, new string[] { "description" });
 		}
 
-		public static bool UsuarioExiste(string dominio, string usuario)
+		public static DirectoryEntry BuscarUsuarioPorNombre(string path, string username, IEnumerable<string> propiedades)
 		{
-			string path = String.Format("WinNT://{0}/{1},user", dominio, usuario);
+			return BuscarLDAPEntry(path, LDAPBuscarNombreFilter.Replace("[username]", username), propiedades);
+		}
 
-			try
-			{
-				DirectoryEntry.Exists(path);
-				return true;
-			}
-			catch (Exception)
-			{
-				return false;
-			}
+		public static bool UsuarioExiste(string ldapPath, string usuario)
+		{
+			return BuscarUsuarioPorNombre(@"LDAP://" + ldapPath, usuario, new string[] {}) != null;
 		}
 
 		private static DirectoryEntry BuscarLDAPEntry(string path, string filter, IEnumerable<string> properties)
