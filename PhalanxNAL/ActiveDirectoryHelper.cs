@@ -39,12 +39,138 @@ namespace PhalanxNAL
 			return BuscarUsuarioPorNombre(LDAPPath, username, new string[] { "description" });
 		}
 
-		public static DirectoryEntry BuscarUsuarioPorNombre(string path, string username, IEnumerable<string> propiedades)
-		{
-			return BuscarLDAPEntry(path, LDAPBuscarNombreFilter.Replace("[username]", username), propiedades);
-		}
+        public static DirectoryEntry BuscarUsuarioPorNombre(string path, string username, IEnumerable<string> propiedades)
+        {
+            return BuscarLDAPEntry(path, LDAPBuscarNombreFilter.Replace("[username]", username), propiedades);
+        }
 
-		public static bool UsuarioExiste(string ldapPath, string usuario)
+        public static DomainUser BuscarUsuarioADPorNombre(string path, string username)
+        {
+            DomainUser Usuario = new DomainUser();
+            Usuario.Username = username;
+            if (path.ToLower().StartsWith("winnt"))
+            {
+                path = "WinNT" + path.Substring(5);
+                Usuario.LDAPPath = path;
+
+                DirectoryEntry obDirEntry = new DirectoryEntry(path + "/" + username + ",user");
+                // falta controlar si encuentra al usuario
+                try
+                {
+                    if (obDirEntry.Properties.Count > 0)
+                    {
+                        foreach (System.DirectoryServices.PropertyValueCollection strVal in obDirEntry.Properties)
+                        {
+                        }
+                        Usuario.Found = true;
+                    }
+                }
+                catch
+                {
+
+                }
+            }
+            else
+            {
+                IEnumerable<string> propiedades = new string[] { "givenName", "sn", "streetAddress", "mail", "department", "physicalDeliveryOfficeName" };
+                string filter = LDAPBuscarNombreFilter.Replace("[username]", username);
+                IEnumerable<string> properties = propiedades;
+                Usuario.Username = username;
+                Usuario.LDAPPath = path;
+                try
+                {
+                    Usuario.Log += "|filter:" + filter + "|";
+                    Usuario.Log += "|path:" + path + "|";
+
+                    DirectoryEntry directoryEntry = new DirectoryEntry(path);
+                    Usuario.Log += "|directoryEntry|";
+
+                    DirectorySearcher search = new DirectorySearcher(directoryEntry);
+
+                    Usuario.Log += "|filter:" + filter + "|";
+                    search.Filter = filter;
+
+                    foreach (string property in properties)
+                    {
+                        Usuario.Log += "|Load:" + property + "|";
+
+                        search.PropertiesToLoad.Add(property);
+                    }
+
+                    Usuario.Log += "|foreach|";
+                    //Usuario.Log += "|search.FindOne|";
+                    //SearchResult sr = search.FindOne();
+                    foreach (SearchResult sr in search.FindAll())
+                    {
+                        Usuario.Found = true;
+                        Usuario.Log += "|givenName|";
+                        if (sr.Properties["givenName"] != null && sr.Properties["givenName"].Count > 0)
+                            Usuario.Name = sr.Properties["givenName"][0].ToString();
+
+                        if (sr.Properties["sn"] != null && sr.Properties["sn"].Count > 0)
+                        {
+                            Usuario.Log += "|sn|";
+                            Usuario.Surname = sr.Properties["sn"][0].ToString();
+                        }
+
+                        if (sr.Properties["mail"] != null && sr.Properties["mail"].Count > 0)
+                        {
+                            Usuario.Log += "|mail|";
+                            Usuario.email = sr.Properties["mail"][0].ToString();
+                        }
+
+                        if (sr.Properties["streetAddress"] != null && sr.Properties["streetAddress"].Count > 0)
+                        {
+                            Usuario.Log += "|streetAddress|";
+                            Usuario.Address = sr.Properties["streetAddress"][0].ToString();
+                        }
+
+                        if (sr.Properties["department"] != null && sr.Properties["department"].Count > 0)
+                        {
+                            Usuario.Log += "|department|";
+                            Usuario.Office = sr.Properties["department"][0].ToString() + " ";
+                        }
+
+                        if (sr.Properties["physicalDeliveryOfficeName"] != null && sr.Properties["physicalDeliveryOfficeName"].Count > 0)
+                        {
+                            Usuario.Log += "|physicalDeliveryOfficeName|";
+                            Usuario.Office += sr.Properties["physicalDeliveryOfficeName"][0].ToString();
+                        }
+                        break;
+                    }
+                    /*
+                    Usuario.Log += "|sr.GetDirectoryEntry|";
+                    DirectoryEntry FoundUser = sr.GetDirectoryEntry();
+                    Usuario.Log += "|givenName|";
+                    Usuario.Name = FoundUser.Properties["givenName"].Value.ToString();
+                    Usuario.Log += "|sn|";
+                    Usuario.Surname = FoundUser.Properties["sn"].Value.ToString();
+                    Usuario.Log += "|mail|";
+                    Usuario.email = FoundUser.Properties["mail"].Value.ToString();
+                    Usuario.Log += "|streetAddress|";
+                    Usuario.Address = FoundUser.Properties["streetAddress"].Value.ToString();
+                    */
+                }
+                catch (Exception ex)
+                {
+                    Usuario.Log += ex.Message;
+                    Usuario.Exception = true;
+                }
+            }
+            return Usuario;
+        }
+        public static bool LDAPPathExists(string LDAPPathToCheck)
+        {
+            try
+            {
+                return (DirectoryEntry.Exists(LDAPPathToCheck));
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public static bool UsuarioExiste(string ldapPath, string usuario)
 		{
             //return BuscarUsuarioPorNombre(@"LDAP://" + ldapPath, usuario, new string[] { }) != null;
             if (ldapPath.ToLower().StartsWith("winnt"))
@@ -60,7 +186,11 @@ namespace PhalanxNAL
                 try
                 {
                     if (obDirEntry.Properties.Count > 0)
-                    { return true; }
+                    {
+                        foreach (System.DirectoryServices.PropertyValueCollection strVal in obDirEntry.Properties)
+                        { 
+                        }
+                        return true; }
                 }
                 catch
                 {
@@ -73,27 +203,37 @@ namespace PhalanxNAL
                 return BuscarUsuarioPorNombre(ldapPath, usuario, new string[] { }) != null;
 		}
 
-		private static DirectoryEntry BuscarLDAPEntry(string path, string filter, IEnumerable<string> properties)
+        private static DirectoryEntry BuscarLDAPEntry(string path, string filter, IEnumerable<string> properties)
 		{
+            string strDebug = "";
 			try
 			{
-
+                strDebug = "1";
 				DirectoryEntry directoryEntry = new DirectoryEntry(path);
+                strDebug = "2";
 
 				DirectorySearcher search = new DirectorySearcher(directoryEntry);
+                strDebug = "3";
 
 				search.Filter = filter;
+                strDebug = "4";
 
 				foreach (string property in properties)
 					search.PropertiesToLoad.Add(property);
+                strDebug = "5 path: " + path + " - filter: " + filter;
 
 				SearchResult sr = search.FindOne();
+                strDebug = "6";
 
 				return sr.GetDirectoryEntry();
 			}
 			catch (Exception ex)
 			{
 				//log exception
+                string error = strDebug + ex.Message;
+                if (ex.InnerException != null)
+                    error += ex.InnerException.Message;
+                throw (new Exception(error));
 			}
 
 			return null;

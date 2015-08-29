@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\AplicacionNotificacionClaveEntityCollectionCollection.cs" />
+    <Compile Include="Collections\AuditTicketNotificacionEntityCollection.cs" />
     <Compile Include="Collections\SubsidiariaEntityCollectionCollection.cs" />
     <Compile Include="Collections\DominioLoginEntityCollection.cs" />
     <Compile Include="Collections\Meta4ClassWorxUsuariosEntityCollection.cs" />

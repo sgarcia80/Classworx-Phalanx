@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Common;
 
 namespace NDCCommon.Entities
 {
-    public class AuditTicketNotificacionEntity
+    public class AuditTicketNotificacionEntity : BaseEntity
     {
         private bool m_isChanged;
 
@@ -54,6 +55,18 @@ namespace NDCCommon.Entities
 
                 m_isChanged |= (m_atn_tnc != value);
                 m_atn_tnc = value;
+            }
+        }
+
+        public override string Key
+        {
+            get
+            {
+                return m_atn_id.ToString();
+            }
+            set
+            {
+                m_atn_id = Convert.ToInt32(value);
             }
         }
     }

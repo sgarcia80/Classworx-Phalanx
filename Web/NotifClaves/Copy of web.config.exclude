@@ -12,7 +12,7 @@
 		<add key="LogLevel" value="0"/>
 		<add key="LogFilePath" value="c:\classworx\phalanx\logs\phxLog.txt"/>
 		<add key="UsaProduccion" value="1"/>
-		<add key="CodigoAppAltaTemprana" value="10"/>
+		<add key="CodigoAplicacionAltaRed" value="10"/>
 		<add key="UsarWinNT" value="1"/>
 		<add key="DominiosLogin" value="casmobile|casmobile,Server Desa|vmsrv01"/>
 		<add key="Version" value="2.1"/>

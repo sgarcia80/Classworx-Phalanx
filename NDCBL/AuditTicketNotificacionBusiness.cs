@@ -16,7 +16,10 @@ namespace NDCBL
 
             this.Save(audit);
         }
-
+        public bool Visualizado(TicketNotificacionClaveEntity ticket)
+        {
+            return new AuditTicketNotificacionFactory().Visualizado(ticket); 
+        }
         private void Save(AuditTicketNotificacionEntity audit)
         {
             new AuditTicketNotificacionFactory().Save(audit);

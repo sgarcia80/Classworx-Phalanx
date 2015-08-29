@@ -783,20 +783,22 @@ namespace PhalanxBL
 
                 string ldapPath = ldapPaths[usuario.Domain];
 
-                if (!string.IsNullOrEmpty(ldapPath)
-                    && !ActiveDirectoryHelper.UsuarioExiste(ldapPath, usuario.Username))
+                if (!string.IsNullOrEmpty(ldapPath) && ActiveDirectoryHelper.LDAPPathExists(ldapPath))
                 {
-                    InactivateUser(usuario, System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+                    if (!ActiveDirectoryHelper.UsuarioExiste(ldapPath, usuario.Username))
+                    {
+                        InactivateUser(usuario, System.Security.Principal.WindowsIdentity.GetCurrent().Name);
 
-                    PhxLogUsuarioInactivado logUsuario = new PhxLogUsuarioInactivado();
-                    logUsuario.Domain = usuario.Domain;
-                    logUsuario.Fullname = usuario.Fullname;
-                    logUsuario.PhxUser = usuario;
-                    logUsuario.Username = usuario.Username;
+                        PhxLogUsuarioInactivado logUsuario = new PhxLogUsuarioInactivado();
+                        logUsuario.Domain = usuario.Domain;
+                        logUsuario.Fullname = usuario.Fullname;
+                        logUsuario.PhxUser = usuario;
+                        logUsuario.Username = usuario.Username;
 
-                    luib.Save(logUsuario);
+                        luib.Save(logUsuario);
 
-                    listaUsuariosInactivados.Add(usuario);
+                        listaUsuariosInactivados.Add(usuario);
+                    }
                 }
             }
 

@@ -10,6 +10,9 @@ using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using NDCBL;
 using NDCCommon.Entities;
+using System.DirectoryServices;
+using PhalanxNAL;
+using System.Text;
 
 public partial class DetalleTicketIp : System.Web.UI.Page
 {
@@ -31,9 +34,13 @@ public partial class DetalleTicketIp : System.Web.UI.Page
             }
 
             MostrarDatosTicket(ticket);
+            AuditTicketNotificacionBusiness AudTBL = new AuditTicketNotificacionBusiness();
+            if (ticket.Aplicacion.Codigo == ConfigurationManager.AppSettings["CodigoAplicacionAltaRed"].Trim().ToLower()
+                && !AudTBL.Visualizado(ticket))
+                ActualizarDescripcionUsuarioRed(ticket.Usuario);
 
             if (!IsPostBack)
-                new AuditTicketNotificacionBusiness().LogVisualizacion(ticket);
+                AudTBL.LogVisualizacion(ticket);
 
             Session["id"] = null;
         }
@@ -41,6 +48,46 @@ public partial class DetalleTicketIp : System.Web.UI.Page
             Response.Redirect(FormsAuthentication.LoginUrl);
     }
 
+    private void ActualizarDescripcionUsuarioRed(string nombreUsuario)
+    {
+        DirectoryEntry usuario = ActiveDirectoryHelper.BuscarUsuarioPorNombre(nombreUsuario);
+        string strErr = "";
+        if (usuario == null)
+        {
+            strErr = "usuario == null";
+            return;
+        }
+        if (usuario.Properties["description"] != null)
+        {
+            string descripcion = usuario.Properties["description"].Value.ToString();
+
+            if (descripcion.StartsWith(ConfigurationManager.AppSettings["PrefijoDescripcionUsuarioRed"]))
+            {
+                usuario.Properties["description"].Value = descripcion.Remove(0, ConfigurationManager.AppSettings["PrefijoDescripcionUsuarioRed"].Length);
+                strErr = "Starts with Prefijo Descrip. Value: " + usuario.Properties["description"].Value;
+                usuario.CommitChanges();
+            }
+            else
+            {
+                strErr = "NOT Starts with Prefijo Descrip. Value: " + usuario.Properties["description"].Value;
+            }
+        }
+        else
+        {
+            strErr = "(usuario.Properties[description] == null)";
+        }
+        if (strErr != null)
+        {
+            return;
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("<body><script type='text/javascript'>alert('" + strErr + "'); </script></body>");
+
+            HttpContext.Current.Response.Write(sb.ToString());
+
+            HttpContext.Current.Response.Flush();
+        }   
+    }
     private void MostrarDatosTicket(TicketNotificacionClaveEntity ticket)
     {
         tbFecha.Text = ticket.Fecha.ToString();

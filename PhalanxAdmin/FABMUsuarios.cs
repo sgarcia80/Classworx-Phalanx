@@ -10,7 +10,7 @@ using PhalanxCommon.Entities;
 using PhalanxBL;
 using PhalanxCommon.Collections;
 using PhalanxNAL;
-using System.DirectoryServices;
+//using System.DirectoryServices;
 
 namespace PhalanxAdmin
 {
@@ -733,25 +733,75 @@ namespace PhalanxAdmin
         }
 
 		private void btnCargarDatos_Click(object sender, EventArgs e)
-		{					
-			string path = "LDAP://" + (cbDominio.SelectedItem as WinDomainEntity).LDAPPath;
+		{
+            textBox1.Text = "";
+            if (txtUserName.Text.Trim() == "")
+            {
+                MessageBox.Show("Se debe ingresar un nombre de usuario", "Carga de datos del usuario desde AD", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtUserName.Focus();
+                return;
+            }
+            string path;
+            try
+            {
+                if ((cbDominio.SelectedItem as WinDomainEntity).LDAPPath == "")
+                {
+                    MessageBox.Show("Se debe configurar el Path de LDAP para el dominio", "Carga de datos del usuario desde AD", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-			DirectoryEntry usuario = ActiveDirectoryHelper.BuscarUsuarioPorNombre(path, txtUserName.Text.Trim(), new string[] { "givenName", "sn", "streetAddress", "mail" });
+                path = (cbDominio.SelectedItem as WinDomainEntity).LDAPPath;
+            }
+            catch
+            {
+                MessageBox.Show("No está configurado el Path del LDAP para el dominio seleccionado");
+                return;
+            }
+            if (string.IsNullOrEmpty(path))
+            {
+                MessageBox.Show("No está configurado el Path del LDAP para el dominio seleccionado");
+                return;
+            }
+            this.Cursor = Cursors.WaitCursor;
+            DomainUser usuario = ActiveDirectoryHelper.BuscarUsuarioADPorNombre(path, txtUserName.Text.Trim());
+            this.Cursor = Cursors.Default;
+            //if (!string.IsNullOrEmpty(usuario.Log))
+            if (usuario.Exception)
+            {
+                textBox1.Text = usuario.Log;
+                if (usuario.Found)
+                {
+                    //MessageBox.Show(usuario.Log, "Se encontró el usuario pero hubo un error.");
+                    MessageBox.Show("Se encontró el usuario pero hubo un error.");
+                }
+                else
+                {
+                    MessageBox.Show(usuario.Log, "No se encontró el usuario");
+                }
+            }
+            else
+            {
+                textBox1.Text = usuario.Log;
+                if (usuario.Found)
+                {
+                    txtFullName.Text = usuario.Name + " " + usuario.Surname; // usuario.Properties["givenName"].Value.ToString() + " " + usuario.Properties["sn"].Value.ToString();
+                    txtEmail.Text = usuario.email; // usuario.Properties["mail"].Value.ToString();
+                    txtSector.Text = usuario.Office;
+                    string edificio = usuario.Address; // usuario.Properties["streetAddress"].Value.ToString();
 
-			if (usuario == null)
-				MessageBox.Show("No se encontró el usuario");
-			else
-			{
-				txtFullName.Text = usuario.Properties["givenName"].Value.ToString() + " " + usuario.Properties["sn"].Value.ToString();
-				txtEmail.Text = usuario.Properties["mail"].Value.ToString();
+                    cboEdificio.Text = edificio;
+                }
+                else
+                {
+                    //MessageBox.Show(usuario.Log, "No se encontró el usuario");
+                    MessageBox.Show("No se encontró el usuario");
+                }
 
-				string edificio = usuario.Properties["streetAddress"].Value.ToString();
+                //int edificioIndex = cboEdificio.FindStringExact(edificio);
 
-				int edificioIndex = cboEdificio.FindStringExact(edificio);
-
-				if (edificioIndex > 0)
-					cboEdificio.SelectedIndex = edificioIndex;
-			}
+                //if (edificioIndex > 0)
+                //    cboEdificio.SelectedIndex = edificioIndex;
+            }
 		}
 
     }

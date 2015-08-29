@@ -21,7 +21,7 @@ namespace NDCBL
             get
             {
                 if (codigoAppAltaTemprana == null)
-                    codigoAppAltaTemprana = ConfigurationManager.AppSettings["CodigoAppAltaTemprana"];
+                    codigoAppAltaTemprana = ConfigurationManager.AppSettings["CodigoAplicacionAltaRed"];
 
                 return codigoAppAltaTemprana;
             }

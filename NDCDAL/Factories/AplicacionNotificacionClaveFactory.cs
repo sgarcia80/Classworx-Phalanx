@@ -45,7 +45,8 @@ namespace NDCDAL.Factories
                     ICriteria DataSearch = session.CreateCriteria(typeof(AplicacionNotificacionClaveEntity));
                     
                     if (_filCodigo != null && _filCodigo != "")
-                        DataSearch = DataSearch.Add(Expression.Like("Codigo", _filCodigo, MatchMode.Anywhere));
+                        DataSearch = DataSearch.Add(Expression.Eq("Codigo", _filCodigo));
+                    //DataSearch = DataSearch.Add(Expression.Like("Codigo", _filCodigo, MatchMode.Anywhere));
 
                     if (!string.IsNullOrEmpty(_filNombre))
                         DataSearch = DataSearch.Add(Expression.Like("Nombre", _filNombre, MatchMode.Anywhere));
