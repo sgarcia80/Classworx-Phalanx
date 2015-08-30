@@ -6,38 +6,38 @@ using System.DirectoryServices;
 
 namespace PhalanxNAL
 {
-	public class ActiveDirectoryHelper
-	{
-		private static Dictionary<string, object> settings = new Dictionary<string, object>();
+    public class ActiveDirectoryHelper
+    {
+        private static Dictionary<string, object> settings = new Dictionary<string, object>();
 
-		private static string LDAPPath
-		{
-			get
-			{
-				return BuscarSetting<string>("LDAPPath");
-			}
-		}
+        private static string LDAPPath
+        {
+            get
+            {
+                return BuscarSetting<string>("LDAPPath");
+            }
+        }
 
-		private static string LDAPBuscarNombreFilter
-		{
-			get
-			{
-				return BuscarSetting<string>("LDAPBuscarNombreFilter");
-			}
-		}
+        private static string LDAPBuscarNombreFilter
+        {
+            get
+            {
+                return BuscarSetting<string>("LDAPBuscarNombreFilter");
+            }
+        }
 
-		private static T BuscarSetting<T>(string nombre)
-		{
-			if (!settings.ContainsKey(nombre))
-				settings.Add(nombre, Convert.ChangeType(ConfigurationManager.AppSettings[nombre], typeof(T)));
+        private static T BuscarSetting<T>(string nombre)
+        {
+            if (!settings.ContainsKey(nombre))
+                settings.Add(nombre, Convert.ChangeType(ConfigurationManager.AppSettings[nombre], typeof(T)));
 
-			return (T) settings[nombre];
-		}
+            return (T)settings[nombre];
+        }
 
-		public static DirectoryEntry BuscarUsuarioPorNombre(string username)
-		{
-			return BuscarUsuarioPorNombre(LDAPPath, username, new string[] { "description" });
-		}
+        public static DirectoryEntry BuscarUsuarioPorNombre(string username)
+        {
+            return BuscarUsuarioPorNombre(LDAPPath, username, new string[] { "description" });
+        }
 
         public static DirectoryEntry BuscarUsuarioPorNombre(string path, string username, IEnumerable<string> propiedades)
         {
@@ -171,11 +171,11 @@ namespace PhalanxNAL
             }
         }
         public static bool UsuarioExiste(string ldapPath, string usuario)
-		{
+        {
             //return BuscarUsuarioPorNombre(@"LDAP://" + ldapPath, usuario, new string[] { }) != null;
             if (ldapPath.ToLower().StartsWith("winnt"))
             {
-                ldapPath = "WinNT"+ldapPath.Substring(5);
+                ldapPath = "WinNT" + ldapPath.Substring(5);
                 //DirectoryEntry obDirEntry2 = new DirectoryEntry("WinNT://castab/Cristian,user");
                 //if (obDirEntry2.Properties.Count > 0)
                 //{ }
@@ -188,9 +188,10 @@ namespace PhalanxNAL
                     if (obDirEntry.Properties.Count > 0)
                     {
                         foreach (System.DirectoryServices.PropertyValueCollection strVal in obDirEntry.Properties)
-                        { 
+                        {
                         }
-                        return true; }
+                        return true;
+                    }
                 }
                 catch
                 {
@@ -201,42 +202,109 @@ namespace PhalanxNAL
             }
             else
                 return BuscarUsuarioPorNombre(ldapPath, usuario, new string[] { }) != null;
-		}
+        }
 
         private static DirectoryEntry BuscarLDAPEntry(string path, string filter, IEnumerable<string> properties)
-		{
+        {
             string strDebug = "";
-			try
-			{
+            try
+            {
+
                 strDebug = "1";
-				DirectoryEntry directoryEntry = new DirectoryEntry(path);
+                DirectoryEntry directoryEntry = new DirectoryEntry(path);
                 strDebug = "2";
 
-				DirectorySearcher search = new DirectorySearcher(directoryEntry);
+                DirectorySearcher search = new DirectorySearcher(directoryEntry);
                 strDebug = "3";
 
-				search.Filter = filter;
+                search.Filter = filter;
                 strDebug = "4";
 
-				foreach (string property in properties)
-					search.PropertiesToLoad.Add(property);
+                foreach (string property in properties)
+                    search.PropertiesToLoad.Add(property);
                 strDebug = "5 path: " + path + " - filter: " + filter;
 
-				SearchResult sr = search.FindOne();
-                strDebug = "6";
-
-				return sr.GetDirectoryEntry();
-			}
-			catch (Exception ex)
-			{
-				//log exception
-                string error = strDebug + ex.Message;
+                SearchResult sr = search.FindOne();
+                if (sr == null)
+                {
+                    strDebug = "No se encontró el usuario";
+                }
+                return sr.GetDirectoryEntry();
+            }
+            catch (Exception ex)
+            {
+                //log exception
+                string error = strDebug + " | " + ex.Message;
                 if (ex.InnerException != null)
-                    error += ex.InnerException.Message;
-                throw (new Exception(error));
-			}
+                    error += " | Inner: " + ex.InnerException.Message;
+                if (ConfigurationManager.AppSettings["DebugChgAD"] != null && ConfigurationManager.AppSettings["DebugChgAD"].ToString() == "1")
+                { throw (new Exception(error)); }
+            }
 
-			return null;
-		}
-	}
+            return null;
+        }
+        public static string ActualizarDescripcionUsuarioRed(string NombreUsuario)
+        {
+            DirectoryEntry usuario = ActiveDirectoryHelper.BuscarUsuarioPorNombre(NombreUsuario);
+            string strErr = "";
+            if (usuario == null)
+            {
+                strErr = "usuario == null";
+                return strErr;
+            }
+            if (usuario.Properties["description"] != null)
+            {
+                string descripcion = usuario.Properties["description"].Value.ToString();
+
+                if (descripcion.StartsWith(ConfigurationManager.AppSettings["PrefijoDescripcionUsuarioRed"]))
+                {
+                    usuario.Properties["description"].Value = descripcion.Remove(0, ConfigurationManager.AppSettings["PrefijoDescripcionUsuarioRed"].Length);
+                    strErr = "Starts with Prefijo Descrip. Value: " + usuario.Properties["description"].Value;
+                    usuario.CommitChanges();
+                }
+                else
+                {
+                    strErr = "NOT Starts with Prefijo Descrip. Value: " + usuario.Properties["description"].Value;
+                }
+            }
+            else
+            {
+                strErr = "(usuario.Properties[description] == null)";
+            }
+            return strErr;
+        }
+
+        public static string ActualizarDescripcionUsuarioRed(string NombreUsuario, string PrefijoDesc, string PathLDAP, string FilterBuscarNombre)
+        {
+            //DirectoryEntry usuario = ActiveDirectoryHelper.BuscarUsuarioPorNombre(NombreUsuario);
+            //DirectoryEntry usuario = ActiveDirectoryHelper.BuscarUsuarioPorNombre(PathLDAP, NombreUsuario, new string[] { "description" });
+            DirectoryEntry usuario = BuscarLDAPEntry(PathLDAP, FilterBuscarNombre.Replace("[username]", NombreUsuario), new string[] { "description" });
+            string strErr = "";
+            if (usuario == null)
+            {
+                strErr = "usuario == null";
+                return strErr;
+            }
+            if (usuario.Properties["description"] != null)
+            {
+                string descripcion = usuario.Properties["description"].Value.ToString();
+
+                if (descripcion.StartsWith(PrefijoDesc))
+                {
+                    usuario.Properties["description"].Value = descripcion.Remove(0, PrefijoDesc.Length);
+                    strErr = "Starts with Prefijo Descrip. Value: " + usuario.Properties["description"].Value;
+                    usuario.CommitChanges();
+                }
+                else
+                {
+                    strErr = "NOT Starts with Prefijo Descrip. Value: " + usuario.Properties["description"].Value;
+                }
+            }
+            else
+            {
+                strErr = "(usuario.Properties[description] == null)";
+            }
+            return strErr;
+        }
+    }
 }

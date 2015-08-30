@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using TestWSInterfaceClaves.WSTickets;
 using System.Web.Services.Protocols;
+using PhalanxNAL;
 
 namespace TestWSInterfaceClaves
 {
@@ -109,6 +110,37 @@ namespace TestWSInterfaceClaves
             TicketsDeClaves serviceProxy = new TicketsDeClaves();
             string resultado = serviceProxy.TestLDAPConfig(txtLDAPUsername.Text, txtLDAPEmployeeID.Text);
             txtTestLDAP.Text = resultado.Replace(" | ", Environment.NewLine);
+        }
+
+        private void btnChgDescAD_Click(object sender, EventArgs e)
+        {
+            string strCatch = "";
+            string CambioDescUsuario = "";
+            txtResultTestCambioDescAD.Text = "";
+            this.Cursor = Cursors.WaitCursor;
+            try
+            {
+                CambioDescUsuario = ActiveDirectoryHelper.ActualizarDescripcionUsuarioRed(txtUsrAD.Text, txtPrefijoDescUsrAD.Text
+                    , txtLDAPChgDescAD.Text, txtFilBuscNombreAD.Text);
+            }
+            catch (Exception ex)
+            {
+                strCatch = ex.Message;
+            }
+            if (CambioDescUsuario != "")
+            {
+                txtResultTestCambioDescAD.Text = CambioDescUsuario;
+                txtResultTestCambioDescAD.Text += Environment.NewLine;
+            }
+            if (strCatch != "")
+            {
+                txtResultTestCambioDescAD.Text = strCatch;
+                txtResultTestCambioDescAD.Text += Environment.NewLine;
+            }
+            txtResultTestCambioDescAD.Text += "Terminó la ejecución";
+
+            this.Cursor = Cursors.Default;
+
         }
 
     }

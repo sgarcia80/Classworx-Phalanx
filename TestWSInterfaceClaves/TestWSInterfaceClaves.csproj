@@ -158,6 +158,10 @@
       <Project>{3744DE9E-912E-4A88-8897-73FFF9C8DD48}</Project>
       <Name>NDCCommon</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PhalanxNAL\PhalanxNAL.csproj">
+      <Project>{D31089F5-A197-4808-B865-C7062DA477AB}</Project>
+      <Name>PhalanxNAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\phxCryptMgr\phxCryptMgr.csproj">
       <Project>{F0941A5C-7856-42E9-9544-CDAC11F3C285}</Project>
       <Name>phxCryptMgr</Name>

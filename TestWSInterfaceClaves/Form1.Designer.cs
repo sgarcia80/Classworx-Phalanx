@@ -30,7 +30,6 @@ namespace TestWSInterfaceClaves
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.txtLog = new System.Windows.Forms.TextBox();
             this.btnAceptar = new System.Windows.Forms.Button();
@@ -94,18 +93,30 @@ namespace TestWSInterfaceClaves
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtUsuario = new System.Windows.Forms.TextBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.txtLDAPUsername = new System.Windows.Forms.TextBox();
-            this.txtLDAPEmployeeID = new System.Windows.Forms.TextBox();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
-            this.btnTestLDAP = new System.Windows.Forms.Button();
             this.txtTestLDAP = new System.Windows.Forms.TextBox();
+            this.btnTestLDAP = new System.Windows.Forms.Button();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.txtLDAPEmployeeID = new System.Windows.Forms.TextBox();
+            this.txtLDAPUsername = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.txtLDAPChgDescAD = new System.Windows.Forms.TextBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.txtResultTestCambioDescAD = new System.Windows.Forms.TextBox();
+            this.btnChgDescAD = new System.Windows.Forms.Button();
+            this.txtFilBuscNombreAD = new System.Windows.Forms.TextBox();
+            this.txtPrefijoDescUsrAD = new System.Windows.Forms.TextBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.txtUsrAD = new System.Windows.Forms.TextBox();
+            this.label28 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -114,7 +125,10 @@ namespace TestWSInterfaceClaves
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -124,6 +138,7 @@ namespace TestWSInterfaceClaves
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -140,17 +155,6 @@ namespace TestWSInterfaceClaves
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Ticket";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.panel2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(746, 721);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "LDAP";
-            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
@@ -739,6 +743,17 @@ namespace TestWSInterfaceClaves
             this.txtUsuario.Size = new System.Drawing.Size(103, 20);
             this.txtUsuario.TabIndex = 6;
             // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.panel2);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(746, 721);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "LDAP";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
             // panel2
             // 
             this.panel2.AutoScroll = true;
@@ -756,67 +771,6 @@ namespace TestWSInterfaceClaves
             this.panel2.Size = new System.Drawing.Size(740, 715);
             this.panel2.TabIndex = 0;
             // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(14, 24);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(99, 13);
-            this.label20.TabIndex = 1;
-            this.label20.Text = "Nombre de usuario:";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(14, 59);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(42, 13);
-            this.label25.TabIndex = 2;
-            this.label25.Text = "Legajo:";
-            // 
-            // txtLDAPUsername
-            // 
-            this.txtLDAPUsername.Location = new System.Drawing.Point(119, 21);
-            this.txtLDAPUsername.Name = "txtLDAPUsername";
-            this.txtLDAPUsername.Size = new System.Drawing.Size(136, 20);
-            this.txtLDAPUsername.TabIndex = 3;
-            // 
-            // txtLDAPEmployeeID
-            // 
-            this.txtLDAPEmployeeID.Location = new System.Drawing.Point(119, 56);
-            this.txtLDAPEmployeeID.Name = "txtLDAPEmployeeID";
-            this.txtLDAPEmployeeID.Size = new System.Drawing.Size(136, 20);
-            this.txtLDAPEmployeeID.TabIndex = 4;
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(272, 23);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(408, 13);
-            this.label26.TabIndex = 5;
-            this.label26.Text = "este campo es opcional, si se ingresa, se busca el nombre en LDAP para ese usuari" +
-    "o";
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(272, 59);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(379, 13);
-            this.label27.TabIndex = 6;
-            this.label27.Text = "este campo es opcional, si se ingresa, se busca el mail en LDAP para ese lgajo";
-            // 
-            // btnTestLDAP
-            // 
-            this.btnTestLDAP.Location = new System.Drawing.Point(17, 101);
-            this.btnTestLDAP.Name = "btnTestLDAP";
-            this.btnTestLDAP.Size = new System.Drawing.Size(111, 23);
-            this.btnTestLDAP.TabIndex = 7;
-            this.btnTestLDAP.Text = "Ejecutar Test";
-            this.btnTestLDAP.UseVisualStyleBackColor = true;
-            this.btnTestLDAP.Click += new System.EventHandler(this.btnTestLDAP_Click);
-            // 
             // txtTestLDAP
             // 
             this.txtTestLDAP.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -829,6 +783,189 @@ namespace TestWSInterfaceClaves
             this.txtTestLDAP.Size = new System.Drawing.Size(707, 557);
             this.txtTestLDAP.TabIndex = 8;
             // 
+            // btnTestLDAP
+            // 
+            this.btnTestLDAP.Location = new System.Drawing.Point(17, 101);
+            this.btnTestLDAP.Name = "btnTestLDAP";
+            this.btnTestLDAP.Size = new System.Drawing.Size(111, 23);
+            this.btnTestLDAP.TabIndex = 7;
+            this.btnTestLDAP.Text = "Ejecutar Test";
+            this.btnTestLDAP.UseVisualStyleBackColor = true;
+            this.btnTestLDAP.Click += new System.EventHandler(this.btnTestLDAP_Click);
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(272, 59);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(379, 13);
+            this.label27.TabIndex = 6;
+            this.label27.Text = "este campo es opcional, si se ingresa, se busca el mail en LDAP para ese lgajo";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(272, 23);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(408, 13);
+            this.label26.TabIndex = 5;
+            this.label26.Text = "este campo es opcional, si se ingresa, se busca el nombre en LDAP para ese usuari" +
+    "o";
+            // 
+            // txtLDAPEmployeeID
+            // 
+            this.txtLDAPEmployeeID.Location = new System.Drawing.Point(119, 56);
+            this.txtLDAPEmployeeID.Name = "txtLDAPEmployeeID";
+            this.txtLDAPEmployeeID.Size = new System.Drawing.Size(136, 20);
+            this.txtLDAPEmployeeID.TabIndex = 4;
+            // 
+            // txtLDAPUsername
+            // 
+            this.txtLDAPUsername.Location = new System.Drawing.Point(119, 21);
+            this.txtLDAPUsername.Name = "txtLDAPUsername";
+            this.txtLDAPUsername.Size = new System.Drawing.Size(136, 20);
+            this.txtLDAPUsername.TabIndex = 3;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(14, 59);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(42, 13);
+            this.label25.TabIndex = 2;
+            this.label25.Text = "Legajo:";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(14, 24);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(99, 13);
+            this.label20.TabIndex = 1;
+            this.label20.Text = "Nombre de usuario:";
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.groupBox8);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(746, 721);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "AD";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox8.Controls.Add(this.txtLDAPChgDescAD);
+            this.groupBox8.Controls.Add(this.label31);
+            this.groupBox8.Controls.Add(this.txtResultTestCambioDescAD);
+            this.groupBox8.Controls.Add(this.btnChgDescAD);
+            this.groupBox8.Controls.Add(this.txtFilBuscNombreAD);
+            this.groupBox8.Controls.Add(this.txtPrefijoDescUsrAD);
+            this.groupBox8.Controls.Add(this.label30);
+            this.groupBox8.Controls.Add(this.label29);
+            this.groupBox8.Controls.Add(this.txtUsrAD);
+            this.groupBox8.Controls.Add(this.label28);
+            this.groupBox8.Location = new System.Drawing.Point(18, 20);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(707, 695);
+            this.groupBox8.TabIndex = 0;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Cambio descripcion en AD por visualización de notificación";
+            // 
+            // txtLDAPChgDescAD
+            // 
+            this.txtLDAPChgDescAD.Location = new System.Drawing.Point(364, 25);
+            this.txtLDAPChgDescAD.Name = "txtLDAPChgDescAD";
+            this.txtLDAPChgDescAD.Size = new System.Drawing.Size(325, 20);
+            this.txtLDAPChgDescAD.TabIndex = 1;
+            this.txtLDAPChgDescAD.Text = "LDAP://CN=Users,DC=CwxTest";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(323, 28);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(35, 13);
+            this.label31.TabIndex = 10;
+            this.label31.Text = "LDAP";
+            // 
+            // txtResultTestCambioDescAD
+            // 
+            this.txtResultTestCambioDescAD.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtResultTestCambioDescAD.Location = new System.Drawing.Point(6, 178);
+            this.txtResultTestCambioDescAD.Multiline = true;
+            this.txtResultTestCambioDescAD.Name = "txtResultTestCambioDescAD";
+            this.txtResultTestCambioDescAD.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtResultTestCambioDescAD.Size = new System.Drawing.Size(695, 511);
+            this.txtResultTestCambioDescAD.TabIndex = 5;
+            // 
+            // btnChgDescAD
+            // 
+            this.btnChgDescAD.Location = new System.Drawing.Point(9, 136);
+            this.btnChgDescAD.Name = "btnChgDescAD";
+            this.btnChgDescAD.Size = new System.Drawing.Size(120, 23);
+            this.btnChgDescAD.TabIndex = 4;
+            this.btnChgDescAD.Text = "Ejecutar";
+            this.btnChgDescAD.UseVisualStyleBackColor = true;
+            this.btnChgDescAD.Click += new System.EventHandler(this.btnChgDescAD_Click);
+            // 
+            // txtFilBuscNombreAD
+            // 
+            this.txtFilBuscNombreAD.Location = new System.Drawing.Point(138, 98);
+            this.txtFilBuscNombreAD.Name = "txtFilBuscNombreAD";
+            this.txtFilBuscNombreAD.Size = new System.Drawing.Size(551, 20);
+            this.txtFilBuscNombreAD.TabIndex = 3;
+            this.txtFilBuscNombreAD.Text = "(&(objectCategory=person)(samaccountname=[username]))";
+            // 
+            // txtPrefijoDescUsrAD
+            // 
+            this.txtPrefijoDescUsrAD.Location = new System.Drawing.Point(138, 60);
+            this.txtPrefijoDescUsrAD.Name = "txtPrefijoDescUsrAD";
+            this.txtPrefijoDescUsrAD.Size = new System.Drawing.Size(551, 20);
+            this.txtPrefijoDescUsrAD.TabIndex = 2;
+            this.txtPrefijoDescUsrAD.Text = "# Phalanx # NO SE NOTIFICO #";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(6, 101);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(123, 13);
+            this.label30.TabIndex = 2;
+            this.label30.Text = "Filter Buscar por Nombre";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(6, 63);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(64, 13);
+            this.label29.TabIndex = 2;
+            this.label29.Text = "Prefijo Desc";
+            // 
+            // txtUsrAD
+            // 
+            this.txtUsrAD.Location = new System.Drawing.Point(138, 25);
+            this.txtUsrAD.Name = "txtUsrAD";
+            this.txtUsrAD.Size = new System.Drawing.Size(161, 20);
+            this.txtUsrAD.TabIndex = 0;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(6, 28);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(43, 13);
+            this.label28.TabIndex = 0;
+            this.label28.Text = "Usuario";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -840,7 +977,6 @@ namespace TestWSInterfaceClaves
             this.Text = "Test Interface Ingreso Tickets";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -856,8 +992,12 @@ namespace TestWSInterfaceClaves
             this.groupBox3.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -939,6 +1079,18 @@ namespace TestWSInterfaceClaves
         private System.Windows.Forms.TextBox txtLDAPUsername;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.TextBox txtPrefijoDescUsrAD;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.TextBox txtUsrAD;
+        private System.Windows.Forms.TextBox txtResultTestCambioDescAD;
+        private System.Windows.Forms.Button btnChgDescAD;
+        private System.Windows.Forms.TextBox txtFilBuscNombreAD;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.TextBox txtLDAPChgDescAD;
+        private System.Windows.Forms.Label label31;
 
     }
 }

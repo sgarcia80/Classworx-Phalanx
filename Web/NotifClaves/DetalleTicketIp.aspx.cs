@@ -13,9 +13,11 @@ using NDCCommon.Entities;
 using System.DirectoryServices;
 using PhalanxNAL;
 using System.Text;
+using System.Threading;
 
 public partial class DetalleTicketIp : System.Web.UI.Page
 {
+    private string UsuarioActualizarAD = "";
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Session["id"] != null)
@@ -34,10 +36,32 @@ public partial class DetalleTicketIp : System.Web.UI.Page
             }
 
             MostrarDatosTicket(ticket);
+            /// si es alta de red y es la primera vez que se ve, hay que actualizar la descripcion del usuario AD y sacar 
+            /// la leyenda que se puso cuando llegó el ticket
             AuditTicketNotificacionBusiness AudTBL = new AuditTicketNotificacionBusiness();
             if (ticket.Aplicacion.Codigo == ConfigurationManager.AppSettings["CodigoAplicacionAltaRed"].Trim().ToLower()
                 && !AudTBL.Visualizado(ticket))
-                ActualizarDescripcionUsuarioRed(ticket.Usuario);
+            {
+                UsuarioActualizarAD = ticket.Usuario;
+
+                if (ConfigurationManager.AppSettings["DebugChgAD"] != null && ConfigurationManager.AppSettings["DebugChgAD"].ToString() == "1")
+                {
+                    ActualizarDescripcionUsuarioRed();
+                }
+                else
+                {
+
+                    Thread oThread = new Thread(new ThreadStart(ActualizarDescripcionUsuarioRed));
+
+
+                    // Start the thread
+                    oThread.Start();
+                    // Spin for a while waiting for the started thread to become
+                    // alive:
+                    while (!oThread.IsAlive) ;
+                }
+                
+            }
 
             if (!IsPostBack)
                 AudTBL.LogVisualizacion(ticket);
@@ -48,40 +72,15 @@ public partial class DetalleTicketIp : System.Web.UI.Page
             Response.Redirect(FormsAuthentication.LoginUrl);
     }
 
-    private void ActualizarDescripcionUsuarioRed(string nombreUsuario)
+    private void ActualizarDescripcionUsuarioRed()
     {
-        DirectoryEntry usuario = ActiveDirectoryHelper.BuscarUsuarioPorNombre(nombreUsuario);
-        string strErr = "";
-        if (usuario == null)
-        {
-            strErr = "usuario == null";
-            return;
-        }
-        if (usuario.Properties["description"] != null)
-        {
-            string descripcion = usuario.Properties["description"].Value.ToString();
-
-            if (descripcion.StartsWith(ConfigurationManager.AppSettings["PrefijoDescripcionUsuarioRed"]))
-            {
-                usuario.Properties["description"].Value = descripcion.Remove(0, ConfigurationManager.AppSettings["PrefijoDescripcionUsuarioRed"].Length);
-                strErr = "Starts with Prefijo Descrip. Value: " + usuario.Properties["description"].Value;
-                usuario.CommitChanges();
-            }
-            else
-            {
-                strErr = "NOT Starts with Prefijo Descrip. Value: " + usuario.Properties["description"].Value;
-            }
-        }
-        else
-        {
-            strErr = "(usuario.Properties[description] == null)";
-        }
-        if (strErr != null)
+        string CambioDescUsuario = ActiveDirectoryHelper.ActualizarDescripcionUsuarioRed(UsuarioActualizarAD);
+        if (CambioDescUsuario != "")
         {
             return;
             StringBuilder sb = new StringBuilder();
 
-            sb.Append("<body><script type='text/javascript'>alert('" + strErr + "'); </script></body>");
+            sb.Append("<body><script type='text/javascript'>alert('" + CambioDescUsuario + "'); </script></body>");
 
             HttpContext.Current.Response.Write(sb.ToString());
 
