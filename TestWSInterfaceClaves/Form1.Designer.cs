@@ -115,6 +115,9 @@ namespace TestWSInterfaceClaves
             this.label29 = new System.Windows.Forms.Label();
             this.txtUsrAD = new System.Windows.Forms.TextBox();
             this.label28 = new System.Windows.Forms.Label();
+            this.rbWS = new System.Windows.Forms.RadioButton();
+            this.rbPathLDAP = new System.Windows.Forms.RadioButton();
+            this.txtLDAPPathUsr = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -757,6 +760,9 @@ namespace TestWSInterfaceClaves
             // panel2
             // 
             this.panel2.AutoScroll = true;
+            this.panel2.Controls.Add(this.txtLDAPPathUsr);
+            this.panel2.Controls.Add(this.rbPathLDAP);
+            this.panel2.Controls.Add(this.rbWS);
             this.panel2.Controls.Add(this.txtTestLDAP);
             this.panel2.Controls.Add(this.btnTestLDAP);
             this.panel2.Controls.Add(this.label27);
@@ -776,16 +782,16 @@ namespace TestWSInterfaceClaves
             this.txtTestLDAP.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtTestLDAP.Location = new System.Drawing.Point(17, 144);
+            this.txtTestLDAP.Location = new System.Drawing.Point(17, 163);
             this.txtTestLDAP.Multiline = true;
             this.txtTestLDAP.Name = "txtTestLDAP";
             this.txtTestLDAP.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtTestLDAP.Size = new System.Drawing.Size(707, 557);
+            this.txtTestLDAP.Size = new System.Drawing.Size(707, 538);
             this.txtTestLDAP.TabIndex = 8;
             // 
             // btnTestLDAP
             // 
-            this.btnTestLDAP.Location = new System.Drawing.Point(17, 101);
+            this.btnTestLDAP.Location = new System.Drawing.Point(17, 122);
             this.btnTestLDAP.Name = "btnTestLDAP";
             this.btnTestLDAP.Size = new System.Drawing.Size(111, 23);
             this.btnTestLDAP.TabIndex = 7;
@@ -966,6 +972,34 @@ namespace TestWSInterfaceClaves
             this.label28.TabIndex = 0;
             this.label28.Text = "Usuario";
             // 
+            // rbWS
+            // 
+            this.rbWS.AutoSize = true;
+            this.rbWS.Checked = true;
+            this.rbWS.Location = new System.Drawing.Point(17, 90);
+            this.rbWS.Name = "rbWS";
+            this.rbWS.Size = new System.Drawing.Size(116, 17);
+            this.rbWS.TabIndex = 9;
+            this.rbWS.Text = "Llamar web service";
+            this.rbWS.UseVisualStyleBackColor = true;
+            // 
+            // rbPathLDAP
+            // 
+            this.rbPathLDAP.AutoSize = true;
+            this.rbPathLDAP.Location = new System.Drawing.Point(149, 90);
+            this.rbPathLDAP.Name = "rbPathLDAP";
+            this.rbPathLDAP.Size = new System.Drawing.Size(103, 17);
+            this.rbPathLDAP.TabIndex = 10;
+            this.rbPathLDAP.Text = "Usar Path LDAP";
+            this.rbPathLDAP.UseVisualStyleBackColor = true;
+            // 
+            // txtLDAPPathUsr
+            // 
+            this.txtLDAPPathUsr.Location = new System.Drawing.Point(275, 90);
+            this.txtLDAPPathUsr.Name = "txtLDAPPathUsr";
+            this.txtLDAPPathUsr.Size = new System.Drawing.Size(448, 20);
+            this.txtLDAPPathUsr.TabIndex = 11;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -974,7 +1008,7 @@ namespace TestWSInterfaceClaves
             this.ClientSize = new System.Drawing.Size(778, 771);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
-            this.Text = "Test Interface Ingreso Tickets";
+            this.Text = "Tests Phalanx";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
@@ -1091,6 +1125,9 @@ namespace TestWSInterfaceClaves
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.TextBox txtLDAPChgDescAD;
         private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.TextBox txtLDAPPathUsr;
+        private System.Windows.Forms.RadioButton rbPathLDAP;
+        private System.Windows.Forms.RadioButton rbWS;
 
     }
 }

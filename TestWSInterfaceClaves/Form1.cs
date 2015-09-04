@@ -107,9 +107,43 @@ namespace TestWSInterfaceClaves
         private void btnTestLDAP_Click(object sender, EventArgs e)
         {
             txtTestLDAP.Text = "";
-            TicketsDeClaves serviceProxy = new TicketsDeClaves();
-            string resultado = serviceProxy.TestLDAPConfig(txtLDAPUsername.Text, txtLDAPEmployeeID.Text);
-            txtTestLDAP.Text = resultado.Replace(" | ", Environment.NewLine);
+            if (rbWS.Checked)
+            {
+                TicketsDeClaves serviceProxy = new TicketsDeClaves();
+                string resultado = serviceProxy.TestLDAPConfig(txtLDAPUsername.Text, txtLDAPEmployeeID.Text);
+                txtTestLDAP.Text = resultado.Replace(" | ", Environment.NewLine);
+            }
+            else
+            {
+                if (txtLDAPUsername.Text == "")
+                {
+                    MessageBox.Show("Se debe ingresar el usuario a buscar");
+                    txtLDAPUsername.Focus();
+                    return;
+                }
+                if (txtLDAPPathUsr.Text == "")
+                {
+                    MessageBox.Show("Se debe ingresar el Path del LDAP donde buscar el usuario");
+                    txtLDAPPathUsr.Focus();
+                    return;
+                }
+                txtTestLDAP.Text += "Va a hacer la llamada a ver si existe el usuario en el LDAP especificado" + Environment.NewLine;
+                try
+                {
+                    if (ActiveDirectoryHelper.UsuarioExiste(txtLDAPPathUsr.Text, txtLDAPUsername.Text))
+                    {
+                        txtTestLDAP.Text += "El usuario fue encontrado." + Environment.NewLine;
+                    }
+                    else
+                    {
+                        txtTestLDAP.Text += "El usuario no fue encontrado." + Environment.NewLine;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    txtTestLDAP.Text += "Excepcion:" + Environment.NewLine + ex.Message;
+                }
+            }
         }
 
         private void btnChgDescAD_Click(object sender, EventArgs e)
