@@ -425,16 +425,23 @@ namespace PhalanxAdmin
 
 			IList<PhxUserEntity> inactivados = pub.InactivarInexistentesEnAD();
 
-			string message;
+			string message = "";
             bool bInactivados = false;
-			if (inactivados.Count > 0)
+            //if (inactivados.Count > 0)
+            if (pub.UsuariosInactivadosOK != "")
 			{
-				message = "Se inactivaron los siguiente usuarios de Phalanx por no existir en el Active Directory:" + Environment.NewLine;
+				message = "Se inactivaron los siguientes usuarios de Phalanx por no existir en el Active Directory:" + Environment.NewLine;
+                message += pub.UsuariosInactivadosOK + Environment.NewLine;
                 bInactivados = true;
-				foreach (PhxUserEntity usuario in inactivados)
-					message += usuario.Domain + @"\" + usuario.Username + " - " + usuario.Fullname +  Environment.NewLine; 
-			}
-			else
+            }
+            if (pub.UsuariosInactivadosNOK != "")
+			{
+				message += "Hubo problemas con los siguientes usuarios de Phalanx:" + Environment.NewLine;
+                message += pub.UsuariosInactivadosNOK + Environment.NewLine;
+            }
+                //foreach (PhxUserEntity usuario in inactivados)
+                //    message += usuario.Domain + @"\" + usuario.Username + " - " + usuario.Fullname +  Environment.NewLine; 
+			if(message == "")
 				message = "Todos los usuarios activos de Phalanx existen en el Active Directory";
             Cursor.Current = Cursors.Default;
 			MessageBox.Show(message);

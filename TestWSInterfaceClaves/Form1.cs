@@ -80,13 +80,19 @@ namespace TestWSInterfaceClaves
                 solicitud.DescripcionArea = txtDescripcionArea.Text;
                 solicitud.CodSubsidiaria = txtCodSubsidiaria.Text;
                 solicitud.NomSubsidiaria = txtNomSubsidiaria.Text;
-
+                serviceProxy.Timeout = 60 * 4 * 1000;
                 AgregarTicketResultado resultado = serviceProxy.AgregarTicket(solicitud);
 
                 if (resultado.Exito)
+                {
                     txtLog.Text += "Los datos se guardaron correctamente";
+                    if (chkLog.Checked)
+                    {
+                        txtLog.Text += Environment.NewLine + resultado.Mensaje.Replace(" | ", Environment.NewLine);
+                    }
+                }
                 else
-                    txtLog.Text += "Error: " + resultado.Mensaje.Replace(" | ",Environment.NewLine);
+                    txtLog.Text += "Error: " + resultado.Mensaje.Replace(" | ", Environment.NewLine);
             }
             catch (SoapHeaderException ex)
             {
@@ -154,8 +160,16 @@ namespace TestWSInterfaceClaves
             this.Cursor = Cursors.WaitCursor;
             try
             {
-                CambioDescUsuario = ActiveDirectoryHelper.ActualizarDescripcionUsuarioRed(txtUsrAD.Text, txtPrefijoDescUsrAD.Text
-                    , txtLDAPChgDescAD.Text, txtFilBuscNombreAD.Text);
+                if (chkUsaConfig.Checked)
+                {
+                    CambioDescUsuario = ActiveDirectoryHelper.ActualizarDescripcionUsuarioRed(txtUsrAD.Text);
+                }
+                else
+                {
+                    //MessageBox.Show("va a llamar a ActualizarDescripcionUsuarioRed(" + txtUsrAD.Text + ", " + txtPrefijoDescUsrAD.Text + ", " + txtLDAPChgDescAD.Text + ", " + txtFilBuscNombreAD.Text + ")");
+                    CambioDescUsuario = ActiveDirectoryHelper.ActualizarDescripcionUsuarioRed(txtUsrAD.Text, txtPrefijoDescUsrAD.Text
+                        , txtLDAPChgDescAD.Text, txtFilBuscNombreAD.Text);
+                }
             }
             catch (Exception ex)
             {

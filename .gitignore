@@ -36,3 +36,8 @@ PhalanxBL/bin.kk
 PhalanxCommon/obj
 PhalanxCommon/obj/
 PhalanxCommon/obj/Debug/PhalanxCommon.csproj.FileListAbsolute.txt
+PhalanxCommon/obj
+PhalanxCommon/obj/
+PhalanxMAL/obj/
+phxCryptMgr/obj/Debug
+phxCryptMgr/obj/*

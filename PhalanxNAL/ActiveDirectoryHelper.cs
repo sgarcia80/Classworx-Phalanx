@@ -187,9 +187,9 @@ namespace PhalanxNAL
                 {
                     if (obDirEntry.Properties.Count > 0)
                     {
-                        foreach (System.DirectoryServices.PropertyValueCollection strVal in obDirEntry.Properties)
-                        {
-                        }
+                        //foreach (System.DirectoryServices.PropertyValueCollection strVal in obDirEntry.Properties)
+                        //{
+                        //}
                         return true;
                     }
                 }
@@ -219,15 +219,15 @@ namespace PhalanxNAL
 
                 search.Filter = filter;
                 strDebug = "4";
-
-                foreach (string property in properties)
-                    search.PropertiesToLoad.Add(property);
+                
+                //foreach (string property in properties)
+                //    search.PropertiesToLoad.Add(property);
                 strDebug = "5 path: " + path + " - filter: " + filter;
 
                 SearchResult sr = search.FindOne();
                 if (sr == null)
                 {
-                    strDebug = "No se encontró el usuario";
+                    strDebug = "No se encontró el usuario. Path: " + path + " - filter: " + filter;
                 }
                 return sr.GetDirectoryEntry();
             }
@@ -245,6 +245,9 @@ namespace PhalanxNAL
         }
         public static string ActualizarDescripcionUsuarioRed(string NombreUsuario)
         {
+            return ActiveDirectoryHelper.ActualizarDescripcionUsuarioRed(NombreUsuario, ConfigurationManager.AppSettings["PrefijoDescripcionUsuarioRed"]
+                , LDAPPath, LDAPBuscarNombreFilter);
+
             DirectoryEntry usuario = ActiveDirectoryHelper.BuscarUsuarioPorNombre(NombreUsuario);
             string strErr = "";
             if (usuario == null)
@@ -258,7 +261,18 @@ namespace PhalanxNAL
 
                 if (descripcion.StartsWith(ConfigurationManager.AppSettings["PrefijoDescripcionUsuarioRed"]))
                 {
-                    usuario.Properties["description"].Value = descripcion.Remove(0, ConfigurationManager.AppSettings["PrefijoDescripcionUsuarioRed"].Length);
+                    string strDescrip = descripcion.Remove(0, ConfigurationManager.AppSettings["PrefijoDescripcionUsuarioRed"].Length);
+                    if (strDescrip.Length == 0 || strDescrip == "" || string.IsNullOrEmpty(strDescrip))
+                    {
+                        strErr = "Va a borrar la descripcion.";
+                        usuario.Properties["description"].Clear();
+                        //usuario.Properties["description"].Value = null;
+                    }
+                    else
+                    {
+                        strErr = "Va a asignar la descripcion "+ strDescrip ;
+                        usuario.Properties["description"].Value = strDescrip;
+                    }
                     strErr = "Starts with Prefijo Descrip. Value: " + usuario.Properties["description"].Value;
                     usuario.CommitChanges();
                 }
@@ -276,35 +290,60 @@ namespace PhalanxNAL
 
         public static string ActualizarDescripcionUsuarioRed(string NombreUsuario, string PrefijoDesc, string PathLDAP, string FilterBuscarNombre)
         {
-            //DirectoryEntry usuario = ActiveDirectoryHelper.BuscarUsuarioPorNombre(NombreUsuario);
-            //DirectoryEntry usuario = ActiveDirectoryHelper.BuscarUsuarioPorNombre(PathLDAP, NombreUsuario, new string[] { "description" });
-            DirectoryEntry usuario = BuscarLDAPEntry(PathLDAP, FilterBuscarNombre.Replace("[username]", NombreUsuario), new string[] { "description" });
             string strErr = "";
-            if (usuario == null)
+            try
             {
-                strErr = "usuario == null";
-                return strErr;
-            }
-            if (usuario.Properties["description"] != null)
-            {
-                string descripcion = usuario.Properties["description"].Value.ToString();
+                //DirectoryEntry usuario = ActiveDirectoryHelper.BuscarUsuarioPorNombre(NombreUsuario);
+                //DirectoryEntry usuario = ActiveDirectoryHelper.BuscarUsuarioPorNombre(PathLDAP, NombreUsuario, new string[] { "description" });
+                DirectoryEntry usuario = BuscarLDAPEntry(PathLDAP, FilterBuscarNombre.Replace("[username]", NombreUsuario), new string[] { "description" });
+                if (usuario == null)
+                {
+                    strErr = "usuario == null";
+                    return strErr;
+                }
+                // falta verificar si la propiedad description existe sino da error
+                if (usuario.Properties.Contains("description"))
+                {
+                    if (usuario.Properties["description"] != null)
+                    {
+                        string descripcion = usuario.Properties["description"].Value.ToString();
 
-                if (descripcion.StartsWith(PrefijoDesc))
-                {
-                    usuario.Properties["description"].Value = descripcion.Remove(0, PrefijoDesc.Length);
-                    strErr = "Starts with Prefijo Descrip. Value: " + usuario.Properties["description"].Value;
-                    usuario.CommitChanges();
-                }
-                else
-                {
-                    strErr = "NOT Starts with Prefijo Descrip. Value: " + usuario.Properties["description"].Value;
+                        if (descripcion.StartsWith(PrefijoDesc))
+                        {
+                            //suario.Properties["description"].Value = descripcion.Remove(0, PrefijoDesc.Length);
+                            //string strDescrip = descripcion.Remove(0, ConfigurationManager.AppSettings["PrefijoDescripcionUsuarioRed"].Length);
+                            string strDescrip = descripcion.Remove(0, PrefijoDesc.Length);
+                            if (string.IsNullOrEmpty(strDescrip) || strDescrip == "" || strDescrip.Length == 0)
+                            {
+                                strErr = "Va a borrar la descripcion.";
+                                usuario.Properties["description"].Clear();
+                                //usuario.Properties["description"].Value = null;
+                            }
+                            else
+                            {
+                                strErr = "Va a asignar la descripcion " + strDescrip;
+                                usuario.Properties["description"].Value = strDescrip;
+                            }
+                            strErr = "Starts with Prefijo Descrip. Value: " + usuario.Properties["description"].Value;
+                            usuario.CommitChanges();
+                        }
+                        else
+                        {
+                            strErr = "NOT Starts with Prefijo Descrip. Value: " + usuario.Properties["description"].Value;
+                        }
+                    }
+                    else
+                    {
+                        strErr = "(usuario.Properties[description] == null)";
+                    }
                 }
             }
-            else
+            catch(Exception ex)
             {
-                strErr = "(usuario.Properties[description] == null)";
+                strErr += ex.Message;
             }
             return strErr;
+
         }
     }
 }

@@ -95,6 +95,9 @@ namespace TestWSInterfaceClaves
             this.txtUsuario = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.txtLDAPPathUsr = new System.Windows.Forms.TextBox();
+            this.rbPathLDAP = new System.Windows.Forms.RadioButton();
+            this.rbWS = new System.Windows.Forms.RadioButton();
             this.txtTestLDAP = new System.Windows.Forms.TextBox();
             this.btnTestLDAP = new System.Windows.Forms.Button();
             this.label27 = new System.Windows.Forms.Label();
@@ -115,9 +118,7 @@ namespace TestWSInterfaceClaves
             this.label29 = new System.Windows.Forms.Label();
             this.txtUsrAD = new System.Windows.Forms.TextBox();
             this.label28 = new System.Windows.Forms.Label();
-            this.rbWS = new System.Windows.Forms.RadioButton();
-            this.rbPathLDAP = new System.Windows.Forms.RadioButton();
-            this.txtLDAPPathUsr = new System.Windows.Forms.TextBox();
+            this.chkUsaConfig = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -777,6 +778,35 @@ namespace TestWSInterfaceClaves
             this.panel2.Size = new System.Drawing.Size(740, 715);
             this.panel2.TabIndex = 0;
             // 
+            // txtLDAPPathUsr
+            // 
+            this.txtLDAPPathUsr.Location = new System.Drawing.Point(275, 90);
+            this.txtLDAPPathUsr.Name = "txtLDAPPathUsr";
+            this.txtLDAPPathUsr.Size = new System.Drawing.Size(448, 20);
+            this.txtLDAPPathUsr.TabIndex = 11;
+            // 
+            // rbPathLDAP
+            // 
+            this.rbPathLDAP.AutoSize = true;
+            this.rbPathLDAP.Location = new System.Drawing.Point(149, 90);
+            this.rbPathLDAP.Name = "rbPathLDAP";
+            this.rbPathLDAP.Size = new System.Drawing.Size(103, 17);
+            this.rbPathLDAP.TabIndex = 10;
+            this.rbPathLDAP.Text = "Usar Path LDAP";
+            this.rbPathLDAP.UseVisualStyleBackColor = true;
+            // 
+            // rbWS
+            // 
+            this.rbWS.AutoSize = true;
+            this.rbWS.Checked = true;
+            this.rbWS.Location = new System.Drawing.Point(17, 90);
+            this.rbWS.Name = "rbWS";
+            this.rbWS.Size = new System.Drawing.Size(116, 17);
+            this.rbWS.TabIndex = 9;
+            this.rbWS.TabStop = true;
+            this.rbWS.Text = "Llamar web service";
+            this.rbWS.UseVisualStyleBackColor = true;
+            // 
             // txtTestLDAP
             // 
             this.txtTestLDAP.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -866,6 +896,7 @@ namespace TestWSInterfaceClaves
             this.groupBox8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox8.Controls.Add(this.chkUsaConfig);
             this.groupBox8.Controls.Add(this.txtLDAPChgDescAD);
             this.groupBox8.Controls.Add(this.label31);
             this.groupBox8.Controls.Add(this.txtResultTestCambioDescAD);
@@ -905,16 +936,16 @@ namespace TestWSInterfaceClaves
             this.txtResultTestCambioDescAD.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtResultTestCambioDescAD.Location = new System.Drawing.Point(6, 178);
+            this.txtResultTestCambioDescAD.Location = new System.Drawing.Point(6, 202);
             this.txtResultTestCambioDescAD.Multiline = true;
             this.txtResultTestCambioDescAD.Name = "txtResultTestCambioDescAD";
             this.txtResultTestCambioDescAD.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtResultTestCambioDescAD.Size = new System.Drawing.Size(695, 511);
+            this.txtResultTestCambioDescAD.Size = new System.Drawing.Size(695, 487);
             this.txtResultTestCambioDescAD.TabIndex = 5;
             // 
             // btnChgDescAD
             // 
-            this.btnChgDescAD.Location = new System.Drawing.Point(9, 136);
+            this.btnChgDescAD.Location = new System.Drawing.Point(9, 173);
             this.btnChgDescAD.Name = "btnChgDescAD";
             this.btnChgDescAD.Size = new System.Drawing.Size(120, 23);
             this.btnChgDescAD.TabIndex = 4;
@@ -972,33 +1003,15 @@ namespace TestWSInterfaceClaves
             this.label28.TabIndex = 0;
             this.label28.Text = "Usuario";
             // 
-            // rbWS
+            // chkUsaConfig
             // 
-            this.rbWS.AutoSize = true;
-            this.rbWS.Checked = true;
-            this.rbWS.Location = new System.Drawing.Point(17, 90);
-            this.rbWS.Name = "rbWS";
-            this.rbWS.Size = new System.Drawing.Size(116, 17);
-            this.rbWS.TabIndex = 9;
-            this.rbWS.Text = "Llamar web service";
-            this.rbWS.UseVisualStyleBackColor = true;
-            // 
-            // rbPathLDAP
-            // 
-            this.rbPathLDAP.AutoSize = true;
-            this.rbPathLDAP.Location = new System.Drawing.Point(149, 90);
-            this.rbPathLDAP.Name = "rbPathLDAP";
-            this.rbPathLDAP.Size = new System.Drawing.Size(103, 17);
-            this.rbPathLDAP.TabIndex = 10;
-            this.rbPathLDAP.Text = "Usar Path LDAP";
-            this.rbPathLDAP.UseVisualStyleBackColor = true;
-            // 
-            // txtLDAPPathUsr
-            // 
-            this.txtLDAPPathUsr.Location = new System.Drawing.Point(275, 90);
-            this.txtLDAPPathUsr.Name = "txtLDAPPathUsr";
-            this.txtLDAPPathUsr.Size = new System.Drawing.Size(448, 20);
-            this.txtLDAPPathUsr.TabIndex = 11;
+            this.chkUsaConfig.AutoSize = true;
+            this.chkUsaConfig.Location = new System.Drawing.Point(9, 141);
+            this.chkUsaConfig.Name = "chkUsaConfig";
+            this.chkUsaConfig.Size = new System.Drawing.Size(134, 17);
+            this.chkUsaConfig.TabIndex = 11;
+            this.chkUsaConfig.Text = "Usa valores del .config";
+            this.chkUsaConfig.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -1128,6 +1141,7 @@ namespace TestWSInterfaceClaves
         private System.Windows.Forms.TextBox txtLDAPPathUsr;
         private System.Windows.Forms.RadioButton rbPathLDAP;
         private System.Windows.Forms.RadioButton rbWS;
+        private System.Windows.Forms.CheckBox chkUsaConfig;
 
     }
 }

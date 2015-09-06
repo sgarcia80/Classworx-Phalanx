@@ -757,7 +757,10 @@ namespace PhalanxBL
         {
             return new PhxUsersFactory().GetAllByGrupoSeguimientoSolicitud(nombreGrupo, grupoActivo, usuarioActivo);
         }
-
+        private string _UsuariosInactivadosOK = "";
+        private string _UsuariosInactivadosNOK = "";
+        public string UsuariosInactivadosOK { get { return _UsuariosInactivadosOK; } }
+        public string UsuariosInactivadosNOK { get { return _UsuariosInactivadosNOK; } }
         public IList<PhxUserEntity> InactivarInexistentesEnAD()
         {
             IList<PhxUserEntity> listaUsuariosInactivados = new List<PhxUserEntity>();
@@ -774,31 +777,47 @@ namespace PhalanxBL
 
             foreach (PhxUserEntity usuario in WDF.GetAll())
             {
-                if (!ldapPaths.ContainsKey(usuario.Domain))
+                try
                 {
-                    WinDomainEntity winDomain = wdb.GetByNtName(usuario.Domain);
-
-                    ldapPaths[usuario.Domain] = winDomain != null ? winDomain.LDAPPath : string.Empty;
-                }
-
-                string ldapPath = ldapPaths[usuario.Domain];
-
-                if (!string.IsNullOrEmpty(ldapPath) && ActiveDirectoryHelper.LDAPPathExists(ldapPath))
-                {
-                    if (!ActiveDirectoryHelper.UsuarioExiste(ldapPath, usuario.Username))
+                    if (!ldapPaths.ContainsKey(usuario.Domain))
                     {
-                        InactivateUser(usuario, System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+                        WinDomainEntity winDomain = wdb.GetByNtName(usuario.Domain);
 
-                        PhxLogUsuarioInactivado logUsuario = new PhxLogUsuarioInactivado();
-                        logUsuario.Domain = usuario.Domain;
-                        logUsuario.Fullname = usuario.Fullname;
-                        logUsuario.PhxUser = usuario;
-                        logUsuario.Username = usuario.Username;
-
-                        luib.Save(logUsuario);
-
-                        listaUsuariosInactivados.Add(usuario);
+                        ldapPaths[usuario.Domain] = winDomain != null ? winDomain.LDAPPath : string.Empty;
                     }
+
+                    string ldapPath = ldapPaths[usuario.Domain];
+
+                    if (!string.IsNullOrEmpty(ldapPath))
+                    {
+                        if (ActiveDirectoryHelper.LDAPPathExists(ldapPath))
+                        {
+                            if (!ActiveDirectoryHelper.UsuarioExiste(ldapPath, usuario.Username))
+                            {
+                                InactivateUser(usuario, System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+
+                                PhxLogUsuarioInactivado logUsuario = new PhxLogUsuarioInactivado();
+                                logUsuario.Domain = usuario.Domain;
+                                logUsuario.Fullname = usuario.Fullname;
+                                logUsuario.PhxUser = usuario;
+                                logUsuario.Username = usuario.Username;
+
+                                luib.Save(logUsuario);
+
+                                listaUsuariosInactivados.Add(usuario);
+                                _UsuariosInactivadosOK += usuario.Domain + @"\" + usuario.Username + " - " + usuario.Fullname + Environment.NewLine;
+
+                            }
+                        }
+                        else
+                        {
+                            _UsuariosInactivadosNOK += usuario.Domain + @"\" + usuario.Username + " - " + usuario.Fullname + Environment.NewLine;
+                        }
+                    }
+                }
+                catch
+                {
+                    _UsuariosInactivadosNOK += usuario.Domain + @"\" + usuario.Username + " - " + usuario.Fullname + Environment.NewLine;
                 }
             }
 
