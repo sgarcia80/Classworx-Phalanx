@@ -108,6 +108,7 @@ namespace TestWSInterfaceClaves
             this.label20 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.chkUsaConfig = new System.Windows.Forms.CheckBox();
             this.txtLDAPChgDescAD = new System.Windows.Forms.TextBox();
             this.label31 = new System.Windows.Forms.Label();
             this.txtResultTestCambioDescAD = new System.Windows.Forms.TextBox();
@@ -118,7 +119,7 @@ namespace TestWSInterfaceClaves
             this.label29 = new System.Windows.Forms.Label();
             this.txtUsrAD = new System.Windows.Forms.TextBox();
             this.label28 = new System.Windows.Forms.Label();
-            this.chkUsaConfig = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -896,6 +897,7 @@ namespace TestWSInterfaceClaves
             this.groupBox8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox8.Controls.Add(this.button1);
             this.groupBox8.Controls.Add(this.chkUsaConfig);
             this.groupBox8.Controls.Add(this.txtLDAPChgDescAD);
             this.groupBox8.Controls.Add(this.label31);
@@ -913,6 +915,16 @@ namespace TestWSInterfaceClaves
             this.groupBox8.TabIndex = 0;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Cambio descripcion en AD por visualización de notificación";
+            // 
+            // chkUsaConfig
+            // 
+            this.chkUsaConfig.AutoSize = true;
+            this.chkUsaConfig.Location = new System.Drawing.Point(9, 141);
+            this.chkUsaConfig.Name = "chkUsaConfig";
+            this.chkUsaConfig.Size = new System.Drawing.Size(134, 17);
+            this.chkUsaConfig.TabIndex = 11;
+            this.chkUsaConfig.Text = "Usa valores del .config";
+            this.chkUsaConfig.UseVisualStyleBackColor = true;
             // 
             // txtLDAPChgDescAD
             // 
@@ -949,7 +961,7 @@ namespace TestWSInterfaceClaves
             this.btnChgDescAD.Name = "btnChgDescAD";
             this.btnChgDescAD.Size = new System.Drawing.Size(120, 23);
             this.btnChgDescAD.TabIndex = 4;
-            this.btnChgDescAD.Text = "Ejecutar";
+            this.btnChgDescAD.Text = "Agregar";
             this.btnChgDescAD.UseVisualStyleBackColor = true;
             this.btnChgDescAD.Click += new System.EventHandler(this.btnChgDescAD_Click);
             // 
@@ -1003,15 +1015,15 @@ namespace TestWSInterfaceClaves
             this.label28.TabIndex = 0;
             this.label28.Text = "Usuario";
             // 
-            // chkUsaConfig
+            // button1
             // 
-            this.chkUsaConfig.AutoSize = true;
-            this.chkUsaConfig.Location = new System.Drawing.Point(9, 141);
-            this.chkUsaConfig.Name = "chkUsaConfig";
-            this.chkUsaConfig.Size = new System.Drawing.Size(134, 17);
-            this.chkUsaConfig.TabIndex = 11;
-            this.chkUsaConfig.Text = "Usa valores del .config";
-            this.chkUsaConfig.UseVisualStyleBackColor = true;
+            this.button1.Location = new System.Drawing.Point(138, 173);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(120, 23);
+            this.button1.TabIndex = 13;
+            this.button1.Text = "Eliminar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form1
             // 
@@ -1142,6 +1154,7 @@ namespace TestWSInterfaceClaves
         private System.Windows.Forms.RadioButton rbPathLDAP;
         private System.Windows.Forms.RadioButton rbWS;
         private System.Windows.Forms.CheckBox chkUsaConfig;
+        private System.Windows.Forms.Button button1;
 
     }
 }

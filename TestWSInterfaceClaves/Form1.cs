@@ -8,14 +8,28 @@ using System.Windows.Forms;
 using TestWSInterfaceClaves.WSTickets;
 using System.Web.Services.Protocols;
 using PhalanxNAL;
+using log4net.Config;
+using log4net.Appender;
+using log4net;
+using log4net.Repository.Hierarchy;
+using System.IO;
 
 namespace TestWSInterfaceClaves
 {
     public partial class Form1 : Form
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(Form1));
+
+        private MemoryAppender memoryAppender;
+
         public Form1()
         {
             InitializeComponent();
+
+            log4net.Config.XmlConfigurator.Configure();
+            
+            Hierarchy hierarchy = LogManager.GetRepository() as Hierarchy;
+            memoryAppender = hierarchy.Root.GetAppender("MemoryAppender") as MemoryAppender;
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -154,42 +168,68 @@ namespace TestWSInterfaceClaves
 
         private void btnChgDescAD_Click(object sender, EventArgs e)
         {
-            string strCatch = "";
-            string CambioDescUsuario = "";
             txtResultTestCambioDescAD.Text = "";
             this.Cursor = Cursors.WaitCursor;
+            
             try
             {
                 if (chkUsaConfig.Checked)
-                {
-                    CambioDescUsuario = ActiveDirectoryHelper.ActualizarDescripcionUsuarioRed(txtUsrAD.Text);
-                }
+                    ActiveDirectoryHelper.AgregarPrefijoDescripcionUsuario(txtUsrAD.Text);
                 else
-                {
-                    //MessageBox.Show("va a llamar a ActualizarDescripcionUsuarioRed(" + txtUsrAD.Text + ", " + txtPrefijoDescUsrAD.Text + ", " + txtLDAPChgDescAD.Text + ", " + txtFilBuscNombreAD.Text + ")");
-                    CambioDescUsuario = ActiveDirectoryHelper.ActualizarDescripcionUsuarioRed(txtUsrAD.Text, txtPrefijoDescUsrAD.Text
-                        , txtLDAPChgDescAD.Text, txtFilBuscNombreAD.Text);
-                }
+                    ActiveDirectoryHelper.AgregarPrefijoDescripcionUsuario(txtUsrAD.Text, txtPrefijoDescUsrAD.Text, txtLDAPChgDescAD.Text, txtFilBuscNombreAD.Text);
             }
             catch (Exception ex)
             {
-                strCatch = ex.Message;
+                log.Error("Error al actualizar la descripción", ex);
             }
-            if (CambioDescUsuario != "")
-            {
-                txtResultTestCambioDescAD.Text = CambioDescUsuario;
-                txtResultTestCambioDescAD.Text += Environment.NewLine;
-            }
-            if (strCatch != "")
-            {
-                txtResultTestCambioDescAD.Text = strCatch;
-                txtResultTestCambioDescAD.Text += Environment.NewLine;
-            }
-            txtResultTestCambioDescAD.Text += "Terminó la ejecución";
+
+            log.Info("Terminó la ejecución");
+
+            txtResultTestCambioDescAD.Text += ObtenerMensajesLog();
 
             this.Cursor = Cursors.Default;
-
         }
 
+        private string ObtenerMensajesLog()
+        {
+            using (StringWriter writer = new StringWriter())
+            {
+                foreach (var loggingEvent in memoryAppender.GetEvents())
+                {
+                    memoryAppender.Layout.Format(writer, loggingEvent);
+
+                    if (loggingEvent.ExceptionObject != null)
+                        writer.Write(loggingEvent.ExceptionObject.ToString());
+                }
+
+                memoryAppender.Clear();
+                
+                return writer.ToString();
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            txtResultTestCambioDescAD.Text = "";
+            this.Cursor = Cursors.WaitCursor;
+
+            try
+            {
+                if (chkUsaConfig.Checked)
+                    ActiveDirectoryHelper.EliminarPrefijoDescripcionUsuario(txtUsrAD.Text);
+                else
+                    ActiveDirectoryHelper.EliminarPrefijoDescripcionUsuario(txtUsrAD.Text, txtPrefijoDescUsrAD.Text, txtLDAPChgDescAD.Text, txtFilBuscNombreAD.Text);
+            }
+            catch (Exception ex)
+            {
+                log.Error("Error al actualizar la descripción", ex);
+            }
+
+            log.Info("Terminó la ejecución");
+
+            txtResultTestCambioDescAD.Text += ObtenerMensajesLog();
+
+            this.Cursor = Cursors.Default;
+        }
     }
 }

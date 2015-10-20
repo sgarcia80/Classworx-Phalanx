@@ -74,13 +74,12 @@ public partial class DetalleTicketIp : System.Web.UI.Page
 
     private void ActualizarDescripcionUsuarioRed()
     {
-        string CambioDescUsuario = ActiveDirectoryHelper.ActualizarDescripcionUsuarioRed(UsuarioActualizarAD);
-        if (CambioDescUsuario != "")
+        if (!ActiveDirectoryHelper.AgregarPrefijoDescripcionUsuario(UsuarioActualizarAD))
         {
             return;
             StringBuilder sb = new StringBuilder();
 
-            sb.Append("<body><script type='text/javascript'>alert('" + CambioDescUsuario + "'); </script></body>");
+            sb.Append("<body><script type='text/javascript'>alert('Error al agregar la descripción'); </script></body>");
 
             HttpContext.Current.Response.Write(sb.ToString());
 

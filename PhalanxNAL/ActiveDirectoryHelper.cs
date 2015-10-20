@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using System.Text;
 using System.Configuration;
 using System.DirectoryServices;
+using log4net;
 
 namespace PhalanxNAL
 {
     public class ActiveDirectoryHelper
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(ActiveDirectoryHelper));
+
+        private const string NOMBRE_PROPIEDAD_DESCRIPCION_AD = "description";
+        private const string NOMBRE_PROPIEDAD_PATH_AD = "adspath";
+        
         private static Dictionary<string, object> settings = new Dictionary<string, object>();
 
         private static string LDAPPath
@@ -206,101 +212,65 @@ namespace PhalanxNAL
 
         private static DirectoryEntry BuscarLDAPEntry(string path, string filter, IEnumerable<string> properties)
         {
-            string strDebug = "";
+            log.Info("Comienza busqueda LDAP");
+            log.Info("Path: " + path);
+            log.Info("Filtro: " + filter);
+            log.Info("Propiedades a cargar: " + string.Join(",", new List<string>(properties).ToArray()));
+
             try
             {
-
-                strDebug = "1";
                 DirectoryEntry directoryEntry = new DirectoryEntry(path);
-                strDebug = "2";
 
-                DirectorySearcher search = new DirectorySearcher(directoryEntry);
-                strDebug = "3";
+                DirectoryEntry dr = BuscarLDAPEntry(directoryEntry, filter, properties);
 
-                search.Filter = filter;
-                strDebug = "4";
-                
-                //foreach (string property in properties)
-                //    search.PropertiesToLoad.Add(property);
-                strDebug = "5 path: " + path + " - filter: " + filter;
-
-                SearchResult sr = search.FindOne();
-                if (sr == null)
+                if (dr != null)
                 {
-                    strDebug = "No se encontró el usuario. Path: " + path + " - filter: " + filter;
+                    log.Info("Busqueda LDAP finalizada con exito");
+
+                    return dr;
                 }
-                return sr.GetDirectoryEntry();
+
+                log.Info("Busqueda LDAP finalizada, no se encontró la entrada");
             }
             catch (Exception ex)
             {
-                //log exception
-                string error = strDebug + " | " + ex.Message;
-                if (ex.InnerException != null)
-                    error += " | Inner: " + ex.InnerException.Message;
-                if (ConfigurationManager.AppSettings["DebugChgAD"] != null && ConfigurationManager.AppSettings["DebugChgAD"].ToString() == "1")
-                { throw (new Exception(error)); }
+                log.Error("Error al realizar la búsqueda", ex);
+
+                log.Info("Busqueda LDAP finalizada con errores");
             }
 
             return null;
         }
+        
         public static string ActualizarDescripcionUsuarioRed(string NombreUsuario)
         {
             return ActiveDirectoryHelper.ActualizarDescripcionUsuarioRed(NombreUsuario, ConfigurationManager.AppSettings["PrefijoDescripcionUsuarioRed"]
                 , LDAPPath, LDAPBuscarNombreFilter);
-
-            DirectoryEntry usuario = ActiveDirectoryHelper.BuscarUsuarioPorNombre(NombreUsuario);
-            string strErr = "";
-            if (usuario == null)
-            {
-                strErr = "usuario == null";
-                return strErr;
-            }
-            if (usuario.Properties["description"] != null)
-            {
-                string descripcion = usuario.Properties["description"].Value.ToString();
-
-                if (descripcion.StartsWith(ConfigurationManager.AppSettings["PrefijoDescripcionUsuarioRed"]))
-                {
-                    string strDescrip = descripcion.Remove(0, ConfigurationManager.AppSettings["PrefijoDescripcionUsuarioRed"].Length);
-                    if (strDescrip.Length == 0 || strDescrip == "" || string.IsNullOrEmpty(strDescrip))
-                    {
-                        strErr = "Va a borrar la descripcion.";
-                        usuario.Properties["description"].Clear();
-                        //usuario.Properties["description"].Value = null;
-                    }
-                    else
-                    {
-                        strErr = "Va a asignar la descripcion "+ strDescrip ;
-                        usuario.Properties["description"].Value = strDescrip;
-                    }
-                    strErr = "Starts with Prefijo Descrip. Value: " + usuario.Properties["description"].Value;
-                    usuario.CommitChanges();
-                }
-                else
-                {
-                    strErr = "NOT Starts with Prefijo Descrip. Value: " + usuario.Properties["description"].Value;
-                }
-            }
-            else
-            {
-                strErr = "(usuario.Properties[description] == null)";
-            }
-            return strErr;
         }
 
         public static string ActualizarDescripcionUsuarioRed(string NombreUsuario, string PrefijoDesc, string PathLDAP, string FilterBuscarNombre)
         {
+            return ActualizarDescripcionUsuarioRed(NombreUsuario, PrefijoDesc, PathLDAP, FilterBuscarNombre, false);
+        }
+
+        public static string ActualizarDescripcionUsuarioRed(string NombreUsuario, string PrefijoDesc, string PathLDAP, string FilterBuscarNombre, bool busquedaRecursiva)
+        {
             string strErr = "";
             try
             {
-                //DirectoryEntry usuario = ActiveDirectoryHelper.BuscarUsuarioPorNombre(NombreUsuario);
-                //DirectoryEntry usuario = ActiveDirectoryHelper.BuscarUsuarioPorNombre(PathLDAP, NombreUsuario, new string[] { "description" });
-                DirectoryEntry usuario = BuscarLDAPEntry(PathLDAP, FilterBuscarNombre.Replace("[username]", NombreUsuario), new string[] { "description" });
+                DirectoryEntry usuario = busquedaRecursiva 
+                    ? BuscarLDAPEntryRecursivo(PathLDAP, FilterBuscarNombre.Replace("[username]", NombreUsuario), new string[] { "description" })
+                    : BuscarLDAPEntry(PathLDAP, FilterBuscarNombre.Replace("[username]", NombreUsuario), new string[] { "description" });
+
                 if (usuario == null)
                 {
                     strErr = "usuario == null";
                     return strErr;
                 }
+
+                foreach (string propertyName in usuario.Properties.PropertyNames)
+                    strErr += propertyName + Environment.NewLine;
+
                 // falta verificar si la propiedad description existe sino da error
                 if (usuario.Properties.Contains("description"))
                 {
@@ -337,6 +307,8 @@ namespace PhalanxNAL
                         strErr = "(usuario.Properties[description] == null)";
                     }
                 }
+                else
+                    strErr += "No se pudo cargar la propiedad \"description\"";
             }
             catch(Exception ex)
             {
@@ -344,6 +316,208 @@ namespace PhalanxNAL
             }
             return strErr;
 
+        }
+
+        private static DirectoryEntry BuscarLDAPEntryRecursivo(string path, string filter, IEnumerable<string> properties)
+        {
+            log.Info("Comienza busqueda LDAP recursiva");
+
+            try
+            {
+                //Buscar entrada raiz
+                log.Info("Buscando entrada raiz...");
+                log.Debug("Path: " + path);
+                DirectoryEntry rootEntry = new DirectoryEntry(path);
+
+                if (rootEntry == null)
+                {
+                    log.Info("No se encontró la entrada raíz");
+
+                    return null;
+                }
+
+                log.Info("Buscando entrada según filtro");
+                log.Debug("Filter: " + filter);
+                
+                DirectoryEntry entry = BuscarLDAPEntry(rootEntry, filter, properties);
+                
+                if (entry == null)
+                {
+                    log.Info("No se encontró la entrada");
+                    log.Info("Buscando OU hijas...");
+                    //Buscar todas las OU
+                    DirectorySearcher ouSearch =
+                        new DirectorySearcher(rootEntry, path) { Filter = "(objectCategory=organizationalUnit)", SearchScope = SearchScope.OneLevel };
+
+                    ouSearch.PropertiesToLoad.Add(NOMBRE_PROPIEDAD_PATH_AD);
+
+                    foreach (SearchResult sr in ouSearch.FindAll())
+                    {
+                        log.Info("OU hija encontrada");
+                        
+                        log.Debug("Propiedades:");
+
+                        foreach (string propertyName in sr.Properties.PropertyNames)
+                        {
+                            List<string> values = new List<string>();
+
+                            foreach(var value in sr.Properties[propertyName])
+                                values.Add(value.ToString());
+
+                            log.Debug(propertyName + " = " + string.Join(",", values.ToArray()));
+                        }
+
+                        entry = BuscarLDAPEntryRecursivo(sr.Properties[NOMBRE_PROPIEDAD_PATH_AD][0].ToString(), filter, properties);
+
+                        if (entry != null)
+                            return entry;
+                    }
+
+                    log.Info("No se encontró la entrada en las OU hijas");
+                }
+                else
+                {
+                    log.Info("Busqueda LDAP recursiva finalizada con exito");
+
+                    return entry;
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("Error al realizar la búsqueda", ex);
+
+                log.Info("Busqueda LDAP finalizada con errores");
+            }
+            
+            return null;
+        }
+
+        public static bool AgregarPrefijoDescripcionUsuario(string nombreUsuario)
+        {
+            return ActiveDirectoryHelper.AgregarPrefijoDescripcionUsuario(nombreUsuario, ConfigurationManager.AppSettings["PrefijoDescripcionUsuarioRed"],
+                LDAPPath, LDAPBuscarNombreFilter);
+        }
+
+        public static bool AgregarPrefijoDescripcionUsuario(string nombreUsuario, string prefijo, string pathLDAP, string filtroBuscarNombre)
+        {
+            return ActualizarPrefijoDescripcionUsuario(nombreUsuario, prefijo, pathLDAP, filtroBuscarNombre, false);
+        }
+
+        public static bool EliminarPrefijoDescripcionUsuario(string nombreUsuario)
+        {
+            return ActiveDirectoryHelper.EliminarPrefijoDescripcionUsuario(nombreUsuario, ConfigurationManager.AppSettings["PrefijoDescripcionUsuarioRed"],
+                LDAPPath, LDAPBuscarNombreFilter);
+        }
+
+        public static bool EliminarPrefijoDescripcionUsuario(string nombreUsuario, string prefijo, string pathLDAP, string filtroBuscarNombre)
+        {
+            return ActualizarPrefijoDescripcionUsuario(nombreUsuario, prefijo, pathLDAP, filtroBuscarNombre, true);
+        }
+
+        public static bool ActualizarPrefijoDescripcionUsuario(string nombreUsuario, string prefijo, string pathLDAP, string filtroBuscarNombre, bool quitarPrefijo)
+        {
+            log.Info("Comienza actualizacion descripción...");
+            log.Debug("Nombre usuario: " + nombreUsuario);
+            log.Debug("Prefijo: " + prefijo);
+
+            DirectoryEntry usuario = BuscarLDAPEntryRecursivo(pathLDAP, filtroBuscarNombre.Replace("[username]", nombreUsuario), new string[] { NOMBRE_PROPIEDAD_DESCRIPCION_AD });
+
+            try
+            {
+                if (usuario != null)
+                {
+                    log.Info("Usuario encontrado");
+                    log.Info("Buscando propiedad \"" + NOMBRE_PROPIEDAD_DESCRIPCION_AD + "\" ...");
+
+                    string descripcion = null;
+
+                    if (usuario.Properties.Contains(NOMBRE_PROPIEDAD_DESCRIPCION_AD))
+                    {
+                        log.Info("Propiedad encontrada");
+                        
+                        if (usuario.Properties[NOMBRE_PROPIEDAD_DESCRIPCION_AD] != null)
+                        {
+                            descripcion = usuario.Properties[NOMBRE_PROPIEDAD_DESCRIPCION_AD].Value.ToString();
+                            log.Debug("Valor de la propiedad: " + descripcion);
+                        }
+                        else
+                            log.Debug("El valor de la propiedad es null");
+
+                        if (quitarPrefijo)
+                        {
+                            log.Info("Comienzo eliminación del prefijo...");
+
+                            if (descripcion.StartsWith(prefijo))
+                            {
+                                string strDescrip = descripcion.Remove(0, prefijo.Length);
+
+                                if (string.IsNullOrEmpty(strDescrip) || strDescrip == "" || strDescrip.Length == 0)
+                                {
+                                    log.Info("Se va a eliminar la descripción...");
+
+                                    usuario.Properties[NOMBRE_PROPIEDAD_DESCRIPCION_AD].Clear();
+                                }
+                                else
+                                {
+                                    log.Info("Se va a eliminar el prefijo...");
+
+                                    usuario.Properties[NOMBRE_PROPIEDAD_DESCRIPCION_AD].Value = strDescrip;
+                                }
+
+                                usuario.CommitChanges();
+
+                                log.Info("Descripción actualizada");
+                            }
+                            else
+                                log.Info("El valor de la propiedad no comienza con el prefijo dado");
+                        }
+                    }
+                    else
+                        log.Info("No se pudo cargar la propiedad \"" + NOMBRE_PROPIEDAD_DESCRIPCION_AD + "\"");
+
+                    if (!quitarPrefijo)
+                    {
+                        log.Info("Comienzo adición del prefijo...");
+
+                        if (descripcion != null)
+                            usuario.Properties[NOMBRE_PROPIEDAD_DESCRIPCION_AD].Value = prefijo + descripcion;
+                        else
+                            usuario.Properties[NOMBRE_PROPIEDAD_DESCRIPCION_AD].Add(prefijo);
+
+                        usuario.CommitChanges();
+
+                        log.Info("Descripción actualizada");
+                    }
+                }
+                else
+                    log.Info("No se encontró el usuario");
+
+                log.Info("Actualización de descripción finalizada");
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                log.Error("Error al actualizar la descripción del usuario", ex);
+
+                log.Info("Actualización de descripción finalizada con errores");
+            }
+
+            return false;
+        }
+
+        private static DirectoryEntry BuscarLDAPEntry(DirectoryEntry directoryEntry, string filter, IEnumerable<string> properties)
+        {
+            DirectorySearcher search = new DirectorySearcher(directoryEntry);
+
+            search.Filter = filter;
+
+            SearchResult sr = search.FindOne();
+
+            if (sr != null)
+                return sr.GetDirectoryEntry();
+
+            return null;
         }
     }
 }
