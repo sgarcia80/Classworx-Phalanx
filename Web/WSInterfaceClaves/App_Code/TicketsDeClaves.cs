@@ -369,13 +369,6 @@ public class TicketsDeClaves : System.Web.Services.WebService
                             strDebug += " | " + debug;
                     }
                 }
-
-				if (altaUsuarioRed)
-				{
-					strDebug += " | Se va a actualizar la descripción del usuario de red";
-					
-					ActualizarDescripcionUsuarioRed(ticket.Usuario, ref strDebug);
-				}
             }
             resultado.Exito = true;
             if (_debugMode) resultado.Mensaje = strDebug;
@@ -582,47 +575,6 @@ public class TicketsDeClaves : System.Web.Services.WebService
 
         return null;
     }
-
-	private void ActualizarDescripcionUsuarioRed(string username, ref string debug)
-	{
-		string prefijoDescripcionUsuarioRed = ConfigurationManager.AppSettings["PrefijoDescripcionUsuarioRed"];
-
-		DirectoryEntry usuario = ActiveDirectoryHelper.BuscarUsuarioPorNombre(username);
-
-		if (usuario != null)
-		{
-			usuario.Properties["description"].Value = prefijoDescripcionUsuarioRed + usuario.Properties["description"].Value;
-
-			usuario.CommitChanges();
-		}
-		else
-			debug += "No se encontró el suuario " + username;		
-	}
-
-	private DirectoryEntry BuscarLDAPEntry(string path, string filter, IEnumerable<string> properties)
-	{
-		try
-		{
-			DirectoryEntry directoryEntry = new DirectoryEntry(path);
-
-			DirectorySearcher search = new DirectorySearcher(directoryEntry);
-
-			search.Filter = filter;
-
-			foreach(string property in properties)
-					search.PropertiesToLoad.Add(property);
-
-			SearchResult sr = search.FindOne();
-
-			return sr.GetDirectoryEntry();
-		}
-		catch (Exception ex)
-		{
-
-		}
-
-		return null;
-	}
 
     private struct DatosAutenticacion
     {
