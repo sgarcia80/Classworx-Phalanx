@@ -490,6 +490,12 @@ namespace NDCCommon.Entities
 
         public string AltaTempranaTokenUsuario { set; get; }
 
+        public bool ImpactaEnAD { set; get; }
+
+        public DateTime? FechaSeteoMarcaAD { set; get; }
+
+        public DateTime? FechaEliminacionMarcaAD { set; get; }
+
 		/// <summary>
 		/// 
 		/// </summary>

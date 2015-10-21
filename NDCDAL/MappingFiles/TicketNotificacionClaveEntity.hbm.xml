@@ -36,5 +36,8 @@
     <property column="tnc_att_terminal" type="String" name="AltaTempranaTokenTerminal" not-null="false" length="100" />
     <property column="tnc_att_usuario" type="String" name="AltaTempranaTokenUsuario" not-null="false" length="100" />
 		<property column="tnc_mail_id" type="Int32" name="MailId" not-null="false" />
+    <property column="tnc_impacta_AD" type="Boolean" name="ImpactaEnAD" not-null="true" />
+    <property column="tnc_fecha_seteo_marca_AD" type="DateTime" name="FechaSeteoMarcaAD" not-null="false" />
+    <property column="tnc_fecha_eliminacion_marca_AD" type="DateTime" name="FechaEliminacionMarcaAD" not-null="false" />
 	</class>
 </hibernate-mapping>
