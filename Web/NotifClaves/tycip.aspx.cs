@@ -38,62 +38,22 @@ public partial class tycip : System.Web.UI.Page
 
     protected void btnAceptar_Click(object sender, EventArgs e)
     {
-        string strErr = "Inicio";
-        //try
-        //{
-            if (Session["id"] != null)
-            {
-                strErr = "Session[id] != null: " + Session["id"].ToString();
-                int id = (int)Session["id"];
+        if (Session["id"] != null)
+        {
+            int id = (int)Session["id"];
 
-                TicketNotificacionClaveBusiness tncb = new TicketNotificacionClaveBusiness();
-                strErr = "tncb.GetById(id)";
-                TicketNotificacionClaveEntity ticket = tncb.GetById(id);
-
-                strErr = "tncb.AceptarTyC(ticket);";
-                tncb.AceptarTyC(ticket);
-
-                strErr = "ConfigurationManager.AppSettings[CodigoAppAltaTemprana].Trim().ToLower())";
-                //if (ticket.Aplicacion.Codigo == ConfigurationManager.AppSettings["CodigoAplicacionAltaRed"].Trim().ToLower())
-                //    ActualizarDescripcionUsuarioRed(ticket.Usuario);
-
-                Response.Redirect("DetalleTicketIp.aspx?");
-            }
-        //}
-        //catch (Exception ex)
-        //{
-        //    StringBuilder sb = new StringBuilder();
-
-        //    sb.Append("<body><script type='text/javascript'>alert('" + strErr+ " | " + ex.Message + "'); </script></body>");
-
-        //    HttpContext.Current.Response.Write(sb.ToString());
-
-        //    HttpContext.Current.Response.Flush();
+            TicketNotificacionClaveBusiness tncb = new TicketNotificacionClaveBusiness();
             
-        //}
+            TicketNotificacionClaveEntity ticket = tncb.GetById(id);
+                        
+            tncb.AceptarTyC(ticket);
+            
+            Response.Redirect("DetalleTicketIp.aspx?");
+        }
     }
 
     protected void btnVolver_Click(object sender, EventArgs e)
     {
         Response.Redirect("IdentificacionPositiva.aspx?id=" + Session["id"]);
     }
-
-	private void ActualizarDescripcionUsuarioRed(string nombreUsuario)
-	{
-		DirectoryEntry usuario = ActiveDirectoryHelper.BuscarUsuarioPorNombre(nombreUsuario);
-
-		if (usuario == null)
-			return;
-        if (usuario.Properties["description"] != null)
-        {
-            string descripcion = usuario.Properties["description"].Value.ToString();
-
-            if (descripcion.StartsWith(ConfigurationManager.AppSettings["PrefijoDescripcionUsuarioRed"]))
-            {
-                usuario.Properties["description"].Value = descripcion.Remove(0, ConfigurationManager.AppSettings["PrefijoDescripcionUsuarioRed"].Length);
-
-                usuario.CommitChanges();
-            }
-        }
-	}
 }
