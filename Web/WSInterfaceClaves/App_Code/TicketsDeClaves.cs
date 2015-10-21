@@ -235,6 +235,8 @@ public class TicketsDeClaves : System.Web.Services.WebService
             {
 				bool altaUsuarioRed = ticket.CodigoAplicacion.Trim().ToLower() == ConfigurationManager.AppSettings["CodigoAplicacionAltaRed"].Trim().ToLower();
 
+                solicitudBPM.ImpactaEnAD = altaUsuarioRed;
+
                 // verifica si es un alta de red para usuario externo
 				bool altaUsuarioRedExterno = string.IsNullOrEmpty(ticket.Legajo) && altaUsuarioRed;
 
