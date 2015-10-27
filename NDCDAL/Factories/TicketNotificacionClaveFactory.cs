@@ -101,6 +101,14 @@ namespace NDCDAL.Factories
             set { _filCorregido = value; }
         }
 
+        public bool? FilImpactaEnAD { set; private get; }
+
+        public bool? FilMarcadoEnAD { set; private get; }
+
+        public bool? FilMarcaEliminadaEnAD { set; private get; }
+
+        public bool? FilVisualizado { set; private get; }
+
         public TicketNotificacionClaveFactory()
         {
             //
@@ -213,6 +221,24 @@ namespace NDCDAL.Factories
                         DataSearch.Add(Expression.IsNotNull("TNC.Legajo")).Add(Expression.Eq("TNC.Legajo", ""));
                     }
                 }
+
+                if (FilImpactaEnAD != null)
+                    DataSearch = DataSearch.Add(Expression.Eq("TNC.ImpactaEnAD", FilImpactaEnAD));
+
+                if (FilMarcadoEnAD != null)
+                    DataSearch = FilMarcadoEnAD.Value
+                        ? DataSearch.Add(Expression.IsNotNull("TNC.FechaSeteoMarcaAD"))
+                        : DataSearch.Add(Expression.IsNull("TNC.FechaSeteoMarcaAD"));
+
+                if (FilMarcaEliminadaEnAD != null)
+                    DataSearch = FilMarcaEliminadaEnAD.Value
+                        ? DataSearch.Add(Expression.IsNotNull("TNC.FechaEliminacionMarcaAD"))
+                        : DataSearch.Add(Expression.IsNull("TNC.FechaEliminacionMarcaAD"));
+
+                if (FilVisualizado != null)
+                    DataSearch = FilVisualizado.Value
+                        ? DataSearch.Add(Expression.IsNotNull("TNC.FechaAceptacionTyC"))
+                        : DataSearch.Add(Expression.IsNull("TNC.FechaAceptacionTyC"));
 
                 try
                 {

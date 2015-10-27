@@ -114,6 +114,28 @@ namespace NDCBL
             return tmpCollection;
         }
 
+        public TicketNotificacionClaveEntityCollection ObtenerTodosAgregarMarcaAD()
+        {
+            TicketNotificacionClaveFactory factory = new TicketNotificacionClaveFactory();
+
+            factory.FilImpactaEnAD = true;
+            factory.FilMarcadoEnAD = false;
+            
+            return factory.GetAll();
+        }
+
+        public TicketNotificacionClaveEntityCollection ObtenerTodosQuitarMarcaAD()
+        {
+            TicketNotificacionClaveFactory factory = new TicketNotificacionClaveFactory();
+
+            factory.FilImpactaEnAD = true;
+            factory.FilMarcadoEnAD = true;
+            factory.FilMarcaEliminadaEnAD = false;
+            factory.FilVisualizado = true;
+
+            return factory.GetAll();
+        }
+
         public TicketNotificacionClaveEntity GetById(int id)
         {
             return Factory.GetById(id);

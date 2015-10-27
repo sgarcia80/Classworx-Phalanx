@@ -121,7 +121,9 @@
     <EmbeddedResource Include="MappingFiles\AplicacionNotificacionClaveEntity.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MappingFiles\TicketNotificacionClaveEntity.hbm.xml" />
+    <EmbeddedResource Include="MappingFiles\TicketNotificacionClaveEntity.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

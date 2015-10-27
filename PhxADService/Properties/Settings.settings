@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PhxADService.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="PrefijoDescripcionUsuarioRed" Type="System.String" Scope="User">
+      <Value Profile="(Default)"># Phalanx # NO SE NOTIFICO #</Value>
+    </Setting>
+    <Setting Name="LDAPPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">LDAP://CN=Users,DC=CwxTest</Value>
+    </Setting>
+    <Setting Name="FiltroBuscarNombreLDAP" Type="System.String" Scope="User">
+      <Value Profile="(Default)">(&amp;amp;(objectCategory=person)(sAMAccountName=[username]))</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -41,3 +41,5 @@ PhalanxCommon/obj/
 PhalanxMAL/obj/
 phxCryptMgr/obj/Debug
 phxCryptMgr/obj/*
+obj
+bin

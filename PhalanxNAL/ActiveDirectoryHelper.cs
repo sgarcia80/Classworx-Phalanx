@@ -434,7 +434,7 @@ namespace PhalanxNAL
                     if (usuario.Properties.Contains(NOMBRE_PROPIEDAD_DESCRIPCION_AD))
                     {
                         log.Info("Propiedad encontrada");
-                        
+
                         if (usuario.Properties[NOMBRE_PROPIEDAD_DESCRIPCION_AD] != null)
                         {
                             descripcion = usuario.Properties[NOMBRE_PROPIEDAD_DESCRIPCION_AD].Value.ToString();
@@ -490,7 +490,11 @@ namespace PhalanxNAL
                     }
                 }
                 else
+                {
                     log.Info("No se encontró el usuario");
+
+                    return false;
+                }
 
                 log.Info("Actualización de descripción finalizada");
 
