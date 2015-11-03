@@ -4,8 +4,8 @@ C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\PhalanxMAL\bin\D
 C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\PhalanxMAL\bin\Debug\phxCryptMgr.dll
 C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\PhalanxMAL\bin\Debug\phxBlowfish.dll
 C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\PhalanxMAL\bin\Debug\PhalanxCommon.pdb
+C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\PhalanxMAL\bin\Debug\phxCryptMgr.pdb
+C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\PhalanxMAL\bin\Debug\phxBlowfish.pdb
 C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\PhalanxMAL\obj\Debug\PhalanxMAL.csprojResolveAssemblyReference.cache
 C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\PhalanxMAL\obj\Debug\PhalanxMAL.dll
 C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\PhalanxMAL\obj\Debug\PhalanxMAL.pdb
-C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\PhalanxMAL\bin\Debug\phxCryptMgr.pdb
-C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\PhalanxMAL\bin\Debug\phxBlowfish.pdb

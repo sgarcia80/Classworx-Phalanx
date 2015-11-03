@@ -1,7 +1,7 @@
 C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\phxCryptMgr\bin\Debug\phxCryptMgr.dll
 C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\phxCryptMgr\bin\Debug\phxCryptMgr.pdb
 C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\phxCryptMgr\bin\Debug\phxBlowfish.dll
-C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\phxCryptMgr\obj\Debug\phxCryptMgr.dll
-C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\phxCryptMgr\obj\Debug\phxCryptMgr.pdb
 C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\phxCryptMgr\bin\Debug\phxBlowfish.pdb
 C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\phxCryptMgr\obj\Debug\phxCryptMgr.csprojResolveAssemblyReference.cache
+C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\phxCryptMgr\obj\Debug\phxCryptMgr.dll
+C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\phxCryptMgr\obj\Debug\phxCryptMgr.pdb
