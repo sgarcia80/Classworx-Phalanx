@@ -13,6 +13,8 @@ using System.Web.Security;
 using System.Security.Principal;
 using System.Runtime.InteropServices;
 using PhalanxNAL;
+using PhalanxCommon.Entities;
+using PhalanxDAL.Factories;
 
 
 
@@ -102,7 +104,11 @@ public class TicketsDeClaves : System.Web.Services.WebService
         // verifica si el usuario de red informado es correcto y está autorizado para llamar al servicio
         DatosAutenticacion datosAutenticacion = ObtenerDatosAutenticacion(ticket.StringAutenticacion);
 
-        string usuariosAutorizados = ConfigurationManager.AppSettings["UsuariosAutorizados"];
+        PhxConfigBusiness pcb = new PhxConfigBusiness();
+
+        PhxConfigEntity configParam = pcb.GetConfigParam(ConfigCodes.UsuariosAutorizadosWSBPM);
+
+        string usuariosAutorizados = configParam != null ? configParam.LongTxtValue : null;
 
         if (usuariosAutorizados == null || ! new List<string>(usuariosAutorizados.Split(',')).Contains(datosAutenticacion.Usuario))
         {

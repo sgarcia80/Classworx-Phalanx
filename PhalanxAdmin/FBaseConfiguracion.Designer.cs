@@ -32,6 +32,7 @@ namespace PhalanxAdmin
             this.lnkEsquemas = new System.Windows.Forms.LinkLabel();
             this.lnkATMs = new System.Windows.Forms.LinkLabel();
             this.lnkconfigMailsExpPwd = new System.Windows.Forms.LinkLabel();
+            this.lnkWSBPM = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
             this.pnlXPGrps.SuspendLayout();
             this.pnlIzq.SuspendLayout();
@@ -65,6 +66,7 @@ namespace PhalanxAdmin
             this.xppnlConfig.CaptionGradient.Start = System.Drawing.Color.White;
             this.xppnlConfig.CaptionGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
             this.xppnlConfig.CaptionUnderline = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.xppnlConfig.Controls.Add(this.lnkWSBPM);
             this.xppnlConfig.Controls.Add(this.lnkEsquemas);
             this.xppnlConfig.Controls.Add(this.lnkATMs);
             this.xppnlConfig.Controls.Add(this.lnkconfigMailsExpPwd);
@@ -131,6 +133,22 @@ namespace PhalanxAdmin
             this.lnkconfigMailsExpPwd.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
             this.lnkconfigMailsExpPwd.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkconfigMailsExpPwd_LinkClicked);
             // 
+            // lnkWSBPM
+            // 
+            this.lnkWSBPM.ActiveLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkWSBPM.AutoSize = true;
+            this.lnkWSBPM.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.lnkWSBPM.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.lnkWSBPM.LinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkWSBPM.Location = new System.Drawing.Point(18, 114);
+            this.lnkWSBPM.Name = "lnkWSBPM";
+            this.lnkWSBPM.Size = new System.Drawing.Size(110, 13);
+            this.lnkWSBPM.TabIndex = 12;
+            this.lnkWSBPM.TabStop = true;
+            this.lnkWSBPM.Text = "Web Service BPM";
+            this.lnkWSBPM.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkWSBPM.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkWSBPM_LinkClicked);
+            // 
             // FBaseConfiguracion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -152,6 +170,7 @@ namespace PhalanxAdmin
         protected System.Windows.Forms.LinkLabel lnkEsquemas;
         protected System.Windows.Forms.LinkLabel lnkATMs;
         protected System.Windows.Forms.LinkLabel lnkconfigMailsExpPwd;
+        protected System.Windows.Forms.LinkLabel lnkWSBPM;
 
     }
 }

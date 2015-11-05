@@ -124,6 +124,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FConfigWSBPM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FConfigWSBPM.Designer.cs">
+      <DependentUpon>FConfigWSBPM.cs</DependentUpon>
+    </Compile>
     <Compile Include="FRptClavesGrpSol.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -763,6 +769,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FConfigWSBPM.resx">
+      <DependentUpon>FConfigWSBPM.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="FRptClavesGrpSol.resx">
       <DependentUpon>FRptClavesGrpSol.cs</DependentUpon>
     </EmbeddedResource>

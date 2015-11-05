@@ -258,6 +258,8 @@ namespace PhalanxBL
         private const string DEPURACION_LOGS = "@DEPURACION_LOGS@"; //Depuración de logs
         private const string CONF_SUBSI_RW = "@CONF_SUBSI_RW@"; //Configuración de Subsidiarias - Escritura
         private const string CONF_SUBSI_R = "@CONF_SUBSI_R@"; //Configuración de Subsidiarias - Lectura
+        private const string CONF_WSBPM_RW = "@CONF_WSBPM_RW@"; //Configuración de Parametría de WS BPM - Escritura
+        private const string CONF_WSBPM_R = "@CONF_WSBPM_R@"; //Configuración de Parametría de WS BPM - Lectura
 
         private const string RPT_USR_GRP_SOL = "@RPT_USR_GRP_SOL@";
         private const string RPT_USR_GRP_SEG_SOL = "@RPT_USR_GRP_SEG_SOL@";
@@ -707,6 +709,18 @@ namespace PhalanxBL
         public bool AccParamSubsidiariasRW(string usernamedomain)
         {
             string[] PrivilegiosAcceso = new string[] { CONF_SUBSI_RW };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+
+        public bool AccParamConfigWSBPMRW(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { CONF_WSBPM_RW };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+
+        public bool AccParamConfigWSBPM(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { CONF_WSBPM_RW, CONF_WSBPM_R };
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
 

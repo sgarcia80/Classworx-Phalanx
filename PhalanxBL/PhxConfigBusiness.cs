@@ -92,6 +92,9 @@ namespace PhalanxBL
                 case ConfigCodes.BodyAltaUsuarioRedExternoMail:
                     strParamCode = "@BODY_ALTA_US_RED_EXT_MAIL@";
                     break;
+                case ConfigCodes.UsuariosAutorizadosWSBPM:
+                    strParamCode = "@US_AUT_WSBPM@";
+                    break;
                 default:
                     break;
             }
@@ -181,6 +184,15 @@ namespace PhalanxBL
             return ConfEC;
 
         }
+
+        public PhxConfigEntityCollection GetWSBPMParams()
+        {
+            PhxConfigEntityCollection ConfEC = new PhxConfigEntityCollection();
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.UsuariosAutorizadosWSBPM));
+
+            return ConfEC;
+        }
+
         public void Save(PhxConfigEntity ConfigParam)
         {
             PhxConfigFactory ConfFac = new PhxConfigFactory();
