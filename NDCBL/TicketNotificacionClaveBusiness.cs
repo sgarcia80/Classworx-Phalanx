@@ -13,19 +13,7 @@ namespace NDCBL
     /// </summary>
     public class TicketNotificacionClaveBusiness
     {
-        private static string codigoAppAltaTemprana;
         private TicketNotificacionClaveFactory factory;
-
-        private static string CodigoAppAltaTemprana
-        {
-            get
-            {
-                if (codigoAppAltaTemprana == null)
-                    codigoAppAltaTemprana = ConfigurationManager.AppSettings["CodigoAplicacionAltaRed"];
-
-                return codigoAppAltaTemprana;
-            }
-        }
 
         private TicketNotificacionClaveFactory Factory
         {
@@ -152,7 +140,7 @@ namespace NDCBL
 
             Factory.FilTipoDocumento = tipoDocumento;
             Factory.FilDocumento = documento;
-            Factory.FilAplicacion = appBusiness.GetByCodigo(CodigoAppAltaTemprana);
+            Factory.FilAplicacion = appBusiness.GetAppRed();
             Factory.FilFechaTyCNull = true;
             Factory.FilErrado = false;
 
@@ -196,11 +184,8 @@ namespace NDCBL
             string strErrorMsg = "";
             try
             {
-                strErrorMsg = "No se encuentra la parametrización del Código correspondiente a altas de Red en el archivo de configuración de la aplicación.";
-                string strCodRed = ConfigurationManager.AppSettings["CodigoAplicacionAltaRed"].ToString();
-
-                strErrorMsg = "No se encuentra la aplicación correspondiente a altas de Red informada en el archivo de configuración de la aplicación.";
-                AplicacionNotificacionClaveEntity FilApp = new AplicacionNotificacionClaveBusiness().GetByCodigo(strCodRed);
+                strErrorMsg = "No se exite la aplicación correspondiente a altas de Red.";
+                AplicacionNotificacionClaveEntity FilApp = new AplicacionNotificacionClaveBusiness().GetAppRed();
 
                 strErrorMsg = "No se encuentra el ticket informado";
                 Ticket = this.Load(Id);
@@ -240,12 +225,14 @@ namespace NDCBL
 
             bool esAplicacionRed = false;
 
-            string strCodRed = ConfigurationManager.AppSettings["CodigoAplicacionAltaRed"].ToString();
+            AplicacionNotificacionClaveBusiness ancb = new AplicacionNotificacionClaveBusiness();
 
-            if (strCodRed == null)
-                throw new Common.CwxException("No se encuentra la parametrización del Código correspondiente a altas de Red en el archivo de configuración de la aplicación.");
+            AplicacionNotificacionClaveEntity appRed = ancb.GetAppRed();
 
-            esAplicacionRed = ticket.Aplicacion.Codigo == strCodRed;
+            if (appRed == null)
+                throw new Common.CwxException("No se encuentra la app correspondiente a altas de Red.");
+
+            esAplicacionRed = ticket.Aplicacion.Codigo == appRed.Codigo;
             
             ticket.UsuarioAplicacion = nombreUsuario;
 

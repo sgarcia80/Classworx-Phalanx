@@ -46,6 +46,8 @@ namespace PhalanxAdmin
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.bwRefreshEntities = new System.ComponentModel.BackgroundWorker();
+            this.btnSetAppRed = new System.Windows.Forms.Button();
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
             this.pnlXPGrps.SuspendLayout();
@@ -76,7 +78,7 @@ namespace PhalanxAdmin
             // columnHeader2
             // 
             columnHeader2.Text = "Código";
-            columnHeader2.Width = 235;
+            columnHeader2.Width = 162;
             // 
             // xppnlDBs
             // 
@@ -123,11 +125,12 @@ namespace PhalanxAdmin
             // 
             // pnlFilters
             // 
+            this.pnlFilters.Controls.Add(this.btnSetAppRed);
             this.pnlFilters.Controls.Add(this.groupBox1);
             this.pnlFilters.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlFilters.Location = new System.Drawing.Point(200, 0);
             this.pnlFilters.Name = "pnlFilters";
-            this.pnlFilters.Size = new System.Drawing.Size(528, 98);
+            this.pnlFilters.Size = new System.Drawing.Size(692, 98);
             this.pnlFilters.TabIndex = 14;
             // 
             // groupBox1
@@ -189,7 +192,7 @@ namespace PhalanxAdmin
             this.pnlList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlList.Location = new System.Drawing.Point(200, 98);
             this.pnlList.Name = "pnlList";
-            this.pnlList.Size = new System.Drawing.Size(528, 497);
+            this.pnlList.Size = new System.Drawing.Size(692, 497);
             this.pnlList.TabIndex = 15;
             // 
             // statusbar
@@ -200,7 +203,7 @@ namespace PhalanxAdmin
             this.lnkCancelar});
             this.statusbar.Location = new System.Drawing.Point(0, 475);
             this.statusbar.Name = "statusbar";
-            this.statusbar.Size = new System.Drawing.Size(528, 22);
+            this.statusbar.Size = new System.Drawing.Size(692, 22);
             this.statusbar.TabIndex = 12;
             this.statusbar.Text = "statusStrip1";
             // 
@@ -235,12 +238,13 @@ namespace PhalanxAdmin
             this.lvLista.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             columnHeader2,
             this.columnHeader1,
-            this.columnHeader3});
+            this.columnHeader3,
+            this.columnHeader4});
             this.lvLista.HideSelection = false;
             this.lvLista.Location = new System.Drawing.Point(18, 16);
             this.lvLista.MultiSelect = false;
             this.lvLista.Name = "lvLista";
-            this.lvLista.Size = new System.Drawing.Size(498, 443);
+            this.lvLista.Size = new System.Drawing.Size(662, 443);
             this.lvLista.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lvLista.TabIndex = 1;
             this.lvLista.UseCompatibleStateImageBehavior = false;
@@ -250,11 +254,12 @@ namespace PhalanxAdmin
             // columnHeader1
             // 
             this.columnHeader1.Text = "Nombre";
-            this.columnHeader1.Width = 252;
+            this.columnHeader1.Width = 175;
             // 
             // columnHeader3
             // 
             this.columnHeader3.Text = "Notificable";
+            this.columnHeader3.Width = 173;
             // 
             // bwRefreshEntities
             // 
@@ -262,10 +267,26 @@ namespace PhalanxAdmin
             this.bwRefreshEntities.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwRefreshEntities_DoWork);
             this.bwRefreshEntities.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwRefreshEntities_RunWorkerCompleted);
             // 
+            // btnSetAppRed
+            // 
+            this.btnSetAppRed.BackColor = System.Drawing.SystemColors.Control;
+            this.btnSetAppRed.Location = new System.Drawing.Point(509, 71);
+            this.btnSetAppRed.Name = "btnSetAppRed";
+            this.btnSetAppRed.Size = new System.Drawing.Size(171, 21);
+            this.btnSetAppRed.TabIndex = 4;
+            this.btnSetAppRed.Text = "&Setear como Aplicación de Red";
+            this.btnSetAppRed.UseVisualStyleBackColor = false;
+            this.btnSetAppRed.Click += new System.EventHandler(this.btnSetAppRed_Click);
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Aplicación de Red";
+            this.columnHeader4.Width = 106;
+            // 
             // FAplicativosBPM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(728, 595);
+            this.ClientSize = new System.Drawing.Size(892, 595);
             this.Controls.Add(this.pnlList);
             this.Controls.Add(this.pnlFilters);
             this.Name = "FAplicativosBPM";
@@ -308,5 +329,7 @@ namespace PhalanxAdmin
         private System.ComponentModel.BackgroundWorker bwRefreshEntities;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader3;
+        protected System.Windows.Forms.Button btnSetAppRed;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
     }
 }

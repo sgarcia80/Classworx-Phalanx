@@ -39,8 +39,12 @@ public partial class DetalleTicketIp : System.Web.UI.Page
             /// si es alta de red y es la primera vez que se ve, hay que actualizar la descripcion del usuario AD y sacar 
             /// la leyenda que se puso cuando llegó el ticket
             AuditTicketNotificacionBusiness AudTBL = new AuditTicketNotificacionBusiness();
-            if (ticket.Aplicacion.Codigo == ConfigurationManager.AppSettings["CodigoAplicacionAltaRed"].Trim().ToLower()
-                && !AudTBL.Visualizado(ticket))
+
+            AplicacionNotificacionClaveBusiness ancb = new AplicacionNotificacionClaveBusiness();
+
+            AplicacionNotificacionClaveEntity appRed = ancb.GetAppRed();
+
+            if (appRed != null && ticket.Aplicacion.Codigo == appRed.Codigo && !AudTBL.Visualizado(ticket))
             {
                 UsuarioActualizarAD = ticket.Usuario;
 

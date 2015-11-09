@@ -166,6 +166,7 @@ namespace PhalanxAdmin
                 lviArr[i].Text = ancEntity.Codigo;
                 lviArr[i].SubItems.Add(ancEntity.Nombre);
                 lviArr[i].SubItems.Add(ancEntity.Notificable ? "Sí" : "No");
+                lviArr[i].SubItems.Add(ancEntity.EsAplicacionRed ? "Sí" : "No");
                 lviArr[i].Tag = ancEntity;
                 i++;
             }
@@ -285,6 +286,24 @@ namespace PhalanxAdmin
             }
             
             ((ListView)sender).Sort();
+        }
+
+        private void btnSetAppRed_Click(object sender, EventArgs e)
+        {
+            if (lvLista.SelectedIndices.Count == 1)
+            {
+                AplicacionNotificacionClaveEntity app = (AplicacionNotificacionClaveEntity)lvLista.SelectedItems[0].Tag;
+
+                AplicacionNotificacionClaveBusiness ancb = new AplicacionNotificacionClaveBusiness();
+
+                if (ancb.SetearAppRed(app))
+                {
+                    this.CleanFilters();
+                    this.ExecEntitiesRefresh();
+                }
+                else
+                    MessageBox.Show("No se puedo setear la aplicación de red", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

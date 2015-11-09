@@ -18,6 +18,7 @@ namespace NDCDAL.Factories
         private string _filCodigo = "";
         private string _filNombre = string.Empty;
         
+        
         public string FilCodigo
         {
             set { _filCodigo = value; }
@@ -27,6 +28,8 @@ namespace NDCDAL.Factories
         {
             set { _filNombre = value; }
         }
+
+        public bool? FilAppRed { set; get; }
 
         public AplicacionNotificacionClaveFactory()
         {
@@ -50,6 +53,9 @@ namespace NDCDAL.Factories
 
                     if (!string.IsNullOrEmpty(_filNombre))
                         DataSearch = DataSearch.Add(Expression.Like("Nombre", _filNombre, MatchMode.Anywhere));
+
+                    if (FilAppRed != null)
+                        DataSearch = DataSearch.Add(Expression.Eq("EsAplicacionRed", FilAppRed.Value));
                     
                     DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("Nombre"));
                     Lst.Add(DataSearch.List<AplicacionNotificacionClaveEntity>());
@@ -104,6 +110,42 @@ namespace NDCDAL.Factories
                     throw e; // e; //new SystemException(e.Message);
                 }
             }
+        }
+
+        public bool SetearAppRed(int id)
+        {
+            ITransaction transaction = null;
+
+            try
+            {
+
+                using (ISession session = DBMgr.factory.OpenSession())
+                {
+                    using (transaction = session.BeginTransaction())
+                    {
+
+                        foreach (AplicacionNotificacionClaveEntity entity in GetAll())
+                        {
+                            if (entity.Id == id || entity.EsAplicacionRed)
+                            {
+                                entity.EsAplicacionRed = entity.Id == id;
+
+                                session.SaveOrUpdate(entity);
+                            }
+                        }
+
+                        transaction.Commit();
+
+                        return true;
+                    }
+                }
+            }
+            catch
+            {
+                transaction.Rollback();
+            }
+
+            return false;
         }
     }
 }

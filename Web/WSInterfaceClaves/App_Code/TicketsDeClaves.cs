@@ -239,7 +239,7 @@ public class TicketsDeClaves : System.Web.Services.WebService
         {
             if (HayQueInsertar)
             {
-				bool altaUsuarioRed = ticket.CodigoAplicacion.Trim().ToLower() == ConfigurationManager.AppSettings["CodigoAplicacionAltaRed"].Trim().ToLower();
+				bool altaUsuarioRed = ticket.CodigoAplicacion.Trim().ToLower() == bamb.GetAppRed().Codigo;
 
                 solicitudBPM.ImpactaEnAD = altaUsuarioRed;
 

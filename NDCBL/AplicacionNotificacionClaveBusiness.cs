@@ -68,5 +68,25 @@ namespace NDCBL
 
             factory.SaveBPMAplicacion(entidad);
         }
+
+        public bool SetearAppRed(AplicacionNotificacionClaveEntity entidad)
+        {
+            AplicacionNotificacionClaveFactory factory = new AplicacionNotificacionClaveFactory();
+
+            return factory.SetearAppRed(entidad.Id);
+        }
+
+        public AplicacionNotificacionClaveEntity GetAppRed()
+        {
+            AplicacionNotificacionClaveFactory AppFac = new AplicacionNotificacionClaveFactory();
+            AppFac.FilAppRed = true;
+
+            AplicacionNotificacionClaveEntityCollection lista = AppFac.GetAll();
+
+            if (lista.Count > 0)
+                return lista[0];
+
+            return null;
+        }
     }
 }

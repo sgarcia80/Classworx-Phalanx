@@ -94,6 +94,8 @@ namespace NDCCommon.Entities
             }
         }
 
+        public bool EsAplicacionRed { set; get; }
+
         #endregion
 
         public override string Key

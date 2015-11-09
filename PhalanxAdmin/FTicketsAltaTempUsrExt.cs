@@ -228,20 +228,6 @@ namespace PhalanxAdmin
             this.lnkCancelar.Visible = false;
             this.pbDB.Visible = false;
             lblStatus.Text = "Listo";
-
-            
-            //ConfigurationManager.AppSettings["CodigoAplicacionAltaRed"].ToString()
-
-            /*
-            AplicacionNotificacionClaveBusiness ANCBL = new AplicacionNotificacionClaveBusiness();
-            AplicacionNotificacionClaveEntityCollection apps = ANCBL.GetAll();
-
-            AplicacionNotificacionClaveEntity todos = new AplicacionNotificacionClaveEntity();
-            todos.Id = -1;
-            todos.Nombre = "Todos";
-            apps.Insert(0, todos);
-            */
-            //cbFilApp.DataSource = apps;
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -268,11 +254,8 @@ namespace PhalanxAdmin
                     int iTicket = Convert.ToInt32(txtFilTicket.Text);
                 }
             
-                strErrorMsg = "No se encuentra la parametrización del Código correspondiente a altas de Red en el archivo de configuración de la aplicación.";
-                string strCodRed = ConfigurationManager.AppSettings["CodigoAplicacionAltaRed"].ToString();
-
-                strErrorMsg = "No se encuentra la aplicación correspondiente a altas de Red informada en el archivo de configuración de la aplicación.";
-                _filApp = new AplicacionNotificacionClaveBusiness().GetByCodigo(strCodRed);
+                strErrorMsg = "No exste la aplicación correspondiente a altas de Red";
+                _filApp = new AplicacionNotificacionClaveBusiness().GetAppRed();
                 if (_filApp == null)
                 {
                     throw new CwxException(strErrorMsg);
