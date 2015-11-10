@@ -53,6 +53,10 @@ namespace PhalanxAdmin
         {
             PhxConfigEntity ConfEnt = ((PhxConfigEntity)cbParams.SelectedItem);
             txtDescrip.Text = ConfEnt.Description;
+
+            cbValor.Visible = false;
+            txtValor.Visible = true;
+
             PhxConfigBusiness conf = new PhxConfigBusiness();
             if (
                 ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.UsuariosAutorizadosWSBPM)
@@ -60,6 +64,13 @@ namespace PhalanxAdmin
             {
                 txtValor.Multiline = true;
                 txtValor.Text = ConfEnt.LongTxtValue;
+            }
+            else if (ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.AutenticacionUsuariosAutorizadosWSBPM))
+            {
+                cbValor.Visible = true;
+                txtValor.Visible = false;
+
+                cbValor.SelectedIndex = ConfEnt.ShortTxtValue == "AD" ? 0 : 1;
             }
             else
             {
@@ -76,6 +87,7 @@ namespace PhalanxAdmin
             btnSave.Enabled = true;
             btnCancel.Enabled = true;
             cbParams.Enabled = false;
+            cbValor.Enabled = true;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -86,6 +98,7 @@ namespace PhalanxAdmin
             btnSave.Enabled = false;
             btnCancel.Enabled = false;
             cbParams.Enabled = true;
+            cbValor.Enabled = false;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -95,6 +108,8 @@ namespace PhalanxAdmin
             PhxConfigEntity ConfEnt = ((PhxConfigEntity)cbParams.SelectedItem);
             if (ConfEnt.Code == new PhxConfigBusiness().ParamCodeToString(ConfigCodes.UsuariosAutorizadosWSBPM))
                 ((PhxConfigEntity)cbParams.SelectedItem).LongTxtValue = txtValor.Text;
+            else if (ConfEnt.Code == new PhxConfigBusiness().ParamCodeToString(ConfigCodes.AutenticacionUsuariosAutorizadosWSBPM))
+                ((PhxConfigEntity)cbParams.SelectedItem).ShortTxtValue = cbValor.SelectedIndex == 0 ? "AD" : "WINNT";
             else
                 ((PhxConfigEntity)cbParams.SelectedItem).ShortTxtValue = txtValor.Text;
 
@@ -106,6 +121,7 @@ namespace PhalanxAdmin
             btnSave.Enabled = false;
             btnCancel.Enabled = false;
             cbParams.Enabled = true;
+            cbValor.Enabled = false;
         }
     }
 }

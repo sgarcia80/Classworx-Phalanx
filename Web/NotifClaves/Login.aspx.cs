@@ -10,6 +10,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using System.DirectoryServices;
 using PhalanxBL;
+using PhalanxCommon.Entities;
 
 public partial class Login : System.Web.UI.Page
 {
@@ -54,7 +55,11 @@ public partial class Login : System.Web.UI.Page
         {
             string provider = "LDAP";
 
-            if (ConfigurationManager.AppSettings["UsarWinNT"] == "1")
+            PhxConfigBusiness pcb = new PhxConfigBusiness();
+
+            PhxConfigEntity config = pcb.GetConfigParam(ConfigCodes.AutenticacionUsuariosAutorizadosWSBPM);
+
+            if (config.ShortTxtValue == "WINNT")
                 provider = "WinNT";
 
             DirectoryEntry entry = new DirectoryEntry(provider + "://" + dominio, usuario, password);

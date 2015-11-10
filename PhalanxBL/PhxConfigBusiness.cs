@@ -95,6 +95,9 @@ namespace PhalanxBL
                 case ConfigCodes.UsuariosAutorizadosWSBPM:
                     strParamCode = "@US_AUT_WSBPM@";
                     break;
+                case ConfigCodes.AutenticacionUsuariosAutorizadosWSBPM:
+                    strParamCode = "@AUT_US_AUT_WSBPM@";
+                    break;
                 default:
                     break;
             }
@@ -188,7 +191,9 @@ namespace PhalanxBL
         public PhxConfigEntityCollection GetWSBPMParams()
         {
             PhxConfigEntityCollection ConfEC = new PhxConfigEntityCollection();
+            
             ConfEC.Add(this.GetConfigParam(ConfigCodes.UsuariosAutorizadosWSBPM));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.AutenticacionUsuariosAutorizadosWSBPM));
 
             return ConfEC;
         }

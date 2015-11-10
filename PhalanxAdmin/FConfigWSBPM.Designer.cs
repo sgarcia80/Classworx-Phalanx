@@ -33,10 +33,12 @@ namespace PhalanxAdmin
             this.cbParams = new System.Windows.Forms.ComboBox();
             this.labelDom = new System.Windows.Forms.Label();
             this.pnlList = new System.Windows.Forms.Panel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.txtValor = new System.Windows.Forms.TextBox();
+            this.cbValor = new System.Windows.Forms.ComboBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnModif = new System.Windows.Forms.Button();
-            this.txtValor = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtDescrip = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -46,6 +48,7 @@ namespace PhalanxAdmin
             this.pnlFilters.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.pnlList.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlXPGrps
@@ -104,10 +107,10 @@ namespace PhalanxAdmin
             // 
             // pnlList
             // 
+            this.pnlList.Controls.Add(this.flowLayoutPanel1);
             this.pnlList.Controls.Add(this.btnCancel);
             this.pnlList.Controls.Add(this.btnSave);
             this.pnlList.Controls.Add(this.btnModif);
-            this.pnlList.Controls.Add(this.txtValor);
             this.pnlList.Controls.Add(this.label2);
             this.pnlList.Controls.Add(this.txtDescrip);
             this.pnlList.Controls.Add(this.label1);
@@ -116,6 +119,40 @@ namespace PhalanxAdmin
             this.pnlList.Name = "pnlList";
             this.pnlList.Size = new System.Drawing.Size(712, 454);
             this.pnlList.TabIndex = 11;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.txtValor);
+            this.flowLayoutPanel1.Controls.Add(this.cbValor);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(38, 116);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(453, 225);
+            this.flowLayoutPanel1.TabIndex = 20;
+            // 
+            // txtValor
+            // 
+            this.txtValor.BackColor = System.Drawing.Color.White;
+            this.txtValor.Location = new System.Drawing.Point(3, 3);
+            this.txtValor.Multiline = true;
+            this.txtValor.Name = "txtValor";
+            this.txtValor.ReadOnly = true;
+            this.txtValor.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtValor.Size = new System.Drawing.Size(435, 174);
+            this.txtValor.TabIndex = 2;
+            // 
+            // cbValor
+            // 
+            this.cbValor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbValor.Enabled = false;
+            this.cbValor.FormattingEnabled = true;
+            this.cbValor.Items.AddRange(new object[] {
+            "Active Directory",
+            "Windows NT"});
+            this.cbValor.Location = new System.Drawing.Point(3, 183);
+            this.cbValor.Name = "cbValor";
+            this.cbValor.Size = new System.Drawing.Size(159, 21);
+            this.cbValor.TabIndex = 16;
+            this.cbValor.Visible = false;
             // 
             // btnCancel
             // 
@@ -150,17 +187,6 @@ namespace PhalanxAdmin
             this.btnModif.UseVisualStyleBackColor = false;
             this.btnModif.Click += new System.EventHandler(this.btnModif_Click);
             // 
-            // txtValor
-            // 
-            this.txtValor.BackColor = System.Drawing.Color.White;
-            this.txtValor.Location = new System.Drawing.Point(38, 116);
-            this.txtValor.Multiline = true;
-            this.txtValor.Name = "txtValor";
-            this.txtValor.ReadOnly = true;
-            this.txtValor.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtValor.Size = new System.Drawing.Size(435, 174);
-            this.txtValor.TabIndex = 2;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -189,14 +215,14 @@ namespace PhalanxAdmin
             this.label1.TabIndex = 16;
             this.label1.Text = "Descripción";
             // 
-            // FConfigMailsExpPwd
+            // FConfigWSBPM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(912, 531);
             this.Controls.Add(this.pnlList);
             this.Controls.Add(this.pnlFilters);
-            this.Name = "FConfigMailsExpPwd";
+            this.Name = "FConfigWSBPM";
             this.Text = "FConfigMailsExpPwd";
             this.Load += new System.EventHandler(this.FConfigMailsExpPwd_Load);
             this.Controls.SetChildIndex(this.pnlIzq, 0);
@@ -210,6 +236,8 @@ namespace PhalanxAdmin
             this.groupBox1.PerformLayout();
             this.pnlList.ResumeLayout(false);
             this.pnlList.PerformLayout();
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -228,5 +256,7 @@ namespace PhalanxAdmin
         protected System.Windows.Forms.Button btnCancel;
         protected System.Windows.Forms.Button btnSave;
         protected System.Windows.Forms.Button btnModif;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.ComboBox cbValor;
     }
 }

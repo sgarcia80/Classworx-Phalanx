@@ -442,7 +442,11 @@ public class TicketsDeClaves : System.Web.Services.WebService
         {
             string provider = "LDAP";
 
-            if (ConfigurationManager.AppSettings["UsarWinNT"] == "1")
+            PhxConfigBusiness pcb = new PhxConfigBusiness();
+
+            PhxConfigEntity config = pcb.GetConfigParam(ConfigCodes.AutenticacionUsuariosAutorizadosWSBPM);
+
+            if (config.ShortTxtValue == "WINNT")
                 provider = "WinNT";
 
             DirectoryEntry entry = new DirectoryEntry(provider + "://" + dominio, usuario, password);
