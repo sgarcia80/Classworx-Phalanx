@@ -276,8 +276,11 @@ public class TicketsDeClaves : System.Web.Services.WebService
                     {
                         strDebug += " | Es alta para recurso interno, legajo nro " + ticket.Legajo;
                     }
+
+                    AplicacionNotificacionClaveEntity appCobis = bamb.GetAppCobis();
+
                     //y es alta de red o cobis
-                    if (ticket.CodigoAplicacion.Trim().ToLower() == ConfigurationManager.AppSettings["CodigoAplicacionCOBIS"].Trim().ToLower()
+                    if (ticket.CodigoAplicacion.Trim().ToLower() == appCobis.Codigo
 						|| altaUsuarioRed)
                     {
                         if (_debugMode)
@@ -291,7 +294,7 @@ public class TicketsDeClaves : System.Web.Services.WebService
                         Meta4Usuarios.Dominio_Red = ticket.DominioUsuario;
                         Meta4Usuarios.Id_Empleado = ticket.Legajo.Trim().PadLeft(6, '0');
                         Meta4Usuarios.Id_Sociedad = "01";
-                        if (ticket.CodigoAplicacion.Trim().ToLower() == ConfigurationManager.AppSettings["CodigoAplicacionCOBIS"].Trim().ToLower())
+                        if (ticket.CodigoAplicacion.Trim().ToLower() == appCobis.Codigo)
                         { Meta4Usuarios.IdUsuarioCore = ticket.UsuarioAplicacion; }
                         else
                         { Meta4Usuarios.IdUsuarioCore = null; }

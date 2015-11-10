@@ -96,6 +96,8 @@ namespace NDCCommon.Entities
 
         public bool EsAplicacionRed { set; get; }
 
+        public bool EsAplicacionCobis { set; get; }
+
         #endregion
 
         public override string Key

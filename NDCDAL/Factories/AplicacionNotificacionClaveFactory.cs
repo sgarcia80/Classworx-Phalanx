@@ -31,6 +31,8 @@ namespace NDCDAL.Factories
 
         public bool? FilAppRed { set; get; }
 
+        public bool? FilAppCobis { set; get; }
+
         public AplicacionNotificacionClaveFactory()
         {
             //
@@ -129,6 +131,53 @@ namespace NDCDAL.Factories
                             if (entity.Id == id || entity.EsAplicacionRed)
                             {
                                 entity.EsAplicacionRed = entity.Id == id;
+
+                                session.SaveOrUpdate(entity);
+                            }
+                        }
+
+                        transaction.Commit();
+
+                        return true;
+                    }
+                }
+            }
+            catch
+            {
+                transaction.Rollback();
+            }
+
+            return false;
+        }
+
+        public AplicacionNotificacionClaveEntity GetAppCobis()
+        {
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                ICriteria criteria = session.CreateCriteria(typeof(AplicacionNotificacionClaveEntity));
+
+                criteria.Add(Expression.Eq("EsAplicacionCobis", true));
+
+                return criteria.UniqueResult<AplicacionNotificacionClaveEntity>();
+            }
+        }
+
+        public bool SetearAppCobis(int id)
+        {
+            ITransaction transaction = null;
+
+            try
+            {
+                using (ISession session = DBMgr.factory.OpenSession())
+                {
+                    using (transaction = session.BeginTransaction())
+                    {
+
+                        foreach (AplicacionNotificacionClaveEntity entity in GetAll())
+                        {
+                            if (entity.Id == id || entity.EsAplicacionCobis)
+                            {
+                                entity.EsAplicacionCobis = entity.Id == id;
 
                                 session.SaveOrUpdate(entity);
                             }

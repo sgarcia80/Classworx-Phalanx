@@ -88,5 +88,19 @@ namespace NDCBL
 
             return null;
         }
+
+        public AplicacionNotificacionClaveEntity GetAppCobis()
+        {
+            AplicacionNotificacionClaveFactory AppFac = new AplicacionNotificacionClaveFactory();
+
+            return AppFac.GetAppCobis();
+        }
+
+        public bool SetearAppCobis(AplicacionNotificacionClaveEntity entidad)
+        {
+            AplicacionNotificacionClaveFactory factory = new AplicacionNotificacionClaveFactory();
+
+            return factory.SetearAppCobis(entidad.Id);
+        }
     }
 }

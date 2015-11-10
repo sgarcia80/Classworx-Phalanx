@@ -9,5 +9,6 @@
     <property column="anc_code" type="String" name="Codigo" not-null="true" length="50" />
     <property column="anc_notificable " type="Boolean" name="Notificable" not-null="true" />
     <property column="anc_esappred " type="Boolean" name="EsAplicacionRed" not-null="true" />
+    <property column="anc_esappcobis " type="Boolean" name="EsAplicacionCobis" not-null="true" />
   </class>
 </hibernate-mapping>
