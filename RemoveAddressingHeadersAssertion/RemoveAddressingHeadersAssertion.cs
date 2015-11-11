@@ -5,6 +5,7 @@ using Microsoft.Web.Services3;
 
 using System.Xml;
 using System.Configuration;
+using PhalanxBL;
 
 namespace WSE3.CustomAssertion.RemoveAddressingHeaders
 {
@@ -123,7 +124,9 @@ namespace WSE3.CustomAssertion.RemoveAddressingHeaders
 
             XmlNode userNameNode = envelope.CreateNode(XmlNodeType.Element, "wsse:Username", "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd");
 
-            userNameNode.InnerXml = ConfigurationManager.AppSettings["COBISWSSUser"];
+            PhxConfigBusiness pcb = new PhxConfigBusiness();
+
+            userNameNode.InnerXml = pcb.GetConfigParam(PhalanxCommon.Entities.ConfigCodes.UsuarioLlamadaWSCOBIS).ShortTxtValue;
 
  
 

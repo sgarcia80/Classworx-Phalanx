@@ -98,6 +98,18 @@ namespace PhalanxBL
                 case ConfigCodes.AutenticacionUsuariosAutorizadosWSBPM:
                     strParamCode = "@AUT_US_AUT_WSBPM@";
                     break;
+                case ConfigCodes.UsuarioLlamadaWSCOBIS:
+                    strParamCode = "@US_LLAMADA_WSCOBIS@";
+                    break;
+                case ConfigCodes.IDAplicacionWSCOBIS:
+                    strParamCode = "@ID_APP_WSCOBIS@";
+                    break;
+                case ConfigCodes.EstadoWSCOBIS:
+                    strParamCode = "@ESTADO_WSCOBIS@";
+                    break;
+                case ConfigCodes.QuienLlamaWSCOBIS:
+                    strParamCode = "@QUIEN_LLAMA_WSCOBIS@";
+                    break;
                 default:
                     break;
             }
@@ -191,9 +203,21 @@ namespace PhalanxBL
         public PhxConfigEntityCollection GetWSBPMParams()
         {
             PhxConfigEntityCollection ConfEC = new PhxConfigEntityCollection();
-            
+
             ConfEC.Add(this.GetConfigParam(ConfigCodes.UsuariosAutorizadosWSBPM));
             ConfEC.Add(this.GetConfigParam(ConfigCodes.AutenticacionUsuariosAutorizadosWSBPM));
+
+            return ConfEC;
+        }
+
+        public PhxConfigEntityCollection GetWSCOBISParams()
+        {
+            PhxConfigEntityCollection ConfEC = new PhxConfigEntityCollection();
+            
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.UsuarioLlamadaWSCOBIS));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.IDAplicacionWSCOBIS));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.EstadoWSCOBIS));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.QuienLlamaWSCOBIS));
 
             return ConfEC;
         }

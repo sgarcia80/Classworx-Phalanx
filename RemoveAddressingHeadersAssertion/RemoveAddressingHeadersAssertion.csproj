@@ -49,6 +49,16 @@
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PhalanxBL\PhalanxBL.csproj">
+      <Project>{515C8382-4032-4840-A587-9725F9F6FD19}</Project>
+      <Name>PhalanxBL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PhalanxCommon\PhalanxCommon.csproj">
+      <Project>{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}</Project>
+      <Name>PhalanxCommon</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

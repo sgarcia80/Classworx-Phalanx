@@ -31,7 +31,11 @@ namespace PhalanxCommon.Entities
         BodyAltaUsuarioRedExternoMail, // = "@BODY_ALTA_US_RED_EXT_MAIL@",
         SubjectAltaUsuarioRedExternoMail, // = "@SUBJECT_ALTA_US_RED_EXT_MAIL@",
         UsuariosAutorizadosWSBPM,
-        AutenticacionUsuariosAutorizadosWSBPM
+        AutenticacionUsuariosAutorizadosWSBPM,
+        UsuarioLlamadaWSCOBIS,
+        IDAplicacionWSCOBIS,
+        EstadoWSCOBIS,
+        QuienLlamaWSCOBIS
     }
 
     

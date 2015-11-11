@@ -260,6 +260,8 @@ namespace PhalanxBL
         private const string CONF_SUBSI_R = "@CONF_SUBSI_R@"; //Configuración de Subsidiarias - Lectura
         private const string CONF_WSBPM_RW = "@CONF_WSBPM_RW@"; //Configuración de Parametría de WS BPM - Escritura
         private const string CONF_WSBPM_R = "@CONF_WSBPM_R@"; //Configuración de Parametría de WS BPM - Lectura
+        private const string CONF_WSCOBIS_RW = "@CONF_WSCOBIS_RW@"; //Configuración de Parametría de WS COBIS - Escritura
+        private const string CONF_WSCOBIS_R = "@CONF_WSCOBIS_R@"; //Configuración de Parametría de WS COBIS - Lectura
 
         private const string RPT_USR_GRP_SOL = "@RPT_USR_GRP_SOL@";
         private const string RPT_USR_GRP_SEG_SOL = "@RPT_USR_GRP_SEG_SOL@";
@@ -721,6 +723,18 @@ namespace PhalanxBL
         public bool AccParamConfigWSBPM(string usernamedomain)
         {
             string[] PrivilegiosAcceso = new string[] { CONF_WSBPM_RW, CONF_WSBPM_R };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+
+        public bool AccParamConfigWSCOBISRW(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { CONF_WSCOBIS_RW };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+
+        public bool AccParamConfigWSCOBIS(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { CONF_WSCOBIS_RW, CONF_WSBPM_R };
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
 

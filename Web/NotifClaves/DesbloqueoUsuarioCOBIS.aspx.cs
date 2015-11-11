@@ -8,6 +8,7 @@ using Microsoft.Web.Services3.Security;
 using Microsoft.Web.Services3.Security.Tokens;
 using WSE3.CustomAssertion.RemoveAddressingHeaders;
 using System.Configuration;
+using PhalanxBL;
 
 public partial class DesbloqueoUsuarioCOBIS : System.Web.UI.Page
 {
@@ -27,20 +28,26 @@ public partial class DesbloqueoUsuarioCOBIS : System.Web.UI.Page
     {
         if (Session["Dominio"] != null && Session["Usuario"] != null)
         {
+            PhxConfigBusiness pcb = new PhxConfigBusiness();
+
+            string usuarioLlamada = pcb.GetConfigParam(PhalanxCommon.Entities.ConfigCodes.UsuarioLlamadaWSCOBIS).ShortTxtValue;
+            string idAplicacion = pcb.GetConfigParam(PhalanxCommon.Entities.ConfigCodes.IDAplicacionWSCOBIS).ShortTxtValue;
+            string estado = pcb.GetConfigParam(PhalanxCommon.Entities.ConfigCodes.EstadoWSCOBIS).ShortTxtValue;
+            string quienLlama = pcb.GetConfigParam(PhalanxCommon.Entities.ConfigCodes.QuienLlamaWSCOBIS).ShortTxtValue;
 
             COBISDesbloqueo.BloqueoDesbloqueoUsuariosCobisServiceWse serviceProxy = new BloqueoDesbloqueoUsuariosCobisServiceWse();
-            UsernameToken token = new UsernameToken(ConfigurationManager.AppSettings["COBISWSSUser"], "a", PasswordOption.SendNone);
+            UsernameToken token = new UsernameToken(usuarioLlamada, "a", PasswordOption.SendNone);
             serviceProxy.SetClientCredential(token);
             serviceProxy.SetPolicy("ClientPolicy");
             COBISDesbloqueo.RequestConnection requestConnection = new COBISDesbloqueo.RequestConnection();
-            requestConnection.applicationID = ConfigurationManager.AppSettings["COBISAppID"];
+            requestConnection.applicationID = idAplicacion;
             requestConnection.password = string.Empty;
             requestConnection.sessionID = string.Empty;
             requestConnection.user = string.Empty;
             COBISDesbloqueo.BloqueoDesbloqueFil loginFiltro = new COBISDesbloqueo.BloqueoDesbloqueFil();
-            loginFiltro.i_c_estado = ConfigurationManager.AppSettings["COBISEstado"];
+            loginFiltro.i_c_estado = estado;
             loginFiltro.i_c_login = Session["Usuario"].ToString();
-            loginFiltro.i_m_quien_llama = ConfigurationManager.AppSettings["COBISQuienLlama"];
+            loginFiltro.i_m_quien_llama = quienLlama;
             bool ErrorExec = true;
             try
             {
