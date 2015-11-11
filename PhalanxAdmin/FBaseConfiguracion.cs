@@ -30,6 +30,7 @@ namespace PhalanxAdmin
             lnkATMs.Enabled = UsrBL.AccParamGrpSeguimATM(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
             lnkWSBPM.Enabled = UsrBL.AccParamConfigWSBPM(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
             lnkWSCOBIS.Enabled = UsrBL.AccParamConfigWSCOBIS(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            lnkNDC.Enabled = UsrBL.AccParamConfigNDC(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
         }
 
         private void lnkEsquemas_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -51,6 +52,11 @@ namespace PhalanxAdmin
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             ((FPrincipal)this.MdiParent).OpenForm(new FConfigWSCOBIS());
+        }
+
+        private void lnkNDC_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ((FPrincipal)this.MdiParent).OpenForm(new FConfigNDC());
         }
     }
 }

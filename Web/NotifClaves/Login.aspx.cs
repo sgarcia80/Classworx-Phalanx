@@ -57,7 +57,7 @@ public partial class Login : System.Web.UI.Page
 
             PhxConfigBusiness pcb = new PhxConfigBusiness();
 
-            PhxConfigEntity config = pcb.GetConfigParam(ConfigCodes.AutenticacionUsuariosAutorizadosWSBPM);
+            PhxConfigEntity config = pcb.GetConfigParam(ConfigCodes.AutenticacionLoginNDC);
 
             if (config.ShortTxtValue == "WINNT")
                 provider = "WinNT";

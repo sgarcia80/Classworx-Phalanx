@@ -35,7 +35,9 @@ namespace PhalanxCommon.Entities
         UsuarioLlamadaWSCOBIS,
         IDAplicacionWSCOBIS,
         EstadoWSCOBIS,
-        QuienLlamaWSCOBIS
+        QuienLlamaWSCOBIS,
+        AutenticacionLoginNDC,
+        DominiosLoginNDC
     }
 
     

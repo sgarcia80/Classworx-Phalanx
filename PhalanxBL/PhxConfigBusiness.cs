@@ -110,6 +110,12 @@ namespace PhalanxBL
                 case ConfigCodes.QuienLlamaWSCOBIS:
                     strParamCode = "@QUIEN_LLAMA_WSCOBIS@";
                     break;
+                case ConfigCodes.AutenticacionLoginNDC:
+                    strParamCode = "@AUT_LOGIN_NDC@";
+                    break;
+                case ConfigCodes.DominiosLoginNDC:
+                    strParamCode = "@DOM_LOGIN_NDC@";
+                    break;
                 default:
                     break;
             }
@@ -218,6 +224,16 @@ namespace PhalanxBL
             ConfEC.Add(this.GetConfigParam(ConfigCodes.IDAplicacionWSCOBIS));
             ConfEC.Add(this.GetConfigParam(ConfigCodes.EstadoWSCOBIS));
             ConfEC.Add(this.GetConfigParam(ConfigCodes.QuienLlamaWSCOBIS));
+
+            return ConfEC;
+        }
+
+        public PhxConfigEntityCollection GetNDCParams()
+        {
+            PhxConfigEntityCollection ConfEC = new PhxConfigEntityCollection();
+
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.AutenticacionLoginNDC));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.DominiosLoginNDC));
 
             return ConfEC;
         }
