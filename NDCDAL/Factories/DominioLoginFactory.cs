@@ -4,6 +4,9 @@ using System.Text;
 using NDCCommon.Collections;
 using System.Configuration;
 using NDCCommon.Entities;
+using PhalanxDAL.Factories;
+using PhalanxBL;
+using PhalanxCommon.Entities;
 
 namespace NDCDAL.Factories
 {
@@ -12,7 +15,12 @@ namespace NDCDAL.Factories
         public DominioLoginEntityCollection GetAllFromConfig()
         {
             DominioLoginEntityCollection LstDominios = new DominioLoginEntityCollection();
-            string DominiosParaLogin = ConfigurationManager.AppSettings["DominiosLogin"];
+
+            PhxConfigBusiness pcb = new PhxConfigBusiness();
+
+            PhxConfigEntity config = pcb.GetConfigParam(ConfigCodes.DominiosLoginNDC);
+            
+            string DominiosParaLogin = config.LongTxtValue;
 
             if (DominiosParaLogin != null)
             {

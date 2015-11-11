@@ -134,6 +134,14 @@
       <Project>{3744DE9E-912E-4A88-8897-73FFF9C8DD48}</Project>
       <Name>NDCCommon</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PhalanxBL\PhalanxBL.csproj">
+      <Project>{515C8382-4032-4840-A587-9725F9F6FD19}</Project>
+      <Name>PhalanxBL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PhalanxCommon\PhalanxCommon.csproj">
+      <Project>{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}</Project>
+      <Name>PhalanxCommon</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PhalanxDAL\PhalanxDAL\PhalanxDAL.csproj">
       <Project>{3447B917-0A54-460E-AB95-84BBF24BAF35}</Project>
       <Name>PhalanxDAL</Name>
