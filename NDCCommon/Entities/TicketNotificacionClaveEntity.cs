@@ -10,6 +10,28 @@ namespace NDCCommon.Entities
     /// </summary>
     public class TicketNotificacionClaveEntity : BaseEntity
     {
+        private const int DEFAULT_HORAS_EXPIRACION_TOKEN = 72;
+
+        private static int? horasExpiracionToken;
+
+        private static int HorasExpiracionToken
+        {
+            get
+            {
+                if (horasExpiracionToken == null)
+                {
+                    int horas;
+
+                    if (!int.TryParse(System.Configuration.ConfigurationManager.AppSettings["HorasExpiracionToken"], out horas))
+                        horas = DEFAULT_HORAS_EXPIRACION_TOKEN;
+
+                    horasExpiracionToken = new int?(horas);
+                }
+
+                return horasExpiracionToken.Value;
+            }
+        }
+
         #region Private Members
         private bool m_isChanged;
 
@@ -556,6 +578,11 @@ namespace NDCCommon.Entities
             EsEquivalente = EsEquivalente && ticket.NombreSolicitante == NombreSolicitante;
             EsEquivalente = EsEquivalente && ticket.ApellidoSolicitante == ApellidoSolicitante;
             return EsEquivalente;
+        }
+
+        public bool Expirado()
+        {
+            return (DateTime.Now - Fecha).TotalHours >= HorasExpiracionToken;
         }
     }
 }

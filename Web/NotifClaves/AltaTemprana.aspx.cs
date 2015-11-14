@@ -83,6 +83,12 @@ public partial class AltaTemprana : System.Web.UI.Page
 
             return;
         }
+        else if (ticket.Expirado())
+        {
+            lbMensajeToken.Text = "El token ha expirado, por favor, solicite uno nuevo";
+
+            return;
+        }
 
         ticket.AltaTempranaTokenFecha = DateTime.Now;
         ticket.AltaTempranaTokenTerminal = Request.UserHostAddress;
