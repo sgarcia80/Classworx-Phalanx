@@ -109,6 +109,14 @@
       <Project>{C9E3767E-ADE2-4B50-AED1-47FC226CD539}</Project>
       <Name>NDCDAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PhalanxBL\PhalanxBL.csproj">
+      <Project>{515C8382-4032-4840-A587-9725F9F6FD19}</Project>
+      <Name>PhalanxBL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PhalanxNAL\PhalanxNAL.csproj">
+      <Project>{D31089F5-A197-4808-B865-C7062DA477AB}</Project>
+      <Name>PhalanxNAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\phxCryptMgr\phxCryptMgr.csproj">
       <Project>{F0941A5C-7856-42E9-9544-CDAC11F3C285}</Project>
       <Name>phxCryptMgr</Name>

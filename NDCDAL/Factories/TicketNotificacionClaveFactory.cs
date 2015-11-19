@@ -24,7 +24,6 @@ namespace NDCDAL.Factories
         private DateTime? _filFechaHasta;
         private string _filTipoDoc;
         private string _filDoc;
-        private bool _filFechaTyCNull = false;
         private bool? _filErrado;
         private bool? _filSinLegajo;
         private int? _filTicket;
@@ -76,10 +75,7 @@ namespace NDCDAL.Factories
             set { _filDoc = value; }
         }
 
-        public bool FilFechaTyCNull
-        {
-            set { _filFechaTyCNull = value; }
-        }
+        public bool? FilFechaTyCNull { set; get; }
 
         public bool FilErrado
         {
@@ -108,6 +104,8 @@ namespace NDCDAL.Factories
         public bool? FilMarcaEliminadaEnAD { set; private get; }
 
         public bool? FilVisualizado { set; private get; }
+
+        public bool? FilVencido { set; private get; }
 
         public TicketNotificacionClaveFactory()
         {
@@ -197,8 +195,10 @@ namespace NDCDAL.Factories
                 if (_filDoc != null)
                     DataSearch = DataSearch.Add(Expression.Eq("TNC.Documento", _filDoc));
 
-                if (_filFechaTyCNull)
-                    DataSearch = DataSearch.Add(Expression.IsNull("TNC.FechaAceptacionTyC"));
+                if (FilFechaTyCNull != null)
+                    DataSearch = FilFechaTyCNull.Value
+                        ? DataSearch.Add(Expression.IsNull("TNC.FechaAceptacionTyC"))
+                        : DataSearch.Add(Expression.IsNotNull("TNC.FechaAceptacionTyC"));
 
                 if (_filErrado != null)
                     DataSearch = DataSearch.Add(Expression.Eq("TNC.Errado", _filErrado));
@@ -239,6 +239,11 @@ namespace NDCDAL.Factories
                     DataSearch = FilVisualizado.Value
                         ? DataSearch.Add(Expression.IsNotNull("TNC.FechaAceptacionTyC"))
                         : DataSearch.Add(Expression.IsNull("TNC.FechaAceptacionTyC"));
+
+                if (FilVencido != null)
+                    DataSearch = FilVencido.Value
+                        ? DataSearch.Add(Expression.Lt("TNC.FechaExpiracionToken", DateTime.Now))
+                        : DataSearch.Add(Expression.Gt("TNC.FechaExpiracionToken", DateTime.Now));
 
                 try
                 {

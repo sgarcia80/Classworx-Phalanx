@@ -39,5 +39,6 @@
     <property column="tnc_impacta_AD" type="Boolean" name="ImpactaEnAD" not-null="true" />
     <property column="tnc_fecha_seteo_marca_AD" type="DateTime" name="FechaSeteoMarcaAD" not-null="false" />
     <property column="tnc_fecha_eliminacion_marca_AD" type="DateTime" name="FechaEliminacionMarcaAD" not-null="false" />
-	</class>
+    <property column="tnc_fecha_expiracion_token" type="DateTime" name="FechaExpiracionToken" not-null="false" />
+  </class>
 </hibernate-mapping>

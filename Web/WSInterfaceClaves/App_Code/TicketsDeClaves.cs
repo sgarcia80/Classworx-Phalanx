@@ -254,7 +254,7 @@ public class TicketsDeClaves : System.Web.Services.WebService
                         strDebug += " | Es alta de red para usuario externo y va a generar token";
                     }
                     // genera token para alta de red de usuario externo
-                    solicitudBPM.Token = bsolb.GenerateToken();
+                    bsolb.GenerateToken(solicitudBPM);
                 }
 
                 if (_debugMode)

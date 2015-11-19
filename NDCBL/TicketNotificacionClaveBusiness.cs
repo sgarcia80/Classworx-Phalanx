@@ -5,6 +5,8 @@ using phxCryptMgr;
 using NDCCommon.Entities;
 using NDCCommon.Collections;
 using NDCDAL.Factories;
+using System.Collections.Generic;
+using PhalanxBL;
 
 namespace NDCBL
 {
@@ -13,7 +15,10 @@ namespace NDCBL
     /// </summary>
     public class TicketNotificacionClaveBusiness
     {
+        private const int DEFAULT_HORAS_EXPIRACION_TOKEN = 72;
+
         private TicketNotificacionClaveFactory factory;
+        private static int? horasExpiracionToken;
 
         private TicketNotificacionClaveFactory Factory
         {
@@ -23,6 +28,24 @@ namespace NDCBL
                     factory = new TicketNotificacionClaveFactory();
 
                 return factory;
+            }
+        }
+
+        private static int HorasExpiracionToken
+        {
+            get
+            {
+                if (horasExpiracionToken == null)
+                {
+                    int horas;
+
+                    if (!int.TryParse(System.Configuration.ConfigurationManager.AppSettings["HorasExpiracionToken"], out horas))
+                        horas = DEFAULT_HORAS_EXPIRACION_TOKEN;
+
+                    horasExpiracionToken = new int?(horas);
+                }
+
+                return horasExpiracionToken.Value;
             }
         }
 
@@ -75,16 +98,22 @@ namespace NDCBL
 			return tmpCollection;
 		}
 
-        public TicketNotificacionClaveEntityCollection GetAllUsrExt(DateTime? fechaDesde, DateTime? fechaHasta, AplicacionNotificacionClaveEntity aplicacion, string dominio, string usuario, int? ticket)
+        public TicketNotificacionClaveEntityCollection GetAllUsrExt(DateTime? fechaDesde, DateTime? fechaHasta, AplicacionNotificacionClaveEntity aplicacion, string dominio, string usuario, int? ticket, bool? vencido, bool? notificado)
         {
-            return this.GetAll(fechaDesde, fechaHasta, aplicacion, dominio, usuario, ticket, true, false);
+            return this.GetAll(fechaDesde, fechaHasta, aplicacion, dominio, usuario, ticket, true, false, vencido, notificado);
         }
 
         public TicketNotificacionClaveEntityCollection GetAll(DateTime? fechaDesde, DateTime? fechaHasta, AplicacionNotificacionClaveEntity aplicacion, string dominio, string usuario)
         {
             return this.GetAll(fechaDesde, fechaHasta, aplicacion, dominio, usuario, null, null, false);
         }
+
         public TicketNotificacionClaveEntityCollection GetAll(DateTime? fechaDesde, DateTime? fechaHasta, AplicacionNotificacionClaveEntity aplicacion, string dominio, string usuario, int? ticket, bool? SinLegajo, bool? corregido)
+        {
+            return GetAll(fechaDesde, fechaHasta, aplicacion, dominio, usuario, ticket, SinLegajo, corregido, null, null);
+        }
+
+        public TicketNotificacionClaveEntityCollection GetAll(DateTime? fechaDesde, DateTime? fechaHasta, AplicacionNotificacionClaveEntity aplicacion, string dominio, string usuario, int? ticket, bool? SinLegajo, bool? corregido, bool? vencido, bool? notificado)
         {
             TicketNotificacionClaveFactory factory = new TicketNotificacionClaveFactory();
 
@@ -96,6 +125,10 @@ namespace NDCBL
             factory.FilSinLegajo = SinLegajo;
             factory.FilTicket = ticket;
             factory.FilCorregido = corregido;
+            factory.FilVencido = vencido;
+
+            if (notificado != null)
+                factory.FilFechaTyCNull = !notificado.Value;
 
             TicketNotificacionClaveEntityCollection tmpCollection = factory.GetAll();
 
@@ -256,6 +289,12 @@ namespace NDCBL
             return tickets[0];
         }
 
+        public void GenerateToken(TicketNotificacionClaveEntity ticket)
+        {
+            ticket.Token = GenerateToken();
+            ticket.FechaExpiracionToken = DateTime.Now.Add(TimeSpan.FromHours(HorasExpiracionToken));
+        }
+
         public string GenerateToken()
         {
             Guid token;
@@ -269,6 +308,72 @@ namespace NDCBL
             while (FTNC.GetByToken(token.ToString()) != null);
 
             return token.ToString();
+        }
+
+        public bool EnviarEmailAltaUsuarioRedExterno(TicketNotificacionClaveEntity solicitudBPM, out string debug)
+        {
+            debug = "";
+
+            string destino;
+            List<string> mailTo = new List<string>();
+
+            if (!string.IsNullOrEmpty(solicitudBPM.CodigoEmpresaSubsidiaria))
+            {
+                debug += " | Se busca por Subsidiaria";
+                //Subsidiaria
+                SubsidiariaBusiness subsidiariaBusiness = new SubsidiariaBusiness();
+
+                SubsidiariaEntity subsidiaria = subsidiariaBusiness.GetByCodigo(solicitudBPM.CodigoEmpresaSubsidiaria);
+
+                if (subsidiaria == null)
+                {
+                    debug += " | No se encuentra la empresa subsidiaria con código = " + solicitudBPM.CodigoEmpresaSubsidiaria;
+
+                    return false;
+                }
+
+                destino = solicitudBPM.NombreEmpresaSubsidiaria;
+
+                if (!string.IsNullOrEmpty(subsidiaria.Email01))
+                    mailTo.Add(subsidiaria.Email01);
+
+                if (!string.IsNullOrEmpty(subsidiaria.Email02))
+                    mailTo.Add(subsidiaria.Email02);
+            }
+            else
+            {
+                debug += " | Se busca por Gerencia destino";
+
+                destino = solicitudBPM.NombreGerenciaDestino;
+
+                debug += " | Busca mail en AD por legajo de solicitante";
+                string email = PhalanxNAL.ActiveDirectoryHelper.BuscarEmailPorLegajo(solicitudBPM.NumeroLegajoEmpleadoSolicitud);
+
+                if (email == null)
+                {
+                    debug += " | No se encuentra el email para el legajo = " + solicitudBPM.NumeroLegajoEmpleadoSolicitud;
+
+                    return false;
+                }
+
+                mailTo.Add(email);
+            }
+
+            debug += " | Busca Nombre de la pesrona la que se le dió de alta el usuario en AD por usuario de red";
+
+            string solicitante = PhalanxNAL.ActiveDirectoryHelper.BuscarNombrePorUsername(solicitudBPM.Usuario);
+
+            MailAlertBusiness MailToSendBL = new MailAlertBusiness();
+
+            debug += " | Envia mail";
+
+            solicitudBPM.MailId = MailToSendBL.AltaUsuarioRedExternoMail(mailTo.ToArray(), solicitante, solicitudBPM.NumeroSolicitud, solicitudBPM.Fecha, solicitudBPM.Token, destino);
+
+            debug += " | Graba ticket BPM";
+
+            Save(solicitudBPM);
+
+            return true;
         }
     }
 }

@@ -13,6 +13,8 @@ namespace PhalanxNAL
 
         private const string NOMBRE_PROPIEDAD_DESCRIPCION_AD = "description";
         private const string NOMBRE_PROPIEDAD_PATH_AD = "adspath";
+        private const string NOMBRE_PROPIEDAD_MAIL_AD = "mail";
+        private const string NOMBRE_PROPIEDAD_USERNAME_AD = "displayName";
         
         private static Dictionary<string, object> settings = new Dictionary<string, object>();
 
@@ -208,6 +210,16 @@ namespace PhalanxNAL
             }
             else
                 return BuscarUsuarioPorNombre(ldapPath, usuario, new string[] { }) != null;
+        }
+
+        public static string BuscarEmailPorLegajo(string legajo)
+        {
+            return BuscarLDAPEntryPropiedad(ConfigurationManager.AppSettings["LDAPBuscarEmailFilter"].Replace("[legajo]", legajo), NOMBRE_PROPIEDAD_MAIL_AD); 
+        }
+
+        public static string BuscarNombrePorUsername(string username)
+        {
+            return BuscarLDAPEntryPropiedad(ConfigurationManager.AppSettings["LDAPBuscarNombreFilter"].Replace("[username]", username), NOMBRE_PROPIEDAD_USERNAME_AD); 
         }
 
         private static DirectoryEntry BuscarLDAPEntry(string path, string filter, IEnumerable<string> properties)
@@ -521,6 +533,26 @@ namespace PhalanxNAL
             if (sr != null)
                 return sr.GetDirectoryEntry();
 
+            return null;
+        }
+
+        public static string BuscarLDAPEntryPropiedad(string filtro, string propiedad)
+        {
+            DirectoryEntry entry = BuscarLDAPEntry(LDAPPath, filtro, new string[] { propiedad });
+
+            if (entry != null)
+            {
+                if (entry.Properties.Contains(propiedad))
+                {
+                    if (entry.Properties[propiedad] != null)
+                        return entry.Properties[propiedad].Value.ToString();
+                    else
+                        log.Debug("El valor de la propiedad es null");
+                }
+                else
+                    log.Info("No se encuentra la propiedad " + propiedad);
+            }
+            
             return null;
         }
     }

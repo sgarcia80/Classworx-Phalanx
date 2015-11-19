@@ -114,7 +114,17 @@ namespace PhalanxAdmin
             int? iFilTicket = null;
             if (txtFilTicket.Text != "")
                 iFilTicket = Convert.ToInt32(txtFilTicket.Text);
-            _entities = TicketNotificacionClaveBL.GetAllUsrExt(ObtenerFecha(txtFDesde.Text), ObtenerFecha(txtFHasta.Text), _filApp, dominio, usuario, iFilTicket);
+
+            bool? filVencido = null;
+            bool? filNotificado = null;
+
+            if (chkVencido.Checked)
+            {
+                filVencido = true;
+                filNotificado = false;
+            }
+            
+            _entities = TicketNotificacionClaveBL.GetAllUsrExt(ObtenerFecha(txtFDesde.Text), ObtenerFecha(txtFHasta.Text), _filApp, dominio, usuario, iFilTicket, filVencido, filNotificado);
         }
 
         /// <summary>
@@ -179,8 +189,9 @@ namespace PhalanxAdmin
                 lviArr[i].SubItems.Add(strLegajo);
                 lviArr[i].SubItems.Add(ticket.TipoDocumento);
                 lviArr[i].SubItems.Add(ticket.Documento);
-                lviArr[i].SubItems.Add(ticket.FechaProcesado == null ? string.Empty : ticket.FechaProcesado.Value.ToString("dd/MM/yyyy HH:m:ss"));
+                lviArr[i].SubItems.Add(ticket.FechaAceptacionTyC == null ? string.Empty : ticket.FechaAceptacionTyC.Value.ToString("dd/MM/yyyy HH:m:ss"));
 				lviArr[i].SubItems.Add(ticket.AltaTempranaTokenFecha != null ? "Sí" : "No");
+                lviArr[i].SubItems.Add(ticket.FechaExpiracionToken == null ? string.Empty : ticket.FechaExpiracionToken.Value.ToString("dd/MM/yyyy HH:m:ss"));
                 lviArr[i].Tag = ticket.Id;
                 i++;
             }
@@ -371,6 +382,43 @@ namespace PhalanxAdmin
 				MessageBox.Show("Hubo problemas al reenviar el email", "Reenvio de email");
 			}
 		}
+
+        private void btnRegenerarToken_Click(object sender, EventArgs e)
+        {
+            if (lvLista.SelectedItems.Count < 1)
+            {
+                return;
+            }
+            try
+            {
+                int Idticket = (int)lvLista.SelectedItems[0].Tag;
+
+                TicketNotificacionClaveBusiness bsolb = new TicketNotificacionClaveBusiness();
+
+                TicketNotificacionClaveEntity ticket = bsolb.GetById(Idticket);
+
+                if (!string.IsNullOrEmpty(ticket.Token) && ticket.Expirado())
+                {
+                    bsolb.GenerateToken(ticket);
+
+                    bsolb.Save(ticket);
+
+                    string debug;
+                    
+                    if (bsolb.EnviarEmailAltaUsuarioRedExterno(ticket, out debug))
+                        MessageBox.Show("El token se regeneró con éxito", "Regeneración de token");
+                    else
+                        MessageBox.Show("El token se regeneró con éxito, pero no se pudo enviar el mail", "Regeneración de token");
+
+                }
+                else
+                    MessageBox.Show("El ticket no esta expirado", "Regeneración de token");
+            }
+            catch
+            {
+                MessageBox.Show("Hubo problemas al regenerar el token", "Regeneración de token");
+            }
+        }
     }
 }
 
