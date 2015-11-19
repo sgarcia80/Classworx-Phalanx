@@ -6,6 +6,7 @@ using PhalanxCommon.Entities;
 using PhalanxDAL.Factories;
 using PhalanxMAL;
 using System.Net.Mail;
+using System.Reflection;
 
 namespace PhalanxBL
 {
@@ -1282,7 +1283,12 @@ namespace PhalanxBL
                             .Replace("[NombreSolic]", nombreSolicitante);
         }
 
-		public void Reenviar(int MailId)
+        public void Reenviar(int MailId)
+        {
+            Reenviar(MailId, null);
+        }
+        
+        public void Reenviar(int MailId, IEnumerable<string> destinatarios)
 		{
 			MailAlertEntity mail;
 
@@ -1293,11 +1299,41 @@ namespace PhalanxBL
 			mail.Id = 0;
 			mail.SendAttemp = 0;
 
+            if (destinatarios != null)
+                SetearDestinatarios(mail, destinatarios);
+
 			mailAlertFactory.Save(mail);
 
 			SendMail(mail);
 		}
 
+        public MailAlertEntity GetMail(int MailId)
+        {
+            MailAlertFactory mailAlertFactory = new MailAlertFactory();
 
+            return mailAlertFactory.GetMailToSend(MailId);
+        }
+
+        private void SetearDestinatarios(MailAlertEntity mail, IEnumerable<string> destinatarios)
+        {
+            int i = 0;
+
+            Type mailType = mail.GetType();
+
+            foreach (string destinatario in destinatarios)
+            {
+                if (i == 0)
+                    mail.ToAddress = destinatario;
+                else if (i < 13)
+                {
+                    PropertyInfo propertyInfo = mailType.GetProperty("Cc" + i.ToString() + "Address");
+                    propertyInfo.SetValue(mail, destinatario, null);
+                }
+                else
+                    break;
+
+                i++;
+            }
+        }
     }
 }

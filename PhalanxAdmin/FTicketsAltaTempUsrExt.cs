@@ -371,11 +371,8 @@ namespace PhalanxAdmin
 
 				TicketNotificacionClaveEntity ticket = bsolb.GetById(Idticket);
 
-				MailAlertBusiness mailAlertBusiness = new MailAlertBusiness();
-
-				mailAlertBusiness.Reenviar(ticket.MailId.Value);
-
-				MessageBox.Show("Email reenviado", "Reenvio de email");
+                FReenvioMail frmReenvioMail = new FReenvioMail(ticket.MailId.Value);
+                frmReenvioMail.ShowDialog();
 			}
 			catch
 			{
