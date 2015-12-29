@@ -241,7 +241,10 @@ public partial class reqpwdviewdetail : System.Web.UI.Page
         {
             PasswordRequestBusiness tmpPwdReq = new PasswordRequestBusiness();
             PasswordRequestEntity currentPwdRqst = tmpPwdReq.Load (Convert.ToInt32(Page.Request["prid"]));
-            uint result = new PasswordRequestBusiness().GetRequestPwdBack(currentPwdRqst, 8, txtDesc.Text, (PhxUserEntity)Session["PhxUser"]);
+
+            PhxDALUtil.RequestStates state = currentPwdRqst.User is ATMUserEntity ? PhxDALUtil.RequestStates.Closed : PhxDALUtil.RequestStates.ReturnedByUser;
+
+            uint result = new PasswordRequestBusiness().GetRequestPwdBack(currentPwdRqst, (int)state, txtDesc.Text, (PhxUserEntity)Session["PhxUser"]);
 
             if (result == PhxDALUtil.SUCCESS )
             {
