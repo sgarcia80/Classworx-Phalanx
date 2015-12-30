@@ -58,36 +58,32 @@ public partial class closepwddetail : System.Web.UI.Page
                 txtFechaSol.Text = tmpPwdReq.RequestDate.ToString("dd/MM/yyyy HH:mm:ss");
                 /// si el usuario es critico, debe verificarse que haya un cambio posterior a la
                 /// devolucion
-                if (tmpPwdReq.User.UserType.Id != new UserTypeBusiness().GetUserTypeATM().Id)
+                if (tmpPwdReq.User.UserType.Id == new UserTypeBusiness().GetUserTypeATM().Id)
                 {
                     lblPwdCritical.Visible = false;
+                    
                     if(tmpPwdReq.User.ActiveUser == false)
-                    {
                         lblTxtCambioCritical.Text = "La contraseña fue desactivada en la devolución";
-                    }
                 }
-                else
+                else if (tmpPwdReq.User.Critical)
                 {
-                    if (tmpPwdReq.User.Critical)
+                    lblPwdCritical.Visible = true;
+
+                    if (tmpPwdReq.ModificadaDespuesDevolucion)
                     {
-                        lblPwdCritical.Visible = true;
-                        if (tmpPwdReq.UserPassword.DLastChange != null && tmpPwdReq.UserPassword.DLastChange.Value > tmpPwdReq.ReturnDate.Value)
-                        {
-                            /// hay un cambio luego de la devolución
-                            lblTxtCambioCritical.Visible = false;
-                            btnClose.Enabled = true;
-                        }
-                        else
-                        {
-                            lblTxtCambioCritical.Visible = true;
-                            btnClose.Enabled = false;
-                        }
+                        /// hay un cambio luego de la devolución
+                        lblTxtCambioCritical.Visible = false;
+                        btnClose.Enabled = true;
                     }
                     else
                     {
-                        lblPwdCritical.Visible = false;
+                        lblTxtCambioCritical.Visible = true;
+                        btnClose.Enabled = false;
                     }
                 }
+                else
+                    lblPwdCritical.Visible = false;
+                
                 SetUserSession(currentUser);
             }
             else
@@ -313,26 +309,10 @@ public partial class closepwddetail : System.Web.UI.Page
             int authUsrId = ((PhxUserEntity) Session["PhxUser"]).Id;
             uint result;
 
-            //if (pwdRqst.User.Critical)
-            //{
-            //    if (
-            //}
-            
-            //if (pwdRqst.User.Critical && 
-            //        (
-            //            (
-            //                pwdRqst.ReturnDate != null 
-            //                && pwdRqst.User.UserPassword != null 
-            //                && pwdRqst.User.UserPassword.DLastChange != null  
-            //                && pwdRqst.User.UserPassword.DLastChange > pwdRqst.ReturnDate.Value
-            //            )
-            //            ||
-            //            (
-            //                pwdRqst.ExpirationDate != null
-
-            //            )
-            //        )
-            //    )
+            if (pwdRqst.User.UserType.Id != new UserTypeBusiness().GetUserTypeATM().Id 
+                    && pwdRqst.User.Critical 
+                    && !pwdRqst.ModificadaDespuesDevolucion)
+                return;
 
             if (pwdRqst.User is ApplicationUserEntity)
             {
