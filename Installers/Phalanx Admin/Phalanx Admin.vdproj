@@ -895,7 +895,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:2.0.50727                                           "
+                "FrameworkVersion" = "8:2.0.50727                                            "
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=9832"
                 }
@@ -1310,7 +1310,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:phxBlowfish, Version=1.0.5812.41247, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:phxBlowfish, Version=1.0.5829.36741, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_84292E310B71AE205DDBC2492A2DB70B"
@@ -1341,7 +1341,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:phxCryptMgr, Version=1.0.5812.41250, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:phxCryptMgr, Version=1.0.5829.36742, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_874A151F34FA3A25D50D194CBE7A17B1"
@@ -1633,7 +1633,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Phalanx Admin"
         "ProductCode" = "8:{0C2D1F2F-239C-414D-8F27-84942D367F00}"
-        "PackageCode" = "8:{01A56270-CF1F-4D16-A080-35AFF76211A4}"
+        "PackageCode" = "8:{2A7B8361-E95B-4DD3-8FBA-89EB933E36D3}"
         "UpgradeCode" = "8:{8E78FDE6-B4CE-4524-9C74-9426AAF1C2E4}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
