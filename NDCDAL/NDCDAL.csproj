@@ -156,7 +156,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MappingFiles\Meta4ClassWorxUsuariosEntity.hbm.xml" />
-    <EmbeddedResource Include="MappingFiles\Meta4LegajoEntity.hbm.xml" />
+    <EmbeddedResource Include="MappingFiles\Meta4LegajoEntity.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="MappingFiles\Meta4SociedadEntity.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
