@@ -58,20 +58,18 @@ public partial class closepwddetail : System.Web.UI.Page
                 txtFechaSol.Text = tmpPwdReq.RequestDate.ToString("dd/MM/yyyy HH:mm:ss");
                 /// si el usuario es critico, debe verificarse que haya un cambio posterior a la
                 /// devolucion
-                if (tmpPwdReq.User.UserType != new UserTypeBusiness().GetUserTypeATM())
+                if (tmpPwdReq.User.UserType.Id == new UserTypeBusiness().GetUserTypeATM().Id)
                 {
                     lblPwdCritical.Visible = false;
+                    
                     if(tmpPwdReq.User.ActiveUser == false)
-                    {
                         lblTxtCambioCritical.Text = "La contraseña fue desactivada en la devolución";
-                    }
                 }
-                else
-                {
-                if (tmpPwdReq.User.Critical)
+                else if (tmpPwdReq.User.Critical)
                 {
                     lblPwdCritical.Visible = true;
-                    if (tmpPwdReq.UserPassword.DLastChange != null && tmpPwdReq.UserPassword.DLastChange.Value > tmpPwdReq.ReturnDate.Value)
+
+                    if (tmpPwdReq.ModificadaDespuesDevolucion)
                     {
                         /// hay un cambio luego de la devolución
                         lblTxtCambioCritical.Visible = false;
@@ -84,10 +82,8 @@ public partial class closepwddetail : System.Web.UI.Page
                     }
                 }
                 else
-                {
                     lblPwdCritical.Visible = false;
-                }
-            }
+                
                 SetUserSession(currentUser);
             }
             else
@@ -312,6 +308,12 @@ public partial class closepwddetail : System.Web.UI.Page
             PasswordRequestEntity pwdRqst = _PwdRqst; // PwdRqstBL.Load(Convert.ToInt32(Page.Request["prid"]));
             int authUsrId = ((PhxUserEntity) Session["PhxUser"]).Id;
             uint result;
+
+            if (pwdRqst.User.UserType.Id != new UserTypeBusiness().GetUserTypeATM().Id 
+                    && pwdRqst.User.Critical 
+                    && !pwdRqst.ModificadaDespuesDevolucion)
+                return;
+
             if (pwdRqst.User is ApplicationUserEntity)
             {
                 ApplicationUserEntity appUser = (ApplicationUserEntity)pwdRqst.User;
