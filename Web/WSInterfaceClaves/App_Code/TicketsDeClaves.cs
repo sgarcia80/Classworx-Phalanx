@@ -239,7 +239,7 @@ public class TicketsDeClaves : System.Web.Services.WebService
         {
             if (HayQueInsertar)
             {
-				bool altaUsuarioRed = ticket.CodigoAplicacion.Trim().ToLower() == bamb.GetAppRed().Codigo;
+                bool altaUsuarioRed = ticket.CodigoAplicacion.Trim().ToLower() == bamb.GetAppRed().Codigo.ToLower();
 
                 solicitudBPM.ImpactaEnAD = altaUsuarioRed;
 
@@ -280,7 +280,7 @@ public class TicketsDeClaves : System.Web.Services.WebService
                     AplicacionNotificacionClaveEntity appCobis = bamb.GetAppCobis();
 
                     //y es alta de red o cobis
-                    if (ticket.CodigoAplicacion.Trim().ToLower() == appCobis.Codigo
+                    if (ticket.CodigoAplicacion.Trim().ToLower() == appCobis.Codigo.ToLower()
 						|| altaUsuarioRed)
                     {
                         if (_debugMode)
@@ -294,7 +294,7 @@ public class TicketsDeClaves : System.Web.Services.WebService
                         Meta4Usuarios.Dominio_Red = ticket.DominioUsuario;
                         Meta4Usuarios.Id_Empleado = ticket.Legajo.Trim().PadLeft(6, '0');
                         Meta4Usuarios.Id_Sociedad = "01";
-                        if (ticket.CodigoAplicacion.Trim().ToLower() == appCobis.Codigo)
+                        if (ticket.CodigoAplicacion.Trim().ToLower() == appCobis.Codigo.ToLower())
                         { Meta4Usuarios.IdUsuarioCore = ticket.UsuarioAplicacion; }
                         else
                         { Meta4Usuarios.IdUsuarioCore = null; }
