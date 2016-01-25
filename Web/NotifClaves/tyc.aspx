@@ -525,37 +525,22 @@ ul
                                 los lineamiento definidos en el acuerdo de confidencialidad firmado.</span></p>
                         <p class="ListaconVietas">
                             <span lang="ES" style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            </span></span><span lang="ES">Los usuarios no deben comentar o difundir información
-                                de la Entidad o de terceros bajo resguardo de la Entidad, a la cual tengan acceso
-                                como por ejemplo datos de clientes, saldos u otra información clasificada como Confidencial
-                                (C-3) o Secreta (C-4). Asimismo no deben entregar a personas ajenas a la entidad
-                                información impresa o en soporte magnético con datos de la entidad, excepto en los
-                                casos que los solicite un ente externo autorizado. Ver “Norma de Clasificación de
-                                Activos de Información”.</span></p>
+                            </span></span><span lang="ES">Los usuarios no deben comentar o difundir información de la Entidad o de terceros bajo resguardo de la Entidad, a la cual tengan acceso como por ejemplo datos de clientes, saldos u otra información clasificada como Confidencial (C-3) o Secreta   (C-4). Asimismo no deben entregar a personas ajenas a la entidad información impresa o en soporte magnético con datos de la entidad, excepto en los casos que los solicite un ente externo autorizado. Ver “Norma de Clasificación de Activos de Información”.</span></p>
                         <p class="ListaconVietas">
                             <span lang="ES" style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            </span></span><span lang="ES">Los usuarios no deben almacenar información de la entidad
-                                clasificada como de Uso Interno (C-2) o mayor en equipos que no sean del Banco (computadoras
-                                portátiles, computadoras públicas o de su propiedad, etc.), con la excepción de
-                                correos electrónicos guardados o información que se deba proporcionar por contrato
-                                a un tercero (vendedor, proveedor u otra entidad).</span></p>
+                            </span></span><span lang="ES">Los usuarios no deben almacenar información de la entidad clasificada como de Uso Interno (C-2) o mayor en equipos que no sean del Banco (computadoras portátiles, computadoras públicas o de su propiedad, etc.), con la excepción de correos electrónicos guardados o información que se deba proporcionar por contrato a un tercero (vendedor, proveedor u otra entidad).</span></p>
                         <p class="ListaconVietas">
                             <span lang="ES" style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            </span></span><span lang="ES">Los usuarios deben almacenar los documentos de su autoría
-                                clasificados como información Confidencial (C-3) o Secreta (C-4) en carpetas o directorios
-                                separados de los documentos con clasificación Pública (C-1) ó Uso Interno (C-2).</span></p>
+                            </span></span><span lang="ES">Los usuarios deben almacenar los documentos de su autoría clasificados como información Confidencial (C-3) o Secreta (C-4) en carpetas o directorios separados de los documentos con clasificación Pública (C-1) ó Uso Interno (C-2).</span></p>
                         <p class="ListaconVietas">
                             <span lang="ES" style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            </span></span><span lang="ES">Los usuarios deben ser concientes sobre los riesgos existentes
-                                en su puesto de trabajo para poder identificarlos y minimizarlos. Deben considerar
-                                los riesgos relacionados con la ingeniería social a través de conversaciones telefónicas,
-                                correo de voz, fax y el uso inapropiado del correo electrónico.</span></p>
+                            </span></span><span lang="ES">Los usuarios deben ser concientes sobre los riesgos existentes en su puesto de trabajo para poder identificarlos y minimizarlos. Deben considerar los riesgos relacionados con la ingeniería social a través de conversaciones telefónicas, correo de voz, fax y el uso inapropiado del correo electrónico.</span></p>
                         <p class="ListaconVietas">
                             <span lang="ES" style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            </span></span><span lang="ES">Los usuarios no deben dejar el puesto de trabajo con su
-                                clave activa o conectada a ningún sistema y/ o aplicativo o a la red, ya que este
-                                hecho posibilita el uso indebido de la misma. Por lo tanto el usuario, ante su ausencia,
-                                debe dejar el puesto de trabajo con la pantalla de inicio de sesión.</span></p>
+                            </span></span><span lang="ES">Los usuarios no deben dejar el puesto de trabajo con su clave activa o conectada a ningún sistema y/ o aplicativo o a la red, ya que este hecho posibilita el uso indebido de la misma. Por lo tanto el usuario, ante su ausencia, debe dejar el puesto de trabajo con la pantalla de inicio de sesión.</span></p>
+                        <p class="ListaconVietas">
+                            <span lang="ES" style='font-family: Symbol'>·<span style='font: 7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </span></span><span lang="ES">Las responsabilidades respecto al resguardo y seguridad de la información confidencial como ser uso indebido, difusión, y demás directrices especificadas en el presente documento, tendrán vigentes después de la desvinculación del empleado.</span></p>
                         <h4 style='text-indent: 0cm'>
                             <a name="_Toc123379273"><span lang="ES">Incidentes de Seguridad de </span></a><span
                                 lang="ES">la Información</span></h4>
