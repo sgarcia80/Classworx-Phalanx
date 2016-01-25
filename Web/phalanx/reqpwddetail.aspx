@@ -83,7 +83,7 @@
                 <td align="center" rowspan="1" style="width: 20%; height: 21px;" valign="top">
                 </td>
                 <td align="left" style="width: auto; height: 21px;" valign="middle">
-                    <asp:Label ID="Label2" runat="server" CssClass="tdTituloSub" Width="240px">Observaciones del Usuario Autorizador</asp:Label></td>
+                    <asp:Label ID="Label2" runat="server" CssClass="tdTituloSub" Width="240px">Observaciones del Usuario Solicitante</asp:Label></td>
             </tr>
         </table>
         <table style="width: 100%; background-color: #f0f8ff;">
