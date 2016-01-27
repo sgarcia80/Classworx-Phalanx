@@ -177,14 +177,22 @@ namespace PhalanxBL
         public uint GetRequestPwdBack(PasswordRequestEntity pwdRequest, int newResquestState, string note, PhxUserEntity administrador)
         { 
             bool DisableUser = false;
-            /// si es contraseña de ATM hay que desactivarla cuando se devuelve por el usuario.
+            /// si es contraseña de ATM hay que desactivarla cuando se devuelve por el usuario y la solicitud se cierra.
             /// Queda pendiente ver si también pasa lo mismo con la expiración
+            uint RtdoDevolucion;
             if (newResquestState == 8 && pwdRequest.User is ATMUserEntity) // devuelta por el usuario
             {
                 DisableUser = true;
-            }
-            uint RtdoDevolucion = new PasswordsRequestsFactory().GetRequestPwdBack(pwdRequest.Id, newResquestState, note, administrador.Id, DisableUser);
+                RtdoDevolucion = new PasswordsRequestsFactory().GetRequestPwdBack(pwdRequest.Id, newResquestState, note, administrador.Id, DisableUser);
+                newResquestState = 11; // PhxDALUtil.RequestStates.Closed;
 
+                uint result = this.CloseRequestPwd(pwdRequest, "Cierre automático", administrador.Id, false);
+                RtdoDevolucion = new PasswordsRequestsFactory().GetRequestPwdBack(pwdRequest.Id, newResquestState, note, administrador.Id, DisableUser);
+            }
+            else
+            {
+                RtdoDevolucion = new PasswordsRequestsFactory().GetRequestPwdBack(pwdRequest.Id, newResquestState, note, administrador.Id, DisableUser);
+            }
             if (pwdRequest.User.Critical)
             {
                 pwdRequest = new PasswordsRequestsFactory().Load(pwdRequest.Id);

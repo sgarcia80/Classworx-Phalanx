@@ -242,9 +242,12 @@ public partial class reqpwdviewdetail : System.Web.UI.Page
             PasswordRequestBusiness tmpPwdReq = new PasswordRequestBusiness();
             PasswordRequestEntity currentPwdRqst = tmpPwdReq.Load (Convert.ToInt32(Page.Request["prid"]));
 
-            PhxDALUtil.RequestStates state = currentPwdRqst.User is ATMUserEntity ? PhxDALUtil.RequestStates.Closed : PhxDALUtil.RequestStates.ReturnedByUser;
+            // se devuelve la contraseña. Y en la BL es donde para ATM se cierra directamente la solicitud y se inactiva la pwd
+            uint result = new PasswordRequestBusiness().GetRequestPwdBack(currentPwdRqst, 8, txtDesc.Text, (PhxUserEntity)Session["PhxUser"]);
 
-            uint result = new PasswordRequestBusiness().GetRequestPwdBack(currentPwdRqst, (int)state, txtDesc.Text, (PhxUserEntity)Session["PhxUser"]);
+            //PhxDALUtil.RequestStates state = currentPwdRqst.User is ATMUserEntity ? PhxDALUtil.RequestStates.Closed : PhxDALUtil.RequestStates.ReturnedByUser;
+
+            //uint result = new PasswordRequestBusiness().GetRequestPwdBack(currentPwdRqst, (int)state, txtDesc.Text, (PhxUserEntity)Session["PhxUser"]);
 
             if (result == PhxDALUtil.SUCCESS )
             {
