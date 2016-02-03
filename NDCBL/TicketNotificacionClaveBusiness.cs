@@ -288,7 +288,54 @@ namespace NDCBL
 
             return tickets[0];
         }
+        public bool ReGenerateToken(TicketNotificacionClaveEntity ticket, out string MsgOut)
+        {
+            MsgOut = "";
+            try
+            {
+                ticket.Token = GenerateToken();
+                ticket.FechaExpiracionToken = DateTime.Now.Add(TimeSpan.FromHours(HorasExpiracionToken));
+                this.Save(ticket);
+                MsgOut = "El token se regeneró con éxito.";
+                // actualiza contenido del mail con nuevo token
+            }
+            catch
+            {
+                MsgOut = "Eror al regenerar el token.";
+                return false;
+            }
+            try
+            {
+                MailAlertBusiness MABL = new MailAlertBusiness();
+                if (ticket.MailId != null)
+                {
+                    string destino;
+                    string solicitante = PhalanxNAL.ActiveDirectoryHelper.BuscarNombrePorUsername(ticket.Usuario);
+                    if (!string.IsNullOrEmpty(ticket.CodigoEmpresaSubsidiaria))
+                    {
+                        destino = ticket.NombreEmpresaSubsidiaria;
+                    }
+                    else
+                    {
+                        destino = ticket.NombreGerenciaDestino;
+                    }
+                    MABL.UpdateMailRegeneraToken(ticket.MailId.Value, ticket.Token, solicitante, ticket.NumeroSolicitud, ticket.Fecha, destino);
+                }
+                else
+                {
+                    // habría que generar mail si no existe?
+                    MsgOut += " El ticket no tiene mail generado.";
+                }
+                return true;
+            }
+            catch
+            {
+                MsgOut = "Error al actualizar el mail con el token regenerado.";
+                return false;
+            }
 
+
+        }
         public void GenerateToken(TicketNotificacionClaveEntity ticket)
         {
             ticket.Token = GenerateToken();

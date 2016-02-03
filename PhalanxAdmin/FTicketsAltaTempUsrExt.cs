@@ -396,16 +396,11 @@ namespace PhalanxAdmin
 
                 if (!string.IsNullOrEmpty(ticket.Token) && ticket.Expirado())
                 {
-                    bsolb.GenerateToken(ticket);
-
-                    bsolb.Save(ticket);
-
-                    string debug;
-                    
-                    if (bsolb.EnviarEmailAltaUsuarioRedExterno(ticket, out debug))
+                    string MsgOut = "";
+                    if (bsolb.ReGenerateToken(ticket, out MsgOut))
                         MessageBox.Show("El token se regeneró con éxito", "Regeneración de token");
                     else
-                        MessageBox.Show("El token se regeneró con éxito, pero no se pudo enviar el mail", "Regeneración de token");
+                        MessageBox.Show(MsgOut, "Regeneración de token");
 
                 }
                 else

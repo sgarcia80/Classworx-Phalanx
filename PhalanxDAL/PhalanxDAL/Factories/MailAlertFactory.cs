@@ -29,6 +29,29 @@ namespace PhalanxDAL.Factories
         public MailAlertFactory()
         {
         }
+        public int Update(MailAlertEntity MailAlert)
+        {
+            ITransaction tx = null;
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                try
+                {
+                    MailAlert.CreationDate = new GetDateFactory().GetDate().GetDate;
+                    tx = session.BeginTransaction();
+                    session.Update(MailAlert);
+                    tx.Commit();
+                    return MailAlert.Id;
+                    //return true;
+                }
+                catch (Exception ex)
+                {
+                    tx.Rollback();
+                    return 0;
+                    // handle exception
+                }
+            }
+
+        }
         public int Save(MailAlertEntity MailAlert)
         {
             ITransaction tx = null;
@@ -198,6 +221,15 @@ namespace PhalanxDAL.Factories
                 throw (new CwxException(ex.Message, "MailAlertFactory GetAll()"));
             }
             return MailAlertLst;
+        }
+        public MailAlertEntity Load(int ID)
+        {
+            MailAlertEntity objPhxUsr = null;
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                objPhxUsr = (MailAlertEntity)session.Load(typeof(MailAlertEntity), ID);
+            }
+            return objPhxUsr;
         }
     }
 }

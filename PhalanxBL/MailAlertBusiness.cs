@@ -595,6 +595,20 @@ namespace PhalanxBL
                 ConfigCodes.SubjectAltaUsuarioAplicativoSeguridadPropiaMail, aplicativo, numeroSolicitud, fecha);
         }
 
+        public void UpdateMailRegeneraToken(int IdMail, string NewToken, string solicitante, int numeroSolicitud, DateTime fecha, string destino)
+        {
+            MailAlertEntity MailToUpdate = new MailAlertFactory().Load(IdMail);
+            PhxConfigBusiness PhxConfBL = new PhxConfigBusiness();
+            MailToUpdate.Body = ReplaceAltaUsuarioRedExternoBodyTokens(PhxConfBL.GetConfigParam(ConfigCodes.BodyAltaUsuarioRedExternoMail).LongTxtValue, fecha, numeroSolicitud, NewToken, destino, solicitante);
+            MailToUpdate.Subject = ReplaceAltaUsuarioRedExternoBodyTokens(PhxConfBL.GetConfigParam(ConfigCodes.SubjectAltaUsuarioRedExternoMail).ShortTxtValue, fecha, numeroSolicitud, NewToken, destino, solicitante);
+            MailAlertFactory MAF = new MailAlertFactory();
+
+            int IdMailAlert = MAF.Update(MailToUpdate);
+
+            if (IdMailAlert > 0)
+                SendMail(MailToUpdate);
+
+        }
         public int? AltaUsuarioRedExternoMail(string[] to, string solicitante, int numeroSolicitud, DateTime fecha, string token, string destino)
         {
             try
@@ -613,7 +627,7 @@ namespace PhalanxBL
                 }
                 
                 MailToSend.Body = ReplaceAltaUsuarioRedExternoBodyTokens(PhxConfBL.GetConfigParam(ConfigCodes.BodyAltaUsuarioRedExternoMail).LongTxtValue, fecha, numeroSolicitud, token, destino, solicitante);
-                MailToSend.Subject = PhxConfBL.GetConfigParam(ConfigCodes.SubjectAltaUsuarioRedExternoMail).ShortTxtValue;
+                MailToSend.Subject = ReplaceAltaUsuarioRedExternoBodyTokens(PhxConfBL.GetConfigParam(ConfigCodes.SubjectAltaUsuarioRedExternoMail).ShortTxtValue, fecha, numeroSolicitud, token, destino, solicitante);
 
                 MailAlertFactory MAF = new MailAlertFactory();
 
@@ -1335,5 +1349,6 @@ namespace PhalanxBL
                 i++;
             }
         }
+
     }
 }
