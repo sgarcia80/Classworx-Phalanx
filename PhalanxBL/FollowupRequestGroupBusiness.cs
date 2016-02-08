@@ -143,10 +143,10 @@ namespace PhalanxBL
         /// <param name="UsersPasswords"></param>
         /// <param name="Users"></param>
         public void SetPwdsToRqstGrp(FollowupRequestGroupEntity FollowupRequestGroup,
-            UserPasswordEntityCollection UsersPasswords, PhxUserEntityCollection Users)
+            UserPasswordEntityCollection UsersPasswords, PhxUserEntityCollection Users, bool ModificaPwds, bool ModificaUsrs)
         {
             FollowupRequestGroupFactory RqstGrpF = new FollowupRequestGroupFactory();
-            RqstGrpF.SetPwdsToRqstGrp(FollowupRequestGroup, UsersPasswords, Users);
+            RqstGrpF.SetPwdsToRqstGrp(FollowupRequestGroup, UsersPasswords, Users,  ModificaPwds,  ModificaUsrs);
         }
         public IList<ATMUserEntity> LoadATMPwds(FollowupRequestGroupEntity RqstGrp)
         {
