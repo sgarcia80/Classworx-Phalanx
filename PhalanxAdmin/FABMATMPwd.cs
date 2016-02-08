@@ -752,31 +752,37 @@ namespace PhalanxAdmin
                     case 2:
                     // Rechazada
                     case 3:
-                        tmpString = ((DateTime)reqpwd.Auth1Date).ToString("dd/MM/yyyy HH:mm:ss");
+                        if (reqpwd.Auth1Date != null)
+                            tmpString = ((DateTime)reqpwd.Auth1Date).ToString("dd/MM/yyyy HH:mm:ss");
                         break;
                     // Visualizada
                     case 4:
-                        tmpString = ((DateTime)reqpwd.Auth1Date).ToString("dd/MM/yyyy HH:mm:ss");
+                        if (reqpwd.Auth1Date != null)
+                            tmpString = ((DateTime)reqpwd.Auth1Date).ToString("dd/MM/yyyy HH:mm:ss");
                         break;
                     // Asignaciones
                     case 5:
                     case 6:
                     case 7:
-                        tmpString = ((DateTime)reqpwd.Auth1Date).ToString("dd/MM/yyyy HH:mm:ss");
+                        if (reqpwd.Auth1Date != null)
+                            tmpString = ((DateTime)reqpwd.Auth1Date).ToString("dd/MM/yyyy HH:mm:ss");
                         break;
                     // Devuelta por el usuario
                     case 8:
                     // Devuelta por el administrador
                     case 9:
-                        tmpString = ((DateTime)reqpwd.ReturnDate).ToString("dd/MM/yyyy HH:mm:ss");
+                        if (reqpwd.ReturnDate != null)
+                            tmpString = ((DateTime)reqpwd.ReturnDate).ToString("dd/MM/yyyy HH:mm:ss");
                         break;
                     // Expirada
                     case 10:
-                        tmpString = ((DateTime)reqpwd.ExpirationDate).ToString("dd/MM/yyyy HH:mm:ss");
+                        if (reqpwd.ExpirationDate != null)
+                            tmpString = ((DateTime)reqpwd.ExpirationDate).ToString("dd/MM/yyyy HH:mm:ss");
                         break;
                     // Cerrada
                     case 11:
-                        tmpString = ((DateTime)reqpwd.CloseDate).ToString("dd/MM/yyyy HH:mm:ss");
+                        if (reqpwd.CloseDate != null)
+                            tmpString = ((DateTime)reqpwd.CloseDate).ToString("dd/MM/yyyy HH:mm:ss");
                         break;
                 }
                 lviArr[i].SubItems.Add(tmpString);
