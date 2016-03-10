@@ -116,6 +116,27 @@ namespace PhalanxBL
                 case ConfigCodes.DominiosLoginNDC:
                     strParamCode = "@DOM_LOGIN_NDC@";
                     break;
+                case ConfigCodes.LoginASBlanqueoWSCOBIS:
+                    strParamCode = "@U_LOGIN_AS_BLANQUEO_WSCOBIS@";
+                    break;
+                case ConfigCodes.ClaveASBlanqueoWSCOBIS:
+                    strParamCode = "@C_CLAVE_AS_BLANQUEO_WSCOBIS@";
+                    break;
+                case ConfigCodes.RolASBlanqueoWSCOBIS:
+                    strParamCode = "@ROL_AS_BLANQUEO_WSCOBIS@";
+                    break;
+                case ConfigCodes.OficinaASBlanqueoWSCOBIS:
+                    strParamCode = "@OFICINA_AS_BLANQUEO_WSCOBIS@";
+                    break;
+                case ConfigCodes.ServidorASBlanqueoWSCOBIS:
+                    strParamCode = "@SERVIDOR_AS_BLANQUEO_WSCOBIS@";
+                    break;
+                case ConfigCodes.ClaveBlanqueoWSCOBIS:
+                    strParamCode = "@C_CLAVE_BLANQUEO_WSCOBIS@";
+                    break;
+                case ConfigCodes.LoginBlanqueoWSCOBIS:
+                    strParamCode = "@U_LOGIN_BLANQUEO_WSCOBIS@";
+                    break;
                 default:
                     break;
             }
@@ -146,8 +167,8 @@ namespace PhalanxBL
         {
             PhxConfigFactory ConfFac = new PhxConfigFactory();
             PhxConfigEntity ConfigParam = ConfFac.GetConfigParam(this.ParamCodeToString(ParamCode));
-            if ((!AllowNull && ConfigParam == null) 
-                || (AllowNull && ConfigParam != null && !(ValueEmpty) && ConfigParam.ShortTxtValue == "" 
+            if ((!AllowNull && ConfigParam == null)
+                || (AllowNull && ConfigParam != null && !(ValueEmpty) && ConfigParam.ShortTxtValue == ""
                 && ConfigParam.LongTxtValue == ""))
             {
                 throw new CwxException("Parámetro no seteado");
@@ -219,11 +240,17 @@ namespace PhalanxBL
         public PhxConfigEntityCollection GetWSCOBISParams()
         {
             PhxConfigEntityCollection ConfEC = new PhxConfigEntityCollection();
-            
+
             ConfEC.Add(this.GetConfigParam(ConfigCodes.UsuarioLlamadaWSCOBIS));
             ConfEC.Add(this.GetConfigParam(ConfigCodes.IDAplicacionWSCOBIS));
             ConfEC.Add(this.GetConfigParam(ConfigCodes.EstadoWSCOBIS));
             ConfEC.Add(this.GetConfigParam(ConfigCodes.QuienLlamaWSCOBIS));
+
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.LoginASBlanqueoWSCOBIS));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.ClaveASBlanqueoWSCOBIS));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.RolASBlanqueoWSCOBIS));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.OficinaASBlanqueoWSCOBIS));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.ServidorASBlanqueoWSCOBIS));
 
             return ConfEC;
         }

@@ -37,10 +37,17 @@ namespace PhalanxCommon.Entities
         EstadoWSCOBIS,
         QuienLlamaWSCOBIS,
         AutenticacionLoginNDC,
-        DominiosLoginNDC
+        DominiosLoginNDC,
+        LoginASBlanqueoWSCOBIS,
+        ClaveASBlanqueoWSCOBIS,
+        RolASBlanqueoWSCOBIS,
+        OficinaASBlanqueoWSCOBIS,
+        ServidorASBlanqueoWSCOBIS,
+        ClaveBlanqueoWSCOBIS,
+        LoginBlanqueoWSCOBIS
     }
 
-    
+
     [Serializable]
     public class PhxConfigEntity : BaseEntity
     {
@@ -114,15 +121,15 @@ namespace PhalanxCommon.Entities
             }
         }
 
-        		/// <summary>
-		/// Returns whether or not the object has changed it's values.
-		/// </summary>
-		public bool IsChanged
-		{
-			get { return m_isChanged; }
-		}
-				
-		#endregion 
+        /// <summary>
+        /// Returns whether or not the object has changed it's values.
+        /// </summary>
+        public bool IsChanged
+        {
+            get { return m_isChanged; }
+        }
+
+        #endregion
 
         public override string Key
         {

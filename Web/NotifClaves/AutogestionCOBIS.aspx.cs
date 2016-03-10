@@ -24,4 +24,8 @@ public partial class AutogestionCOBIS : System.Web.UI.Page
         Response.Redirect("DesbloqueoUsuarioCOBIS.aspx");
 
     }
+    protected void btnCambioClave_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("CambioContrasenia.aspx");
+    }
 }

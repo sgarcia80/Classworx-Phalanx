@@ -16,7 +16,7 @@
             <td colspan="2" align="center">
                 <br />
                 <asp:Button ID="btnCambioClave" Text="Cambio de Clave" CssClass="btn" 
-                    Width="180px" runat="server" Visible="False" />
+                    Width="180px" runat="server" onclick="btnCambioClave_Click"/>
             </td>
         </tr>
     </table>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:tns3="http://transport.webservices.cts.ast" xmlns:intf="http://webservices.cts.ast" xmlns:wsi="http://ws-i.org/profiles/basic/1.1/xsd" xmlns:tns2="http://domain.webservices.common.cts.ast" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:impl="http://webservices.cts.ast" targetNamespace="http://webservices.cts.ast" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://domain.webservices.common.cts.ast">
+      <xsd:complexType name="RequestConnection">
+        <xsd:sequence>
+          <xsd:element name="user" nillable="true" type="xsd:string" />
+          <xsd:element name="password" nillable="true" type="xsd:string" />
+          <xsd:element name="applicationID" nillable="true" type="xsd:string" />
+          <xsd:element name="sessionID" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ServiceError">
+        <xsd:sequence>
+          <xsd:element name="code" nillable="true" type="xsd:long" />
+          <xsd:element name="message" nillable="true" type="xsd:string" />
+          <xsd:element name="type" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://webservices.cts.ast">
+      <xsd:import namespace="http://transport.webservices.cts.ast" />
+      <xsd:import namespace="http://domain.webservices.common.cts.ast" />
+      <xsd:element name="executeResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="executeReturn" nillable="true" type="tns3:ADCambioContraseniaRes" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="execute">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestConnection" nillable="true" type="tns2:RequestConnection" />
+            <xsd:element name="CambioContraseniaFil" nillable="true" type="tns3:ADCambioContraseniaFil" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://transport.webservices.cts.ast">
+      <xsd:import namespace="http://domain.webservices.common.cts.ast" />
+      <xsd:complexType name="ADCambioContraseniaFil">
+        <xsd:sequence>
+          <xsd:element name="i_u_login_adminseg" nillable="true" type="xsd:string" />
+          <xsd:element name="i_c_clave_adminseg" nillable="true" type="xsd:string" />
+          <xsd:element name="i_rol_adminseg" nillable="true" type="xsd:string" />
+          <xsd:element name="i_oficina_adminseg" nillable="true" type="xsd:string" />
+          <xsd:element name="i_servidor_adminseg" nillable="true" type="xsd:string" />
+          <xsd:element name="i_c_clave" nillable="true" type="xsd:string" />
+          <xsd:element name="i_u_login" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ADCambioContraseniaRes">
+        <xsd:sequence>
+          <xsd:element name="serviceError" nillable="true" type="tns2:ServiceError" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="executeRequest">
+    <wsdl:part name="parameters" element="impl:execute" />
+  </wsdl:message>
+  <wsdl:message name="executeResponse">
+    <wsdl:part name="parameters" element="impl:executeResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ADCambioContrasenia">
+    <wsdl:operation name="execute">
+      <wsdl:input name="executeRequest" message="impl:executeRequest" />
+      <wsdl:output name="executeResponse" message="impl:executeResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ADCambioContraseniaSoapBinding" type="impl:ADCambioContrasenia">
+    <wsaw:UsingAddressing wsdl:required="false" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" />
+    <wsdlsoap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="execute">
+      <wsdlsoap:operation soapAction="execute" />
+      <wsdl:input name="executeRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="executeResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ADCambioContraseniaService">
+    <wsdl:port name="ADCambioContrasenia" binding="impl:ADCambioContraseniaSoapBinding">
+      <wsdlsoap:address location="http://SDG001:8089/mockADCambioContraseniaSoapBinding" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
