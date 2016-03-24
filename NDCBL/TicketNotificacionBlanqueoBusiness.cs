@@ -70,15 +70,15 @@ namespace NDCBL
             factory.Delete(entidad);
         }
 
-        //public string EncriptarPassword(string pass)
-        //{
-        //    return new CCryptMgr().encrypt(pass);
-        //}
+        public string EncriptarPassword(string pass)
+        {
+            return new CCryptMgr().encrypt(pass);
+        }
 
-        //public static string DesencriptarPassword(string pass)
-        //{
-        //    return new CCryptMgr().decryptAndClearBadChars(pass);
-        //}
+        public string DesencriptarPassword(string pass)
+        {
+            return new CCryptMgr().decryptAndClearBadChars(pass);
+        }
 
         public TicketNotificacionBlanqueoEntityCollection GetAllByUser(string dominio, string usuario)
         {
@@ -159,9 +159,9 @@ namespace NDCBL
         //    Factory.SaveBPMSolicitud(ticket);
         //}
 
-        public void Save(TicketNotificacionBlanqueoEntity ticket)
+        public int Save(TicketNotificacionBlanqueoEntity ticket)
         {
-            Factory.Save(ticket);
+            return Factory.Save(ticket);
         }
         
         public TicketNotificacionBlanqueoEntity Load(int Id)

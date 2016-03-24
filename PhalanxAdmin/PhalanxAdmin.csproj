@@ -124,6 +124,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FABMNotifBlanqueo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FABMNotifBlanqueo.Designer.cs">
+      <DependentUpon>FABMNotifBlanqueo.cs</DependentUpon>
+    </Compile>
     <Compile Include="FNotifBlanqueos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -805,6 +811,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FABMNotifBlanqueo.resx">
+      <DependentUpon>FABMNotifBlanqueo.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="FNotifBlanqueos.resx">
       <DependentUpon>FNotifBlanqueos.cs</DependentUpon>
       <SubType>Designer</SubType>

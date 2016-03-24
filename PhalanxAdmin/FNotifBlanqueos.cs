@@ -254,39 +254,55 @@ namespace PhalanxAdmin
         private void CargaComboAplicaciones()
         {
             AplicacionNotificacionClaveBusiness business = new AplicacionNotificacionClaveBusiness();
-            //ProvinciaEntityCollection ProvEC
             this._aplicaciones = business.GetAll();
+
+            this._aplicaciones.Insert(0, new AplicacionNotificacionClaveEntity { Id = 0, Nombre = "Todas" });
+
             cbAplicacion.DataSource = this._aplicaciones;
         }
 
         private void lnkModify_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            DialogResult result = Seleccionar(true);
 
-            //FAltaPc fAltaPcs = new FAltaPc(FAltaPc.FormType.Update, lvLista.SelectedItems[0].Tag);
-            //fAltaPcs.Title = "Modificación de Equipo Windows";
-            //if (fAltaPcs.ShowDialog() == DialogResult.OK)
-            //{
-            //    ExecEntitiesRefresh();
-            //}
+            if (result == DialogResult.OK)
+            {
+                ExecEntitiesRefresh();
+            }
         }
 
         private void lnkView_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            //FAltaPc fAltaPcs = new FAltaPc(FAltaPc.FormType.View, lvLista.SelectedItems[0].Tag);
-            //fAltaPcs.Title = "Visualización de Equipo Windows";
-            //fAltaPcs.ShowDialog();
+            Seleccionar(false);
         }
+
         private void lnkAdd_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            //FAltaPc fAltaPcs = new FAltaPc(FAltaPc.FormType.New, true); // el 2do param si es true es para win
-            //fAltaPcs.Title = "Nuevo Equipo Windows";
-            //if (fAltaPcs.ShowDialog() == DialogResult.OK)
-            //{
-            //    ExecEntitiesRefresh();
-            //}
+            FABMNotifBlanqueo form = new FABMNotifBlanqueo(0, false, FABMNotifBlanqueo.FormType.New);
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                ExecEntitiesRefresh();
+            }
 
         }
 
+        private void lvLista_DoubleClick(object sender, EventArgs e)
+        {
+            if (lvLista.SelectedItems != null && lvLista.SelectedItems.Count > 0)
+            {
+                Seleccionar(false);
+            }
+        }
+
+        private DialogResult Seleccionar(bool edit)
+        {
+            TicketNotificacionBlanqueoEntity ticket = lvLista.SelectedItems[0].Tag as TicketNotificacionBlanqueoEntity;
+
+            FABMNotifBlanqueo form = new FABMNotifBlanqueo(ticket.Id, !edit, FABMNotifBlanqueo.FormType.View);
+
+            return form.ShowDialog();
+        }
     }
 
 }

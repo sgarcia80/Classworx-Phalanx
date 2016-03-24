@@ -60,7 +60,7 @@ namespace NDCDAL.Factories
             //
         }
 
-        public void Save(TicketNotificacionBlanqueoEntity entidad)
+        public int Save(TicketNotificacionBlanqueoEntity entidad)
         {
             ITransaction tx = null;
             using (ISession session = DBMgr.factory.OpenSession())
@@ -69,10 +69,10 @@ namespace NDCDAL.Factories
                 {
                     // crear la PC
                     tx = session.BeginTransaction();
+
                     session.SaveOrUpdate(entidad);
-                    //session.Refresh(entidad);
+                                        
                     tx.Commit();
-                    session.Refresh(entidad);
                 }
                 catch (Exception e)
                 {
@@ -81,6 +81,8 @@ namespace NDCDAL.Factories
                     throw e; //new SystemException(e.Message);
                 }
             }
+
+            return entidad.Id;
         }
 
         public void Delete(TicketNotificacionBlanqueoEntity entidad)

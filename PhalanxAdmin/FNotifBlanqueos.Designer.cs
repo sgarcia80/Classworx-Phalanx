@@ -34,6 +34,8 @@ namespace PhalanxAdmin
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FNotifBlanqueos));
             this.pnlFilters = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtFilDominio = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.cbAplicacion = new System.Windows.Forms.ComboBox();
             this.labelApp = new System.Windows.Forms.Label();
             this.btnLimpiar = new System.Windows.Forms.Button();
@@ -47,16 +49,13 @@ namespace PhalanxAdmin
             this.pnlList = new System.Windows.Forms.Panel();
             this.lvLista = new System.Windows.Forms.ListView();
             this.colUsuarioApp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colFecha = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.bwRefreshEntities = new System.ComponentModel.BackgroundWorker();
             this.xppnlPCs = new UIComponents.XPPanel(141);
             this.lnkView = new System.Windows.Forms.LinkLabel();
             this.lnkDelete = new System.Windows.Forms.LinkLabel();
-            this.lnkModify = new System.Windows.Forms.LinkLabel();
             this.lnkAdd = new System.Windows.Forms.LinkLabel();
-            this.colFecha = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.txtFilDominio = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             colAplicacion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             colDominioApp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
@@ -84,7 +83,6 @@ namespace PhalanxAdmin
             // 
             this.xppnlMenu.ImageItems.ImageSet = null;
             this.xppnlMenu.Location = new System.Drawing.Point(8, 157);
-            this.xppnlMenu.Size = new System.Drawing.Size(167, 485);
             // 
             // colAplicacion
             // 
@@ -121,6 +119,22 @@ namespace PhalanxAdmin
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de búsqueda";
+            // 
+            // txtFilDominio
+            // 
+            this.txtFilDominio.Location = new System.Drawing.Point(73, 20);
+            this.txtFilDominio.Name = "txtFilDominio";
+            this.txtFilDominio.Size = new System.Drawing.Size(143, 20);
+            this.txtFilDominio.TabIndex = 16;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(11, 23);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(45, 13);
+            this.label1.TabIndex = 17;
+            this.label1.Text = "Dominio";
             // 
             // cbAplicacion
             // 
@@ -233,6 +247,7 @@ namespace PhalanxAdmin
             colDominioApp,
             this.colUsuarioApp,
             this.colFecha});
+            this.lvLista.FullRowSelect = true;
             this.lvLista.HideSelection = false;
             this.lvLista.Location = new System.Drawing.Point(18, 16);
             this.lvLista.MultiSelect = false;
@@ -243,11 +258,19 @@ namespace PhalanxAdmin
             this.lvLista.TabIndex = 1;
             this.lvLista.UseCompatibleStateImageBehavior = false;
             this.lvLista.View = System.Windows.Forms.View.Details;
+            this.lvLista.DoubleClick += new System.EventHandler(this.lvLista_DoubleClick);
             // 
             // colUsuarioApp
             // 
             this.colUsuarioApp.Text = "Usuario App";
             this.colUsuarioApp.Width = 144;
+            // 
+            // colFecha
+            // 
+            this.colFecha.Tag = "DateTime";
+            this.colFecha.Text = "Fecha";
+            this.colFecha.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.colFecha.Width = 117;
             // 
             // imageList
             // 
@@ -276,7 +299,6 @@ namespace PhalanxAdmin
             this.xppnlPCs.CaptionUnderline = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.xppnlPCs.Controls.Add(this.lnkView);
             this.xppnlPCs.Controls.Add(this.lnkDelete);
-            this.xppnlPCs.Controls.Add(this.lnkModify);
             this.xppnlPCs.Controls.Add(this.lnkAdd);
             this.xppnlPCs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.xppnlPCs.ForeColor = System.Drawing.SystemColors.WindowText;
@@ -287,7 +309,7 @@ namespace PhalanxAdmin
             this.xppnlPCs.PanelGradient.End = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(223)))), ((int)(((byte)(247)))));
             this.xppnlPCs.PanelGradient.Start = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(223)))), ((int)(((byte)(247)))));
             this.xppnlPCs.PanelGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            this.xppnlPCs.Size = new System.Drawing.Size(167, 141);
+            this.xppnlPCs.Size = new System.Drawing.Size(184, 141);
             this.xppnlPCs.TabIndex = 4;
             this.xppnlPCs.TextColors.Foreground = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(93)))), ((int)(((byte)(198)))));
             this.xppnlPCs.TextHighlightColors.Foreground = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(142)))), ((int)(((byte)(255)))));
@@ -300,7 +322,7 @@ namespace PhalanxAdmin
             this.lnkView.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.lnkView.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.lnkView.LinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkView.Location = new System.Drawing.Point(17, 92);
+            this.lnkView.Location = new System.Drawing.Point(18, 71);
             this.lnkView.Name = "lnkView";
             this.lnkView.Size = new System.Drawing.Size(61, 13);
             this.lnkView.TabIndex = 11;
@@ -316,7 +338,7 @@ namespace PhalanxAdmin
             this.lnkDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.lnkDelete.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.lnkDelete.LinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkDelete.Location = new System.Drawing.Point(17, 113);
+            this.lnkDelete.Location = new System.Drawing.Point(18, 92);
             this.lnkDelete.Name = "lnkDelete";
             this.lnkDelete.Size = new System.Drawing.Size(51, 13);
             this.lnkDelete.TabIndex = 10;
@@ -324,22 +346,6 @@ namespace PhalanxAdmin
             this.lnkDelete.Text = "Eliminar";
             this.lnkDelete.Visible = false;
             this.lnkDelete.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
-            // 
-            // lnkModify
-            // 
-            this.lnkModify.ActiveLinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkModify.AutoSize = true;
-            this.lnkModify.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.lnkModify.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.lnkModify.LinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkModify.Location = new System.Drawing.Point(17, 71);
-            this.lnkModify.Name = "lnkModify";
-            this.lnkModify.Size = new System.Drawing.Size(59, 13);
-            this.lnkModify.TabIndex = 9;
-            this.lnkModify.TabStop = true;
-            this.lnkModify.Text = "Modificar";
-            this.lnkModify.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkModify.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkModify_LinkClicked);
             // 
             // lnkAdd
             // 
@@ -356,28 +362,6 @@ namespace PhalanxAdmin
             this.lnkAdd.Text = "Agregar";
             this.lnkAdd.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
             this.lnkAdd.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAdd_LinkClicked);
-            // 
-            // colFecha
-            // 
-            this.colFecha.Text = "Fecha";
-            this.colFecha.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.colFecha.Width = 117;
-            // 
-            // txtFilDominio
-            // 
-            this.txtFilDominio.Location = new System.Drawing.Point(73, 20);
-            this.txtFilDominio.Name = "txtFilDominio";
-            this.txtFilDominio.Size = new System.Drawing.Size(143, 20);
-            this.txtFilDominio.TabIndex = 16;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(11, 23);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(45, 13);
-            this.label1.TabIndex = 17;
-            this.label1.Text = "Dominio";
             // 
             // FNotifBlanqueos
             // 
@@ -429,7 +413,6 @@ namespace PhalanxAdmin
         private UIComponents.XPPanel xppnlPCs;
         protected System.Windows.Forms.LinkLabel lnkView;
         protected System.Windows.Forms.LinkLabel lnkDelete;
-        protected System.Windows.Forms.LinkLabel lnkModify;
         protected System.Windows.Forms.LinkLabel lnkAdd;
         private System.Windows.Forms.ImageList imageList;
         private System.Windows.Forms.ColumnHeader colFecha;
