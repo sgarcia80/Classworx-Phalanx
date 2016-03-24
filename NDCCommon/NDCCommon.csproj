@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="Collections\AplicacionNotificacionClaveEntityCollectionCollection.cs" />
     <Compile Include="Collections\AuditTicketNotificacionEntityCollection.cs" />
+    <Compile Include="Collections\TicketNotificacionBlanqueoEntityCollection.cs" />
     <Compile Include="Collections\SubsidiariaEntityCollectionCollection.cs" />
     <Compile Include="Collections\DominioLoginEntityCollection.cs" />
     <Compile Include="Collections\Meta4ClassWorxUsuariosEntityCollection.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Collections\TicketNotificacionClaveEntityCollection.cs" />
     <Compile Include="Entities\AplicacionNotificacionClaveEntity.cs" />
     <Compile Include="Entities\AuditTicketNotificacionEntity.cs" />
+    <Compile Include="Entities\TicketNotificacionBlanqueoEntity.cs" />
     <Compile Include="Entities\DominioLoginEntity.cs" />
     <Compile Include="Entities\Meta4ClassWorxUsuariosEntity.cs" />
     <Compile Include="Entities\Meta4LegajoEntity.cs" />

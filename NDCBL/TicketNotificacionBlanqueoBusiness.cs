@@ -1,0 +1,387 @@
+using System;
+using System.Data;
+using System.Configuration;
+using phxCryptMgr;
+using NDCCommon.Entities;
+using NDCCommon.Collections;
+using NDCDAL.Factories;
+using System.Collections.Generic;
+using PhalanxBL;
+
+namespace NDCBL
+{
+    /// <summary>
+    /// Summary description
+    /// </summary>
+    public class TicketNotificacionBlanqueoBusiness
+    {
+        private const int DEFAULT_HORAS_EXPIRACION_TOKEN = 72;
+
+        private TicketNotificacionBlanqueoFactory factory;
+        private static int? horasExpiracionToken;
+
+        private TicketNotificacionBlanqueoFactory Factory
+        {
+            get
+            {
+                if (factory == null)
+                    factory = new TicketNotificacionBlanqueoFactory();
+
+                return factory;
+            }
+        }
+
+        //private static int HorasExpiracionToken
+        //{
+        //    get
+        //    {
+        //        if (horasExpiracionToken == null)
+        //        {
+        //            int horas;
+
+        //            if (!int.TryParse(System.Configuration.ConfigurationManager.AppSettings["HorasExpiracionToken"], out horas))
+        //                horas = DEFAULT_HORAS_EXPIRACION_TOKEN;
+
+        //            horasExpiracionToken = new int?(horas);
+        //        }
+
+        //        return horasExpiracionToken.Value;
+        //    }
+        //}
+
+        public TicketNotificacionBlanqueoBusiness()
+        {
+            //
+            // TODO: Add constructor logic here
+            //
+        }
+
+        public void Create(TicketNotificacionBlanqueoEntity entidad)
+        {
+            TicketNotificacionBlanqueoFactory factory = new TicketNotificacionBlanqueoFactory();
+
+            factory.Save(entidad);
+        }
+
+        public void Delete(TicketNotificacionBlanqueoEntity entidad)
+        {
+            TicketNotificacionBlanqueoFactory factory = new TicketNotificacionBlanqueoFactory();
+
+            factory.Delete(entidad);
+        }
+
+        //public string EncriptarPassword(string pass)
+        //{
+        //    return new CCryptMgr().encrypt(pass);
+        //}
+
+        //public static string DesencriptarPassword(string pass)
+        //{
+        //    return new CCryptMgr().decryptAndClearBadChars(pass);
+        //}
+
+        public TicketNotificacionBlanqueoEntityCollection GetAllByUser(string dominio, string usuario)
+        {
+            TicketNotificacionBlanqueoFactory factory = new TicketNotificacionBlanqueoFactory();
+
+            TicketNotificacionBlanqueoEntityCollection tmpCollection = factory.GetAllByUser(dominio, usuario);
+
+            return tmpCollection;
+        }
+
+        public TicketNotificacionBlanqueoEntityCollection GetAll(DateTime? fechaDesde, DateTime? fechaHasta, AplicacionNotificacionClaveEntity aplicacion, string dominio, string usuario)
+        {
+            return this.GetAll(fechaDesde, fechaHasta, aplicacion, dominio, usuario, null, null, false);
+        }
+
+        public TicketNotificacionBlanqueoEntityCollection GetAll(DateTime? fechaDesde, DateTime? fechaHasta, AplicacionNotificacionClaveEntity aplicacion, string dominio, string usuario, int? ticket, bool? SinLegajo, bool? corregido)
+        {
+            return GetAll(fechaDesde, fechaHasta, aplicacion, dominio, usuario, ticket, SinLegajo, corregido, null, null);
+        }
+
+        public TicketNotificacionBlanqueoEntityCollection GetAll(DateTime? fechaDesde, DateTime? fechaHasta, AplicacionNotificacionClaveEntity aplicacion, string dominio, string usuario, int? ticket, bool? SinLegajo, bool? corregido, bool? vencido, bool? notificado)
+        {
+            TicketNotificacionBlanqueoFactory factory = new TicketNotificacionBlanqueoFactory();
+
+            factory.FilAplicacion = aplicacion;
+            factory.FilDominio = dominio;
+            factory.FilUsuario = usuario;
+            factory.FilFechaDesde = fechaDesde;
+            factory.FilFechaHasta = fechaHasta;
+            
+            TicketNotificacionBlanqueoEntityCollection tmpCollection = factory.GetAll();
+
+            return tmpCollection;
+        }
+        
+        public TicketNotificacionBlanqueoEntity GetById(int id)
+        {
+            return Factory.GetById(id);
+        }
+
+        //public TicketNotificacionBlanqueoEntity GetByToken(string token)
+        //{
+        //    return Factory.GetByToken(token);
+        //}
+
+        //public TicketNotificacionBlanqueoEntity GetAltaTempranaTicket(string tipoDocumento, string documento)
+        //{
+        //    AplicacionNotificacionClaveBusiness appBusiness = new AplicacionNotificacionClaveBusiness();
+
+        //    Factory.FilTipoDocumento = tipoDocumento;
+        //    Factory.FilDocumento = documento;
+        //    Factory.FilAplicacion = appBusiness.GetAppRed();
+        //    Factory.FilFechaTyCNull = true;
+        //    Factory.FilErrado = false;
+
+        //    TicketNotificacionBlanqueoEntityCollection tickets = Factory.GetAll();
+
+        //    if (tickets.Count < 1)
+        //        return null;
+
+        //    TicketNotificacionBlanqueoEntity ticket = tickets[0];
+
+        //    return tickets[0];
+        //}
+
+        //public void AceptarTyC(int id)
+        //{
+        //    AceptarTyC(GetById(id));
+        //}
+
+        //public void AceptarTyC(TicketNotificacionBlanqueoEntity ticket)
+        //{
+        //    if (ticket == null)
+        //        return;
+
+        //    ticket.FechaAceptacionTyC = DateTime.Now;
+
+        //    Factory.SaveBPMSolicitud(ticket);
+        //}
+
+        public void Save(TicketNotificacionBlanqueoEntity ticket)
+        {
+            Factory.Save(ticket);
+        }
+        
+        public TicketNotificacionBlanqueoEntity Load(int Id)
+        {
+            return new TicketNotificacionBlanqueoFactory().Load(Id);
+        }
+        
+        //public TicketNotificacionBlanqueoEntity LoadTktRed(int Id)
+        //{
+
+        //    TicketNotificacionBlanqueoEntity Ticket = new TicketNotificacionBlanqueoEntity();
+        //    string strErrorMsg = "";
+        //    try
+        //    {
+        //        strErrorMsg = "No se exite la aplicación correspondiente a altas de Red.";
+        //        AplicacionNotificacionClaveEntity FilApp = new AplicacionNotificacionClaveBusiness().GetAppRed();
+
+        //        strErrorMsg = "No se encuentra el ticket informado";
+        //        Ticket = this.Load(Id);
+        //        if (Ticket == null)
+        //            throw new Exception();
+
+        //        strErrorMsg = "El ticket informado no corresponde a Alta de Red";
+        //        if (Ticket.Aplicacion.Id != FilApp.Id)
+        //            throw new Exception();
+
+        //        strErrorMsg = "El ticket informado no corresponde a un recurso externo";
+        //        if (Ticket.Legajo != null && Ticket.Legajo != "")
+        //            throw new Exception();
+        //    }
+        //    catch
+        //    {
+        //        throw new Common.CwxException(strErrorMsg);
+        //    }
+        //    return Ticket;
+        //}
+
+        //public void SetProcesoTicket(int IdTicket, DateTime FechaProcesado)
+        //{
+        //    TicketNotificacionBlanqueoEntity Ticket = this.Load(IdTicket);
+        //    Ticket.FechaProcesado = FechaProcesado;
+        //    TicketNotificacionBlanqueoFactory FTNC = new TicketNotificacionBlanqueoFactory();
+        //    FTNC.SaveBPMSolicitud(Ticket);
+
+        //}
+
+        //public void SetNombreUsuarioAplicacion(int IdTicket, string nombreUsuario)
+        //{
+        //    TicketNotificacionBlanqueoEntity ticket = this.Load(IdTicket);
+
+        //    if (ticket == null)
+        //        throw new Common.CwxException("No se encuentra el ticket.");
+
+        //    bool esAplicacionRed = false;
+
+        //    AplicacionNotificacionClaveBusiness ancb = new AplicacionNotificacionClaveBusiness();
+
+        //    AplicacionNotificacionClaveEntity appRed = ancb.GetAppRed();
+
+        //    if (appRed == null)
+        //        throw new Common.CwxException("No se encuentra la app correspondiente a altas de Red.");
+
+        //    esAplicacionRed = ticket.Aplicacion.Codigo == appRed.Codigo;
+
+        //    ticket.UsuarioAplicacion = nombreUsuario;
+
+        //    TicketNotificacionBlanqueoFactory FTNC = new TicketNotificacionBlanqueoFactory();
+
+        //    FTNC.UpdateUsuarioAplicacion(ticket, esAplicacionRed);
+        //}
+
+        //public TicketNotificacionBlanqueoEntity GetDuplicado(int idSolicitud, AplicacionNotificacionClaveEntity aplicacion)
+        //{
+        //    AplicacionNotificacionClaveBusiness appBusiness = new AplicacionNotificacionClaveBusiness();
+
+        //    Factory.FilTicket = idSolicitud;
+        //    Factory.FilAplicacion = aplicacion;
+
+        //    TicketNotificacionBlanqueoEntityCollection tickets = Factory.GetAll();
+
+        //    if (tickets.Count < 1)
+        //        return null;
+
+        //    return tickets[0];
+        //}
+        
+        //public bool ReGenerateToken(TicketNotificacionBlanqueoEntity ticket, out string MsgOut)
+        //{
+        //    MsgOut = "";
+        //    try
+        //    {
+        //        ticket.Token = GenerateToken();
+        //        ticket.FechaExpiracionToken = DateTime.Now.Add(TimeSpan.FromHours(HorasExpiracionToken));
+        //        this.Save(ticket);
+        //        MsgOut = "El token se regeneró con éxito.";
+        //        // actualiza contenido del mail con nuevo token
+        //    }
+        //    catch
+        //    {
+        //        MsgOut = "Eror al regenerar el token.";
+        //        return false;
+        //    }
+        //    try
+        //    {
+        //        MailAlertBusiness MABL = new MailAlertBusiness();
+        //        if (ticket.MailId != null)
+        //        {
+        //            string destino;
+        //            string solicitante = PhalanxNAL.ActiveDirectoryHelper.BuscarNombrePorUsername(ticket.Usuario);
+        //            if (!string.IsNullOrEmpty(ticket.CodigoEmpresaSubsidiaria))
+        //            {
+        //                destino = ticket.NombreEmpresaSubsidiaria;
+        //            }
+        //            else
+        //            {
+        //                destino = ticket.NombreGerenciaDestino;
+        //            }
+        //            MABL.UpdateMailRegeneraToken(ticket.MailId.Value, ticket.Token, solicitante, ticket.NumeroSolicitud, ticket.Fecha, destino);
+        //        }
+        //        else
+        //        {
+        //            // habría que generar mail si no existe?
+        //            MsgOut += " El ticket no tiene mail generado.";
+        //        }
+        //        return true;
+        //    }
+        //    catch
+        //    {
+        //        MsgOut = "Error al actualizar el mail con el token regenerado.";
+        //        return false;
+        //    }
+
+
+        //}
+        
+        //public void GenerateToken(TicketNotificacionBlanqueoEntity ticket)
+        //{
+        //    ticket.Token = GenerateToken();
+        //    ticket.FechaExpiracionToken = DateTime.Now.Add(TimeSpan.FromHours(HorasExpiracionToken));
+        //}
+
+        //public string GenerateToken()
+        //{
+        //    Guid token;
+
+        //    TicketNotificacionBlanqueoFactory FTNC = new TicketNotificacionBlanqueoFactory();
+
+        //    do
+        //    {
+        //        token = Guid.NewGuid();
+        //    }
+        //    while (FTNC.GetByToken(token.ToString()) != null);
+
+        //    return token.ToString();
+        //}
+
+        //public bool EnviarEmailAltaUsuarioRedExterno(TicketNotificacionBlanqueoEntity solicitudBPM, out string debug)
+        //{
+        //    debug = "";
+
+        //    string destino;
+        //    List<string> mailTo = new List<string>();
+
+        //    if (!string.IsNullOrEmpty(solicitudBPM.CodigoEmpresaSubsidiaria))
+        //    {
+        //        debug += " | Se busca por Subsidiaria";
+        //        //Subsidiaria
+        //        SubsidiariaBusiness subsidiariaBusiness = new SubsidiariaBusiness();
+
+        //        SubsidiariaEntity subsidiaria = subsidiariaBusiness.GetByCodigo(solicitudBPM.CodigoEmpresaSubsidiaria);
+
+        //        if (subsidiaria == null)
+        //        {
+        //            debug += " | No se encuentra la empresa subsidiaria con código = " + solicitudBPM.CodigoEmpresaSubsidiaria;
+
+        //            return false;
+        //        }
+
+        //        destino = solicitudBPM.NombreEmpresaSubsidiaria;
+
+        //        if (!string.IsNullOrEmpty(subsidiaria.Email01))
+        //            mailTo.Add(subsidiaria.Email01);
+
+        //        if (!string.IsNullOrEmpty(subsidiaria.Email02))
+        //            mailTo.Add(subsidiaria.Email02);
+        //    }
+        //    else
+        //    {
+        //        debug += " | Se busca por Gerencia destino";
+
+        //        destino = solicitudBPM.NombreGerenciaDestino;
+
+        //        debug += " | Busca mail en AD por legajo de solicitante";
+        //        string email = PhalanxNAL.ActiveDirectoryHelper.BuscarEmailPorLegajo(solicitudBPM.NumeroLegajoEmpleadoSolicitud);
+
+        //        if (email == null)
+        //        {
+        //            debug += " | No se encuentra el email para el legajo = " + solicitudBPM.NumeroLegajoEmpleadoSolicitud;
+
+        //            return false;
+        //        }
+
+        //        mailTo.Add(email);
+        //    }
+
+        //    debug += " | Busca Nombre de la pesrona la que se le dió de alta el usuario en AD por usuario de red";
+
+        //    string solicitante = PhalanxNAL.ActiveDirectoryHelper.BuscarNombrePorUsername(solicitudBPM.Usuario);
+
+        //    MailAlertBusiness MailToSendBL = new MailAlertBusiness();
+
+        //    debug += " | Envia mail";
+
+        //    solicitudBPM.MailId = MailToSendBL.AltaUsuarioRedExternoMail(mailTo.ToArray(), solicitante, solicitudBPM.NumeroSolicitud, solicitudBPM.Fecha, solicitudBPM.Token, destino);
+
+        //    debug += " | Graba ticket BPM";
+
+        //    Save(solicitudBPM);
+
+        //    return true;
+        //}
+    }
+}

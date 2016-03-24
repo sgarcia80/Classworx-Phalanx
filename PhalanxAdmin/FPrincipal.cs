@@ -317,6 +317,12 @@ namespace PhalanxAdmin
             LVIPwd.Tag = 3;
             LVItmCol.Add(LVIPwd);
 
+            System.Windows.Forms.ListViewItem LVINotifClaves = new System.Windows.Forms.ListViewItem(
+                new string[] { "Notif. Claves" }, 2, System.Drawing.Color.Black, System.Drawing.Color.Empty, new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0))));
+            LVINotifClaves.StateImageIndex = 0;
+            LVINotifClaves.Tag = 7;
+            LVItmCol.Add(LVINotifClaves);
+
             System.Windows.Forms.ListViewItem LVIReports = new System.Windows.Forms.ListViewItem(
                 new string[] { "Reportes" }, 3, System.Drawing.Color.Black, System.Drawing.Color.Empty, new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0))));
             LVIReports.StateImageIndex = 0;
@@ -452,6 +458,10 @@ namespace PhalanxAdmin
                     {
                         this.Close();
                     }
+                    break;
+                case 7:
+                    FNotifClaves formNotifClaves = new FNotifClaves();
+                    this.OpenForm(formNotifClaves);
                     break;
                 /*
             case FORM_CONFIG:

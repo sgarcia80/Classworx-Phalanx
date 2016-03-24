@@ -124,6 +124,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FNotifBlanqueos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FNotifBlanqueos.Designer.cs">
+      <DependentUpon>FNotifBlanqueos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FNotifClaves.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FNotifClaves.Designer.cs">
+      <DependentUpon>FNotifClaves.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FBaseNotifClaves.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FBaseNotifClaves.Designer.cs">
+      <DependentUpon>FBaseNotifClaves.cs</DependentUpon>
+    </Compile>
     <Compile Include="FReenvioMail.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -787,6 +805,18 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FNotifBlanqueos.resx">
+      <DependentUpon>FNotifBlanqueos.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FNotifClaves.resx">
+      <DependentUpon>FNotifClaves.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FBaseNotifClaves.resx">
+      <DependentUpon>FBaseNotifClaves.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="FReenvioMail.resx">
       <DependentUpon>FReenvioMail.cs</DependentUpon>
       <SubType>Designer</SubType>
