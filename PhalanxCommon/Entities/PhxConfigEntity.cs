@@ -37,7 +37,16 @@ namespace PhalanxCommon.Entities
         EstadoWSCOBIS,
         QuienLlamaWSCOBIS,
         AutenticacionLoginNDC,
-        DominiosLoginNDC
+        DominiosLoginNDC,
+        LoginASBlanqueoWSCOBIS,
+        ClaveASBlanqueoWSCOBIS,
+        RolASBlanqueoWSCOBIS,
+        OficinaASBlanqueoWSCOBIS,
+        ServidorASBlanqueoWSCOBIS,
+        ClaveBlanqueoWSCOBIS,
+        LoginBlanqueoWSCOBIS,
+        SubjectNotificacionBlanqueoMail,
+        BodyNotificacionBlanqueoMail
     }
 
     

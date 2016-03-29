@@ -646,6 +646,33 @@ namespace PhalanxBL
 			return null;
         }
 
+        public void NotificacionBlanqueoMail(string solicitante, int numeroSolicitud, string aplicativo, DateTime fecha)
+        {
+            try
+            {
+                MailAlertEntity MailToSend = new MailAlertEntity();
+                MailToSend.MailType = new MailTypeFactory().GetMailType(MailTypeFactory.MailType.NotificacionBlanqueo);
+
+                PhxConfigBusiness PhxConfBL = new PhxConfigBusiness();
+
+                MailToSend.ToAddress = PhxConfBL.GetConfigParam(ConfigCodes.TecMicroEmail).ShortTxtValue;
+
+                MailToSend.Body = ReplaceNotificacionBlanqueoMailTokens(PhxConfBL.GetConfigParam(ConfigCodes.BodyNotificacionBlanqueoMail).LongTxtValue, solicitante, aplicativo);
+                MailToSend.Subject = ReplaceNotificacionBlanqueoMailTokens(PhxConfBL.GetConfigParam(ConfigCodes.SubjectNotificacionBlanqueoMail).ShortTxtValue, solicitante, aplicativo);
+
+                MailAlertFactory MAF = new MailAlertFactory();
+
+                int IdMailAlert = MAF.Save(MailToSend);
+
+                if (IdMailAlert > 0)
+                    SendMail(MailToSend);
+            }
+            catch (Exception ex)
+            {
+                // no se pudo crear el mail;
+            }
+        }
+
         private string ReplaceExpirationRqstTokens(string MailBody, PasswordRequestEntity PwdRqst)
         {
             /*
@@ -1109,6 +1136,12 @@ namespace PhalanxBL
             return text.Replace("[Aplicativo]", aplicativo)
                             .Replace("[NroTicket]", numeroSolicitud.ToString())
                             .Replace("[FechaAlta]", fecha.ToString("dd/MM/yyyy"));
+        }
+
+        private string ReplaceNotificacionBlanqueoMailTokens(string text, string solicitante, string aplicacion)
+        {
+            return text.Replace("[NombreSolicitante]", solicitante)
+                            .Replace("[Aplicacion]", aplicacion);
         }
 
         public void MailAltaUsuarioAplicativoConSegInt(string Aplicacion, string FTicketDDMMYYYY, string NroTicket, string MailUsuario)

@@ -116,6 +116,12 @@ namespace PhalanxBL
                 case ConfigCodes.DominiosLoginNDC:
                     strParamCode = "@DOM_LOGIN_NDC@";
                     break;
+                case ConfigCodes.SubjectNotificacionBlanqueoMail:
+                    strParamCode = "@SUBJECT_NOTIF_BLANQUEO_MAIL@";
+                    break;
+                case ConfigCodes.BodyNotificacionBlanqueoMail:
+                    strParamCode = "@BODY_NOTIF_BLANQUEO_MAIL@";
+                    break;
                 default:
                     break;
             }
@@ -202,6 +208,10 @@ namespace PhalanxBL
             ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyDevMails));
             ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectAltaUsuarioRedExternoMail));
             ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyAltaUsuarioRedExternoMail));
+
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectNotificacionBlanqueoMail));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyNotificacionBlanqueoMail));
+
             return ConfEC;
 
         }

@@ -35,6 +35,8 @@ namespace PhalanxAdmin
             this.pnlList = new System.Windows.Forms.Panel();
             this.btnTestMail = new System.Windows.Forms.Button();
             this.grpTags = new System.Windows.Forms.GroupBox();
+            this.btnTagDestino = new System.Windows.Forms.Button();
+            this.btnTagToken = new System.Windows.Forms.Button();
             this.btnTagFechaDev = new System.Windows.Forms.Button();
             this.btnTagAplicativo = new System.Windows.Forms.Button();
             this.btnTagFechaAlta = new System.Windows.Forms.Button();
@@ -54,8 +56,7 @@ namespace PhalanxAdmin
             this.label2 = new System.Windows.Forms.Label();
             this.txtDescrip = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnTagToken = new System.Windows.Forms.Button();
-            this.btnTagDestino = new System.Windows.Forms.Button();
+            this.btnTagNombreSolicitante = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
             this.pnlXPGrps.SuspendLayout();
             this.pnlIzq.SuspendLayout();
@@ -149,6 +150,7 @@ namespace PhalanxAdmin
             // 
             // grpTags
             // 
+            this.grpTags.Controls.Add(this.btnTagNombreSolicitante);
             this.grpTags.Controls.Add(this.btnTagDestino);
             this.grpTags.Controls.Add(this.btnTagToken);
             this.grpTags.Controls.Add(this.btnTagFechaDev);
@@ -163,17 +165,39 @@ namespace PhalanxAdmin
             this.grpTags.Controls.Add(this.btnTagFechaExp);
             this.grpTags.Controls.Add(this.btnTagFechaSolic);
             this.grpTags.Controls.Add(this.btnTagNomSolic);
-            this.grpTags.Location = new System.Drawing.Point(18, 306);
+            this.grpTags.Location = new System.Drawing.Point(18, 319);
             this.grpTags.Name = "grpTags";
-            this.grpTags.Size = new System.Drawing.Size(635, 97);
+            this.grpTags.Size = new System.Drawing.Size(635, 96);
             this.grpTags.TabIndex = 23;
             this.grpTags.TabStop = false;
             this.grpTags.Text = "Tags";
             // 
+            // btnTagDestino
+            // 
+            this.btnTagDestino.BackColor = System.Drawing.SystemColors.Control;
+            this.btnTagDestino.Location = new System.Drawing.Point(381, 68);
+            this.btnTagDestino.Name = "btnTagDestino";
+            this.btnTagDestino.Size = new System.Drawing.Size(119, 20);
+            this.btnTagDestino.TabIndex = 13;
+            this.btnTagDestino.Text = "Destino";
+            this.btnTagDestino.UseVisualStyleBackColor = false;
+            this.btnTagDestino.Click += new System.EventHandler(this.btnTagDestino_Click);
+            // 
+            // btnTagToken
+            // 
+            this.btnTagToken.BackColor = System.Drawing.SystemColors.Control;
+            this.btnTagToken.Location = new System.Drawing.Point(256, 68);
+            this.btnTagToken.Name = "btnTagToken";
+            this.btnTagToken.Size = new System.Drawing.Size(119, 20);
+            this.btnTagToken.TabIndex = 12;
+            this.btnTagToken.Text = "Token";
+            this.btnTagToken.UseVisualStyleBackColor = false;
+            this.btnTagToken.Click += new System.EventHandler(this.btnTagToken_Click);
+            // 
             // btnTagFechaDev
             // 
             this.btnTagFechaDev.BackColor = System.Drawing.SystemColors.Control;
-            this.btnTagFechaDev.Location = new System.Drawing.Point(131, 71);
+            this.btnTagFechaDev.Location = new System.Drawing.Point(131, 68);
             this.btnTagFechaDev.Name = "btnTagFechaDev";
             this.btnTagFechaDev.Size = new System.Drawing.Size(119, 20);
             this.btnTagFechaDev.TabIndex = 11;
@@ -184,7 +208,7 @@ namespace PhalanxAdmin
             // btnTagAplicativo
             // 
             this.btnTagAplicativo.BackColor = System.Drawing.SystemColors.Control;
-            this.btnTagAplicativo.Location = new System.Drawing.Point(6, 70);
+            this.btnTagAplicativo.Location = new System.Drawing.Point(6, 67);
             this.btnTagAplicativo.Name = "btnTagAplicativo";
             this.btnTagAplicativo.Size = new System.Drawing.Size(119, 20);
             this.btnTagAplicativo.TabIndex = 10;
@@ -195,7 +219,7 @@ namespace PhalanxAdmin
             // btnTagFechaAlta
             // 
             this.btnTagFechaAlta.BackColor = System.Drawing.SystemColors.Control;
-            this.btnTagFechaAlta.Location = new System.Drawing.Point(506, 44);
+            this.btnTagFechaAlta.Location = new System.Drawing.Point(506, 41);
             this.btnTagFechaAlta.Name = "btnTagFechaAlta";
             this.btnTagFechaAlta.Size = new System.Drawing.Size(119, 20);
             this.btnTagFechaAlta.TabIndex = 9;
@@ -206,7 +230,7 @@ namespace PhalanxAdmin
             // btnTagNombreUsuario
             // 
             this.btnTagNombreUsuario.BackColor = System.Drawing.SystemColors.Control;
-            this.btnTagNombreUsuario.Location = new System.Drawing.Point(506, 19);
+            this.btnTagNombreUsuario.Location = new System.Drawing.Point(506, 16);
             this.btnTagNombreUsuario.Name = "btnTagNombreUsuario";
             this.btnTagNombreUsuario.Size = new System.Drawing.Size(119, 20);
             this.btnTagNombreUsuario.TabIndex = 8;
@@ -217,7 +241,7 @@ namespace PhalanxAdmin
             // btnTagEstadoSolic
             // 
             this.btnTagEstadoSolic.BackColor = System.Drawing.SystemColors.Control;
-            this.btnTagEstadoSolic.Location = new System.Drawing.Point(381, 44);
+            this.btnTagEstadoSolic.Location = new System.Drawing.Point(381, 41);
             this.btnTagEstadoSolic.Name = "btnTagEstadoSolic";
             this.btnTagEstadoSolic.Size = new System.Drawing.Size(119, 20);
             this.btnTagEstadoSolic.TabIndex = 7;
@@ -228,7 +252,7 @@ namespace PhalanxAdmin
             // btnTagNroTicket
             // 
             this.btnTagNroTicket.BackColor = System.Drawing.SystemColors.Control;
-            this.btnTagNroTicket.Location = new System.Drawing.Point(256, 44);
+            this.btnTagNroTicket.Location = new System.Drawing.Point(256, 41);
             this.btnTagNroTicket.Name = "btnTagNroTicket";
             this.btnTagNroTicket.Size = new System.Drawing.Size(119, 20);
             this.btnTagNroTicket.TabIndex = 6;
@@ -239,7 +263,7 @@ namespace PhalanxAdmin
             // btnTagTiempoUso
             // 
             this.btnTagTiempoUso.BackColor = System.Drawing.SystemColors.Control;
-            this.btnTagTiempoUso.Location = new System.Drawing.Point(131, 44);
+            this.btnTagTiempoUso.Location = new System.Drawing.Point(131, 41);
             this.btnTagTiempoUso.Name = "btnTagTiempoUso";
             this.btnTagTiempoUso.Size = new System.Drawing.Size(119, 20);
             this.btnTagTiempoUso.TabIndex = 5;
@@ -250,7 +274,7 @@ namespace PhalanxAdmin
             // btnTagDescUso
             // 
             this.btnTagDescUso.BackColor = System.Drawing.SystemColors.Control;
-            this.btnTagDescUso.Location = new System.Drawing.Point(6, 44);
+            this.btnTagDescUso.Location = new System.Drawing.Point(6, 41);
             this.btnTagDescUso.Name = "btnTagDescUso";
             this.btnTagDescUso.Size = new System.Drawing.Size(119, 20);
             this.btnTagDescUso.TabIndex = 4;
@@ -261,7 +285,7 @@ namespace PhalanxAdmin
             // btnTagPwdSolic
             // 
             this.btnTagPwdSolic.BackColor = System.Drawing.SystemColors.Control;
-            this.btnTagPwdSolic.Location = new System.Drawing.Point(131, 18);
+            this.btnTagPwdSolic.Location = new System.Drawing.Point(131, 15);
             this.btnTagPwdSolic.Name = "btnTagPwdSolic";
             this.btnTagPwdSolic.Size = new System.Drawing.Size(119, 20);
             this.btnTagPwdSolic.TabIndex = 1;
@@ -272,7 +296,7 @@ namespace PhalanxAdmin
             // btnTagFechaExp
             // 
             this.btnTagFechaExp.BackColor = System.Drawing.SystemColors.Control;
-            this.btnTagFechaExp.Location = new System.Drawing.Point(381, 18);
+            this.btnTagFechaExp.Location = new System.Drawing.Point(381, 15);
             this.btnTagFechaExp.Name = "btnTagFechaExp";
             this.btnTagFechaExp.Size = new System.Drawing.Size(119, 20);
             this.btnTagFechaExp.TabIndex = 3;
@@ -283,7 +307,7 @@ namespace PhalanxAdmin
             // btnTagFechaSolic
             // 
             this.btnTagFechaSolic.BackColor = System.Drawing.SystemColors.Control;
-            this.btnTagFechaSolic.Location = new System.Drawing.Point(256, 18);
+            this.btnTagFechaSolic.Location = new System.Drawing.Point(256, 15);
             this.btnTagFechaSolic.Name = "btnTagFechaSolic";
             this.btnTagFechaSolic.Size = new System.Drawing.Size(119, 20);
             this.btnTagFechaSolic.TabIndex = 2;
@@ -294,7 +318,7 @@ namespace PhalanxAdmin
             // btnTagNomSolic
             // 
             this.btnTagNomSolic.BackColor = System.Drawing.SystemColors.Control;
-            this.btnTagNomSolic.Location = new System.Drawing.Point(6, 18);
+            this.btnTagNomSolic.Location = new System.Drawing.Point(6, 15);
             this.btnTagNomSolic.Name = "btnTagNomSolic";
             this.btnTagNomSolic.Size = new System.Drawing.Size(119, 20);
             this.btnTagNomSolic.TabIndex = 0;
@@ -374,27 +398,16 @@ namespace PhalanxAdmin
             this.label1.TabIndex = 16;
             this.label1.Text = "Descripción";
             // 
-            // btnTagToken
+            // btnTagNombreSolicitante
             // 
-            this.btnTagToken.BackColor = System.Drawing.SystemColors.Control;
-            this.btnTagToken.Location = new System.Drawing.Point(256, 71);
-            this.btnTagToken.Name = "btnTagToken";
-            this.btnTagToken.Size = new System.Drawing.Size(119, 20);
-            this.btnTagToken.TabIndex = 12;
-            this.btnTagToken.Text = "Token";
-            this.btnTagToken.UseVisualStyleBackColor = false;
-            this.btnTagToken.Click += new System.EventHandler(this.btnTagToken_Click);
-            // 
-            // btnTagDestino
-            // 
-            this.btnTagDestino.BackColor = System.Drawing.SystemColors.Control;
-            this.btnTagDestino.Location = new System.Drawing.Point(381, 71);
-            this.btnTagDestino.Name = "btnTagDestino";
-            this.btnTagDestino.Size = new System.Drawing.Size(119, 20);
-            this.btnTagDestino.TabIndex = 13;
-            this.btnTagDestino.Text = "Destino";
-            this.btnTagDestino.UseVisualStyleBackColor = false;
-            this.btnTagDestino.Click += new System.EventHandler(this.btnTagDestino_Click);
+            this.btnTagNombreSolicitante.BackColor = System.Drawing.SystemColors.Control;
+            this.btnTagNombreSolicitante.Location = new System.Drawing.Point(506, 67);
+            this.btnTagNombreSolicitante.Name = "btnTagNombreSolicitante";
+            this.btnTagNombreSolicitante.Size = new System.Drawing.Size(119, 20);
+            this.btnTagNombreSolicitante.TabIndex = 14;
+            this.btnTagNombreSolicitante.Text = "Nombre de Solicitante";
+            this.btnTagNombreSolicitante.UseVisualStyleBackColor = false;
+            this.btnTagNombreSolicitante.Click += new System.EventHandler(this.btnTagNombreSolicitante_Click);
             // 
             // FConfigMailsExpPwd
             // 
@@ -452,5 +465,6 @@ namespace PhalanxAdmin
         protected System.Windows.Forms.Button btnTagFechaDev;
         protected System.Windows.Forms.Button btnTagDestino;
         protected System.Windows.Forms.Button btnTagToken;
+        protected System.Windows.Forms.Button btnTagNombreSolicitante;
     }
 }
