@@ -20,39 +20,94 @@ public partial class DetalleTicket : System.Web.UI.Page
             Response.Redirect("~/Login.aspx");
         }
 
-        int id;
+        int id = 0;
+        string tipo = "ALTA";
 
-        if (Request["id"] != null && int.TryParse(Request["id"], out id))
+
+
+        if (Request["id"] != null)
         {
-            TicketNotificacionClaveBusiness tncb = new TicketNotificacionClaveBusiness();
+            int.TryParse(Request["id"], out id);
+        }
+        if (Request["tipo"] != null)
+        {
+            tipo = Request["tipo"].ToString().ToUpper();
+        }
 
-            TicketNotificacionClaveEntity ticket = tncb.GetById(id);
+        string redirect = string.Empty;
 
-            if (ticket.Usuario.ToLower() != Session["Usuario"].ToString().ToLower() || ticket.DominioUsuario.ToLower() != Session["Dominio"].ToString().ToLower())
-                return;
+        if (id > 0 && tipo == "ALTA")
+        {
+            redirect = ConsultarTicketNotificacionClave(id);
+        }
 
-            if (ticket.FechaAceptacionTyC == null)
-            {
-                Response.Redirect("tyc.aspx?id=" + id);
+        if (id > 0 && tipo == "BLANQUEO")
+        {
+            redirect  = ConsultarTicketNotificacionBlanqueo(id);
+        }
 
-                return;
-            }
-
-            if (!ticket.Aplicacion.Notificable)
-            {
-                Response.Redirect("nopermitido.aspx?id=" + id);
-
-                return;
-            }
-
-            MostrarDatosTicket(ticket);
-
-            if (!IsPostBack)
-                new AuditTicketNotificacionBusiness().LogVisualizacion(ticket);
+        Session["tipoticket"] = tipo;
+        if (!string.IsNullOrEmpty(redirect))
+        {            
+            Response.Redirect(redirect);
         }
     }
 
-    private void MostrarDatosTicket(TicketNotificacionClaveEntity ticket)
+    private string ConsultarTicketNotificacionClave(int id)
+    {
+        TicketNotificacionClaveBusiness tncb = new TicketNotificacionClaveBusiness();
+
+        TicketNotificacionClaveEntity ticket = tncb.GetById(id);
+
+        if (ticket.Usuario.ToLower() != Session["Usuario"].ToString().ToLower() || ticket.DominioUsuario.ToLower() != Session["Dominio"].ToString().ToLower())
+            return string.Empty;
+
+        if (ticket.FechaAceptacionTyC == null)
+        {
+            return"tyc.aspx?id=" + id.ToString();
+        }
+
+        if (!ticket.Aplicacion.Notificable)
+        {
+            return "nopermitido.aspx?id=" + id.ToString();
+        }
+
+        MostrarDatosTicketNotificacionClave(ticket);
+
+        if (!IsPostBack)
+            new AuditTicketNotificacionBusiness().LogVisualizacion(ticket);
+
+        return string.Empty;
+    }
+
+    private string ConsultarTicketNotificacionBlanqueo(int id)
+    {
+        TicketNotificacionBlanqueoBusiness tncb = new TicketNotificacionBlanqueoBusiness();
+
+        TicketNotificacionBlanqueoEntity ticket = tncb.GetById(id);
+
+        if (ticket.UsuarioAplicacion.ToLower() != Session["Usuario"].ToString().ToLower() || ticket.DominioUsuarioAplicacion.ToLower() != Session["Dominio"].ToString().ToLower())
+            return string.Empty;
+
+        if (ticket.FechaAceptacionTyC == null)
+        {
+            return "tyc.aspx?id=" + id.ToString();
+        }
+
+        if (!ticket.Aplicacion.Notificable)
+        {
+            return "nopermitido.aspx?id=" + id.ToString();
+        }
+
+        MostrarDatosTicketNotificacionBlanqueo(ticket);
+
+        //if (!IsPostBack)
+        //    new AuditTicketNotificacionBusiness().LogVisualizacion(ticket);
+
+        return string.Empty;
+    }
+
+    private void MostrarDatosTicketNotificacionClave(TicketNotificacionClaveEntity ticket)
     {
         tbFecha.Text = ticket.Fecha.ToString();
         tbApp.Text = ticket.Aplicacion.Nombre;
@@ -67,7 +122,18 @@ public partial class DetalleTicket : System.Web.UI.Page
             tbContra.Text = TicketNotificacionClaveBusiness.DesencriptarPassword(ticket.PasswordUsuarioAplicacion);
         }
     }
-    
+
+    private void MostrarDatosTicketNotificacionBlanqueo(TicketNotificacionBlanqueoEntity ticket)
+    {
+        tbFecha.Text = ticket.Fecha.ToString();
+        tbApp.Text = ticket.Aplicacion.Nombre;
+        tbNroSolicitud.Text = ticket.Id.ToString();
+        tbUsuario.Text = ticket.UsuarioAplicacion;
+
+        trContra.Visible = true;
+        tbContra.Text = new TicketNotificacionBlanqueoBusiness().DesencriptarPassword(ticket.PasswordUsuarioAplicacion);
+    }
+
     protected void btnVolver_Click(object sender, EventArgs e)
     {
         Response.Redirect("Tickets.aspx");

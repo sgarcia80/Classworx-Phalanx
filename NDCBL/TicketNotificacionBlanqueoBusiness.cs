@@ -56,6 +56,21 @@ namespace NDCBL
             //
         }
 
+        public void AceptarTyC(int id)
+        {
+            AceptarTyC(GetById(id));
+        }
+
+        public void AceptarTyC(TicketNotificacionBlanqueoEntity ticket)
+        {
+            if (ticket == null)
+                return;
+
+            ticket.FechaAceptacionTyC = DateTime.Now;
+
+            Factory.Save(ticket);
+        }
+
         public void Create(TicketNotificacionBlanqueoEntity entidad)
         {
             TicketNotificacionBlanqueoFactory factory = new TicketNotificacionBlanqueoFactory();
@@ -90,16 +105,6 @@ namespace NDCBL
         }
 
         public TicketNotificacionBlanqueoEntityCollection GetAll(DateTime? fechaDesde, DateTime? fechaHasta, AplicacionNotificacionClaveEntity aplicacion, string dominio, string usuario)
-        {
-            return this.GetAll(fechaDesde, fechaHasta, aplicacion, dominio, usuario, null, null, false);
-        }
-
-        public TicketNotificacionBlanqueoEntityCollection GetAll(DateTime? fechaDesde, DateTime? fechaHasta, AplicacionNotificacionClaveEntity aplicacion, string dominio, string usuario, int? ticket, bool? SinLegajo, bool? corregido)
-        {
-            return GetAll(fechaDesde, fechaHasta, aplicacion, dominio, usuario, ticket, SinLegajo, corregido, null, null);
-        }
-
-        public TicketNotificacionBlanqueoEntityCollection GetAll(DateTime? fechaDesde, DateTime? fechaHasta, AplicacionNotificacionClaveEntity aplicacion, string dominio, string usuario, int? ticket, bool? SinLegajo, bool? corregido, bool? vencido, bool? notificado)
         {
             TicketNotificacionBlanqueoFactory factory = new TicketNotificacionBlanqueoFactory();
 
@@ -161,6 +166,8 @@ namespace NDCBL
 
         public int Save(TicketNotificacionBlanqueoEntity ticket)
         {
+            ticket.FechaVigencia = DateTime.Now;
+
             return Factory.Save(ticket);
         }
         

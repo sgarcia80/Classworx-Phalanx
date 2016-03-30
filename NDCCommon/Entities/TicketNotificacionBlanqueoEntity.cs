@@ -18,6 +18,8 @@ namespace NDCCommon.Entities
         private string m_tnb_app_user;
         private string m_tnb_user_pass;
         private string m_tnb_app_user_domain;
+        private DateTime? m_tnb_fecha_vigencia;
+        private DateTime? m_tnb_fecha_ace_tyc;
         
         private string m_tnb_user;
         private DateTime m_tnb_fecha;
@@ -162,6 +164,34 @@ namespace NDCCommon.Entities
             {
                 m_isChanged |= (m_tnb_fecha != value);
                 m_tnb_fecha = value;
+            }
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime? FechaVigencia
+        {
+            get { return m_tnb_fecha_vigencia; }
+
+            set
+            {
+                m_isChanged |= (m_tnb_fecha_vigencia != value);
+                m_tnb_fecha_vigencia = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime? FechaAceptacionTyC
+        {
+            get { return m_tnb_fecha_ace_tyc; }
+
+            set
+            {
+                m_isChanged |= (m_tnb_fecha_ace_tyc != value);
+                m_tnb_fecha_ace_tyc = value;
             }
         }
 

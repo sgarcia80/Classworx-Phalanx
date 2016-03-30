@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+  <class name="NDCCommon.Entities.TicketNotificacionEntity,NDCCommon" table="vwTicketNotificacionVigente">
+
+    <id name="Id" column="id" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <property column="tipo" type="String" name="Tipo" not-null="true" />
+    <property column="numero" type="Int32" name="NumeroSolicitud" not-null="true" />
+    <many-to-one name="Aplicacion" column="app_id" class="NDCCommon.Entities.AplicacionNotificacionClaveEntity,NDCCommon" />
+    <property column="app_user" type="String" name="Usuario" not-null="true" length="50" />
+    <property column="app_user_domain" type="String" name="Dominio" not-null="true" length="50" />
+    <property column="fecha" type="DateTime" name="Fecha" insert="false"/>
+  </class>
+</hibernate-mapping>
