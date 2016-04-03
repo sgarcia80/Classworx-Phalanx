@@ -2,9 +2,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 				<table width="100%" border="0" style="height: 100%">
 					<tr>
-						<td align="left" height="*" style="width: 100%">
+						<td align="left" style="width: 100%">
 							
-								<TABLE id="Table5" style="HEIGHT: 100%" cellSpacing="1" cellPadding="1" width="100%" border="0">
+								<table id="Table5" cellSpacing="1" cellPadding="1" width="100%" border="0">
                                     <TR>
 										<TD style="WIDTH: 15%; height: 5px;" bgColor="#b0e0e6"></TD>
 										<TD bgColor="#b0e0e6"></TD>
@@ -17,15 +17,15 @@
 									<TR>
 										<TD style="width: 100%; height: 10px;" colspan=2></TD>
 									</TR>
-								</TABLE>
+								</table>
 
-								<TABLE id="Table2" style="HEIGHT: 100%" cellSpacing="1" cellPadding="1" width="100%" border="0">
+								<TABLE id="Table2" cellSpacing="1" cellPadding="1" width="100%" border="0">
 									<TR>
 										<TD style="WIDTH: 15%"></TD>
 										<TD width="*"><asp:label id="Label1" runat="server" CssClass="tdTituloSub">Información del Solicitante</asp:label></TD>
 									</TR>
 								</TABLE>
-								<TABLE id="Table1" style="HEIGHT: 100%" cellSpacing="1" cellPadding="1" width="100%" border="0">
+								<TABLE id="Table1" cellSpacing="1" cellPadding="1" width="100%" border="0">
 									<TR>
 										<TD style="WIDTH: 15%" rowSpan="3" valign="top">
 											<P align="left" style="text-align: center">
@@ -45,7 +45,7 @@
 								</TABLE>
 							
 							<DIV align="left"><br>
-								<TABLE id="Table3" style="HEIGHT: 95%" cellSpacing="0" cellPadding="0" width="100%" border="0"
+								<TABLE id="Table3" cellSpacing="0" cellPadding="0" width="100%" border="0"
 									bgColor="#f0f8ff">
 									<TR>
 										<TD style="WIDTH: 15%" bgColor="#b0e0e6" height="5"></TD>
@@ -61,7 +61,7 @@
 								</TABLE>
 							</DIV>
 							<DIV align="left">
-								<TABLE id="Table4" style="HEIGHT: 95%" cellSpacing="1" cellPadding="1" width="100%" border="0"
+								<TABLE id="Table4" cellSpacing="1" cellPadding="1" width="100%" border="0"
 									bgColor="#f0f8ff">
 									<TR>
 										<TD style="WIDTH: 15%" rowSpan="7" valign="top">

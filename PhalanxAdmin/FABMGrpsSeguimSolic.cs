@@ -15,6 +15,8 @@ namespace PhalanxAdmin
     {
         FollowupRequestGroupEntity _entity = new FollowupRequestGroupEntity();
         bool _readOnly = false;
+        bool _ModificaPwd = false;
+        bool _ModificaUsrs = false;
 
         public FABMGrpsSeguimSolic()
         {
@@ -252,7 +254,7 @@ namespace PhalanxAdmin
             {
                 lvWinPwdDB.Items.Remove(lviDB);
             }
-
+            _ModificaPwd = true;
         }
         private void PasarTodoWinPwdDeDBaUsr()
         {
@@ -277,6 +279,7 @@ namespace PhalanxAdmin
                 lvWinPwdGrupo.Items.Add(lviGrpWinPwd);
             }
             lvWinPwdDB.Items.Clear();
+            _ModificaPwd = true;
 
         }
         private void PasarWinPwdDeGrpaDB()
@@ -305,6 +308,7 @@ namespace PhalanxAdmin
             {
                 lvWinPwdGrupo.Items.Remove(lviDB);
             }
+            _ModificaPwd = true;
 
         }
         private void PasarTodoWinPwdDeGrpaDB()
@@ -330,6 +334,7 @@ namespace PhalanxAdmin
                 lvWinPwdDB.Items.Add(lviGrpWinPwd);
             }
             lvWinPwdGrupo.Items.Clear();
+            _ModificaPwd = true;
 
         }
 
@@ -454,6 +459,7 @@ namespace PhalanxAdmin
             {
                 lvDbPwdDB.Items.Remove(lviDB);
             }
+            _ModificaPwd = true;
 
         }
         private void PasarTodoDbPwdDeDBaUsr()
@@ -475,6 +481,7 @@ namespace PhalanxAdmin
                 lvDbPwdGrupo.Items.Add(lviGrpDbPwd);
             }
             lvDbPwdDB.Items.Clear();
+            _ModificaPwd = true;
 
         }
         private void PasarDbPwdDeGrpaDB()
@@ -499,6 +506,7 @@ namespace PhalanxAdmin
             {
                 lvDbPwdGrupo.Items.Remove(lviDB);
             }
+            _ModificaPwd = true;
 
         }
 
@@ -521,6 +529,7 @@ namespace PhalanxAdmin
                 lvDbPwdDB.Items.Add(lviGrpDbPwd);
             }
             lvDbPwdGrupo.Items.Clear();
+            _ModificaPwd = true;
         }
 
         private ListViewItem[] GenerarLVItmsDbPwd(IList<DatabaseUserEntity> DbUsrLst)
@@ -633,6 +642,7 @@ namespace PhalanxAdmin
             {
                 lvAppPwdDB.Items.Remove(lviDB);
             }
+            _ModificaPwd = true;
 
         }
 
@@ -655,6 +665,7 @@ namespace PhalanxAdmin
                 lvAppPwdGrupo.Items.Add(lviGrpAppPwd);
             }
             lvAppPwdDB.Items.Clear();
+            _ModificaPwd = true;
 
         }
         private void PasarAppPwdDeGrpaDB()
@@ -679,6 +690,7 @@ namespace PhalanxAdmin
             {
                 lvAppPwdGrupo.Items.Remove(lviDB);
             }
+            _ModificaPwd = true;
         }
 
         private void PasarTodoAppPwdDeGrpaDB()
@@ -700,6 +712,7 @@ namespace PhalanxAdmin
                 lvAppPwdDB.Items.Add(lviGrpAppPwd);
             }
             lvAppPwdGrupo.Items.Clear();
+            _ModificaPwd = true;
         }
 
         private ListViewItem[] GenerarLVItmsAppPwd(IList<ApplicationUserEntity> AppUsrLst)
@@ -822,6 +835,7 @@ namespace PhalanxAdmin
             {
                 lvUnixPwdDB.Items.Remove(lviDB);
             }
+            _ModificaPwd = true;
 
         }
         private void PasarTodoUnixPwdDeDBaUsr()
@@ -844,6 +858,7 @@ namespace PhalanxAdmin
                 lvUnixPwdGrupo.Items.Add(lviGrpUnixPwd);
             }
             lvUnixPwdDB.Items.Clear();
+            _ModificaPwd = true;
 
         }
         private void PasarUnixPwdDeGrpaDB()
@@ -869,6 +884,7 @@ namespace PhalanxAdmin
             {
                 lvUnixPwdGrupo.Items.Remove(lviDB);
             }
+            _ModificaPwd = true;
 
         }
 
@@ -891,6 +907,7 @@ namespace PhalanxAdmin
                 lvUnixPwdDB.Items.Add(lviGrpUnixPwd);
             }
             lvUnixPwdGrupo.Items.Clear();
+            _ModificaPwd = true;
 
         }
 
@@ -1014,6 +1031,7 @@ namespace PhalanxAdmin
             {
                 lvAS400PwdDB.Items.Remove(lviDB);
             }
+            _ModificaPwd = true;
 
         }
         private void PasarTodoAS400PwdDeDBaUsr()
@@ -1036,6 +1054,7 @@ namespace PhalanxAdmin
                 lvAS400PwdGrupo.Items.Add(lviGrpAS400Pwd);
             }
             lvAS400PwdDB.Items.Clear();
+            _ModificaPwd = true;
 
         }
         private void PasarAS400PwdDeGrpaDB()
@@ -1061,6 +1080,7 @@ namespace PhalanxAdmin
             {
                 lvAS400PwdGrupo.Items.Remove(lviDB);
             }
+            _ModificaPwd = true;
 
         }
 
@@ -1083,6 +1103,7 @@ namespace PhalanxAdmin
                 lvAS400PwdDB.Items.Add(lviGrpAS400Pwd);
             }
             lvAS400PwdGrupo.Items.Clear();
+            _ModificaPwd = true;
 
         }
 
@@ -1204,6 +1225,7 @@ namespace PhalanxAdmin
 
             foreach (ListViewItem lviDB in lvECPwdDB.SelectedItems)
                 lvECPwdDB.Items.Remove(lviDB);
+            _ModificaPwd = true;
         }
 
         private void PasarTodoECPwdDeDBaUsr()
@@ -1225,6 +1247,7 @@ namespace PhalanxAdmin
             }
 
             lvECPwdDB.Items.Clear();
+            _ModificaPwd = true;
         }
 
         private void PasarECPwdDeGrpaDB()
@@ -1247,6 +1270,7 @@ namespace PhalanxAdmin
 
             foreach (ListViewItem lviDB in lvECPwdGrupo.SelectedItems)
                 lvECPwdGrupo.Items.Remove(lviDB);
+            _ModificaPwd = true;
         }
 
         private void PasarTodoECPwdDeGrpaDB()
@@ -1268,6 +1292,7 @@ namespace PhalanxAdmin
             }
 
             lvECPwdGrupo.Items.Clear();
+            _ModificaPwd = true;
         }
 
         private ListViewItem[] GenerarLVItmsECPwd(IList<CommunicationDeviceUserEntity> ECUsrLst)
@@ -1409,7 +1434,7 @@ namespace PhalanxAdmin
                     PhxUsersAsociados.Add(((PhxUserEntity)lviPhxUsr.Tag));
                 }
 
-                RqstGrpBL.SetPwdsToRqstGrp(_entity, RqstPwdEC, PhxUsersAsociados);
+                RqstGrpBL.SetPwdsToRqstGrp(_entity, RqstPwdEC, PhxUsersAsociados, _ModificaPwd, _ModificaUsrs);
             }
             Cursor.Current = Cursors.Default;
             this.DialogResult = DialogResult.OK;
@@ -1581,6 +1606,7 @@ namespace PhalanxAdmin
             {
                 lvUsuariosDB.Items.Remove(lviDB);
             }
+            _ModificaUsrs = true;
 
         }
         private void PasarTodoPhxUserDeDBaUsr()
@@ -1603,6 +1629,7 @@ namespace PhalanxAdmin
                 lvUsuariosGrupo.Items.Add(lviGrpPhxUser);
             }
             lvUsuariosDB.Items.Clear();
+            _ModificaUsrs = true;
 
         }
         private void PasarPhxUserDeGrpaDB()
@@ -1628,6 +1655,7 @@ namespace PhalanxAdmin
             {
                 lvUsuariosGrupo.Items.Remove(lviDB);
             }
+            _ModificaUsrs = true;
 
         }
 
@@ -1650,6 +1678,7 @@ namespace PhalanxAdmin
                 lvUsuariosDB.Items.Add(lviGrpPhxUser);
             }
             lvUsuariosGrupo.Items.Clear();
+            _ModificaUsrs = true;
 
         }
 

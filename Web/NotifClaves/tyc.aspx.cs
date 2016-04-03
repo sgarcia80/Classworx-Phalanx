@@ -28,16 +28,35 @@ public partial class tyc : System.Web.UI.Page
     
     protected void btnAceptar_Click(object sender, EventArgs e)
     {
-        int id;
+        int id = 0;
 
-        if (Request["id"] != null && int.TryParse(Request["id"], out id))
+        string tipo = "ALTA";
+
+        if (Request["id"] != null)
+        { 
+            int.TryParse(Request["id"], out id);
+        }
+
+        if (Session["tipoticket"] != null)
+        {
+            tipo = Session["tipoticket"].ToString().ToUpper();
+        }
+
+        if (id > 0 && tipo =="ALTA")
         {
             TicketNotificacionClaveBusiness tncb = new TicketNotificacionClaveBusiness();
 
             tncb.AceptarTyC(id);
-
-            Response.Redirect("DetalleTicket.aspx?id=" + Request["id"]);
         }
+
+        if (id > 0 && tipo == "BLANQUEO")
+        {
+            TicketNotificacionBlanqueoBusiness tncb = new TicketNotificacionBlanqueoBusiness();
+
+            tncb.AceptarTyC(id);
+        }
+
+        Response.Redirect("DetalleTicket.aspx?id=" + Request["id"] + "&tipo=" + tipo);
     }
     
     protected void btnVolver_Click(object sender, EventArgs e)

@@ -430,85 +430,124 @@ namespace PhalanxDAL.Factories
 
 
         public void SetPwdsToRqstGrp(FollowupRequestGroupEntity RequestGroup,
-                UserPasswordEntityCollection UsersPasswords, PhxUserEntityCollection Users)
+                UserPasswordEntityCollection UsersPasswords, PhxUserEntityCollection Users, bool ModificaPwds, bool ModificaUsrs)
         {
             ITransaction tx = null;
             using (ISession session = DBMgr.factory.OpenSession())
             {
                 try
                 {
-                    IList GrpsUserToDEL; // = new PhxRoleUserEntityCollection();
+                    IList GrpsUserToDEL;
                     // abre sesión
                     tx = session.BeginTransaction();
-                    #region Actualización de Pwd
-                    // trae los phxUserRole que están grabados y no están en la collection
-                    ICriteria PhxUsrGrpLstDEL = session.CreateCriteria(typeof(FollowupRequestGroupPasswordEntity));
-                    PhxUsrGrpLstDEL = PhxUsrGrpLstDEL.Add(Expression.Eq("FollowupRqstGrp", RequestGroup));
-                    PhxUsrGrpLstDEL = PhxUsrGrpLstDEL.Add(
-                        Expression.Not(Expression.In("UserPassword", UsersPasswords)));
-                    // Retrieve data here (with the session)
-                    GrpsUserToDEL = PhxUsrGrpLstDEL.List();
+                    if (ModificaPwds)
+                    {
+                        #region Actualización de Pwd
+                        // trae los phxUserRole que están grabados y no están en la collection
+                        ICriteria PhxUsrGrpLstDEL = session.CreateCriteria(typeof(FollowupRequestGroupPasswordEntity));
+                        PhxUsrGrpLstDEL = PhxUsrGrpLstDEL.Add(Expression.Eq("FollowupRqstGrp", RequestGroup));
+                        //PhxUsrGrpLstDEL = PhxUsrGrpLstDEL.Add(Expression.Not(Expression.In("UserPassword", UsersPasswords))); // no se puede usar porque not in no soporta tantos valores
 
-                    // borra los que trae
-                    foreach (FollowupRequestGroupPasswordEntity UsrGrpE in GrpsUserToDEL)
-                    {
-                        session.Delete(UsrGrpE);
-                    }
-                    // verifica cuales tiene que insertar y los inserta
-                    foreach (UserPasswordEntity WinPwdINS in UsersPasswords)
-                    {
-                        IList lstUsrGrp;
-                        ICriteria ExistUsrGroup = session.CreateCriteria(typeof(FollowupRequestGroupPasswordEntity));
-                        ExistUsrGroup = ExistUsrGroup.Add(Expression.Eq("FollowupRqstGrp", RequestGroup));
-                        ExistUsrGroup = ExistUsrGroup.Add(Expression.Eq("UserPassword", WinPwdINS));
-                        lstUsrGrp = ExistUsrGroup.List();
-                        if (lstUsrGrp.Count == 0)
+                        GrpsUserToDEL = PhxUsrGrpLstDEL.List();
+
+
+                        // recorrer GrpsUserDEL y sacar los que estan en UserPasswords
+                        for (int i = 0; i < GrpsUserToDEL.Count; i++)
                         {
-                            FollowupRequestGroupPasswordEntity newRqstGrpPwd = new FollowupRequestGroupPasswordEntity();
-                            newRqstGrpPwd.UserPassword = WinPwdINS;
-                            newRqstGrpPwd.FollowupRqstGrp = RequestGroup;
-                            session.Save(newRqstGrpPwd);
+                            if (UsersPasswords.Find(((FollowupRequestGroupPasswordEntity)GrpsUserToDEL[i]).UserPassword.Key) != null)
+                            {
+                                GrpsUserToDEL.RemoveAt(i);
+                                i--;
+                            }
+
                         }
-                    }
-                    #endregion
 
-                    //FollowupRequestGroupUserEntity a;
-                    #region Actualización de Users
-                    // trae los phxUser ACTIVOS que están grabados y no están en la collection
-                    ICriteria PhxUsrDEL = session.CreateCriteria(typeof(FollowupRequestGroupUserEntity))
-                    .Add(Expression.Eq("FollowupRqstGrp", RequestGroup))
-                    .Add(Expression.Not(Expression.In("PhxUser", Users)));
-                    // Retrieve data here (with the session)
-                    IList PhxUsrToDEL;
-                    PhxUsrToDEL = PhxUsrDEL.List();
-
-                    // borra los que trae
-                    foreach (FollowupRequestGroupUserEntity UsrGrpE in PhxUsrToDEL)
-                    {
-                        // verifica si esta activo, entonces se considera que se está editando
-                        if (UsrGrpE.PhxUser.Active)
+                        // borra los que trae
+                        foreach (FollowupRequestGroupPasswordEntity UsrGrpE in GrpsUserToDEL)
                         {
                             session.Delete(UsrGrpE);
                         }
-                    }
-                    // verifica cuales tiene que insertar y los inserta
-                    foreach (PhxUserEntity WinPwdINS in Users)
-                    {
-                        IList lstUsrGrp;
-                        ICriteria ExistUsrGroup = session.CreateCriteria(typeof(FollowupRequestGroupUserEntity));
-                        ExistUsrGroup = ExistUsrGroup.Add(Expression.Eq("FollowupRqstGrp", RequestGroup));
-                        ExistUsrGroup = ExistUsrGroup.Add(Expression.Eq("PhxUser", WinPwdINS));
-                        lstUsrGrp = ExistUsrGroup.List();
-                        if (lstUsrGrp.Count == 0)
+                        // verifica cuales tiene que insertar y los inserta
+                        //foreach (UserPasswordEntity WinPwdINS in UsersPasswords)
+                        //{
+                        //    IList lstUsrGrp;
+                        //    ICriteria ExistUsrGroup = session.CreateCriteria(typeof(FollowupRequestGroupPasswordEntity));
+                        //    ExistUsrGroup = ExistUsrGroup.Add(Expression.Eq("FollowupRqstGrp", RequestGroup));
+                        //    ExistUsrGroup = ExistUsrGroup.Add(Expression.Eq("UserPassword", WinPwdINS));
+                        //    lstUsrGrp = ExistUsrGroup.List();
+                        //    if (lstUsrGrp.Count == 0)
+                        //    {
+                        //        FollowupRequestGroupPasswordEntity newRqstGrpPwd = new FollowupRequestGroupPasswordEntity();
+                        //        newRqstGrpPwd.UserPassword = WinPwdINS;
+                        //        newRqstGrpPwd.FollowupRqstGrp = RequestGroup;
+                        //        session.Save(newRqstGrpPwd);
+                        //    }
+                        //}
+                        IList lstUsrRqstGrp;
+                        ICriteria SearchUsrGroup = session.CreateCriteria(typeof(FollowupRequestGroupPasswordEntity));
+                        SearchUsrGroup = SearchUsrGroup.Add(Expression.Eq("FollowupRqstGrp", RequestGroup));
+                        lstUsrRqstGrp = SearchUsrGroup.List();
+                        for (int x = 0; x < UsersPasswords.Count; x++)
                         {
-                            FollowupRequestGroupUserEntity newRqstGrpPwd = new FollowupRequestGroupUserEntity();
-                            newRqstGrpPwd.PhxUser = WinPwdINS;
-                            newRqstGrpPwd.FollowupRqstGrp = RequestGroup;
-                            session.Save(newRqstGrpPwd);
+                            bool HasToINS = true;
+                            for (int i = 0; i < lstUsrRqstGrp.Count; i++)
+                            {
+                                if (UsersPasswords[x].Key == (lstUsrRqstGrp[i] as FollowupRequestGroupPasswordEntity).UserPassword.Key)
+                                {
+                                    HasToINS = false;
+                                    break;
+                                }
+                            }
+                            if (HasToINS)
+                            {
+                                FollowupRequestGroupPasswordEntity newRqstGrpPwd = new FollowupRequestGroupPasswordEntity();
+                                newRqstGrpPwd.UserPassword = UsersPasswords[x];
+                                newRqstGrpPwd.FollowupRqstGrp = RequestGroup;
+                                session.Save(newRqstGrpPwd);
+                            }
                         }
+                        // teng oque ver como recorrer para optimizar
+                        #endregion
                     }
-                    #endregion
+                    //FollowupRequestGroupUserEntity a;
+                    if (ModificaUsrs)
+                    {
+                        #region Actualización de Users
+                        // trae los phxUser ACTIVOS que están grabados y no están en la collection
+                        ICriteria PhxUsrDEL = session.CreateCriteria(typeof(FollowupRequestGroupUserEntity))
+                        .Add(Expression.Eq("FollowupRqstGrp", RequestGroup))
+                        .Add(Expression.Not(Expression.In("PhxUser", Users)));
+                        // Retrieve data here (with the session)
+                        IList PhxUsrToDEL;
+                        PhxUsrToDEL = PhxUsrDEL.List();
 
+                        // borra los que trae
+                        foreach (FollowupRequestGroupUserEntity UsrGrpE in PhxUsrToDEL)
+                        {
+                            // verifica si esta activo, entonces se considera que se está editando
+                            if (UsrGrpE.PhxUser.Active)
+                            {
+                                session.Delete(UsrGrpE);
+                            }
+                        }
+                        // verifica cuales tiene que insertar y los inserta
+                        foreach (PhxUserEntity WinPwdINS in Users)
+                        {
+                            IList lstUsrGrp;
+                            ICriteria ExistUsrGroup = session.CreateCriteria(typeof(FollowupRequestGroupUserEntity));
+                            ExistUsrGroup = ExistUsrGroup.Add(Expression.Eq("FollowupRqstGrp", RequestGroup));
+                            ExistUsrGroup = ExistUsrGroup.Add(Expression.Eq("PhxUser", WinPwdINS));
+                            lstUsrGrp = ExistUsrGroup.List();
+                            if (lstUsrGrp.Count == 0)
+                            {
+                                FollowupRequestGroupUserEntity newRqstGrpPwd = new FollowupRequestGroupUserEntity();
+                                newRqstGrpPwd.PhxUser = WinPwdINS;
+                                newRqstGrpPwd.FollowupRqstGrp = RequestGroup;
+                                session.Save(newRqstGrpPwd);
+                            }
+                        }
+                        #endregion
+                    }
                     tx.Commit();
                     //return Usuario.Id;
                     //return true;

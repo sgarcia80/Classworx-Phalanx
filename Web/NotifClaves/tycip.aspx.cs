@@ -42,13 +42,33 @@ public partial class tycip : System.Web.UI.Page
         {
             int id = (int)Session["id"];
 
-            TicketNotificacionClaveBusiness tncb = new TicketNotificacionClaveBusiness();
-            
-            TicketNotificacionClaveEntity ticket = tncb.GetById(id);
-                        
-            tncb.AceptarTyC(ticket);
-            
-            Response.Redirect("DetalleTicketIp.aspx?");
+            string tipo = "ALTA";
+
+            if (Session["tipoticket"] != null)
+            {
+                tipo = Session["tipoticket"].ToString().ToUpper();
+            }
+
+            if (tipo == "ALTA")
+            {
+                TicketNotificacionClaveBusiness tncb = new TicketNotificacionClaveBusiness();
+
+                TicketNotificacionClaveEntity ticket = tncb.GetById(id);
+
+                tncb.AceptarTyC(ticket);
+
+                Response.Redirect("DetalleTicketIp.aspx?");
+            }
+
+            if (tipo == "BLANQUEO")
+            {
+                TicketNotificacionBlanqueoBusiness tncb = new TicketNotificacionBlanqueoBusiness();
+                TicketNotificacionBlanqueoEntity ticket = tncb.GetById(id);
+
+                tncb.AceptarTyC(ticket);
+
+                Response.Redirect("DetalleTicket.aspx?id=" + id.ToString());
+            }
         }
     }
 

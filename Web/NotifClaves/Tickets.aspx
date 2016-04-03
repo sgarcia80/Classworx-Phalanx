@@ -5,7 +5,10 @@
         ForeColor="#333333" GridLines="None" EmptyDataText="No tiene tickets disponibles para Visualizar" Font-Bold="False" DataSourceID="odsTickets">
         <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
         <Columns>
-            <asp:BoundField DataField="Fecha" HeaderText="Fecha" SortExpression="Fecha" >
+            <asp:BoundField DataField="Fecha" HeaderText="Fecha" SortExpression="Fecha" DataFormatString="{0:dd/MM/yyyy HH:mm}" >
+                <HeaderStyle HorizontalAlign="Center" />
+            </asp:BoundField>
+            <asp:BoundField DataField="Tipo" HeaderText="Tipo" SortExpression="Tipo" >
                 <HeaderStyle HorizontalAlign="Left" />
             </asp:BoundField>
             <asp:BoundField DataField="NumeroSolicitud" HeaderText="Nro Solicitud" SortExpression="NumeroSolicitud" >
@@ -18,9 +21,9 @@
                 <ItemStyle Width="150px" />
                 <HeaderStyle HorizontalAlign="Left" />
             </asp:BoundField>
-            <asp:HyperLinkField Text="Ver" DataNavigateUrlFields="Id" DataNavigateUrlFormatString="~/DetalleTicket.aspx?id={0}" >
-                <ItemStyle HorizontalAlign="Right" />
-                <HeaderStyle HorizontalAlign="Right" />
+            <asp:HyperLinkField Text="Ver" DataNavigateUrlFields="Id,Tipo" DataNavigateUrlFormatString="~/DetalleTicket.aspx?id={0}&tipo={1}" >
+                <ItemStyle HorizontalAlign="Center" />
+                <HeaderStyle HorizontalAlign="Center" />
             </asp:HyperLinkField>
         </Columns>
         <RowStyle BackColor="#EFF3FB" Font-Bold="True" Font-Names="Tahoma" Font-Size="11px" />
@@ -30,7 +33,7 @@
         <HeaderStyle BackColor="#0190cc" Font-Bold="True" ForeColor="White" Font-Names="Tahoma" Font-Size="14px" />
         <AlternatingRowStyle BackColor="White" Font-Bold="True" Font-Names="Tahoma" Font-Size="11px" />
     </asp:GridView>
-    <asp:ObjectDataSource ID="odsTickets" runat="server" SelectMethod="GetAllActiveByUser" TypeName="NDCBL.TicketNotificacionClaveBusiness">
+    <asp:ObjectDataSource ID="odsTickets" runat="server" SelectMethod="GetAllActiveByUser" TypeName="NDCBL.TicketNotificacionBusiness">
         <SelectParameters>
             <asp:SessionParameter Name="dominio" SessionField="Dominio" Type="String" />
             <asp:SessionParameter Name="usuario" SessionField="Usuario" Type="String" />

@@ -66,6 +66,7 @@ namespace PhalanxAdmin
                 || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyAltaUsuarioAplicativoSeguridadPropiaMail)
                 || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyDevMails)
                 || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyAltaUsuarioRedExternoMail)
+                || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyNotificacionBlanqueoMail)
                 )
             {
                 txtValor.Multiline = true;
@@ -89,6 +90,9 @@ namespace PhalanxAdmin
             cbParams.Enabled = false;
             PhxConfigEntity ConfEnt = ((PhxConfigEntity)cbParams.SelectedItem);
             PhxConfigBusiness conf = new PhxConfigBusiness();
+
+            btnTagNombreSolicitante.Enabled = false;
+
             if (ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyExpMails))
             {
                 grpTags.Visible = true;
@@ -240,6 +244,26 @@ namespace PhalanxAdmin
                 btnTagToken.Enabled = false;
                 btnTagDestino.Enabled = false;
             }
+            else if (ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.SubjectNotificacionBlanqueoMail)
+                || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyNotificacionBlanqueoMail))
+            {
+                grpTags.Visible = true;
+                btnTagFechaExp.Enabled = false;
+                btnTagFechaSolic.Enabled = false;
+                btnTagNomSolic.Enabled = false;
+                btnTagPwdSolic.Enabled = false;
+                btnTagNroTicket.Enabled = false;
+                btnTagDescUso.Enabled = false;
+                btnTagTiempoUso.Enabled = false;
+                btnTagEstadoSolic.Enabled = false;
+                btnTagNombreUsuario.Enabled = false;
+                btnTagFechaAlta.Enabled = false;
+                btnTagAplicativo.Enabled = true;
+                btnTagFechaDev.Enabled = false;
+                btnTagToken.Enabled = false;
+                btnTagDestino.Enabled = false;
+                btnTagNombreSolicitante.Enabled = true;
+            }
             else if (ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyAltaUsuarioRedExternoMail))
             {
                 grpTags.Visible = true;
@@ -285,6 +309,7 @@ namespace PhalanxAdmin
                 || ConfEnt.Code == new PhxConfigBusiness().ParamCodeToString(ConfigCodes.BodyAltaUsuarioAplicativoSeguridadPropiaMail)
                 || ConfEnt.Code == new PhxConfigBusiness().ParamCodeToString(ConfigCodes.BodyDevMails)
                 || ConfEnt.Code == new PhxConfigBusiness().ParamCodeToString(ConfigCodes.BodyAltaUsuarioRedExternoMail)
+                || ConfEnt.Code == new PhxConfigBusiness().ParamCodeToString(ConfigCodes.BodyNotificacionBlanqueoMail)
                 )
             {
                 ((PhxConfigEntity)cbParams.SelectedItem).LongTxtValue = txtValor.Text;
@@ -372,8 +397,7 @@ namespace PhalanxAdmin
             AgregarTag(strTag);
 
         }
-
-
+        
         private void btnTagEstadoSolic_Click(object sender, EventArgs e)
         {
             string strTag = "[EstadoSolicitud]";
@@ -414,6 +438,12 @@ namespace PhalanxAdmin
         private void btnTagDestino_Click(object sender, EventArgs e)
         {
             string strTag = "[Destino]";
+            AgregarTag(strTag);
+        }
+
+        private void btnTagNombreSolicitante_Click(object sender, EventArgs e)
+        {
+            string strTag = "[NombreSolicitante]";
             AgregarTag(strTag);
         }
     }

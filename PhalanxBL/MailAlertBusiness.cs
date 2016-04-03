@@ -595,6 +595,20 @@ namespace PhalanxBL
                 ConfigCodes.SubjectAltaUsuarioAplicativoSeguridadPropiaMail, aplicativo, numeroSolicitud, fecha);
         }
 
+        public void UpdateMailRegeneraToken(int IdMail, string NewToken, string solicitante, int numeroSolicitud, DateTime fecha, string destino)
+        {
+            MailAlertEntity MailToUpdate = new MailAlertFactory().Load(IdMail);
+            PhxConfigBusiness PhxConfBL = new PhxConfigBusiness();
+            MailToUpdate.Body = ReplaceAltaUsuarioRedExternoBodyTokens(PhxConfBL.GetConfigParam(ConfigCodes.BodyAltaUsuarioRedExternoMail).LongTxtValue, fecha, numeroSolicitud, NewToken, destino, solicitante);
+            MailToUpdate.Subject = ReplaceAltaUsuarioRedExternoBodyTokens(PhxConfBL.GetConfigParam(ConfigCodes.SubjectAltaUsuarioRedExternoMail).ShortTxtValue, fecha, numeroSolicitud, NewToken, destino, solicitante);
+            MailAlertFactory MAF = new MailAlertFactory();
+
+            int IdMailAlert = MAF.Update(MailToUpdate);
+
+            if (IdMailAlert > 0)
+                SendMail(MailToUpdate);
+
+        }
         public int? AltaUsuarioRedExternoMail(string[] to, string solicitante, int numeroSolicitud, DateTime fecha, string token, string destino)
         {
             try
@@ -613,7 +627,7 @@ namespace PhalanxBL
                 }
                 
                 MailToSend.Body = ReplaceAltaUsuarioRedExternoBodyTokens(PhxConfBL.GetConfigParam(ConfigCodes.BodyAltaUsuarioRedExternoMail).LongTxtValue, fecha, numeroSolicitud, token, destino, solicitante);
-                MailToSend.Subject = PhxConfBL.GetConfigParam(ConfigCodes.SubjectAltaUsuarioRedExternoMail).ShortTxtValue;
+                MailToSend.Subject = ReplaceAltaUsuarioRedExternoBodyTokens(PhxConfBL.GetConfigParam(ConfigCodes.SubjectAltaUsuarioRedExternoMail).ShortTxtValue, fecha, numeroSolicitud, token, destino, solicitante);
 
                 MailAlertFactory MAF = new MailAlertFactory();
 
@@ -630,6 +644,33 @@ namespace PhalanxBL
             }
 
 			return null;
+        }
+
+        public void NotificacionBlanqueoMail(string solicitante, int numeroSolicitud, string aplicativo, DateTime fecha)
+        {
+            try
+            {
+                MailAlertEntity MailToSend = new MailAlertEntity();
+                MailToSend.MailType = new MailTypeFactory().GetMailType(MailTypeFactory.MailType.NotificacionBlanqueo);
+
+                PhxConfigBusiness PhxConfBL = new PhxConfigBusiness();
+
+                MailToSend.ToAddress = PhxConfBL.GetConfigParam(ConfigCodes.TecMicroEmail).ShortTxtValue;
+
+                MailToSend.Body = ReplaceNotificacionBlanqueoMailTokens(PhxConfBL.GetConfigParam(ConfigCodes.BodyNotificacionBlanqueoMail).LongTxtValue, solicitante, aplicativo);
+                MailToSend.Subject = ReplaceNotificacionBlanqueoMailTokens(PhxConfBL.GetConfigParam(ConfigCodes.SubjectNotificacionBlanqueoMail).ShortTxtValue, solicitante, aplicativo);
+
+                MailAlertFactory MAF = new MailAlertFactory();
+
+                int IdMailAlert = MAF.Save(MailToSend);
+
+                if (IdMailAlert > 0)
+                    SendMail(MailToSend);
+            }
+            catch (Exception ex)
+            {
+                // no se pudo crear el mail;
+            }
         }
 
         private string ReplaceExpirationRqstTokens(string MailBody, PasswordRequestEntity PwdRqst)
@@ -1097,6 +1138,12 @@ namespace PhalanxBL
                             .Replace("[FechaAlta]", fecha.ToString("dd/MM/yyyy"));
         }
 
+        private string ReplaceNotificacionBlanqueoMailTokens(string text, string solicitante, string aplicacion)
+        {
+            return text.Replace("[NombreSolicitante]", solicitante)
+                            .Replace("[Aplicacion]", aplicacion);
+        }
+
         public void MailAltaUsuarioAplicativoConSegInt(string Aplicacion, string FTicketDDMMYYYY, string NroTicket, string MailUsuario)
         {
             try
@@ -1335,5 +1382,6 @@ namespace PhalanxBL
                 i++;
             }
         }
+
     }
 }

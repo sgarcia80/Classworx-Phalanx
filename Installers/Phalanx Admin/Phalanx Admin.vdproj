@@ -40,6 +40,12 @@
         "Entry"
         {
         "MsmKey" = "8:_256E2E6F41BE21D81BBE95F837F3ED1C"
+        "OwnerKey" = "8:_7F7B50495E5E48364FE0A9E569943D4E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_256E2E6F41BE21D81BBE95F837F3ED1C"
         "OwnerKey" = "8:_F7B284C038E24DB2BC98AA9A82DC0B7E"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -51,8 +57,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_256E2E6F41BE21D81BBE95F837F3ED1C"
-        "OwnerKey" = "8:_7F7B50495E5E48364FE0A9E569943D4E"
+        "MsmKey" = "8:_295162C4A89D93A1F8BB80B98820A784"
+        "OwnerKey" = "8:_D803837AF9D6D55B31EF310462F3A091"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -71,12 +77,6 @@
         {
         "MsmKey" = "8:_295162C4A89D93A1F8BB80B98820A784"
         "OwnerKey" = "8:_CEF8FEC3A52D4341A5AD380DDB2F9905"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_295162C4A89D93A1F8BB80B98820A784"
-        "OwnerKey" = "8:_D803837AF9D6D55B31EF310462F3A091"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -484,30 +484,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_D044E22B553B36CEA0CC4D6462354036"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_424DB93A68888DD94FBC595179D0D245"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F7B284C038E24DB2BC98AA9A82DC0B7E"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_7B261B1AAD35651A80B26FB470496C09"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_410AD11FB8D1D7830C968B434A870130"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -568,6 +544,42 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_D7BD5FFDDBC2DC8C2B5754BC9AEB3444"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_69CB4B0A011F5887F7D9F1859B2DC772"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_D044E22B553B36CEA0CC4D6462354036"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_424DB93A68888DD94FBC595179D0D245"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_F7B284C038E24DB2BC98AA9A82DC0B7E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_7B261B1AAD35651A80B26FB470496C09"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_295162C4A89D93A1F8BB80B98820A784"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -587,18 +599,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_712E88E0265307E451CA92FADF131360"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_D7BD5FFDDBC2DC8C2B5754BC9AEB3444"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_69CB4B0A011F5887F7D9F1859B2DC772"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -895,7 +895,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:2.0.50727                                           "
+                "FrameworkVersion" = "8:2.0.50727                                                 "
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=9832"
                 }
@@ -1310,7 +1310,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:phxBlowfish, Version=1.0.5812.41247, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:phxBlowfish, Version=1.0.5882.40812, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_84292E310B71AE205DDBC2492A2DB70B"
@@ -1341,7 +1341,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:phxCryptMgr, Version=1.0.5812.41250, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:phxCryptMgr, Version=1.0.5882.40814, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_874A151F34FA3A25D50D194CBE7A17B1"
@@ -1632,15 +1632,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Phalanx Admin"
-        "ProductCode" = "8:{0C2D1F2F-239C-414D-8F27-84942D367F00}"
-        "PackageCode" = "8:{01A56270-CF1F-4D16-A080-35AFF76211A4}"
+        "ProductCode" = "8:{D49AA94A-C42F-4372-AC96-A46FC5505C44}"
+        "PackageCode" = "8:{96C8A47E-759A-40C6-A74F-0F6D6A0246FC}"
         "UpgradeCode" = "8:{8E78FDE6-B4CE-4524-9C74-9426AAF1C2E4}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:3.16.0"
+        "ProductVersion" = "8:3.16.1"
         "Manufacturer" = "8:Classworx"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

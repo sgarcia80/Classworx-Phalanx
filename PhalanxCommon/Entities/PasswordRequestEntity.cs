@@ -219,7 +219,20 @@ namespace PhalanxCommon.Entities
             }
         }
          * */
-        
+
+        public bool ModificadaDespuesDevolucion
+        {
+            get
+            {
+                return UserPassword.DLastChange != null &&
+                        (
+                            (ReturnDate != null && UserPassword.DLastChange.Value > ReturnDate.Value)
+                            ||
+                            (ExpirationDate != null && UserPassword.DLastChange.Value > ExpirationDate)
+                        );
+            }
+        }
+
         #endregion
         
         #endregion

@@ -44,7 +44,9 @@ namespace PhalanxCommon.Entities
         OficinaASBlanqueoWSCOBIS,
         ServidorASBlanqueoWSCOBIS,
         ClaveBlanqueoWSCOBIS,
-        LoginBlanqueoWSCOBIS
+        LoginBlanqueoWSCOBIS,
+        SubjectNotificacionBlanqueoMail,
+        BodyNotificacionBlanqueoMail
     }
 
 

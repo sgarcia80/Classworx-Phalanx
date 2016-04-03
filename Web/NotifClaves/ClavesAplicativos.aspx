@@ -8,12 +8,6 @@
     <table class="login">
         <tr>
             <td colspan="2" align="center">
-                <asp:Button ID="btnCOBIS" Text="Autogestión COBIS" CssClass="btn" Width="180px" 
-                    runat="server" onclick="btnCOBIS_Click"/>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2" align="center">
                 <br />
                 <asp:Button ID="btnNotifClaves" Text="Notificación de Claves" CssClass="btn" 
                     Width="180px" runat="server" onclick="btnNotifClaves_Click" />
