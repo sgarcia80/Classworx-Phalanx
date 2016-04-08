@@ -16,7 +16,9 @@ namespace PhalanxAdmin
     public partial class FABMNotifBlanqueo : PhalanxAdmin.FModalBase
     {
         TicketNotificacionBlanqueoEntity _entity = new TicketNotificacionBlanqueoEntity();
+        DominioLoginEntityCollection _dominios = new DominioLoginEntityCollection();
         AplicacionNotificacionClaveBusiness AplicacionBL = new AplicacionNotificacionClaveBusiness();
+        DominioLoginBusiness DominioLoginBL = new DominioLoginBusiness();
         TicketNotificacionBlanqueoBusiness TicketBL = new TicketNotificacionBlanqueoBusiness();
         bool _readOnly = false;
 
@@ -96,34 +98,41 @@ namespace PhalanxAdmin
             {
             }
 
+            CargarAplicaciones();
+            CargarDominios();
+
             if (_entity.Id == 0)
             {
-                // es un nuevo registro
-                // si no es visualización cargo los combos
-                CargarAplicaciones();
-
                 txtFecha.Text = DateTime.Now.ToString("dd/MM/yyyy");
+                txtSolicitante.Text = user;
             }
             else
             {
                 txtTicketNro.Text = _entity.Id.ToString();
 
-                // no es uno nuevo, cargo los datos
-                txtUsername.Text = _entity.UsuarioAplicacion;
-                txtDomain.Text = _entity.DominioUsuarioAplicacion;
+                var dominio = _dominios.FindByName(_entity.UsuarioDominio);
 
+                // no es uno nuevo, cargo los datos
+                cbDomain.SelectedItem = dominio;
+                txtUser.Text = _entity.Usuario;
+
+                txtUsername.Text = _entity.UsuarioAplicacion;
                 string strPwd = TicketBL.DesencriptarPassword(_entity.PasswordUsuarioAplicacion);
 
                 tPassword1.Text = strPwd;
                 tPassword2.Text = strPwd;
 
-                txtFecha.Text = _entity.Fecha.ToString("dd/MM/yyyy");
+                cbAplicacion.SelectedItem = _entity.Aplicacion;
 
+                txtFecha.Text = _entity.Fecha.ToString("dd/MM/yyyy");
+                txtFechaAyC.Text = _entity.FechaAceptacionTyC.HasValue ? _entity.FechaAceptacionTyC.Value.ToString("dd/MM/yyyy") : string.Empty;
+                txtSolicitante.Text = user;
+                
                 if (_readOnly)
                 {
                     // hace readonly los campos
                     txtUsername.ReadOnly = true;
-                    txtDomain.ReadOnly = true;
+                    cbDomain.Enabled = false;
                     tPassword1.ReadOnly = true;
                     tPassword2.ReadOnly = true;
                     cbAplicacion.Enabled = false;
@@ -131,11 +140,20 @@ namespace PhalanxAdmin
                 else
                 {
                     // si no es readonly (visualizar) cargo los combos
-                    cbAplicacion.SelectedItem = _entity.Aplicacion;
                 }
             }
 
             ConfigureScreen();
+        }
+
+        private void CargarDominios()
+        {
+            _dominios = DominioLoginBL.GetAllParaCombo();
+
+            cbDomain.Items.Clear();
+            cbDomain.DataSource = _dominios; // WithDatabases();
+            cbDomain.ValueMember = "Nombre";
+            cbDomain.DisplayMember = "Nombre";
         }
 
         private void CargarAplicaciones()
@@ -183,9 +201,9 @@ namespace PhalanxAdmin
             }
 
             // chequear pwd no vacia
-            if (txtDomain.Text.Trim().Length == 0)
+            if (txtUser.Text.Trim().Length == 0)
             {
-                MessageBox.Show("Debe introducir un Dominio");
+                MessageBox.Show("Debe introducir un Usuario de Red");
                 return;
             }
             // chequear pwd no vacia
@@ -213,13 +231,15 @@ namespace PhalanxAdmin
             // asignar datos a la entity
             if (_entity.Id == 0)
             {
+                _entity.UsuarioDominio = ((DominioLoginEntity)cbDomain.SelectedItem).Nombre;
                 _entity.Aplicacion = (AplicacionNotificacionClaveEntity)cbAplicacion.SelectedItem;
             }
-            _entity.DominioUsuarioAplicacion = txtDomain.Text.Trim();
-            _entity.UsuarioAplicacion = txtUsername.Text.Trim();
 
+            _entity.Usuario = txtUser.Text.Trim();
+            _entity.UsuarioAplicacion = txtUsername.Text.Trim();
             _entity.PasswordUsuarioAplicacion = TicketBL.EncriptarPassword(tPassword1.Text);
-            _entity.Usuario = user;
+
+            _entity.Solicitante = user;
 
             // grabar
             int Id = TicketBL.Save(_entity);
@@ -227,7 +247,7 @@ namespace PhalanxAdmin
             if (Id > 0)
             {
                 _entity.Id = Id;
-                MessageBox.Show("La notificación se generó correctamente", "Ticket de Notificación de Blanqueo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("La notificación se generó correctamente", "Ticket de Notificación de Blanqueo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {

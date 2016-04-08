@@ -18,6 +18,7 @@ namespace NDCDAL.Factories
     {
         private AplicacionNotificacionClaveEntity _filApp = null;
         private string _filUsuario;
+        private string _filUsuarioApp;
         private string _filDominio;
         private DateTime? _filFecha;
         private DateTime? _filFechaDesde;
@@ -31,6 +32,11 @@ namespace NDCDAL.Factories
         public string FilUsuario
         {
             set { _filUsuario = value; }
+        }
+
+        public string FilUsuarioApp
+        {
+            set { _filUsuarioApp = value; }
         }
 
         public string FilDominio
@@ -120,10 +126,13 @@ namespace NDCDAL.Factories
                     DataSearch.Add(Expression.Eq("TNB.Aplicacion", _filApp));
 
                 if (!string.IsNullOrEmpty(_filUsuario))
-                    DataSearch = DataSearch.Add(Expression.Eq("TNB.Usuario", _filUsuario));
+                    DataSearch = DataSearch.Add(Expression.InsensitiveLike("TNB.Usuario", string.Format("%{0}%", _filUsuario)));
+
+                if (!string.IsNullOrEmpty(_filUsuarioApp))
+                    DataSearch = DataSearch.Add(Expression.InsensitiveLike("TNB.UsuarioAplicacion", string.Format("%{0}%", _filUsuarioApp)));
 
                 if (!string.IsNullOrEmpty(_filDominio))
-                    DataSearch = DataSearch.Add(Expression.Eq("TNB.DominioUsuarioAplicacion", _filDominio));
+                    DataSearch = DataSearch.Add(Expression.Eq("TNB.UsuarioDominio", _filDominio));
 
                 if (_filFecha != null)
                     DataSearch = DataSearch.Add(Expression.Eq("TNB.Fecha", _filFecha));
@@ -159,7 +168,7 @@ namespace NDCDAL.Factories
             {
                 ICriteria DataSearch = session.CreateCriteria(typeof(TicketNotificacionBlanqueoEntity), "TNB");
                 DataSearch = DataSearch.Add(Expression.Eq("TNB.Usuario", usuario).IgnoreCase());
-                DataSearch = DataSearch.Add(Expression.Eq("TNB.DominioUsuarioAplicacion", dominio).IgnoreCase());
+                DataSearch = DataSearch.Add(Expression.Eq("TNB.UsuarioDominio", dominio).IgnoreCase());
 
                 //DataSearch.CreateCriteria("Aplicacion")
                 //            .Add(Expression.Eq("Notificable", true));

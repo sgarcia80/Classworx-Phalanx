@@ -17,7 +17,8 @@ namespace NDCCommon.Entities
         private AplicacionNotificacionClaveEntity m_tnb_app;
         private string m_tnb_app_user;
         private string m_tnb_user_pass;
-        private string m_tnb_app_user_domain;
+        private string m_tnb_user_domain;
+        private string m_tnb_solicitante;
         private DateTime? m_tnb_fecha_vigencia;
         private DateTime? m_tnb_fecha_ace_tyc;
         
@@ -35,7 +36,7 @@ namespace NDCCommon.Entities
             m_tnb_id = 0;
             m_tnb_app_user = string.Empty;
             m_tnb_user_pass = string.Empty;
-            m_tnb_app_user_domain = string.Empty;
+            m_tnb_user_domain = string.Empty;
             m_tnb_user = string.Empty;
         }
         #endregion // End of Default ( Empty ) Class Constuctor
@@ -116,9 +117,9 @@ namespace NDCCommon.Entities
         /// <summary>
         /// 
         /// </summary>
-        public string DominioUsuarioAplicacion
+        public string UsuarioDominio
         {
-            get { return m_tnb_app_user_domain; }
+            get { return m_tnb_user_domain; }
 
             set
             {
@@ -128,8 +129,8 @@ namespace NDCCommon.Entities
                 if (value.Length > 50)
                     throw new ArgumentOutOfRangeException("Invalid value for Application Dominio Usuario", value, value.ToString());
 
-                m_isChanged |= (m_tnb_app_user_domain != value);
-                m_tnb_app_user_domain = value;
+                m_isChanged |= (m_tnb_user_domain != value);
+                m_tnb_user_domain = value;
             }
         }
 
@@ -150,6 +151,26 @@ namespace NDCCommon.Entities
 
                 m_isChanged |= (m_tnb_user != value);
                 m_tnb_user = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Solicitante
+        {
+            get { return m_tnb_solicitante; }
+
+            set
+            {
+                if (value == null)
+                    throw new ArgumentOutOfRangeException("Null value not allowed for Solicitante", value, "null");
+
+                if (value.Length > 50)
+                    throw new ArgumentOutOfRangeException("Invalid value for Solicitante", value, value.ToString());
+
+                m_isChanged |= (m_tnb_solicitante != value);
+                m_tnb_solicitante = value;
             }
         }
 

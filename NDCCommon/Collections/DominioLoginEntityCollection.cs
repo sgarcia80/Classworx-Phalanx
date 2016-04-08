@@ -58,5 +58,14 @@ namespace NDCCommon.Collections
             }
             return null;
         }
+        public new DominioLoginEntity FindByName(string nombre)
+        {
+            foreach (DominioLoginEntity entity in InnerList)
+            {
+                if (entity.Nombre.ToString() == nombre)
+                    return entity;
+            }
+            return null;
+        }
     }
 }

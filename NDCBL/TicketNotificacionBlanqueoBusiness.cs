@@ -104,13 +104,14 @@ namespace NDCBL
             return tmpCollection;
         }
 
-        public TicketNotificacionBlanqueoEntityCollection GetAll(DateTime? fechaDesde, DateTime? fechaHasta, AplicacionNotificacionClaveEntity aplicacion, string dominio, string usuario)
+        public TicketNotificacionBlanqueoEntityCollection GetAll(DateTime? fechaDesde, DateTime? fechaHasta, AplicacionNotificacionClaveEntity aplicacion, string usuarioApp, string dominio, string usuario)
         {
             TicketNotificacionBlanqueoFactory factory = new TicketNotificacionBlanqueoFactory();
 
             factory.FilAplicacion = aplicacion;
             factory.FilDominio = dominio;
             factory.FilUsuario = usuario;
+            factory.FilUsuarioApp = usuarioApp;
             factory.FilFechaDesde = fechaDesde;
             factory.FilFechaHasta = fechaHasta;
             
@@ -325,70 +326,70 @@ namespace NDCBL
         //    return token.ToString();
         //}
 
-        //public bool EnviarEmailAltaUsuarioRedExterno(TicketNotificacionBlanqueoEntity solicitudBPM, out string debug)
-        //{
-        //    debug = "";
+        public bool EnviarEmail(TicketNotificacionBlanqueoEntity notificacion, out string debug)
+        {
+            debug = "";
 
-        //    string destino;
-        //    List<string> mailTo = new List<string>();
+            string destino;
+            List<string> mailTo = new List<string>();
 
-        //    if (!string.IsNullOrEmpty(solicitudBPM.CodigoEmpresaSubsidiaria))
-        //    {
-        //        debug += " | Se busca por Subsidiaria";
-        //        //Subsidiaria
-        //        SubsidiariaBusiness subsidiariaBusiness = new SubsidiariaBusiness();
+            //if (!string.IsNullOrEmpty(notificacion.CodigoEmpresaSubsidiaria))
+            //{
+            //    debug += " | Se busca por Subsidiaria";
+            //    //Subsidiaria
+            //    SubsidiariaBusiness subsidiariaBusiness = new SubsidiariaBusiness();
 
-        //        SubsidiariaEntity subsidiaria = subsidiariaBusiness.GetByCodigo(solicitudBPM.CodigoEmpresaSubsidiaria);
+            //    SubsidiariaEntity subsidiaria = subsidiariaBusiness.GetByCodigo(notificacion.CodigoEmpresaSubsidiaria);
 
-        //        if (subsidiaria == null)
-        //        {
-        //            debug += " | No se encuentra la empresa subsidiaria con código = " + solicitudBPM.CodigoEmpresaSubsidiaria;
+            //    if (subsidiaria == null)
+            //    {
+            //        debug += " | No se encuentra la empresa subsidiaria con código = " + notificacion.CodigoEmpresaSubsidiaria;
 
-        //            return false;
-        //        }
+            //        return false;
+            //    }
 
-        //        destino = solicitudBPM.NombreEmpresaSubsidiaria;
+            //    destino = notificacion.NombreEmpresaSubsidiaria;
 
-        //        if (!string.IsNullOrEmpty(subsidiaria.Email01))
-        //            mailTo.Add(subsidiaria.Email01);
+            //    if (!string.IsNullOrEmpty(subsidiaria.Email01))
+            //        mailTo.Add(subsidiaria.Email01);
 
-        //        if (!string.IsNullOrEmpty(subsidiaria.Email02))
-        //            mailTo.Add(subsidiaria.Email02);
-        //    }
-        //    else
-        //    {
-        //        debug += " | Se busca por Gerencia destino";
+            //    if (!string.IsNullOrEmpty(subsidiaria.Email02))
+            //        mailTo.Add(subsidiaria.Email02);
+            //}
+            //else
+            //{
+            //    debug += " | Se busca por Gerencia destino";
 
-        //        destino = solicitudBPM.NombreGerenciaDestino;
+            //    destino = notificacion.NombreGerenciaDestino;
 
-        //        debug += " | Busca mail en AD por legajo de solicitante";
-        //        string email = PhalanxNAL.ActiveDirectoryHelper.BuscarEmailPorLegajo(solicitudBPM.NumeroLegajoEmpleadoSolicitud);
+            //    debug += " | Busca mail en AD por legajo de solicitante";
+            //    string email = PhalanxNAL.ActiveDirectoryHelper.BuscarEmailPorLegajo(notificacion.NumeroLegajoEmpleadoSolicitud);
 
-        //        if (email == null)
-        //        {
-        //            debug += " | No se encuentra el email para el legajo = " + solicitudBPM.NumeroLegajoEmpleadoSolicitud;
+            //    if (email == null)
+            //    {
+            //        debug += " | No se encuentra el email para el legajo = " + notificacion.NumeroLegajoEmpleadoSolicitud;
 
-        //            return false;
-        //        }
+            //        return false;
+            //    }
 
-        //        mailTo.Add(email);
-        //    }
+            //    mailTo.Add(email);
+            //}
 
-        //    debug += " | Busca Nombre de la pesrona la que se le dió de alta el usuario en AD por usuario de red";
+            debug += " | Busca Nombre de la pesrona la que se le dió de alta el usuario en AD por usuario de red";
 
-        //    string solicitante = PhalanxNAL.ActiveDirectoryHelper.BuscarNombrePorUsername(solicitudBPM.Usuario);
+            string solicitante = PhalanxNAL.ActiveDirectoryHelper.BuscarNombrePorUsername(notificacion.Usuario);
 
-        //    MailAlertBusiness MailToSendBL = new MailAlertBusiness();
+            MailAlertBusiness MailToSendBL = new MailAlertBusiness();
 
-        //    debug += " | Envia mail";
+            debug += " | Envia mail";
 
-        //    solicitudBPM.MailId = MailToSendBL.AltaUsuarioRedExternoMail(mailTo.ToArray(), solicitante, solicitudBPM.NumeroSolicitud, solicitudBPM.Fecha, solicitudBPM.Token, destino);
+            //notificacion.MailId = MailToSendBL.NotificacionBlanqueoMail(solicitante, notificacion.Id, notificacion.Aplicacion.Nombre, notificacion.Fecha);
 
-        //    debug += " | Graba ticket BPM";
+            debug += " | Graba ticket BPM";
 
-        //    Save(solicitudBPM);
+            Save(notificacion);
 
-        //    return true;
-        //}
+            return true;
+        }
     }
 }

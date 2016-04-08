@@ -31,6 +31,7 @@ namespace NDCDAL.Factories
                     if (lstDominioComp.Length == 2)
                     {
                         DominioLoginEntity newdom = new DominioLoginEntity();
+                        newdom.Id = i;
                         newdom.Nombre = lstDominioComp[0];
                         newdom.DireccionAD = lstDominioComp[1];
                         LstDominios.Add(newdom);

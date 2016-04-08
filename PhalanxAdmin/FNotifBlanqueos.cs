@@ -15,8 +15,10 @@ namespace PhalanxAdmin
     {
         protected TicketNotificacionBlanqueoEntityCollection _entities;
         protected AplicacionNotificacionClaveEntityCollection _aplicaciones;
+        protected DominioLoginEntityCollection _dominios;
         private AplicacionNotificacionClaveEntity _filAplicacion;
-        protected string _filNombre = "";
+        protected string _filUsuarioApp = "";
+        protected string _filUsuario = "";
         protected string _filDominio = "";
 
         public FNotifBlanqueos()
@@ -103,6 +105,15 @@ namespace PhalanxAdmin
                 _filAplicacion = null;
             }
 
+
+            if (cbDominio.SelectedIndex > 0)
+            {
+                _filDominio = ((DominioLoginEntity)cbDominio.SelectedItem).Nombre;
+            }
+            else
+            {
+                _filDominio = null;
+            }
         }
 
         private void bwRefreshEntities_DoWork(object sender, DoWorkEventArgs e)
@@ -133,7 +144,7 @@ namespace PhalanxAdmin
             DateTime? fechaDesde = null;
             DateTime? fechaHasta = null;
 
-            _entities = business.GetAll(fechaDesde, fechaHasta, _filAplicacion, txtFilDominio.Text, txtFilUsuario.Text);
+            _entities = business.GetAll(fechaDesde, fechaHasta, _filAplicacion, txtFilUsuarioApp.Text,_filDominio, txtFilUsuario.Text);
         }
         /// <summary>
         /// Llama a la función que genera el array de LV Items y si hay items llama a la que hace el llenado
@@ -177,9 +188,12 @@ namespace PhalanxAdmin
             {
                 lviArr[i] = new ListViewItem();
                 lviArr[i].Text = entity.Aplicacion.ToString();
-                lviArr[i].SubItems.Add(entity.DominioUsuarioAplicacion);
                 lviArr[i].SubItems.Add(entity.UsuarioAplicacion);
+                lviArr[i].SubItems.Add(entity.UsuarioDominio);
+                lviArr[i].SubItems.Add(entity.Usuario);
                 lviArr[i].SubItems.Add(entity.Fecha.ToString("dd/MM/yyyy HH:mm"));
+                lviArr[i].SubItems.Add(entity.Solicitante);
+
                 //lviArr[i].ImageIndex = ;
                 lviArr[i].Tag = entity;
                 i++;
@@ -235,7 +249,9 @@ namespace PhalanxAdmin
         private void CleanFilters()
         {
             txtFilUsuario.Text = "";
+            txtFilUsuarioApp.Text = "";
             cbAplicacion.SelectedIndex = 0;
+            cbDominio.SelectedIndex = 0;
         }
 
         private void lnkCancelar_Click(object sender, EventArgs e)
@@ -259,6 +275,18 @@ namespace PhalanxAdmin
             this._aplicaciones.Insert(0, new AplicacionNotificacionClaveEntity { Id = 0, Nombre = "Todas" });
 
             cbAplicacion.DataSource = this._aplicaciones;
+        }
+
+        private void CargaComboDominios()
+        {
+            DominioLoginBusiness business = new DominioLoginBusiness();
+            this._dominios = business.GetAllParaCombo();
+
+            this._dominios.Insert(0, new DominioLoginEntity { Nombre = "Todos", DireccionAD = "Todos" });
+
+            cbDominio.DataSource = this._dominios;
+            cbDominio.DisplayMember = "Nombre";
+            cbDominio.ValueMember = "Nombre";
         }
 
         private void lnkModify_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
