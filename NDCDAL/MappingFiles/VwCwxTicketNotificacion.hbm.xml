@@ -8,8 +8,9 @@
     <property column="tipo" type="String" name="Tipo" not-null="true" />
     <property column="numero" type="Int32" name="NumeroSolicitud" not-null="true" />
     <many-to-one name="Aplicacion" column="app_id" class="NDCCommon.Entities.AplicacionNotificacionClaveEntity,NDCCommon" />
-    <property column="app_user" type="String" name="Usuario" not-null="true" length="50" />
-    <property column="app_user_domain" type="String" name="Dominio" not-null="true" length="50" />
+    <property column="app_user" type="String" name="UsuarioAplicacion" not-null="true" length="50" />
+    <property column="user_red" type="String" name="Usuario" not-null="true" length="50" />
+    <property column="user_domain" type="String" name="Dominio" not-null="true" length="50" />
     <property column="fecha" type="DateTime" name="Fecha" insert="false"/>
   </class>
 </hibernate-mapping>

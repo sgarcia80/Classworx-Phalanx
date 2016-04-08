@@ -16,6 +16,7 @@ namespace NDCCommon.Entities
         private int m_id;
         private int m_numerosolicitud;
         private string m_tipo;
+        private string m_usuario_aplicacion;
         private string m_usuario;
         private string m_dominio;
         private AplicacionNotificacionClaveEntity m_aplicacion;
@@ -90,7 +91,21 @@ namespace NDCCommon.Entities
                 m_aplicacion = value;
             }
         }
-        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string UsuarioAplicacion
+        {
+            get { return m_usuario_aplicacion; }
+
+            set
+            {
+                m_isChanged |= (m_usuario_aplicacion != value);
+                m_usuario_aplicacion = value;
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>

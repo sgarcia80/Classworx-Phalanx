@@ -231,7 +231,7 @@ namespace PhalanxAdmin
             // asignar datos a la entity
             if (_entity.Id == 0)
             {
-                _entity.UsuarioDominio = ((DominioLoginEntity)cbDomain.SelectedItem).Nombre;
+                _entity.UsuarioDominio = ((DominioLoginEntity)cbDomain.SelectedItem).Nombre.Trim();
                 _entity.Aplicacion = (AplicacionNotificacionClaveEntity)cbAplicacion.SelectedItem;
             }
 
