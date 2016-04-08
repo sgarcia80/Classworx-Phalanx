@@ -86,7 +86,7 @@ public partial class DetalleTicket : System.Web.UI.Page
 
         TicketNotificacionBlanqueoEntity ticket = tncb.GetById(id);
 
-        if (ticket.UsuarioAplicacion.ToLower() != Session["Usuario"].ToString().ToLower() || ticket.DominioUsuarioAplicacion.ToLower() != Session["Dominio"].ToString().ToLower())
+        if (ticket.Usuario.ToLower() != Session["Usuario"].ToString().ToLower() || ticket.UsuarioDominio.ToLower() != Session["Dominio"].ToString().ToLower())
             return string.Empty;
 
         if (ticket.FechaAceptacionTyC == null)
