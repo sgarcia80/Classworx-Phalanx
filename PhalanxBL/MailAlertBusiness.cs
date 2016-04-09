@@ -646,7 +646,7 @@ namespace PhalanxBL
 			return null;
         }
 
-        public void NotificacionBlanqueoMail(string solicitante, int numeroSolicitud, string aplicativo, DateTime fecha)
+        public int? NotificacionBlanqueoMail(string usuario, string mail, int numeroSolicitud, string aplicativo, string solicitante, DateTime fecha)
         {
             try
             {
@@ -655,7 +655,7 @@ namespace PhalanxBL
 
                 PhxConfigBusiness PhxConfBL = new PhxConfigBusiness();
 
-                MailToSend.ToAddress = PhxConfBL.GetConfigParam(ConfigCodes.TecMicroEmail).ShortTxtValue;
+                MailToSend.ToAddress = mail;
 
                 MailToSend.Body = ReplaceNotificacionBlanqueoMailTokens(PhxConfBL.GetConfigParam(ConfigCodes.BodyNotificacionBlanqueoMail).LongTxtValue, solicitante, aplicativo);
                 MailToSend.Subject = ReplaceNotificacionBlanqueoMailTokens(PhxConfBL.GetConfigParam(ConfigCodes.SubjectNotificacionBlanqueoMail).ShortTxtValue, solicitante, aplicativo);
@@ -666,11 +666,15 @@ namespace PhalanxBL
 
                 if (IdMailAlert > 0)
                     SendMail(MailToSend);
+
+                return IdMailAlert;
             }
             catch (Exception ex)
             {
                 // no se pudo crear el mail;
             }
+
+            return null;
         }
 
         private string ReplaceExpirationRqstTokens(string MailBody, PasswordRequestEntity PwdRqst)
@@ -1141,7 +1145,7 @@ namespace PhalanxBL
         private string ReplaceNotificacionBlanqueoMailTokens(string text, string solicitante, string aplicacion)
         {
             return text.Replace("[NombreSolicitante]", solicitante)
-                            .Replace("[Aplicacion]", aplicacion);
+                            .Replace("[Aplicativo]", aplicacion);
         }
 
         public void MailAltaUsuarioAplicativoConSegInt(string Aplicacion, string FTicketDDMMYYYY, string NroTicket, string MailUsuario)

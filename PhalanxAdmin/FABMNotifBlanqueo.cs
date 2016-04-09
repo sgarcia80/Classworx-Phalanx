@@ -228,11 +228,16 @@ namespace PhalanxAdmin
                 return;
             }
 
+            bool esAlta = false;
+
             // asignar datos a la entity
             if (_entity.Id == 0)
             {
                 _entity.UsuarioDominio = ((DominioLoginEntity)cbDomain.SelectedItem).Nombre.Trim();
                 _entity.Aplicacion = (AplicacionNotificacionClaveEntity)cbAplicacion.SelectedItem;
+                _entity.Fecha = DateTime.Now;
+
+                esAlta = true;
             }
 
             _entity.Usuario = txtUser.Text.Trim();
@@ -246,6 +251,13 @@ namespace PhalanxAdmin
 
             if (Id > 0)
             {
+                if (esAlta)
+                {
+                    string debug = string.Empty;
+
+                    TicketBL.EnviarEmail(_entity, out debug);
+                }
+
                 _entity.Id = Id;
                 MessageBox.Show("La notificación se generó correctamente", "Ticket de Notificación de Blanqueo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }

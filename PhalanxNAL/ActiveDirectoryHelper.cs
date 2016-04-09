@@ -217,6 +217,11 @@ namespace PhalanxNAL
             return BuscarLDAPEntryPropiedad(ConfigurationManager.AppSettings["LDAPBuscarEmailFilter"].Replace("[legajo]", legajo), NOMBRE_PROPIEDAD_MAIL_AD); 
         }
 
+        public static string BuscarEmailPorLegajoUsername(string username)
+        {
+            return BuscarLDAPEntryPropiedad(ConfigurationManager.AppSettings["LDAPBuscarNombreFilter"].Replace("[username]", username), NOMBRE_PROPIEDAD_MAIL_AD);
+        }
+
         public static string BuscarNombrePorUsername(string username)
         {
             return BuscarLDAPEntryPropiedad(ConfigurationManager.AppSettings["LDAPBuscarNombreFilter"].Replace("[username]", username), NOMBRE_PROPIEDAD_USERNAME_AD); 

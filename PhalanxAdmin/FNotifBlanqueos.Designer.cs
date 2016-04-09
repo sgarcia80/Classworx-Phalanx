@@ -34,6 +34,9 @@ namespace PhalanxAdmin
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FNotifBlanqueos));
             this.pnlFilters = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbDominio = new System.Windows.Forms.ComboBox();
+            this.txtFilUsuarioApp = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cbAplicacion = new System.Windows.Forms.ComboBox();
             this.labelApp = new System.Windows.Forms.Label();
@@ -48,18 +51,15 @@ namespace PhalanxAdmin
             this.pnlList = new System.Windows.Forms.Panel();
             this.lvLista = new System.Windows.Forms.ListView();
             this.colUsuarioApp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colUsuario = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colFecha = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colSolicitante = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.bwRefreshEntities = new System.ComponentModel.BackgroundWorker();
             this.xppnlPCs = new UIComponents.XPPanel(141);
             this.lnkView = new System.Windows.Forms.LinkLabel();
-            this.lnkDelete = new System.Windows.Forms.LinkLabel();
+            this.lnkReenviar = new System.Windows.Forms.LinkLabel();
             this.lnkAdd = new System.Windows.Forms.LinkLabel();
-            this.colSolicitante = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colUsuario = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.txtFilUsuarioApp = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.cbDominio = new System.Windows.Forms.ComboBox();
             colAplicacion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             colDominioApp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
@@ -125,6 +125,31 @@ namespace PhalanxAdmin
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de búsqueda";
+            // 
+            // cbDominio
+            // 
+            this.cbDominio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbDominio.FormattingEnabled = true;
+            this.cbDominio.Location = new System.Drawing.Point(73, 20);
+            this.cbDominio.Name = "cbDominio";
+            this.cbDominio.Size = new System.Drawing.Size(143, 21);
+            this.cbDominio.TabIndex = 20;
+            // 
+            // txtFilUsuarioApp
+            // 
+            this.txtFilUsuarioApp.Location = new System.Drawing.Point(304, 52);
+            this.txtFilUsuarioApp.Name = "txtFilUsuarioApp";
+            this.txtFilUsuarioApp.Size = new System.Drawing.Size(143, 20);
+            this.txtFilUsuarioApp.TabIndex = 18;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(232, 55);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(65, 13);
+            this.label3.TabIndex = 19;
+            this.label3.Text = "Usuario App";
             // 
             // label1
             // 
@@ -266,12 +291,22 @@ namespace PhalanxAdmin
             this.colUsuarioApp.Text = "Usuario App";
             this.colUsuarioApp.Width = 97;
             // 
+            // colUsuario
+            // 
+            this.colUsuario.Text = "Usuario Red";
+            this.colUsuario.Width = 94;
+            // 
             // colFecha
             // 
             this.colFecha.Tag = "DateTime";
             this.colFecha.Text = "Fecha";
             this.colFecha.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.colFecha.Width = 117;
+            // 
+            // colSolicitante
+            // 
+            this.colSolicitante.Text = "Solicitante";
+            this.colSolicitante.Width = 111;
             // 
             // imageList
             // 
@@ -299,7 +334,7 @@ namespace PhalanxAdmin
             this.xppnlPCs.CaptionGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
             this.xppnlPCs.CaptionUnderline = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.xppnlPCs.Controls.Add(this.lnkView);
-            this.xppnlPCs.Controls.Add(this.lnkDelete);
+            this.xppnlPCs.Controls.Add(this.lnkReenviar);
             this.xppnlPCs.Controls.Add(this.lnkAdd);
             this.xppnlPCs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.xppnlPCs.ForeColor = System.Drawing.SystemColors.WindowText;
@@ -332,21 +367,21 @@ namespace PhalanxAdmin
             this.lnkView.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
             this.lnkView.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkView_LinkClicked);
             // 
-            // lnkDelete
+            // lnkReenviar
             // 
-            this.lnkDelete.ActiveLinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkDelete.AutoSize = true;
-            this.lnkDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.lnkDelete.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.lnkDelete.LinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkDelete.Location = new System.Drawing.Point(18, 92);
-            this.lnkDelete.Name = "lnkDelete";
-            this.lnkDelete.Size = new System.Drawing.Size(51, 13);
-            this.lnkDelete.TabIndex = 10;
-            this.lnkDelete.TabStop = true;
-            this.lnkDelete.Text = "Eliminar";
-            this.lnkDelete.Visible = false;
-            this.lnkDelete.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkReenviar.ActiveLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkReenviar.AutoSize = true;
+            this.lnkReenviar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.lnkReenviar.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.lnkReenviar.LinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkReenviar.Location = new System.Drawing.Point(18, 92);
+            this.lnkReenviar.Name = "lnkReenviar";
+            this.lnkReenviar.Size = new System.Drawing.Size(85, 13);
+            this.lnkReenviar.TabIndex = 10;
+            this.lnkReenviar.TabStop = true;
+            this.lnkReenviar.Text = "Reenviar Mail";
+            this.lnkReenviar.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkReenviar.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkReenviar_LinkClicked);
             // 
             // lnkAdd
             // 
@@ -363,41 +398,6 @@ namespace PhalanxAdmin
             this.lnkAdd.Text = "Agregar";
             this.lnkAdd.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
             this.lnkAdd.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAdd_LinkClicked);
-            // 
-            // colSolicitante
-            // 
-            this.colSolicitante.Text = "Solicitante";
-            this.colSolicitante.Width = 111;
-            // 
-            // colUsuario
-            // 
-            this.colUsuario.Text = "Usuario Red";
-            this.colUsuario.Width = 94;
-            // 
-            // txtFilUsuarioApp
-            // 
-            this.txtFilUsuarioApp.Location = new System.Drawing.Point(304, 52);
-            this.txtFilUsuarioApp.Name = "txtFilUsuarioApp";
-            this.txtFilUsuarioApp.Size = new System.Drawing.Size(143, 20);
-            this.txtFilUsuarioApp.TabIndex = 18;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(232, 55);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 13);
-            this.label3.TabIndex = 19;
-            this.label3.Text = "Usuario App";
-            // 
-            // cbDominio
-            // 
-            this.cbDominio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbDominio.FormattingEnabled = true;
-            this.cbDominio.Location = new System.Drawing.Point(73, 20);
-            this.cbDominio.Name = "cbDominio";
-            this.cbDominio.Size = new System.Drawing.Size(143, 21);
-            this.cbDominio.TabIndex = 20;
             // 
             // FNotifBlanqueos
             // 
@@ -448,7 +448,7 @@ namespace PhalanxAdmin
         private System.ComponentModel.BackgroundWorker bwRefreshEntities;
         private UIComponents.XPPanel xppnlPCs;
         protected System.Windows.Forms.LinkLabel lnkView;
-        protected System.Windows.Forms.LinkLabel lnkDelete;
+        protected System.Windows.Forms.LinkLabel lnkReenviar;
         protected System.Windows.Forms.LinkLabel lnkAdd;
         private System.Windows.Forms.ImageList imageList;
         private System.Windows.Forms.ColumnHeader colFecha;

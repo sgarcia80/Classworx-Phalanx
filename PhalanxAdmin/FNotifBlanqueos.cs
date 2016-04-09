@@ -8,11 +8,14 @@ using System.Windows.Forms;
 using NDCCommon.Collections;
 using NDCCommon.Entities;
 using NDCBL;
+using log4net;
 
 namespace PhalanxAdmin
 {
     public partial class FNotifBlanqueos : PhalanxAdmin.FBaseNotifClaves
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(FNotifBlanqueos));
+
         protected TicketNotificacionBlanqueoEntityCollection _entities;
         protected AplicacionNotificacionClaveEntityCollection _aplicaciones;
         protected DominioLoginEntityCollection _dominios;
@@ -144,7 +147,7 @@ namespace PhalanxAdmin
             DateTime? fechaDesde = null;
             DateTime? fechaHasta = null;
 
-            _entities = business.GetAll(fechaDesde, fechaHasta, _filAplicacion, txtFilUsuarioApp.Text,_filDominio, txtFilUsuario.Text);
+            _entities = business.GetAll(fechaDesde, fechaHasta, _filAplicacion, txtFilUsuarioApp.Text, _filDominio, txtFilUsuario.Text);
         }
         /// <summary>
         /// Llama a la función que genera el array de LV Items y si hay items llama a la que hace el llenado
@@ -304,6 +307,33 @@ namespace PhalanxAdmin
             Seleccionar(false);
         }
 
+        private void lnkReenviar_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (lvLista.SelectedItems == null || lvLista.SelectedItems.Count == 0)
+            {
+                return;
+            }
+
+            TicketNotificacionBlanqueoEntity ticket = lvLista.SelectedItems[0].Tag as TicketNotificacionBlanqueoEntity;
+
+            if (ticket != null)
+            {
+                string debug = string.Empty;
+                bool envio = new TicketNotificacionBlanqueoBusiness().EnviarEmail(ticket, out debug);
+
+                if (!envio && !string.IsNullOrEmpty(debug))
+                {
+                    log.Info(debug);
+                }
+
+                if (envio)
+                {
+                    MessageBox.Show("El mensaje fue reenviado con éxito");
+                }
+            }
+
+        }
+
         private void lnkAdd_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             FABMNotifBlanqueo form = new FABMNotifBlanqueo(0, false, FABMNotifBlanqueo.FormType.New);
@@ -317,20 +347,24 @@ namespace PhalanxAdmin
 
         private void lvLista_DoubleClick(object sender, EventArgs e)
         {
-            if (lvLista.SelectedItems != null && lvLista.SelectedItems.Count > 0)
-            {
                 Seleccionar(false);
-            }
         }
 
         private DialogResult Seleccionar(bool edit)
         {
+
+            if (lvLista.SelectedItems == null || lvLista.SelectedItems.Count == 0)
+            {
+                return DialogResult.None;
+            } 
+            
             TicketNotificacionBlanqueoEntity ticket = lvLista.SelectedItems[0].Tag as TicketNotificacionBlanqueoEntity;
 
             FABMNotifBlanqueo form = new FABMNotifBlanqueo(ticket.Id, !edit, FABMNotifBlanqueo.FormType.View);
 
             return form.ShowDialog();
         }
+
     }
 
 }

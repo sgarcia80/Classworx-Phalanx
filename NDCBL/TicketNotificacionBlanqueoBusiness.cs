@@ -114,12 +114,12 @@ namespace NDCBL
             factory.FilUsuarioApp = usuarioApp;
             factory.FilFechaDesde = fechaDesde;
             factory.FilFechaHasta = fechaHasta;
-            
+
             TicketNotificacionBlanqueoEntityCollection tmpCollection = factory.GetAll();
 
             return tmpCollection;
         }
-        
+
         public TicketNotificacionBlanqueoEntity GetById(int id)
         {
             return Factory.GetById(id);
@@ -171,12 +171,12 @@ namespace NDCBL
 
             return Factory.Save(ticket);
         }
-        
+
         public TicketNotificacionBlanqueoEntity Load(int Id)
         {
             return new TicketNotificacionBlanqueoFactory().Load(Id);
         }
-        
+
         //public TicketNotificacionBlanqueoEntity LoadTktRed(int Id)
         //{
 
@@ -255,7 +255,7 @@ namespace NDCBL
 
         //    return tickets[0];
         //}
-        
+
         //public bool ReGenerateToken(TicketNotificacionBlanqueoEntity ticket, out string MsgOut)
         //{
         //    MsgOut = "";
@@ -304,7 +304,7 @@ namespace NDCBL
 
 
         //}
-        
+
         //public void GenerateToken(TicketNotificacionBlanqueoEntity ticket)
         //{
         //    ticket.Token = GenerateToken();
@@ -330,60 +330,27 @@ namespace NDCBL
         {
             debug = "";
 
-            string destino;
-            List<string> mailTo = new List<string>();
+            string mailTo = string.Empty;
 
-            //if (!string.IsNullOrEmpty(notificacion.CodigoEmpresaSubsidiaria))
-            //{
-            //    debug += " | Se busca por Subsidiaria";
-            //    //Subsidiaria
-            //    SubsidiariaBusiness subsidiariaBusiness = new SubsidiariaBusiness();
+            debug += " Busca el Mail del usuario en AD por usuario de red";
 
-            //    SubsidiariaEntity subsidiaria = subsidiariaBusiness.GetByCodigo(notificacion.CodigoEmpresaSubsidiaria);
+            mailTo = PhalanxNAL.ActiveDirectoryHelper.BuscarEmailPorLegajoUsername(notificacion.Usuario);
 
-            //    if (subsidiaria == null)
-            //    {
-            //        debug += " | No se encuentra la empresa subsidiaria con código = " + notificacion.CodigoEmpresaSubsidiaria;
+            if (string.IsNullOrEmpty(mailTo))
+            {
+                debug += " | No se encontró el Mail del usuario [" + notificacion.Usuario + "] en AD";
+                return false;
+            }
 
-            //        return false;
-            //    }
+            debug += " | Busca Nombre del usuario que cargó la notificación";
 
-            //    destino = notificacion.NombreEmpresaSubsidiaria;
-
-            //    if (!string.IsNullOrEmpty(subsidiaria.Email01))
-            //        mailTo.Add(subsidiaria.Email01);
-
-            //    if (!string.IsNullOrEmpty(subsidiaria.Email02))
-            //        mailTo.Add(subsidiaria.Email02);
-            //}
-            //else
-            //{
-            //    debug += " | Se busca por Gerencia destino";
-
-            //    destino = notificacion.NombreGerenciaDestino;
-
-            //    debug += " | Busca mail en AD por legajo de solicitante";
-            //    string email = PhalanxNAL.ActiveDirectoryHelper.BuscarEmailPorLegajo(notificacion.NumeroLegajoEmpleadoSolicitud);
-
-            //    if (email == null)
-            //    {
-            //        debug += " | No se encuentra el email para el legajo = " + notificacion.NumeroLegajoEmpleadoSolicitud;
-
-            //        return false;
-            //    }
-
-            //    mailTo.Add(email);
-            //}
-
-            debug += " | Busca Nombre de la pesrona la que se le dió de alta el usuario en AD por usuario de red";
-
-            string solicitante = PhalanxNAL.ActiveDirectoryHelper.BuscarNombrePorUsername(notificacion.Usuario);
+            string solicitante = PhalanxNAL.ActiveDirectoryHelper.BuscarNombrePorUsername(notificacion.Solicitante);
 
             MailAlertBusiness MailToSendBL = new MailAlertBusiness();
 
             debug += " | Envia mail";
 
-            //notificacion.MailId = MailToSendBL.NotificacionBlanqueoMail(solicitante, notificacion.Id, notificacion.Aplicacion.Nombre, notificacion.Fecha);
+            notificacion.MailId = MailToSendBL.NotificacionBlanqueoMail(notificacion.Usuario,mailTo, notificacion.Id, notificacion.Aplicacion.Nombre, solicitante, notificacion.Fecha);
 
             debug += " | Graba ticket BPM";
 
