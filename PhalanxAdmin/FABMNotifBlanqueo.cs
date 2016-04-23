@@ -120,7 +120,6 @@ namespace PhalanxAdmin
                 string strPwd = TicketBL.DesencriptarPassword(_entity.PasswordUsuarioAplicacion);
 
                 tPassword1.Text = strPwd;
-                tPassword2.Text = strPwd;
 
                 cbAplicacion.SelectedItem = _entity.Aplicacion;
 
@@ -134,7 +133,6 @@ namespace PhalanxAdmin
                     txtUsername.ReadOnly = true;
                     cbDomain.Enabled = false;
                     tPassword1.ReadOnly = true;
-                    tPassword2.ReadOnly = true;
                     cbAplicacion.Enabled = false;
                 }
                 else
@@ -174,15 +172,12 @@ namespace PhalanxAdmin
             if (chkVisualizar.Checked)
             {
                 tPassword1.PasswordChar = new char();
-                tPassword2.PasswordChar = new char();
             }
             else
             {
                 tPassword1.PasswordChar = '*';
-                tPassword2.PasswordChar = '*';
             }
             tPassword1.Refresh();
-            tPassword2.Refresh();
 
         }
 
@@ -227,12 +222,14 @@ namespace PhalanxAdmin
             }
 
             // chequear pwd1 y 2 iguales
-            if (tPassword1.Text != tPassword2.Text)
-            {
-                MessageBox.Show("La contraseña y su confirmación no coinciden");
-                this.DialogResult = DialogResult.None;
-                return;
-            }
+            //if (tPassword1.Text != tPassword2.Text)
+            //{
+            //    MessageBox.Show("La contraseña y su confirmación no coinciden");
+            //    this.DialogResult = DialogResult.None;
+            //    return;
+            //}
+
+            tPassword1.Text = tPassword1.Text.Trim().ToLower();
 
             bool esAlta = false;
 
