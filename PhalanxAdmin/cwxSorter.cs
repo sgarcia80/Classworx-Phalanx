@@ -80,9 +80,16 @@ namespace PhalanxAdmin
                 else
                 { return d2.CompareTo(d1); }
             }
-            else if (l1.ListView.Columns[Column].Tag.ToString() == "ddMMyyyyHHmss" || l1.ListView.Columns[Column].Tag.ToString() == "ddMyyyyHHm")
+            else if (l1.ListView.Columns[Column].Tag.ToString() == "ddMMyyyyHHmss" ||
+                     l1.ListView.Columns[Column].Tag.ToString() == "ddMMyyyyHHmm" ||
+                     l1.ListView.Columns[Column].Tag.ToString() == "ddMyyyyHHm")
             {
                 string format = l1.ListView.Columns[Column].Tag.ToString() == "ddMMyyyyHHmss" ? "dd/MM/yyyy HH:m:ss" : "dd/M/yyyy HH:m";
+
+                if (l1.ListView.Columns[Column].Tag.ToString() == "ddMMyyyyHHmm")
+                {
+                    format = "dd/MM/yyyy HH:mm";
+                }
 
                 DateTime d1 = new DateTime();
                 DateTime d2 = new DateTime();

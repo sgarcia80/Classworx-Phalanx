@@ -124,8 +124,8 @@ namespace PhalanxAdmin
 
                 cbAplicacion.SelectedItem = _entity.Aplicacion;
 
-                txtFecha.Text = _entity.Fecha.ToString("dd/MM/yyyy");
-                txtFechaAyC.Text = _entity.FechaAceptacionTyC.HasValue ? _entity.FechaAceptacionTyC.Value.ToString("dd/MM/yyyy") : string.Empty;
+                txtFecha.Text = _entity.Fecha.ToString("dd/MM/yyyy HH:mm");
+                txtFechaAyC.Text = _entity.FechaAceptacionTyC.HasValue ? _entity.FechaAceptacionTyC.Value.ToString("dd/MM/yyyy HH:mm") : string.Empty;
                 txtSolicitante.Text = user;
                 
                 if (_readOnly)
@@ -154,6 +154,12 @@ namespace PhalanxAdmin
             cbDomain.DataSource = _dominios; // WithDatabases();
             cbDomain.ValueMember = "Nombre";
             cbDomain.DisplayMember = "Nombre";
+
+            var macro = _dominios.FindByName("MACRO");
+            if (macro != null)
+            {
+                cbDomain.SelectedItem = macro;
+            }
         }
 
         private void CargarAplicaciones()

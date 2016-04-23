@@ -16,7 +16,7 @@ public partial class ClavesAplicativos : System.Web.UI.Page
     }
     protected void btnCOBIS_Click(object sender, EventArgs e)
     {
-        //Response.Redirect("AutogestionCOBIS.aspx");
+        Response.Redirect("AutogestionCOBIS.aspx");
     }
     protected void btnVolver_Click(object sender, EventArgs e)
     {

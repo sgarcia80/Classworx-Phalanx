@@ -50,6 +50,7 @@ namespace PhalanxAdmin
             this.lnkCancelar = new System.Windows.Forms.ToolStripStatusLabel();
             this.pnlList = new System.Windows.Forms.Panel();
             this.lvLista = new System.Windows.Forms.ListView();
+            this.colId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colUsuarioApp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colUsuario = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colFecha = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -267,6 +268,7 @@ namespace PhalanxAdmin
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvLista.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colId,
             colAplicacion,
             this.colUsuarioApp,
             colDominioApp,
@@ -284,7 +286,12 @@ namespace PhalanxAdmin
             this.lvLista.TabIndex = 1;
             this.lvLista.UseCompatibleStateImageBehavior = false;
             this.lvLista.View = System.Windows.Forms.View.Details;
+            this.lvLista.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvLista_ColumnClick);
             this.lvLista.DoubleClick += new System.EventHandler(this.lvLista_DoubleClick);
+            // 
+            // colId
+            // 
+            this.colId.Text = "Solicitud";
             // 
             // colUsuarioApp
             // 
@@ -298,7 +305,7 @@ namespace PhalanxAdmin
             // 
             // colFecha
             // 
-            this.colFecha.Tag = "DateTime";
+            this.colFecha.Tag = "ddMMyyyyHHmm";
             this.colFecha.Text = "Fecha";
             this.colFecha.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.colFecha.Width = 117;
@@ -458,6 +465,7 @@ namespace PhalanxAdmin
         protected System.Windows.Forms.TextBox txtFilUsuarioApp;
         protected System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cbDominio;
+        private System.Windows.Forms.ColumnHeader colId;
 
     }
 }

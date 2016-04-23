@@ -43,11 +43,12 @@ namespace PhalanxAdmin
             //lnkModify.Enabled = UsrBL.AccAdmEqWinRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
             //lnkDelete.Enabled = UsrBL.AccAdmEqWinRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
 
+            this.lvLista.ListViewItemSorter = new cwxSorter();
             this.lnkCancelar.Visible = false;
             this.pbDB.Visible = false;
             CargaComboAplicaciones();
+            CargaComboDominios();
             ExecEntitiesRefresh();
-
         }
         //protected virtual void InicializaFiltros
         /* Proceso de acceso a DB
@@ -115,7 +116,7 @@ namespace PhalanxAdmin
             }
             else
             {
-                _filDominio = null;
+                _filDominio = string.Empty;
             }
         }
 
@@ -190,7 +191,8 @@ namespace PhalanxAdmin
             foreach (TicketNotificacionBlanqueoEntity entity in this._entities)
             {
                 lviArr[i] = new ListViewItem();
-                lviArr[i].Text = entity.Aplicacion.ToString();
+                lviArr[i].Text = entity.Id.ToString();
+                lviArr[i].SubItems.Add(entity.Aplicacion.ToString());
                 lviArr[i].SubItems.Add(entity.UsuarioAplicacion);
                 lviArr[i].SubItems.Add(entity.UsuarioDominio);
                 lviArr[i].SubItems.Add(entity.Usuario);
@@ -363,6 +365,31 @@ namespace PhalanxAdmin
             FABMNotifBlanqueo form = new FABMNotifBlanqueo(ticket.Id, !edit, FABMNotifBlanqueo.FormType.View);
 
             return form.ShowDialog();
+        }
+
+        private void lvLista_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            if (((ListView)sender).Items.Count == 0)
+            {
+                return;
+            }
+
+            cwxSorter s = (cwxSorter)((ListView)sender).ListViewItemSorter;
+
+            if (s.Column == e.Column)
+            {
+                if (s.Order == System.Windows.Forms.SortOrder.Ascending)
+                    s.Order = System.Windows.Forms.SortOrder.Descending;
+                else
+                    s.Order = System.Windows.Forms.SortOrder.Ascending;
+            }
+            else
+            {
+                s.Column = e.Column;
+                s.Order = System.Windows.Forms.SortOrder.Ascending;
+            }
+
+            ((ListView)sender).Sort();
         }
 
     }

@@ -6,10 +6,10 @@
         Claves de Aplicativos</div>
     <br />
     <table class="login">
-        <tr style="display:none;">
+        <tr>
             <td colspan="2" align="center">
                 <asp:Button ID="btnCOBIS" Text="Autogestión COBIS" CssClass="btn" Width="180px" 
-                    runat="server" onclick="btnCOBIS_Click"/>
+                    runat="server" OnClick="btnCOBIS_Click"/>
             </td>
         </tr>
         <tr>

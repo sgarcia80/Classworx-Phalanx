@@ -62,7 +62,7 @@ namespace NDCCommon.Collections
         {
             foreach (DominioLoginEntity entity in InnerList)
             {
-                if (entity.Nombre.ToString() == nombre)
+                if (entity.Nombre.ToString().Trim() == nombre)
                     return entity;
             }
             return null;
