@@ -117,7 +117,7 @@ namespace NDCCommon.Entities
             if (Id < 0)
             { return Nombre; }
             else
-            { return Nombre + " - " + Key; }
+            { return Nombre + " - " + this.Codigo; }
 
         }
     }
