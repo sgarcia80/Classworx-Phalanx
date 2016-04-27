@@ -104,6 +104,7 @@ public partial class CambioContrasenia : System.Web.UI.Page
 
         bool ErrorExec = true;
         lblResp2.Text = string.Empty;
+        string error = string.Empty;
 
         try
         {
@@ -121,27 +122,35 @@ public partial class CambioContrasenia : System.Web.UI.Page
                 trTitRespuesta.Visible = true;
                 trRespuesta.Visible = true;
                 lblResp2.Text = "No se ha podido cambiar la contraseña.";
-                lblResp2.Text += "<br/>" + resultado.serviceError.message.ToString();
+                //lblResp2.Text += "<br/>" + resultado.serviceError.message.ToString();
                 lblResp2.Text += "<br/>Por favor ingresa una solicitud vía Remedy, y te responderemos a la brevedad";
+            }
+
+            if (resultado != null &&
+                resultado.serviceError != null &&
+                !string.IsNullOrEmpty(resultado.serviceError.message))
+            {
+                error = string.Format("serviceError: {0}", resultado.serviceError.message);
+            }
+
+            if (!string.IsNullOrEmpty(error))
+            {
+                error = "Error devuelto por el servicio:<BR/>" + error;
             }
         }
         catch (Microsoft.Web.Services3.Security.SecurityFault ee)
         {
-            string act = ee.Actor;
-
+            error = "Security Error:<BR/>" + ee.Actor;
         }
         catch (System.Web.Services.Protocols.SoapHeaderException ee)
         {
+            error = "Soap Error:<BR/>" + ee.ToString();
             //txtRespuesta.Text += ee.Message;
         }
-
         catch (Exception ex)
         {
-            string mensaje = "Error al intentar cambiar la contraseña (" + ex.Message + ")";
-
-            MostrarError(mensaje);
-
-            return;
+            error = "Internal Error:<BR/>" + ex.ToString();
+            //txtRespuesta.Text += ex.Message;
         }
 
         if (ErrorExec && string.IsNullOrEmpty(lblResp2.Text))
@@ -149,6 +158,11 @@ public partial class CambioContrasenia : System.Web.UI.Page
             trTitRespuesta.Visible = true;
             trRespuesta.Visible = true;
             lblResp2.Text = "no se ha podido cambiar la contraseña. <br/>Por favor ingresa una solicitud vía Remedy, y te responderemos a la brevedad!";
+
+            if (!string.IsNullOrEmpty(error))
+            {
+                lblError.Text = "<BR/><BR/>" + error;
+            }
         }
     }
 

@@ -58,7 +58,9 @@ public partial class DesbloqueoUsuarioCOBIS : System.Web.UI.Page
                 lblUsrName.Text = loginFiltro.i_c_login;
                 COBISDesbloqueo.ExecuteRet resultado = serviceProxy.execute(requestConnection, loginFiltro);
 
-                if (resultado.funcionarioRet.o_error == 0)
+                if (resultado != null && 
+                    resultado.funcionarioRet != null && 
+                    resultado.funcionarioRet.o_error == 0)
                 {
                     //txtRespuesta.Text = "Se desbloqueó el usuario COBIS " + Session["Usuario"].ToString();
                     trTitRespuesta.Visible = true;
@@ -80,19 +82,40 @@ public partial class DesbloqueoUsuarioCOBIS : System.Web.UI.Page
                     //txtRespuesta.Text += Environment.NewLine + "restultado.funcionarioRet.o_mensaje: ";
                     //txtRespuesta.Text += resultado.funcionarioRet.o_mensaje;
                 }
+
+                if (resultado != null && 
+                    resultado.serviceError != null && 
+                    !string.IsNullOrEmpty(resultado.serviceError.message))
+                {
+                    error = string.Format("serviceError: {0}", resultado.serviceError.message);
+                }
+
+                if (resultado != null && 
+                    resultado.funcionarioRet != null && 
+                    !string.IsNullOrEmpty(resultado.funcionarioRet.o_mensaje))
+                {
+                    if (!string.IsNullOrEmpty(error))
+                        error = error + "<BR/>";
+                    error += string.Format("o_mensaje: {0}", resultado.funcionarioRet.o_mensaje);
+                }
+
+                if (!string.IsNullOrEmpty(error))
+                {
+                    error = "Error devuelto por el servicio:<BR/>" + error;
+                }
             }
             catch (Microsoft.Web.Services3.Security.SecurityFault ee)
             {
-                string act = ee.Actor;
+                error = "Security Error:<BR/>" + ee.Actor;
             }
             catch (System.Web.Services.Protocols.SoapHeaderException ee)
             {
-                error = ee.ToString();
+                error = "Soap Error:<BR/>" + ee.ToString();
                 //txtRespuesta.Text += ee.Message;
             }
             catch (Exception ex)
             {
-                error = ex.ToString();
+                error = "Internal Error:<BR/>" + ex.ToString();
                 //txtRespuesta.Text += ex.Message;
             }
             if (ErrorExec)
@@ -103,7 +126,7 @@ public partial class DesbloqueoUsuarioCOBIS : System.Web.UI.Page
 
                 if (!string.IsNullOrEmpty(error))
                 {
-                    lblError.Text = "<BR/><BR/>Error tecnico:<BR/>" + error;
+                    lblError.Text = "<BR/><BR/>" + error;
                 }
             }
         }
