@@ -9,9 +9,12 @@ using Microsoft.Web.Services3.Security.Tokens;
 using WSE3.CustomAssertion.RemoveAddressingHeaders;
 using System.Configuration;
 using PhalanxBL;
+using log4net;
 
 public partial class DesbloqueoUsuarioCOBIS : System.Web.UI.Page
 {
+    private static readonly ILog log = LogManager.GetLogger(typeof(DesbloqueoUsuarioCOBIS));
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!Page.User.Identity.IsAuthenticated)
@@ -49,10 +52,12 @@ public partial class DesbloqueoUsuarioCOBIS : System.Web.UI.Page
             loginFiltro.i_c_login = Session["Usuario"].ToString();
             loginFiltro.i_m_quien_llama = quienLlama;
             bool ErrorExec = true;
+            string error = string.Empty;
             try
             {
                 lblUsrName.Text = loginFiltro.i_c_login;
                 COBISDesbloqueo.ExecuteRet resultado = serviceProxy.execute(requestConnection, loginFiltro);
+
                 if (resultado.funcionarioRet.o_error == 0)
                 {
                     //txtRespuesta.Text = "Se desbloqueó el usuario COBIS " + Session["Usuario"].ToString();
@@ -79,15 +84,15 @@ public partial class DesbloqueoUsuarioCOBIS : System.Web.UI.Page
             catch (Microsoft.Web.Services3.Security.SecurityFault ee)
             {
                 string act = ee.Actor;
-
             }
             catch (System.Web.Services.Protocols.SoapHeaderException ee)
             {
+                error = ee.ToString();
                 //txtRespuesta.Text += ee.Message;
             }
-
             catch (Exception ex)
             {
+                error = ex.ToString();
                 //txtRespuesta.Text += ex.Message;
             }
             if (ErrorExec)
@@ -95,6 +100,11 @@ public partial class DesbloqueoUsuarioCOBIS : System.Web.UI.Page
                 trTitRespuesta.Visible = true;
                 trRespuesta.Visible = true;
                 lblResp2.Text = "no se ha podido desbloquear. <br/>Por favor ingresa una solicitud vía Remedy, y te responderemos a la brevedad!";
+
+                if (!string.IsNullOrEmpty(error))
+                {
+                    lblError.Text = "<BR/><BR/>Error tecnico:<BR/>" + error;
+                }
             }
         }
         else
