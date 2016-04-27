@@ -34,6 +34,7 @@ namespace PhalanxAdmin
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FNotifBlanqueos));
             this.pnlFilters = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkPendiente = new System.Windows.Forms.CheckBox();
             this.cbDominio = new System.Windows.Forms.ComboBox();
             this.txtFilUsuarioApp = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -56,14 +57,13 @@ namespace PhalanxAdmin
             this.colUsuario = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colFecha = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colSolicitante = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colEstado = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.bwRefreshEntities = new System.ComponentModel.BackgroundWorker();
             this.xppnlPCs = new UIComponents.XPPanel(141);
             this.lnkView = new System.Windows.Forms.LinkLabel();
             this.lnkReenviar = new System.Windows.Forms.LinkLabel();
             this.lnkAdd = new System.Windows.Forms.LinkLabel();
-            this.chkPendiente = new System.Windows.Forms.CheckBox();
-            this.colEstado = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             colAplicacion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             colDominioApp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
@@ -130,6 +130,16 @@ namespace PhalanxAdmin
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de búsqueda";
+            // 
+            // chkPendiente
+            // 
+            this.chkPendiente.AutoSize = true;
+            this.chkPendiente.Location = new System.Drawing.Point(467, 22);
+            this.chkPendiente.Name = "chkPendiente";
+            this.chkPendiente.Size = new System.Drawing.Size(79, 17);
+            this.chkPendiente.TabIndex = 21;
+            this.chkPendiente.Text = "Pendientes";
+            this.chkPendiente.UseVisualStyleBackColor = true;
             // 
             // cbDominio
             // 
@@ -284,7 +294,6 @@ namespace PhalanxAdmin
             this.lvLista.FullRowSelect = true;
             this.lvLista.HideSelection = false;
             this.lvLista.Location = new System.Drawing.Point(18, 6);
-            this.lvLista.MultiSelect = false;
             this.lvLista.Name = "lvLista";
             this.lvLista.Size = new System.Drawing.Size(800, 325);
             this.lvLista.SmallImageList = this.imageList;
@@ -326,6 +335,11 @@ namespace PhalanxAdmin
             // 
             this.colSolicitante.Text = "Solicitante";
             this.colSolicitante.Width = 111;
+            // 
+            // colEstado
+            // 
+            this.colEstado.Text = "Estado";
+            this.colEstado.Width = 100;
             // 
             // imageList
             // 
@@ -417,21 +431,6 @@ namespace PhalanxAdmin
             this.lnkAdd.Text = "Agregar";
             this.lnkAdd.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
             this.lnkAdd.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAdd_LinkClicked);
-            // 
-            // chkPendiente
-            // 
-            this.chkPendiente.AutoSize = true;
-            this.chkPendiente.Location = new System.Drawing.Point(467, 22);
-            this.chkPendiente.Name = "chkPendiente";
-            this.chkPendiente.Size = new System.Drawing.Size(79, 17);
-            this.chkPendiente.TabIndex = 21;
-            this.chkPendiente.Text = "Pendientes";
-            this.chkPendiente.UseVisualStyleBackColor = true;
-            // 
-            // colEstado
-            // 
-            this.colEstado.Text = "Estado";
-            this.colEstado.Width = 100;
             // 
             // FNotifBlanqueos
             // 

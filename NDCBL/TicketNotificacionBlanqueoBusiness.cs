@@ -327,6 +327,27 @@ namespace NDCBL
         //    return token.ToString();
         //}
 
+        public int EnviarEmail(TicketNotificacionBlanqueoEntityCollection collection)
+        {
+            string debug = string.Empty;
+            int sent = 0;
+
+            foreach (TicketNotificacionBlanqueoEntity ticket in collection)
+            {
+                try
+                {
+                    bool envio = this.EnviarEmail(ticket, out debug);
+
+                    sent++;
+                }
+                catch (Exception)
+                {
+                }
+            }
+
+            return sent;
+        }
+
         public bool EnviarEmail(TicketNotificacionBlanqueoEntity notificacion, out string debug)
         {
             debug = "";
@@ -351,7 +372,7 @@ namespace NDCBL
 
             debug += " | Envia mail";
 
-            notificacion.MailId = MailToSendBL.NotificacionBlanqueoMail(notificacion.Usuario,mailTo, notificacion.Id, notificacion.Aplicacion.Nombre, solicitante, notificacion.Fecha);
+            notificacion.MailId = MailToSendBL.NotificacionBlanqueoMail(notificacion.Usuario, mailTo, notificacion.Id, notificacion.Aplicacion.Nombre, solicitante, notificacion.Fecha);
 
             debug += " | Graba ticket BPM";
 

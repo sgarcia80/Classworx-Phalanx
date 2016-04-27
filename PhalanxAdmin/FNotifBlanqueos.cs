@@ -318,24 +318,37 @@ namespace PhalanxAdmin
                 return;
             }
 
-            TicketNotificacionBlanqueoEntity ticket = lvLista.SelectedItems[0].Tag as TicketNotificacionBlanqueoEntity;
+            int sent = 0;
+            int count = lvLista.SelectedItems.Count;
 
-            if (ticket != null)
+            TicketNotificacionBlanqueoEntityCollection collection = new TicketNotificacionBlanqueoEntityCollection();
+
+            foreach (ListViewItem item in lvLista.SelectedItems)
             {
-                string debug = string.Empty;
-                bool envio = new TicketNotificacionBlanqueoBusiness().EnviarEmail(ticket, out debug);
+                TicketNotificacionBlanqueoEntity ticket = item.Tag as TicketNotificacionBlanqueoEntity;
 
-                if (!envio && !string.IsNullOrEmpty(debug))
+                if (ticket != null)
                 {
-                    log.Info(debug);
-                }
+                    string debug = string.Empty;
 
-                if (envio)
-                {
-                    MessageBox.Show("El mensaje fue reenviado con éxito");
+                    if (!ticket.FechaAceptacionTyC.HasValue)
+                    {
+                        collection.Add(ticket);
+                    }
                 }
             }
 
+            if (count != collection.Count)
+            {
+                MessageBox.Show("Solo se pueden reenviar los tickets que están en estado [Pendiente]", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            TicketNotificacionBlanqueoBusiness ticketBL = new TicketNotificacionBlanqueoBusiness();
+
+            sent = ticketBL.EnviarEmail(collection);
+
+            MessageBox.Show(string.Format("Se reenviaron {0} de {1} mails", sent, count));
         }
 
         private void lnkAdd_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -351,7 +364,7 @@ namespace PhalanxAdmin
 
         private void lvLista_DoubleClick(object sender, EventArgs e)
         {
-                Seleccionar(false);
+            Seleccionar(false);
         }
 
         private DialogResult Seleccionar(bool edit)
@@ -360,8 +373,8 @@ namespace PhalanxAdmin
             if (lvLista.SelectedItems == null || lvLista.SelectedItems.Count == 0)
             {
                 return DialogResult.None;
-            } 
-            
+            }
+
             TicketNotificacionBlanqueoEntity ticket = lvLista.SelectedItems[0].Tag as TicketNotificacionBlanqueoEntity;
 
             FABMNotifBlanqueo form = new FABMNotifBlanqueo(ticket.Id, !edit, FABMNotifBlanqueo.FormType.View);
