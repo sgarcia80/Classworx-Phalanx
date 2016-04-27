@@ -348,7 +348,7 @@ namespace PhalanxAdmin
 
             sent = ticketBL.EnviarEmail(collection);
 
-            MessageBox.Show(string.Format("Se reenviaron {0} de {1} mails", sent, count));
+            MessageBox.Show(string.Format("Se reenviaron {0} de {1} mails", sent, count), "Reenvio de Mails", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void lnkAdd_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
