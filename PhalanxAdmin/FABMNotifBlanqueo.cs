@@ -56,10 +56,16 @@ namespace PhalanxAdmin
 
             _readOnly = ReadOnly;
         }
-
-
+        
         public void ConfigureScreen()
         {
+            string nro = string.Empty;
+
+            if (_entity != null)
+            {
+                nro = _entity.Id.ToString();
+            }
+
             switch (m_FormType)
             {
                 case FormType.New:
@@ -74,7 +80,7 @@ namespace PhalanxAdmin
                     }
                 case FormType.View:
                     {
-                        this.Title = "Visualización de Ticket de Notificación de Blanqueo";
+                        this.Title = "Ticket de Notificación de Blanqueo Nro" + nro;
                         break;
                     }
                 case FormType.Delete:
@@ -104,12 +110,12 @@ namespace PhalanxAdmin
             if (_entity.Id == 0)
             {
                 txtFecha.Text = DateTime.Now.ToString("dd/MM/yyyy");
-                txtSolicitante.Text = user;
+                txtUsuarioCarga.Text = user;
+
+                txtEstado.Text = "Pendiente";
             }
             else
             {
-                txtTicketNro.Text = _entity.Id.ToString();
-
                 var dominio = _dominios.FindByName(_entity.UsuarioDominio);
 
                 // no es uno nuevo, cargo los datos
@@ -125,8 +131,10 @@ namespace PhalanxAdmin
 
                 txtFecha.Text = _entity.Fecha.ToString("dd/MM/yyyy HH:mm");
                 txtFechaAyC.Text = _entity.FechaAceptacionTyC.HasValue ? _entity.FechaAceptacionTyC.Value.ToString("dd/MM/yyyy HH:mm") : string.Empty;
-                txtSolicitante.Text = user;
-                
+                txtUsuarioCarga.Text = user;
+
+                txtEstado.Text = _entity.FechaAceptacionTyC.HasValue ? "Notificado" : "Pendiente";
+
                 if (_readOnly)
                 {
                     // hace readonly los campos
@@ -140,6 +148,10 @@ namespace PhalanxAdmin
                     // si no es readonly (visualizar) cargo los combos
                 }
             }
+
+            this.chkVisualizar.Checked = true;
+            tPassword1.PasswordChar = new char();
+            tPassword1.Refresh();
 
             ConfigureScreen();
         }
@@ -243,11 +255,18 @@ namespace PhalanxAdmin
                 esAlta = true;
             }
 
+            int nro = 0;
+            if (int.TryParse(txtTicketNro.Text, out nro))
+            {
+                _entity.NumeroSolicitud = nro;
+            }
+
             _entity.Usuario = txtUser.Text.Trim();
             _entity.UsuarioAplicacion = txtUsername.Text.Trim();
             _entity.PasswordUsuarioAplicacion = TicketBL.EncriptarPassword(tPassword1.Text);
+            _entity.Solicitante = txtSolicitante.Text.Trim();
 
-            _entity.Solicitante = user;
+            _entity.UsuarioCarga = user;
 
             // grabar
             int Id = TicketBL.Save(_entity);

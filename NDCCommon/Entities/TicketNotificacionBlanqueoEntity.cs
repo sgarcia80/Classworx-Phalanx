@@ -14,11 +14,13 @@ namespace NDCCommon.Entities
         private bool m_isChanged;
 
         private int m_tnb_id;
+        private int? m_tnb_numero;
         private AplicacionNotificacionClaveEntity m_tnb_app;
         private string m_tnb_app_user;
         private string m_tnb_user_pass;
         private string m_tnb_user_domain;
         private string m_tnb_solicitante;
+        private string m_tnb_user_load;
         private DateTime? m_tnb_fecha_vigencia;
         private DateTime? m_tnb_fecha_ace_tyc;
         
@@ -53,6 +55,20 @@ namespace NDCCommon.Entities
             {
                 m_isChanged |= (m_tnb_id != value);
                 m_tnb_id = value;
+            }
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int? NumeroSolicitud
+        {
+            get { return m_tnb_numero; }
+            set
+            {
+                m_isChanged |= (m_tnb_numero != value);
+                m_tnb_numero = value;
             }
 
         }
@@ -171,6 +187,20 @@ namespace NDCCommon.Entities
 
                 m_isChanged |= (m_tnb_solicitante != value);
                 m_tnb_solicitante = value;
+            }
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public string UsuarioCarga
+        {
+            get { return m_tnb_user_load; }
+
+            set
+            {
+                m_isChanged |= (m_tnb_user_load != value);
+                m_tnb_user_load = value;
             }
         }
 
