@@ -148,7 +148,7 @@ namespace PhalanxAdmin
             DateTime? fechaDesde = null;
             DateTime? fechaHasta = null;
 
-            _entities = business.GetAll(fechaDesde, fechaHasta, _filAplicacion, txtFilUsuarioApp.Text, _filDominio, txtFilUsuario.Text);
+            _entities = business.GetAll(fechaDesde, fechaHasta, _filAplicacion, txtFilUsuarioApp.Text, _filDominio, txtFilUsuario.Text, chkPendiente.Checked);
         }
         /// <summary>
         /// Llama a la función que genera el array de LV Items y si hay items llama a la que hace el llenado
@@ -192,12 +192,14 @@ namespace PhalanxAdmin
             {
                 lviArr[i] = new ListViewItem();
                 lviArr[i].Text = entity.Id.ToString();
+                lviArr[i].SubItems.Add(entity.NumeroSolicitud.ToString());
                 lviArr[i].SubItems.Add(entity.Aplicacion.ToString());
                 lviArr[i].SubItems.Add(entity.UsuarioAplicacion);
                 lviArr[i].SubItems.Add(entity.UsuarioDominio);
                 lviArr[i].SubItems.Add(entity.Usuario);
                 lviArr[i].SubItems.Add(entity.Fecha.ToString("dd/MM/yyyy HH:mm"));
                 lviArr[i].SubItems.Add(entity.Solicitante);
+                lviArr[i].SubItems.Add(entity.FechaAceptacionTyC.HasValue ? "Notificado" : "Pendiente");
 
                 //lviArr[i].ImageIndex = ;
                 lviArr[i].Tag = entity;

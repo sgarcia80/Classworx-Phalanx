@@ -53,8 +53,8 @@ namespace NDCDAL.Factories
                 if (!string.IsNullOrEmpty(_filUsuario))
                     DataSearch = DataSearch.Add(Expression.Eq("Usuario", _filUsuario));
 
-                if (!string.IsNullOrEmpty(_filDominio))
-                    DataSearch = DataSearch.Add(Expression.Eq("Dominio", _filDominio));
+                //if (!string.IsNullOrEmpty(_filDominio))
+                //    DataSearch = DataSearch.Add(Expression.Eq("Dominio", _filDominio));
                 
                 try
                 {

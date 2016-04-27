@@ -104,7 +104,7 @@ namespace NDCBL
             return tmpCollection;
         }
 
-        public TicketNotificacionBlanqueoEntityCollection GetAll(DateTime? fechaDesde, DateTime? fechaHasta, AplicacionNotificacionClaveEntity aplicacion, string usuarioApp, string dominio, string usuario)
+        public TicketNotificacionBlanqueoEntityCollection GetAll(DateTime? fechaDesde, DateTime? fechaHasta, AplicacionNotificacionClaveEntity aplicacion, string usuarioApp, string dominio, string usuario, bool pendientes)
         {
             TicketNotificacionBlanqueoFactory factory = new TicketNotificacionBlanqueoFactory();
 
@@ -114,6 +114,7 @@ namespace NDCBL
             factory.FilUsuarioApp = usuarioApp;
             factory.FilFechaDesde = fechaDesde;
             factory.FilFechaHasta = fechaHasta;
+            factory.FilPendiente = pendientes;
 
             TicketNotificacionBlanqueoEntityCollection tmpCollection = factory.GetAll();
 

@@ -51,6 +51,7 @@ namespace PhalanxAdmin
             this.pnlList = new System.Windows.Forms.Panel();
             this.lvLista = new System.Windows.Forms.ListView();
             this.colId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colTicketNro = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colUsuarioApp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colUsuario = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colFecha = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -61,6 +62,8 @@ namespace PhalanxAdmin
             this.lnkView = new System.Windows.Forms.LinkLabel();
             this.lnkReenviar = new System.Windows.Forms.LinkLabel();
             this.lnkAdd = new System.Windows.Forms.LinkLabel();
+            this.chkPendiente = new System.Windows.Forms.CheckBox();
+            this.colEstado = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             colAplicacion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             colDominioApp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
@@ -105,11 +108,12 @@ namespace PhalanxAdmin
             this.pnlFilters.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlFilters.Location = new System.Drawing.Point(200, 0);
             this.pnlFilters.Name = "pnlFilters";
-            this.pnlFilters.Size = new System.Drawing.Size(611, 108);
+            this.pnlFilters.Size = new System.Drawing.Size(830, 108);
             this.pnlFilters.TabIndex = 10;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.chkPendiente);
             this.groupBox1.Controls.Add(this.cbDominio);
             this.groupBox1.Controls.Add(this.txtFilUsuarioApp);
             this.groupBox1.Controls.Add(this.label3);
@@ -122,7 +126,7 @@ namespace PhalanxAdmin
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(18, 8);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(571, 88);
+            this.groupBox1.Size = new System.Drawing.Size(677, 88);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de búsqueda";
@@ -133,20 +137,20 @@ namespace PhalanxAdmin
             this.cbDominio.FormattingEnabled = true;
             this.cbDominio.Location = new System.Drawing.Point(73, 20);
             this.cbDominio.Name = "cbDominio";
-            this.cbDominio.Size = new System.Drawing.Size(143, 21);
+            this.cbDominio.Size = new System.Drawing.Size(176, 21);
             this.cbDominio.TabIndex = 20;
             // 
             // txtFilUsuarioApp
             // 
-            this.txtFilUsuarioApp.Location = new System.Drawing.Point(304, 52);
+            this.txtFilUsuarioApp.Location = new System.Drawing.Point(326, 47);
             this.txtFilUsuarioApp.Name = "txtFilUsuarioApp";
-            this.txtFilUsuarioApp.Size = new System.Drawing.Size(143, 20);
+            this.txtFilUsuarioApp.Size = new System.Drawing.Size(120, 20);
             this.txtFilUsuarioApp.TabIndex = 18;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(232, 55);
+            this.label3.Location = new System.Drawing.Point(255, 50);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(65, 13);
             this.label3.TabIndex = 19;
@@ -165,15 +169,15 @@ namespace PhalanxAdmin
             // 
             this.cbAplicacion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbAplicacion.FormattingEnabled = true;
-            this.cbAplicacion.Location = new System.Drawing.Point(73, 51);
+            this.cbAplicacion.Location = new System.Drawing.Point(73, 47);
             this.cbAplicacion.Name = "cbAplicacion";
-            this.cbAplicacion.Size = new System.Drawing.Size(143, 21);
+            this.cbAplicacion.Size = new System.Drawing.Size(176, 21);
             this.cbAplicacion.TabIndex = 3;
             // 
             // labelApp
             // 
             this.labelApp.AutoSize = true;
-            this.labelApp.Location = new System.Drawing.Point(11, 54);
+            this.labelApp.Location = new System.Drawing.Point(11, 50);
             this.labelApp.Name = "labelApp";
             this.labelApp.Size = new System.Drawing.Size(56, 13);
             this.labelApp.TabIndex = 15;
@@ -183,7 +187,7 @@ namespace PhalanxAdmin
             // 
             this.btnLimpiar.BackColor = System.Drawing.SystemColors.Control;
             this.btnLimpiar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnLimpiar.Location = new System.Drawing.Point(489, 19);
+            this.btnLimpiar.Location = new System.Drawing.Point(577, 19);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(76, 21);
             this.btnLimpiar.TabIndex = 4;
@@ -194,7 +198,7 @@ namespace PhalanxAdmin
             // btnBuscar
             // 
             this.btnBuscar.BackColor = System.Drawing.SystemColors.Control;
-            this.btnBuscar.Location = new System.Drawing.Point(490, 47);
+            this.btnBuscar.Location = new System.Drawing.Point(577, 46);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(76, 21);
             this.btnBuscar.TabIndex = 5;
@@ -204,15 +208,15 @@ namespace PhalanxAdmin
             // 
             // txtFilUsuario
             // 
-            this.txtFilUsuario.Location = new System.Drawing.Point(304, 20);
+            this.txtFilUsuario.Location = new System.Drawing.Point(327, 20);
             this.txtFilUsuario.Name = "txtFilUsuario";
-            this.txtFilUsuario.Size = new System.Drawing.Size(143, 20);
+            this.txtFilUsuario.Size = new System.Drawing.Size(120, 20);
             this.txtFilUsuario.TabIndex = 0;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(232, 23);
+            this.label2.Location = new System.Drawing.Point(255, 23);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 13);
             this.label2.TabIndex = 3;
@@ -226,7 +230,7 @@ namespace PhalanxAdmin
             this.lnkCancelar});
             this.statusbar.Location = new System.Drawing.Point(200, 514);
             this.statusbar.Name = "statusbar";
-            this.statusbar.Size = new System.Drawing.Size(611, 22);
+            this.statusbar.Size = new System.Drawing.Size(830, 22);
             this.statusbar.TabIndex = 11;
             this.statusbar.Text = "statusStrip1";
             // 
@@ -258,7 +262,7 @@ namespace PhalanxAdmin
             this.pnlList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlList.Location = new System.Drawing.Point(200, 108);
             this.pnlList.Name = "pnlList";
-            this.pnlList.Size = new System.Drawing.Size(611, 406);
+            this.pnlList.Size = new System.Drawing.Size(830, 406);
             this.pnlList.TabIndex = 12;
             // 
             // lvLista
@@ -269,18 +273,20 @@ namespace PhalanxAdmin
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvLista.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colId,
+            this.colTicketNro,
             colAplicacion,
             this.colUsuarioApp,
             colDominioApp,
             this.colUsuario,
             this.colFecha,
-            this.colSolicitante});
+            this.colSolicitante,
+            this.colEstado});
             this.lvLista.FullRowSelect = true;
             this.lvLista.HideSelection = false;
             this.lvLista.Location = new System.Drawing.Point(18, 6);
             this.lvLista.MultiSelect = false;
             this.lvLista.Name = "lvLista";
-            this.lvLista.Size = new System.Drawing.Size(571, 325);
+            this.lvLista.Size = new System.Drawing.Size(800, 325);
             this.lvLista.SmallImageList = this.imageList;
             this.lvLista.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lvLista.TabIndex = 1;
@@ -291,7 +297,13 @@ namespace PhalanxAdmin
             // 
             // colId
             // 
-            this.colId.Text = "Solicitud";
+            this.colId.Text = "Notif. Nro.";
+            this.colId.Width = 80;
+            // 
+            // colTicketNro
+            // 
+            this.colTicketNro.Text = "Ticket Nro.";
+            this.colTicketNro.Width = 80;
             // 
             // colUsuarioApp
             // 
@@ -406,10 +418,25 @@ namespace PhalanxAdmin
             this.lnkAdd.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
             this.lnkAdd.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAdd_LinkClicked);
             // 
+            // chkPendiente
+            // 
+            this.chkPendiente.AutoSize = true;
+            this.chkPendiente.Location = new System.Drawing.Point(467, 22);
+            this.chkPendiente.Name = "chkPendiente";
+            this.chkPendiente.Size = new System.Drawing.Size(79, 17);
+            this.chkPendiente.TabIndex = 21;
+            this.chkPendiente.Text = "Pendientes";
+            this.chkPendiente.UseVisualStyleBackColor = true;
+            // 
+            // colEstado
+            // 
+            this.colEstado.Text = "Estado";
+            this.colEstado.Width = 100;
+            // 
             // FNotifBlanqueos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(811, 536);
+            this.ClientSize = new System.Drawing.Size(1030, 536);
             this.Controls.Add(this.pnlList);
             this.Controls.Add(this.statusbar);
             this.Controls.Add(this.pnlFilters);
@@ -466,6 +493,9 @@ namespace PhalanxAdmin
         protected System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cbDominio;
         private System.Windows.Forms.ColumnHeader colId;
+        private System.Windows.Forms.ColumnHeader colTicketNro;
+        private System.Windows.Forms.CheckBox chkPendiente;
+        private System.Windows.Forms.ColumnHeader colEstado;
 
     }
 }
