@@ -99,7 +99,7 @@ public partial class CambioContrasenia : System.Web.UI.Page
         filtro.i_rol_adminseg = rolASBlanqueoWSCOBIS;
         filtro.i_oficina_adminseg = oficinaASBlanqueoWSCOBIS;
         filtro.i_servidor_adminseg = servidorASBlanqueoWSCOBIS;
-        filtro.i_c_clave = tbPassword.Text;
+        filtro.i_c_clave = tbPassword.Text.ToLower();
         filtro.i_u_login = Session["Usuario"].ToString();
 
         bool ErrorExec = true;
@@ -153,6 +153,7 @@ public partial class CambioContrasenia : System.Web.UI.Page
             //txtRespuesta.Text += ex.Message;
         }
 
+        lblError.Text = string.Empty;
         if (ErrorExec && string.IsNullOrEmpty(lblResp2.Text))
         {
             trTitRespuesta.Visible = true;

@@ -118,6 +118,8 @@ public partial class DesbloqueoUsuarioCOBIS : System.Web.UI.Page
                 error = "Internal Error:<BR/>" + ex.ToString();
                 //txtRespuesta.Text += ex.Message;
             }
+
+            lblError.Text = string.Empty;
             if (ErrorExec)
             {
                 trTitRespuesta.Visible = true;

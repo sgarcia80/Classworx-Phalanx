@@ -34,7 +34,7 @@
                 <asp:Label ID="lblUsrName" runat="server" Text="nnnn" Font-Bold="True"></asp:Label>&nbsp;
                 <asp:Label ID="lblResp2" runat="server" Text="no se ha podido desbloquear. Por favor ingresa una solicitud vía Remedy, y te responderemos a la brevedad!"></asp:Label><br /><br /><br /><br /><br />
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Equipo de Seguridad Informatica
-                <br /><br /><asp:Label ID="lblError" runat="server" Text="no se ha podido desbloquear. Por favor ingresa una solicitud vía Remedy, y te responderemos a la brevedad!"></asp:Label>
+                <br /><br /><asp:Label ID="lblError" runat="server" Text=""></asp:Label>
                 </td>
         </tr>
     </table>

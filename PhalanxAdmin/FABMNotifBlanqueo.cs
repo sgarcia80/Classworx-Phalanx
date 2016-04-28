@@ -241,8 +241,6 @@ namespace PhalanxAdmin
             //    return;
             //}
 
-            tPassword1.Text = tPassword1.Text.Trim().ToLower();
-
             bool esAlta = false;
 
             // asignar datos a la entity
