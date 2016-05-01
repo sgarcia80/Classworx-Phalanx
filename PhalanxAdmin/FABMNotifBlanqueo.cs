@@ -133,15 +133,26 @@ namespace PhalanxAdmin
                 txtFechaAyC.Text = _entity.FechaAceptacionTyC.HasValue ? _entity.FechaAceptacionTyC.Value.ToString("dd/MM/yyyy HH:mm") : string.Empty;
                 txtUsuarioCarga.Text = user;
 
+                txtSolicitante.Text = _entity.Solicitante;
+                txtTicketNro.Text = _entity.NumeroSolicitud.HasValue ? _entity.NumeroSolicitud.Value.ToString() : string.Empty;
+
                 txtEstado.Text = _entity.FechaAceptacionTyC.HasValue ? "Notificado" : "Pendiente";
 
                 if (_readOnly)
                 {
                     // hace readonly los campos
-                    txtUsername.ReadOnly = true;
+                    txtUser.ReadOnly = true;
                     cbDomain.Enabled = false;
-                    tPassword1.ReadOnly = true;
+
                     cbAplicacion.Enabled = false;
+                    txtUsername.ReadOnly = true;
+                    tPassword1.ReadOnly = true;
+
+                    txtTicketNro.ReadOnly = true;
+                    txtSolicitante.ReadOnly = true;
+
+                    txtSolicitante.BackColor = tPassword1.BackColor;
+                    txtTicketNro.BackColor = tPassword1.BackColor;
                 }
                 else
                 {
