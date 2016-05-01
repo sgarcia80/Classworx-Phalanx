@@ -194,8 +194,8 @@ public partial class CambioContrasenia : System.Web.UI.Page
         try
         {
             bool largoOk = true;
-            //8 dígitos alfanuméricos.
-            if (password.Length != 8)
+            //Si la longitud no esta entre 8 y 12 digitos alfanumericos.
+            if (password.Length < 8 || password.Length > 12)
             {
                 largoOk = false;
                 lblregla_largo.ForeColor = System.Drawing.Color.Red;
