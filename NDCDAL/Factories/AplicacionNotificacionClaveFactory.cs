@@ -33,6 +33,8 @@ namespace NDCDAL.Factories
 
         public bool? FilAppCobis { set; get; }
 
+        public bool? FilNotificable { set; get; }
+
         public AplicacionNotificacionClaveFactory()
         {
             //
@@ -58,7 +60,10 @@ namespace NDCDAL.Factories
 
                     if (FilAppRed != null)
                         DataSearch = DataSearch.Add(Expression.Eq("EsAplicacionRed", FilAppRed.Value));
-                    
+
+                    if (FilNotificable != null)
+                        DataSearch = DataSearch.Add(Expression.Eq("Notificable", true));
+                            
                     DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("Nombre"));
                     Lst.Add(DataSearch.List<AplicacionNotificacionClaveEntity>());
                 }

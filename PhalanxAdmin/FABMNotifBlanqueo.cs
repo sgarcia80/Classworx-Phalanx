@@ -186,7 +186,7 @@ namespace PhalanxAdmin
         private void CargarAplicaciones()
         {
             cbAplicacion.Items.Clear();
-            //cbAplicacion.DataSource = DBTypeBL.GetAllWithDatabases();
+            AplicacionBL.FilNotificable = true;
             cbAplicacion.DataSource = AplicacionBL.GetAll(); // WithDatabases();
         }
 

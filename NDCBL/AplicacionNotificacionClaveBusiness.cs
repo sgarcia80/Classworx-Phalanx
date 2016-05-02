@@ -13,6 +13,7 @@ namespace NDCBL
     public class AplicacionNotificacionClaveBusiness
     {
         private string _filNombre = string.Empty;
+        private bool _filNotificable = false;
 
         public AplicacionNotificacionClaveBusiness()
         {
@@ -24,6 +25,11 @@ namespace NDCBL
         public string FilNombre
         {
             set { _filNombre = value; }
+        }
+
+        public bool FilNotificable
+        {
+            set { _filNotificable = value; }
         }
 
         public AplicacionNotificacionClaveEntity GetById(int id)
@@ -51,6 +57,7 @@ namespace NDCBL
             AplicacionNotificacionClaveFactory AppFac = new AplicacionNotificacionClaveFactory();
 
             AppFac.FilNombre = _filNombre;
+            AppFac.FilNotificable = _filNotificable;
 
             return AppFac.GetAll();
         }

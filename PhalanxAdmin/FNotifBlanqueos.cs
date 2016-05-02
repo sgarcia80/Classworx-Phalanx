@@ -277,6 +277,7 @@ namespace PhalanxAdmin
         private void CargaComboAplicaciones()
         {
             AplicacionNotificacionClaveBusiness business = new AplicacionNotificacionClaveBusiness();
+            business.FilNotificable = true; 
             this._aplicaciones = business.GetAll();
 
             this._aplicaciones.Insert(0, new AplicacionNotificacionClaveEntity { Id = 0, Nombre = "Todas" });

@@ -311,6 +311,7 @@ namespace PhalanxAdmin
             // 
             // colTicketNro
             // 
+            this.colTicketNro.Tag = "Numeric";
             this.colTicketNro.Text = "Ticket Nro.";
             this.colTicketNro.Width = 80;
             // 
