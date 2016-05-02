@@ -29,6 +29,7 @@
             </td>
             <td rowspan="4" style="vertical-align:top;">
                 <ul style="font-weight: normal; margin:0;">
+                    <li><asp:Label ID="lblregla_caracteres" runat="server">Solo letras y numeros</asp:Label></li>
                     <li><asp:Label ID="lblregla_largo" runat="server">8-12 dígitos alfanuméricos</asp:Label></li>
                     <li><asp:Label ID="lblregla_min_letras" runat="server">Mínimo 4 letras</asp:Label></li>
                     <li><asp:Label ID="lblregla_min_nro" runat="server">Mínimo 2 números</asp:Label></li>

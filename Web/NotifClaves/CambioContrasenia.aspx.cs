@@ -48,7 +48,7 @@ public partial class CambioContrasenia : System.Web.UI.Page
             string password = tbPassword.Text;
             string passwordconfirm = tbPasswordConfirm.Text;
 
-                bool cambioOk = Validar(password, passwordconfirm);
+            bool cambioOk = Validar(password, passwordconfirm);
 
             if (cambioOk)
             {
@@ -169,6 +169,7 @@ public partial class CambioContrasenia : System.Web.UI.Page
 
     private void LimpiarReglas()
     {
+        lblregla_caracteres.ForeColor = Color.Black;
         lblregla_largo.ForeColor = Color.Black;
         lblregla_min_letras.ForeColor = Color.Black;
         lblregla_min_nro.ForeColor = Color.Black;
@@ -194,6 +195,14 @@ public partial class CambioContrasenia : System.Web.UI.Page
         try
         {
             bool largoOk = true;
+
+            //Si la clave contiene otros caracteres que no sean letras y numeros
+            bool caracteresValidos = ValidarLetrasNumeros(password);
+            if (!caracteresValidos)
+            {
+                lblregla_caracteres.ForeColor = System.Drawing.Color.Red;
+            }
+
             //Si la longitud no esta entre 8 y 12 digitos alfanumericos.
             if (password.Length < 8 || password.Length > 12)
             {
@@ -232,7 +241,7 @@ public partial class CambioContrasenia : System.Web.UI.Page
             //No importa si las letras son mayúsculas o minúsculas porque COBIS no hace diferencia.
 
             //Si alguna de las reglas falla
-            if (!largoOk || !minletrasOk || !minnroOk || !letrasOk || !numerosOk)
+            if (!largoOk || !minletrasOk || !minnroOk || !letrasOk || !numerosOk || !caracteresValidos)
             {
                 MostrarError("La nueva contraseña no cumple con todas las reglas");
             }
@@ -248,7 +257,7 @@ public partial class CambioContrasenia : System.Web.UI.Page
                     ok = true;
                 }
             }
-            
+
         }
         catch (Exception ex)
         {
@@ -302,6 +311,18 @@ public partial class CambioContrasenia : System.Web.UI.Page
         match = Regex.Match(cadena, @"(\D)\1+?");
 
         result = !match.Success;
+
+        return result;
+    }
+
+    private bool ValidarLetrasNumeros(string cadena)
+    {
+        bool result = false;
+
+        Match match = null;
+        match = Regex.Match(cadena, @"^[a-zA-Z0-9]+$");
+
+        result = match.Success;
 
         return result;
     }
