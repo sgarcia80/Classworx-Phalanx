@@ -14,7 +14,7 @@
             <tr style="background-color: #f0f8ff">
                 <td style="width: 7px; height: 19px;">
                 </td>
-                <td style="text-align: right; width: auto; height: 19px;">
+                <td style="text-align: left; width: auto; height: 19px;">
                     <asp:Label ID="lblPwdType" runat="server" CssClass="tdTituloSub">Ticket</asp:Label></td>
             </tr>
             <tr style="background-color: White;">
@@ -35,34 +35,41 @@
                     <asp:Label ID="lblField1" runat="server" CssClass="LabelNormal">Fecha</asp:Label>
                 </td>
                 <td style="height: auto; width: auto;">
-                    <asp:TextBox ID="tbFecha" runat="server" ReadOnly="True" Width="160px" CssClass="labelCombo"></asp:TextBox></td>
+                    <asp:TextBox ID="tbFecha" runat="server" ReadOnly="True" Width="210px" CssClass="labelCombo"></asp:TextBox></td>
+            </tr>
+            <tr id="Tr1" runat="server">
+                <td>
+                    <asp:Label ID="Label2" runat="server" CssClass="LabelNormal">Tipo Solicitud</asp:Label></td>
+                <td>
+                    <asp:TextBox ID="tbTipoSolicitud" runat="server" CssClass="labelCombo" ReadOnly="True"
+                        Width="210px"></asp:TextBox></td>
             </tr>
             <tr id="row_Data_2" runat="server">
                 <td>
                     <asp:Label ID="lblField2" runat="server" CssClass="LabelNormal">Nro Solicitud</asp:Label></td>
                 <td>
                     <asp:TextBox ID="tbNroSolicitud" runat="server" CssClass="labelCombo" ReadOnly="True"
-                        Width="160px"></asp:TextBox></td>
+                        Width="210px"></asp:TextBox></td>
             </tr>
             <tr id="row_Data_3" runat="server">
                 <td>
                     <asp:Label ID="lblField3" runat="server" CssClass="LabelNormal">Aplicaci&oacute;n</asp:Label></td>
                 <td>
                     <asp:TextBox ID="tbApp" runat="server" CssClass="labelCombo" ReadOnly="True"
-                        Width="160px"></asp:TextBox></td>
+                        Width="210px"></asp:TextBox></td>
             </tr>
             <tr id="row_Data_4" runat="server">
                 <td>
                     <asp:Label ID="lblField4" runat="server" CssClass="LabelNormal">Usuario</asp:Label></td>
                 <td style="width: auto; height: auto;">
                     <asp:TextBox ID="tbUsuario" runat="server" CssClass="labelCombo" ReadOnly="True"
-                        Width="160px"></asp:TextBox></td>
+                        Width="210px"></asp:TextBox></td>
             </tr>
             <tr id="trContra" visible="false" runat="server">
                 <td>
                     <asp:Label ID="lblField5" runat="server" CssClass="LabelNormal">Contraseña</asp:Label></td>
                 <td style="height: auto; width: auto;">
-                    <asp:TextBox ID="tbContra" runat="server" ReadOnly="True" Width="160px" CssClass="labelCombo"></asp:TextBox></td>
+                    <asp:TextBox ID="tbContra" runat="server" ReadOnly="True" Width="210px" CssClass="labelCombo"></asp:TextBox></td>
             </tr>
             <tr id="trUsaContraRed" visible="false" runat="server">
                 <td>

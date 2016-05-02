@@ -22,9 +22,7 @@ public partial class DetalleTicket : System.Web.UI.Page
 
         int id = 0;
         string tipo = "ALTA";
-
-
-
+        
         if (Request["id"] != null)
         {
             int.TryParse(Request["id"], out id);
@@ -36,6 +34,8 @@ public partial class DetalleTicket : System.Web.UI.Page
 
         string redirect = string.Empty;
 
+        tbTipoSolicitud.Text = "Alta de Usuario";
+
         if (id > 0 && tipo == "ALTA")
         {
             redirect = ConsultarTicketNotificacionClave(id);
@@ -44,6 +44,7 @@ public partial class DetalleTicket : System.Web.UI.Page
         if (id > 0 && tipo == "BLANQUEO")
         {
             redirect  = ConsultarTicketNotificacionBlanqueo(id);
+            tbTipoSolicitud.Text = "Blanqueo de Usuario de Aplicación";
         }
 
         Session["tipoticket"] = tipo;
