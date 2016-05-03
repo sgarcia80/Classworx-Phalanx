@@ -43,7 +43,7 @@
                 Confirmar Contraseña
             </td>
             <td>
-                <asp:TextBox ID="tbPasswordConfirm" TextMode="Password" runat="server" Width="160px" MaxLength="8" />
+                <asp:TextBox ID="tbPasswordConfirm" TextMode="Password" runat="server" Width="160px" MaxLength="12" />
             </td>
         </tr>
         <tr>
