@@ -11,9 +11,6 @@
             <asp:BoundField DataField="Tipo" HeaderText="Tipo" SortExpression="Tipo" >
                 <HeaderStyle HorizontalAlign="Left" />
             </asp:BoundField>
-            <asp:BoundField DataField="NumeroSolicitud" HeaderText="Nro Solicitud" SortExpression="NumeroSolicitud" >
-                <HeaderStyle HorizontalAlign="Left" />
-            </asp:BoundField>
             <asp:BoundField DataField="Usuario" HeaderText="Usuario" SortExpression="Usuario" >
                 <HeaderStyle HorizontalAlign="Left" />
             </asp:BoundField>
