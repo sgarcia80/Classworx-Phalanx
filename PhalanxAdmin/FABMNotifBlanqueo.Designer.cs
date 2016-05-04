@@ -96,9 +96,9 @@ namespace PhalanxAdmin
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(306, 30);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(83, 13);
+            this.label2.Size = new System.Drawing.Size(82, 13);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Fecha Carga:";
+            this.label2.Text = "Fecha Envio:";
             // 
             // txtFecha
             // 
@@ -281,9 +281,9 @@ namespace PhalanxAdmin
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(306, 82);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(72, 13);
+            this.label9.Size = new System.Drawing.Size(81, 13);
             this.label9.TabIndex = 11;
-            this.label9.Text = "Fecha AyC:";
+            this.label9.Text = "Fecha Notif.:";
             // 
             // txtFechaAyC
             // 

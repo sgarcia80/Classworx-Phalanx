@@ -64,6 +64,7 @@ namespace PhalanxAdmin
             this.lnkView = new System.Windows.Forms.LinkLabel();
             this.lnkReenviar = new System.Windows.Forms.LinkLabel();
             this.lnkAdd = new System.Windows.Forms.LinkLabel();
+            this.colFechaNotificado = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             colAplicacion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             colDominioApp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
@@ -290,7 +291,8 @@ namespace PhalanxAdmin
             this.colUsuario,
             this.colFecha,
             this.colSolicitante,
-            this.colEstado});
+            this.colEstado,
+            this.colFechaNotificado});
             this.lvLista.FullRowSelect = true;
             this.lvLista.HideSelection = false;
             this.lvLista.Location = new System.Drawing.Point(18, 6);
@@ -306,6 +308,7 @@ namespace PhalanxAdmin
             // 
             // colId
             // 
+            this.colId.Tag = "Numeric";
             this.colId.Text = "Notif. Nro.";
             this.colId.Width = 80;
             // 
@@ -328,7 +331,7 @@ namespace PhalanxAdmin
             // colFecha
             // 
             this.colFecha.Tag = "ddMMyyyyHHmm";
-            this.colFecha.Text = "Fecha";
+            this.colFecha.Text = "Fecha Envio";
             this.colFecha.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.colFecha.Width = 117;
             // 
@@ -433,6 +436,13 @@ namespace PhalanxAdmin
             this.lnkAdd.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
             this.lnkAdd.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAdd_LinkClicked);
             // 
+            // colFechaNotificado
+            // 
+            this.colFechaNotificado.Tag = "ddMMyyyyHHmm";
+            this.colFechaNotificado.Text = "Fecha Notif.";
+            this.colFechaNotificado.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.colFechaNotificado.Width = 117;
+            // 
             // FNotifBlanqueos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -496,6 +506,7 @@ namespace PhalanxAdmin
         private System.Windows.Forms.ColumnHeader colTicketNro;
         private System.Windows.Forms.CheckBox chkPendiente;
         private System.Windows.Forms.ColumnHeader colEstado;
+        private System.Windows.Forms.ColumnHeader colFechaNotificado;
 
     }
 }

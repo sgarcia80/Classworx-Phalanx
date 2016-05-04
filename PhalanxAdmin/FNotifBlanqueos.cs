@@ -200,6 +200,7 @@ namespace PhalanxAdmin
                 lviArr[i].SubItems.Add(entity.Fecha.ToString("dd/MM/yyyy HH:mm"));
                 lviArr[i].SubItems.Add(entity.Solicitante);
                 lviArr[i].SubItems.Add(entity.FechaAceptacionTyC.HasValue ? "Notificado" : "Pendiente");
+                lviArr[i].SubItems.Add(entity.FechaAceptacionTyC.HasValue ? entity.FechaAceptacionTyC.Value.ToString("dd/MM/yyyy HH:mm") : string.Empty);
 
                 //lviArr[i].ImageIndex = ;
                 lviArr[i].Tag = entity;
