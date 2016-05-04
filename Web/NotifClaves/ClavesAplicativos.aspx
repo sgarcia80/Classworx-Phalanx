@@ -7,16 +7,27 @@
     <br />
     <table class="login">
         <tr>
-            <td colspan="2" align="center">
+            <td align="center">
                 <asp:Button ID="btnCOBIS" Text="Autogestión COBIS" CssClass="btn" Width="180px" 
                     runat="server" OnClick="btnCOBIS_Click"/>
             </td>
+            <td align="left" style="width: 250px;">
+                Permite realizar el Desbloqueo o Cambiar la contraseña de COBIS
+            </td>
         </tr>
         <tr>
-            <td colspan="2" align="center">
+            <td colspan="2">
+            <br />
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
                 <br />
                 <asp:Button ID="btnNotifClaves" Text="Notificación de Claves" CssClass="btn" 
                     Width="180px" runat="server" onclick="btnNotifClaves_Click" />
+            </td>
+            <td align="left">
+                Lista las notificaciones de Alta de usuario y Notificación de Blanqueo
             </td>
         </tr>
     </table>
