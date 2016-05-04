@@ -60,7 +60,7 @@ public partial class DetalleTicket : System.Web.UI.Page
 
         TicketNotificacionClaveEntity ticket = tncb.GetById(id);
 
-        if (ticket.Usuario.ToLower() != Session["Usuario"].ToString().ToLower() || ticket.DominioUsuario.ToLower() != Session["Dominio"].ToString().ToLower())
+        if (ticket.Usuario.ToLower() != Session["Usuario"].ToString().ToLower()) // || ticket.DominioUsuario.ToLower() != Session["Dominio"].ToString().ToLower())
             return string.Empty;
 
         if (ticket.FechaAceptacionTyC == null)
@@ -87,7 +87,7 @@ public partial class DetalleTicket : System.Web.UI.Page
 
         TicketNotificacionBlanqueoEntity ticket = tncb.GetById(id);
 
-        if (ticket.Usuario.ToLower() != Session["Usuario"].ToString().ToLower() || ticket.UsuarioDominio.ToLower() != Session["Dominio"].ToString().ToLower())
+        if (ticket.Usuario.ToLower() != Session["Usuario"].ToString().ToLower() ) // || ticket.UsuarioDominio.ToLower() != Session["Dominio"].ToString().ToLower())
             return string.Empty;
 
         if (ticket.FechaAceptacionTyC == null)
