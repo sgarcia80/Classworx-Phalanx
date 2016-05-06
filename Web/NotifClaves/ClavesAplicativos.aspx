@@ -1,15 +1,16 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Principal.master" AutoEventWireup="true" CodeFile="ClavesAplicativos.aspx.cs" Inherits="ClavesAplicativos" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Principal.master" AutoEventWireup="true"
+    CodeFile="ClavesAplicativos.aspx.cs" Inherits="ClavesAplicativos" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <br />
     <div class="tituloSeccion">
         Claves de Aplicativos</div>
     <br />
-    <table class="login">
-        <tr>
-            <td align="center">
-                <asp:Button ID="btnCOBIS" Text="Autogestión COBIS" CssClass="btn" Width="180px" 
-                    runat="server" OnClick="btnCOBIS_Click"/>
+    <table class="login" style="font-size: 10pt;">
+        <tr style="display: none;">
+            <td align="center" style="width: 210px;">
+                <asp:Button ID="btnCOBIS" Text="Autogestión COBIS" CssClass="btn" Width="180px" runat="server"
+                    OnClick="btnCOBIS_Click" Enabled="false" />
             </td>
             <td align="left" style="width: 250px;">
                 Permite realizar el Desbloqueo o Cambiar la contraseña de COBIS
@@ -17,17 +18,18 @@
         </tr>
         <tr>
             <td colspan="2">
-            <br />
+                <br />
             </td>
         </tr>
         <tr>
-            <td align="center">
-                <br />
-                <asp:Button ID="btnNotifClaves" Text="Notificación de Claves" CssClass="btn" 
-                    Width="180px" runat="server" onclick="btnNotifClaves_Click" />
+            <td align="center" valign="top" style="width: 210px;">
+                <asp:Button ID="btnNotifClaves" Text="Notificación de Claves" CssClass="btn" Width="180px"
+                    runat="server" OnClick="btnNotifClaves_Click" Height="60px" BorderWidth="2" />
             </td>
-            <td align="left">
-                Lista las notificaciones de Alta de usuario y Notificación de Blanqueo
+            <td align="left" style="font-weight: normal;">Ingresando por esta opción, vas a poder acceder a:<ul>
+                    <li>Notificaciones de Claves de Alta de Usuario de Aplicación</li>
+                    <li>Notificaciones de blanqueo de Claves solicitadas por Remedy</li>
+                </ul>
             </td>
         </tr>
     </table>
@@ -35,8 +37,7 @@
     <div class="division">
     </div>
     <br />
-
-    <table class="login" style="width:100%">
+    <table class="login" style="width: 100%">
         <tr>
             <td align="center">
                 <asp:Button ID="btnVolver" Text="Volver" CssClass="btn" runat="server" OnClick="btnVolver_Click" />
@@ -44,4 +45,3 @@
         </tr>
     </table>
 </asp:Content>
-

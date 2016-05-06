@@ -1,12 +1,13 @@
 <%@ Page Language="C#" MasterPageFile="~/Principal.master" AutoEventWireup="true" CodeFile="Tickets.aspx.cs" Inherits="Tickets" Title="Macro SA - Notificación de Claves" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <br />
-    <asp:GridView ID="gvTickets" runat="server" AutoGenerateColumns="False" Width="100%" CellPadding="4"
+    <div style="width: 100%; " align="center">
+    <asp:GridView ID="gvTickets" runat="server" AutoGenerateColumns="False" Width="70%" CellPadding="4"
         ForeColor="#333333" GridLines="None" EmptyDataText="No tiene tickets disponibles para Visualizar" Font-Bold="False" DataSourceID="odsTickets">
         <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
         <Columns>
             <asp:BoundField DataField="Fecha" HeaderText="Fecha" SortExpression="Fecha" DataFormatString="{0:dd/MM/yyyy HH:mm}" >
-                <HeaderStyle HorizontalAlign="Center" />
+                <HeaderStyle HorizontalAlign="Left" />
             </asp:BoundField>
             <asp:BoundField DataField="Tipo" HeaderText="Tipo" SortExpression="Tipo" >
                 <HeaderStyle HorizontalAlign="Left" />
@@ -36,6 +37,7 @@
             <asp:SessionParameter Name="usuario" SessionField="Usuario" Type="String" />
         </SelectParameters>
     </asp:ObjectDataSource>
+    </div>
      <br />
     <div class="division">
     </div>
