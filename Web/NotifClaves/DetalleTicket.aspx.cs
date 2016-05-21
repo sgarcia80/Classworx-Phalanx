@@ -90,20 +90,17 @@ public partial class DetalleTicket : System.Web.UI.Page
         if (ticket.Usuario.ToLower() != Session["Usuario"].ToString().ToLower() ) // || ticket.UsuarioDominio.ToLower() != Session["Dominio"].ToString().ToLower())
             return string.Empty;
 
-        if (ticket.FechaAceptacionTyC == null)
-        {
-            return "tyc.aspx?id=" + id.ToString();
-        }
-
         if (!ticket.Aplicacion.Notificable)
         {
             return "nopermitido.aspx?id=" + id.ToString();
         }
 
-        MostrarDatosTicketNotificacionBlanqueo(ticket);
+        if (!ticket.FechaAceptacionTyC.HasValue)
+        {
+            tncb.AceptarTyC(ticket.Id);
+        }
 
-        //if (!IsPostBack)
-        //    new AuditTicketNotificacionBusiness().LogVisualizacion(ticket);
+        MostrarDatosTicketNotificacionBlanqueo(ticket);
 
         return string.Empty;
     }

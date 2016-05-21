@@ -2,6 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <br />
     <div style="width: 100%; " align="center">
+    <h3><asp:Label id="lblTitulo" runat="server" Text="Tipo de Notificación"></asp:Label></h3> 
     <asp:GridView ID="gvTickets" runat="server" AutoGenerateColumns="False" Width="70%" CellPadding="4"
         ForeColor="#333333" GridLines="None" EmptyDataText="No tiene tickets disponibles para Visualizar" Font-Bold="False" DataSourceID="odsTickets">
         <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -35,6 +36,7 @@
         <SelectParameters>
             <asp:SessionParameter Name="dominio" SessionField="Dominio" Type="String" />
             <asp:SessionParameter Name="usuario" SessionField="Usuario" Type="String" />
+            <asp:SessionParameter Name="tipo" SessionField="TipoNotif" Type="String" />
         </SelectParameters>
     </asp:ObjectDataSource>
     </div>

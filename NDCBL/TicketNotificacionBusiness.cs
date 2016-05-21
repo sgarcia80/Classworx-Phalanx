@@ -56,12 +56,22 @@ namespace NDCBL
             //
         }
 
-        public TicketNotificacionEntityCollection GetAllActiveByUser(string dominio, string usuario)
+        public TicketNotificacionEntityCollection GetAllActiveByUser(string dominio, string usuario, string tipo)
         {
             TicketNotificacionFactory factory = new TicketNotificacionFactory();
 
             factory.FilDominio = dominio;
             factory.FilUsuario = usuario;
+
+            switch (tipo)
+            {
+                case "A":
+                    factory.FilTipoNotif = "ALTA";
+                    break;
+                case "B":
+                    factory.FilTipoNotif = "BLANQUEO";
+                    break;
+            }
 
             TicketNotificacionEntityCollection tmpCollection = factory.GetAll();
 

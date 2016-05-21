@@ -21,6 +21,7 @@ namespace NDCDAL.Factories
 
         private string _filUsuario;
         private string _filDominio;
+        private string _filTipoNotif;
 
         public string FilUsuario
         {
@@ -30,6 +31,11 @@ namespace NDCDAL.Factories
         public string FilDominio
         {
             set { _filDominio = value; }
+        }
+        
+        public string FilTipoNotif
+        {
+            set { _filTipoNotif = value; }
         }
 
         static TicketNotificacionFactory()
@@ -55,7 +61,10 @@ namespace NDCDAL.Factories
 
                 //if (!string.IsNullOrEmpty(_filDominio))
                 //    DataSearch = DataSearch.Add(Expression.Eq("Dominio", _filDominio));
-                
+
+                if (!string.IsNullOrEmpty(_filTipoNotif))
+                    DataSearch = DataSearch.Add(Expression.Eq("Tipo", _filTipoNotif));
+
                 try
                 {
                     tickets = DataSearch.List<TicketNotificacionEntity>();
