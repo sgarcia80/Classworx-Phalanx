@@ -131,7 +131,7 @@ namespace PhalanxAdmin
 
                 txtFecha.Text = _entity.Fecha.ToString("dd/MM/yyyy HH:mm");
                 txtFechaAyC.Text = _entity.FechaAceptacionTyC.HasValue ? _entity.FechaAceptacionTyC.Value.ToString("dd/MM/yyyy HH:mm") : string.Empty;
-                txtUsuarioCarga.Text = user;
+                txtUsuarioCarga.Text = _entity.UsuarioCarga;
 
                 txtSolicitante.Text = _entity.Solicitante;
                 txtTicketNro.Text = _entity.NumeroSolicitud.HasValue ? _entity.NumeroSolicitud.Value.ToString() : string.Empty;
@@ -185,9 +185,12 @@ namespace PhalanxAdmin
 
         private void CargarAplicaciones()
         {
+            var list = AplicacionBL.GetAll();
+            list.Insert(0, new AplicacionNotificacionClaveEntity { Id = 0, Codigo = string.Empty, Nombre = "" });
+
             cbAplicacion.Items.Clear();
             AplicacionBL.FilNotificable = true;
-            cbAplicacion.DataSource = AplicacionBL.GetAll(); // WithDatabases();
+            cbAplicacion.DataSource = list; // WithDatabases();
         }
 
         private void chkVisualizar_CheckedChanged(object sender, EventArgs e)
@@ -219,7 +222,7 @@ namespace PhalanxAdmin
             // chequear que se hayan elegido bases de datos
             if (_entity.Id == 0 && cbAplicacion.SelectedItem == null)
             {
-                MessageBox.Show("Debe seleccionar una Aplicación");
+                MessageBox.Show("Debe seleccionar una Aplicación", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 this.DialogResult = DialogResult.None;
                 return;
             }
@@ -227,20 +230,20 @@ namespace PhalanxAdmin
             // chequear pwd no vacia
             if (txtUser.Text.Trim().Length == 0)
             {
-                MessageBox.Show("Debe introducir un Usuario de Red");
+                MessageBox.Show("Debe introducir un Usuario de Red", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             // chequear pwd no vacia
             if (txtUsername.Text.Trim().Length == 0)
             {
-                MessageBox.Show("Debe introducir un Usuario");
+                MessageBox.Show("Debe introducir un Usuario", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             // chequear pwd no vacia
             if (tPassword1.Text.Trim().Length == 0)
             {
-                MessageBox.Show("La contraseña no es válida");
+                MessageBox.Show("La contraseña no es válida", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -257,8 +260,16 @@ namespace PhalanxAdmin
             // asignar datos a la entity
             if (_entity.Id == 0)
             {
+                var app = (AplicacionNotificacionClaveEntity)cbAplicacion.SelectedItem;
+
+                if (app.Id == 0)
+                {
+                    MessageBox.Show("Debe seleccionar una Aplicación", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 _entity.UsuarioDominio = ((DominioLoginEntity)cbDomain.SelectedItem).Nombre.Trim();
-                _entity.Aplicacion = (AplicacionNotificacionClaveEntity)cbAplicacion.SelectedItem;
+                _entity.Aplicacion = app;
                 _entity.Fecha = DateTime.Now;
 
                 esAlta = true;
