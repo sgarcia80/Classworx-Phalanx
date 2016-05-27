@@ -117,14 +117,14 @@ public partial class CambioContrasenia : System.Web.UI.Page
                 lblResp2.Text = "Se ha cambiado la contraseña en forma satisfactoria";
                 ErrorExec = false;
             }
-            else
-            {
-                trTitRespuesta.Visible = true;
-                trRespuesta.Visible = true;
-                lblResp2.Text = "No se ha podido cambiar la contraseña.";
-                //lblResp2.Text += "<br/>" + resultado.serviceError.message.ToString();
-                lblResp2.Text += "<br/>Por favor ingresa una solicitud vía Remedy, y te responderemos a la brevedad";
-            }
+            //else
+            //{
+            //    trTitRespuesta.Visible = true;
+            //    trRespuesta.Visible = true;
+            //    lblResp2.Text = "No se ha podido cambiar la contraseña.";
+            //    //lblResp2.Text += "<br/>" + resultado.serviceError.message.ToString();
+            //    lblResp2.Text += "<br/>Por favor ingresa una solicitud vía Remedy, y te responderemos a la brevedad";
+            //}
 
             if (resultado != null &&
                 resultado.serviceError != null &&
@@ -159,11 +159,18 @@ public partial class CambioContrasenia : System.Web.UI.Page
             trTitRespuesta.Visible = true;
             trRespuesta.Visible = true;
             lblResp2.Text = "no se ha podido cambiar la contraseña. <br/>Por favor ingresa una solicitud vía Remedy, y te responderemos a la brevedad!";
+        }
 
-            if (!string.IsNullOrEmpty(error))
-            {
-                lblError.Text = "<BR/><BR/>" + error;
-            }
+        bool showCobis = false;
+        if (ConfigurationManager.AppSettings["RespuestaCobis"] != null &&
+            ConfigurationManager.AppSettings["RespuestaCobis"].ToString() == "1")
+        {
+            showCobis = true;
+        }
+
+        if (!string.IsNullOrEmpty(error) && showCobis)
+        {
+            lblError.Text = "<BR/><BR/>" + error;
         }
     }
 

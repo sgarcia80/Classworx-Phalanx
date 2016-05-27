@@ -62,7 +62,6 @@ public partial class DesbloqueoUsuarioCOBIS : System.Web.UI.Page
                     resultado.funcionarioRet != null && 
                     resultado.funcionarioRet.o_error == 0)
                 {
-                    //txtRespuesta.Text = "Se desbloqueó el usuario COBIS " + Session["Usuario"].ToString();
                     trTitRespuesta.Visible = true;
                     trRespuesta.Visible = true;
                     lblResp2.Text = "ha sido desbloqueado en forma satisfactoria!";
@@ -73,14 +72,6 @@ public partial class DesbloqueoUsuarioCOBIS : System.Web.UI.Page
                     trTitRespuesta.Visible = true;
                     trRespuesta.Visible = true;
                     lblResp2.Text = "no se ha podido desbloquear. <br/>Por favor ingresa una solicitud vía Remedy, y te responderemos a la brevedad!";
-                    //txtRespuesta.Text = "Error: ";
-                    //txtRespuesta.Text += resultado.funcionarioRet.o_error.ToString();
-                    //txtRespuesta.Text += " - ";
-                    //txtRespuesta.Text += resultado.funcionarioRet.o_mensaje;
-                    //txtRespuesta.Text += Environment.NewLine + "restultado.funcionarioRet.o_error.ToString: ";
-                    //txtRespuesta.Text += resultado.funcionarioRet.o_error.ToString();
-                    //txtRespuesta.Text += Environment.NewLine + "restultado.funcionarioRet.o_mensaje: ";
-                    //txtRespuesta.Text += resultado.funcionarioRet.o_mensaje;
                 }
 
                 if (resultado != null && 
@@ -125,11 +116,18 @@ public partial class DesbloqueoUsuarioCOBIS : System.Web.UI.Page
                 trTitRespuesta.Visible = true;
                 trRespuesta.Visible = true;
                 lblResp2.Text = "no se ha podido desbloquear. <br/>Por favor ingresa una solicitud vía Remedy, y te responderemos a la brevedad!";
+            }
 
-                if (!string.IsNullOrEmpty(error))
-                {
-                    lblError.Text = "<BR/><BR/>" + error;
-                }
+            bool showCobis = false;
+            if (ConfigurationManager.AppSettings["RespuestaCobis"] != null &&
+                ConfigurationManager.AppSettings["RespuestaCobis"].ToString() == "1")
+            {
+                showCobis = true;
+            }
+
+            if (!string.IsNullOrEmpty(error) && showCobis)
+            {
+                lblError.Text = "<BR/><BR/>" + error;
             }
         }
         else
