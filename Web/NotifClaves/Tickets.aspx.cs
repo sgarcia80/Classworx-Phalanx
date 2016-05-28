@@ -25,22 +25,21 @@ public partial class Tickets : System.Web.UI.Page
             if (Session["TipoNotif"] != null)
             {
                 tipo = Session["TipoNotif"].ToString();
-                switch (tipo)
-                {
-                    case "A":
-                        lblTitulo.Text = "Notificaciones de Alta de Usuario";
-                        break;
-                    case "B":
-                        lblTitulo.Text = "Notificaciones de Blanqueo de Usuario de Aplicación";
-                        break;
-                }
+                
+                ddlTipoNotificacion.SelectedValue = tipo;
             }
 
         }
     }
+
     protected void btnVolver_Click(object sender, EventArgs e)
     {
         Response.Redirect("ClavesAplicativos.aspx");
 
+    }
+
+    protected void ddlTipoNotificacion_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        Session["TipoNotif"] = ddlTipoNotificacion.SelectedValue;
     }
 }
