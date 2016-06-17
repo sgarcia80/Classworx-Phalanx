@@ -10,20 +10,37 @@ namespace NDCCommon.Entities
     /// </summary>
     public class TicketNotificacionBlanqueoEntity : BaseEntity
     {
+        public static TicketNotificacionBlanqueoEntity CreateNotificacionBlanqueoApp()
+        {
+            return new TicketNotificacionBlanqueoEntity { TipoNotificacion = 0 };
+        }
+
+        public static TicketNotificacionBlanqueoEntity CreateNotificacionBlanqueoRed()
+        {
+            return new TicketNotificacionBlanqueoEntity { TipoNotificacion = 1 };
+        }
+
+        public static TicketNotificacionBlanqueoEntity CreateNotificacionDesbloqueoRed()
+        {
+            return new TicketNotificacionBlanqueoEntity { TipoNotificacion = 2 };
+        }
+
         #region Private Members
         private bool m_isChanged;
 
         private int m_tnb_id;
+        private int m_tnb_tipo_notif;
         private int? m_tnb_numero;
         private AplicacionNotificacionClaveEntity m_tnb_app;
         private string m_tnb_app_user;
-        private string m_tnb_user_pass;
+        private string m_tnb_app_user_pass;
         private string m_tnb_user_domain;
+        private string m_tnb_user_pass;
         private string m_tnb_solicitante;
         private string m_tnb_user_load;
         private DateTime? m_tnb_fecha_vigencia;
         private DateTime? m_tnb_fecha_ace_tyc;
-        
+
         private string m_tnb_user;
         private DateTime m_tnb_fecha;
 
@@ -37,9 +54,10 @@ namespace NDCCommon.Entities
         {
             m_tnb_id = 0;
             m_tnb_app_user = string.Empty;
-            m_tnb_user_pass = string.Empty;
+            m_tnb_app_user_pass = string.Empty;
             m_tnb_user_domain = string.Empty;
             m_tnb_user = string.Empty;
+            m_tnb_user_pass = string.Empty;
         }
         #endregion // End of Default ( Empty ) Class Constuctor
 
@@ -57,6 +75,46 @@ namespace NDCCommon.Entities
                 m_tnb_id = value;
             }
 
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int TipoNotificacion
+        {
+            get { return m_tnb_tipo_notif; }
+            set
+            {
+                m_isChanged |= (m_tnb_tipo_notif != value);
+                m_tnb_tipo_notif = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string TipoNotificacionDescr
+        {
+            get
+            {
+                string tipo = string.Empty;
+                switch (m_tnb_tipo_notif)
+                {
+                    case 0:
+                        tipo = "Blanqueo Aplicación";
+                        break;
+                    case 1:
+                        tipo = "Blanqueo Red";
+                        break;
+                    case 2:
+                        tipo = "Desbloqueo Red";
+                        break;
+                }
+                return tipo;
+            }
+            set
+            {
+            }
         }
 
         /// <summary>
@@ -82,9 +140,6 @@ namespace NDCCommon.Entities
 
             set
             {
-                if (value == null)
-                    throw new ArgumentOutOfRangeException("Null value not allowed for Aplicación", value, "null");
-
                 m_isChanged |= (m_tnb_app != value);
                 m_tnb_app = value;
             }
@@ -115,7 +170,7 @@ namespace NDCCommon.Entities
         /// </summary>
         public string PasswordUsuarioAplicacion
         {
-            get { return m_tnb_user_pass; }
+            get { return m_tnb_app_user_pass; }
 
             set
             {
@@ -125,8 +180,8 @@ namespace NDCCommon.Entities
                 if (value.Length > 50)
                     throw new ArgumentOutOfRangeException("Invalid value for Application Password Usuario", value, value.ToString());
 
-                m_isChanged |= (m_tnb_user_pass != value);
-                m_tnb_user_pass = value;
+                m_isChanged |= (m_tnb_app_user_pass != value);
+                m_tnb_app_user_pass = value;
             }
         }
 
@@ -173,6 +228,20 @@ namespace NDCCommon.Entities
         /// <summary>
         /// 
         /// </summary>
+        public string PasswordUsuario
+        {
+            get { return m_tnb_user_pass; }
+
+            set
+            {
+                m_isChanged |= (m_tnb_user_pass != value);
+                m_tnb_user_pass = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string Solicitante
         {
             get { return m_tnb_solicitante; }
@@ -189,7 +258,7 @@ namespace NDCCommon.Entities
                 m_tnb_solicitante = value;
             }
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -217,7 +286,7 @@ namespace NDCCommon.Entities
                 m_tnb_fecha = value;
             }
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -246,10 +315,10 @@ namespace NDCCommon.Entities
             }
         }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		public int? MailId { set; get; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int? MailId { set; get; }
 
         #endregion
 

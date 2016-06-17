@@ -58,13 +58,16 @@ namespace PhalanxAdmin
             this.colFecha = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colSolicitante = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colEstado = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colFechaNotificado = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.bwRefreshEntities = new System.ComponentModel.BackgroundWorker();
-            this.xppnlPCs = new UIComponents.XPPanel(141);
+            this.xppnlPCs = new UIComponents.XPPanel(198);
+            this.lnkAddDesbloqueoRed = new System.Windows.Forms.LinkLabel();
+            this.lnkAddBlanqueoRed = new System.Windows.Forms.LinkLabel();
             this.lnkView = new System.Windows.Forms.LinkLabel();
             this.lnkReenviar = new System.Windows.Forms.LinkLabel();
             this.lnkAdd = new System.Windows.Forms.LinkLabel();
-            this.colFechaNotificado = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colTipoNotif = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             colAplicacion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             colDominioApp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
@@ -91,7 +94,8 @@ namespace PhalanxAdmin
             // xppnlMenu
             // 
             this.xppnlMenu.ImageItems.ImageSet = null;
-            this.xppnlMenu.Location = new System.Drawing.Point(8, 157);
+            this.xppnlMenu.Location = new System.Drawing.Point(8, 214);
+            this.xppnlMenu.Size = new System.Drawing.Size(184, 119);
             // 
             // colAplicacion
             // 
@@ -284,11 +288,12 @@ namespace PhalanxAdmin
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvLista.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colId,
+            this.colTipoNotif,
             this.colTicketNro,
-            colAplicacion,
-            this.colUsuarioApp,
             colDominioApp,
             this.colUsuario,
+            colAplicacion,
+            this.colUsuarioApp,
             this.colFecha,
             this.colSolicitante,
             this.colEstado,
@@ -345,6 +350,13 @@ namespace PhalanxAdmin
             this.colEstado.Text = "Estado";
             this.colEstado.Width = 100;
             // 
+            // colFechaNotificado
+            // 
+            this.colFechaNotificado.Tag = "ddMMyyyyHHmm";
+            this.colFechaNotificado.Text = "Fecha Notif.";
+            this.colFechaNotificado.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.colFechaNotificado.Width = 117;
+            // 
             // imageList
             // 
             this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
@@ -370,6 +382,8 @@ namespace PhalanxAdmin
             this.xppnlPCs.CaptionGradient.Start = System.Drawing.Color.White;
             this.xppnlPCs.CaptionGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
             this.xppnlPCs.CaptionUnderline = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.xppnlPCs.Controls.Add(this.lnkAddDesbloqueoRed);
+            this.xppnlPCs.Controls.Add(this.lnkAddBlanqueoRed);
             this.xppnlPCs.Controls.Add(this.lnkView);
             this.xppnlPCs.Controls.Add(this.lnkReenviar);
             this.xppnlPCs.Controls.Add(this.lnkAdd);
@@ -382,11 +396,42 @@ namespace PhalanxAdmin
             this.xppnlPCs.PanelGradient.End = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(223)))), ((int)(((byte)(247)))));
             this.xppnlPCs.PanelGradient.Start = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(223)))), ((int)(((byte)(247)))));
             this.xppnlPCs.PanelGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            this.xppnlPCs.Size = new System.Drawing.Size(184, 141);
+            this.xppnlPCs.Size = new System.Drawing.Size(184, 198);
             this.xppnlPCs.TabIndex = 4;
             this.xppnlPCs.TextColors.Foreground = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(93)))), ((int)(((byte)(198)))));
             this.xppnlPCs.TextHighlightColors.Foreground = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(142)))), ((int)(((byte)(255)))));
             this.xppnlPCs.VertAlignment = System.Drawing.StringAlignment.Center;
+            // 
+            // lnkAddDesbloqueoRed
+            // 
+            this.lnkAddDesbloqueoRed.ActiveLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkAddDesbloqueoRed.AutoSize = true;
+            this.lnkAddDesbloqueoRed.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.lnkAddDesbloqueoRed.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.lnkAddDesbloqueoRed.LinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkAddDesbloqueoRed.Location = new System.Drawing.Point(18, 128);
+            this.lnkAddDesbloqueoRed.Name = "lnkAddDesbloqueoRed";
+            this.lnkAddDesbloqueoRed.Size = new System.Drawing.Size(149, 13);
+            this.lnkAddDesbloqueoRed.TabIndex = 13;
+            this.lnkAddDesbloqueoRed.TabStop = true;
+            this.lnkAddDesbloqueoRed.Text = "Agregar Desbloqueo Red";
+            this.lnkAddDesbloqueoRed.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
+            // 
+            // lnkAddBlanqueoRed
+            // 
+            this.lnkAddBlanqueoRed.ActiveLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkAddBlanqueoRed.AutoSize = true;
+            this.lnkAddBlanqueoRed.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.lnkAddBlanqueoRed.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.lnkAddBlanqueoRed.LinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkAddBlanqueoRed.Location = new System.Drawing.Point(18, 106);
+            this.lnkAddBlanqueoRed.Name = "lnkAddBlanqueoRed";
+            this.lnkAddBlanqueoRed.Size = new System.Drawing.Size(135, 13);
+            this.lnkAddBlanqueoRed.TabIndex = 12;
+            this.lnkAddBlanqueoRed.TabStop = true;
+            this.lnkAddBlanqueoRed.Text = "Agregar Blanqueo Red";
+            this.lnkAddBlanqueoRed.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkAddBlanqueoRed.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAddBlanqueoRed_LinkClicked);
             // 
             // lnkView
             // 
@@ -395,7 +440,7 @@ namespace PhalanxAdmin
             this.lnkView.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.lnkView.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.lnkView.LinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkView.Location = new System.Drawing.Point(18, 71);
+            this.lnkView.Location = new System.Drawing.Point(18, 167);
             this.lnkView.Name = "lnkView";
             this.lnkView.Size = new System.Drawing.Size(61, 13);
             this.lnkView.TabIndex = 11;
@@ -411,7 +456,7 @@ namespace PhalanxAdmin
             this.lnkReenviar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.lnkReenviar.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.lnkReenviar.LinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkReenviar.Location = new System.Drawing.Point(18, 92);
+            this.lnkReenviar.Location = new System.Drawing.Point(18, 70);
             this.lnkReenviar.Name = "lnkReenviar";
             this.lnkReenviar.Size = new System.Drawing.Size(85, 13);
             this.lnkReenviar.TabIndex = 10;
@@ -429,19 +474,17 @@ namespace PhalanxAdmin
             this.lnkAdd.LinkColor = System.Drawing.Color.MidnightBlue;
             this.lnkAdd.Location = new System.Drawing.Point(18, 50);
             this.lnkAdd.Name = "lnkAdd";
-            this.lnkAdd.Size = new System.Drawing.Size(51, 13);
+            this.lnkAdd.Size = new System.Drawing.Size(134, 13);
             this.lnkAdd.TabIndex = 8;
             this.lnkAdd.TabStop = true;
-            this.lnkAdd.Text = "Agregar";
+            this.lnkAdd.Text = "Agregar Blanqueo App";
             this.lnkAdd.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
             this.lnkAdd.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAdd_LinkClicked);
             // 
-            // colFechaNotificado
+            // colTipoNotif
             // 
-            this.colFechaNotificado.Tag = "ddMMyyyyHHmm";
-            this.colFechaNotificado.Text = "Fecha Notif.";
-            this.colFechaNotificado.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.colFechaNotificado.Width = 117;
+            this.colTipoNotif.Text = "Tipo Notif.";
+            this.colTipoNotif.Width = 160;
             // 
             // FNotifBlanqueos
             // 
@@ -507,6 +550,9 @@ namespace PhalanxAdmin
         private System.Windows.Forms.CheckBox chkPendiente;
         private System.Windows.Forms.ColumnHeader colEstado;
         private System.Windows.Forms.ColumnHeader colFechaNotificado;
+        protected System.Windows.Forms.LinkLabel lnkAddBlanqueoRed;
+        protected System.Windows.Forms.LinkLabel lnkAddDesbloqueoRed;
+        private System.Windows.Forms.ColumnHeader colTipoNotif;
 
     }
 }

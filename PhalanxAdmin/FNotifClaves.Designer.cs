@@ -44,12 +44,13 @@ namespace PhalanxAdmin
             // xppnlMenu
             // 
             this.xppnlMenu.ImageItems.ImageSet = null;
+            this.xppnlMenu.Size = new System.Drawing.Size(184, 150);
             // 
-            // FReportes
+            // FNotifClaves
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(590, 535);
-            this.Name = "FReportes";
+            this.Name = "FNotifClaves";
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).EndInit();
             this.pnlXPGrps.ResumeLayout(false);
             this.pnlIzq.ResumeLayout(false);
