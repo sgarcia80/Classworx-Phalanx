@@ -22,13 +22,7 @@ public partial class Tickets : System.Web.UI.Page
         {
             string tipo = string.Empty;
 
-            if (Session["TipoNotif"] != null)
-            {
-                tipo = Session["TipoNotif"].ToString();
-                
-                ddlTipoNotificacion.SelectedValue = tipo;
-            }
-
+            Session["TipoNotif"] = chkNotifAlta.SelectedValue;
         }
     }
 
@@ -40,6 +34,11 @@ public partial class Tickets : System.Web.UI.Page
 
     protected void ddlTipoNotificacion_SelectedIndexChanged(object sender, EventArgs e)
     {
-        Session["TipoNotif"] = ddlTipoNotificacion.SelectedValue;
+        
+    }
+
+    protected void chkNotifAlta_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        Session["TipoNotif"] = chkNotifAlta.SelectedValue;
     }
 }

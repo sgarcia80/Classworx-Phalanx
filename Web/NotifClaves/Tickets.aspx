@@ -4,17 +4,18 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <br />
     <div style="width: 100%;" align="center">
-        <table style="width: 70%;">
+        <table class="login" style="width: 70%;">
             <tr>
                 <td style="width:160px;">
                     <asp:Label ID="lblTitulo" runat="server" Text="Tipo de Notificación:"></asp:Label>
                 </td>
                 <td>
-                    <asp:DropDownList ID="ddlTipoNotificacion" runat="server" AutoPostBack="true" 
-                        onselectedindexchanged="ddlTipoNotificacion_SelectedIndexChanged">
-                        <asp:ListItem Value="A" Text="Alta de Usuario"></asp:ListItem>
-                        <asp:ListItem Value="B" Text="Blanqueo de Usuario de Aplicación"></asp:ListItem>
-                    </asp:DropDownList>
+                <asp:RadioButtonList ID="chkNotifAlta" runat="server"  AutoPostBack="true"
+                        onselectedindexchanged="chkNotifAlta_SelectedIndexChanged" >
+                   <asp:ListItem Selected="True" Value="A" Text="Notificaciones de Claves de Alta de Usuario de Aplicación" />
+                   <asp:ListItem Value="B" Text="Notificaciones de blanqueo de Claves solicitadas por Remedy" />
+                </asp:RadioButtonList>
+
                 </td>
             </tr>
         </table>

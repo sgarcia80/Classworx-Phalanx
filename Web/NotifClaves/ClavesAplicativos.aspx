@@ -9,8 +9,8 @@
     <table class="login" style="font-size: 10pt;">
         <tr>
             <td align="center" valign="top" style="width: 210px;">
-                <asp:Button ID="btnCOBIS" Text="Autogestión COBIS" CssClass="btn"  Width="180px"
-                    runat="server" OnClick="btnCOBIS_Click" Height="60px" BorderWidth="2" />
+                <asp:Button ID="btnCOBIS" Text="Autogestión COBIS" CssClass="btn" Width="180px" runat="server"
+                    OnClick="btnCOBIS_Click" Height="60px" BorderWidth="2" />
             </td>
             <td align="left" style="font-weight: normal;">
                 Permite realizar el Desbloqueo o Cambiar la contraseña de COBIS
@@ -26,9 +26,11 @@
                 <asp:Button ID="btnNotifClaves" Text="Notificación de Claves" CssClass="btn" Width="180px"
                     runat="server" OnClick="btnNotifClaves_Click" Height="60px" BorderWidth="2" />
             </td>
-            <td align="left" style="font-weight: normal;">Ingresando por esta opción, vas a poder acceder a:
-                    <br /><asp:RadioButton ID="chkNotifAlta" runat="server" GroupName="TipoNotif" Checked="true" Text="Notificaciones de Claves de Alta de Usuario de Aplicación" />
-                    <br /><asp:RadioButton ID="chkNotifBlanqueo" runat="server" GroupName="TipoNotif" Text="Notificaciones de blanqueo de Claves solicitadas por Remedy" />
+            <td align="left" style="font-weight: normal;">
+                Ingresando por esta opción, vas a poder acceder a:<ul>
+                    <li>Notificaciones de Claves de Alta de Usuario de Aplicación</li>
+                    <li>Notificaciones de blanqueo de Claves solicitadas por Remedy</li>
+                </ul>
             </td>
         </tr>
     </table>
