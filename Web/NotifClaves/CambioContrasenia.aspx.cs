@@ -14,6 +14,7 @@ using PhalanxCommon.Entities;
 using System.Text.RegularExpressions;
 using Microsoft.Web.Services3.Security.Tokens;
 using System.Drawing;
+using System.Security.Cryptography.X509Certificates;
 
 public partial class CambioContrasenia : System.Web.UI.Page
 {
@@ -108,6 +109,29 @@ public partial class CambioContrasenia : System.Web.UI.Page
 
         try
         {
+            X509Certificate2 certificate = ObtenerCertificado();
+
+            if (certificate == null)
+            {
+                error = "No se encontró el certificado";
+            }
+            else
+            {
+                serviceProxy.ClientCertificates.Add(certificate);
+            }
+        }
+        catch (Exception ex)
+        {
+            error = string.Format("Error: {0}", ex.Message);
+        }
+
+        if (!string.IsNullOrEmpty(error))
+        {
+            lblError.Text = "<BR/><BR/>" + error;
+        }
+
+        try
+        {
             ADCambioContrasenia.ADCambioContraseniaRes resultado = serviceProxy.execute(requestConnection, filtro);
 
             if (resultado.serviceError.code == 0)
@@ -117,14 +141,6 @@ public partial class CambioContrasenia : System.Web.UI.Page
                 lblResp2.Text = "Se ha cambiado la contraseña en forma satisfactoria";
                 ErrorExec = false;
             }
-            //else
-            //{
-            //    trTitRespuesta.Visible = true;
-            //    trRespuesta.Visible = true;
-            //    lblResp2.Text = "No se ha podido cambiar la contraseña.";
-            //    //lblResp2.Text += "<br/>" + resultado.serviceError.message.ToString();
-            //    lblResp2.Text += "<br/>Por favor ingresa una solicitud vía Remedy, y te responderemos a la brevedad";
-            //}
 
             if (resultado != null &&
                 resultado.serviceError != null &&
@@ -344,5 +360,48 @@ public partial class CambioContrasenia : System.Web.UI.Page
         result = !match.Success;
 
         return result;
+    }
+
+    private X509Certificate2 ObtenerCertificado()
+    {
+        X509Certificate2 cer = null;
+
+        string cerName = string.Empty;
+        int cerStore = 0;
+        StoreName storename = StoreName.My;
+
+        if (ConfigurationManager.AppSettings["ADCambioContrasenia_CertificateName"] != null)
+        {
+            cerName = ConfigurationManager.AppSettings["ADCambioContrasenia_CertificateName"];
+        }
+        if (ConfigurationManager.AppSettings["ADCambioContrasenia_CertificateStore"] != null)
+        {
+            int.TryParse(ConfigurationManager.AppSettings["ADCambioContrasenia_CertificateStore"], out cerStore);
+        }
+
+        if (string.IsNullOrEmpty(cerName))
+        {
+            throw new ArgumentException("El nombre del certificado no está configurado");
+        }
+        if (cerStore == 0)
+        {
+            throw new ArgumentException("El respositorio del certificado no está configurado");
+        }
+        else
+        {
+            storename = (StoreName)cerStore;
+        }
+
+        X509Store store = new X509Store(storename, StoreLocation.LocalMachine);
+
+        store.Open(OpenFlags.ReadOnly);
+
+        X509Certificate2Collection cers = store.Certificates.Find(X509FindType.FindBySubjectName, cerName, false);
+        
+        if (cers.Count > 0)
+        {
+            cer = cers[0];
+        };
+        return cer;
     }
 }
