@@ -192,11 +192,12 @@ namespace PhalanxAdmin
             {
                 lviArr[i] = new ListViewItem();
                 lviArr[i].Text = entity.Id.ToString();
+                lviArr[i].SubItems.Add(entity.TipoNotificacionDescr);
                 lviArr[i].SubItems.Add(entity.NumeroSolicitud.ToString());
-                lviArr[i].SubItems.Add(entity.Aplicacion.ToString());
-                lviArr[i].SubItems.Add(entity.UsuarioAplicacion);
                 lviArr[i].SubItems.Add(entity.UsuarioDominio);
                 lviArr[i].SubItems.Add(entity.Usuario);
+                lviArr[i].SubItems.Add(entity.Aplicacion == null ? string.Empty : entity.Aplicacion.ToString());
+                lviArr[i].SubItems.Add(entity.UsuarioAplicacion);
                 lviArr[i].SubItems.Add(entity.Fecha.ToString("dd/MM/yyyy HH:mm"));
                 lviArr[i].SubItems.Add(entity.Solicitante);
                 lviArr[i].SubItems.Add(entity.FechaAceptacionTyC.HasValue ? "Notificado" : "Pendiente");
@@ -409,7 +410,15 @@ namespace PhalanxAdmin
             ((ListView)sender).Sort();
         }
 
-    }
+        private void lnkAddBlanqueoRed_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            FABMNotifBlanqueoRed form = new FABMNotifBlanqueoRed(0, false, FABMNotifBlanqueoRed.FormType.New);
 
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                ExecEntitiesRefresh();
+            }
+        }
+    }
 }
 
