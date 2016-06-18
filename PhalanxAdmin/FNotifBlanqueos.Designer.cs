@@ -52,9 +52,10 @@ namespace PhalanxAdmin
             this.pnlList = new System.Windows.Forms.Panel();
             this.lvLista = new System.Windows.Forms.ListView();
             this.colId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colTipoNotif = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colTicketNro = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colUsuarioApp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colUsuario = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colUsuarioApp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colFecha = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colSolicitante = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colEstado = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -67,7 +68,6 @@ namespace PhalanxAdmin
             this.lnkView = new System.Windows.Forms.LinkLabel();
             this.lnkReenviar = new System.Windows.Forms.LinkLabel();
             this.lnkAdd = new System.Windows.Forms.LinkLabel();
-            this.colTipoNotif = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             colAplicacion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             colDominioApp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
@@ -317,21 +317,26 @@ namespace PhalanxAdmin
             this.colId.Text = "Notif. Nro.";
             this.colId.Width = 80;
             // 
+            // colTipoNotif
+            // 
+            this.colTipoNotif.Text = "Tipo Notif.";
+            this.colTipoNotif.Width = 160;
+            // 
             // colTicketNro
             // 
             this.colTicketNro.Tag = "Numeric";
             this.colTicketNro.Text = "Ticket Nro.";
             this.colTicketNro.Width = 80;
             // 
-            // colUsuarioApp
-            // 
-            this.colUsuarioApp.Text = "Usuario App";
-            this.colUsuarioApp.Width = 97;
-            // 
             // colUsuario
             // 
             this.colUsuario.Text = "Usuario Red";
             this.colUsuario.Width = 94;
+            // 
+            // colUsuarioApp
+            // 
+            this.colUsuarioApp.Text = "Usuario App";
+            this.colUsuarioApp.Width = 97;
             // 
             // colFecha
             // 
@@ -416,6 +421,7 @@ namespace PhalanxAdmin
             this.lnkAddDesbloqueoRed.TabStop = true;
             this.lnkAddDesbloqueoRed.Text = "Agregar Desbloqueo Red";
             this.lnkAddDesbloqueoRed.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkAddDesbloqueoRed.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAddDesbloqueoRed_LinkClicked);
             // 
             // lnkAddBlanqueoRed
             // 
@@ -480,11 +486,6 @@ namespace PhalanxAdmin
             this.lnkAdd.Text = "Agregar Blanqueo App";
             this.lnkAdd.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
             this.lnkAdd.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAdd_LinkClicked);
-            // 
-            // colTipoNotif
-            // 
-            this.colTipoNotif.Text = "Tipo Notif.";
-            this.colTipoNotif.Width = 160;
             // 
             // FNotifBlanqueos
             // 

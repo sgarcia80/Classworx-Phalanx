@@ -419,6 +419,16 @@ namespace PhalanxAdmin
                 ExecEntitiesRefresh();
             }
         }
+
+        private void lnkAddDesbloqueoRed_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            FABMNotifDesbloqueoRed form = new FABMNotifDesbloqueoRed(0, false, FABMNotifDesbloqueoRed.FormType.New);
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                ExecEntitiesRefresh();
+            }
+        }
     }
 }
 
