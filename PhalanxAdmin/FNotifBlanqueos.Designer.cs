@@ -68,6 +68,8 @@ namespace PhalanxAdmin
             this.lnkView = new System.Windows.Forms.LinkLabel();
             this.lnkReenviar = new System.Windows.Forms.LinkLabel();
             this.lnkAdd = new System.Windows.Forms.LinkLabel();
+            this.cbTipoNotif = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             colAplicacion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             colDominioApp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
@@ -118,6 +120,8 @@ namespace PhalanxAdmin
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cbTipoNotif);
+            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.chkPendiente);
             this.groupBox1.Controls.Add(this.cbDominio);
             this.groupBox1.Controls.Add(this.txtFilUsuarioApp);
@@ -131,7 +135,7 @@ namespace PhalanxAdmin
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(18, 8);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(677, 88);
+            this.groupBox1.Size = new System.Drawing.Size(800, 88);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de búsqueda";
@@ -139,7 +143,7 @@ namespace PhalanxAdmin
             // chkPendiente
             // 
             this.chkPendiente.AutoSize = true;
-            this.chkPendiente.Location = new System.Drawing.Point(467, 22);
+            this.chkPendiente.Location = new System.Drawing.Point(466, 49);
             this.chkPendiente.Name = "chkPendiente";
             this.chkPendiente.Size = new System.Drawing.Size(79, 17);
             this.chkPendiente.TabIndex = 21;
@@ -202,7 +206,7 @@ namespace PhalanxAdmin
             // 
             this.btnLimpiar.BackColor = System.Drawing.SystemColors.Control;
             this.btnLimpiar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnLimpiar.Location = new System.Drawing.Point(577, 19);
+            this.btnLimpiar.Location = new System.Drawing.Point(659, 46);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(76, 21);
             this.btnLimpiar.TabIndex = 4;
@@ -487,6 +491,24 @@ namespace PhalanxAdmin
             this.lnkAdd.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
             this.lnkAdd.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAdd_LinkClicked);
             // 
+            // cbTipoNotif
+            // 
+            this.cbTipoNotif.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTipoNotif.FormattingEnabled = true;
+            this.cbTipoNotif.Location = new System.Drawing.Point(513, 20);
+            this.cbTipoNotif.Name = "cbTipoNotif";
+            this.cbTipoNotif.Size = new System.Drawing.Size(222, 21);
+            this.cbTipoNotif.TabIndex = 23;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(463, 23);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(28, 13);
+            this.label4.TabIndex = 22;
+            this.label4.Text = "Tipo";
+            // 
             // FNotifBlanqueos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -554,6 +576,8 @@ namespace PhalanxAdmin
         protected System.Windows.Forms.LinkLabel lnkAddBlanqueoRed;
         protected System.Windows.Forms.LinkLabel lnkAddDesbloqueoRed;
         private System.Windows.Forms.ColumnHeader colTipoNotif;
+        private System.Windows.Forms.ComboBox cbTipoNotif;
+        protected System.Windows.Forms.Label label4;
 
     }
 }

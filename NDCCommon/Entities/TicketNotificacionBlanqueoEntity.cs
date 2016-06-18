@@ -12,17 +12,17 @@ namespace NDCCommon.Entities
     {
         public static TicketNotificacionBlanqueoEntity CreateNotificacionBlanqueoApp()
         {
-            return new TicketNotificacionBlanqueoEntity { TipoNotificacion = 0 };
+            return new TicketNotificacionBlanqueoEntity { TipoNotificacion = 1 };
         }
 
         public static TicketNotificacionBlanqueoEntity CreateNotificacionBlanqueoRed()
         {
-            return new TicketNotificacionBlanqueoEntity { TipoNotificacion = 1 };
+            return new TicketNotificacionBlanqueoEntity { TipoNotificacion = 2 };
         }
 
         public static TicketNotificacionBlanqueoEntity CreateNotificacionDesbloqueoRed()
         {
-            return new TicketNotificacionBlanqueoEntity { TipoNotificacion = 2 };
+            return new TicketNotificacionBlanqueoEntity { TipoNotificacion = 3 };
         }
 
         #region Private Members
@@ -100,14 +100,17 @@ namespace NDCCommon.Entities
                 string tipo = string.Empty;
                 switch (m_tnb_tipo_notif)
                 {
-                    case 0:
+                    case 1:
                         tipo = "Blanqueo Aplicación";
                         break;
-                    case 1:
+                    case 2:
                         tipo = "Blanqueo Red";
                         break;
-                    case 2:
+                    case 3:
                         tipo = "Desbloqueo Red";
+                        break;
+                    default:
+                        tipo = "N/A";
                         break;
                 }
                 return tipo;

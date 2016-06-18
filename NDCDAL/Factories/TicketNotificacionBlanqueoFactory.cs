@@ -24,6 +24,7 @@ namespace NDCDAL.Factories
         private DateTime? _filFechaDesde;
         private DateTime? _filFechaHasta;
         private bool _filPendiente;
+        private int _filTipoNotif;
 
         public AplicacionNotificacionClaveEntity FilAplicacion
         {
@@ -65,6 +66,10 @@ namespace NDCDAL.Factories
             set { _filPendiente = value; }
         }
 
+        public int FilTipoNotif
+        {
+            set { _filTipoNotif = value; }
+        }
         public TicketNotificacionBlanqueoFactory()
         {
             //
@@ -151,6 +156,9 @@ namespace NDCDAL.Factories
 
                 if (_filPendiente)
                     DataSearch = DataSearch.Add(Expression.IsNull("TNB.FechaAceptacionTyC"));
+
+                if (_filTipoNotif > 0)
+                    DataSearch = DataSearch.Add(Expression.Eq("TNB.TipoNotificacion", _filTipoNotif));
 
                 try
                 {

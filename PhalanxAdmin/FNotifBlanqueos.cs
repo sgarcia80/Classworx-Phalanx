@@ -19,10 +19,12 @@ namespace PhalanxAdmin
         protected TicketNotificacionBlanqueoEntityCollection _entities;
         protected AplicacionNotificacionClaveEntityCollection _aplicaciones;
         protected DominioLoginEntityCollection _dominios;
+        protected DominioLoginEntityCollection _tiposNotificaciones;
         private AplicacionNotificacionClaveEntity _filAplicacion;
         protected string _filUsuarioApp = "";
         protected string _filUsuario = "";
         protected string _filDominio = "";
+        protected int _filTipoNotif = 0;
 
         public FNotifBlanqueos()
         {
@@ -48,6 +50,7 @@ namespace PhalanxAdmin
             this.pbDB.Visible = false;
             CargaComboAplicaciones();
             CargaComboDominios();
+            CargaComboTiposNotif();
             ExecEntitiesRefresh();
         }
         //protected virtual void InicializaFiltros
@@ -108,8 +111,7 @@ namespace PhalanxAdmin
             {
                 _filAplicacion = null;
             }
-
-
+            
             if (cbDominio.SelectedIndex > 0)
             {
                 _filDominio = ((DominioLoginEntity)cbDominio.SelectedItem).Nombre;
@@ -117,6 +119,15 @@ namespace PhalanxAdmin
             else
             {
                 _filDominio = string.Empty;
+            }
+
+            if (cbTipoNotif.SelectedIndex > 0)
+            {
+                _filTipoNotif = ((DominioLoginEntity)cbTipoNotif.SelectedItem).Id;
+            }
+            else
+            {
+                _filTipoNotif = 0;
             }
         }
 
@@ -148,7 +159,7 @@ namespace PhalanxAdmin
             DateTime? fechaDesde = null;
             DateTime? fechaHasta = null;
 
-            _entities = business.GetAll(fechaDesde, fechaHasta, _filAplicacion, txtFilUsuarioApp.Text, _filDominio, txtFilUsuario.Text, chkPendiente.Checked);
+            _entities = business.GetAll(_filTipoNotif, fechaDesde, fechaHasta, _filAplicacion, txtFilUsuarioApp.Text, _filDominio, txtFilUsuario.Text, chkPendiente.Checked);
         }
         /// <summary>
         /// Llama a la función que genera el array de LV Items y si hay items llama a la que hace el llenado
@@ -261,6 +272,7 @@ namespace PhalanxAdmin
             txtFilUsuarioApp.Text = "";
             cbAplicacion.SelectedIndex = 0;
             cbDominio.SelectedIndex = 0;
+            cbTipoNotif.SelectedIndex = 0;
         }
 
         private void lnkCancelar_Click(object sender, EventArgs e)
@@ -279,7 +291,7 @@ namespace PhalanxAdmin
         private void CargaComboAplicaciones()
         {
             AplicacionNotificacionClaveBusiness business = new AplicacionNotificacionClaveBusiness();
-            business.FilNotificable = true; 
+            business.FilNotificable = true;
             this._aplicaciones = business.GetAll();
 
             this._aplicaciones.Insert(0, new AplicacionNotificacionClaveEntity { Id = 0, Nombre = "Todas" });
@@ -297,6 +309,20 @@ namespace PhalanxAdmin
             cbDominio.DataSource = this._dominios;
             cbDominio.DisplayMember = "Nombre";
             cbDominio.ValueMember = "Nombre";
+        }
+
+        private void CargaComboTiposNotif()
+        {
+            this._tiposNotificaciones = new DominioLoginEntityCollection();
+
+            this._tiposNotificaciones.Add(new DominioLoginEntity { Id = 0, Nombre = "Todos" });
+            this._tiposNotificaciones.Add(new DominioLoginEntity { Id = 1, Nombre = "Blanqueo de App" });
+            this._tiposNotificaciones.Add(new DominioLoginEntity { Id = 2, Nombre = "Blanqueo de Red" });
+            this._tiposNotificaciones.Add(new DominioLoginEntity { Id = 3, Nombre = "Desbloqueo de Red" });
+
+            cbTipoNotif.DataSource = this._tiposNotificaciones;
+            cbTipoNotif.DisplayMember = "Nombre";
+            cbTipoNotif.ValueMember = "Id";
         }
 
         private void lnkModify_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -380,7 +406,21 @@ namespace PhalanxAdmin
 
             TicketNotificacionBlanqueoEntity ticket = lvLista.SelectedItems[0].Tag as TicketNotificacionBlanqueoEntity;
 
-            FABMNotifBlanqueo form = new FABMNotifBlanqueo(ticket.Id, !edit, FABMNotifBlanqueo.FormType.View);
+            Form form = null;
+
+            switch (ticket.TipoNotificacion)
+            {
+                case 2:
+                    form = new FABMNotifBlanqueoRed(ticket.Id, !edit, FABMNotifBlanqueoRed.FormType.View);
+                    break;
+                case 3:
+                    form = new FABMNotifDesbloqueoRed(ticket.Id, !edit, FABMNotifDesbloqueoRed.FormType.View);
+                    break;
+                case 1:
+                default:
+                    form = new FABMNotifBlanqueo(ticket.Id, !edit, FABMNotifBlanqueo.FormType.View);
+                    break;
+            }
 
             return form.ShowDialog();
         }

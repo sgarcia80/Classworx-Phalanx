@@ -198,6 +198,7 @@ namespace PhalanxAdmin
             _entity.Solicitante = txtSolicitante.Text.Trim();
 
             _entity.UsuarioCarga = user;
+            _entity.FechaAceptacionTyC = _entity.Fecha;
 
             // grabar
             int Id = TicketBL.Save(_entity);
