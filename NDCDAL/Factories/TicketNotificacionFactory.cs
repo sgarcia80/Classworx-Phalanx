@@ -57,7 +57,7 @@ namespace NDCDAL.Factories
                 ICriteria DataSearch = session.CreateCriteria(typeof(TicketNotificacionEntity), "TNB").AddOrder(Order.Desc("TNB.Fecha")); ;
 
                 if (!string.IsNullOrEmpty(_filUsuario))
-                    DataSearch = DataSearch.Add(Expression.Eq("Usuario", _filUsuario));
+                    DataSearch = DataSearch.Add(Expression.Sql("lower({alias}.user_red) = lower('" + _filUsuario + "')"));
 
                 //if (!string.IsNullOrEmpty(_filDominio))
                 //    DataSearch = DataSearch.Add(Expression.Eq("Dominio", _filDominio));
