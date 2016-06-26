@@ -61,7 +61,7 @@ namespace NDCDAL.Factories
                     if (FilAppRed != null)
                         DataSearch = DataSearch.Add(Expression.Eq("EsAplicacionRed", FilAppRed.Value));
 
-                    if (FilNotificable != null)
+                    if (FilNotificable.HasValue && FilNotificable.Value)
                         DataSearch = DataSearch.Add(Expression.Eq("Notificable", true));
                             
                     DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("Nombre"));
