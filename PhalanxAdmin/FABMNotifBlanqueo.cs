@@ -185,6 +185,7 @@ namespace PhalanxAdmin
 
         private void CargarAplicaciones()
         {
+            AplicacionBL.FilNotificable = true;
             var list = AplicacionBL.GetAll();
             list.Insert(0, new AplicacionNotificacionClaveEntity { Id = 0, Codigo = string.Empty, Nombre = "" });
 

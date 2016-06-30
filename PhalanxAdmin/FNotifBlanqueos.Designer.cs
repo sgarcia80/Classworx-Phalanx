@@ -34,6 +34,8 @@ namespace PhalanxAdmin
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FNotifBlanqueos));
             this.pnlFilters = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbTipoNotif = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.chkPendiente = new System.Windows.Forms.CheckBox();
             this.cbDominio = new System.Windows.Forms.ComboBox();
             this.txtFilUsuarioApp = new System.Windows.Forms.TextBox();
@@ -68,8 +70,6 @@ namespace PhalanxAdmin
             this.lnkView = new System.Windows.Forms.LinkLabel();
             this.lnkReenviar = new System.Windows.Forms.LinkLabel();
             this.lnkAdd = new System.Windows.Forms.LinkLabel();
-            this.cbTipoNotif = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
             colAplicacion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             colDominioApp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
@@ -139,6 +139,24 @@ namespace PhalanxAdmin
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de búsqueda";
+            // 
+            // cbTipoNotif
+            // 
+            this.cbTipoNotif.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTipoNotif.FormattingEnabled = true;
+            this.cbTipoNotif.Location = new System.Drawing.Point(513, 20);
+            this.cbTipoNotif.Name = "cbTipoNotif";
+            this.cbTipoNotif.Size = new System.Drawing.Size(222, 21);
+            this.cbTipoNotif.TabIndex = 23;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(463, 23);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(28, 13);
+            this.label4.TabIndex = 22;
+            this.label4.Text = "Tipo";
             // 
             // chkPendiente
             // 
@@ -418,12 +436,13 @@ namespace PhalanxAdmin
             this.lnkAddDesbloqueoRed.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.lnkAddDesbloqueoRed.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.lnkAddDesbloqueoRed.LinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkAddDesbloqueoRed.Location = new System.Drawing.Point(18, 128);
+            this.lnkAddDesbloqueoRed.Location = new System.Drawing.Point(18, 143);
             this.lnkAddDesbloqueoRed.Name = "lnkAddDesbloqueoRed";
             this.lnkAddDesbloqueoRed.Size = new System.Drawing.Size(149, 13);
             this.lnkAddDesbloqueoRed.TabIndex = 13;
             this.lnkAddDesbloqueoRed.TabStop = true;
             this.lnkAddDesbloqueoRed.Text = "Agregar Desbloqueo Red";
+            this.lnkAddDesbloqueoRed.Visible = false;
             this.lnkAddDesbloqueoRed.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
             this.lnkAddDesbloqueoRed.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAddDesbloqueoRed_LinkClicked);
             // 
@@ -434,12 +453,13 @@ namespace PhalanxAdmin
             this.lnkAddBlanqueoRed.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.lnkAddBlanqueoRed.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.lnkAddBlanqueoRed.LinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkAddBlanqueoRed.Location = new System.Drawing.Point(18, 106);
+            this.lnkAddBlanqueoRed.Location = new System.Drawing.Point(18, 121);
             this.lnkAddBlanqueoRed.Name = "lnkAddBlanqueoRed";
             this.lnkAddBlanqueoRed.Size = new System.Drawing.Size(135, 13);
             this.lnkAddBlanqueoRed.TabIndex = 12;
             this.lnkAddBlanqueoRed.TabStop = true;
             this.lnkAddBlanqueoRed.Text = "Agregar Blanqueo Red";
+            this.lnkAddBlanqueoRed.Visible = false;
             this.lnkAddBlanqueoRed.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
             this.lnkAddBlanqueoRed.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAddBlanqueoRed_LinkClicked);
             // 
@@ -450,7 +470,7 @@ namespace PhalanxAdmin
             this.lnkView.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.lnkView.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.lnkView.LinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkView.Location = new System.Drawing.Point(18, 167);
+            this.lnkView.Location = new System.Drawing.Point(18, 86);
             this.lnkView.Name = "lnkView";
             this.lnkView.Size = new System.Drawing.Size(61, 13);
             this.lnkView.TabIndex = 11;
@@ -466,7 +486,7 @@ namespace PhalanxAdmin
             this.lnkReenviar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.lnkReenviar.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.lnkReenviar.LinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkReenviar.Location = new System.Drawing.Point(18, 70);
+            this.lnkReenviar.Location = new System.Drawing.Point(18, 69);
             this.lnkReenviar.Name = "lnkReenviar";
             this.lnkReenviar.Size = new System.Drawing.Size(85, 13);
             this.lnkReenviar.TabIndex = 10;
@@ -490,24 +510,6 @@ namespace PhalanxAdmin
             this.lnkAdd.Text = "Agregar Blanqueo App";
             this.lnkAdd.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
             this.lnkAdd.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAdd_LinkClicked);
-            // 
-            // cbTipoNotif
-            // 
-            this.cbTipoNotif.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbTipoNotif.FormattingEnabled = true;
-            this.cbTipoNotif.Location = new System.Drawing.Point(513, 20);
-            this.cbTipoNotif.Name = "cbTipoNotif";
-            this.cbTipoNotif.Size = new System.Drawing.Size(222, 21);
-            this.cbTipoNotif.TabIndex = 23;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(463, 23);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(28, 13);
-            this.label4.TabIndex = 22;
-            this.label4.Text = "Tipo";
             // 
             // FNotifBlanqueos
             // 
