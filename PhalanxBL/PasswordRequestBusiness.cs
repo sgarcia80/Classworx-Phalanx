@@ -286,7 +286,7 @@ namespace PhalanxBL
         
         
         {
-            return new PasswordsRequestsFactory().GetRequestPwdBack(pwdRequest.Id, (int)PhxDALUtil.RequestStates.ReturnedByAdmin, note, authUserId);
+            return new PasswordsRequestsFactory().GetRequestPwdBack(pwdRequest.Id, (int)PhxDALUtil.RequestStates.ReturnedByAdmin, note, authUserId, true);
         }
 
 
