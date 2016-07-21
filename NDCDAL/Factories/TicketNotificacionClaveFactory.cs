@@ -270,7 +270,17 @@ namespace NDCDAL.Factories
 			return GetAllByUser(dominio, usuario, DateTime.Now.Date);
 		}
 
+        public TicketNotificacionClaveEntityCollection GetAllActiveByUser(string dominio, string usuario ,string aplicacion)
+        {
+            return GetAllByUser(dominio, usuario, DateTime.Now.Date, aplicacion);
+        }
+
         private TicketNotificacionClaveEntityCollection GetAllByUser(string dominio, string usuario, DateTime? fechaVigenciaDesde)
+        {
+            return GetAllByUser(dominio, usuario, fechaVigenciaDesde, string.Empty);
+		}
+
+        private TicketNotificacionClaveEntityCollection GetAllByUser(string dominio, string usuario, DateTime? fechaVigenciaDesde, string aplicacion)
         {
             IList<TicketNotificacionClaveEntity> tickets;
 
@@ -285,12 +295,16 @@ namespace NDCDAL.Factories
                 if (_filCorregido != null)
                     DataSearch = DataSearch.Add(Expression.Eq("TNC.Corregido", _filCorregido.Value));
 
-                DataSearch.CreateCriteria("Aplicacion")
-                            .Add(Expression.Eq("Notificable", true));
+                DataSearch.CreateCriteria("Aplicacion","APP")
+                            .Add(Expression.Eq("APP.Notificable", true));
 
-				if (fechaVigenciaDesde != null)
+                if (!string.IsNullOrEmpty(aplicacion))
+                    DataSearch = DataSearch.Add(Expression.Eq("APP.Codigo", aplicacion));
+                
+                if (fechaVigenciaDesde != null)
 					DataSearch = DataSearch.Add(Expression.Or(Expression.IsNull("TNC.FechaVigencia"), 
 						Expression.Le("TNC.FechaVigencia", fechaVigenciaDesde)));
+
 
                 try
                 {

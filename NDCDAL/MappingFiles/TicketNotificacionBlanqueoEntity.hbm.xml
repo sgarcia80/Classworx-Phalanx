@@ -5,14 +5,14 @@
     <id name="Id" column="tnb_id" type="Int32" unsaved-value="0">
       <generator class="native"/>
     </id>
-    <property column="tnb_tipo_notif" type="Int32" name="TipoNotificacion" not-null="false" />
+    <!--<property column="tnb_tipo_notif" type="Int32" name="TipoNotificacion" not-null="false" />-->
     <property column="tnb_numero" type="Int32" name="NumeroSolicitud" not-null="false" />
     <many-to-one name="Aplicacion" column="tnb_app_id" class="NDCCommon.Entities.AplicacionNotificacionClaveEntity,NDCCommon" />
     <property column="tnb_app_user" type="String" name="UsuarioAplicacion" not-null="false" length="50" />
     <property column="tnb_app_user_pass" type="String" name="PasswordUsuarioAplicacion" not-null="false" length="50" />
     <property column="tnb_user_domain" type="String" name="UsuarioDominio" not-null="true" length="50" />
     <property column="tnb_user" type="String" name="Usuario" not-null="true" length="50" />
-    <property column="tnb_user_pass" type="String" name="PasswordUsuario" not-null="false" length="250" />
+    <!--<property column="tnb_user_pass" type="String" name="PasswordUsuario" not-null="false" length="250" />-->
     <property column="tnb_solicitante" type="String" name="Solicitante" not-null="true" length="50" />
     <property column="tnb_user_load" type="String" name="UsuarioCarga" not-null="true" length="50" />
     <property column="tnb_fecha" type="DateTime" name="Fecha" insert="false"/>
