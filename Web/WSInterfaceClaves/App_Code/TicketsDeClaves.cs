@@ -329,7 +329,7 @@ public class TicketsDeClaves : System.Web.Services.WebService
                         }
                     }
 					if (altaUsuarioRed
-                        && aplicacion.Notificable)
+                        || aplicacion.Notificable)
                     {
                         if (_debugMode) strDebug += " | El alta de usuario de aplicativo";
                         // es alta de aplicativo
