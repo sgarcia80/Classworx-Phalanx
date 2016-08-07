@@ -7,6 +7,7 @@ using NDCCommon.Collections;
 using NDCDAL.Factories;
 using System.Collections.Generic;
 using PhalanxBL;
+using log4net;
 
 namespace NDCBL
 {
@@ -15,6 +16,8 @@ namespace NDCBL
     /// </summary>
     public class TicketNotificacionBlanqueoBusiness
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(TicketNotificacionBlanqueoBusiness));
+
         private const int DEFAULT_HORAS_EXPIRACION_TOKEN = 72;
 
         private TicketNotificacionBlanqueoFactory factory;
@@ -170,6 +173,30 @@ namespace NDCBL
         public int Save(TicketNotificacionBlanqueoEntity ticket)
         {
             ticket.FechaVigencia = DateTime.Now;
+
+            try
+            {
+                if (ticket.TipoNotificacion == TicketNotificacionBlanqueoEntity.TipoNotificacionBlanqueoRed)
+                {
+                    PhalanxNAL.ActiveDirectoryHelper.ResetPassword(ticket.Usuario, ticket.PasswordUsuarioAplicacion);
+
+                    ticket.PasswordUsuarioAplicacion = this.EncriptarPassword(ticket.PasswordUsuarioAplicacion);
+                }
+                if (ticket.TipoNotificacion == TicketNotificacionBlanqueoEntity.TipoNotificacionDesbloqueo)
+                {
+                    PhalanxNAL.ActiveDirectoryHelper.UnlockUserAccount(ticket.Usuario);
+                }
+            }
+            catch (InvalidOperationException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                log.Error("Error al procesar la Notificación", ex);
+
+                throw;
+            }
 
             return Factory.Save(ticket);
         }

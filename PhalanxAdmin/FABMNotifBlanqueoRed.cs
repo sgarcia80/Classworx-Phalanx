@@ -10,6 +10,7 @@ using NDCBL;
 using NDCCommon.Collections;
 using System.Collections;
 using PhalanxCommon.Entities;
+using PhalanxCommon;
 
 namespace PhalanxAdmin
 {
@@ -21,6 +22,8 @@ namespace PhalanxAdmin
         DominioLoginBusiness DominioLoginBL = new DominioLoginBusiness();
         TicketNotificacionBlanqueoBusiness TicketBL = new TicketNotificacionBlanqueoBusiness();
         bool _readOnly = false;
+        Random RandomWord = null;
+        Random RandomNumber = null;
 
         public enum FormType
         {
@@ -56,7 +59,7 @@ namespace PhalanxAdmin
 
             _readOnly = ReadOnly;
         }
-        
+
         public void ConfigureScreen()
         {
             string nro = string.Empty;
@@ -112,6 +115,8 @@ namespace PhalanxAdmin
                 txtUsuarioCarga.Text = user;
 
                 txtEstado.Text = "Pendiente";
+
+                _entity.Aplicacion = new AplicacionNotificacionClaveBusiness().GetAppRed();
             }
             else
             {
@@ -121,7 +126,7 @@ namespace PhalanxAdmin
                 cbDomain.SelectedItem = dominio;
                 txtUser.Text = _entity.Usuario;
 
-                string strPwd = TicketBL.DesencriptarPassword(_entity.PasswordUsuario);
+                string strPwd = TicketBL.DesencriptarPassword(_entity.PasswordUsuarioAplicacion);
 
                 tPassword1.Text = strPwd;
 
@@ -173,7 +178,7 @@ namespace PhalanxAdmin
                 cbDomain.SelectedItem = macro;
             }
         }
-        
+
         private void chkVisualizar_CheckedChanged(object sender, EventArgs e)
         {
             if (chkVisualizar.Checked)
@@ -212,43 +217,47 @@ namespace PhalanxAdmin
                 MessageBox.Show("Debe generar una nueva contraseña", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-            bool esAlta = false;
-
+            
             // asignar datos a la entity
             if (_entity.Id == 0)
             {
                 _entity.UsuarioDominio = ((DominioLoginEntity)cbDomain.SelectedItem).Nombre.Trim();
                 _entity.Fecha = DateTime.Now;
-
-                esAlta = true;
             }
 
             _entity.Usuario = txtUser.Text.Trim().ToLower();
-            _entity.PasswordUsuario = TicketBL.EncriptarPassword(tPassword1.Text);
+            _entity.UsuarioAplicacion = _entity.Usuario;
+            _entity.PasswordUsuarioAplicacion = tPassword1.Text;
             _entity.Solicitante = txtSolicitante.Text.Trim();
 
             _entity.UsuarioCarga = user;
 
             // grabar
-            int Id = TicketBL.Save(_entity);
+            int Id = 0;
+            string error = string.Empty;
 
-            if (Id > 0)
+            try
             {
-                if (esAlta)
+                Id = TicketBL.Save(_entity);
+
+                if (Id > 0)
                 {
-                    string debug = string.Empty;
-
-                    //TicketBL.EnviarEmail(_entity, out debug);
+                    _entity.Id = Id;
+                    MessageBox.Show("La Notificación de Blanqueo de Red se generó correctamente", "Notificación de Blanqueo Red", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-
-                _entity.Id = Id;
-                MessageBox.Show("La Notificación de Blanqueo de Red se generó correctamente", "Notificación de Blanqueo Red", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            else
+            catch (InvalidOperationException ex)
             {
-                MessageBox.Show("Error al grabar el Ticket", "Notificación de Blanqueo Red", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.DialogResult = DialogResult.None;
+                error = ex.Message;
+            }
+            catch (Exception ex)
+            {
+                error = string.Format("Error al grabar el Ticket ({0})", ex.Message);
+            }
+
+            if (!string.IsNullOrEmpty(error))
+            {
+                MessageBox.Show(error, "Notificación de Blanqueo Red", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -262,11 +271,36 @@ namespace PhalanxAdmin
 
         private void btnGenerar_Click(object sender, EventArgs e)
         {
-            Random randompin = new Random();
-            var randompinresult = randompin.Next(0, 9999).ToString();
+
+            NDCBL.PalabraBlanqueoBusiness palabrasBL = new PalabraBlanqueoBusiness();
+            PalabraBlanqueoEntityCollection palabras = new PalabraBlanqueoEntityCollection();
+
+            try
+            {
+                palabras = palabrasBL.GetAll();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error al consultar las palabras aleatorias", "Notificación de Blanqueo Red", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
+            int index = 0;
+
+            if (RandomWord == null)
+            {
+                RandomWord = new Random();
+            }
+            if (RandomNumber == null)
+            {
+                RandomNumber = new Random();
+            }
+
+            index = RandomWord.Next(0, palabras.Count);
+
+            var randompinresult = RandomNumber.Next(0, 9999).ToString();
             randompinresult = randompinresult.PadLeft(4, '0');
 
-            tPassword1.Text = "macro" + randompinresult;
+            tPassword1.Text = string.Format("{0}{1}", palabras[index].Valor, randompinresult);
         }
     }
 }

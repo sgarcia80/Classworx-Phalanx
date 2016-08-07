@@ -48,7 +48,7 @@ namespace PhalanxAdmin
             }
             else
             {
-                this._entity = new TicketNotificacionBlanqueoEntity();
+                this._entity = TicketNotificacionBlanqueoEntity.CreateNotificacionBlanqueoApp();
             }
 
             m_FormType = formType;

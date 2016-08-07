@@ -4,6 +4,7 @@ using System.Text;
 using System.Configuration;
 using System.DirectoryServices;
 using log4net;
+using PhalanxCommon;
 
 namespace PhalanxNAL
 {
@@ -15,7 +16,9 @@ namespace PhalanxNAL
         private const string NOMBRE_PROPIEDAD_PATH_AD = "adspath";
         private const string NOMBRE_PROPIEDAD_MAIL_AD = "mail";
         private const string NOMBRE_PROPIEDAD_USERNAME_AD = "displayName";
-        
+        private const string NOMBRE_PROPIEDAD_DISABLED_AD = "userAccountControl";
+        private const string NOMBRE_PROPIEDAD_LOCKOUTTIME_AD = "LockOutTime";
+
         private static Dictionary<string, object> settings = new Dictionary<string, object>();
 
         private static string LDAPPath
@@ -214,7 +217,7 @@ namespace PhalanxNAL
 
         public static string BuscarEmailPorLegajo(string legajo)
         {
-            return BuscarLDAPEntryPropiedad(ConfigurationManager.AppSettings["LDAPBuscarEmailFilter"].Replace("[legajo]", legajo), NOMBRE_PROPIEDAD_MAIL_AD); 
+            return BuscarLDAPEntryPropiedad(ConfigurationManager.AppSettings["LDAPBuscarEmailFilter"].Replace("[legajo]", legajo), NOMBRE_PROPIEDAD_MAIL_AD);
         }
 
         public static string BuscarEmailPorLegajoUsername(string username)
@@ -224,7 +227,7 @@ namespace PhalanxNAL
 
         public static string BuscarNombrePorUsername(string username)
         {
-            return BuscarLDAPEntryPropiedad(ConfigurationManager.AppSettings["LDAPBuscarNombreFilter"].Replace("[username]", username), NOMBRE_PROPIEDAD_USERNAME_AD); 
+            return BuscarLDAPEntryPropiedad(ConfigurationManager.AppSettings["LDAPBuscarNombreFilter"].Replace("[username]", username), NOMBRE_PROPIEDAD_USERNAME_AD);
         }
 
         private static DirectoryEntry BuscarLDAPEntry(string path, string filter, IEnumerable<string> properties)
@@ -258,7 +261,7 @@ namespace PhalanxNAL
 
             return null;
         }
-        
+
         public static string ActualizarDescripcionUsuarioRed(string NombreUsuario)
         {
             return ActiveDirectoryHelper.ActualizarDescripcionUsuarioRed(NombreUsuario, ConfigurationManager.AppSettings["PrefijoDescripcionUsuarioRed"]
@@ -275,7 +278,7 @@ namespace PhalanxNAL
             string strErr = "";
             try
             {
-                DirectoryEntry usuario = busquedaRecursiva 
+                DirectoryEntry usuario = busquedaRecursiva
                     ? BuscarLDAPEntryRecursivo(PathLDAP, FilterBuscarNombre.Replace("[username]", NombreUsuario), new string[] { "description" })
                     : BuscarLDAPEntry(PathLDAP, FilterBuscarNombre.Replace("[username]", NombreUsuario), new string[] { "description" });
 
@@ -327,7 +330,7 @@ namespace PhalanxNAL
                 else
                     strErr += "No se pudo cargar la propiedad \"description\"";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 strErr += ex.Message;
             }
@@ -355,9 +358,9 @@ namespace PhalanxNAL
 
                 log.Info("Buscando entrada según filtro");
                 log.Debug("Filter: " + filter);
-                
+
                 DirectoryEntry entry = BuscarLDAPEntry(rootEntry, filter, properties);
-                
+
                 if (entry == null)
                 {
                     log.Info("No se encontró la entrada");
@@ -371,14 +374,14 @@ namespace PhalanxNAL
                     foreach (SearchResult sr in ouSearch.FindAll())
                     {
                         log.Info("OU hija encontrada");
-                        
+
                         log.Debug("Propiedades:");
 
                         foreach (string propertyName in sr.Properties.PropertyNames)
                         {
                             List<string> values = new List<string>();
 
-                            foreach(var value in sr.Properties[propertyName])
+                            foreach (var value in sr.Properties[propertyName])
                                 values.Add(value.ToString());
 
                             log.Debug(propertyName + " = " + string.Join(",", values.ToArray()));
@@ -405,7 +408,7 @@ namespace PhalanxNAL
 
                 log.Info("Busqueda LDAP finalizada con errores");
             }
-            
+
             return null;
         }
 
@@ -557,8 +560,239 @@ namespace PhalanxNAL
                 else
                     log.Info("No se encuentra la propiedad " + propiedad);
             }
-            
+
             return null;
+        }
+
+        public static bool ResetPassword(string user, string password)
+        {
+            log.Debug("Usuario: " + user);
+
+            string pathLDAP = LDAPPath;
+            string filtroBuscarNombre = LDAPBuscarNombreFilter;
+
+            DirectoryEntry usuario = BuscarLDAPEntryRecursivo(pathLDAP, filtroBuscarNombre.Replace("[username]", user), new string[] { NOMBRE_PROPIEDAD_DISABLED_AD, NOMBRE_PROPIEDAD_LOCKOUTTIME_AD });
+
+            try
+            {
+                bool disabled = false;
+                string mensaje = string.Empty;
+                bool lockouttime = false;
+
+                if (usuario != null)
+                {
+                    log.Info("Usuario encontrado");
+
+                    //Se consulta si la cuenta esta deshabilitada
+                    disabled = GetAccountDisable(usuario);
+                    //Se consulta si la cuenta esta bloqueada
+                    lockouttime = GetAccountLocked(usuario);
+
+                    //Si la cuenta está bloqueada
+                    if (disabled)
+                    {
+                        mensaje = string.Format("El usuario {0} se encuentra deshabilitado", user);
+                        throw new InvalidOperationException(mensaje);
+                    }
+
+                    log.Info("Consultando usuario bloqueado...");
+                    bool locked = Convert.ToBoolean(usuario.InvokeGet("IsAccountLocked"));
+
+                    log.Debug("Valor de la propiedad: " + locked.ToString());
+
+                    if (locked)
+                    {
+                        log.Debug("Se desbloquea el usuario: " + locked.ToString());
+                        usuario.InvokeSet("IsAccountLocked", false);
+                    }
+                }
+                else
+                {
+                    log.Info("No se encontró el usuario");
+
+                    mensaje = string.Format("No se encontró el usuario {0}", user);
+                    throw new InvalidOperationException(mensaje);
+                }
+
+                log.Info("Comienza blanqueo de contraseña...");
+
+                //Se resetea la contraseña del usuario
+                usuario.Invoke("SetPassword", new object[] { password });
+                if (lockouttime)
+                {
+                    usuario.Properties["LockOutTime"].Value = 0; //unlock account
+                }
+
+                usuario.CommitChanges();
+
+                log.Info("Blanqueo de contraseña finalizada");
+
+                return true;
+            }
+            catch (InvalidOperationException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                log.Error("Error al blanquear la contraseña del usuario", ex);
+
+                log.Info("Blanqueo de contraseña finalizada con errores");
+
+                throw;
+            }
+            
+            //return false;
+        }
+
+        public static bool UnlockUserAccount(string user)
+        {
+            log.Info("Comienza desbloqueo de usuario...");
+            log.Debug("Usuario: " + user);
+
+            string pathLDAP = LDAPPath;
+            string filtroBuscarNombre = LDAPBuscarNombreFilter;
+
+            DirectoryEntry usuario = BuscarLDAPEntryRecursivo(pathLDAP, filtroBuscarNombre.Replace("[username]", user), new string[] { NOMBRE_PROPIEDAD_DISABLED_AD, NOMBRE_PROPIEDAD_LOCKOUTTIME_AD });
+
+            try
+            {
+                bool disabled = false;
+                string mensaje = string.Empty;
+                bool lockouttime = false;
+
+                if (usuario != null)
+                {
+                    log.Info("Usuario encontrado");
+
+                    //Se consulta si la cuenta esta deshabilitada
+                    disabled = GetAccountDisable(usuario);
+                    //Se consulta si la cuenta esta bloqueada
+                    lockouttime = GetAccountLocked(usuario);
+
+                    //Si la cuenta está bloqueada
+                    if (disabled)
+                    {
+                        mensaje = string.Format("El usuario {0} se encuentra deshabilitado", user);
+                        throw new InvalidOperationException(mensaje);
+                    }
+
+                    log.Info("Consultando usuario bloqueado...");
+                    bool locked = Convert.ToBoolean(usuario.InvokeGet("IsAccountLocked"));
+
+                    log.Debug("Valor de la propiedad: " + locked.ToString());
+
+                    if (locked)
+                    {
+                        log.Debug("Se desbloquea el usuario: " + locked.ToString());
+                        usuario.InvokeSet("IsAccountLocked", false);
+                    }
+                    else
+                    {
+                        mensaje = string.Format("El usuario {0} no se encuentra bloqueado", user);
+                        throw new InvalidOperationException(mensaje);
+                    }
+                }
+                else
+                {
+                    log.Info("No se encontró el usuario");
+
+                    mensaje = string.Format("No se encontró el usuario {0}", user);
+                    throw new InvalidOperationException(mensaje);
+                }
+
+                log.Info("Comienzo Desbloqueo de Usuario...");
+
+                if (lockouttime)
+                {
+                    usuario.Properties["LockOutTime"].Value = 0; //unlock account
+                }
+
+                usuario.CommitChanges();
+
+                log.Info("Desbloqueo de Usuario finalizado");
+
+                return true;
+            }
+            catch (InvalidOperationException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                log.Error("Error al blanquear la contraseña del usuario", ex);
+
+                log.Info("Desbloqueo de Usuario finalizada con errores");
+
+                throw;
+            }
+
+            //return false;
+        }
+
+        private static bool GetAccountDisable(DirectoryEntry usuario)
+        {
+            bool disabled = false;
+            string propertyvalue = string.Empty;
+
+            log.Info("Buscando propiedad \"" + NOMBRE_PROPIEDAD_DISABLED_AD + "\" ...");
+
+            if (usuario.Properties.Contains(NOMBRE_PROPIEDAD_DISABLED_AD))
+            {
+                log.Info("Propiedad encontrada");
+
+                if (usuario.Properties[NOMBRE_PROPIEDAD_DISABLED_AD] != null)
+                {
+                    propertyvalue = usuario.Properties[NOMBRE_PROPIEDAD_DISABLED_AD].Value.ToString();
+                    log.Debug("Valor de la propiedad: " + propertyvalue);
+
+                    int userAccountControl = 0;
+                    int.TryParse(propertyvalue, out userAccountControl);
+
+                    disabled = ((userAccountControl & 2) > 0);
+                }
+                else
+                {
+                    log.Debug("El valor de la propiedad es null");
+                }
+            }
+            else
+            {
+                log.Info("No se pudo cargar la propiedad \"" + NOMBRE_PROPIEDAD_DISABLED_AD + "\"");
+            }
+
+            return disabled;
+        }
+
+        private static bool GetAccountLocked(DirectoryEntry usuario)
+        {
+            bool lockouttime = false;
+            string propertyvalue = string.Empty;
+
+            log.Info("Buscando propiedad \"" + NOMBRE_PROPIEDAD_LOCKOUTTIME_AD + "\" ...");
+
+            if (usuario.Properties.Contains(NOMBRE_PROPIEDAD_LOCKOUTTIME_AD))
+            {
+                log.Info("Propiedad encontrada");
+
+                if (usuario.Properties[NOMBRE_PROPIEDAD_LOCKOUTTIME_AD] != null)
+                {
+                    lockouttime = true;
+
+                    propertyvalue = usuario.Properties[NOMBRE_PROPIEDAD_LOCKOUTTIME_AD].Value.ToString();
+                    log.Debug("Valor de la propiedad: " + propertyvalue);
+                }
+                else
+                {
+                    log.Debug("El valor de la propiedad es null");
+                }
+            }
+            else
+            {
+                log.Info("No se pudo cargar la propiedad \"" + NOMBRE_PROPIEDAD_LOCKOUTTIME_AD + "\"");
+            }
+
+            return lockouttime;
         }
     }
 }

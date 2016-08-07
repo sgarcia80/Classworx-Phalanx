@@ -10,19 +10,23 @@ namespace NDCCommon.Entities
     /// </summary>
     public class TicketNotificacionBlanqueoEntity : BaseEntity
     {
+        public const int TipoNotificacionBlanqueoApp = 1;
+        public const int TipoNotificacionBlanqueoRed = 2;
+        public const int TipoNotificacionDesbloqueo = 3;
+
         public static TicketNotificacionBlanqueoEntity CreateNotificacionBlanqueoApp()
         {
-            return new TicketNotificacionBlanqueoEntity { TipoNotificacion = 1 };
+            return new TicketNotificacionBlanqueoEntity { TipoNotificacion = TipoNotificacionBlanqueoApp };
         }
 
         public static TicketNotificacionBlanqueoEntity CreateNotificacionBlanqueoRed()
         {
-            return new TicketNotificacionBlanqueoEntity { TipoNotificacion = 2 };
+            return new TicketNotificacionBlanqueoEntity { TipoNotificacion = TipoNotificacionBlanqueoRed };
         }
 
         public static TicketNotificacionBlanqueoEntity CreateNotificacionDesbloqueoRed()
         {
-            return new TicketNotificacionBlanqueoEntity { TipoNotificacion = 3 };
+            return new TicketNotificacionBlanqueoEntity { TipoNotificacion = TipoNotificacionDesbloqueo };
         }
 
         #region Private Members
@@ -35,7 +39,6 @@ namespace NDCCommon.Entities
         private string m_tnb_app_user;
         private string m_tnb_app_user_pass;
         private string m_tnb_user_domain;
-        private string m_tnb_user_pass;
         private string m_tnb_solicitante;
         private string m_tnb_user_load;
         private DateTime? m_tnb_fecha_vigencia;
@@ -57,7 +60,6 @@ namespace NDCCommon.Entities
             m_tnb_app_user_pass = string.Empty;
             m_tnb_user_domain = string.Empty;
             m_tnb_user = string.Empty;
-            m_tnb_user_pass = string.Empty;
         }
         #endregion // End of Default ( Empty ) Class Constuctor
 
@@ -100,13 +102,13 @@ namespace NDCCommon.Entities
                 string tipo = string.Empty;
                 switch (m_tnb_tipo_notif)
                 {
-                    case 1:
+                    case TipoNotificacionBlanqueoApp:
                         tipo = "Blanqueo Aplicación";
                         break;
-                    case 2:
+                    case TipoNotificacionBlanqueoRed:
                         tipo = "Blanqueo Red";
                         break;
-                    case 3:
+                    case TipoNotificacionDesbloqueo:
                         tipo = "Desbloqueo Red";
                         break;
                     default:
@@ -225,20 +227,6 @@ namespace NDCCommon.Entities
 
                 m_isChanged |= (m_tnb_user != value);
                 m_tnb_user = value;
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string PasswordUsuario
-        {
-            get { return m_tnb_user_pass; }
-
-            set
-            {
-                m_isChanged |= (m_tnb_user_pass != value);
-                m_tnb_user_pass = value;
             }
         }
 

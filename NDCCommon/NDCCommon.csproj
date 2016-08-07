@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="Collections\AplicacionNotificacionClaveEntityCollectionCollection.cs" />
     <Compile Include="Collections\AuditTicketNotificacionEntityCollection.cs" />
+    <Compile Include="Collections\PalabraBlanqueoEntityCollectionCollection.cs" />
     <Compile Include="Collections\TicketNotificacionEntityCollection.cs" />
     <Compile Include="Collections\TicketNotificacionBlanqueoEntityCollection.cs" />
     <Compile Include="Collections\SubsidiariaEntityCollectionCollection.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Collections\TicketNotificacionClaveEntityCollection.cs" />
     <Compile Include="Entities\AplicacionNotificacionClaveEntity.cs" />
     <Compile Include="Entities\AuditTicketNotificacionEntity.cs" />
+    <Compile Include="Entities\PalabraBlanqueoEntity.cs" />
     <Compile Include="Entities\TicketNotificacionEntity.cs" />
     <Compile Include="Entities\TicketNotificacionBlanqueoEntity.cs" />
     <Compile Include="Entities\DominioLoginEntity.cs" />

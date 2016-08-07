@@ -112,6 +112,8 @@ namespace PhalanxAdmin
                 txtUsuarioCarga.Text = user;
 
                 txtEstado.Text = "Pendiente";
+
+                _entity.Aplicacion = new AplicacionNotificacionClaveBusiness().GetAppRed();
             }
             else
             {
@@ -195,30 +197,38 @@ namespace PhalanxAdmin
             }
 
             _entity.Usuario = txtUser.Text.Trim().ToLower();
+            _entity.UsuarioAplicacion = _entity.Usuario;
             _entity.Solicitante = txtSolicitante.Text.Trim();
 
             _entity.UsuarioCarga = user;
             _entity.FechaAceptacionTyC = _entity.Fecha;
 
             // grabar
-            int Id = TicketBL.Save(_entity);
+            int Id = 0;
+            string error = string.Empty;
 
-            if (Id > 0)
+            try
             {
-                if (esAlta)
+                Id = TicketBL.Save(_entity);
+
+                if (Id > 0)
                 {
-                    string debug = string.Empty;
-
-                    //TicketBL.EnviarEmail(_entity, out debug);
+                    _entity.Id = Id;
+                    MessageBox.Show("La Notificación de Desbloqueo de Red se generó correctamente", "Notificación de Desbloqueo de Red", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-
-                _entity.Id = Id;
-                MessageBox.Show("La Notificación de Desbloqueo de Red se generó correctamente", "Notificación de Desbloqueo Red", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            else
+            catch (InvalidOperationException ex)
             {
-                MessageBox.Show("Error al grabar el Ticket", "Notificación de Desbloqueo Red", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.DialogResult = DialogResult.None;
+                error = ex.Message;
+            }
+            catch (Exception ex)
+            {
+                error = string.Format("Error al grabar el Ticket ({0})", ex.Message);
+            }
+
+            if (!string.IsNullOrEmpty(error))
+            {
+                MessageBox.Show(error, "Notificación de Desbloqueo de Red", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

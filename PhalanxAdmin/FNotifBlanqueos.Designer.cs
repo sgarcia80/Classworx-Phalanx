@@ -148,6 +148,7 @@ namespace PhalanxAdmin
             this.cbTipoNotif.Name = "cbTipoNotif";
             this.cbTipoNotif.Size = new System.Drawing.Size(222, 21);
             this.cbTipoNotif.TabIndex = 23;
+            this.cbTipoNotif.Visible = false;
             // 
             // label4
             // 
@@ -157,6 +158,7 @@ namespace PhalanxAdmin
             this.label4.Size = new System.Drawing.Size(28, 13);
             this.label4.TabIndex = 22;
             this.label4.Text = "Tipo";
+            this.label4.Visible = false;
             // 
             // chkPendiente
             // 
@@ -342,7 +344,7 @@ namespace PhalanxAdmin
             // colTipoNotif
             // 
             this.colTipoNotif.Text = "Tipo Notif.";
-            this.colTipoNotif.Width = 160;
+            this.colTipoNotif.Width = 120;
             // 
             // colTicketNro
             // 
@@ -442,7 +444,6 @@ namespace PhalanxAdmin
             this.lnkAddDesbloqueoRed.TabIndex = 13;
             this.lnkAddDesbloqueoRed.TabStop = true;
             this.lnkAddDesbloqueoRed.Text = "Agregar Desbloqueo Red";
-            this.lnkAddDesbloqueoRed.Visible = false;
             this.lnkAddDesbloqueoRed.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
             this.lnkAddDesbloqueoRed.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAddDesbloqueoRed_LinkClicked);
             // 
@@ -459,7 +460,6 @@ namespace PhalanxAdmin
             this.lnkAddBlanqueoRed.TabIndex = 12;
             this.lnkAddBlanqueoRed.TabStop = true;
             this.lnkAddBlanqueoRed.Text = "Agregar Blanqueo Red";
-            this.lnkAddBlanqueoRed.Visible = false;
             this.lnkAddBlanqueoRed.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
             this.lnkAddBlanqueoRed.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAddBlanqueoRed_LinkClicked);
             // 
