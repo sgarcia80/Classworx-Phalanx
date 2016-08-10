@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+  <class name="NDCCommon.Entities.QuestionEntity,NDCCommon" table="Question">
+
+    <id name="Id" column="question_id" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <property column="question_text" type="String" name="Nombre" />
+  </class>
+</hibernate-mapping>

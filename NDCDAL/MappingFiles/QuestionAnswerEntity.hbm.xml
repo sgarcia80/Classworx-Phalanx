@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+  <class name="NDCCommon.Entities.QuestionAnswerEntity,NDCCommon" table="Question_Answer">
+
+    <id name="Id" column="question_answer_id" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <property column="question_id" type="Int32" name="Id_pregunta"  not-null="true"/>
+    <property column="question_answer_text" type="String" name="Respuesta" not-null="true" length="250" />
+    <property column="username" type="String" name="Username" not-null="true" length="50" />
+  </class>
+</hibernate-mapping>

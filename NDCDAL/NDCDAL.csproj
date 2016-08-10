@@ -109,6 +109,8 @@
     <Compile Include="DBMgr.cs" />
     <Compile Include="Factories\AplicacionNotificacionClaveFactory.cs" />
     <Compile Include="Factories\AuditTicketNotificacionFactory.cs" />
+    <Compile Include="Factories\QuestionAnswerFactory.cs" />
+    <Compile Include="Factories\QuestionFactory.cs" />
     <Compile Include="Factories\TicketNotificacionFactory.cs" />
     <Compile Include="Factories\TicketNotificacionBlanqueoFactory.cs" />
     <Compile Include="Factories\DominioLoginFactory.cs" />
@@ -161,7 +163,9 @@
     <EmbeddedResource Include="MappingFiles\Meta4LegajoEntity.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="MappingFiles\Meta4SociedadEntity.hbm.xml" />
+    <EmbeddedResource Include="MappingFiles\Meta4SociedadEntity.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -181,7 +185,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MappingFiles\SubsidiariaEntity.hbm.xml" />
+    <EmbeddedResource Include="MappingFiles\SubsidiariaEntity.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MappingFiles\TicketNotificacionBlanqueoEntity.hbm.xml">
@@ -192,6 +198,14 @@
     <EmbeddedResource Include="MappingFiles\VwCwxTicketNotificacion.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\QuestionEntity.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\QuestionAnswerEntity.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
