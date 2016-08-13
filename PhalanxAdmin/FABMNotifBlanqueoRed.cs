@@ -11,16 +11,20 @@ using NDCCommon.Collections;
 using System.Collections;
 using PhalanxCommon.Entities;
 using PhalanxCommon;
+using PhalanxBL;
+using PhalanxCommon.Collections;
 
 namespace PhalanxAdmin
 {
     public partial class FABMNotifBlanqueoRed : PhalanxAdmin.FModalBase
     {
         TicketNotificacionBlanqueoEntity _entity = new TicketNotificacionBlanqueoEntity();
-        DominioLoginEntityCollection _dominios = new DominioLoginEntityCollection();
+        WinDomainEntityCollection _dominios = new WinDomainEntityCollection();
+
+        WinDomainBusiness DominioLoginBL = new WinDomainBusiness();
         AplicacionNotificacionClaveBusiness AplicacionBL = new AplicacionNotificacionClaveBusiness();
-        DominioLoginBusiness DominioLoginBL = new DominioLoginBusiness();
         TicketNotificacionBlanqueoBusiness TicketBL = new TicketNotificacionBlanqueoBusiness();
+        
         bool _readOnly = false;
         Random RandomWord = null;
         Random RandomNumber = null;
@@ -120,7 +124,16 @@ namespace PhalanxAdmin
             }
             else
             {
-                var dominio = _dominios.FindByName(_entity.UsuarioDominio);
+                WinDomainEntity dominio = null;
+
+                foreach (WinDomainEntity dom in _dominios)
+                {
+                    if (dom.NtName.Trim().ToUpper().Equals(_entity.UsuarioDominio))
+                    {
+                        dominio = dom;
+                        break;
+                    }
+                }
 
                 // no es uno nuevo, cargo los datos
                 cbDomain.SelectedItem = dominio;
@@ -165,14 +178,24 @@ namespace PhalanxAdmin
 
         private void CargarDominios()
         {
-            _dominios = DominioLoginBL.GetAllParaCombo();
+            _dominios = DominioLoginBL.GetAll();
 
             cbDomain.Items.Clear();
             cbDomain.DataSource = _dominios; // WithDatabases();
-            cbDomain.ValueMember = "Nombre";
-            cbDomain.DisplayMember = "Nombre";
+            cbDomain.ValueMember = "Id";
+            cbDomain.DisplayMember = "NtName";
 
-            var macro = _dominios.FindByName("MACRO");
+            WinDomainEntity macro = null;
+
+            foreach (WinDomainEntity dom in _dominios)
+            {
+                if (dom.NtName.Trim().ToUpper().Equals("MACRO"))
+                {
+                    macro = dom;
+                    break;
+                }
+            }
+
             if (macro != null)
             {
                 cbDomain.SelectedItem = macro;
@@ -217,11 +240,15 @@ namespace PhalanxAdmin
                 MessageBox.Show("Debe generar una nueva contraseña", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            
+
+            WinDomainEntity dominio = null;
+
             // asignar datos a la entity
             if (_entity.Id == 0)
             {
-                _entity.UsuarioDominio = ((DominioLoginEntity)cbDomain.SelectedItem).Nombre.Trim();
+                dominio = cbDomain.SelectedItem as WinDomainEntity;
+
+                _entity.UsuarioDominio = dominio.NtName;
                 _entity.Fecha = DateTime.Now;
             }
 
@@ -238,7 +265,7 @@ namespace PhalanxAdmin
 
             try
             {
-                Id = TicketBL.Save(_entity);
+                Id = TicketBL.Save(_entity, dominio);
 
                 if (Id > 0)
                 {

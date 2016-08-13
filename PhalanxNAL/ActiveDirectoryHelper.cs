@@ -21,6 +21,8 @@ namespace PhalanxNAL
 
         private static Dictionary<string, object> settings = new Dictionary<string, object>();
 
+        private static DirectoryEntry DirectoryAdmin { get; set; }
+
         private static string LDAPPath
         {
             get
@@ -412,6 +414,49 @@ namespace PhalanxNAL
             return null;
         }
 
+        private static DirectoryEntry BuscarLDAPEntryAdmin(string filter, IEnumerable<string> properties)
+        {
+            log.Info("Comienza busqueda LDAP recursiva");
+
+            try
+            {
+                //Buscar entrada raiz
+                log.Info("Buscando entrada raiz...");
+                log.Debug("Path: " + DirectoryAdmin.Path);
+
+                DirectoryEntry rootEntry = DirectoryAdmin;
+
+                if (rootEntry == null)
+                {
+                    log.Info("No se encontró la entrada raíz");
+
+                    return null;
+                }
+
+                log.Info("Buscando entrada según filtro");
+                log.Debug("Filter: " + filter);
+
+                DirectoryEntry entry = BuscarLDAPEntry(rootEntry, filter, properties);
+
+                if (entry != null)
+                {
+                    log.Info("Busqueda LDAP recursiva finalizada con exito");
+
+                    return entry;
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("Error al realizar la búsqueda", ex);
+
+                log.Info("Busqueda LDAP finalizada con errores");
+
+                throw;
+            }
+
+            return null;
+        }
+
         public static bool AgregarPrefijoDescripcionUsuario(string nombreUsuario)
         {
             return ActiveDirectoryHelper.AgregarPrefijoDescripcionUsuario(nombreUsuario, ConfigurationManager.AppSettings["PrefijoDescripcionUsuarioRed"],
@@ -568,10 +613,14 @@ namespace PhalanxNAL
         {
             log.Debug("Usuario: " + user);
 
-            string pathLDAP = LDAPPath;
             string filtroBuscarNombre = LDAPBuscarNombreFilter;
 
-            DirectoryEntry usuario = BuscarLDAPEntryRecursivo(pathLDAP, filtroBuscarNombre.Replace("[username]", user), new string[] { NOMBRE_PROPIEDAD_DISABLED_AD, NOMBRE_PROPIEDAD_LOCKOUTTIME_AD });
+            if (DirectoryAdmin == null)
+            {
+                return false;
+            }
+
+            DirectoryEntry usuario = BuscarLDAPEntryAdmin(filtroBuscarNombre.Replace("[username]", user), new string[] { NOMBRE_PROPIEDAD_DISABLED_AD, NOMBRE_PROPIEDAD_LOCKOUTTIME_AD });
 
             try
             {
@@ -641,7 +690,7 @@ namespace PhalanxNAL
 
                 throw;
             }
-            
+
             //return false;
         }
 
@@ -650,10 +699,14 @@ namespace PhalanxNAL
             log.Info("Comienza desbloqueo de usuario...");
             log.Debug("Usuario: " + user);
 
-            string pathLDAP = LDAPPath;
             string filtroBuscarNombre = LDAPBuscarNombreFilter;
 
-            DirectoryEntry usuario = BuscarLDAPEntryRecursivo(pathLDAP, filtroBuscarNombre.Replace("[username]", user), new string[] { NOMBRE_PROPIEDAD_DISABLED_AD, NOMBRE_PROPIEDAD_LOCKOUTTIME_AD });
+            if (DirectoryAdmin == null)
+            {
+                return false;
+            }
+
+            DirectoryEntry usuario = BuscarLDAPEntryAdmin(filtroBuscarNombre.Replace("[username]", user), new string[] { NOMBRE_PROPIEDAD_DISABLED_AD, NOMBRE_PROPIEDAD_LOCKOUTTIME_AD });
 
             try
             {
@@ -728,6 +781,44 @@ namespace PhalanxNAL
             }
 
             //return false;
+        }
+
+        public static void SetAdminConnection(string path, string user, string password)
+        {
+            string adminUser = string.Empty;
+            string adminUserPassword = string.Empty;
+
+            if (!string.IsNullOrEmpty(user))
+            {
+                adminUser = user;
+            }
+            if (!string.IsNullOrEmpty(password))
+            {
+                adminUserPassword = password;
+            }
+
+            DirectoryAdmin = new DirectoryEntry(path, adminUser, adminUserPassword);
+        }
+
+        public static string TestAdminConnection(string user)
+        {
+            string filtroBuscarNombre = LDAPBuscarNombreFilter;
+            string propiedad = NOMBRE_PROPIEDAD_MAIL_AD;
+
+            DirectoryEntry entry = BuscarLDAPEntryAdmin(filtroBuscarNombre.Replace("[username]", user), new string[] { propiedad });
+
+            if (entry != null)
+            {
+                if (entry.Properties.Contains(propiedad))
+                {
+                    if (entry.Properties[propiedad] != null)
+                        return entry.Properties[propiedad].Value.ToString();
+                }
+                else
+                    log.Info("No se encuentra la propiedad " + propiedad);
+            }
+
+            return null;
         }
 
         private static bool GetAccountDisable(DirectoryEntry usuario)

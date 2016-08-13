@@ -120,6 +120,10 @@
       <Project>{515C8382-4032-4840-A587-9725F9F6FD19}</Project>
       <Name>PhalanxBL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PhalanxCommon\PhalanxCommon.csproj">
+      <Project>{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}</Project>
+      <Name>PhalanxCommon</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PhalanxNAL\PhalanxNAL.csproj">
       <Project>{D31089F5-A197-4808-B865-C7062DA477AB}</Project>
       <Name>PhalanxNAL</Name>

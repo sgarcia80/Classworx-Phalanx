@@ -9,6 +9,9 @@ using NDCCommon.Collections;
 using NDCCommon.Entities;
 using NDCBL;
 using log4net;
+using PhalanxBL;
+using PhalanxCommon.Collections;
+using PhalanxCommon.Entities;
 
 namespace PhalanxAdmin
 {
@@ -18,7 +21,7 @@ namespace PhalanxAdmin
 
         protected TicketNotificacionBlanqueoEntityCollection _entities;
         protected AplicacionNotificacionClaveEntityCollection _aplicaciones;
-        protected DominioLoginEntityCollection _dominios;
+        protected WinDomainEntityCollection _dominios;
         protected DominioLoginEntityCollection _tiposNotificaciones;
         private AplicacionNotificacionClaveEntity _filAplicacion;
         protected string _filUsuarioApp = "";
@@ -114,7 +117,12 @@ namespace PhalanxAdmin
             
             if (cbDominio.SelectedIndex > 0)
             {
-                _filDominio = ((DominioLoginEntity)cbDominio.SelectedItem).Nombre;
+                WinDomainEntity dominio = cbDominio.SelectedItem as WinDomainEntity;
+
+                if (dominio.Id > 0)
+                {
+                    _filDominio = dominio.NtName;
+                }
             }
             else
             {
@@ -301,14 +309,14 @@ namespace PhalanxAdmin
 
         private void CargaComboDominios()
         {
-            DominioLoginBusiness business = new DominioLoginBusiness();
-            this._dominios = business.GetAllParaCombo();
+            WinDomainBusiness business = new WinDomainBusiness();
+            this._dominios = business.FillFilter();
 
-            this._dominios.Insert(0, new DominioLoginEntity { Nombre = "Todos", DireccionAD = "Todos" });
+            //this._dominios.Insert(0, new DominioLoginEntity { Nombre = "Todos", DireccionAD = "Todos" });
 
             cbDominio.DataSource = this._dominios;
-            cbDominio.DisplayMember = "Nombre";
-            cbDominio.ValueMember = "Nombre";
+            cbDominio.DisplayMember = "NtName";
+            cbDominio.ValueMember = "Id";
         }
 
         private void CargaComboTiposNotif()

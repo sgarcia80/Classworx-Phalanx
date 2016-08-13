@@ -172,30 +172,49 @@ namespace NDCBL
 
         public int Save(TicketNotificacionBlanqueoEntity ticket)
         {
+            return this.Save(ticket, null);
+        }
+
+        public int Save(TicketNotificacionBlanqueoEntity ticket, PhalanxCommon.Entities.WinDomainEntity dominio)
+        {
             ticket.FechaVigencia = DateTime.Now;
 
-            try
+            //Si tiene un dominio
+            if (dominio != null)
             {
-                if (ticket.TipoNotificacion == TicketNotificacionBlanqueoEntity.TipoNotificacionBlanqueoRed)
+                string mensaje = string.Empty;
+                try
                 {
-                    PhalanxNAL.ActiveDirectoryHelper.ResetPassword(ticket.Usuario, ticket.PasswordUsuarioAplicacion);
+                    if (ticket.TipoNotificacion == TicketNotificacionBlanqueoEntity.TipoNotificacionBlanqueoRed ||
+                        ticket.TipoNotificacion == TicketNotificacionBlanqueoEntity.TipoNotificacionDesbloqueo)
+                    {
+                        PhalanxNAL.ActiveDirectoryHelper.SetAdminConnection(dominio.LDAPPath, dominio.LDAPUser, dominio.LDAPUserPassword);
 
-                    ticket.PasswordUsuarioAplicacion = this.EncriptarPassword(ticket.PasswordUsuarioAplicacion);
+                        if (ticket.TipoNotificacion == TicketNotificacionBlanqueoEntity.TipoNotificacionBlanqueoRed)
+                        {
+                            mensaje = "Error al blanquear la contraseña";
+                            PhalanxNAL.ActiveDirectoryHelper.ResetPassword(ticket.Usuario, ticket.PasswordUsuarioAplicacion);
+
+                            ticket.PasswordUsuarioAplicacion = this.EncriptarPassword(ticket.PasswordUsuarioAplicacion);
+                        }
+                        if (ticket.TipoNotificacion == TicketNotificacionBlanqueoEntity.TipoNotificacionDesbloqueo)
+                        {
+                            mensaje = "Error al desbloquear el usuario";
+                            PhalanxNAL.ActiveDirectoryHelper.UnlockUserAccount(ticket.Usuario);
+                        }
+                    }
                 }
-                if (ticket.TipoNotificacion == TicketNotificacionBlanqueoEntity.TipoNotificacionDesbloqueo)
+                catch (InvalidOperationException)
                 {
-                    PhalanxNAL.ActiveDirectoryHelper.UnlockUserAccount(ticket.Usuario);
+                    throw;
                 }
-            }
-            catch (InvalidOperationException)
-            {
-                throw;
-            }
-            catch (Exception ex)
-            {
-                log.Error("Error al procesar la Notificación", ex);
+                catch (Exception ex)
+                {
+                    log.Error("Error al procesar la Notificación", ex);
 
-                throw;
+                    mensaje = string.Format("{0}{1}{2}", mensaje, System.Environment.NewLine, ex.Message);
+                    throw new InvalidOperationException(mensaje, ex);
+                }
             }
 
             return Factory.Save(ticket);

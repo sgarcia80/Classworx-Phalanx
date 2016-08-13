@@ -10,15 +10,17 @@ using NDCBL;
 using NDCCommon.Collections;
 using System.Collections;
 using PhalanxCommon.Entities;
+using PhalanxCommon.Collections;
+using PhalanxBL;
 
 namespace PhalanxAdmin
 {
     public partial class FABMNotifDesbloqueoRed : PhalanxAdmin.FModalBase
     {
         TicketNotificacionBlanqueoEntity _entity = new TicketNotificacionBlanqueoEntity();
-        DominioLoginEntityCollection _dominios = new DominioLoginEntityCollection();
+        WinDomainEntityCollection _dominios = new WinDomainEntityCollection();
         AplicacionNotificacionClaveBusiness AplicacionBL = new AplicacionNotificacionClaveBusiness();
-        DominioLoginBusiness DominioLoginBL = new DominioLoginBusiness();
+        WinDomainBusiness DominioLoginBL = new WinDomainBusiness();
         TicketNotificacionBlanqueoBusiness TicketBL = new TicketNotificacionBlanqueoBusiness();
         bool _readOnly = false;
 
@@ -117,7 +119,16 @@ namespace PhalanxAdmin
             }
             else
             {
-                var dominio = _dominios.FindByName(_entity.UsuarioDominio);
+                WinDomainEntity dominio = null;
+
+                foreach (WinDomainEntity dom in _dominios)
+                {
+                    if (dom.NtName.Trim().ToUpper().Equals(_entity.UsuarioDominio))
+                    {
+                        dominio = dom;
+                        break;
+                    }
+                }
 
                 // no es uno nuevo, cargo los datos
                 cbDomain.SelectedItem = dominio;
@@ -152,14 +163,24 @@ namespace PhalanxAdmin
 
         private void CargarDominios()
         {
-            _dominios = DominioLoginBL.GetAllParaCombo();
+            _dominios = DominioLoginBL.GetAll();
 
             cbDomain.Items.Clear();
             cbDomain.DataSource = _dominios; // WithDatabases();
-            cbDomain.ValueMember = "Nombre";
-            cbDomain.DisplayMember = "Nombre";
+            cbDomain.ValueMember = "Id";
+            cbDomain.DisplayMember = "NtName";
 
-            var macro = _dominios.FindByName("MACRO");
+            WinDomainEntity macro = null;
+
+            foreach (WinDomainEntity dom in _dominios)
+            {
+                if (dom.NtName.Trim().ToUpper().Equals("MACRO"))
+                {
+                    macro = dom;
+                    break;
+                }
+            }
+
             if (macro != null)
             {
                 cbDomain.SelectedItem = macro;
@@ -185,15 +206,15 @@ namespace PhalanxAdmin
                 return;
             }
 
-            bool esAlta = false;
+            WinDomainEntity dominio = null;
 
             // asignar datos a la entity
             if (_entity.Id == 0)
             {
-                _entity.UsuarioDominio = ((DominioLoginEntity)cbDomain.SelectedItem).Nombre.Trim();
-                _entity.Fecha = DateTime.Now;
+                dominio = cbDomain.SelectedItem as WinDomainEntity;
 
-                esAlta = true;
+                _entity.UsuarioDominio = dominio.NtName.Trim();
+                _entity.Fecha = DateTime.Now;
             }
 
             _entity.Usuario = txtUser.Text.Trim().ToLower();
@@ -209,7 +230,7 @@ namespace PhalanxAdmin
 
             try
             {
-                Id = TicketBL.Save(_entity);
+                Id = TicketBL.Save(_entity, dominio);
 
                 if (Id > 0)
                 {
