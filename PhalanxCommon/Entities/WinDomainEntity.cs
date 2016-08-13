@@ -24,8 +24,10 @@ namespace PhalanxCommon.Entities
 		private string m_ad_name; 
 		private IList m_WinPCsList;
         private string m_Comments;
-		private string m_ldap_path; 
-		#endregion
+        private string m_ldap_path;
+        private string m_ldap_user;
+        private string m_ldap_userpassword;
+        #endregion
 
 		#region Default ( Empty ) Class Constuctor
 		/// <summary>
@@ -193,8 +195,44 @@ namespace PhalanxCommon.Entities
 				m_ldap_path = value;
 			}
 		}
-			
-		/// <summary>
+
+        /// <summary>
+        /// ldap user
+        /// </summary>
+        public string LDAPUser
+        {
+            get { return m_ldap_user; }
+
+            set
+            {
+                if (value != null && value.Length > 200)
+                    throw new ArgumentOutOfRangeException("Invalid value for LDAPUser", value, value.ToString());
+
+                m_isChanged |= (m_ldap_user != value);
+
+                m_ldap_user = value;
+            }
+        }
+
+        /// <summary>
+        /// ldap user password
+        /// </summary>
+        public string LDAPUserPassword
+        {
+            get { return m_ldap_userpassword; }
+
+            set
+            {
+                if (value != null && value.Length > 200)
+                    throw new ArgumentOutOfRangeException("Invalid value for LDAPUserPassword", value, value.ToString());
+
+                m_isChanged |= (m_ldap_userpassword != value);
+
+                m_ldap_userpassword = value;
+            }
+        }
+
+        /// <summary>
 		/// Returns whether or not the object has changed it's values.
 		/// </summary>
 		public bool IsChanged

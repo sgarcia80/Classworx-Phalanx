@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using PhalanxBL;
 using PhalanxCommon.Entities;
 using phxLog;
+using phxCryptMgr;
 
 namespace PhalanxAdmin
 {
@@ -36,6 +37,8 @@ namespace PhalanxAdmin
             txtDomName.Text = m_CurrentDomain.NtName;
             txtComment.Text = m_CurrentDomain.Comments;
 			txtLDAPPath.Text = currDomain.LDAPPath;
+            txtLDAPUser.Text = currDomain.LDAPUser;
+            txtLDAPUserPassword.Text = new CCryptMgr().decryptAndClearBadChars(currDomain.LDAPUserPassword);
             pNetFind.Visible = false;
             m_FormType = FormType.Update;
         }
@@ -74,6 +77,9 @@ namespace PhalanxAdmin
                     dom.NtName = txtDomName.Text;
                     dom.Comments = txtComment.Text;
 					dom.LDAPPath = txtLDAPPath.Text;
+                    dom.LDAPUser = txtLDAPUser.Text;
+                    dom.LDAPUserPassword = new CCryptMgr().encrypt(txtLDAPUserPassword.Text);
+
                     mWinDomBus.Save(dom);
                     MessageBox.Show("Se ha creado el Dominio satisfactoriamente");
                 }
@@ -87,6 +93,8 @@ namespace PhalanxAdmin
                         m_CurrentDomain.NtName = txtDomName.Text;
                         m_CurrentDomain.Comments = txtComment.Text;
 						m_CurrentDomain.LDAPPath = txtLDAPPath.Text;
+                        m_CurrentDomain.LDAPUser = txtLDAPUser.Text;
+                        m_CurrentDomain.LDAPUserPassword = new CCryptMgr().encrypt(txtLDAPUserPassword.Text);
                         mWinDomBus.Save(m_CurrentDomain);
                         MessageBox.Show("Se ha actualizado el Dominio satisfactoriamente");
                     }
@@ -106,6 +114,8 @@ namespace PhalanxAdmin
                 m_CurrentDomain.NtName = txtDomName.Text;
                 m_CurrentDomain.Comments = txtComment.Text;
 				m_CurrentDomain.LDAPPath = txtLDAPPath.Text;
+                m_CurrentDomain.LDAPUser = txtLDAPUser.Text;
+                m_CurrentDomain.LDAPUserPassword = new CCryptMgr().encrypt(txtLDAPUserPassword.Text);
                 mWinDomBus.Save(m_CurrentDomain);
                 MessageBox.Show("Se ha modificado el Dominio satisfactoriamente");
             }
@@ -142,6 +152,31 @@ namespace PhalanxAdmin
 		{
 
 		}
+
+        private void btnTest_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                PhalanxNAL.ActiveDirectoryHelper.SetAdminConnection(txtLDAPPath.Text, txtLDAPUser.Text, txtLDAPUserPassword.Text);
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show("Error al conectarse con el LDAP" + Environment.NewLine + exc.Message);
+            }
+
+            try
+            {
+                string user = string.Empty;
+
+                user = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+
+                PhalanxNAL.ActiveDirectoryHelper.TestAdminConnection(user);
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show("Error al consultar el LDAP" + Environment.NewLine + exc.Message);
+            }
+        }
 
 
     }
