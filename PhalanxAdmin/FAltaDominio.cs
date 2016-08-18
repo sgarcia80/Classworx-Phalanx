@@ -38,7 +38,12 @@ namespace PhalanxAdmin
             txtComment.Text = m_CurrentDomain.Comments;
 			txtLDAPPath.Text = currDomain.LDAPPath;
             txtLDAPUser.Text = currDomain.LDAPUser;
-            txtLDAPUserPassword.Text = new CCryptMgr().decryptAndClearBadChars(currDomain.LDAPUserPassword);
+            
+            if (!string.IsNullOrEmpty(currDomain.LDAPUserPassword))
+            {
+                txtLDAPUserPassword.Text = new CCryptMgr().decryptAndClearBadChars(currDomain.LDAPUserPassword);
+            }
+            
             pNetFind.Visible = false;
             m_FormType = FormType.Update;
         }
@@ -78,8 +83,14 @@ namespace PhalanxAdmin
                     dom.Comments = txtComment.Text;
 					dom.LDAPPath = txtLDAPPath.Text;
                     dom.LDAPUser = txtLDAPUser.Text;
-                    dom.LDAPUserPassword = new CCryptMgr().encrypt(txtLDAPUserPassword.Text);
-
+                    if (string.IsNullOrEmpty(txtLDAPUserPassword.Text))
+                    {
+                        dom.LDAPUserPassword = string.Empty;
+                    }
+                    else
+                    {
+                        dom.LDAPUserPassword = new CCryptMgr().encrypt(txtLDAPUserPassword.Text);
+                    }
                     mWinDomBus.Save(dom);
                     MessageBox.Show("Se ha creado el Dominio satisfactoriamente");
                 }
@@ -115,7 +126,14 @@ namespace PhalanxAdmin
                 m_CurrentDomain.Comments = txtComment.Text;
 				m_CurrentDomain.LDAPPath = txtLDAPPath.Text;
                 m_CurrentDomain.LDAPUser = txtLDAPUser.Text;
-                m_CurrentDomain.LDAPUserPassword = new CCryptMgr().encrypt(txtLDAPUserPassword.Text);
+                if (string.IsNullOrEmpty(txtLDAPUserPassword.Text))
+                {
+                    m_CurrentDomain.LDAPUserPassword = string.Empty;
+                }
+                else
+                {
+                    m_CurrentDomain.LDAPUserPassword = new CCryptMgr().encrypt(txtLDAPUserPassword.Text);
+                }
                 mWinDomBus.Save(m_CurrentDomain);
                 MessageBox.Show("Se ha modificado el Dominio satisfactoriamente");
             }
