@@ -188,7 +188,15 @@ namespace NDCBL
                     if (ticket.TipoNotificacion == TicketNotificacionBlanqueoEntity.TipoNotificacionBlanqueoRed ||
                         ticket.TipoNotificacion == TicketNotificacionBlanqueoEntity.TipoNotificacionDesbloqueo)
                     {
-                        PhalanxNAL.ActiveDirectoryHelper.SetAdminConnection(dominio.LDAPPath, dominio.LDAPUser, dominio.LDAPUserPassword);
+                        if (string.IsNullOrEmpty(dominio.LDAPUser) ||
+                            string.IsNullOrEmpty(dominio.LDAPUserPassword))
+                        {
+                            throw new InvalidOperationException("No se encontraron las credenciales para conectarse al Dominio");
+                        }
+
+                        string password = new CCryptMgr().decryptAndClearBadChars(dominio.LDAPUserPassword);
+
+                        PhalanxNAL.ActiveDirectoryHelper.SetAdminConnection(dominio.LDAPPath, dominio.LDAPUser, password);
 
                         if (ticket.TipoNotificacion == TicketNotificacionBlanqueoEntity.TipoNotificacionBlanqueoRed)
                         {
