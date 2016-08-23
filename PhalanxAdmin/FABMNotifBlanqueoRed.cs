@@ -324,10 +324,10 @@ namespace PhalanxAdmin
 
             index = RandomWord.Next(0, palabras.Count);
 
-            var randompinresult = RandomNumber.Next(0, 9999).ToString();
-            randompinresult = randompinresult.PadLeft(4, '0');
+            var randompinresult = RandomNumber.Next(0, 99).ToString();
+            randompinresult = randompinresult.PadLeft(2, '0');
 
-            tPassword1.Text = string.Format("{0}{1}", palabras[index].Valor, randompinresult);
+            tPassword1.Text = string.Format("{0}{1}{2}", palabras[index].Valor.Substring(0, 2).ToUpper(), palabras[index].Valor.Substring(2), randompinresult);
         }
     }
 }
