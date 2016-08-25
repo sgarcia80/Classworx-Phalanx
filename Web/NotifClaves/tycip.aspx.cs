@@ -57,7 +57,8 @@ public partial class tycip : System.Web.UI.Page
 
                 tncb.AceptarTyC(ticket);
 
-                Response.Redirect("DetalleTicketIp.aspx?");
+                //Response.Redirect("DetalleTicketIp.aspx?");
+                Response.Redirect("CargaRespuestas.aspx");
             }
 
             if (tipo == "BLANQUEO")

@@ -93,6 +93,8 @@
     <Compile Include="AplicacionNotificacionClaveBusiness.cs" />
     <Compile Include="AuditTicketNotificacionBusiness.cs" />
     <Compile Include="PalabraBlanqueoBusiness.cs" />
+    <Compile Include="QuestionAnswerBusiness.cs" />
+    <Compile Include="QuestionBusiness.cs" />
     <Compile Include="TicketNotificacionBusiness.cs" />
     <Compile Include="TicketNotificacionBlanqueoBusiness.cs" />
     <Compile Include="SubsidiariaBusiness.cs" />
