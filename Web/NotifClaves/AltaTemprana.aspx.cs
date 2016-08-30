@@ -45,6 +45,9 @@ public partial class AltaTemprana : System.Web.UI.Page
             return;
         }
 
+        Session["Dominio"] = "MACRO";
+        Session["Usuario"] = "";
+        //Session["externo"] = (legajo == null) ? "S" : "";
         Session["ticketId"] = ticket.Id;
         Session["seed"] = TimeSpan.FromTicks(DateTime.Now.Ticks).Seconds;
 
@@ -97,6 +100,7 @@ public partial class AltaTemprana : System.Web.UI.Page
         tncb.Save(ticket);
 
         Session["id"] = ticket.Id;
+        Session["Usuario"] = ticket.Usuario;
 
         Response.Redirect("tycip.aspx");
     }

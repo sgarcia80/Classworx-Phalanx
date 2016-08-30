@@ -22,20 +22,42 @@ public partial class IdentificacionPositiva : System.Web.UI.Page
         {
             int ticketId = (int)Session["ticketId"];
 
-            TicketNotificacionClaveBusiness tncb = new TicketNotificacionClaveBusiness();
+            bool esNotif = (Session["externo"] != null);
+            string tipodocumento = string.Empty;
+            string nrodocumento = string.Empty;
 
-            TicketNotificacionClaveEntity ticket = tncb.GetById(ticketId);
-
-            if (ticket.Errado)
+            if (esNotif)
             {
-                Response.Redirect(FormsAuthentication.LoginUrl);
+                Meta4ClassWorxUsuariosBusiness m4ub = new Meta4ClassWorxUsuariosBusiness();
+                string usuario = Session["Usuario"].ToString();
 
-                return;
+                IList<Meta4ClassWorxUsuariosEntity> usuarios = m4ub.GetUser(usuario);
+                if (usuarios != null && usuarios.Count > 0)
+                {
+                    tipodocumento = usuarios[0].TipoDocumento;
+                    nrodocumento = usuarios[0].Num_Documento;
+                }
             }
+            else
+            {
+                TicketNotificacionClaveBusiness tncb = new TicketNotificacionClaveBusiness();
+                TicketNotificacionClaveEntity ticket = tncb.GetById(ticketId);
+
+                if (ticket.Errado)
+                {
+                    Response.Redirect(FormsAuthentication.LoginUrl);
+
+                    return;
+                }
+
+                tipodocumento = ticket.TipoDocumento;
+                nrodocumento = ticket.Documento;
+            }
+
 
             Meta4LegajoBusiness m4lb = new Meta4LegajoBusiness();
 
-            Meta4LegajoEntity legajo = m4lb.GetByDocumento(ticket.TipoDocumento, ticket.Documento);
+            Meta4LegajoEntity legajo = m4lb.GetByDocumento(tipodocumento, nrodocumento);
 
             //random = new Random(int.Parse(legajo.Documento));
             random = new Random((int)Session["seed"]);
@@ -179,19 +201,50 @@ public partial class IdentificacionPositiva : System.Web.UI.Page
     {
         int ticketId = (int) Session["ticketId"];
 
-        TicketNotificacionClaveBusiness tncb = new TicketNotificacionClaveBusiness();
+        string tipodocumento = string.Empty;
+        string nrodocumento = string.Empty;
 
-        TicketNotificacionClaveEntity ticket = tncb.GetById(ticketId);
+        //Si ingreso por Notificacion
+        bool esNotif = (Session["externo"] != null);
+
+        if (esNotif)
+        {
+            Meta4ClassWorxUsuariosBusiness m4ub = new Meta4ClassWorxUsuariosBusiness();
+            string usuario = Session["Usuario"].ToString();
+
+            IList<Meta4ClassWorxUsuariosEntity> usuarios = m4ub.GetUser(usuario);
+            if (usuarios != null && usuarios.Count > 0)
+            {
+                tipodocumento = usuarios[0].TipoDocumento;
+                nrodocumento = usuarios[0].Num_Documento;
+            }
+        }
+        else
+        {
+            TicketNotificacionClaveBusiness tncb = new TicketNotificacionClaveBusiness();
+
+            TicketNotificacionClaveEntity ticket = tncb.GetById(ticketId);
+
+            tipodocumento = ticket.TipoDocumento;
+            nrodocumento = ticket.Documento;
+        }
 
         Meta4LegajoBusiness m4lb = new Meta4LegajoBusiness();
-
-        Meta4LegajoEntity legajo = m4lb.GetByDocumento(ticket.TipoDocumento, ticket.Documento);
+        Meta4LegajoEntity legajo = m4lb.GetByDocumento(tipodocumento, nrodocumento);
 
         if (VerificarRespuestas(legajo))
         {
-            Session["id"] = ticketId;
+            if (esNotif)
+            {
+                string url = string.Format("DetalleTicket.aspx?id={0}&tipo={1}", ticketId, "BLANQUEO");
+                Response.Redirect(url);
+            }
+            else
+            {
+                Session["id"] = ticketId;
 
-            Response.Redirect("tycip.aspx");
+                Response.Redirect("tycip.aspx");
+            }
         }
         else
         {

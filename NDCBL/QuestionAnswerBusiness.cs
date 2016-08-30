@@ -37,11 +37,11 @@ namespace NDCBL
             return factory.GetAll();
         }
 
-        public void Save(QuestionAnswerEntity entidad)
+        public void Save(QuestionAnswerEntityCollection collection)
         {
             QuestionAnswerFactory factory = new QuestionAnswerFactory();
 
-            factory.Save(entidad);
+            factory.Save(collection);
         }
 
         public void Create(QuestionAnswerEntity entidad)

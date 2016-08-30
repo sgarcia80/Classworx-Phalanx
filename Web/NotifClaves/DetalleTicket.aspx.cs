@@ -15,10 +15,10 @@ public partial class DetalleTicket : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!Page.User.Identity.IsAuthenticated)
-        {
-            Response.Redirect("~/Login.aspx");
-        }
+        //if (!Page.User.Identity.IsAuthenticated)
+        //{
+        //    Response.Redirect("~/Login.aspx");
+        //}
 
         int id = 0;
         string tipo = "ALTA";
@@ -134,6 +134,15 @@ public partial class DetalleTicket : System.Web.UI.Page
 
     protected void btnVolver_Click(object sender, EventArgs e)
     {
-        Response.Redirect("Tickets.aspx");
+        bool esNotif = (Session["externo"] != null);
+
+        if (esNotif)
+        {
+            Response.Redirect("Login.aspx");
+        }
+        else
+        {
+            Response.Redirect("Tickets.aspx");
+        }
     }
 }

@@ -107,6 +107,15 @@ namespace NDCBL
             return tmpCollection;
         }
 
+        public TicketNotificacionBlanqueoEntity GetMaxByUser(string usuario)
+        {
+            TicketNotificacionBlanqueoFactory factory = new TicketNotificacionBlanqueoFactory();
+
+            TicketNotificacionBlanqueoEntity tmpEntity = factory.GetMaxByUser(usuario);
+
+            return tmpEntity;
+        }
+
         public TicketNotificacionBlanqueoEntityCollection GetAll(int tipoNotif, DateTime? fechaDesde, DateTime? fechaHasta, AplicacionNotificacionClaveEntity aplicacion, string usuarioApp, string dominio, string usuario, bool pendientes)
         {
             TicketNotificacionBlanqueoFactory factory = new TicketNotificacionBlanqueoFactory();
@@ -202,8 +211,6 @@ namespace NDCBL
                         {
                             mensaje = "Error al blanquear la contraseña";
                             PhalanxNAL.ActiveDirectoryHelper.ResetPassword(ticket.Usuario, ticket.PasswordUsuarioAplicacion);
-
-                            ticket.PasswordUsuarioAplicacion = this.EncriptarPassword(ticket.PasswordUsuarioAplicacion);
                         }
                         if (ticket.TipoNotificacion == TicketNotificacionBlanqueoEntity.TipoNotificacionDesbloqueo)
                         {
@@ -223,6 +230,11 @@ namespace NDCBL
                     mensaje = string.Format("{0}{1}{2}", mensaje, System.Environment.NewLine, ex.Message);
                     throw new InvalidOperationException(mensaje, ex);
                 }
+            }
+
+            if (!string.IsNullOrEmpty(ticket.PasswordUsuarioAplicacion))
+            {
+                ticket.PasswordUsuarioAplicacion = this.EncriptarPassword(ticket.PasswordUsuarioAplicacion);
             }
 
             return Factory.Save(ticket);

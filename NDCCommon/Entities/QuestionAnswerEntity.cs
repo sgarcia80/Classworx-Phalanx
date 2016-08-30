@@ -10,7 +10,7 @@ namespace NDCCommon.Entities
         #region Private Members
         
         private int ms_id;
-        private int ms_id_pregunta;
+        private QuestionEntity ms_pregunta;
         private string ms_respuesta;
         private string ms_username;
 
@@ -27,10 +27,10 @@ namespace NDCCommon.Entities
             set { ms_id = value; }
         }
 
-        public int Id_pregunta
+        public QuestionEntity Pregunta
         {
-            get { return ms_id_pregunta; }
-            set { ms_id_pregunta = value; }
+            get { return ms_pregunta; }
+            set { ms_pregunta = value; }
         }
 
         public string Respuesta

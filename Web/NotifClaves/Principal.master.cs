@@ -34,6 +34,10 @@ public partial class Principal : System.Web.UI.MasterPage
     {
         Session["Usuario"] = null;
         Session["Dominio"] = null;
+        Session["ticketId"] = null;
+        Session["externo"] = null;
+
+        Session.Remove("externo");
 
         FormsAuthentication.SignOut();
 

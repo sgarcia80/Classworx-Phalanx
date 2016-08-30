@@ -33,5 +33,16 @@ namespace NDCDAL.Factories
 
             return questionEC;
         }
+
+        public QuestionEntity GetById(int id)
+        {
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                QuestionEntity entity = session.Get<QuestionEntity>(id);
+
+                return entity;
+            }
+        }
+    
     }
 }

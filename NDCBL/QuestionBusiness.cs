@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using NDCCommon.Collections;
 using NDCDAL.Factories;
+using NDCCommon.Entities;
 
 namespace NDCBL
 {
@@ -14,5 +15,12 @@ namespace NDCBL
 
             return QFac.GetAll();
         }
+        public QuestionEntity GetById(int id)
+        {
+            QuestionFactory factory = new QuestionFactory();
+
+            return factory.GetById(id);
+        }
+
     }
 }

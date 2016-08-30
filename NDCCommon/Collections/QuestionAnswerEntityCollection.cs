@@ -64,5 +64,31 @@ namespace NDCCommon.Collections
             }
             return null;
         }
+
+        public new QuestionAnswerEntityCollection GetRandomEC(int pItemsCount)
+        {
+
+            QuestionAnswerEntityCollection originalQAEC = new QuestionAnswerEntityCollection();
+            QuestionAnswerEntityCollection randomQAEC = new QuestionAnswerEntityCollection();
+            Random random = new Random();
+
+
+            originalQAEC = this;
+            int i = 0;
+            while (originalQAEC.Count > 0 && i < pItemsCount)
+            {
+                //elijo proximo indice al azar
+                int nextIndex = random.Next(0, originalQAEC.Count);
+                //agrego entity a random EC
+                randomQAEC.Add(originalQAEC[nextIndex]);
+                //quito de la EC original el indice que ya se agrego
+                originalQAEC.RemoveAt(nextIndex);
+
+                i++;
+            }
+
+            return randomQAEC;
+        }
+    
     }
 }

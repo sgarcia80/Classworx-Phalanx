@@ -131,7 +131,7 @@ namespace NDCDAL.Factories
 
             using (ISession session = DBMgr.factory.OpenSession())
             {
-                ICriteria DataSearch = session.CreateCriteria(typeof(TicketNotificacionBlanqueoEntity), "TNB");
+                ICriteria DataSearch = session.CreateCriteria(typeof(TicketNotificacionBlanqueoEntity), "TNB").AddOrder(Order.Desc("TNB.Fecha"));
 
                 if (_filApp != null)
                     DataSearch.Add(Expression.Eq("TNB.Aplicacion", _filApp));
@@ -203,6 +203,31 @@ namespace NDCDAL.Factories
             }
 
             return TiNotClaEC;
+        }
+
+        public TicketNotificacionBlanqueoEntity GetMaxByUser(string usuario)
+        {
+            TicketNotificacionBlanqueoEntity ticket;
+
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                ICriteria DataSearch = session.CreateCriteria(typeof(TicketNotificacionBlanqueoEntity), "TNB");
+                DataSearch = DataSearch.Add(Expression.Eq("TNB.Usuario", usuario).IgnoreCase());
+                DataSearch = DataSearch.Add(Expression.Eq("TNB.FechaAceptacionTyC", null));
+                DataSearch = DataSearch.SetProjection(Projections.Max("TNB.Fecha"));
+
+                try
+                {
+                    ticket = DataSearch.UniqueResult<TicketNotificacionBlanqueoEntity>();
+                }
+                catch
+                {
+                    ticket = null;
+                }
+
+            }
+
+            return ticket;
         }
 
         public TicketNotificacionBlanqueoEntity GetById(int id)

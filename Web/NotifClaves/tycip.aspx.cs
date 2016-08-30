@@ -1,4 +1,4 @@
-    using System;
+using System;
 using System.Data;
 using System.Configuration;
 using System.Collections;
@@ -57,8 +57,15 @@ public partial class tycip : System.Web.UI.Page
 
                 tncb.AceptarTyC(ticket);
 
-                //Response.Redirect("DetalleTicketIp.aspx?");
-                Response.Redirect("CargaRespuestas.aspx");
+                if (Session["externo"] == null || 
+                    (Session["externo"] != null && Session["externo"].ToString() != "S"))
+                {
+                    Response.Redirect("DetalleTicketIp.aspx?");
+                }
+                else
+                {
+                    Response.Redirect("CargaRespuestas.aspx");
+                }
             }
 
             if (tipo == "BLANQUEO")
@@ -76,6 +83,6 @@ public partial class tycip : System.Web.UI.Page
     protected void btnVolver_Click(object sender, EventArgs e)
     {
         //Response.Redirect("IdentificacionPositiva.aspx?id=" + Session["id"]);
-        Response.Redirect("AltaTemprana.aspx");   
+        Response.Redirect("AltaTemprana.aspx");
     }
 }

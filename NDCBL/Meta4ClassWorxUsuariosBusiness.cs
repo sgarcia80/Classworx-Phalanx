@@ -4,6 +4,7 @@ using System.Configuration;
 using NDCCommon.Entities;
 using NDCDAL.Factories;
 using NDCCommon.Collections;
+using System.Collections.Generic;
 
 namespace NDCBL
 {
@@ -17,6 +18,14 @@ namespace NDCBL
             //
             // TODO: Add constructor logic here
             //
+        }
+
+        public IList<Meta4ClassWorxUsuariosEntity> GetUser(string usuario)
+        {
+            Meta4ClassWorxUsuariosFactory factory = new Meta4ClassWorxUsuariosFactory();
+            factory.FilIdUsuarioRed = usuario;
+
+            return factory.GetAll();
         }
 
         public void Create(Meta4ClassWorxUsuariosEntity entidad)

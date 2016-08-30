@@ -61,6 +61,32 @@ namespace NDCDAL.Factories
             }
         }
 
+        public void Save(QuestionAnswerEntityCollection collection)
+        {
+            ITransaction tx = null;
+
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                try
+                {
+                    tx = session.BeginTransaction();
+
+                    foreach (QuestionAnswerEntity entity in collection)
+                    {
+                        session.Save(entity);
+                    }
+                    tx.Commit();
+                }
+                catch (Exception e)
+                {
+                    if (tx != null)
+                        tx.Rollback();
+
+                    throw e;
+                }
+            }
+        }
+
         public void Save(QuestionAnswerEntity entidad)
         {
             ITransaction tx = null;

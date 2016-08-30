@@ -11,6 +11,9 @@ using System.Web.UI.HtmlControls;
 using System.DirectoryServices;
 using PhalanxBL;
 using PhalanxCommon.Entities;
+using NDCCommon.Entities;
+using NDCCommon.Collections;
+using NDCBL;
 
 public partial class Login : System.Web.UI.Page
 {
@@ -41,6 +44,12 @@ public partial class Login : System.Web.UI.Page
             lbMensaje.Text = "Usuario o Contraseña incorrecto";
             lbMensaje.Visible = true;
         }
+    }
+
+
+    protected void btnNotificacion_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("NotificacionClave.aspx");
     }
 
     private bool Autenticar(string dominio, string usuario, string password)
@@ -81,7 +90,9 @@ public partial class Login : System.Web.UI.Page
 
         return authentic;
     }
-    
+
+
+
     protected void btnAlta_Click(object sender, EventArgs e)
     {
         Response.Redirect("AltaTemprana.aspx");

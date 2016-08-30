@@ -15,6 +15,9 @@
                 <br />
                 <br />
                 <asp:Button ID="btnAlta" Text="Alta Temprana" CssClass="btn" runat="server" OnClick="btnAlta_Click" />
+                <br />
+                <br />
+                <asp:Button ID="btnNotificacionClave" Text="Notificación de Clave" CssClass="btn" runat="server" OnClick="btnNotificacion_Click" />
             </td>
         </tr>
     </table>
