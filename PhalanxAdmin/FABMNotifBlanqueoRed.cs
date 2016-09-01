@@ -24,7 +24,7 @@ namespace PhalanxAdmin
         WinDomainBusiness DominioLoginBL = new WinDomainBusiness();
         AplicacionNotificacionClaveBusiness AplicacionBL = new AplicacionNotificacionClaveBusiness();
         TicketNotificacionBlanqueoBusiness TicketBL = new TicketNotificacionBlanqueoBusiness();
-        
+
         bool _readOnly = false;
         Random RandomWord = null;
         Random RandomNumber = null;
@@ -269,6 +269,10 @@ namespace PhalanxAdmin
 
                 if (Id > 0)
                 {
+                    string debug = string.Empty;
+
+                    TicketBL.EnviarEmail(_entity, out debug);
+
                     _entity.Id = Id;
                     MessageBox.Show("La Notificación de Blanqueo de Red se generó correctamente", "Notificación de Blanqueo Red", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -310,7 +314,7 @@ namespace PhalanxAdmin
             {
                 MessageBox.Show("Error al consultar las palabras aleatorias", "Notificación de Blanqueo Red", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
+
             int index = 0;
 
             if (RandomWord == null)
