@@ -314,7 +314,7 @@ namespace PhalanxAdmin
             {
                 MessageBox.Show("Error al consultar las palabras aleatorias", "Notificación de Blanqueo Red", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
+            
             int index = 0;
 
             if (RandomWord == null)
