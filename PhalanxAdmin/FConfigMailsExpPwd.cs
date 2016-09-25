@@ -67,6 +67,7 @@ namespace PhalanxAdmin
                 || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyDevMails)
                 || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyAltaUsuarioRedExternoMail)
                 || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyNotificacionBlanqueoMail)
+                || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyReclamoNotificacionBlanqueoMail)
                 )
             {
                 txtValor.Multiline = true;
@@ -264,6 +265,26 @@ namespace PhalanxAdmin
                 btnTagDestino.Enabled = false;
                 btnTagNombreSolicitante.Enabled = true;
             }
+            else if (ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.SubjectReclamoNotificacionBlanqueoMail)
+                || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyReclamoNotificacionBlanqueoMail))
+            {
+                grpTags.Visible = true;
+                btnTagFechaExp.Enabled = false;
+                btnTagFechaSolic.Enabled = true;
+                btnTagNomSolic.Enabled = false;
+                btnTagPwdSolic.Enabled = false;
+                btnTagNroTicket.Enabled = false;
+                btnTagDescUso.Enabled = false;
+                btnTagTiempoUso.Enabled = false;
+                btnTagEstadoSolic.Enabled = false;
+                btnTagNombreUsuario.Enabled = true;
+                btnTagFechaAlta.Enabled = false;
+                btnTagAplicativo.Enabled = true;
+                btnTagFechaDev.Enabled = false;
+                btnTagToken.Enabled = false;
+                btnTagDestino.Enabled = false;
+                btnTagNombreSolicitante.Enabled = false;
+            }
             else if (ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyAltaUsuarioRedExternoMail))
             {
                 grpTags.Visible = true;
@@ -310,6 +331,7 @@ namespace PhalanxAdmin
                 || ConfEnt.Code == new PhxConfigBusiness().ParamCodeToString(ConfigCodes.BodyDevMails)
                 || ConfEnt.Code == new PhxConfigBusiness().ParamCodeToString(ConfigCodes.BodyAltaUsuarioRedExternoMail)
                 || ConfEnt.Code == new PhxConfigBusiness().ParamCodeToString(ConfigCodes.BodyNotificacionBlanqueoMail)
+                || ConfEnt.Code == new PhxConfigBusiness().ParamCodeToString(ConfigCodes.BodyReclamoNotificacionBlanqueoMail)
                 )
             {
                 ((PhxConfigEntity)cbParams.SelectedItem).LongTxtValue = txtValor.Text;

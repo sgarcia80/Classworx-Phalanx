@@ -139,6 +139,15 @@ namespace NDCBL
             return Factory.GetById(id);
         }
 
+        public TicketNotificacionBlanqueoEntityCollection GetReporteNotificacionClaves(AplicacionNotificacionClaveEntity aplicacion, DateTime? fechaDesde, DateTime? fechaHasta)
+        {
+            TicketNotificacionBlanqueoFactory factory = new TicketNotificacionBlanqueoFactory();
+
+            TicketNotificacionBlanqueoEntityCollection tmpCollection = factory.GetReporteNotificacionClaves(aplicacion, fechaDesde, fechaHasta);
+
+            return tmpCollection;
+        }
+
         //public TicketNotificacionBlanqueoEntity GetByToken(string token)
         //{
         //    return Factory.GetByToken(token);
@@ -442,6 +451,58 @@ namespace NDCBL
             notificacion.MailId = MailToSendBL.NotificacionBlanqueoMail(notificacion.Usuario, mailTo, notificacion.Id, notificacion.Aplicacion.Nombre, solicitante, notificacion.Fecha);
 
             debug += " | Graba ticket BPM";
+
+            Save(notificacion);
+
+            return true;
+        }
+
+        public int ReenviarEmailReclamo(TicketNotificacionBlanqueoEntityCollection collection)
+        {
+            string debug = string.Empty;
+            int sent = 0;
+
+            foreach (TicketNotificacionBlanqueoEntity ticket in collection)
+            {
+                try
+                {
+                    bool envio = this.ReenviarEmailReclamo(ticket, out debug);
+
+                    sent++;
+                }
+                catch (Exception)
+                {
+                }
+            }
+
+            return sent;
+        }
+
+        public bool ReenviarEmailReclamo(TicketNotificacionBlanqueoEntity notificacion, out string debug)
+        {
+            debug = "";
+
+            string mailTo = string.Empty;
+
+            debug += " Busca el Mail del usuario en AD por usuario de red";
+
+            mailTo = PhalanxNAL.ActiveDirectoryHelper.BuscarEmailPorLegajoUsername(notificacion.Usuario);
+
+            if (string.IsNullOrEmpty(mailTo))
+            {
+                debug += " | No se encontró el Mail del usuario [" + notificacion.Usuario + "] en AD";
+                return false;
+            }
+
+            MailAlertBusiness MailToSendBL = new MailAlertBusiness();
+
+            debug += " | Envia mail";
+
+            notificacion.MailId = MailToSendBL.ReclamoNotificacionBlanqueoMail(notificacion.Usuario, mailTo, notificacion.Id, notificacion.Aplicacion.Nombre, notificacion.Fecha);
+
+            debug += " | Graba ticket BPM";
+
+            notificacion.Reclamos++;
 
             Save(notificacion);
 

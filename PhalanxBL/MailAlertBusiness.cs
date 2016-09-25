@@ -677,6 +677,37 @@ namespace PhalanxBL
             return null;
         }
 
+        public int? ReclamoNotificacionBlanqueoMail(string usuario, string mail, int numeroSolicitud, string aplicativo, DateTime fecha)
+        {
+            try
+            {
+                MailAlertEntity MailToSend = new MailAlertEntity();
+                MailToSend.MailType = new MailTypeFactory().GetMailType(MailTypeFactory.MailType.NotificacionBlanqueo);
+
+                PhxConfigBusiness PhxConfBL = new PhxConfigBusiness();
+
+                MailToSend.ToAddress = mail;
+
+                MailToSend.Body = ReplaceReclamoNotificacionBlanqueoMailTokens(PhxConfBL.GetConfigParam(ConfigCodes.BodyReclamoNotificacionBlanqueoMail).LongTxtValue, usuario, aplicativo, fecha);
+                MailToSend.Subject = ReplaceReclamoNotificacionBlanqueoMailTokens(PhxConfBL.GetConfigParam(ConfigCodes.SubjectReclamoNotificacionBlanqueoMail).ShortTxtValue, usuario, aplicativo, fecha);
+
+                MailAlertFactory MAF = new MailAlertFactory();
+
+                int IdMailAlert = MAF.Save(MailToSend);
+
+                if (IdMailAlert > 0)
+                    SendMail(MailToSend);
+
+                return IdMailAlert;
+            }
+            catch (Exception ex)
+            {
+                // no se pudo crear el mail;
+            }
+
+            return null;
+        }
+
         private string ReplaceExpirationRqstTokens(string MailBody, PasswordRequestEntity PwdRqst)
         {
             /*
@@ -1145,6 +1176,13 @@ namespace PhalanxBL
         private string ReplaceNotificacionBlanqueoMailTokens(string text, string solicitante, string aplicacion)
         {
             return text.Replace("[NombreSolicitante]", solicitante)
+                            .Replace("[Aplicativo]", aplicacion);
+        }
+
+        private string ReplaceReclamoNotificacionBlanqueoMailTokens(string text, string usuario, string aplicacion, DateTime fecha)
+        {
+            return text.Replace("[FechaSolic]", fecha.ToString("dd/MM/yyyy"))
+                            .Replace("[NombreUsuario]", usuario)
                             .Replace("[Aplicativo]", aplicacion);
         }
 

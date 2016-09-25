@@ -143,6 +143,12 @@ namespace PhalanxBL
                 case ConfigCodes.BodyNotificacionBlanqueoMail:
                     strParamCode = "@BODY_NOTIF_BLANQUEO_MAIL@";
                     break;
+                case ConfigCodes.SubjectReclamoNotificacionBlanqueoMail:
+                    strParamCode = "@SUBJECT_RECL_NOTIF_CLAVE@";
+                    break;
+                case ConfigCodes.BodyReclamoNotificacionBlanqueoMail:
+                    strParamCode = "@BODY_RECL_NOTIF_CLAVE@";
+                    break;
                 default:
                     break;
             }
@@ -232,6 +238,9 @@ namespace PhalanxBL
 
             ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectNotificacionBlanqueoMail));
             ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyNotificacionBlanqueoMail));
+
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectReclamoNotificacionBlanqueoMail));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyReclamoNotificacionBlanqueoMail));
 
             return ConfEC;
 
