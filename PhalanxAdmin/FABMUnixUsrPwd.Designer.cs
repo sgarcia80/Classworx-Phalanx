@@ -73,6 +73,7 @@ namespace PhalanxAdmin
             this.panel3 = new System.Windows.Forms.Panel();
             this.label9 = new System.Windows.Forms.Label();
             this.lvGruposSolicitudesAsociados = new System.Windows.Forms.ListView();
+            this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.pnlGruposSolicitudes = new System.Windows.Forms.Panel();
             this.label10 = new System.Windows.Forms.Label();
             this.btnDelGrupoSolicitud = new System.Windows.Forms.Button();
@@ -98,7 +99,7 @@ namespace PhalanxAdmin
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.lnkCancelar = new System.Windows.Forms.ToolStripStatusLabel();
             this.lvLista = new System.Windows.Forms.ListView();
-            this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pnlFilters = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtFHasta = new System.Windows.Forms.MaskedTextBox();
@@ -115,9 +116,9 @@ namespace PhalanxAdmin
             this.lblStatusSolicitudes = new System.Windows.Forms.ToolStripStatusLabel();
             this.lnkCancelarSolicitudes = new System.Windows.Forms.ToolStripStatusLabel();
             this.lvListaSolicitudes = new System.Windows.Forms.ListView();
-            this.columnHeader7 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader9 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader10 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pnlFiltersSolicitudes = new System.Windows.Forms.Panel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cbGrupoTareas = new System.Windows.Forms.ComboBox();
@@ -128,15 +129,14 @@ namespace PhalanxAdmin
             this.label15 = new System.Windows.Forms.Label();
             this.btnBuscarSolicitudes = new System.Windows.Forms.Button();
             this.btnLimpiarSolicitudes = new System.Windows.Forms.Button();
-            this.imageList = new System.Windows.Forms.ImageList(this.components);
-            columnHeader13 = new System.Windows.Forms.ColumnHeader();
-            columnHeader18 = new System.Windows.Forms.ColumnHeader();
-            columnHeader8 = new System.Windows.Forms.ColumnHeader();
-            columnHeader5 = new System.Windows.Forms.ColumnHeader();
-            columnHeader2 = new System.Windows.Forms.ColumnHeader();
-            columnHeader4 = new System.Windows.Forms.ColumnHeader();
-            columnHeader1 = new System.Windows.Forms.ColumnHeader();
-            columnHeader3 = new System.Windows.Forms.ColumnHeader();
+            columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader18 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             this.lps.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -299,6 +299,7 @@ namespace PhalanxAdmin
             // checkBoxVisualizar
             // 
             this.checkBoxVisualizar.AutoSize = true;
+            this.checkBoxVisualizar.Enabled = false;
             this.checkBoxVisualizar.Location = new System.Drawing.Point(86, 107);
             this.checkBoxVisualizar.Name = "checkBoxVisualizar";
             this.checkBoxVisualizar.Size = new System.Drawing.Size(127, 17);
@@ -527,7 +528,7 @@ namespace PhalanxAdmin
             this.lblModifying.Size = new System.Drawing.Size(323, 28);
             this.lblModifying.TabIndex = 3;
             this.lblModifying.Text = "Esta contraseña está siendo modificada por el Usuario Leandro Simonetti desde el " +
-                "2 2 2";
+    "2 2 2";
             this.lblModifying.Visible = false;
             // 
             // tabControl1
@@ -603,8 +604,8 @@ namespace PhalanxAdmin
             // 
             // lvGruposSolicitudesAsociados
             // 
-            this.lvGruposSolicitudesAsociados.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvGruposSolicitudesAsociados.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvGruposSolicitudesAsociados.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             columnHeader13});
             this.lvGruposSolicitudesAsociados.FullRowSelect = true;
@@ -616,6 +617,13 @@ namespace PhalanxAdmin
             this.lvGruposSolicitudesAsociados.TabIndex = 1;
             this.lvGruposSolicitudesAsociados.UseCompatibleStateImageBehavior = false;
             this.lvGruposSolicitudesAsociados.View = System.Windows.Forms.View.Details;
+            // 
+            // imageList
+            // 
+            this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
+            this.imageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList.Images.SetKeyName(0, "Active.jpg");
+            this.imageList.Images.SetKeyName(1, "Desactivo.jpg");
             // 
             // pnlGruposSolicitudes
             // 
@@ -694,9 +702,9 @@ namespace PhalanxAdmin
             // 
             // lvGruposSolicitudesNoAsociados
             // 
-            this.lvGruposSolicitudesNoAsociados.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvGruposSolicitudesNoAsociados.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvGruposSolicitudesNoAsociados.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             columnHeader18});
             this.lvGruposSolicitudesNoAsociados.FullRowSelect = true;
@@ -741,8 +749,8 @@ namespace PhalanxAdmin
             // 
             // lvGruposSeguimientoAsociados
             // 
-            this.lvGruposSeguimientoAsociados.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvGruposSeguimientoAsociados.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvGruposSeguimientoAsociados.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             columnHeader8});
             this.lvGruposSeguimientoAsociados.FullRowSelect = true;
@@ -833,9 +841,9 @@ namespace PhalanxAdmin
             // 
             // lvGruposSeguimientoNoAsociados
             // 
-            this.lvGruposSeguimientoNoAsociados.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvGruposSeguimientoNoAsociados.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvGruposSeguimientoNoAsociados.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             columnHeader5});
             this.lvGruposSeguimientoNoAsociados.FullRowSelect = true;
@@ -907,9 +915,9 @@ namespace PhalanxAdmin
             // lvLista
             // 
             this.lvLista.AllowColumnReorder = true;
-            this.lvLista.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvLista.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvLista.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             columnHeader2,
             columnHeader4,
@@ -925,6 +933,7 @@ namespace PhalanxAdmin
             this.lvLista.UseCompatibleStateImageBehavior = false;
             this.lvLista.View = System.Windows.Forms.View.Details;
             this.lvLista.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvLista_ColumnClick);
+            this.lvLista.DoubleClick += new System.EventHandler(this.lvLista_DoubleClick);
             // 
             // columnHeader6
             // 
@@ -1084,9 +1093,9 @@ namespace PhalanxAdmin
             // lvListaSolicitudes
             // 
             this.lvListaSolicitudes.AllowColumnReorder = true;
-            this.lvListaSolicitudes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvListaSolicitudes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvListaSolicitudes.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             columnHeader1,
             columnHeader3,
@@ -1223,13 +1232,6 @@ namespace PhalanxAdmin
             this.btnLimpiarSolicitudes.Text = "&Limpiar";
             this.btnLimpiarSolicitudes.UseVisualStyleBackColor = false;
             this.btnLimpiarSolicitudes.Click += new System.EventHandler(this.btnLimpiarSolicitudes_Click);
-            // 
-            // imageList
-            // 
-            this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
-            this.imageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList.Images.SetKeyName(0, "Active.jpg");
-            this.imageList.Images.SetKeyName(1, "Desactivo.jpg");
             // 
             // FABMUnixUsrPwd
             // 

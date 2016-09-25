@@ -28,6 +28,7 @@ namespace PhalanxAdmin
         }
 
         private FormType m_FormType = FormType.View;
+        private const string cAsterisk = "**********";
 
 
         public FABMDBPwd(FormType formType)
@@ -104,6 +105,7 @@ namespace PhalanxAdmin
                         CargarGruposSeguimiento();
                         tabControl1.TabPages.Remove(tabControl1.TabPages[4]);
                         tabControl1.TabPages.Remove(tabControl1.TabPages[3]);
+                        this.chkVisualizar.Enabled = true;
                         break;
                     }
                 case FormType.Update:
@@ -147,6 +149,14 @@ namespace PhalanxAdmin
         private void FABMDBPwd_Load(object sender, EventArgs e)
         {
             base.Title = "Contraseña de Base de Datos";
+
+            if (_entity.Id > 0)
+                base.Info = _entity.Db.Type.Name + " / " +
+                            _entity.Db.Name + " / " +
+                            _entity.Username;
+            else
+                base.Info = "";
+
             // si es visualización
             if (_readOnly)
             {
@@ -855,7 +865,8 @@ namespace PhalanxAdmin
 
                 lviArr[i].Text = HistChgPwdEnt.DChange.ToString("dd/MM/yyyy HH:m:ss");
                 lviArr[i].SubItems.Add(HistChgPwdEnt.PhxUser.Fullname);
-                lviArr[i].SubItems.Add(HistChgPwdEnt.PlainPassword);
+                lviArr[i].SubItems.Add(cAsterisk);
+                //lviArr[i].SubItems.Add(HistChgPwdEnt.PlainPassword);
                 lviArr[i].Tag = HistChgPwdEnt;
 
 
@@ -1158,6 +1169,38 @@ namespace PhalanxAdmin
             }
             ((ListView)sender).Sort();
 
+        }
+
+        private void lvLista_DoubleClick(object sender, EventArgs e)
+        {
+            if (((ListView)sender).SelectedItems.Count == 1)
+            {
+
+                if (((ListView)sender).SelectedItems[0].SubItems[2].Text != cAsterisk)
+                    return;
+
+                if (MessageBox.Show("Si visualiza la contraseña, se grabará un registro de log con este evento. Desea continuar?",
+                    "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    HistPasswordChangeAccessBusiness accessBL = new HistPasswordChangeAccessBusiness();
+                    HistPasswordChangeAccessEntity accessE = new HistPasswordChangeAccessEntity();
+
+                    accessE.HistChgPwd = new HistPasswordChangeEntity();
+                    accessE.HistChgPwd.Id = ((vwHistPwdChgEntity)((ListView)sender).SelectedItems[0].Tag).Id;
+                    accessE.PhxUser = new PhxUserEntity();
+                    accessE.AccessDate = DateTime.Now;
+
+                    int Id = accessBL.Save(accessE);
+                    if (Id > 0)
+                        ((ListView)sender).SelectedItems[0].SubItems[2].Text =
+                            ((vwHistPwdChgEntity)((ListView)sender).SelectedItems[0].Tag).PlainPassword;
+                    else
+                        MessageBox.Show("Hubo un error al grabar log de visualización de contraseñas", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
+
+
+            }
         }
 
     }
