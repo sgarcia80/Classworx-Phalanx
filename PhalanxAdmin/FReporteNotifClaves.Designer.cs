@@ -35,6 +35,7 @@ namespace PhalanxAdmin
             this.pnlFilters = new System.Windows.Forms.Panel();
             this.btnExportar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnReenviar = new System.Windows.Forms.Button();
             this.dtpFechaHasta = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.dtpFechaDesde = new System.Windows.Forms.DateTimePicker();
@@ -53,7 +54,6 @@ namespace PhalanxAdmin
             this.colReintentos = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.bwRefreshEntities = new System.ComponentModel.BackgroundWorker();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.btnReenviar = new System.Windows.Forms.Button();
             colTipoNotif = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             colNroTicket = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             colAplicacion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -87,6 +87,7 @@ namespace PhalanxAdmin
             // 
             // colNroTicket
             // 
+            colNroTicket.Tag = "Numeric";
             colNroTicket.Text = "Nro Ticket";
             colNroTicket.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             colNroTicket.Width = 90;
@@ -140,6 +141,17 @@ namespace PhalanxAdmin
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de búsqueda";
+            // 
+            // btnReenviar
+            // 
+            this.btnReenviar.BackColor = System.Drawing.SystemColors.Control;
+            this.btnReenviar.Location = new System.Drawing.Point(449, 76);
+            this.btnReenviar.Name = "btnReenviar";
+            this.btnReenviar.Size = new System.Drawing.Size(76, 21);
+            this.btnReenviar.TabIndex = 22;
+            this.btnReenviar.Text = "Reenviar";
+            this.btnReenviar.UseVisualStyleBackColor = false;
+            this.btnReenviar.Click += new System.EventHandler(this.btnReenviar_Click);
             // 
             // dtpFechaHasta
             // 
@@ -290,11 +302,13 @@ namespace PhalanxAdmin
             // 
             // colFecha
             // 
+            this.colFecha.Tag = "ddMMyyyyHHmm";
             this.colFecha.Text = "Fecha";
             this.colFecha.Width = 100;
             // 
             // colReintentos
             // 
+            this.colReintentos.Tag = "Numeric";
             this.colReintentos.Text = "Reintentos";
             this.colReintentos.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.colReintentos.Width = 80;
@@ -304,17 +318,6 @@ namespace PhalanxAdmin
             this.bwRefreshEntities.WorkerSupportsCancellation = true;
             this.bwRefreshEntities.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwRefreshEntities_DoWork);
             this.bwRefreshEntities.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwRefreshEntities_RunWorkerCompleted);
-            // 
-            // btnReenviar
-            // 
-            this.btnReenviar.BackColor = System.Drawing.SystemColors.Control;
-            this.btnReenviar.Location = new System.Drawing.Point(449, 76);
-            this.btnReenviar.Name = "btnReenviar";
-            this.btnReenviar.Size = new System.Drawing.Size(76, 21);
-            this.btnReenviar.TabIndex = 22;
-            this.btnReenviar.Text = "Reenviar";
-            this.btnReenviar.UseVisualStyleBackColor = false;
-            this.btnReenviar.Click += new System.EventHandler(this.btnReenviar_Click);
             // 
             // FReporteNotifClaves
             // 
