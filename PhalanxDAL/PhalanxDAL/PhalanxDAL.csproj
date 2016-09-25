@@ -193,6 +193,7 @@
     <Compile Include="DBMgr.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Factories\HistPasswordChangeAccessFactory.cs" />
     <Compile Include="Factories\PhxLogUsuarioInactivadoFactory.cs" />
     <Compile Include="Factories\VwPwdRqstGrpFactory.cs" />
     <Compile Include="Factories\DelegationRequestsFactory.cs" />
@@ -365,7 +366,9 @@
     <EmbeddedResource Include="MappingFiles\HistChangePassword.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MappingFiles\VwHistPwdChg.hbm.xml" />
+    <EmbeddedResource Include="MappingFiles\VwHistPwdChg.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MappingFiles\PhxConfig.hbm.xml" />
@@ -489,6 +492,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MappingFiles\PhxLogUsuariosInactivados.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\HistChangePasswordAccess.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

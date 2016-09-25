@@ -173,6 +173,7 @@ namespace PhalanxDAL
                         config.AddResource("PhalanxDAL.MappingFiles.DataBases.hbm.xml", nhAssembly);
                         config.AddResource("PhalanxDAL.MappingFiles.Unix.hbm.xml", nhAssembly);
                         config.AddResource("PhalanxDAL.MappingFiles.AS400.hbm.xml", nhAssembly);
+                        config.AddResource("PhalanxDAL.MappingFiles.HistChangePasswordAccess.hbm.xml", nhAssembly);
                         config.AddResource("PhalanxDAL.MappingFiles.HistChangePassword.hbm.xml", nhAssembly);
                         //config.AddResource("PhalanxDAL.MappingFiles.PhxLog.hbm.xml", nhAssembly);
                         config.AddResource("PhalanxDAL.MappingFiles.DemoConf.hbm.xml", nhAssembly);

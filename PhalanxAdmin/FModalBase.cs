@@ -16,11 +16,18 @@ namespace PhalanxAdmin
         public FModalBase()
         {
             InitializeComponent();
+            lInfo.Text = "";
         }
 
         public string Title
         {
             set { lTitle.Text = value; }
+            
+        }
+
+        public string Info
+        {
+            set { lInfo.Text = value; }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
