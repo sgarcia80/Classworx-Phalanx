@@ -43,6 +43,7 @@ namespace PhalanxAdmin
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.lnkPwdRqstGrp = new System.Windows.Forms.LinkLabel();
+            this.lnkNotifClaves = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
             this.pnlXPGrps.SuspendLayout();
             this.pnlIzq.SuspendLayout();
@@ -60,6 +61,7 @@ namespace PhalanxAdmin
             // xppnlMenu
             // 
             this.xppnlMenu.Caption = "Reportes";
+            this.xppnlMenu.Controls.Add(this.lnkNotifClaves);
             this.xppnlMenu.Controls.Add(this.lnkPwdRqstGrp);
             this.xppnlMenu.Controls.Add(this.linkLabel2);
             this.xppnlMenu.Controls.Add(this.linkLabel1);
@@ -76,7 +78,7 @@ namespace PhalanxAdmin
             this.xppnlMenu.Controls.Add(this.lnkInventario);
             this.xppnlMenu.Controls.Add(this.lnkABMUsr);
             this.xppnlMenu.ImageItems.ImageSet = null;
-            this.xppnlMenu.Size = new System.Drawing.Size(184, 485);
+            this.xppnlMenu.Size = new System.Drawing.Size(184, 502);
             // 
             // lnkAltaTempRecExt
             // 
@@ -296,6 +298,20 @@ namespace PhalanxAdmin
             this.lnkPwdRqstGrp.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
             this.lnkPwdRqstGrp.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkPwdRqstGrp_LinkClicked);
             // 
+            // lnkNotifClaves
+            // 
+            this.lnkNotifClaves.ActiveLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkNotifClaves.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.lnkNotifClaves.LinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkNotifClaves.Location = new System.Drawing.Point(18, 469);
+            this.lnkNotifClaves.Name = "lnkNotifClaves";
+            this.lnkNotifClaves.Size = new System.Drawing.Size(161, 20);
+            this.lnkNotifClaves.TabIndex = 45;
+            this.lnkNotifClaves.TabStop = true;
+            this.lnkNotifClaves.Text = "Notificación de Claves";
+            this.lnkNotifClaves.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkNotifClaves.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkNotifClaves_LinkClicked);
+            // 
             // FBaseReportes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -328,6 +344,7 @@ namespace PhalanxAdmin
 		private System.Windows.Forms.LinkLabel linkLabel1;
 		private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.LinkLabel lnkPwdRqstGrp;
+        private System.Windows.Forms.LinkLabel lnkNotifClaves;
 
 
     }
