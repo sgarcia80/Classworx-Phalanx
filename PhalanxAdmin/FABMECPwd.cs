@@ -223,7 +223,7 @@ namespace PhalanxAdmin
 
             if (_entity.Id > 0)
                 base.Info = _entity.CommunicationDeviceType + " / " +
-                            _entity.CommunicationDevice.IP + " / " +
+                            _entity.CommunicationDevice.Name + " / " +
                             _entity.Username;
             else
                 base.Info = "";
