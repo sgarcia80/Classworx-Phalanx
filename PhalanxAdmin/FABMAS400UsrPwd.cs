@@ -164,6 +164,7 @@ namespace PhalanxAdmin
                         chkChgPwd.Checked = false;
                         chkChgPwd.Enabled = true;
                         chkChgPwd_CheckedChanged(null, null);
+                        this.checkBoxVisualizar.Enabled = true;
                         // Si el equipo no está habilitado no se puede habilitar
                         if (m_CurrentUser.AS400.Active == false)
                         {

@@ -111,6 +111,7 @@ namespace PhalanxAdmin
                 case FormType.Update:
                     {
                         this.Title = "Modificación de Usuario y Contraseña";
+                        this.chkVisualizar.Enabled = true;
                         CargarGruposSolicitudes();
                         CargarGruposSeguimiento();
                         ExecEntitiesRefresh();
