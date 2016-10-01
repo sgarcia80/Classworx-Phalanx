@@ -131,6 +131,7 @@
     <Compile Include="Collections\CommunicationDeviceTypeEntityCollection.cs" />
     <Compile Include="Collections\CommunicationDeviceUserEntityCollection.cs" />
     <Compile Include="Collections\ATMUserEntityCollection.cs" />
+    <Compile Include="Collections\MailAlertCCEntityCollection.cs" />
     <Compile Include="Collections\SolicitudPwdEntityCollection.cs" />
     <Compile Include="Collections\vwPwdRqstGrpEntityCollection.cs" />
     <Compile Include="Collections\vwCantRqstGrpPwdEntityCollection.cs" />
@@ -198,6 +199,7 @@
     <Compile Include="Entities\CommunicationDeviceUserEntity.cs" />
     <Compile Include="Entities\ATMUserEntity.cs" />
     <Compile Include="Entities\HistPasswordChangeAccessEntity.cs" />
+    <Compile Include="Entities\MailAlertCCEntity.cs" />
     <Compile Include="Entities\PhxLogUsuarioInactivado.cs" />
     <Compile Include="Entities\SolicitudPwdEntity.cs" />
     <Compile Include="Entities\VwPwdRqstGrpEntity.cs" />

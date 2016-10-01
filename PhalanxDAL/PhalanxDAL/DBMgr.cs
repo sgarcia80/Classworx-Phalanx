@@ -133,6 +133,7 @@ namespace PhalanxDAL
                 config.AddResource("PhalanxDAL.MappingFiles.EventoLogin.hbm.xml", nhAssembly);
                 config.AddResource("PhalanxDAL.MappingFiles.AuditLogin.hbm.xml", nhAssembly);
                 config.AddResource("PhalanxDAL.MappingFiles.MailAlert.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.MailAlertCC.hbm.xml", nhAssembly);
                 config.AddResource("PhalanxDAL.MappingFiles.MailType.hbm.xml", nhAssembly);
                 config.AddResource("PhalanxDAL.MappingFiles.PhxConfig.hbm.xml", nhAssembly);
                 config.AddResource("PhalanxDAL.MappingFiles.VwDate.hbm.xml", nhAssembly);

@@ -194,6 +194,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Factories\HistPasswordChangeAccessFactory.cs" />
+    <Compile Include="Factories\MailAlertCCFactory.cs" />
     <Compile Include="Factories\PhxLogUsuarioInactivadoFactory.cs" />
     <Compile Include="Factories\VwPwdRqstGrpFactory.cs" />
     <Compile Include="Factories\DelegationRequestsFactory.cs" />
@@ -497,6 +498,9 @@
     <EmbeddedResource Include="MappingFiles\HistChangePasswordAccess.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MappingFiles\MailAlertCC.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

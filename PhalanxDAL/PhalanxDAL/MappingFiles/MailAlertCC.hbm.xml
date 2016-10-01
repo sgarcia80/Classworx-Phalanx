@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.MailAlertCCEntity, PhalanxCommon" table="mail_alert_cc">
+
+		<id name="Id" column="mail_alert_cc_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+    <many-to-one column="mail_alert_id" class="PhalanxCommon.Entities.MailAlertEntity,PhalanxCommon" name="MailAlert" />
+    <property column="mail_cc_name" type="String" name="CcName" length="100" />
+    <property column="mail_cc_address" type="String" name="CcAddress" length="150" />
+	</class>
+</hibernate-mapping>
