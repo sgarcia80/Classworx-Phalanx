@@ -500,7 +500,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="MappingFiles\MailAlertCC.hbm.xml" />
+    <EmbeddedResource Include="MappingFiles\MailAlertCC.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

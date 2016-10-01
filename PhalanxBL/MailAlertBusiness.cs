@@ -92,7 +92,7 @@ namespace PhalanxBL
                     //MailToSend.Cc1Address = RqstUserMail;
                     //Agrego CC
                     //Agrego CC
-                    MailToSend.MailAlertCCList.Add(maccBL.CreateCC(RqstUserName, RqstUserMail));
+                    MailToSend.MailAlertCCList.Add(maccBL.CreateCC(RqstUserName, RqstUserMail, MailToSend));
 
                     if (AutorizadoresEC.Count == 0)
                     {
@@ -104,7 +104,7 @@ namespace PhalanxBL
                     {
                         //Agrego CC
                         foreach (PhxUserEntity entityUser in AutorizadoresEC)
-                            MailToSend.MailAlertCCList.Add(maccBL.CreateCC(entityUser.Fullname, entityUser.Email));
+                            MailToSend.MailAlertCCList.Add(maccBL.CreateCC(entityUser.Fullname, entityUser.Email, MailToSend));
 
                         //int cant = AutorizadoresEC.Count;
                         //if (cant >= 1)
@@ -173,7 +173,7 @@ namespace PhalanxBL
                     {
                         //Agrego CC
                         foreach (PhxUserEntity entityUser in AutorizadoresEC)
-                            MailToSend.MailAlertCCList.Add(maccBL.CreateCC(entityUser.Fullname, entityUser.Email));
+                            MailToSend.MailAlertCCList.Add(maccBL.CreateCC(entityUser.Fullname, entityUser.Email, MailToSend));
 
                         //int cant = AutorizadoresEC.Count;
                         //if (cant >= 1)
@@ -289,7 +289,7 @@ namespace PhalanxBL
                 {
                     //Agrego CC
                     foreach (PhxUserEntity entityUser in AutorizadoresEC)
-                        MailToSend.MailAlertCCList.Add(maccBL.CreateCC(entityUser.Fullname, entityUser.Email));
+                        MailToSend.MailAlertCCList.Add(maccBL.CreateCC(entityUser.Fullname, entityUser.Email, MailToSend));
 
                     //int cant = AutorizadoresEC.Count;
                     //if (cant >= 1)
@@ -423,7 +423,7 @@ namespace PhalanxBL
                     //MailToSend.Cc1Name = RqstUserName;
                     //MailToSend.Cc1Address = RqstUserMail;
                     //Agrego CC
-                    MailToSend.MailAlertCCList.Add(maccBL.CreateCC(RqstUserName, RqstUserMail));
+                    MailToSend.MailAlertCCList.Add(maccBL.CreateCC(RqstUserName, RqstUserMail, MailToSend));
 
                     if (AutorizadoresEC.Count == 0)
                     {
@@ -435,7 +435,7 @@ namespace PhalanxBL
                     {
                         //Agrego CC
                         foreach (PhxUserEntity entityUser in AutorizadoresEC)
-                            MailToSend.MailAlertCCList.Add(maccBL.CreateCC(entityUser.Fullname, entityUser.Email));
+                            MailToSend.MailAlertCCList.Add(maccBL.CreateCC(entityUser.Fullname, entityUser.Email, MailToSend));
 
                         //int cant = AutorizadoresEC.Count;
                         //if (cant >= 1)
@@ -501,7 +501,7 @@ namespace PhalanxBL
                         //MailToSend.Cc1Name = RqstUserName;
                         //MailToSend.Cc1Address = RqstUserMail;
                         //Agrego CC
-                        MailToSend.MailAlertCCList.Add(maccBL.CreateCC(RqstUserName, RqstUserMail));
+                        MailToSend.MailAlertCCList.Add(maccBL.CreateCC(RqstUserName, RqstUserMail, MailToSend));
                     }
                     else
                     {
@@ -510,7 +510,7 @@ namespace PhalanxBL
 
                         //Agrego CC
                         foreach (PhxUserEntity entityUser in AutorizadoresEC)
-                            MailToSend.MailAlertCCList.Add(maccBL.CreateCC(entityUser.Fullname, entityUser.Email));
+                            MailToSend.MailAlertCCList.Add(maccBL.CreateCC(entityUser.Fullname, entityUser.Email, MailToSend));
 
                         //int cant = AutorizadoresEC.Count;
                         //if (cant >= 1)
@@ -1152,7 +1152,12 @@ namespace PhalanxBL
 
             //Cargo coleccion de CC
             MailAlertCCBusiness mabCC = new MailAlertCCBusiness();
-            CCMailAddresses = mabCC.LoadMailAddressC(CCMailAddresses, MailToSend.MailAlertCCList);
+            var cc = mabCC.LoadMailAddressC(CCMailAddresses, MailToSend.MailAlertCCList);
+
+            foreach (MailAddress item in cc)
+            {
+                
+            }
 
             bool IsSent = sMail.Send(FromName, FromMail, MailToSend.Subject, MailToSend.Body, CCMailAddresses);
             /*

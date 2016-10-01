@@ -7,6 +7,7 @@ using PhalanxDAL.Factories;
 using PhalanxMAL;
 using System.Net.Mail;
 using System.Reflection;
+using System.Collections;
 
 namespace PhalanxBL
 {
@@ -22,7 +23,7 @@ namespace PhalanxBL
             return entityCC;
         }
 
-        public MailAlertCCEntity CreateCC(string ccName, string ccAddress)
+        public MailAlertCCEntity CreateCC(string ccName, string ccAddress, MailAlertEntity mailAlert)
         {
             MailAlertCCEntity entityCC = new MailAlertCCEntity();
 
@@ -32,10 +33,12 @@ namespace PhalanxBL
             if (ccAddress != string.Empty && ccAddress != "")
                 entityCC.CcAddress = ccAddress;
 
+            entityCC.MailAlert = mailAlert;
+
             return entityCC;
         }
 
-        public MailAddressCollection LoadMailAddressC(MailAddressCollection MailAC, MailAlertCCEntityCollection MailCCList)
+        public MailAddressCollection LoadMailAddressC(MailAddressCollection MailAC, IList MailCCList)
         {
             MailAddressCollection MailAC_CC = new MailAddressCollection();
             MailAC_CC = MailAC;

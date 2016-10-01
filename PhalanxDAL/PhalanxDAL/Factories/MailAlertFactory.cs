@@ -65,7 +65,10 @@ namespace PhalanxDAL.Factories
 
                     //recorro CC y las guardo
                     foreach (MailAlertCCEntity MailAlertCC in MailAlert.MailAlertCCList)
+                    {
+                        MailAlertCC.MailAlert = MailAlert;
                         session.Save(MailAlertCC);
+                    }
 
                     tx.Commit();
                     return MailAlert.Id;

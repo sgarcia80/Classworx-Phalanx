@@ -50,7 +50,7 @@ namespace PhalanxCommon.Entities
         private string m_cc12_address;
         private string m_body;
         private int m_send_attemp;
-        private MailAlertCCEntityCollection m_MailAlertCCList; 
+        private IList m_MailAlertCCList; 
 
 		#endregion
 
@@ -566,7 +566,7 @@ namespace PhalanxCommon.Entities
 
 		}
 
-        public MailAlertCCEntityCollection MailAlertCCList
+        public IList MailAlertCCList
         {
             get
             {
