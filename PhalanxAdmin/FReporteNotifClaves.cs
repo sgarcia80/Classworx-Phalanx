@@ -359,10 +359,21 @@ namespace PhalanxAdmin
         private void CargaComboAplicaciones()
         {
             AplicacionNotificacionClaveBusiness business = new AplicacionNotificacionClaveBusiness();
-            business.FilEsAppRed = true;
-            business.FilEsAppCobis = true;
 
-            var aplicaciones = business.GetAll();
+            AplicacionNotificacionClaveEntityCollection aplicaciones = new AplicacionNotificacionClaveEntityCollection();
+
+            AplicacionNotificacionClaveEntity app = null;
+            
+            app = business.GetAppCobis();
+            if (app != null)
+            {
+                aplicaciones.Add(app);
+            }
+            app = business.GetAppRed();
+            if (app != null)
+            {
+                aplicaciones.Add(app);
+            }
 
             aplicaciones.Insert(0, new AplicacionNotificacionClaveEntity { Id = 0, Nombre = "Todas" });
 
