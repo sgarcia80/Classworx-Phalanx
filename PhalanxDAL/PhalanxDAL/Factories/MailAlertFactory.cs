@@ -62,6 +62,11 @@ namespace PhalanxDAL.Factories
                     MailAlert.CreationDate = new GetDateFactory().GetDate().GetDate;
                     tx = session.BeginTransaction();
                     session.Save(MailAlert);
+
+                    //recorro CC y las guardo
+                    foreach (MailAlertCCEntity MailAlertCC in MailAlert.MailAlertCCList)
+                        session.Save(MailAlertCC);
+
                     tx.Commit();
                     return MailAlert.Id;
                     //return true;

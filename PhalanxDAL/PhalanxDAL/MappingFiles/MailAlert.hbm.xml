@@ -37,6 +37,10 @@
 		<property column="mail_cc12_address" type="String" name="Cc12Address" length="150" />
 		<property column="mail_body" type="String" name="Body" not-null="true" length="1000" />
     <property column="mail_send_attemp" type="Int32" name="SendAttemp" />
+    <bag name="MailAlertCCList" inverse="true" lazy="true" >
+      <key column="mail_alert_cc_id" />
+      <one-to-many class="PhalanxCommon.Entities.MailAlertCCEntity,PhalanxCommon" />
+    </bag>
 
-	</class>
+  </class>
 </hibernate-mapping>
