@@ -38,23 +38,25 @@ namespace PhalanxBL
             return entityCC;
         }
 
-        public MailAddressCollection LoadMailAddressC(MailAddressCollection MailAC, IList MailCCList)
+        public MailAddressCollection LoadMailAddressC(IList MailCCList)
         {
             MailAddressCollection MailAC_CC = new MailAddressCollection();
-            MailAC_CC = MailAC;
 
+            MailAddress MailAdd = null;
             foreach (MailAlertCCEntity MailAlertCC in MailCCList)
             {
-                MailAddress MailAdd;
-                if (MailAlertCC.CcName != string.Empty && MailAlertCC.CcName != "")
+                if (!string.IsNullOrEmpty(MailAlertCC.CcAddress))
                 {
-                    MailAdd = new MailAddress(MailAlertCC.CcAddress, MailAlertCC.CcName);
+                    if (MailAlertCC.CcName != string.Empty && MailAlertCC.CcName != "")
+                    {
+                        MailAdd = new MailAddress(MailAlertCC.CcAddress, MailAlertCC.CcName);
+                    }
+                    else
+                    {
+                        MailAdd = new MailAddress(MailAlertCC.CcAddress);
+                    }
+                    MailAC_CC.Add(MailAdd);
                 }
-                else
-                {
-                    MailAdd = new MailAddress(MailAlertCC.CcAddress);
-                }
-                MailAC_CC.Add(MailAdd);
             }
 
             return MailAC_CC;

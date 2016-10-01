@@ -1152,11 +1152,11 @@ namespace PhalanxBL
 
             //Cargo coleccion de CC
             MailAlertCCBusiness mabCC = new MailAlertCCBusiness();
-            var cc = mabCC.LoadMailAddressC(CCMailAddresses, MailToSend.MailAlertCCList);
+            var cc = mabCC.LoadMailAddressC(MailToSend.MailAlertCCList);
 
             foreach (MailAddress item in cc)
             {
-                
+                CCMailAddresses.Add(item);
             }
 
             bool IsSent = sMail.Send(FromName, FromMail, MailToSend.Subject, MailToSend.Body, CCMailAddresses);
