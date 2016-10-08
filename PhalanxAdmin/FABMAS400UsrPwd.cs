@@ -164,7 +164,6 @@ namespace PhalanxAdmin
                         chkChgPwd.Checked = false;
                         chkChgPwd.Enabled = true;
                         chkChgPwd_CheckedChanged(null, null);
-                        this.checkBoxVisualizar.Enabled = true;
                         // Si el equipo no está habilitado no se puede habilitar
                         if (m_CurrentUser.AS400.Active == false)
                         {
@@ -406,12 +405,14 @@ namespace PhalanxAdmin
                 checkBoxRealUser.Enabled = true;
                 tPassword1.Enabled = true;
                 tPassword2.Enabled = true;
+                this.checkBoxVisualizar.Enabled = true;
             }
             else
             {
                 checkBoxRealUser.Enabled = false;
                 tPassword1.Enabled = false;
                 tPassword2.Enabled = false;
+                this.checkBoxVisualizar.Enabled = false;
             }
 
         }
@@ -448,6 +449,46 @@ namespace PhalanxAdmin
         }
         private void checkBoxVisualizar_CheckedChanged(object sender, EventArgs e)
         {
+            if (m_FormType == FormType.Update && checkBoxVisualizar.Tag == null &&
+                   checkBoxVisualizar.Checked)
+            {
+                if (MessageBox.Show("Si visualiza la contraseña, se grabará un registro de log con este evento. Desea continuar?",
+                    "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    checkBoxVisualizar.Tag = "logueado";
+
+                    int id = 0;
+                    if (this._entities != null && this._entities.Count > 0)
+                    {
+                        //Se obtiene el ultimo historial
+                        foreach (vwHistPwdChgEntity entity in this._entities)
+                        {
+                            if (entity.Id > id)
+                                id = entity.Id;
+                        }
+                    }
+
+                    HistPasswordChangeAccessBusiness accessBL = new HistPasswordChangeAccessBusiness();
+                    HistPasswordChangeAccessEntity accessE = new HistPasswordChangeAccessEntity();
+
+                    accessE.HistChgPwd = new HistPasswordChangeEntity();
+                    accessE.HistChgPwd.Id = id;
+                    accessE.PhxUser = new PhxUserEntity();
+                    accessE.AccessDate = DateTime.Now;
+
+                    int Id = accessBL.Save(accessE);
+                    if (Id <= 0)
+                    {
+                        MessageBox.Show("Hubo un error al grabar log de visualización de contraseñas", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    checkBoxVisualizar.Checked = false;
+                    return;
+                }
+            }
+
             if (checkBoxVisualizar.Checked)
             {
                 tPassword1.PasswordChar = new char();

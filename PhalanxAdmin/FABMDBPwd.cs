@@ -39,7 +39,8 @@ namespace PhalanxAdmin
         }
 
 
-        public FABMDBPwd(DatabaseUserEntity DataBase, bool ReadOnly, FormType formType): this(formType)
+        public FABMDBPwd(DatabaseUserEntity DataBase, bool ReadOnly, FormType formType)
+            : this(formType)
         {
             DataBase = DBUsrBL.Refresh(DataBase);
             if (DataBase.ModifyingDate != null)
@@ -61,7 +62,7 @@ namespace PhalanxAdmin
                         {
                             DataBase.ModifyingDate = new PhalanxDAL.Factories.GetDateFactory().GetDate().GetDate;
                             DataBase.ModifyingUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-                            DBUsrBL.Save(DataBase, false,  this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
+                            DBUsrBL.Save(DataBase, false, this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
                         }
                     }
                 }
@@ -73,7 +74,7 @@ namespace PhalanxAdmin
                     {
                         DataBase.ModifyingDate = new PhalanxDAL.Factories.GetDateFactory().GetDate().GetDate;
                         DataBase.ModifyingUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-                        DBUsrBL.Save(DataBase, false,  this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
+                        DBUsrBL.Save(DataBase, false, this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
                     }
                 }
             }
@@ -84,7 +85,7 @@ namespace PhalanxAdmin
                 {
                     DataBase.ModifyingDate = new PhalanxDAL.Factories.GetDateFactory().GetDate().GetDate;
                     DataBase.ModifyingUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-                    DBUsrBL.Save(DataBase, false,  this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
+                    DBUsrBL.Save(DataBase, false, this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
                 }
             }
 
@@ -111,7 +112,6 @@ namespace PhalanxAdmin
                 case FormType.Update:
                     {
                         this.Title = "Modificación de Usuario y Contraseña";
-                        this.chkVisualizar.Enabled = true;
                         CargarGruposSolicitudes();
                         CargarGruposSeguimiento();
                         ExecEntitiesRefresh();
@@ -177,8 +177,8 @@ namespace PhalanxAdmin
             {
                 // es un nuevo registro
                 // si no es visualización cargo los combos
-                 CargaDBTypes();
-               //CargarComboTipos();
+                CargaDBTypes();
+                //CargarComboTipos();
                 chkChgPwd.Checked = true;
                 chkChgPwd.Enabled = false;
 
@@ -200,26 +200,26 @@ namespace PhalanxAdmin
                 chkUsuarioCritico.Checked = _entity.Critical;
                 chkUsuarioCritico.Enabled = !_readOnly;
 
-                    // crea textbox a partir de los combos
-                    TextBox txtDBType = new TextBox();
-                    txtDBType.Text = _entity.Db.Type.Name; // cbDBType.Text;
-                    txtDBType.Location = cbTipoDB.Location;
-                    txtDBType.ReadOnly = true;
-                    txtDBType.Width = cbTipoDB.Width;
-                    txtDBType.Height = cbTipoDB.Height;
-                    this.tpGeneral.Controls.Add(txtDBType);
-                    cbTipoDB.Visible = false;
+                // crea textbox a partir de los combos
+                TextBox txtDBType = new TextBox();
+                txtDBType.Text = _entity.Db.Type.Name; // cbDBType.Text;
+                txtDBType.Location = cbTipoDB.Location;
+                txtDBType.ReadOnly = true;
+                txtDBType.Width = cbTipoDB.Width;
+                txtDBType.Height = cbTipoDB.Height;
+                this.tpGeneral.Controls.Add(txtDBType);
+                cbTipoDB.Visible = false;
 
-                    TextBox txtDBName = new TextBox();
-                    txtDBName.Text = _entity.Db.Name; // cbDBType.Text;
-                    txtDBName.Location = cbDB.Location;
-                    txtDBName.ReadOnly = true;
-                    txtDBName.Width = cbDB.Width;
-                    txtDBName.Height = cbDB.Height;
-                    this.tpGeneral.Controls.Add(txtDBName);
-                    cbDB.Visible = false;
+                TextBox txtDBName = new TextBox();
+                txtDBName.Text = _entity.Db.Name; // cbDBType.Text;
+                txtDBName.Location = cbDB.Location;
+                txtDBName.ReadOnly = true;
+                txtDBName.Width = cbDB.Width;
+                txtDBName.Height = cbDB.Height;
+                this.tpGeneral.Controls.Add(txtDBName);
+                cbDB.Visible = false;
 
-                    lblFolioNro.Text = _entity.Key;
+                lblFolioNro.Text = _entity.Key;
 
                 if (_readOnly)
                 {
@@ -264,18 +264,58 @@ namespace PhalanxAdmin
             //cbDB.DataSource = null;
             //cbDB.Items.Clear();
             DataBaseBusiness blDB = new DataBaseBusiness();
-            blDB.FilTipoDB = (DatabaseTypeEntity) cbTipoDB.SelectedItem;
+            blDB.FilTipoDB = (DatabaseTypeEntity)cbTipoDB.SelectedItem;
             cbDB.DataSource = blDB.GetAll();
             cbDB.ValueMember = "Key";
             cbDB.DisplayMember = "Name";
 
 
             //cbDB.DataSource = ((DatabaseTypeEntity)cbTipoDB.SelectedItem).DataBasesList;
-            
+
         }
 
         private void chkVisualizar_CheckedChanged(object sender, EventArgs e)
         {
+            if (m_FormType == FormType.Update && chkVisualizar.Tag == null &&
+                 chkVisualizar.Checked)
+            {
+                if (MessageBox.Show("Si visualiza la contraseña, se grabará un registro de log con este evento. Desea continuar?",
+                        "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    chkVisualizar.Tag = "logueado";
+
+                    int id = 0;
+                    if (this._entities != null && this._entities.Count > 0)
+                    {
+                        //Se obtiene el ultimo historial
+                        foreach (vwHistPwdChgEntity entity in this._entities)
+                        {
+                            if (entity.Id > id)
+                                id = entity.Id;
+                        }
+                    }
+
+                    HistPasswordChangeAccessBusiness accessBL = new HistPasswordChangeAccessBusiness();
+                    HistPasswordChangeAccessEntity accessE = new HistPasswordChangeAccessEntity();
+
+                    accessE.HistChgPwd = new HistPasswordChangeEntity();
+                    accessE.HistChgPwd.Id = id;
+                    accessE.PhxUser = new PhxUserEntity();
+                    accessE.AccessDate = DateTime.Now;
+
+                    int Id = accessBL.Save(accessE);
+                    if (Id <= 0)
+                    {
+                        MessageBox.Show("Hubo un error al grabar log de visualización de contraseñas", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    chkVisualizar.Checked = false;
+                    return;
+                }
+            }
+
             if (chkVisualizar.Checked)
             {
                 tPassword1.PasswordChar = new char();
@@ -410,11 +450,13 @@ namespace PhalanxAdmin
             {
                 tPassword1.Enabled = true;
                 tPassword2.Enabled = true;
+                this.chkVisualizar.Enabled = true;
             }
             else
             {
                 tPassword1.Enabled = false;
                 tPassword2.Enabled = false;
+                this.chkVisualizar.Enabled = false;
             }
 
         }
@@ -428,7 +470,7 @@ namespace PhalanxAdmin
                 {
                     _entity.ModifyingDate = null;
                     _entity.ModifyingUser = null;
-                    DBUsrBL.Save(_entity, false,  this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
+                    DBUsrBL.Save(_entity, false, this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
                 }
             }
 

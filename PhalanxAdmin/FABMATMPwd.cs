@@ -117,7 +117,6 @@ namespace PhalanxAdmin
                 case FormType.Update:
                     {
                         this.Title = "Modificación de Usuario y Contraseña";
-                        this.chkVisualizar.Enabled = true;
                         //CargarGruposSolicitudes();
                         //CargarGruposSeguimiento();
                         ExecEntitiesRefresh();
@@ -276,6 +275,46 @@ namespace PhalanxAdmin
 
         private void chkVisualizar_CheckedChanged(object sender, EventArgs e)
         {
+            if (m_FormType == FormType.Update && chkVisualizar.Tag == null &&
+                     chkVisualizar.Checked)
+            {
+                if (MessageBox.Show("Si visualiza la contraseña, se grabará un registro de log con este evento. Desea continuar?",
+                    "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    chkVisualizar.Tag = "logueado";
+
+                    int id = 0;
+                    if (this._entities != null && this._entities.Count > 0)
+                    {
+                        //Se obtiene el ultimo historial
+                        foreach (vwHistPwdChgEntity entity in this._entities)
+                        {
+                            if (entity.Id > id)
+                                id = entity.Id;
+                        }
+                    }
+
+                    HistPasswordChangeAccessBusiness accessBL = new HistPasswordChangeAccessBusiness();
+                    HistPasswordChangeAccessEntity accessE = new HistPasswordChangeAccessEntity();
+
+                    accessE.HistChgPwd = new HistPasswordChangeEntity();
+                    accessE.HistChgPwd.Id = id;
+                    accessE.PhxUser = new PhxUserEntity();
+                    accessE.AccessDate = DateTime.Now;
+
+                    int Id = accessBL.Save(accessE);
+                    if (Id <= 0)
+                    {
+                        MessageBox.Show("Hubo un error al grabar log de visualización de contraseñas", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    chkVisualizar.Checked = false;
+                    return;
+                }
+            }
+
             if (chkVisualizar.Checked)
             {
                 tPassword1.PasswordChar = new char();
@@ -418,11 +457,13 @@ namespace PhalanxAdmin
             {
                 tPassword1.Enabled = true;
                 tPassword2.Enabled = true;
+                this.chkVisualizar.Enabled = true;
             }
             else
             {
                 tPassword1.Enabled = false;
                 tPassword2.Enabled = false;
+                this.chkVisualizar.Enabled = false;
             }
 
         }
