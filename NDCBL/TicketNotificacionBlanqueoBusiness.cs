@@ -241,7 +241,8 @@ namespace NDCBL
                 }
             }
 
-            if (!string.IsNullOrEmpty(ticket.PasswordUsuarioAplicacion))
+            //Se encripta la clave solo en el Alta.
+            if (!string.IsNullOrEmpty(ticket.PasswordUsuarioAplicacion) && ticket.Id == 0)
             {
                 ticket.PasswordUsuarioAplicacion = this.EncriptarPassword(ticket.PasswordUsuarioAplicacion);
             }
