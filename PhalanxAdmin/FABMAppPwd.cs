@@ -546,7 +546,7 @@ namespace PhalanxAdmin
                     accessE.AccessDate = DateTime.Now;
 
                     int Id = accessBL.Save(accessE);
-                    if (Id > 0)
+                    if (Id <= 0)
                     {
                         MessageBox.Show("Hubo un error al grabar log de visualización de contraseñas", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
