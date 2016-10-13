@@ -305,10 +305,10 @@ namespace PhalanxAdmin
             this.lnkNotifClaves.LinkColor = System.Drawing.Color.MidnightBlue;
             this.lnkNotifClaves.Location = new System.Drawing.Point(18, 469);
             this.lnkNotifClaves.Name = "lnkNotifClaves";
-            this.lnkNotifClaves.Size = new System.Drawing.Size(161, 20);
+            this.lnkNotifClaves.Size = new System.Drawing.Size(161, 30);
             this.lnkNotifClaves.TabIndex = 45;
             this.lnkNotifClaves.TabStop = true;
-            this.lnkNotifClaves.Text = "Notificación de Claves";
+            this.lnkNotifClaves.Text = "Claves Pendientes de Notificación";
             this.lnkNotifClaves.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
             this.lnkNotifClaves.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkNotifClaves_LinkClicked);
             // 
