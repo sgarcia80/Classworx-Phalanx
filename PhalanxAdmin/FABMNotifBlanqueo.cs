@@ -284,7 +284,7 @@ namespace PhalanxAdmin
 
             _entity.Usuario = txtUser.Text.Trim().ToLower();
             _entity.UsuarioAplicacion = txtUsername.Text.Trim().ToLower();
-            _entity.PasswordUsuarioAplicacion = TicketBL.EncriptarPassword(tPassword1.Text);
+            _entity.PasswordUsuarioAplicacion = tPassword1.Text;
             _entity.Solicitante = txtSolicitante.Text.Trim();
 
             _entity.UsuarioCarga = user;
