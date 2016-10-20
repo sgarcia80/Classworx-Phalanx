@@ -89,6 +89,18 @@ namespace NDCCommon.Collections
 
             return randomQAEC;
         }
-    
+
+        public List<QuestionAnswerEntity> ToList()
+        {
+            List<QuestionAnswerEntity> list = new List<QuestionAnswerEntity>();
+
+            foreach (QuestionAnswerEntity item in this)
+            {
+                list.Add(item);
+            }
+            return list;
+        }
+
+
     }
 }

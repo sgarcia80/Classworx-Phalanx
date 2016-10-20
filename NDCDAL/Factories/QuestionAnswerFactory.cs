@@ -73,7 +73,7 @@ namespace NDCDAL.Factories
 
                     foreach (QuestionAnswerEntity entity in collection)
                     {
-                        session.Save(entity);
+                        session.SaveOrUpdate(entity);
                     }
                     tx.Commit();
                 }

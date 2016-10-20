@@ -38,4 +38,8 @@ public partial class ClavesAplicativos : System.Web.UI.Page
         //Session["TipoNotif"] = tipo;
         Response.Redirect("Tickets.aspx");
     }
+    protected void btnPreguntas_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("CargaRespuestasUsr.aspx");
+    }
 }
