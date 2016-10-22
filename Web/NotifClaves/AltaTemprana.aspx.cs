@@ -101,6 +101,7 @@ public partial class AltaTemprana : System.Web.UI.Page
 
         Session["id"] = ticket.Id;
         Session["Usuario"] = ticket.Usuario;
+        Session["externo"] = "S";
 
         Response.Redirect("tycip.aspx");
     }

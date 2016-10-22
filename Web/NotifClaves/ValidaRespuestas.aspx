@@ -27,9 +27,9 @@
     <div style="text-align: center left">
         <table border="0" cellspacing="1" cellpadding="1" style="width: 100%; background-color: White">
             <tr id="TrQuestion1" runat="server">
-                <td style="width: 20px; ">
+                <td style="width:20%;">
                 </td>
-                <td style="width: 400px">
+                <td style="width: ">
                     <asp:Label ID="lblQuestion1" runat="server" CssClass="leyenda"></asp:Label>
                 </td>
             </tr>
@@ -77,16 +77,11 @@
                 </td>
             </tr>
         </table>
-        <table id="tblSolicPwd" runat="server" cellspacing="1" cellpadding="1" border="0"
-            style="width: 100%; height: auto; background-color: #f0f8ff">
-            <tr style="background-color: #b0e0e6; height: 5px">
-                <td align="center" rowspan="1" style="width: 20%" valign="top">
-                </td>
-                <td colspan="2">
-                    <asp:Label ID="lblInfo" runat="server" style="color: Red" CssClass="LabelNormal"></asp:Label> 
-                </td>
-            </tr>
-        </table>
+    <br />
+<div class="mensaje">
+        <asp:Label ID="lblInfo" runat="server" style="color: Red" CssClass="LabelNormal"></asp:Label> 
+    </div>
+    <br />
         <table style="width: 100%; background-color: #f0f8ff;">
             <tr>
                 <td align="center" rowspan="1" style="width: 50%" valign="top">
@@ -102,7 +97,7 @@
                 <td align="left" valign="middle">
                     &nbsp;&nbsp;
                     <asp:Button ID="btnVolver" runat="server" CssClass="btn" Text="Volver"
-                        ToolTip="Volver" CausesValidation="False" PostBackUrl="~/AltaTemprana.aspx">
+                        ToolTip="Volver" CausesValidation="False" PostBackUrl="~/NotificacionClave.aspx">
                     </asp:Button>
                 </td>
             </tr>
