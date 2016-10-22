@@ -34,6 +34,7 @@ namespace PhalanxAdmin
             this.btnCancelar = new System.Windows.Forms.Button();
             this.lTitle = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lInfo = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -43,9 +44,9 @@ namespace PhalanxAdmin
             // 
             this.groupBox1.Controls.Add(this.panel2);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox1.Location = new System.Drawing.Point(0, 237);
+            this.groupBox1.Location = new System.Drawing.Point(0, 213);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(454, 43);
+            this.groupBox1.Size = new System.Drawing.Size(430, 43);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             // 
@@ -54,7 +55,7 @@ namespace PhalanxAdmin
             this.panel2.Controls.Add(this.btnAceptar);
             this.panel2.Controls.Add(this.btnCancelar);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel2.Location = new System.Drawing.Point(270, 16);
+            this.panel2.Location = new System.Drawing.Point(246, 16);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(181, 24);
             this.panel2.TabIndex = 0;
@@ -84,8 +85,8 @@ namespace PhalanxAdmin
             // 
             // lTitle
             // 
-            this.lTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.lTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.lTitle.AutoSize = true;
             this.lTitle.BackColor = System.Drawing.Color.CornflowerBlue;
             this.lTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -96,27 +97,43 @@ namespace PhalanxAdmin
             this.lTitle.Size = new System.Drawing.Size(35, 15);
             this.lTitle.TabIndex = 0;
             this.lTitle.Text = "Title";
-            this.lTitle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.lTitle_MouseMove);
             this.lTitle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lTitle_MouseDown);
+            this.lTitle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.lTitle_MouseMove);
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.panel1.Controls.Add(this.lInfo);
             this.panel1.Controls.Add(this.lTitle);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(454, 21);
+            this.panel1.Size = new System.Drawing.Size(430, 21);
             this.panel1.TabIndex = 0;
-            this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseMove);
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
+            this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseMove);
+            // 
+            // lInfo
+            // 
+            this.lInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lInfo.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.lInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lInfo.ForeColor = System.Drawing.Color.White;
+            this.lInfo.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lInfo.Location = new System.Drawing.Point(76, 2);
+            this.lInfo.Name = "lInfo";
+            this.lInfo.Size = new System.Drawing.Size(350, 15);
+            this.lInfo.TabIndex = 1;
+            this.lInfo.Text = "Info";
+            this.lInfo.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // FModalBase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(454, 280);
+            this.ClientSize = new System.Drawing.Size(430, 256);
             this.ControlBox = false;
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox1);
@@ -142,5 +159,6 @@ namespace PhalanxAdmin
         private System.Windows.Forms.Label lTitle;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label lInfo;
     }
 }

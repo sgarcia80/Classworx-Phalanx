@@ -70,6 +70,7 @@ namespace NDCDAL.Factories
         {
             set { _filTipoNotif = value; }
         }
+
         public TicketNotificacionBlanqueoFactory()
         {
             //
@@ -88,7 +89,7 @@ namespace NDCDAL.Factories
                     tx = session.BeginTransaction();
 
                     session.SaveOrUpdate(entidad);
-                                        
+
                     tx.Commit();
                 }
                 catch (Exception e)
@@ -134,7 +135,9 @@ namespace NDCDAL.Factories
                 ICriteria DataSearch = session.CreateCriteria(typeof(TicketNotificacionBlanqueoEntity), "TNB").AddOrder(Order.Desc("TNB.Fecha"));
 
                 if (_filApp != null)
+                {
                     DataSearch.Add(Expression.Eq("TNB.Aplicacion", _filApp));
+                }
 
                 if (!string.IsNullOrEmpty(_filUsuario))
                     DataSearch = DataSearch.Add(Expression.InsensitiveLike("TNB.Usuario", string.Format("%{0}%", _filUsuario)));
@@ -238,6 +241,57 @@ namespace NDCDAL.Factories
             }
         }
 
+        public TicketNotificacionBlanqueoEntityCollection GetReporteNotificacionClaves(AplicacionNotificacionClaveEntity aplicacion, DateTime? fechaDesde, DateTime? fechaHasta)
+        {
+            IList<TicketNotificacionBlanqueoEntity> tickets;
+
+            TicketNotificacionBlanqueoEntityCollection TiNotClaEC = new TicketNotificacionBlanqueoEntityCollection();
+
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                ICriteria DataSearch = session.CreateCriteria(typeof(TicketNotificacionBlanqueoEntity), "TNB").AddOrder(Order.Desc("TNB.Fecha"));
+
+                if (_filApp != null)
+                {
+                    DataSearch.Add(Expression.Eq("TNB.Aplicacion", _filApp));
+                }
+
+                DataSearch.Add(Expression.Or(
+                    Expression.Eq("TNB.TipoNotificacion", 1),
+                    Expression.Eq("TNB.TipoNotificacion", 2)));
+
+                if (_filApp == null)
+                {
+                    DataSearch.CreateCriteria("TNB.Aplicacion", "app");
+
+                    DataSearch.Add(Expression.Or(
+                        Expression.Eq("app.EsAplicacionRed", true),
+                        Expression.Eq("app.EsAplicacionCobis", true)));
+                }
+
+                if (_filFechaDesde != null)
+                    DataSearch = DataSearch.Add(Expression.Ge("TNB.Fecha", _filFechaDesde));
+
+                if (_filFechaHasta != null)
+                    DataSearch = DataSearch.Add(Expression.Le("TNB.Fecha", _filFechaHasta));
+
+                DataSearch = DataSearch.Add(Expression.IsNull("TNB.FechaAceptacionTyC"));
+                
+                try
+                {
+                    tickets = DataSearch.List<TicketNotificacionBlanqueoEntity>();
+                }
+                catch
+                {
+                    tickets = null;
+                }
+
+                TiNotClaEC.Add(tickets);
+            }
+
+            return TiNotClaEC;
+        }
+
         public TicketNotificacionBlanqueoEntity Load(int Id)
         {
             TicketNotificacionBlanqueoEntity PwdRqst;
@@ -289,7 +343,7 @@ namespace NDCDAL.Factories
         //        {
         //            if (tx != null)
         //                tx.Rollback();
-                    
+
         //            throw; //new SystemException(e.Message);
         //        }
         //    }

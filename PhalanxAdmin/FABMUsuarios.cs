@@ -74,8 +74,8 @@ namespace PhalanxAdmin
                 //entity.RelationType = (cboRelacionLaboral.SelectedIndex >= 0 ? cboRelacionLaboral.SelectedText.Substring(1, 1) : "");
                 txtSector.Text = _entity.Branch;
                 cboEdificio.Text = _entity.BuildingAdress;
-                txtPiso.Text = _entity.BuildingFloor;
-                txtInterno.Text = _entity.ExtensionNumber;
+                //txtPiso.Text = _entity.BuildingFloor;
+                //txtInterno.Text = _entity.ExtensionNumber;
 
                 // Agregado MG
                 txtLegajo.ReadOnly = _readOnly;
@@ -83,8 +83,8 @@ namespace PhalanxAdmin
                 cboRelacionLaboral.Enabled = !_readOnly;
                 txtSector.ReadOnly = _readOnly;
                 cboEdificio.Enabled = !_readOnly;
-                txtPiso.ReadOnly = _readOnly;
-                txtInterno.ReadOnly = _readOnly;
+                //txtPiso.ReadOnly = _readOnly;
+                //txtInterno.ReadOnly = _readOnly;
 
                 if (_readOnly)
                 {
@@ -536,8 +536,8 @@ namespace PhalanxAdmin
                 ? (PhxUserSuperiorEntity)cbSuperior.SelectedItem
                 : null );
             _entity.BuildingAdress = cboEdificio.Text;
-            _entity.BuildingFloor = txtPiso.Text;
-            _entity.ExtensionNumber = txtInterno.Text;
+            //_entity.BuildingFloor = txtPiso.Text;
+            //_entity.ExtensionNumber = txtInterno.Text;
 
             PhxUserBusiness PhxUserBL = new PhxUserBusiness();
             _entity.Id = PhxUserBL.Save(_entity, System.Security.Principal.WindowsIdentity.GetCurrent().Name);

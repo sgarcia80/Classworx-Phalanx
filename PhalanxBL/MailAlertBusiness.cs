@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Text;
 using PhalanxCommon.Collections;
 using PhalanxCommon.Entities;
@@ -14,6 +15,8 @@ namespace PhalanxBL
     {
         private MailTypeEntity _filMailType;
         private Nullable<bool> _filSentMail; // indica si se filtra por mails enviados o no enviados
+
+
         public MailTypeEntity FilMailType
         {
             set { _filMailType = value; }
@@ -60,6 +63,9 @@ namespace PhalanxBL
                 PhxUserBusiness PhxUsrBL = new PhxUserBusiness();
                 PhxUserEntityCollection AutorizadoresEC = new PhxUserEntityCollection();
                 AutorizadoresEC = PhxUsrBL.GetAllFollowPwdRqstAuth(PasswordRequest.UserPassword);
+
+                MailAlertCCBusiness maccBL = new MailAlertCCBusiness();
+
                 if (AutorizadoresEC.Count == 0)
                 {
                     /// si por algun motivo no se encuentran autorizadores se envia a la direccion
@@ -80,65 +86,77 @@ namespace PhalanxBL
                     //MailToSend.Cc1Address = AuthGroupMail;
                     //MailToSend.Cc2Name = RqstUserName;
                     //MailToSend.Cc2Address = RqstUserMail;
-                    MailToSend.Cc1Name = RqstUserName;
-                    MailToSend.Cc1Address = RqstUserMail;
+
+
+                    //MailToSend.Cc1Name = RqstUserName;
+                    //MailToSend.Cc1Address = RqstUserMail;
+                    //Agrego CC
+                    //Agrego CC
+                    MailToSend.MailAlertCCList.Add(maccBL.CreateCC(RqstUserName, RqstUserMail, MailToSend));
+
                     if (AutorizadoresEC.Count == 0)
                     {
-                        MailToSend.Cc2Address = AuthGroupMail;
+                        //MailToSend.Cc2Address = AuthGroupMail;
+                        //Agrego CC
+                        MailToSend.MailAlertCCList.Add(maccBL.CreateCC(AuthGroupMail));
                     }
                     else
                     {
-                        int cant = AutorizadoresEC.Count;
-                        if (cant >= 1)
-                        {
-                            MailToSend.Cc2Name = AutorizadoresEC[0].Fullname;
-                            MailToSend.Cc2Address = AutorizadoresEC[0].Email;
-                        }
-                        if (cant >= 2)
-                        {
-                            MailToSend.Cc3Name = AutorizadoresEC[1].Fullname;
-                            MailToSend.Cc3Address = AutorizadoresEC[1].Email;
-                        }
-                        if (cant >= 3)
-                        {
-                            MailToSend.Cc4Name = AutorizadoresEC[2].Fullname;
-                            MailToSend.Cc4Address = AutorizadoresEC[2].Email;
-                        }
-                        if (cant >= 4)
-                        {
-                            MailToSend.Cc5Name = AutorizadoresEC[3].Fullname;
-                            MailToSend.Cc5Address = AutorizadoresEC[3].Email;
-                        }
-                        if (cant >= 5)
-                        {
-                            MailToSend.Cc6Name = AutorizadoresEC[4].Fullname;
-                            MailToSend.Cc6Address = AutorizadoresEC[4].Email;
-                        }
-                        if (cant >= 6)
-                        {
-                            MailToSend.Cc7Name = AutorizadoresEC[5].Fullname;
-                            MailToSend.Cc7Address = AutorizadoresEC[5].Email;
-                        }
-                        if (cant >= 7)
-                        {
-                            MailToSend.Cc8Name = AutorizadoresEC[6].Fullname;
-                            MailToSend.Cc8Address = AutorizadoresEC[6].Email;
-                        }
-                        if (cant >= 8)
-                        {
-                            MailToSend.Cc9Name = AutorizadoresEC[7].Fullname;
-                            MailToSend.Cc9Address = AutorizadoresEC[7].Email;
-                        }
-                        if (cant >= 9)
-                        {
-                            MailToSend.Cc10Name = AutorizadoresEC[8].Fullname;
-                            MailToSend.Cc10Address = AutorizadoresEC[8].Email;
-                        }
-                        if (cant >= 10)
-                        {
-                            MailToSend.Cc11Name = AutorizadoresEC[9].Fullname;
-                            MailToSend.Cc11Address = AutorizadoresEC[9].Email;
-                        }
+                        //Agrego CC
+                        foreach (PhxUserEntity entityUser in AutorizadoresEC)
+                            MailToSend.MailAlertCCList.Add(maccBL.CreateCC(entityUser.Fullname, entityUser.Email, MailToSend));
+
+                        //int cant = AutorizadoresEC.Count;
+                        //if (cant >= 1)
+                        //{
+                        //    MailToSend.Cc2Name = AutorizadoresEC[0].Fullname;
+                        //    MailToSend.Cc2Address = AutorizadoresEC[0].Email;
+                        //}
+                        //if (cant >= 2)
+                        //{
+                        //    MailToSend.Cc3Name = AutorizadoresEC[1].Fullname;
+                        //    MailToSend.Cc3Address = AutorizadoresEC[1].Email;
+                        //}
+                        //if (cant >= 3)
+                        //{
+                        //    MailToSend.Cc4Name = AutorizadoresEC[2].Fullname;
+                        //    MailToSend.Cc4Address = AutorizadoresEC[2].Email;
+                        //}
+                        //if (cant >= 4)
+                        //{
+                        //    MailToSend.Cc5Name = AutorizadoresEC[3].Fullname;
+                        //    MailToSend.Cc5Address = AutorizadoresEC[3].Email;
+                        //}
+                        //if (cant >= 5)
+                        //{
+                        //    MailToSend.Cc6Name = AutorizadoresEC[4].Fullname;
+                        //    MailToSend.Cc6Address = AutorizadoresEC[4].Email;
+                        //}
+                        //if (cant >= 6)
+                        //{
+                        //    MailToSend.Cc7Name = AutorizadoresEC[5].Fullname;
+                        //    MailToSend.Cc7Address = AutorizadoresEC[5].Email;
+                        //}
+                        //if (cant >= 7)
+                        //{
+                        //    MailToSend.Cc8Name = AutorizadoresEC[6].Fullname;
+                        //    MailToSend.Cc8Address = AutorizadoresEC[6].Email;
+                        //}
+                        //if (cant >= 8)
+                        //{
+                        //    MailToSend.Cc9Name = AutorizadoresEC[7].Fullname;
+                        //    MailToSend.Cc9Address = AutorizadoresEC[7].Email;
+                        //}
+                        //if (cant >= 9)
+                        //{
+                        //    MailToSend.Cc10Name = AutorizadoresEC[8].Fullname;
+                        //    MailToSend.Cc10Address = AutorizadoresEC[8].Email;
+                        //}
+                        //if (cant >= 10)
+                        //{
+                        //    MailToSend.Cc11Name = AutorizadoresEC[9].Fullname;
+                        //    MailToSend.Cc11Address = AutorizadoresEC[9].Email;
+                        //}
                     }
                 }
                 else
@@ -147,61 +165,67 @@ namespace PhalanxBL
                     /// v. 3.4: se envia a los del grupo de seguimiento
                     if (AutorizadoresEC.Count == 0)
                     {
-                        MailToSend.ToAddress = AuthGroupMail;
+                        //MailToSend.ToAddress = AuthGroupMail;
+                        //Agrego CC
+                        MailToSend.MailAlertCCList.Add(maccBL.CreateCC(AuthGroupMail));
                     }
                     else
                     {
-                        int cant = AutorizadoresEC.Count;
-                        if (cant >= 1)
-                        {
-                            MailToSend.ToName = AutorizadoresEC[0].Fullname;
-                            MailToSend.ToAddress = AutorizadoresEC[0].Email;
-                        }
-                        if (cant >= 2)
-                        {
-                            MailToSend.Cc1Name = AutorizadoresEC[1].Fullname;
-                            MailToSend.Cc1Address = AutorizadoresEC[1].Email;
-                        }
-                        if (cant >= 3)
-                        {
-                            MailToSend.Cc2Name = AutorizadoresEC[2].Fullname;
-                            MailToSend.Cc2Address = AutorizadoresEC[2].Email;
-                        }
-                        if (cant >= 4)
-                        {
-                            MailToSend.Cc3Name = AutorizadoresEC[3].Fullname;
-                            MailToSend.Cc3Address = AutorizadoresEC[3].Email;
-                        }
-                        if (cant >= 5)
-                        {
-                            MailToSend.Cc4Name = AutorizadoresEC[4].Fullname;
-                            MailToSend.Cc4Address = AutorizadoresEC[4].Email;
-                        }
-                        if (cant >= 6)
-                        {
-                            MailToSend.Cc5Name = AutorizadoresEC[5].Fullname;
-                            MailToSend.Cc5Address = AutorizadoresEC[5].Email;
-                        }
-                        if (cant >= 7)
-                        {
-                            MailToSend.Cc6Name = AutorizadoresEC[6].Fullname;
-                            MailToSend.Cc6Address = AutorizadoresEC[6].Email;
-                        }
-                        if (cant >= 8)
-                        {
-                            MailToSend.Cc7Name = AutorizadoresEC[7].Fullname;
-                            MailToSend.Cc7Address = AutorizadoresEC[7].Email;
-                        }
-                        if (cant >= 9)
-                        {
-                            MailToSend.Cc8Name = AutorizadoresEC[8].Fullname;
-                            MailToSend.Cc8Address = AutorizadoresEC[8].Email;
-                        }
-                        if (cant >= 10)
-                        {
-                            MailToSend.Cc9Name = AutorizadoresEC[9].Fullname;
-                            MailToSend.Cc9Address = AutorizadoresEC[9].Email;
-                        }
+                        //Agrego CC
+                        foreach (PhxUserEntity entityUser in AutorizadoresEC)
+                            MailToSend.MailAlertCCList.Add(maccBL.CreateCC(entityUser.Fullname, entityUser.Email, MailToSend));
+
+                        //int cant = AutorizadoresEC.Count;
+                        //if (cant >= 1)
+                        //{
+                        //    MailToSend.ToName = AutorizadoresEC[0].Fullname;
+                        //    MailToSend.ToAddress = AutorizadoresEC[0].Email;
+                        //}
+                        //if (cant >= 2)
+                        //{
+                        //    MailToSend.Cc1Name = AutorizadoresEC[1].Fullname;
+                        //    MailToSend.Cc1Address = AutorizadoresEC[1].Email;
+                        //}
+                        //if (cant >= 3)
+                        //{
+                        //    MailToSend.Cc2Name = AutorizadoresEC[2].Fullname;
+                        //    MailToSend.Cc2Address = AutorizadoresEC[2].Email;
+                        //}
+                        //if (cant >= 4)
+                        //{
+                        //    MailToSend.Cc3Name = AutorizadoresEC[3].Fullname;
+                        //    MailToSend.Cc3Address = AutorizadoresEC[3].Email;
+                        //}
+                        //if (cant >= 5)
+                        //{
+                        //    MailToSend.Cc4Name = AutorizadoresEC[4].Fullname;
+                        //    MailToSend.Cc4Address = AutorizadoresEC[4].Email;
+                        //}
+                        //if (cant >= 6)
+                        //{
+                        //    MailToSend.Cc5Name = AutorizadoresEC[5].Fullname;
+                        //    MailToSend.Cc5Address = AutorizadoresEC[5].Email;
+                        //}
+                        //if (cant >= 7)
+                        //{
+                        //    MailToSend.Cc6Name = AutorizadoresEC[6].Fullname;
+                        //    MailToSend.Cc6Address = AutorizadoresEC[6].Email;
+                        //}
+                        //if (cant >= 8)
+                        //{
+                        //    MailToSend.Cc7Name = AutorizadoresEC[7].Fullname;
+                        //    MailToSend.Cc7Address = AutorizadoresEC[7].Email;
+                        //}
+                        //if (cant >= 9)
+                        //{
+                        //    MailToSend.Cc8Name = AutorizadoresEC[8].Fullname;
+                        //    MailToSend.Cc8Address = AutorizadoresEC[8].Email;
+                        //}
+                        //if (cant >= 10)
+                        //{
+                        //    MailToSend.Cc9Name = AutorizadoresEC[9].Fullname;
+                        //    MailToSend.Cc9Address = AutorizadoresEC[9].Email;
+                        //}
                     }
                 }
                 MailBody = ReplacePwdRqstTokens(PhxConfBL.GetConfigParam(ConfigCodes.BodySolicPwdMails).LongTxtValue, PasswordRequest);
@@ -251,64 +275,73 @@ namespace PhalanxBL
                 PhxUserBusiness PhxUsrBL = new PhxUserBusiness();
                 PhxUserEntityCollection AutorizadoresEC = new PhxUserEntityCollection();
                 AutorizadoresEC = PhxUsrBL.GetAllFollowPwdRqstAuth(PasswordRequest.UserPassword);
+
+                MailAlertCCBusiness maccBL = new MailAlertCCBusiness();
+
                 /// si no hay administradores en los grupos de seguimiento se asigna la casilla del grupo por defecto
                 if (AutorizadoresEC.Count == 0)
                 {
-                    MailToSend.Cc1Address = AuthGroupMail;
+                    //MailToSend.Cc1Address = AuthGroupMail;
+                    //Agrego CC
+                    MailToSend.MailAlertCCList.Add(maccBL.CreateCC(AuthGroupMail));
                 }
                 else
                 {
-                    int cant = AutorizadoresEC.Count;
-                    if (cant >= 1)
-                    {
-                        MailToSend.Cc1Name = AutorizadoresEC[0].Fullname;
-                        MailToSend.Cc1Address = AutorizadoresEC[0].Email;
-                    }
-                    if (cant >= 2)
-                    {
-                        MailToSend.Cc2Name = AutorizadoresEC[1].Fullname;
-                        MailToSend.Cc2Address = AutorizadoresEC[1].Email;
-                    }
-                    if (cant >= 3)
-                    {
-                        MailToSend.Cc3Name = AutorizadoresEC[2].Fullname;
-                        MailToSend.Cc3Address = AutorizadoresEC[2].Email;
-                    }
-                    if (cant >= 4)
-                    {
-                        MailToSend.Cc4Name = AutorizadoresEC[3].Fullname;
-                        MailToSend.Cc4Address = AutorizadoresEC[3].Email;
-                    }
-                    if (cant >= 5)
-                    {
-                        MailToSend.Cc5Name = AutorizadoresEC[4].Fullname;
-                        MailToSend.Cc5Address = AutorizadoresEC[4].Email;
-                    }
-                    if (cant >= 6)
-                    {
-                        MailToSend.Cc6Name = AutorizadoresEC[5].Fullname;
-                        MailToSend.Cc6Address = AutorizadoresEC[5].Email;
-                    }
-                    if (cant >= 7)
-                    {
-                        MailToSend.Cc7Name = AutorizadoresEC[6].Fullname;
-                        MailToSend.Cc7Address = AutorizadoresEC[6].Email;
-                    }
-                    if (cant >= 8)
-                    {
-                        MailToSend.Cc8Name = AutorizadoresEC[7].Fullname;
-                        MailToSend.Cc8Address = AutorizadoresEC[7].Email;
-                    }
-                    if (cant >= 9)
-                    {
-                        MailToSend.Cc9Name = AutorizadoresEC[8].Fullname;
-                        MailToSend.Cc9Address = AutorizadoresEC[8].Email;
-                    }
-                    if (cant >= 10)
-                    {
-                        MailToSend.Cc10Name = AutorizadoresEC[9].Fullname;
-                        MailToSend.Cc10Address = AutorizadoresEC[9].Email;
-                    }
+                    //Agrego CC
+                    foreach (PhxUserEntity entityUser in AutorizadoresEC)
+                        MailToSend.MailAlertCCList.Add(maccBL.CreateCC(entityUser.Fullname, entityUser.Email, MailToSend));
+
+                    //int cant = AutorizadoresEC.Count;
+                    //if (cant >= 1)
+                    //{
+                    //    MailToSend.Cc1Name = AutorizadoresEC[0].Fullname;
+                    //    MailToSend.Cc1Address = AutorizadoresEC[0].Email;
+                    //}
+                    //if (cant >= 2)
+                    //{
+                    //    MailToSend.Cc2Name = AutorizadoresEC[1].Fullname;
+                    //    MailToSend.Cc2Address = AutorizadoresEC[1].Email;
+                    //}
+                    //if (cant >= 3)
+                    //{
+                    //    MailToSend.Cc3Name = AutorizadoresEC[2].Fullname;
+                    //    MailToSend.Cc3Address = AutorizadoresEC[2].Email;
+                    //}
+                    //if (cant >= 4)
+                    //{
+                    //    MailToSend.Cc4Name = AutorizadoresEC[3].Fullname;
+                    //    MailToSend.Cc4Address = AutorizadoresEC[3].Email;
+                    //}
+                    //if (cant >= 5)
+                    //{
+                    //    MailToSend.Cc5Name = AutorizadoresEC[4].Fullname;
+                    //    MailToSend.Cc5Address = AutorizadoresEC[4].Email;
+                    //}
+                    //if (cant >= 6)
+                    //{
+                    //    MailToSend.Cc6Name = AutorizadoresEC[5].Fullname;
+                    //    MailToSend.Cc6Address = AutorizadoresEC[5].Email;
+                    //}
+                    //if (cant >= 7)
+                    //{
+                    //    MailToSend.Cc7Name = AutorizadoresEC[6].Fullname;
+                    //    MailToSend.Cc7Address = AutorizadoresEC[6].Email;
+                    //}
+                    //if (cant >= 8)
+                    //{
+                    //    MailToSend.Cc8Name = AutorizadoresEC[7].Fullname;
+                    //    MailToSend.Cc8Address = AutorizadoresEC[7].Email;
+                    //}
+                    //if (cant >= 9)
+                    //{
+                    //    MailToSend.Cc9Name = AutorizadoresEC[8].Fullname;
+                    //    MailToSend.Cc9Address = AutorizadoresEC[8].Email;
+                    //}
+                    //if (cant >= 10)
+                    //{
+                    //    MailToSend.Cc10Name = AutorizadoresEC[9].Fullname;
+                    //    MailToSend.Cc10Address = AutorizadoresEC[9].Email;
+                    //}
                 }
 
                 MailBody = ReplaceExpirationRqstTokens(PhxConfBL.GetConfigParam(ConfigCodes.BodyExpMails).LongTxtValue, PasswordRequest);
@@ -357,6 +390,9 @@ namespace PhalanxBL
                 PhxUserBusiness PhxUsrBL = new PhxUserBusiness();
                 PhxUserEntityCollection AutorizadoresEC = new PhxUserEntityCollection();
                 AutorizadoresEC = PhxUsrBL.GetAllFollowPwdRqstAuth(PasswordRequest.UserPassword);
+
+                MailAlertCCBusiness maccBL = new MailAlertCCBusiness();
+
                 if (AutorizadoresEC.Count == 0)
                 {
                     /// si por algun motivo no se encuentran autorizadores se envia a la direccion
@@ -368,7 +404,11 @@ namespace PhalanxBL
                 {
                 }
 
-                MailToSend.Cc1Address = AuthGroupMail;
+                //MailToSend.Cc1Address = AuthGroupMail;
+
+                //Agrego CC
+                MailToSend.MailAlertCCList.Add(maccBL.CreateCC(AuthGroupMail));
+
                 // si hay superior se envía el mail al superior con copia a los admins y al solicitante
                 if (PasswordRequest.RqstUser.PhxUserSuperior != null && PasswordRequest.RqstUser.PhxUserSuperior.Id != 0)
                 {
@@ -379,65 +419,75 @@ namespace PhalanxBL
                     //MailToSend.Cc1Address = AuthGroupMail;
                     //MailToSend.Cc2Name = RqstUserName;
                     //MailToSend.Cc2Address = RqstUserMail;
-                    MailToSend.Cc1Name = RqstUserName;
-                    MailToSend.Cc1Address = RqstUserMail;
+                    
+                    //MailToSend.Cc1Name = RqstUserName;
+                    //MailToSend.Cc1Address = RqstUserMail;
+                    //Agrego CC
+                    MailToSend.MailAlertCCList.Add(maccBL.CreateCC(RqstUserName, RqstUserMail, MailToSend));
+
                     if (AutorizadoresEC.Count == 0)
                     {
-                        MailToSend.Cc2Address = AuthGroupMail;
+                        //MailToSend.Cc2Address = AuthGroupMail;
+                        //Agrego CC
+                        MailToSend.MailAlertCCList.Add(maccBL.CreateCC(AuthGroupMail));
                     }
                     else
                     {
-                        int cant = AutorizadoresEC.Count;
-                        if (cant >= 1)
-                        {
-                            MailToSend.Cc2Name = AutorizadoresEC[0].Fullname;
-                            MailToSend.Cc2Address = AutorizadoresEC[0].Email;
-                        }
-                        if (cant >= 2)
-                        {
-                            MailToSend.Cc3Name = AutorizadoresEC[1].Fullname;
-                            MailToSend.Cc3Address = AutorizadoresEC[1].Email;
-                        }
-                        if (cant >= 3)
-                        {
-                            MailToSend.Cc4Name = AutorizadoresEC[2].Fullname;
-                            MailToSend.Cc4Address = AutorizadoresEC[2].Email;
-                        }
-                        if (cant >= 4)
-                        {
-                            MailToSend.Cc5Name = AutorizadoresEC[3].Fullname;
-                            MailToSend.Cc5Address = AutorizadoresEC[3].Email;
-                        }
-                        if (cant >= 5)
-                        {
-                            MailToSend.Cc6Name = AutorizadoresEC[4].Fullname;
-                            MailToSend.Cc6Address = AutorizadoresEC[4].Email;
-                        }
-                        if (cant >= 6)
-                        {
-                            MailToSend.Cc7Name = AutorizadoresEC[5].Fullname;
-                            MailToSend.Cc7Address = AutorizadoresEC[5].Email;
-                        }
-                        if (cant >= 7)
-                        {
-                            MailToSend.Cc8Name = AutorizadoresEC[6].Fullname;
-                            MailToSend.Cc8Address = AutorizadoresEC[6].Email;
-                        }
-                        if (cant >= 8)
-                        {
-                            MailToSend.Cc9Name = AutorizadoresEC[7].Fullname;
-                            MailToSend.Cc9Address = AutorizadoresEC[7].Email;
-                        }
-                        if (cant >= 9)
-                        {
-                            MailToSend.Cc10Name = AutorizadoresEC[8].Fullname;
-                            MailToSend.Cc10Address = AutorizadoresEC[8].Email;
-                        }
-                        if (cant >= 10)
-                        {
-                            MailToSend.Cc11Name = AutorizadoresEC[9].Fullname;
-                            MailToSend.Cc11Address = AutorizadoresEC[9].Email;
-                        }
+                        //Agrego CC
+                        foreach (PhxUserEntity entityUser in AutorizadoresEC)
+                            MailToSend.MailAlertCCList.Add(maccBL.CreateCC(entityUser.Fullname, entityUser.Email, MailToSend));
+
+                        //int cant = AutorizadoresEC.Count;
+                        //if (cant >= 1)
+                        //{
+                        //    MailToSend.Cc2Name = AutorizadoresEC[0].Fullname;
+                        //    MailToSend.Cc2Address = AutorizadoresEC[0].Email;
+                        //}
+                        //if (cant >= 2)
+                        //{
+                        //    MailToSend.Cc3Name = AutorizadoresEC[1].Fullname;
+                        //    MailToSend.Cc3Address = AutorizadoresEC[1].Email;
+                        //}
+                        //if (cant >= 3)
+                        //{
+                        //    MailToSend.Cc4Name = AutorizadoresEC[2].Fullname;
+                        //    MailToSend.Cc4Address = AutorizadoresEC[2].Email;
+                        //}
+                        //if (cant >= 4)
+                        //{
+                        //    MailToSend.Cc5Name = AutorizadoresEC[3].Fullname;
+                        //    MailToSend.Cc5Address = AutorizadoresEC[3].Email;
+                        //}
+                        //if (cant >= 5)
+                        //{
+                        //    MailToSend.Cc6Name = AutorizadoresEC[4].Fullname;
+                        //    MailToSend.Cc6Address = AutorizadoresEC[4].Email;
+                        //}
+                        //if (cant >= 6)
+                        //{
+                        //    MailToSend.Cc7Name = AutorizadoresEC[5].Fullname;
+                        //    MailToSend.Cc7Address = AutorizadoresEC[5].Email;
+                        //}
+                        //if (cant >= 7)
+                        //{
+                        //    MailToSend.Cc8Name = AutorizadoresEC[6].Fullname;
+                        //    MailToSend.Cc8Address = AutorizadoresEC[6].Email;
+                        //}
+                        //if (cant >= 8)
+                        //{
+                        //    MailToSend.Cc9Name = AutorizadoresEC[7].Fullname;
+                        //    MailToSend.Cc9Address = AutorizadoresEC[7].Email;
+                        //}
+                        //if (cant >= 9)
+                        //{
+                        //    MailToSend.Cc10Name = AutorizadoresEC[8].Fullname;
+                        //    MailToSend.Cc10Address = AutorizadoresEC[8].Email;
+                        //}
+                        //if (cant >= 10)
+                        //{
+                        //    MailToSend.Cc11Name = AutorizadoresEC[9].Fullname;
+                        //    MailToSend.Cc11Address = AutorizadoresEC[9].Email;
+                        //}
                     }
                 }
                 else
@@ -448,65 +498,71 @@ namespace PhalanxBL
                     {
                         MailToSend.ToAddress = AuthGroupMail;
 
-                        MailToSend.Cc1Name = RqstUserName;
-                        MailToSend.Cc1Address = RqstUserMail;
+                        //MailToSend.Cc1Name = RqstUserName;
+                        //MailToSend.Cc1Address = RqstUserMail;
+                        //Agrego CC
+                        MailToSend.MailAlertCCList.Add(maccBL.CreateCC(RqstUserName, RqstUserMail, MailToSend));
                     }
                     else
                     {
                         MailToSend.ToAddress = RqstUserMail;
                         MailToSend.ToName = RqstUserName;
-                        
-                        int cant = AutorizadoresEC.Count;
-                        if (cant >= 1)
-                        {
-                            MailToSend.Cc1Name = AutorizadoresEC[0].Fullname;
-                            MailToSend.Cc1Address = AutorizadoresEC[0].Email;
-                        }
-                        if (cant >= 2)
-                        {
-                            MailToSend.Cc2Name = AutorizadoresEC[1].Fullname;
-                            MailToSend.Cc2Address = AutorizadoresEC[1].Email;
-                        }
-                        if (cant >= 3)
-                        {
-                            MailToSend.Cc3Name = AutorizadoresEC[2].Fullname;
-                            MailToSend.Cc3Address = AutorizadoresEC[2].Email;
-                        }
-                        if (cant >= 4)
-                        {
-                            MailToSend.Cc4Name = AutorizadoresEC[3].Fullname;
-                            MailToSend.Cc4Address = AutorizadoresEC[3].Email;
-                        }
-                        if (cant >= 5)
-                        {
-                            MailToSend.Cc5Name = AutorizadoresEC[4].Fullname;
-                            MailToSend.Cc5Address = AutorizadoresEC[4].Email;
-                        }
-                        if (cant >= 6)
-                        {
-                            MailToSend.Cc6Name = AutorizadoresEC[5].Fullname;
-                            MailToSend.Cc6Address = AutorizadoresEC[5].Email;
-                        }
-                        if (cant >= 7)
-                        {
-                            MailToSend.Cc7Name = AutorizadoresEC[6].Fullname;
-                            MailToSend.Cc7Address = AutorizadoresEC[6].Email;
-                        }
-                        if (cant >= 8)
-                        {
-                            MailToSend.Cc8Name = AutorizadoresEC[7].Fullname;
-                            MailToSend.Cc8Address = AutorizadoresEC[7].Email;
-                        }
-                        if (cant >= 9)
-                        {
-                            MailToSend.Cc9Name = AutorizadoresEC[8].Fullname;
-                            MailToSend.Cc9Address = AutorizadoresEC[8].Email;
-                        }
-                        if (cant >= 10)
-                        {
-                            MailToSend.Cc10Name = AutorizadoresEC[9].Fullname;
-                            MailToSend.Cc10Address = AutorizadoresEC[9].Email;
-                        }
+
+                        //Agrego CC
+                        foreach (PhxUserEntity entityUser in AutorizadoresEC)
+                            MailToSend.MailAlertCCList.Add(maccBL.CreateCC(entityUser.Fullname, entityUser.Email, MailToSend));
+
+                        //int cant = AutorizadoresEC.Count;
+                        //if (cant >= 1)
+                        //{
+                        //    MailToSend.Cc1Name = AutorizadoresEC[0].Fullname;
+                        //    MailToSend.Cc1Address = AutorizadoresEC[0].Email;
+                        //}
+                        //if (cant >= 2)
+                        //{
+                        //    MailToSend.Cc2Name = AutorizadoresEC[1].Fullname;
+                        //    MailToSend.Cc2Address = AutorizadoresEC[1].Email;
+                        //}
+                        //if (cant >= 3)
+                        //{
+                        //    MailToSend.Cc3Name = AutorizadoresEC[2].Fullname;
+                        //    MailToSend.Cc3Address = AutorizadoresEC[2].Email;
+                        //}
+                        //if (cant >= 4)
+                        //{
+                        //    MailToSend.Cc4Name = AutorizadoresEC[3].Fullname;
+                        //    MailToSend.Cc4Address = AutorizadoresEC[3].Email;
+                        //}
+                        //if (cant >= 5)
+                        //{
+                        //    MailToSend.Cc5Name = AutorizadoresEC[4].Fullname;
+                        //    MailToSend.Cc5Address = AutorizadoresEC[4].Email;
+                        //}
+                        //if (cant >= 6)
+                        //{
+                        //    MailToSend.Cc6Name = AutorizadoresEC[5].Fullname;
+                        //    MailToSend.Cc6Address = AutorizadoresEC[5].Email;
+                        //}
+                        //if (cant >= 7)
+                        //{
+                        //    MailToSend.Cc7Name = AutorizadoresEC[6].Fullname;
+                        //    MailToSend.Cc7Address = AutorizadoresEC[6].Email;
+                        //}
+                        //if (cant >= 8)
+                        //{
+                        //    MailToSend.Cc8Name = AutorizadoresEC[7].Fullname;
+                        //    MailToSend.Cc8Address = AutorizadoresEC[7].Email;
+                        //}
+                        //if (cant >= 9)
+                        //{
+                        //    MailToSend.Cc9Name = AutorizadoresEC[8].Fullname;
+                        //    MailToSend.Cc9Address = AutorizadoresEC[8].Email;
+                        //}
+                        //if (cant >= 10)
+                        //{
+                        //    MailToSend.Cc10Name = AutorizadoresEC[9].Fullname;
+                        //    MailToSend.Cc10Address = AutorizadoresEC[9].Email;
+                        //}
                     }
                 }
                 MailBody = ReplaceRespPwdRqstTokens(PhxConfBL.GetConfigParam(ConfigCodes.BodyRespSolicPwdMails).LongTxtValue, PasswordRequest);
@@ -659,6 +715,37 @@ namespace PhalanxBL
 
                 MailToSend.Body = ReplaceNotificacionBlanqueoMailTokens(PhxConfBL.GetConfigParam(ConfigCodes.BodyNotificacionBlanqueoMail).LongTxtValue, solicitante, aplicativo);
                 MailToSend.Subject = ReplaceNotificacionBlanqueoMailTokens(PhxConfBL.GetConfigParam(ConfigCodes.SubjectNotificacionBlanqueoMail).ShortTxtValue, solicitante, aplicativo);
+
+                MailAlertFactory MAF = new MailAlertFactory();
+
+                int IdMailAlert = MAF.Save(MailToSend);
+
+                if (IdMailAlert > 0)
+                    SendMail(MailToSend);
+
+                return IdMailAlert;
+            }
+            catch (Exception ex)
+            {
+                // no se pudo crear el mail;
+            }
+
+            return null;
+        }
+
+        public int? ReclamoNotificacionBlanqueoMail(string usuario, string mail, int numeroSolicitud, string aplicativo, DateTime fecha)
+        {
+            try
+            {
+                MailAlertEntity MailToSend = new MailAlertEntity();
+                MailToSend.MailType = new MailTypeFactory().GetMailType(MailTypeFactory.MailType.NotificacionBlanqueo);
+
+                PhxConfigBusiness PhxConfBL = new PhxConfigBusiness();
+
+                MailToSend.ToAddress = mail;
+
+                MailToSend.Body = ReplaceReclamoNotificacionBlanqueoMailTokens(PhxConfBL.GetConfigParam(ConfigCodes.BodyReclamoNotificacionBlanqueoMail).LongTxtValue, usuario, aplicativo, fecha);
+                MailToSend.Subject = ReplaceReclamoNotificacionBlanqueoMailTokens(PhxConfBL.GetConfigParam(ConfigCodes.SubjectReclamoNotificacionBlanqueoMail).ShortTxtValue, usuario, aplicativo, fecha);
 
                 MailAlertFactory MAF = new MailAlertFactory();
 
@@ -1062,6 +1149,16 @@ namespace PhalanxBL
                 }
                 CCMailAddresses.Add(MailAdd);
             }
+
+            //Cargo coleccion de CC
+            MailAlertCCBusiness mabCC = new MailAlertCCBusiness();
+            var cc = mabCC.LoadMailAddressC(MailToSend.MailAlertCCList);
+
+            foreach (MailAddress item in cc)
+            {
+                CCMailAddresses.Add(item);
+            }
+
             bool IsSent = sMail.Send(FromName, FromMail, MailToSend.Subject, MailToSend.Body, CCMailAddresses);
             /*
             bool IsSent = sMail.Send(FromName, FromMail, MailToSend.Subject, MailToSend.Body, MailToSend.ToName
@@ -1145,6 +1242,13 @@ namespace PhalanxBL
         private string ReplaceNotificacionBlanqueoMailTokens(string text, string solicitante, string aplicacion)
         {
             return text.Replace("[NombreSolicitante]", solicitante)
+                            .Replace("[Aplicativo]", aplicacion);
+        }
+
+        private string ReplaceReclamoNotificacionBlanqueoMailTokens(string text, string usuario, string aplicacion, DateTime fecha)
+        {
+            return text.Replace("[FechaSolic]", fecha.ToString("dd/MM/yyyy"))
+                            .Replace("[NombreUsuario]", usuario)
                             .Replace("[Aplicativo]", aplicacion);
         }
 

@@ -275,6 +275,7 @@ namespace PhalanxAdmin
             this.lblPiso.Size = new System.Drawing.Size(27, 13);
             this.lblPiso.TabIndex = 12;
             this.lblPiso.Text = "Piso";
+            this.lblPiso.Visible = false;
             // 
             // txtPiso
             // 
@@ -284,6 +285,7 @@ namespace PhalanxAdmin
             this.txtPiso.Size = new System.Drawing.Size(53, 20);
             this.txtPiso.TabIndex = 12;
             this.txtPiso.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtPiso.Visible = false;
             // 
             // cboEdificio
             // 
@@ -333,6 +335,7 @@ namespace PhalanxAdmin
             this.lblInterno.Size = new System.Drawing.Size(40, 13);
             this.lblInterno.TabIndex = 10;
             this.lblInterno.Text = "Interno";
+            this.lblInterno.Visible = false;
             // 
             // lblFuncion
             // 
@@ -376,6 +379,7 @@ namespace PhalanxAdmin
             this.txtInterno.Size = new System.Drawing.Size(53, 20);
             this.txtInterno.TabIndex = 10;
             this.txtInterno.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtInterno.Visible = false;
             // 
             // txtLegajo
             // 

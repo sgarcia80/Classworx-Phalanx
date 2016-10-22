@@ -3,6 +3,7 @@ insert license info here
 */
 using System;
 using System.Collections;
+using PhalanxCommon.Collections;
 
 namespace PhalanxCommon.Entities
 {
@@ -49,8 +50,7 @@ namespace PhalanxCommon.Entities
         private string m_cc12_address;
         private string m_body;
         private int m_send_attemp;
-        
-
+        private IList m_MailAlertCCList; 
 
 		#endregion
 
@@ -102,7 +102,9 @@ namespace PhalanxCommon.Entities
 
             m_body = String.Empty;
             //m_send_date = new Nullable<DateTime>();
- 
+
+            m_MailAlertCCList = new MailAlertCCEntityCollection(); 
+
 		}
 		#endregion // End of Default ( Empty ) Class Constuctor
 
@@ -563,6 +565,18 @@ namespace PhalanxCommon.Entities
 			}
 
 		}
+
+        public IList MailAlertCCList
+        {
+            get
+            {
+                return m_MailAlertCCList;
+            }
+            set
+            {
+                m_MailAlertCCList = value;
+            }
+        }
 			
 		/// <summary>
 		/// Returns whether or not the object has changed it's values.

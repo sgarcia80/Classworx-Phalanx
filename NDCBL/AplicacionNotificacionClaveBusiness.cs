@@ -14,6 +14,8 @@ namespace NDCBL
     {
         private string _filNombre = string.Empty;
         private bool _filNotificable = false;
+        private bool _filEsAppRed = false;
+        private bool _filEsAppCobis = false;
 
         public AplicacionNotificacionClaveBusiness()
         {
@@ -30,6 +32,14 @@ namespace NDCBL
         public bool FilNotificable
         {
             set { _filNotificable = value; }
+        }
+        public bool FilEsAppRed
+        {
+            set { _filEsAppRed = value; }
+        }
+        public bool FilEsAppCobis
+        {
+            set { _filEsAppCobis = value; }
         }
 
         public AplicacionNotificacionClaveEntity GetById(int id)

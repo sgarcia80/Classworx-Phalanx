@@ -43,6 +43,7 @@ namespace NDCCommon.Entities
         private string m_tnb_user_load;
         private DateTime? m_tnb_fecha_vigencia;
         private DateTime? m_tnb_fecha_ace_tyc;
+        private int m_tnb_reclamos;
 
         private string m_tnb_user;
         private DateTime m_tnb_fecha;
@@ -310,6 +311,19 @@ namespace NDCCommon.Entities
         /// 
         /// </summary>
         public int? MailId { set; get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int Reclamos
+        {
+            get { return m_tnb_reclamos; }
+            set
+            {
+                m_isChanged |= (m_tnb_reclamos != value);
+                m_tnb_reclamos = value;
+            }
+        }
 
         #endregion
 

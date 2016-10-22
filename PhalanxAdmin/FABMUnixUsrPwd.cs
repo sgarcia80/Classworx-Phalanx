@@ -17,6 +17,8 @@ namespace PhalanxAdmin
         private UnixEntity _unixPCSel = null;
         private UnixUserBusiness m_UnixUserBusiness = null;
         private UnixUserEntity m_CurrentUser= null;
+        private const string cAsterisk = "**********";
+
         
         public enum FormType
         {
@@ -108,7 +110,9 @@ namespace PhalanxAdmin
                         pNetFind.Visible = false;
                         chkChgPwd.Checked = true;
                         chkChgPwd.Enabled = false;
+                        this.checkBoxVisualizar.Enabled = true;
                         this.Title = "Nuevo Usuario y Contraseña";
+                        this.Info = "";
                         CargarGruposSolicitudes();
                         CargarGruposSeguimiento();
                         tabControl1.TabPages.Remove(tabControl1.TabPages[4]);
@@ -129,6 +133,7 @@ namespace PhalanxAdmin
                             cBoxActivo.Enabled = false;
                         }
                         this.Title = "Modificación de Usuario y Contraseña";
+                        this.Info = m_CurrentUser.Unix.ServerName + " / " + m_CurrentUser.Username;
                         CargarGruposSolicitudes();
                         CargarGruposSeguimiento();
                         ExecEntitiesRefresh();
@@ -153,6 +158,7 @@ namespace PhalanxAdmin
                         chkChgPwd.Enabled = false;
                         btnSelEquipo.Visible = false;
                         this.Title = "Visualización de Usuario y Contraseña";
+                        this.Info = m_CurrentUser.Unix.ServerName + " / " + m_CurrentUser.Username;
                         CargarGruposSolicitudes();
                         CargarGruposSeguimiento();
                         ExecEntitiesRefresh();
@@ -173,6 +179,7 @@ namespace PhalanxAdmin
                         chkUsuarioCritico.Enabled = false;
                         btnSelEquipo.Visible = false;
                         this.Title = "Baja de Usuario y Contraseña";
+                        this.Info = m_CurrentUser.Unix.ServerName + " / " + m_CurrentUser.Username;
                         CargarGruposSolicitudes();
                         CargarGruposSeguimiento();
                         ExecEntitiesRefresh();
@@ -452,6 +459,46 @@ namespace PhalanxAdmin
 
         private void checkBoxVisualizar_CheckedChanged(object sender, EventArgs e)
         {
+            if (m_FormType == FormType.Update && checkBoxVisualizar.Tag == null &&
+               checkBoxVisualizar.Checked)
+            {
+                if (MessageBox.Show("Si visualiza la contraseña, se grabará un registro de log con este evento. Desea continuar?",
+                        "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    checkBoxVisualizar.Tag = "logueado";
+
+                    int id = 0;
+                    if (this._entities != null && this._entities.Count > 0)
+                    {
+                        //Se obtiene el ultimo historial
+                        foreach (vwHistPwdChgEntity entity in this._entities)
+                        {
+                            if (entity.Id > id)
+                                id = entity.Id;
+                        }
+                    }
+
+                    HistPasswordChangeAccessBusiness accessBL = new HistPasswordChangeAccessBusiness();
+                    HistPasswordChangeAccessEntity accessE = new HistPasswordChangeAccessEntity();
+
+                    accessE.HistChgPwd = new HistPasswordChangeEntity();
+                    accessE.HistChgPwd.Id = id;
+                    accessE.PhxUser = new PhxUserEntity();
+                    accessE.AccessDate = DateTime.Now;
+
+                    int Id = accessBL.Save(accessE);
+                    if (Id <= 0)
+                    {
+                        MessageBox.Show("Hubo un error al grabar log de visualización de contraseñas", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    checkBoxVisualizar.Checked = false;
+                    return;
+                }
+            }
+
             if (checkBoxVisualizar.Checked)
             {
                 tPassword1.PasswordChar = new char();
@@ -501,12 +548,14 @@ namespace PhalanxAdmin
                 checkBoxRealUser.Enabled = true;
                 tPassword1.Enabled = true;
                 tPassword2.Enabled = true;
+                this.checkBoxVisualizar.Enabled = true;
             }
             else
             {
                 checkBoxRealUser.Enabled = false;
                 tPassword1.Enabled = false;
                 tPassword2.Enabled = false;
+                this.checkBoxVisualizar.Enabled = false;
             }
 
         }
@@ -975,7 +1024,8 @@ namespace PhalanxAdmin
 
                 lviArr[i].Text = HistChgPwdEnt.DChange.ToString("dd/MM/yyyy HH:m:ss");
                 lviArr[i].SubItems.Add(HistChgPwdEnt.PhxUser.Fullname);
-                lviArr[i].SubItems.Add(HistChgPwdEnt.PlainPassword);
+                lviArr[i].SubItems.Add(cAsterisk);
+                //lviArr[i].SubItems.Add(HistChgPwdEnt.PlainPassword);
                 lviArr[i].Tag = HistChgPwdEnt;
 
 
@@ -1284,6 +1334,31 @@ namespace PhalanxAdmin
 
         }
 
+        private void lvLista_DoubleClick(object sender, EventArgs e)
+        {
+            if (((ListView)sender).SelectedItems.Count == 1)
+            {
+                if (MessageBox.Show("Si visualiza la contraseña, se grabará un registro de log con este evento. Desea continuar?",
+                    "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    HistPasswordChangeAccessBusiness accessBL = new HistPasswordChangeAccessBusiness();
+                    HistPasswordChangeAccessEntity accessE = new HistPasswordChangeAccessEntity();
+
+                    accessE.HistChgPwd = new HistPasswordChangeEntity();
+                    accessE.HistChgPwd.Id = ((vwHistPwdChgEntity)((ListView)sender).SelectedItems[0].Tag).Id;
+                    accessE.PhxUser = new PhxUserEntity();
+                    accessE.AccessDate = DateTime.Now;
+
+                    int Id = accessBL.Save(accessE);
+                    if (Id > 0)
+                        ((ListView)sender).SelectedItems[0].SubItems[2].Text =
+                            ((vwHistPwdChgEntity)((ListView)sender).SelectedItems[0].Tag).PlainPassword;
+                    else
+                        MessageBox.Show("Hubo un error al grabar log de visualización de contraseñas", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
+            }
+        }
     }
 }
 

@@ -157,6 +157,11 @@ namespace PhalanxAdmin
         {
             ((FPrincipal)this.MdiParent).OpenForm(new FRptClavesGrpSol());
         }
+
+        private void lnkNotifClaves_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ((FPrincipal)this.MdiParent).OpenForm(new FReporteNotifClaves());
+        }
     }
 }
 
