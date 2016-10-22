@@ -20,6 +20,10 @@
             </td>
         </tr>
     </table>
+    <div class="mensaje">
+        <br />
+        <asp:Label ID="lbMensaje" Visible="false" runat="server" />
+    </div>
     <br />
     <div class="division">
     </div>
