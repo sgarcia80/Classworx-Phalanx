@@ -236,6 +236,11 @@ namespace PhalanxDAL.Factories
             using (ISession session = DBMgr.factory.OpenSession())
             {
                 objPhxUsr = (MailAlertEntity)session.Load(typeof(MailAlertEntity), ID);
+
+                if (objPhxUsr.MailAlertCCList != null)
+                {
+                    int i = objPhxUsr.MailAlertCCList.Count;
+                }
             }
             return objPhxUsr;
         }
