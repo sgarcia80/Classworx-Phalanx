@@ -498,6 +498,11 @@ namespace NDCCommon.Entities
 
         public DateTime? FechaExpiracionToken { set; get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public int Reclamos { set; get; }
+
 		/// <summary>
 		/// 
 		/// </summary>

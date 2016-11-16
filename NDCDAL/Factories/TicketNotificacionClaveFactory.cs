@@ -107,6 +107,8 @@ namespace NDCDAL.Factories
 
         public bool? FilVencido { set; private get; }
 
+        public bool FilReporteNotif { set; private get; }
+
         public TicketNotificacionClaveFactory()
         {
             //
@@ -171,10 +173,10 @@ namespace NDCDAL.Factories
                 if (_filApp != null)
                     DataSearch.Add(Expression.Eq("TNC.Aplicacion", _filApp));
 
-                if (_filUsuario != null)
+                if (_filUsuario != null && !string.IsNullOrEmpty(_filUsuario))
                     DataSearch = DataSearch.Add(Expression.Eq("TNC.Usuario", _filUsuario));
 
-                if (_filDominio != null)
+                if (_filDominio != null && !string.IsNullOrEmpty(_filDominio))
                     DataSearch = DataSearch.Add(Expression.Eq("TNC.DominioUsuario", _filDominio));
 
                 if (_filFecha != null)
@@ -184,7 +186,7 @@ namespace NDCDAL.Factories
                     DataSearch = DataSearch.Add(Expression.Ge("TNC.Fecha", _filFechaDesde));
 
                 if (_filFechaHasta != null)
-                    DataSearch = DataSearch.Add(Expression.Ge("TNC.Fecha", _filFechaHasta));
+                    DataSearch = DataSearch.Add(Expression.Le("TNC.Fecha", _filFechaHasta));
 
                 if (_filTipoDoc != null)
                     DataSearch = DataSearch.Add(Expression.Eq("TNC.TipoDocumento", _filTipoDoc));
@@ -207,6 +209,15 @@ namespace NDCDAL.Factories
                 {
                     DataSearch = DataSearch.Add(Expression.Or(Expression.IsNull("TNC.FechaVigencia"),
                         Expression.Le("TNC.FechaVigencia", _filFilFechaVigencia.Value)));
+                }
+
+                if (FilReporteNotif && _filApp == null)
+                {
+                    DataSearch.CreateCriteria("TNC.Aplicacion", "app");
+
+                    DataSearch.Add(Expression.Or(
+                        Expression.Eq("app.EsAplicacionRed", true),
+                        Expression.Eq("app.EsAplicacionCobis", true)));
                 }
 
                 if (_filSinLegajo != null)

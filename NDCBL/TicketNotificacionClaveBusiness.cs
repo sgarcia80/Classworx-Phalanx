@@ -19,6 +19,8 @@ namespace NDCBL
 
         private TicketNotificacionClaveFactory factory;
         private static int? horasExpiracionToken;
+        private static AplicacionNotificacionClaveEntity AppCobis = null;
+        private static AplicacionNotificacionClaveEntity AppRed = null;
 
         private TicketNotificacionClaveFactory Factory
         {
@@ -113,6 +115,29 @@ namespace NDCBL
             return this.GetAll(fechaDesde, fechaHasta, aplicacion, dominio, usuario, null, null, false);
         }
 
+        public TicketNotificacionClaveEntityCollection GetReporteNotif(DateTime? fechaDesde, DateTime? fechaHasta, AplicacionNotificacionClaveEntity aplicacion, string dominio, string usuario)
+        {
+            TicketNotificacionClaveFactory factory = new TicketNotificacionClaveFactory();
+
+            factory.FilAplicacion = aplicacion;
+            factory.FilDominio = dominio;
+            factory.FilUsuario = usuario;
+            factory.FilFechaDesde = fechaDesde;
+            factory.FilFechaHasta = fechaHasta;
+            factory.FilSinLegajo = null;
+            factory.FilTicket = null;
+            factory.FilCorregido = false;
+            factory.FilVencido = null;
+
+            factory.FilReporteNotif = true;
+
+            factory.FilFechaTyCNull = true;
+
+            TicketNotificacionClaveEntityCollection tmpCollection = factory.GetAll();
+
+            return tmpCollection;
+        }
+
         public TicketNotificacionClaveEntityCollection GetAll(DateTime? fechaDesde, DateTime? fechaHasta, AplicacionNotificacionClaveEntity aplicacion, string dominio, string usuario, int? ticket, bool? SinLegajo, bool? corregido)
         {
             return GetAll(fechaDesde, fechaHasta, aplicacion, dominio, usuario, ticket, SinLegajo, corregido, null, null);
@@ -146,7 +171,7 @@ namespace NDCBL
 
             factory.FilImpactaEnAD = true;
             factory.FilMarcadoEnAD = false;
-            
+
             return factory.GetAll();
         }
 
@@ -194,18 +219,18 @@ namespace NDCBL
 
         public void AceptarTyC(int id)
         {
-			AceptarTyC(GetById(id));
+            AceptarTyC(GetById(id));
         }
 
-		public void AceptarTyC(TicketNotificacionClaveEntity ticket)
-		{
-			if (ticket == null)
-				return;
+        public void AceptarTyC(TicketNotificacionClaveEntity ticket)
+        {
+            if (ticket == null)
+                return;
 
-			ticket.FechaAceptacionTyC = DateTime.Now;
+            ticket.FechaAceptacionTyC = DateTime.Now;
 
-			Factory.SaveBPMSolicitud(ticket);
-		}
+            Factory.SaveBPMSolicitud(ticket);
+        }
 
         public void Save(TicketNotificacionClaveEntity ticket)
         {
@@ -271,7 +296,7 @@ namespace NDCBL
                 throw new Common.CwxException("No se encuentra la app correspondiente a altas de Red.");
 
             esAplicacionRed = ticket.Aplicacion.Codigo == appRed.Codigo;
-            
+
             ticket.UsuarioAplicacion = nombreUsuario;
 
             TicketNotificacionClaveFactory FTNC = new TicketNotificacionClaveFactory();
@@ -285,7 +310,7 @@ namespace NDCBL
 
             Factory.FilTicket = idSolicitud;
             Factory.FilAplicacion = aplicacion;
-            
+
             TicketNotificacionClaveEntityCollection tickets = Factory.GetAll();
 
             if (tickets.Count < 1)
@@ -424,6 +449,68 @@ namespace NDCBL
             debug += " | Graba ticket BPM";
 
             Save(solicitudBPM);
+
+            return true;
+        }
+
+        public int ReenviarEmailReclamo(TicketNotificacionClaveEntityCollection collection)
+        {
+            string debug = string.Empty;
+            int sent = 0;
+            AplicacionNotificacionClaveBusiness bamb = new AplicacionNotificacionClaveBusiness();
+
+            if (AppCobis == null)
+            {
+                AppCobis = bamb.GetAppCobis();
+            }
+            if (AppRed == null)
+            {
+                AppRed = bamb.GetAppRed();
+            }
+
+            foreach (TicketNotificacionClaveEntity ticket in collection)
+            {
+                try
+                {
+                    bool envio = this.ReenviarEmailReclamo(ticket, out debug);
+
+                    sent++;
+                }
+                catch (Exception)
+                {
+                }
+            }
+
+            return sent;
+        }
+
+        public bool ReenviarEmailReclamo(TicketNotificacionClaveEntity notificacion, out string debug)
+        {
+            debug = "";
+
+            string mailTo = string.Empty;
+
+            debug += " Busca el Mail del usuario en AD por usuario de red";
+
+            mailTo = PhalanxNAL.ActiveDirectoryHelper.BuscarEmailPorLegajoUsername(notificacion.Usuario);
+
+            if (string.IsNullOrEmpty(mailTo))
+            {
+                debug += " | No se encontró el Mail del usuario [" + notificacion.Usuario + "] en AD";
+                return false;
+            }
+
+            MailAlertBusiness MailToSendBL = new MailAlertBusiness();
+
+            debug += " | Envia mail";
+
+            notificacion.MailId = MailToSendBL.ReclamoNotificacionBlanqueoMail(notificacion.Usuario, mailTo, notificacion.Id, notificacion.Aplicacion.Nombre, notificacion.Fecha);
+
+            debug += " | Graba ticket BPM";
+
+            notificacion.Reclamos++;
+
+            Save(notificacion);
 
             return true;
         }
