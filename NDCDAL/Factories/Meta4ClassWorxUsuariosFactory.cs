@@ -28,7 +28,7 @@ namespace NDCDAL.Factories
                 }
                 catch (Exception ex)
                 {
-                    legajos = null;
+                    legajos = new List<Meta4ClassWorxUsuariosEntity>();
                 }
             }
 

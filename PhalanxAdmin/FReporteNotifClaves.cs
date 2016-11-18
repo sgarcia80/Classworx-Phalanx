@@ -122,7 +122,7 @@ namespace PhalanxAdmin
         /// </example>
         private void LoadEntities()
         {
-            IList list = new TicketNotificacionBlanqueoBusiness().GetReporteNotificacionClaves(aplicacion, fechaDesde, fechaHasta);
+            IList list = new TicketNotificacionClaveBusiness().GetReporteNotif(fechaDesde, fechaHasta, aplicacion, string.Empty, string.Empty);
 
             _entities = list;
         }
@@ -168,7 +168,7 @@ namespace PhalanxAdmin
         {
             ListViewItem[] lviArr = new ListViewItem[this._entities.Count];
             int i = 0;
-            foreach (TicketNotificacionBlanqueoEntity entidad in this._entities)
+            foreach (TicketNotificacionClaveEntity entidad in this._entities)
             {
                 lviArr[i] = new ListViewItem();
                 /// hay que armar los items de lo que se traiga de la DB
@@ -179,7 +179,8 @@ namespace PhalanxAdmin
 
 
                 lviArr[i].Text = entidad.Id.ToString(); // HistChgPwdEnt.User.Username;
-                lviArr[i].SubItems.Add(entidad.TipoNotificacionDescr);
+                //lviArr[i].SubItems.Add(entidad.TipoNotificacionDescr);
+                lviArr[i].SubItems.Add("Alta de Usuario");
                 lviArr[i].SubItems.Add(entidad.Aplicacion.Nombre);
                 lviArr[i].SubItems.Add(entidad.UsuarioAplicacion);
                 lviArr[i].SubItems.Add(entidad.Fecha.ToString("dd/MM/yyyy HH:mm"));
@@ -315,7 +316,7 @@ namespace PhalanxAdmin
                     DBRefreshEntites();
 
                     saveFileDialog1.Filter = "csv files (*.csv)|*.csv";
-                    saveFileDialog1.FileName = "Reclamos_Notificacion_Blanqueo";
+                    saveFileDialog1.FileName = "Reclamos_Notificacion_Clave";
                     saveFileDialog1.Title = "Exportar a CSV";
 
                     StringBuilder sb = new StringBuilder();
@@ -327,11 +328,12 @@ namespace PhalanxAdmin
                     sb.Append("Fecha" + Separator);
                     sb.Append("Cant. Reclamos");
 
-                    foreach (TicketNotificacionBlanqueoEntity entidad in this._entities)
+                    foreach (TicketNotificacionClaveEntity entidad in this._entities)
                     {
                         sb.AppendLine();
                         sb.Append(entidad.Id.ToString() + Separator);
-                        sb.Append(entidad.TipoNotificacionDescr + Separator);
+                        //sb.Append(entidad.TipoNotificacionDescr + Separator);
+                        sb.Append("Alta de Usuario" + Separator);
                         sb.Append(entidad.Aplicacion.Nombre + Separator);
                         sb.Append(entidad.UsuarioAplicacion + Separator);
                         sb.Append(entidad.Fecha.ToString("dd/MM/yyyy HH:mm") + Separator);
@@ -397,12 +399,12 @@ namespace PhalanxAdmin
             DialogResult result = MessageBox.Show(mensaje, "Reenvio", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
             if (result == System.Windows.Forms.DialogResult.OK)
             {
-                TicketNotificacionBlanqueoEntityCollection collection = new TicketNotificacionBlanqueoEntityCollection();
-                TicketNotificacionBlanqueoEntity entity = null;
+                TicketNotificacionClaveEntityCollection collection = new TicketNotificacionClaveEntityCollection();
+                TicketNotificacionClaveEntity entity = null;
 
                 foreach (ListViewItem item in lvLista.SelectedItems)
                 {
-                    entity = item.Tag as TicketNotificacionBlanqueoEntity;
+                    entity = item.Tag as TicketNotificacionClaveEntity;
 
                     if (entity != null)
                     {
@@ -410,7 +412,7 @@ namespace PhalanxAdmin
                     }
                 }
 
-                TicketNotificacionBlanqueoBusiness ticketBL = new TicketNotificacionBlanqueoBusiness();
+                TicketNotificacionClaveBusiness ticketBL = new TicketNotificacionClaveBusiness();
 
                 try
                 {

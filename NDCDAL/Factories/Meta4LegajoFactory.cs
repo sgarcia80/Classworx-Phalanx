@@ -69,13 +69,13 @@ namespace NDCDAL.Factories
                 try
                 {
                     legajos = DataSearch.List<Meta4LegajoEntity>();
+
+                    legajoEC.Add(legajos);
                 }
                 catch (Exception ex)
                 {
                     legajos = null;
                 }
-
-                legajoEC.Add(legajos);
             }
 
             return legajoEC;
