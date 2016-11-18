@@ -1,5 +1,7 @@
-<%@ Page Language="C#" MasterPageFile="~/Principal.master" AutoEventWireup="true" CodeFile="NotificacionClave.aspx.cs" Inherits="NotificacionClave" Title="Macro SA - Notificación de Claves" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+<%@ Page Language="C#" MasterPageFile="~/Principal.master" AutoEventWireup="true"
+    CodeFile="NotificacionClave.aspx.cs" Inherits="NotificacionClave" Title="Macro SA - Notificación de Claves" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <br />
     <div class="tituloSeccion">
         Notificación de Claves</div>
@@ -13,6 +15,16 @@
     </div>
     <br />
     <table class="login">
+        <tr>
+            <td>
+                Dominio
+            </td>
+            <td colspan="3">
+                <asp:DropDownList ID="ddlDominio" runat="server"
+                    DataTextField="NtName" DataValueField="Id" Width="166px">
+                </asp:DropDownList>
+            </td>
+        </tr>
         <tr>
             <td>
                 Usuario
@@ -34,8 +46,8 @@
             <td align="center" style="width: 71px">
                 <br />
                 <br />
-                <asp:Button ID="btnVolver" Text="Volver" CssClass="btn" runat="server" 
-                    OnClick="btnVolver_Click" Width="69px" />
+                <asp:Button ID="btnVolver" Text="Volver" CssClass="btn" runat="server" OnClick="btnVolver_Click"
+                    Width="69px" />
             </td>
         </tr>
     </table>
@@ -43,4 +55,3 @@
     <div class="division">
     </div>
 </asp:Content>
-

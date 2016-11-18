@@ -20,9 +20,15 @@ public partial class IdentificacionPositiva : System.Web.UI.Page
     {
         if (!IsPostBack && Session["ticketId"] != null)
         {
-            int ticketId = (int)Session["ticketId"];
+            int ticketId = 0;
 
-            bool esNotif = (Session["externo"] != null);
+            if (Session["ticketId"] != null)
+            {
+                int.TryParse(Session["ticketId"].ToString(), out ticketId);
+            }
+
+            //Si no se recibió un ticket de NOTIFICACIÓN DE CLAVE es de BLANQUEO.
+            bool esNotif = ticketId == 0;
             string tipodocumento = string.Empty;
             string nrodocumento = string.Empty;
 
@@ -54,10 +60,31 @@ public partial class IdentificacionPositiva : System.Web.UI.Page
                 nrodocumento = ticket.Documento;
             }
 
+            if (string.IsNullOrEmpty(tipodocumento) && string.IsNullOrEmpty(nrodocumento))
+            {
+                lbMensaje.Text = esNotif ? "No se ha encontrado la información del Empleado en RRHH" : 
+                    "No se ha encontrado el ticket de notificacion de clave";
 
+                pnlIdentificacion.Visible = false;
+                btnAceptar.Visible = false;
+
+                btnVolver.PostBackUrl = Request.UrlReferrer.AbsolutePath;
+                return;
+            }
+            
             Meta4LegajoBusiness m4lb = new Meta4LegajoBusiness();
-
             Meta4LegajoEntity legajo = m4lb.GetByDocumento(tipodocumento, nrodocumento);
+
+            if (legajo == null)
+            {
+                lbMensaje.Text = "No se ha encontrado la información del Empleado en RRHH";
+
+                pnlIdentificacion.Visible = false;
+                btnAceptar.Visible = false;
+
+                btnVolver.PostBackUrl = Request.UrlReferrer.AbsolutePath;
+                return;
+            }
 
             //random = new Random(int.Parse(legajo.Documento));
             random = new Random((int)Session["seed"]);
@@ -205,7 +232,7 @@ public partial class IdentificacionPositiva : System.Web.UI.Page
         string nrodocumento = string.Empty;
 
         //Si ingreso por Notificacion
-        bool esNotif = (Session["externo"] != null);
+        bool esNotif = (Session["externo"] != null && Session["externo"].ToString().Equals("S"));
 
         if (esNotif)
         {

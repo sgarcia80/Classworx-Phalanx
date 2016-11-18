@@ -11,6 +11,9 @@ using System.Web.UI.HtmlControls;
 using NDCBL;
 using NDCCommon.Entities;
 using NDCCommon.Collections;
+using PhalanxBL;
+using PhalanxCommon.Collections;
+using PhalanxCommon.Entities;
 
 public partial class NotificacionClave : System.Web.UI.Page
 {
@@ -18,14 +21,35 @@ public partial class NotificacionClave : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
+            WinDomainBusiness dominioLoginBL = new WinDomainBusiness();
+            dominioLoginBL.FilConfigured = true;
+            WinDomainEntityCollection dominios = dominioLoginBL.GetAll();
+
+            ddlDominio.DataSource = dominios;
+            ddlDominio.DataBind();
         }
     }
     protected void btnAceptar_Click(object sender, EventArgs e)
     {
         string usuario = tbLegajo.Text.Trim();
-
         lblMensajeNotif.Text = "";
-        string nombreUser = PhalanxNAL.ActiveDirectoryHelper.BuscarNombrePorUsername(usuario);
+
+        string valor = ddlDominio.SelectedItem.Value;
+        int id = 0;
+        string path = string.Empty;
+
+        int.TryParse(valor, out id);
+
+        WinDomainBusiness dominioLoginBL = new WinDomainBusiness();
+        WinDomainEntityCollection dominios = dominioLoginBL.GetById(id);
+
+        if (dominios.Count > 0)
+        {
+            path = dominios[0].LDAPPath;
+        }
+
+        string nombreUser = PhalanxNAL.ActiveDirectoryHelper.BuscarNombrePorUsername(usuario, path);
+
         bool esExterno = nombreUser.ToUpper().Contains("EXTERNO");
 
         AplicacionNotificacionClaveBusiness ancb = new AplicacionNotificacionClaveBusiness();
@@ -72,7 +96,7 @@ public partial class NotificacionClave : System.Web.UI.Page
         {
             Session["Dominio"] = "MACRO";
             Session["Usuario"] = usuario;
-            Session["ticketId"] = tickets[0].Id;
+            Session["ticketId"] = null;
 
             Response.Redirect(url);
         }
