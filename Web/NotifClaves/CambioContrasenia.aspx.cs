@@ -145,18 +145,11 @@ public partial class CambioContrasenia : System.Web.UI.Page
             return;
         }
 
-        //bool showCobis = false;
-        //if (ConfigurationManager.AppSettings["RespuestaCobis"] != null &&
-        //    ConfigurationManager.AppSettings["RespuestaCobis"].ToString() == "1")
-        //{
-        //    showCobis = true;
-        //}
-
         try
         {
-            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
-            //ServicePointManager.Expect100Continue = true;
-            //ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback(AllwaysGoodCertificate);
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
+            ServicePointManager.Expect100Continue = false;
+            ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback(AllwaysGoodCertificate);
 
             error = "Ejecutando WS... ";
 
@@ -176,131 +169,16 @@ public partial class CambioContrasenia : System.Web.UI.Page
 
             if (resultado != null &&
                 resultado.serviceError != null &&
-                !string.IsNullOrEmpty(resultado.serviceError.message))
+                resultado.serviceError.code.HasValue &&
+                resultado.serviceError.code == 0)
             {
                 error = string.Format("serviceError: {0}", resultado.serviceError.message);
             }
 
-            if (!string.IsNullOrEmpty(error))
-            {
-                error = "Error devuelto por el servicio:<BR/>" + error;
-            }
-
-            if (string.IsNullOrEmpty(error))// && showCobis)
-            {
-                error = string.Format("Respuesta COBIS: <BR/>- code: {0}<BR/>- message: {1}<BR/>- type: {2}<BR/>",
-                            (resultado.serviceError.code.HasValue ? resultado.serviceError.code.Value.ToString() : string.Empty),
-                            (string.IsNullOrEmpty(resultado.serviceError.message) ? string.Empty : resultado.serviceError.message),
-                            (string.IsNullOrEmpty(resultado.serviceError.type) ? string.Empty : resultado.serviceError.type)
-                            );
-            }
-
-        }
-        catch (Microsoft.Web.Services3.Security.SecurityFault ee)
-        {
-            error += "Security Error:<BR/>" + ee.Actor;
-        }
-        catch (System.Web.Services.Protocols.SoapHeaderException ee)
-        {
-            error += "Soap Error:<BR/>" + ee.ToString();
-            //txtRespuesta.Text += ee.Message;
-        }
-        catch (Exception ex)
-        {
-            error += "Internal Error:<BR/>" + ex.ToString();
-            //txtRespuesta.Text += ex.Message;
-        }
-
-        lblError.Text = string.Empty;
-        //if (ErrorExec && string.IsNullOrEmpty(lblResp2.Text))
-        //{
-        //    trTitRespuesta.Visible = true;
-        //    trRespuesta.Visible = true;
-        //    lblResp2.Text = "no se ha podido cambiar la contraseña. <br/>Por favor ingresa una solicitud vía Remedy, y te responderemos a la brevedad!";
-        //}
-
-        if (!string.IsNullOrEmpty(error))// && showCobis)
-        {
-            trRespuesta.Visible = true;
-            lblError.Text = "<BR/>" + error;
-        }
-    }
-
-    private void CambiarClaveSSL()
-    {
-        PhxConfigBusiness pcb = new PhxConfigBusiness();
-
-        string usuarioLlamada = pcb.GetConfigParam(PhalanxCommon.Entities.ConfigCodes.UsuarioLlamadaWSCOBIS).ShortTxtValue;
-        string idAplicacion = pcb.GetConfigParam(PhalanxCommon.Entities.ConfigCodes.IDAplicacionWSCOBIS).ShortTxtValue;
-        string estado = pcb.GetConfigParam(PhalanxCommon.Entities.ConfigCodes.EstadoWSCOBIS).ShortTxtValue;
-        string quienLlama = pcb.GetConfigParam(PhalanxCommon.Entities.ConfigCodes.QuienLlamaWSCOBIS).ShortTxtValue;
-
-        string loginASBlanqueoWSCOBIS = pcb.GetConfigParam(PhalanxCommon.Entities.ConfigCodes.LoginASBlanqueoWSCOBIS).ShortTxtValue;
-        string claveASBlanqueoWSCOBIS = pcb.GetConfigParam(PhalanxCommon.Entities.ConfigCodes.ClaveASBlanqueoWSCOBIS).ShortTxtValue;
-        string rolASBlanqueoWSCOBIS = pcb.GetConfigParam(PhalanxCommon.Entities.ConfigCodes.RolASBlanqueoWSCOBIS).ShortTxtValue;
-        string oficinaASBlanqueoWSCOBIS = pcb.GetConfigParam(PhalanxCommon.Entities.ConfigCodes.OficinaASBlanqueoWSCOBIS).ShortTxtValue;
-        string servidorASBlanqueoWSCOBIS = pcb.GetConfigParam(PhalanxCommon.Entities.ConfigCodes.ServidorASBlanqueoWSCOBIS).ShortTxtValue;
-
-        //COBISDesbloqueo.BloqueoDesbloqueoUsuariosCobisServiceWse serviceProxy = new BloqueoDesbloqueoUsuariosCobisServiceWse();
-        Phalanx.Cobis.ADCambioContraseniaClient serviceProxy = new Phalanx.Cobis.ADCambioContraseniaClient();
-
-        UsernameToken token = new UsernameToken(usuarioLlamada, "a", PasswordOption.SendNone);
-        //serviceProxy.SetClientCredential(token);
-        //serviceProxy.SetPolicy("ClientPolicy");
-
-        Phalanx.Cobis.RequestConnection requestConnection = new Phalanx.Cobis.RequestConnection();
-        requestConnection.applicationID = idAplicacion;
-        requestConnection.password = string.Empty;
-        requestConnection.sessionID = string.Empty;
-        requestConnection.user = string.Empty;
-
-        Phalanx.Cobis.ADCambioContraseniaFil filtro = new Phalanx.Cobis.ADCambioContraseniaFil();
-
-        filtro.i_u_login_adminseg = loginASBlanqueoWSCOBIS;
-        filtro.i_c_clave_adminseg = claveASBlanqueoWSCOBIS;
-        filtro.i_rol_adminseg = rolASBlanqueoWSCOBIS;
-        filtro.i_oficina_adminseg = oficinaASBlanqueoWSCOBIS;
-        filtro.i_servidor_adminseg = servidorASBlanqueoWSCOBIS;
-        filtro.i_c_clave = tbPassword.Text.ToLower();
-        filtro.i_u_login = Session["Usuario"].ToString();
-
-        bool ErrorExec = true;
-        lblResp2.Text = string.Empty;
-        string error = string.Empty;
-        string cert = string.Empty;
-        string url = string.Empty;
-
-        try
-        {
-            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
-            //ServicePointManager.Expect100Continue = true;
-            //ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback(AllwaysGoodCertificate);
-
-            error = "Ejecutando WS... ";
-
-            Phalanx.Cobis.ADCambioContraseniaRes resultado = serviceProxy.execute(requestConnection, filtro);
-
-            error = string.Empty;
-
-            if (resultado.serviceError.code == 0)
-            {
-                trTitRespuesta.Visible = true;
-                trRespuesta.Visible = true;
-                lblResp2.Text = "Se ha cambiado la contraseña en forma satisfactoria";
-                ErrorExec = false;
-            }
-
-            if (resultado != null &&
-                resultado.serviceError != null &&
-                !string.IsNullOrEmpty(resultado.serviceError.message))
-            {
-                error = string.Format("serviceError: {0}", resultado.serviceError.message);
-            }
-
-            if (!string.IsNullOrEmpty(error))
-            {
-                error = "Error devuelto por el servicio:<BR/>" + error;
-            }
+            //if (!string.IsNullOrEmpty(error))
+            //{
+            //    error = "Error devuelto por el servicio:<BR/>" + error;
+            //}
         }
         catch (Microsoft.Web.Services3.Security.SecurityFault ee)
         {
@@ -325,16 +203,10 @@ public partial class CambioContrasenia : System.Web.UI.Page
             lblResp2.Text = "no se ha podido cambiar la contraseña. <br/>Por favor ingresa una solicitud vía Remedy, y te responderemos a la brevedad!";
         }
 
-        bool showCobis = false;
-        if (ConfigurationManager.AppSettings["RespuestaCobis"] != null &&
-            ConfigurationManager.AppSettings["RespuestaCobis"].ToString() == "1")
+        if (!string.IsNullOrEmpty(error))
         {
-            showCobis = true;
-        }
-
-        if (!string.IsNullOrEmpty(error) && showCobis)
-        {
-            lblError.Text = "(certificado: " + cert + ")<BR/><BR/>" + error;
+            trRespuesta.Visible = true;
+            lblError.Text = "<BR/>" + error;
         }
     }
 
