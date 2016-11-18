@@ -137,6 +137,68 @@ namespace PhalanxDAL
                 config.AddResource("PhalanxDAL.MappingFiles.MailType.hbm.xml", nhAssembly);
                 config.AddResource("PhalanxDAL.MappingFiles.PhxConfig.hbm.xml", nhAssembly);
                 config.AddResource("PhalanxDAL.MappingFiles.VwDate.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.UserTypes.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.PwdLockTypes.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.Users.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.WinPCs.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.WinDomains.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.WinDomainControllers.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.WinGroups.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.UsersPasswords.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.PhxUsersGroups.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.RequestStates.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.RequestsGroups.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.RqstGrpsDeleg.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.Requests.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.RqstGrpsPwds.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.PhxUsers.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.PhxRoles.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.PhxRolesUsers.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.VwPhxUsersRqstPwdGroups.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.VwPhxUsersRqstDelGroups.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.VwInventario.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.Applications.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.DatabaseTypes.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.DataBases.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.Unix.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.AS400.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.HistChangePasswordAccess.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.HistChangePassword.hbm.xml", nhAssembly);
+                //config.AddResource("PhalanxDAL.MappingFiles.PhxLog.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.DemoConf.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.VwHistPwdChg.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.PhxUserSuperior.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.AuditPhxUser.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.AuditUsuarios.hbm.xml", nhAssembly);
+                //config.AddResource("PhalanxDAL.MappingFiles.EventoLogin.hbm.xml", nhAssembly);
+                //config.AddResource("PhalanxDAL.MappingFiles.AuditLogin.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.AuditPermisos.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.PhxPrivilegeGroup.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.PhxPrivilege.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.PhxPrivilegeRole.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.AuditPhxRole.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.AuditPhxPrivilegeRole.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.VwPerfilUsuario.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.VwPermisoPerfil.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.FollowupRequestGroup.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.FollowupRequestGroupPassword.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.FollowupRequestGroupUser.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.FollowupRequestGroupDefault.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.PhxVersion.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.PhxContingencia.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.LoteChkWinLocalUsers.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.ItemLoteChkWinLocalUsers.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.AccionItemChkWinLocalUser.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.vwCantFollowRqstGrpPwd.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.vwCantRqstGrpPwd.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.VwPwdRqstGrp.hbm.xml", nhAssembly);
+
+                //config.AddResource("PhalanxDAL.MappingFiles.", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.Building.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.CommunicationDeviceTypes.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.CommunicationDeviceProtocols.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.CommunicationDevices.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.PhxLogUsuariosInactivados.hbm.xml", nhAssembly);
 
                 if (assembly != null)
                 {
@@ -146,71 +208,7 @@ namespace PhalanxDAL
                 switch (application)
                 {
                     case App.Phalanx:
-                        //config.AddAssembly("PhalanxDAL");
-                        //config.AddClass(typeof(Users));
-                        //config.AddAssembly(nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.UserTypes.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.PwdLockTypes.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.Users.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.WinPCs.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.WinDomains.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.WinDomainControllers.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.WinGroups.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.UsersPasswords.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.PhxUsersGroups.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.RequestStates.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.RequestsGroups.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.RqstGrpsDeleg.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.Requests.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.RqstGrpsPwds.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.PhxUsers.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.PhxRoles.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.PhxRolesUsers.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.VwPhxUsersRqstPwdGroups.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.VwPhxUsersRqstDelGroups.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.VwInventario.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.Applications.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.DatabaseTypes.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.DataBases.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.Unix.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.AS400.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.HistChangePasswordAccess.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.HistChangePassword.hbm.xml", nhAssembly);
-                        //config.AddResource("PhalanxDAL.MappingFiles.PhxLog.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.DemoConf.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.VwHistPwdChg.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.PhxUserSuperior.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.AuditPhxUser.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.AuditUsuarios.hbm.xml", nhAssembly);
-                        //config.AddResource("PhalanxDAL.MappingFiles.EventoLogin.hbm.xml", nhAssembly);
-                        //config.AddResource("PhalanxDAL.MappingFiles.AuditLogin.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.AuditPermisos.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.PhxPrivilegeGroup.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.PhxPrivilege.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.PhxPrivilegeRole.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.AuditPhxRole.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.AuditPhxPrivilegeRole.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.VwPerfilUsuario.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.VwPermisoPerfil.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.FollowupRequestGroup.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.FollowupRequestGroupPassword.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.FollowupRequestGroupUser.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.FollowupRequestGroupDefault.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.PhxVersion.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.PhxContingencia.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.LoteChkWinLocalUsers.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.ItemLoteChkWinLocalUsers.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.AccionItemChkWinLocalUser.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.vwCantFollowRqstGrpPwd.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.vwCantRqstGrpPwd.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.VwPwdRqstGrp.hbm.xml", nhAssembly);
-
-                        //config.AddResource("PhalanxDAL.MappingFiles.", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.Building.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.CommunicationDeviceTypes.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.CommunicationDeviceProtocols.hbm.xml", nhAssembly);
-                        config.AddResource("PhalanxDAL.MappingFiles.CommunicationDevices.hbm.xml", nhAssembly);
-						config.AddResource("PhalanxDAL.MappingFiles.PhxLogUsuariosInactivados.hbm.xml", nhAssembly);
+                        
                         try
                         {
                             nhAssembly = Assembly.Load("NDCDAL");
@@ -230,6 +228,7 @@ namespace PhalanxDAL
                         config.AddResource("NDCDAL.MappingFiles.SubsidiariaEntity.hbm.xml", nhAssembly);
                         config.AddResource("NDCDAL.MappingFiles.QuestionEntity.hbm.xml", nhAssembly);
                         config.AddResource("NDCDAL.MappingFiles.QuestionAnswerEntity.hbm.xml", nhAssembly);
+                        
                         //config.AddAssembly(nhAssembly);
                         InicializarMeta4();
                         break;

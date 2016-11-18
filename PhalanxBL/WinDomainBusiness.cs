@@ -12,10 +12,16 @@ namespace PhalanxBL
     public class WinDomainBusiness
     {
         private string _filNombre = "";
+        private bool _filConfigured = false;
         private WinDomainsFactory mWinDomFactory = null;
         public string FilNombre
         {
             set { _filNombre = value; }
+            //get { return _filNombre; }
+        }
+        public bool FilConfigured
+        {
+            set { _filConfigured = value; }
             //get { return _filNombre; }
         }
 
@@ -26,8 +32,14 @@ namespace PhalanxBL
 
         public WinDomainEntityCollection GetAll()
         {
+            mWinDomFactory.FilConfigured = _filConfigured;
             mWinDomFactory.FilNombre = _filNombre;
             return mWinDomFactory.GetAll();
+        }
+
+        public WinDomainEntityCollection GetById(int id)
+        {
+            return mWinDomFactory.GetById(id);
         }
 
         public WinDomainEntityCollection FillFilter()
