@@ -47,7 +47,7 @@ public partial class AltaTemprana : System.Web.UI.Page
 
         Session["Dominio"] = "MACRO";
         Session["Usuario"] = "";
-        //Session["externo"] = (legajo == null) ? "S" : "";
+        Session["externo"] = null;
         Session["ticketId"] = ticket.Id;
         Session["seed"] = TimeSpan.FromTicks(DateTime.Now.Ticks).Seconds;
 
