@@ -232,6 +232,34 @@ namespace PhalanxNAL
             return BuscarLDAPEntryPropiedad(ConfigurationManager.AppSettings["LDAPBuscarNombreFilter"].Replace("[username]", username), NOMBRE_PROPIEDAD_USERNAME_AD);
         }
 
+        public static string BuscarNombrePorUsername(string username, string path)
+        {
+            string name = string.Empty;
+            string filtroBuscarNombre = ConfigurationManager.AppSettings["LDAPBuscarNombreFilter"];
+
+            DirectoryEntry usuario = BuscarLDAPEntryRecursivo(path, filtroBuscarNombre.Replace("[username]", username), new string[] { NOMBRE_PROPIEDAD_DESCRIPCION_AD });
+
+            try
+            {
+                if (usuario != null)
+                {                    
+                    if (usuario.Properties.Contains(NOMBRE_PROPIEDAD_DESCRIPCION_AD))
+                    {
+                        if (usuario.Properties[NOMBRE_PROPIEDAD_DESCRIPCION_AD] != null)
+                        {
+                            name = usuario.Properties[NOMBRE_PROPIEDAD_DESCRIPCION_AD].Value.ToString();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al validar el usuario en el Dominio", ex);
+            }
+
+            return name;
+        }
+
         private static DirectoryEntry BuscarLDAPEntry(string path, string filter, IEnumerable<string> properties)
         {
             log.Info("Comienza busqueda LDAP");
