@@ -14,17 +14,27 @@ using PhalanxCommon.Entities;
 using NDCCommon.Entities;
 using NDCCommon.Collections;
 using NDCBL;
+using PhalanxCommon.Collections;
 
 public partial class Login : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!IsPostBack)
+        {
+            WinDomainBusiness dominioLoginBL = new WinDomainBusiness();
+            dominioLoginBL.FilConfigured = true;
+            WinDomainEntityCollection dominios = dominioLoginBL.GetAll();
+
+            ddlDominio.DataSource = dominios;
+            ddlDominio.DataBind();
+        }
     }
     
     protected void btnAceptar_Click(object sender, EventArgs e)
     {
         //string dominio = tbDominio.Text.Trim();
-        string dominio = ddlDominio.SelectedValue;
+        string dominio = ddlDominio.SelectedItem.Text;
         string usuario = tbUsuario.Text.Trim();
         string password = tbPassword.Text;
 
@@ -62,11 +72,24 @@ public partial class Login : System.Web.UI.Page
         
         try
         {
+            int id = 0;
+            string valor = ddlDominio.SelectedItem.Value;
+            string path = string.Empty;
+
+            int.TryParse(valor, out id);
+
+            WinDomainBusiness dominioLoginBL = new WinDomainBusiness();
+            WinDomainEntityCollection dominios = dominioLoginBL.GetById(id);
+
             string provider = "LDAP";
 
             PhxConfigBusiness pcb = new PhxConfigBusiness();
-
             PhxConfigEntity config = pcb.GetConfigParam(ConfigCodes.AutenticacionLoginNDC);
+            
+            if (dominios.Count > 0)
+            {
+                provider = dominios[0].LDAPPath;
+            }
 
             if (config.ShortTxtValue == "WINNT")
                 provider = "WinNT";
@@ -77,6 +100,11 @@ public partial class Login : System.Web.UI.Page
             authentic = true;
 
             auditLoginBusiness.LogAccOK(null, nombreUsuario, null, Request.ServerVariables["REMOTE_ADDR"], PhalanxCommon.Entities.App.NotificacionClaves);
+
+            string nombreUser = PhalanxNAL.ActiveDirectoryHelper.BuscarNombrePorUsername(usuario, path);
+            bool esExterno = nombreUser.ToUpper().Contains("EXTERNO");
+            
+            Session["externo"] = (esExterno) ? "S" : "";
         }
         catch (DirectoryServicesCOMException cex)
         {

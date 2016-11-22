@@ -53,10 +53,8 @@
                 Dominio
             </td>
             <td>
-                <asp:DropDownList ID="ddlDominio" runat="server" DataSourceID="odsDominiosLogin"
-                    DataTextField="Nombre" DataValueField="DireccionAD" Width="166px">
-                </asp:DropDownList><asp:ObjectDataSource ID="odsDominiosLogin" runat="server" SelectMethod="GetAllParaCombo"
-                    TypeName="NDCBL.DominioLoginBusiness"></asp:ObjectDataSource>
+                <asp:DropDownList ID="ddlDominio" runat="server"
+                    DataTextField="NtName" DataValueField="Id" Width="166px"></asp:DropDownList>
             </td>
         </tr>
         <tr>

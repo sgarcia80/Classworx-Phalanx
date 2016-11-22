@@ -37,17 +37,19 @@
     <div class="tituloSeccion">
     </div>
     <br />
-    <table class="login" style="font-size: 10pt;">
-        <tr>
-            <td align="center" valign="top" style="width: 210px;">
-                <asp:Button ID="btnPreguntas" Text="Cargar/Editar Preguntas" CssClass="btn" Width="180px" runat="server"
-                    OnClick="btnPreguntas_Click" Height="60px" BorderWidth="2" />
-            </td>
-            <td align="left" style="font-weight: normal; width: 387px;">
-                Permite dar de alta o modificar preguntas de seguridad
-            </td>
-        </tr>
-    </table>
+    <asp:Panel ID="panelPreguntas" runat="server">
+        <table class="login" style="font-size: 10pt;">
+            <tr>
+                <td align="center" valign="top" style="width: 210px;">
+                    <asp:Button ID="btnPreguntas" Text="Cargar/Editar Preguntas" CssClass="btn" Width="180px"
+                        runat="server" OnClick="btnPreguntas_Click" Height="60px" BorderWidth="2" />
+                </td>
+                <td align="left" style="font-weight: normal; width: 387px;">
+                    Permite dar de alta o modificar preguntas de seguridad
+                </td>
+            </tr>
+        </table>
+    </asp:Panel>
     <br />
     <div class="division">
     </div>
