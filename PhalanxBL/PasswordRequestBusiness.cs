@@ -198,6 +198,12 @@ namespace PhalanxBL
                 pwdRequest = new PasswordsRequestsFactory().Load(pwdRequest.Id);
                 new MailAlertBusiness().CreateDevRqstPwdMail(pwdRequest);
             }
+            else
+            {
+                //si la contraseña no es critica, se debera enviar un mail a todos los integrantes del Grupo de Seguimiento
+                pwdRequest = new PasswordsRequestsFactory().Load(pwdRequest.Id);
+                new MailAlertBusiness().CreateDevRqstPwdMailNoCritic(pwdRequest);
+            }
 
             return RtdoDevolucion;
         }

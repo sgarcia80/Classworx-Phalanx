@@ -48,7 +48,9 @@ namespace PhalanxCommon.Entities
         SubjectNotificacionBlanqueoMail,
         BodyNotificacionBlanqueoMail,
         SubjectReclamoNotificacionBlanqueoMail,
-        BodyReclamoNotificacionBlanqueoMail
+        BodyReclamoNotificacionBlanqueoMail,
+        SubjectDevMailsNoCritic,
+        BodyDevMailsNoCritic
     }
 
 

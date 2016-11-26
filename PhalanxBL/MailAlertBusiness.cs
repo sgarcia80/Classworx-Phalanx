@@ -1414,6 +1414,59 @@ namespace PhalanxBL
                 // no se pudo crear el mail, seguramente por falta de parametros;
             }
         }
+
+        public void CreateDevRqstPwdMailNoCritic(PasswordRequestEntity PasswordRequest)
+        {
+            string AuthGroupMail = "";
+            string MailBody = "";
+            string MailSubject = "";
+            try
+            {
+                MailAlertEntity MailToSend = new MailAlertEntity();
+                MailToSend.MailType = new MailTypeFactory().GetMailType(MailTypeFactory.MailType.DevolucionPwdRqstNoCritic);
+
+                PhxConfigBusiness PhxConfBL = new PhxConfigBusiness();
+
+                AuthGroupMail = PhxConfBL.GetConfigParam(ConfigCodes.AdmMailGrp).ShortTxtValue;
+
+                /// busca los mails de los designados en los grupos de seguimiento de la contraseña
+                PhxUserBusiness PhxUsrBL = new PhxUserBusiness();
+                PhxUserEntityCollection AutorizadoresEC = new PhxUserEntityCollection();
+                AutorizadoresEC = PhxUsrBL.GetAllFollowPwdRqstAuth(PasswordRequest.UserPassword);
+                /// si no hay administradores en los grupos de seguimiento se asigna la casilla del grupo por defecto
+
+                MailAlertCCBusiness maccBL = new MailAlertCCBusiness();
+                
+                if (AutorizadoresEC.Count == 0)
+                {
+                    //Agrego CC
+                    MailToSend.MailAlertCCList.Add(maccBL.CreateCC(AuthGroupMail));
+                }
+                else
+                {
+                    //Agrego CC
+                    foreach (PhxUserEntity entityUser in AutorizadoresEC)
+                        MailToSend.MailAlertCCList.Add(maccBL.CreateCC(entityUser.Fullname, entityUser.Email, MailToSend));
+                }
+
+                MailBody = ReplaceDevRqstTokens(PhxConfBL.GetConfigParam(ConfigCodes.BodyDevMailsNoCritic).LongTxtValue, PasswordRequest);
+                MailSubject = ReplaceDevRqstTokens(PhxConfBL.GetConfigParam(ConfigCodes.SubjectDevMailsNoCritic).ShortTxtValue, PasswordRequest);
+
+                MailToSend.Body = MailBody;
+                MailToSend.Subject = MailSubject;
+
+                MailAlertFactory MAF = new MailAlertFactory();
+                int IdMailAlert = MAF.Save(MailToSend);
+                if (IdMailAlert > 0)
+                {
+                    this.SendMail(MailToSend);
+                }
+            }
+            catch (Exception ex)
+            {
+                // no se pudo crear el mail, seguramente por falta de parametros;
+            }
+        }
         
         private string ReplaceDevRqstTokens(string MailBody, PasswordRequestEntity PwdRqst)
         {

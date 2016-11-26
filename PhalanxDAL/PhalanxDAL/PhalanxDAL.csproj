@@ -193,6 +193,7 @@
     <Compile Include="DBMgr.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Factories\vwHistPwdVisFactory.cs" />
     <Compile Include="Factories\HistPasswordChangeAccessFactory.cs" />
     <Compile Include="Factories\MailAlertCCFactory.cs" />
     <Compile Include="Factories\PhxLogUsuarioInactivadoFactory.cs" />
@@ -501,6 +502,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MappingFiles\MailAlertCC.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\VwHistPwdVis.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

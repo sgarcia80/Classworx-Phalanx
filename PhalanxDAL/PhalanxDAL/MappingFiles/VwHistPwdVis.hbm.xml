@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.vwHistPwdVisEntity,PhalanxCommon" table="vwHistPwdVisualized">
+
+    <id name="Id" column="hist_chg_pwd_acc_id" type="Int32" unsaved-value="0">
+      <generator class="assigned"/>
+    </id>
+
+    <property column="hist_chg_pwd_id" type="Int32" name="Hist_chg_pwd_id" not-null="true"/>
+    <property column="Folio" type="Int32" name="Folio" not-null="true"/>
+    <property column="Usuario" type="String" name="Usuario" not-null="true" length="500" />
+    <many-to-one name="UserType" column="user_type_id" class="PhalanxCommon.Entities.UserTypeEntity,PhalanxCommon" />
+    <many-to-one name="PhxUser" column="phx_user_id" class="PhalanxCommon.Entities.PhxUserEntity,PhalanxCommon" />
+    <property column="access_date" type="DateTime" name="AccessDate" />
+
+  </class>
+</hibernate-mapping>
