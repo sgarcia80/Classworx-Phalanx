@@ -20,21 +20,12 @@ public partial class Login : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
-        {
-            WinDomainBusiness dominioLoginBL = new WinDomainBusiness();
-            dominioLoginBL.FilConfigured = true;
-            WinDomainEntityCollection dominios = dominioLoginBL.GetAll();
-
-            ddlDominio.DataSource = dominios;
-            ddlDominio.DataBind();
-        }
     }
-    
+
     protected void btnAceptar_Click(object sender, EventArgs e)
     {
         //string dominio = tbDominio.Text.Trim();
-        string dominio = ddlDominio.SelectedItem.Text;
+        string dominio = ddlDominio.SelectedValue;
         string usuario = tbUsuario.Text.Trim();
         string password = tbPassword.Text;
 
@@ -65,56 +56,55 @@ public partial class Login : System.Web.UI.Page
     private bool Autenticar(string dominio, string usuario, string password)
     {
         bool authentic = false;
+        bool esExterno = false;
 
         AuditLoginBusiness auditLoginBusiness = new AuditLoginBusiness();
 
-        string nombreUsuario = string.Format(@"{0}\{1}", dominio, usuario); 
-        
+        string nombreUsuario = string.Format(@"{0}\{1}", dominio, usuario);
+
         try
         {
-            int id = 0;
-            string valor = ddlDominio.SelectedItem.Value;
-            string path = string.Empty;
-
-            int.TryParse(valor, out id);
-
-            WinDomainBusiness dominioLoginBL = new WinDomainBusiness();
-            WinDomainEntityCollection dominios = dominioLoginBL.GetById(id);
-
             string provider = "LDAP";
 
             PhxConfigBusiness pcb = new PhxConfigBusiness();
+
             PhxConfigEntity config = pcb.GetConfigParam(ConfigCodes.AutenticacionLoginNDC);
-            
-            if (dominios.Count > 0)
-            {
-                provider = dominios[0].LDAPPath;
-            }
 
             if (config.ShortTxtValue == "WINNT")
                 provider = "WinNT";
 
             DirectoryEntry entry = new DirectoryEntry(provider + "://" + dominio, usuario, password);
-            
+
             object nativeObject = entry.NativeObject;
             authentic = true;
 
-            auditLoginBusiness.LogAccOK(null, nombreUsuario, null, Request.ServerVariables["REMOTE_ADDR"], PhalanxCommon.Entities.App.NotificacionClaves);
 
-            string nombreUser = PhalanxNAL.ActiveDirectoryHelper.BuscarNombrePorUsername(usuario, path);
-            bool esExterno = nombreUser.ToUpper().Contains("EXTERNO");
-            
-            Session["externo"] = (esExterno) ? "S" : "";
+            if (entry != null)
+            {
+                if (entry.Properties.Contains("description"))
+                {
+                    if (entry.Properties["description"] != null)
+                    {
+                        string name = entry.Properties["description"].Value.ToString();
+
+                        esExterno = name.ToUpper().Contains("EXTERNO");
+                    }
+                }
+            }
+
+            auditLoginBusiness.LogAccOK(null, nombreUsuario, null, Request.ServerVariables["REMOTE_ADDR"], PhalanxCommon.Entities.App.NotificacionClaves);
         }
         catch (DirectoryServicesCOMException cex)
         {
             if (cex.ExtendedError == -2146893044)
-                auditLoginBusiness.LogUsrConInexistente(null, usuario, null, Request.ServerVariables["REMOTE_ADDR"], PhalanxCommon.Entities.App.NotificacionClaves); 
+                auditLoginBusiness.LogUsrConInexistente(null, usuario, null, Request.ServerVariables["REMOTE_ADDR"], PhalanxCommon.Entities.App.NotificacionClaves);
         }
         catch (Exception ex)
         {
-            
+
         }
+
+        Session["externo"] = (esExterno) ? "S" : "";
 
         return authentic;
     }
