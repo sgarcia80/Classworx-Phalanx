@@ -147,6 +147,11 @@ namespace PhalanxAdmin
             ((FPrincipal)this.MdiParent).OpenForm(new FDepuracionLogs());
         }
 
+        private void lnkLogVisPwd_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ((FPrincipal)this.MdiParent).OpenForm(new FLogPwdVis());
+        }
+
     }
 }
 

@@ -130,6 +130,7 @@
     <Compile Include="CommunicationDeviceTypeBusiness.cs" />
     <Compile Include="CommunicationDeviceUserBusiness.cs.cs" />
     <Compile Include="ATMUserBusiness.cs" />
+    <Compile Include="vwHistPwdVisBusiness.cs" />
     <Compile Include="HistPasswordChangeAccessBusiness.cs" />
     <Compile Include="MailAlertCCBusiness.cs" />
     <Compile Include="PhxLogUsuarioInactivadoBusiness.cs" />

@@ -33,6 +33,7 @@ namespace PhalanxAdmin
             this.lnkHistPwd = new System.Windows.Forms.LinkLabel();
             this.lnkLogueos = new System.Windows.Forms.LinkLabel();
             this.lnkDepuracionLogs = new System.Windows.Forms.LinkLabel();
+            this.lnkLogVisPwd = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
             this.pnlXPGrps.SuspendLayout();
             this.pnlIzq.SuspendLayout();
@@ -50,13 +51,14 @@ namespace PhalanxAdmin
             // xppnlMenu
             // 
             this.xppnlMenu.Caption = "Auditoria";
+            this.xppnlMenu.Controls.Add(this.lnkLogVisPwd);
             this.xppnlMenu.Controls.Add(this.lnkDepuracionLogs);
             this.xppnlMenu.Controls.Add(this.lnkLogueos);
             this.xppnlMenu.Controls.Add(this.lnkLogPwdChg);
             this.xppnlMenu.Controls.Add(this.lnkMailsAlert);
             this.xppnlMenu.Controls.Add(this.lnkHistPwd);
             this.xppnlMenu.ImageItems.ImageSet = null;
-            this.xppnlMenu.Size = new System.Drawing.Size(184, 174);
+            this.xppnlMenu.Size = new System.Drawing.Size(184, 199);
             // 
             // lnkLogPwdChg
             // 
@@ -133,6 +135,20 @@ namespace PhalanxAdmin
             this.lnkDepuracionLogs.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
             this.lnkDepuracionLogs.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkDepuracionLogs_LinkClicked);
             // 
+            // lnkLogVisPwd
+            // 
+            this.lnkLogVisPwd.ActiveLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkLogVisPwd.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.lnkLogVisPwd.LinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkLogVisPwd.Location = new System.Drawing.Point(18, 165);
+            this.lnkLogVisPwd.Name = "lnkLogVisPwd";
+            this.lnkLogVisPwd.Size = new System.Drawing.Size(128, 31);
+            this.lnkLogVisPwd.TabIndex = 25;
+            this.lnkLogVisPwd.TabStop = true;
+            this.lnkLogVisPwd.Text = "Log de Visualización de Contraseñas";
+            this.lnkLogVisPwd.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkLogVisPwd.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkLogVisPwd_LinkClicked);
+            // 
             // FBaseAuditoria
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -155,5 +171,6 @@ namespace PhalanxAdmin
         private System.Windows.Forms.LinkLabel lnkHistPwd;
         private System.Windows.Forms.LinkLabel lnkLogueos;
         private System.Windows.Forms.LinkLabel lnkDepuracionLogs;
+        private System.Windows.Forms.LinkLabel lnkLogVisPwd;
     }
 }

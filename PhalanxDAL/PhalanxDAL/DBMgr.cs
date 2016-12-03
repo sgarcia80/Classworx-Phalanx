@@ -167,6 +167,7 @@ namespace PhalanxDAL
                 //config.AddResource("PhalanxDAL.MappingFiles.PhxLog.hbm.xml", nhAssembly);
                 config.AddResource("PhalanxDAL.MappingFiles.DemoConf.hbm.xml", nhAssembly);
                 config.AddResource("PhalanxDAL.MappingFiles.VwHistPwdChg.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.VwHistPwdVis.hbm.xml", nhAssembly);
                 config.AddResource("PhalanxDAL.MappingFiles.PhxUserSuperior.hbm.xml", nhAssembly);
                 config.AddResource("PhalanxDAL.MappingFiles.AuditPhxUser.hbm.xml", nhAssembly);
                 config.AddResource("PhalanxDAL.MappingFiles.AuditUsuarios.hbm.xml", nhAssembly);

@@ -130,7 +130,8 @@
             <tr>
                 <td style="height: 70px" colspan="2">
                     <asp:TextBox ID="TBDescripcion" runat="server" CssClass="labelCombo" Width="62%"
-                        Height="48px" ReadOnly="True" TextMode="MultiLine">El usuario solicitante de una Clave en Custodia es responsable de mantener la confidencialidad de la contrase&#241;a recibida</asp:TextBox></td>
+                        Height="48px" ReadOnly="True" TextMode="MultiLine">El usuario solicitante de una Clave en Custodia es responsable de mantener la confidencialidad de la contrase&#241;a recibida.
+Si no visualiza la clave dentro de las 24 hs de haber sido solicitada, el presente pedido quedará sin efecto.</asp:TextBox></td>
             </tr>
             <tr>
                 <td colspan="2">
