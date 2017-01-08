@@ -45,6 +45,8 @@ public partial class AltaTemprana : System.Web.UI.Page
             return;
         }
 
+        Session["tipoticket"] = null;
+
         Session["Dominio"] = "MACRO";
         Session["Usuario"] = "";
         Session["externo"] = null;
@@ -98,6 +100,8 @@ public partial class AltaTemprana : System.Web.UI.Page
         ticket.AltaTempranaTokenUsuario = User != null && User.Identity != null ? User.Identity.Name : string.Empty;
 
         tncb.Save(ticket);
+
+        Session["tipoticket"] = null;
 
         Session["id"] = ticket.Id;
         Session["Usuario"] = ticket.Usuario;
