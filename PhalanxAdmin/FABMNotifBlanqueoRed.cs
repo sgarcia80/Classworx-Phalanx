@@ -241,6 +241,16 @@ namespace PhalanxAdmin
                 return;
             }
 
+            bool altaTempranaPendiente = ValidarAltaTempranaPendiente(txtUser.Text);
+
+            if (altaTempranaPendiente)
+            {
+                string mensaje = string.Format("El usuario {0} primero debe notificarse de su Alta Temprana", txtUser.Text);
+                MessageBox.Show(mensaje, "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+
             WinDomainEntity dominio = null;
 
             // asignar datos a la entity
@@ -332,6 +342,31 @@ namespace PhalanxAdmin
             randompinresult = randompinresult.PadLeft(2, '0');
 
             tPassword1.Text = string.Format("{0}{1}{2}", palabras[index].Valor.Substring(0, 2).ToUpper(), palabras[index].Valor.Substring(2), randompinresult);
+        }
+
+        private bool ValidarAltaTempranaPendiente(string usuario)
+        {
+            bool ok = false;
+            Meta4ClassWorxUsuariosBusiness m4ub = new Meta4ClassWorxUsuariosBusiness();
+
+            IList<Meta4ClassWorxUsuariosEntity> usuarios = m4ub.GetUser(usuario);
+
+            if (usuarios != null && usuarios.Count > 0)
+            {
+                string tipodocumento = usuarios[0].TipoDocumento;
+                string nrodocumento = usuarios[0].Num_Documento;
+
+                TicketNotificacionClaveBusiness tncb = new TicketNotificacionClaveBusiness();
+
+                TicketNotificacionClaveEntity ticket = tncb.GetAltaTempranaTicket(tipodocumento, nrodocumento);
+
+                if (ticket != null)
+                {
+                    ok = true;
+                }
+            }
+
+            return ok;
         }
     }
 }

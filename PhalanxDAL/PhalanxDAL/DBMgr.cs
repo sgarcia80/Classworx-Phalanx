@@ -218,6 +218,8 @@ namespace PhalanxDAL
                         catch
                         { }
 
+                        InicializarMeta4();
+
                          
                         break;
                     case App.NotificacionClaves:
