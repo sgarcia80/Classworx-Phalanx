@@ -840,7 +840,8 @@ namespace PhalanxBL
             {
                 TiempoUso = " Días";
             }
-            MailBody = MailBody.Replace("[TiempoUso]", PwdRqst.HoursRequested + TiempoUso);
+
+            MailBody = MailBody.Replace("[TiempoUso]", PwdRqst.HoursGiven + TiempoUso);
             MailBody = MailBody.Replace("[NroTicket]", PwdRqst.Key);
             MailBody = MailBody.Replace("[EstadoSolicitud]", PwdRqst.RqstState.RqstStateDesc);
             return MailBody;
