@@ -18,7 +18,7 @@ public partial class IdentificacionPositiva : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack && Session["ticketId"] != null)
+        if (!IsPostBack)
         {
             int ticketId = 0;
 
@@ -28,7 +28,7 @@ public partial class IdentificacionPositiva : System.Web.UI.Page
             }
 
             //Si no se recibió un ticket de NOTIFICACIÓN DE CLAVE es de BLANQUEO.
-            bool esNotif = ticketId == 0;
+            bool esNotif = (Session["externo"] != null);
             string tipodocumento = string.Empty;
             string nrodocumento = string.Empty;
 
@@ -43,6 +43,8 @@ public partial class IdentificacionPositiva : System.Web.UI.Page
                     tipodocumento = usuarios[0].TipoDocumento;
                     nrodocumento = usuarios[0].Num_Documento;
                 }
+
+                btnVolver.PostBackUrl = Request.UrlReferrer.AbsolutePath;
             }
             else
             {
@@ -68,7 +70,6 @@ public partial class IdentificacionPositiva : System.Web.UI.Page
                 pnlIdentificacion.Visible = false;
                 btnAceptar.Visible = false;
 
-                btnVolver.PostBackUrl = Request.UrlReferrer.AbsolutePath;
                 return;
             }
             
@@ -232,7 +233,7 @@ public partial class IdentificacionPositiva : System.Web.UI.Page
         string nrodocumento = string.Empty;
 
         //Si ingreso por Notificacion
-        bool esNotif = (Session["externo"] != null && Session["externo"].ToString().Equals("S"));
+        bool esNotif = (Session["externo"] != null);
 
         if (esNotif)
         {

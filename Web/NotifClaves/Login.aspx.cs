@@ -20,6 +20,13 @@ public partial class Login : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        try
+        {
+            Session.Remove("externo");
+        }
+        catch (Exception)
+        {
+        }
     }
 
     protected void btnAceptar_Click(object sender, EventArgs e)
@@ -73,23 +80,18 @@ public partial class Login : System.Web.UI.Page
             if (config.ShortTxtValue == "WINNT")
                 provider = "WinNT";
 
-            DirectoryEntry entry = new DirectoryEntry(provider + "://" + dominio, usuario, password);
+            string path = provider + "://" + dominio;
+
+            DirectoryEntry entry = new DirectoryEntry(path, usuario, password);
 
             object nativeObject = entry.NativeObject;
             authentic = true;
 
+            string name = PhalanxNAL.ActiveDirectoryHelper.BuscarNombrePorUsername(usuario, path);
 
-            if (entry != null)
+            if (!string.IsNullOrEmpty(name))
             {
-                if (entry.Properties.Contains("description"))
-                {
-                    if (entry.Properties["description"] != null)
-                    {
-                        string name = entry.Properties["description"].Value.ToString();
-
-                        esExterno = name.ToUpper().Contains("EXTERNO");
-                    }
-                }
+                esExterno = name.ToUpper().Contains("EXTERNO");
             }
 
             auditLoginBusiness.LogAccOK(null, nombreUsuario, null, Request.ServerVariables["REMOTE_ADDR"], PhalanxCommon.Entities.App.NotificacionClaves);
@@ -104,8 +106,10 @@ public partial class Login : System.Web.UI.Page
 
         }
 
-        Session["externo"] = (esExterno) ? "S" : "";
-
+        if (esExterno)
+        {
+            Session["externo"] = (esExterno) ? "S" : "N";
+        }
         return authentic;
     }
 

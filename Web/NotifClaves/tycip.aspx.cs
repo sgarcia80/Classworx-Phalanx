@@ -75,7 +75,9 @@ public partial class tycip : System.Web.UI.Page
 
                 tncb.AceptarTyC(ticket);
 
-                Response.Redirect("DetalleTicket.aspx?id=" + id.ToString());
+                string url = string.Format("DetalleTicket.aspx?id={0}&tipo={1}", id.ToString(), "BLANQUEO");
+                //Response.Redirect("DetalleTicket.aspx?id=" + id.ToString());
+                Response.Redirect(url);
             }
         }
     }

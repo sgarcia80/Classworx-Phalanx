@@ -67,7 +67,7 @@ public partial class NotificacionClave : System.Web.UI.Page
 
         string url = string.Empty;
 
-        Session["externo"] = (esExterno) ? "S" : "";
+        Session["externo"] = (esExterno) ? "S" : "N";
 
         if (esExterno)
         {
@@ -87,7 +87,7 @@ public partial class NotificacionClave : System.Web.UI.Page
         }
         else //INTERNO
         {
-            Session["seed"] = TimeSpan.FromTicks(DateTime.Now.Ticks).Seconds;
+            Session["seed"] = TimeSpan.FromTicks(DateTime.Now.Ticks).Seconds;;
 
             url = "IdentificacionPositiva.aspx?";
         }
@@ -96,7 +96,7 @@ public partial class NotificacionClave : System.Web.UI.Page
         {
             Session["Dominio"] = "MACRO";
             Session["Usuario"] = usuario;
-            Session["ticketId"] = null;
+            Session["ticketId"] = tickets[0].Id;
 
             Response.Redirect(url);
         }
