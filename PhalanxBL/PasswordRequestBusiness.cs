@@ -283,18 +283,13 @@ namespace PhalanxBL
             }
         }
          
-
-
-
         public uint ReturnRequestPwdByAdmin(PasswordRequestEntity pwdRequest, string note, int authUserId)
-
-        
-        
-        
         {
-            return new PasswordsRequestsFactory().GetRequestPwdBack(pwdRequest.Id, (int)PhxDALUtil.RequestStates.ReturnedByAdmin, note, authUserId, true);
-        }
+            //Si es un ATM, se cierra automaticamente.
+            bool disable = (pwdRequest.User is ATMUserEntity);
 
+            return new PasswordsRequestsFactory().GetRequestPwdBack(pwdRequest.Id, (int)PhxDALUtil.RequestStates.ReturnedByAdmin, note, authUserId, disable);
+        }
 
         public PasswordRequestEntityCollection GetPassRqstByState(ArrayList states, string IdPwdRqst, ArrayList groups)
         {
