@@ -102,9 +102,10 @@ namespace PhalanxDAL.Factories
                 , "Entra a PhxUsersFactory.GetPhxUser(string PhxDomUsrName)"
                 , "PhxDomUsrName: " + PhxDomUsrName
                 , true, false);
+
+            PhxUserEntity objPU = null;
             try
             {
-                PhxUserEntity objPU = new PhxUserEntity();
                 using (ISession session = DBMgr.factory.OpenSession())
                 {
                     ICriteria DataSearch = session.CreateCriteria(typeof(PhxUserEntity))
@@ -118,6 +119,20 @@ namespace PhalanxDAL.Factories
                     if (PUlst.Count == 1)
                     {
                         objPU = PUlst[0];
+
+                        if (_cargaGrupos)
+                        {
+                            int i = objPU.PhxUsersGroupsList.Count;
+                        }
+                        if (_cargaGruposSeguim)
+                        {
+                            int i = objPU.PhxUsersFollowupGroupsList.Count;
+                        }
+                        // si está seteado para que cargue los roles hago el count para que los traiga
+                        if (_cargaRoles)
+                        {
+                            int i = objPU.PhxRolesUsersList.Count;
+                        }
                     }
                     else
                     {
@@ -125,14 +140,13 @@ namespace PhalanxDAL.Factories
                             , "PhxUsersFactory.GetPhxUser(string PhxDomUsrName)"
                             , "No se encontró el usuario " + PhxDomUsrName
                             , true, false);
-                        return null;
+                        //return null;
                     }
                 }
                 DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 5, 0
                     , "PhxUsersFactory.GetPhxUser(string PhxDomUsrName)"
                     , "Encontró el usuario"
                     , true, false);
-                return objPU;
             }
             catch (Exception ex)
             {
@@ -140,8 +154,10 @@ namespace PhalanxDAL.Factories
                     , "PhxUsersFactory.GetPhxUser(string PhxDomUsrName)"
                     , "No se encontró el usuario " + PhxDomUsrName + " - Ex: " + ex.Message
                     , true, false);
-                return null;
+                //return null;
             }
+
+            return objPU;
         }
         /// <summary>
         /// Busca a todos los usuarios del sistema
@@ -290,6 +306,27 @@ namespace PhalanxDAL.Factories
             }
         }
 
+        public int Save(PhxUserEntity Usuario)
+        {
+            ITransaction tx = null;
+            try
+            {
+                using (ISession session = DBMgr.factory.OpenSession())
+                {
+                    tx = session.BeginTransaction();
+                    session.Save(Usuario);
+
+                    tx.Commit();
+                    
+                    return Usuario.Id;
+                }
+            }
+            catch (Exception ex)
+            {
+                tx.Rollback();
+                return 0;
+            }
+        }
         public int Save(PhxUserEntity Usuario, PhxUserEntity Responsable)
         {
             ITransaction tx = null;
@@ -321,6 +358,27 @@ namespace PhalanxDAL.Factories
                 // handle exception
             }
         }
+        public int Update(PhxUserEntity Usuario)
+        {
+            ITransaction tx = null;
+            try
+            {
+                using (ISession session = DBMgr.factory.OpenSession())
+                {
+                    tx = session.BeginTransaction();
+
+                    session.Update(Usuario);
+                    
+                    tx.Commit();
+                    return Usuario.Id;
+                }
+            }
+            catch (Exception ex)
+            {
+                tx.Rollback();
+                return 0;
+            }
+        }
         public int Update(PhxUserEntity Usuario, PhxUserEntity Responsable)
         {
             ITransaction tx = null;
@@ -350,6 +408,62 @@ namespace PhalanxDAL.Factories
                 tx.Rollback();
                 return 0;
                 // handle exception
+            }
+        }
+        public void SetRoles(PhxUserEntity Usuario, PhxRoleEntityCollection UsrRoles)
+        {
+            ITransaction tx = null;
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                try
+                {
+                    IList RolesUserToDEL; // = new PhxRoleUserEntityCollection();
+                    // abre sesión
+                    tx = session.BeginTransaction();
+
+                    #region Actualización de Permisos (Roles)
+                    // trae los phxUserRole que están grabados y no están en la collection
+                    ICriteria PhxRoleUsrLstDEL = session.CreateCriteria(typeof(PhxRoleUserEntity));
+                    PhxRoleUsrLstDEL = PhxRoleUsrLstDEL.Add(Expression.Eq("PhxUser", Usuario));
+                    PhxRoleUsrLstDEL = PhxRoleUsrLstDEL.Add(
+                        Expression.Not(Expression.In("PhxRole", UsrRoles)));
+
+                    // Retrieve data here (with the session)
+                    RolesUserToDEL = PhxRoleUsrLstDEL.List();
+
+                    // borra los que trae
+                    foreach (PhxRoleUserEntity UsrRoleE in RolesUserToDEL)
+                    {
+                        session.Delete(UsrRoleE);
+                    }
+                    // verifica cuales tiene que insertar y los inserta
+                    foreach (PhxRoleEntity RoleToINS in UsrRoles)
+                    {
+                        IList lstUsrRole;
+                        ICriteria ExistUsrRole = session.CreateCriteria(typeof(PhxRoleUserEntity));
+                        ExistUsrRole = ExistUsrRole.Add(Expression.Eq("PhxUser", Usuario));
+                        ExistUsrRole = ExistUsrRole.Add(Expression.Eq("PhxRole", RoleToINS));
+                        lstUsrRole = ExistUsrRole.List();
+                        if (lstUsrRole.Count == 0)
+                        {
+                            PhxRoleUserEntity newUsrRole = new PhxRoleUserEntity();
+                            newUsrRole.PhxRole = RoleToINS;
+                            newUsrRole.PhxUser = Usuario;
+                            session.Save(newUsrRole);
+                        }
+                    }
+                    #endregion
+                    tx.Commit();
+                    //return Usuario.Id;
+                    //return true;
+                }
+                catch (Exception ex)
+                {
+                    tx.Rollback();
+                    throw (new CwxException(ex.Message, "PhxUsersFactory.SetRoles"));
+                    //return 0;
+                    // handle exception
+                }
             }
         }
         /// <summary>

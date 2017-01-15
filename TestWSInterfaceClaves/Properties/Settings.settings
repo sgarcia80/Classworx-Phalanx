@@ -3,7 +3,10 @@
   <Profiles />
   <Settings>
     <Setting Name="TestWSInterfaceClaves_WSTickets_TicketsDeClaves" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://vmsrv02/WSInterfaceClaves/TicketsDeClaves.asmx</Value>
+      <Value Profile="(Default)">http://localhost/WSInterfaceClaves/TicketsDeClaves.asmx</Value>
+    </Setting>
+    <Setting Name="TestWSInterfaceClaves_ConectoresWS_UsuarioService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost/WSInterfaceConectores/usuarioservice.asmx</Value>
     </Setting>
   </Settings>
 </SettingsFile>

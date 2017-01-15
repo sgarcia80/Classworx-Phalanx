@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="AltaGrupoSeguimiento">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="request" type="tns:GrupoSeguimientoRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GrupoSeguimientoRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="StringAutenticacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dominio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Usuario" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IdGrupos" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AltaGrupoSeguimientoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AltaGrupoSeguimientoResult" type="tns:Resultado" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Resultado">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Exito" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mensaje" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AltaGrupoSolicitudes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="request" type="tns:GrupoSolicitudesRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GrupoSolicitudesRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="StringAutenticacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dominio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Usuario" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IdGrupos" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AltaGrupoSolicitudesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AltaGrupoSolicitudesResult" type="tns:Resultado" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AltaPerfil">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="request" type="tns:PerfilRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PerfilRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="StringAutenticacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dominio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Usuario" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IdPerfiles" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AltaPerfilResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AltaPerfilResult" type="tns:Resultado" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AltaUsuario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="request" type="tns:AltaUsuarioRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AltaUsuarioRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="StringAutenticacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dominio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Usuario" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NombreCompleto" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Legajo" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AltaUsuarioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AltaUsuarioResult" type="tns:Resultado" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BajaGrupoSeguimiento">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="request" type="tns:GrupoSeguimientoRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BajaGrupoSeguimientoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BajaGrupoSeguimientoResult" type="tns:Resultado" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BajaGrupoSolicitudes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="request" type="tns:GrupoSolicitudesRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BajaGrupoSolicitudesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BajaGrupoSolicitudesResult" type="tns:Resultado" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BajaPerfil">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="request" type="tns:PerfilRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BajaPerfilResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BajaPerfilResult" type="tns:Resultado" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BajaUsuario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="request" type="tns:BajaUsuarioRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BajaUsuarioRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="StringAutenticacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dominio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Usuario" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="BajaUsuarioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BajaUsuarioResult" type="tns:Resultado" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="AltaGrupoSeguimientoSoapIn">
+    <wsdl:part name="parameters" element="tns:AltaGrupoSeguimiento" />
+  </wsdl:message>
+  <wsdl:message name="AltaGrupoSeguimientoSoapOut">
+    <wsdl:part name="parameters" element="tns:AltaGrupoSeguimientoResponse" />
+  </wsdl:message>
+  <wsdl:message name="AltaGrupoSolicitudesSoapIn">
+    <wsdl:part name="parameters" element="tns:AltaGrupoSolicitudes" />
+  </wsdl:message>
+  <wsdl:message name="AltaGrupoSolicitudesSoapOut">
+    <wsdl:part name="parameters" element="tns:AltaGrupoSolicitudesResponse" />
+  </wsdl:message>
+  <wsdl:message name="AltaPerfilSoapIn">
+    <wsdl:part name="parameters" element="tns:AltaPerfil" />
+  </wsdl:message>
+  <wsdl:message name="AltaPerfilSoapOut">
+    <wsdl:part name="parameters" element="tns:AltaPerfilResponse" />
+  </wsdl:message>
+  <wsdl:message name="AltaUsuarioSoapIn">
+    <wsdl:part name="parameters" element="tns:AltaUsuario" />
+  </wsdl:message>
+  <wsdl:message name="AltaUsuarioSoapOut">
+    <wsdl:part name="parameters" element="tns:AltaUsuarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="BajaGrupoSeguimientoSoapIn">
+    <wsdl:part name="parameters" element="tns:BajaGrupoSeguimiento" />
+  </wsdl:message>
+  <wsdl:message name="BajaGrupoSeguimientoSoapOut">
+    <wsdl:part name="parameters" element="tns:BajaGrupoSeguimientoResponse" />
+  </wsdl:message>
+  <wsdl:message name="BajaGrupoSolicitudesSoapIn">
+    <wsdl:part name="parameters" element="tns:BajaGrupoSolicitudes" />
+  </wsdl:message>
+  <wsdl:message name="BajaGrupoSolicitudesSoapOut">
+    <wsdl:part name="parameters" element="tns:BajaGrupoSolicitudesResponse" />
+  </wsdl:message>
+  <wsdl:message name="BajaPerfilSoapIn">
+    <wsdl:part name="parameters" element="tns:BajaPerfil" />
+  </wsdl:message>
+  <wsdl:message name="BajaPerfilSoapOut">
+    <wsdl:part name="parameters" element="tns:BajaPerfilResponse" />
+  </wsdl:message>
+  <wsdl:message name="BajaUsuarioSoapIn">
+    <wsdl:part name="parameters" element="tns:BajaUsuario" />
+  </wsdl:message>
+  <wsdl:message name="BajaUsuarioSoapOut">
+    <wsdl:part name="parameters" element="tns:BajaUsuarioResponse" />
+  </wsdl:message>
+  <wsdl:portType name="UsuarioServiceSoap">
+    <wsdl:operation name="AltaGrupoSeguimiento">
+      <wsdl:input message="tns:AltaGrupoSeguimientoSoapIn" />
+      <wsdl:output message="tns:AltaGrupoSeguimientoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AltaGrupoSolicitudes">
+      <wsdl:input message="tns:AltaGrupoSolicitudesSoapIn" />
+      <wsdl:output message="tns:AltaGrupoSolicitudesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AltaPerfil">
+      <wsdl:input message="tns:AltaPerfilSoapIn" />
+      <wsdl:output message="tns:AltaPerfilSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AltaUsuario">
+      <wsdl:input message="tns:AltaUsuarioSoapIn" />
+      <wsdl:output message="tns:AltaUsuarioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BajaGrupoSeguimiento">
+      <wsdl:input message="tns:BajaGrupoSeguimientoSoapIn" />
+      <wsdl:output message="tns:BajaGrupoSeguimientoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BajaGrupoSolicitudes">
+      <wsdl:input message="tns:BajaGrupoSolicitudesSoapIn" />
+      <wsdl:output message="tns:BajaGrupoSolicitudesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BajaPerfil">
+      <wsdl:input message="tns:BajaPerfilSoapIn" />
+      <wsdl:output message="tns:BajaPerfilSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BajaUsuario">
+      <wsdl:input message="tns:BajaUsuarioSoapIn" />
+      <wsdl:output message="tns:BajaUsuarioSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="UsuarioServiceSoap" type="tns:UsuarioServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AltaGrupoSeguimiento">
+      <soap:operation soapAction="http://tempuri.org/AltaGrupoSeguimiento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AltaGrupoSolicitudes">
+      <soap:operation soapAction="http://tempuri.org/AltaGrupoSolicitudes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AltaPerfil">
+      <soap:operation soapAction="http://tempuri.org/AltaPerfil" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AltaUsuario">
+      <soap:operation soapAction="http://tempuri.org/AltaUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BajaGrupoSeguimiento">
+      <soap:operation soapAction="http://tempuri.org/BajaGrupoSeguimiento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BajaGrupoSolicitudes">
+      <soap:operation soapAction="http://tempuri.org/BajaGrupoSolicitudes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BajaPerfil">
+      <soap:operation soapAction="http://tempuri.org/BajaPerfil" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BajaUsuario">
+      <soap:operation soapAction="http://tempuri.org/BajaUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="UsuarioServiceSoap12" type="tns:UsuarioServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AltaGrupoSeguimiento">
+      <soap12:operation soapAction="http://tempuri.org/AltaGrupoSeguimiento" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AltaGrupoSolicitudes">
+      <soap12:operation soapAction="http://tempuri.org/AltaGrupoSolicitudes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AltaPerfil">
+      <soap12:operation soapAction="http://tempuri.org/AltaPerfil" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AltaUsuario">
+      <soap12:operation soapAction="http://tempuri.org/AltaUsuario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BajaGrupoSeguimiento">
+      <soap12:operation soapAction="http://tempuri.org/BajaGrupoSeguimiento" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BajaGrupoSolicitudes">
+      <soap12:operation soapAction="http://tempuri.org/BajaGrupoSolicitudes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BajaPerfil">
+      <soap12:operation soapAction="http://tempuri.org/BajaPerfil" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BajaUsuario">
+      <soap12:operation soapAction="http://tempuri.org/BajaUsuario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="UsuarioService">
+    <wsdl:port name="UsuarioServiceSoap" binding="tns:UsuarioServiceSoap">
+      <soap:address location="http://localhost/WSInterfaceConectores/usuarioservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="UsuarioServiceSoap12" binding="tns:UsuarioServiceSoap12">
+      <soap12:address location="http://localhost/WSInterfaceConectores/usuarioservice.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

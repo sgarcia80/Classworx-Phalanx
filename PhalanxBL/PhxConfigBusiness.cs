@@ -155,6 +155,12 @@ namespace PhalanxBL
                 case ConfigCodes.BodyDevMailsNoCritic:
                     strParamCode = "@BODY_DEV_NO_CRITICA@";
                     break;
+                case ConfigCodes.AutenticacionUsuariosAutorizadosWSConectores:
+                    strParamCode = "@AUT_LOGIN_WSCONECTORES@";
+                    break;
+                case ConfigCodes.UsuariosAutorizadosWSConectores:
+                    strParamCode = "@US_AUT_WSCONECTORES@";
+                    break;
                 default:
                     break;
             }
@@ -289,6 +295,16 @@ namespace PhalanxBL
 
             ConfEC.Add(this.GetConfigParam(ConfigCodes.AutenticacionLoginNDC));
             ConfEC.Add(this.GetConfigParam(ConfigCodes.DominiosLoginNDC));
+
+            return ConfEC;
+        }
+
+        public PhxConfigEntityCollection GetWSConectoresParams()
+        {
+            PhxConfigEntityCollection ConfEC = new PhxConfigEntityCollection();
+
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.UsuariosAutorizadosWSConectores));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.AutenticacionUsuariosAutorizadosWSConectores));
 
             return ConfEC;
         }

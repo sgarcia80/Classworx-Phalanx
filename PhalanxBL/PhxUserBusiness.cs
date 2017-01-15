@@ -40,6 +40,19 @@ namespace PhalanxBL
             return WDF.GetAll();
 
         }
+        public int Save(PhxUserEntity Usuario)
+        {
+            PhxUsersFactory DerivFac = new PhxUsersFactory();
+
+            if (Usuario.Id == 0)
+            {
+                return DerivFac.Save(Usuario);
+            }
+            else
+            {
+                return DerivFac.Update(Usuario);
+            }
+        }
         public int Save(PhxUserEntity Usuario, string Responsable)
         {
             PhxUsersFactory DerivFac = new PhxUsersFactory();
@@ -54,6 +67,11 @@ namespace PhalanxBL
             {
                 return DerivFac.Update(Usuario, PhxUsrE);
             }
+        }
+        public void SetRoles(PhxUserEntity Usuario, PhxRoleEntityCollection UsrRoles)
+        {
+            PhxUsersFactory UsrFac = new PhxUsersFactory();
+            UsrFac.SetRoles(Usuario, UsrRoles);
         }
         /// <summary>
         /// Setea los roles para ese usuario. Solo setea los que se pasan. Borra los
@@ -88,7 +106,12 @@ namespace PhalanxBL
 
         public PhxUserEntity GetUserByDomUsr(string DomUsr)
         {
-            return new PhxUsersFactory().GetPhxUser(DomUsr);
+            PhxUsersFactory WDF = new PhxUsersFactory();
+            WDF.CargaGrupos = true;
+            WDF.CargaGruposSeguim = true;
+            WDF.CargaRoles = true;
+
+            return WDF.GetPhxUser(DomUsr);
         }
         //public bool AuthenticateUser(string domusername)
 
@@ -264,6 +287,8 @@ namespace PhalanxBL
         private const string CONF_WSCOBIS_R = "@CONF_WSCOBIS_R@"; //Configuración de Parametría de WS COBIS - Lectura
         private const string CONF_NDC_RW = "@CONF_NDC_RW@"; //Configuración de Parametría de Notificación de Claves - Escritura
         private const string CONF_NDC_R = "@CONF_NDC_R@"; //Configuración de Parametría de Notificación de Claves - Lectura
+        private const string CONF_CONECTORES_RW = "@CONF_CONECTORES_RW@"; //Configuración de Parametría de Conectores - Escritura
+        private const string CONF_CONECTORES_R = "@CONF_CONECTORES_R@"; //Configuración de Parametría de Conectores - Lectura
 
 
         private const string RPT_USR_GRP_SOL = "@RPT_USR_GRP_SOL@";
@@ -750,6 +775,18 @@ namespace PhalanxBL
         public bool AccParamConfigNDC(string usernamedomain)
         {
             string[] PrivilegiosAcceso = new string[] { CONF_NDC_RW, CONF_NDC_R };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+
+        public bool AccParamConfigWSConectoresRW(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { CONF_CONECTORES_RW };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+
+        public bool AccParamConfigWSConectores(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { CONF_CONECTORES_RW, CONF_CONECTORES_R };
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
 

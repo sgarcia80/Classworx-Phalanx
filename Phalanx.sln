@@ -117,6 +117,28 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhxADService", "PhxADServic
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Phalanx Admin", "Installers\Phalanx Admin\Phalanx Admin.vdproj", "{74401367-38D2-47A1-97DD-22E074CA7EA8}"
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WSInterfaceConectores", "http://localhost/WSInterfaceConectores", "{3C490F78-18A6-412D-8636-84DCABDA58A9}"
+	ProjectSection(WebsiteProperties) = preProject
+		UseIISExpress = "false"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv2.0"
+		ProjectReferences = "{B3B9B7E1-EAF0-4AD4-9C99-BC0CF980840F}|NDCBL.dll;{66EAFA01-8DD4-4B02-8BB3-716A216844C4}|Common.dll;{3744DE9E-912E-4A88-8897-73FFF9C8DD48}|NDCCommon.dll;{C9E3767E-ADE2-4B50-AED1-47FC226CD539}|NDCDAL.dll;{515C8382-4032-4840-A587-9725F9F6FD19}|PhalanxBL.dll;{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}|PhalanxCommon.dll;{F0941A5C-7856-42E9-9544-CDAC11F3C285}|phxCryptMgr.dll;{78D7CC00-F303-476C-A329-0B25856A0B07}|phxBlowfish.dll;{3447B917-0A54-460E-AB95-84BBF24BAF35}|PhalanxDAL.dll;{E8F94161-3F1A-4491-92B4-9AE6777DF183}|phxLog.dll;{4CFFA156-7992-4D21-ABDC-056C31F2AA51}|PhalanxMAL.dll;{D31089F5-A197-4808-B865-C7062DA477AB}|PhalanxNAL.dll;{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}|PhxPing.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/WSInterfaceConectores"
+		Debug.AspNetCompiler.PhysicalPath = "Web\WSInterfaceConectores\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\WSInterfaceConectores\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/WSInterfaceConectores"
+		Release.AspNetCompiler.PhysicalPath = "Web\WSInterfaceConectores\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\WSInterfaceConectores\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "Web\WSInterfaceConectores\"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		App Debug|Any CPU = App Debug|Any CPU
@@ -1247,6 +1269,51 @@ Global
 		{74401367-38D2-47A1-97DD-22E074CA7EA8}.WS Test|Mixed Platforms.Build.0 = WS Test
 		{74401367-38D2-47A1-97DD-22E074CA7EA8}.WS Test|x86.ActiveCfg = WS Test
 		{74401367-38D2-47A1-97DD-22E074CA7EA8}.WS Test|x86.Build.0 = WS Test
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.App Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.App Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.App Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.App Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.App Debug|x86.ActiveCfg = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.AutCOBIS Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.AutCOBIS Release|Any CPU.Build.0 = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.AutCOBIS Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.AutCOBIS Release|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.AutCOBIS Release|x86.ActiveCfg = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.DbgAutCOBIS|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.DbgAutCOBIS|Any CPU.Build.0 = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.DbgAutCOBIS|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.DbgAutCOBIS|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.DbgAutCOBIS|x86.ActiveCfg = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.Release|x86.ActiveCfg = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.Remote WS Test|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.Remote WS Test|Any CPU.Build.0 = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.Remote WS Test|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.Remote WS Test|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.Remote WS Test|x86.ActiveCfg = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.TestWS Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.TestWS Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.TestWS Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.TestWS Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.TestWS Debug|x86.ActiveCfg = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.Web Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.Web Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.Web Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.Web Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.Web Debug|x86.ActiveCfg = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.WS Test|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.WS Test|Any CPU.Build.0 = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.WS Test|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.WS Test|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3C490F78-18A6-412D-8636-84DCABDA58A9}.WS Test|x86.ActiveCfg = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1255,6 +1322,7 @@ Global
 		{031D3AB6-F5E1-442A-A385-E21579757AAC} = {379FA69B-6AF9-42A3-9B62-5759C915798D}
 		{275FE192-FEE1-42E0-9828-D057C42469FA} = {379FA69B-6AF9-42A3-9B62-5759C915798D}
 		{17E9CA5F-D855-493D-97ED-00CA4B6A2331} = {379FA69B-6AF9-42A3-9B62-5759C915798D}
+		{3C490F78-18A6-412D-8636-84DCABDA58A9} = {379FA69B-6AF9-42A3-9B62-5759C915798D}
 		{74401367-38D2-47A1-97DD-22E074CA7EA8} = {2211250C-B49C-4EE6-9E0C-B78A6CF40830}
 	EndGlobalSection
 EndGlobal

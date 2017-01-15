@@ -50,7 +50,9 @@ namespace PhalanxCommon.Entities
         SubjectReclamoNotificacionBlanqueoMail,
         BodyReclamoNotificacionBlanqueoMail,
         SubjectDevMailsNoCritic,
-        BodyDevMailsNoCritic
+        BodyDevMailsNoCritic,
+        AutenticacionUsuariosAutorizadosWSConectores,
+        UsuariosAutorizadosWSConectores
     }
 
 

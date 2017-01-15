@@ -58,6 +58,11 @@ namespace PhalanxAdmin
         {
             ((FPrincipal)this.MdiParent).OpenForm(new FConfigNDC());
         }
+
+        private void lnkWSConectores_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ((FPrincipal)this.MdiParent).OpenForm(new FConfigWSConectores());
+        }
     }
 }
 
