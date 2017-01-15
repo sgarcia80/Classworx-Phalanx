@@ -4,18 +4,28 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <br />
     <asp:Panel ID="pnlAltaRed" runat="server"  DefaultButton="btnAlta">
+    <div class="titulo">
+        Obten&eacute; tu clave inicial de red
+    </div>
     <table class="login">
         <tr>
             <td align="center">
-                <span class="leyenda">Obten&eacute; tu clave inicial de red</span>
-            </td>
-        </tr>
-        <tr>
-            <td align="center">
-                <br />
                 <br />
                 <asp:Button ID="btnAlta" Text="Alta Temprana" CssClass="btn" runat="server" OnClick="btnAlta_Click" />
                 <br />
+                <br />
+            </td>
+        </tr>
+    </table>
+    <div class="division">
+    </div>
+    <br />
+    <div class="titulo">
+        Obten&eacute; tu clave de red
+    </div>
+    <table class="login">
+        <tr>
+            <td align="center">
                 <br />
                 <asp:Button ID="btnNotificacionClave" Text="Notificación de Clave" CssClass="btn" runat="server" OnClick="btnNotificacion_Click" />
             </td>
@@ -26,13 +36,10 @@
     <div class="division">
     </div>
     <br />
-     <table class="login">
-        <tr>
-            <td align="center">
-                 <span class="leyenda">Acced&eacute; a tus claves de aplicativos</span>
-            </td>
-        </tr>
-    </table>
+    <div class="titulo">
+        Acced&eacute; a tus claves de aplicativos
+    </div>
+    <br />
     <div class="mensaje">
         <br />
         <asp:Label ID="lbMensaje" Visible="false" runat="server" />

@@ -60,7 +60,7 @@ public partial class NotificacionClave : System.Web.UI.Page
 
         if (tickets == null || tickets.Count == 0)
         {
-            lblMensajeNotif.Text = "No existe ticket de Blanqueo para este legajo";
+            lblMensajeNotif.Text = "No existe ticket de Blanqueo para este Usuario";
 
             return;
         }
