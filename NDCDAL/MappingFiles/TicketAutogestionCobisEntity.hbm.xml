@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+  <class name="NDCCommon.Entities.TicketAutogestionCobisEntity,NDCCommon" table="ticket_autogestion_cobis">
+
+    <id name="Id" column="tac_id" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <property column="tac_tipo_notif" type="Int32" name="TipoNotificacion" not-null="false" />
+    <property column="tac_user" type="String" name="Usuario" not-null="true" length="50" />
+    <property column="tac_fecha" type="DateTime" name="Fecha"/>
+    <property column="tac_respuesta_codigo" type="Int64" name="RespuestaCodigo" not-null="false" />
+    <property column="tac_respuesta_mensaje" type="String" name="RespuestaMensaje" not-null="false" />
+  </class>
+</hibernate-mapping>

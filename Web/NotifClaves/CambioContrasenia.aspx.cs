@@ -17,6 +17,8 @@ using System.Drawing;
 using System.Security.Cryptography.X509Certificates;
 using System.Net;
 using System.Net.Security;
+using NDCCommon.Entities;
+using NDCBL;
 
 public partial class CambioContrasenia : System.Web.UI.Page
 {
@@ -147,6 +149,12 @@ public partial class CambioContrasenia : System.Web.UI.Page
 
         try
         {
+            TicketAutogestionCobisEntity ticket = TicketAutogestionCobisEntity.CreateBlanqueo();
+            ticket.Usuario = filtro.i_u_login;
+            ticket.Fecha = DateTime.Now;
+            ticket.RespuestaCodigo = 0;
+            ticket.RespuestaMensaje = string.Empty;
+
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
             ServicePointManager.Expect100Continue = false;
             ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback(AllwaysGoodCertificate);
@@ -165,20 +173,23 @@ public partial class CambioContrasenia : System.Web.UI.Page
                 trRespuesta.Visible = true;
                 lblResp2.Text = "Se ha cambiado la contraseña en forma satisfactoria";
                 ErrorExec = false;
+
+                ticket.RespuestaCodigo = resultado.serviceError.code.GetValueOrDefault();
             }
 
             if (resultado != null &&
                 resultado.serviceError != null &&
                 resultado.serviceError.code.HasValue &&
-                resultado.serviceError.code == 0)
+                resultado.serviceError.code != 0)
             {
                 error = string.Format("serviceError: {0}", resultado.serviceError.message);
+
+                ticket.RespuestaCodigo = resultado.serviceError.code.GetValueOrDefault();
+                ticket.RespuestaMensaje = resultado.serviceError.message;
             }
 
-            //if (!string.IsNullOrEmpty(error))
-            //{
-            //    error = "Error devuelto por el servicio:<BR/>" + error;
-            //}
+            TicketAutogestionCobisBusiness ticketBL = new TicketAutogestionCobisBusiness();
+            ticketBL.Save(ticket);
         }
         catch (Microsoft.Web.Services3.Security.SecurityFault ee)
         {

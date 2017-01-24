@@ -10,6 +10,8 @@ using WSE3.CustomAssertion.RemoveAddressingHeaders;
 using System.Configuration;
 using PhalanxBL;
 using log4net;
+using NDCCommon.Entities;
+using NDCBL;
 
 public partial class DesbloqueoUsuarioCOBIS : System.Web.UI.Page
 {
@@ -55,6 +57,12 @@ public partial class DesbloqueoUsuarioCOBIS : System.Web.UI.Page
             string error = string.Empty;
             try
             {
+                TicketAutogestionCobisEntity ticket = TicketAutogestionCobisEntity.CreateBlanqueo();
+                ticket.Usuario = loginFiltro.i_c_login;
+                ticket.Fecha = DateTime.Now;
+                ticket.RespuestaCodigo = 0;
+                ticket.RespuestaMensaje = string.Empty;
+
                 lblUsrName.Text = loginFiltro.i_c_login;
                 COBISDesbloqueo.ExecuteRet resultado = serviceProxy.execute(requestConnection, loginFiltro);
 
@@ -66,6 +74,8 @@ public partial class DesbloqueoUsuarioCOBIS : System.Web.UI.Page
                     trRespuesta.Visible = true;
                     lblResp2.Text = "ha sido desbloqueado en forma satisfactoria!";
                     ErrorExec = false;
+
+                    ticket.RespuestaCodigo = resultado.funcionarioRet.o_error;
                 }
                 else
                 {
@@ -74,12 +84,15 @@ public partial class DesbloqueoUsuarioCOBIS : System.Web.UI.Page
                     lblResp2.Text = "no se ha podido desbloquear. <br/>Por favor ingresa una solicitud vía Remedy, y te responderemos a la brevedad!";
                 }
 
-                if (resultado != null && 
-                    resultado.serviceError != null && 
-                    !string.IsNullOrEmpty(resultado.serviceError.message))
-                {
-                    error = string.Format("serviceError: {0}", resultado.serviceError.message);
-                }
+                //if (resultado != null && 
+                //    resultado.serviceError != null && 
+                //    !string.IsNullOrEmpty(resultado.serviceError.message))
+                //{
+                //    error = string.Format("serviceError: {0}", resultado.serviceError.message);
+
+                //    ticket.RespuestaCodigo = resultado.serviceError.code.GetValueOrDefault();
+                //    ticket.RespuestaMensaje = resultado.serviceError.message;
+                //}
 
                 if (resultado != null && 
                     resultado.funcionarioRet != null && 
@@ -88,12 +101,18 @@ public partial class DesbloqueoUsuarioCOBIS : System.Web.UI.Page
                     if (!string.IsNullOrEmpty(error))
                         error = error + "<BR/>";
                     error += string.Format("o_mensaje: {0}", resultado.funcionarioRet.o_mensaje);
+
+                    ticket.RespuestaCodigo = resultado.funcionarioRet.o_error;
+                    ticket.RespuestaMensaje = resultado.funcionarioRet.o_mensaje;
                 }
 
                 if (!string.IsNullOrEmpty(error))
                 {
                     error = "Error devuelto por el servicio:<BR/>" + error;
                 }
+
+                TicketAutogestionCobisBusiness ticketBL = new TicketAutogestionCobisBusiness();
+                ticketBL.Save(ticket);
             }
             catch (Microsoft.Web.Services3.Security.SecurityFault ee)
             {
