@@ -237,17 +237,17 @@ namespace PhalanxNAL
             string name = string.Empty;
             string filtroBuscarNombre = ConfigurationManager.AppSettings["LDAPBuscarNombreFilter"];
 
-            DirectoryEntry usuario = BuscarLDAPEntryRecursivo(path, filtroBuscarNombre.Replace("[username]", username), new string[] { NOMBRE_PROPIEDAD_DESCRIPCION_AD });
+            DirectoryEntry usuario = BuscarLDAPEntryRecursivo(path, filtroBuscarNombre.Replace("[username]", username), new string[] { NOMBRE_PROPIEDAD_USERNAME_AD });
 
             try
             {
                 if (usuario != null)
                 {                    
-                    if (usuario.Properties.Contains(NOMBRE_PROPIEDAD_DESCRIPCION_AD))
+                    if (usuario.Properties.Contains(NOMBRE_PROPIEDAD_USERNAME_AD))
                     {
-                        if (usuario.Properties[NOMBRE_PROPIEDAD_DESCRIPCION_AD] != null)
+                        if (usuario.Properties[NOMBRE_PROPIEDAD_USERNAME_AD] != null)
                         {
-                            name = usuario.Properties[NOMBRE_PROPIEDAD_DESCRIPCION_AD].Value.ToString();
+                            name = usuario.Properties[NOMBRE_PROPIEDAD_USERNAME_AD].Value.ToString();
                         }
                     }
                 }

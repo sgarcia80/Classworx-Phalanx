@@ -209,6 +209,16 @@ namespace PhalanxAdmin
             int i = 0;
             foreach (TicketNotificacionBlanqueoEntity entity in this._entities)
             {
+                string estado = "Pendiente";
+                if (entity.FechaAceptacionTyC.HasValue)
+                {
+                    estado = "Notificado";
+                }
+                if (entity.FechaCancelado.HasValue)
+                {
+                    estado = "Cancelado";
+                }
+
                 lviArr[i] = new ListViewItem();
                 lviArr[i].Text = entity.Id.ToString();
                 lviArr[i].SubItems.Add(entity.TipoNotificacionDescr);
@@ -219,7 +229,7 @@ namespace PhalanxAdmin
                 lviArr[i].SubItems.Add(entity.UsuarioAplicacion);
                 lviArr[i].SubItems.Add(entity.Fecha.ToString("dd/MM/yyyy HH:mm"));
                 lviArr[i].SubItems.Add(entity.Solicitante);
-                lviArr[i].SubItems.Add(entity.FechaAceptacionTyC.HasValue ? "Notificado" : "Pendiente");
+                lviArr[i].SubItems.Add(estado);
                 lviArr[i].SubItems.Add(entity.FechaAceptacionTyC.HasValue ? entity.FechaAceptacionTyC.Value.ToString("dd/MM/yyyy HH:mm") : string.Empty);
 
                 //lviArr[i].ImageIndex = ;
@@ -368,7 +378,7 @@ namespace PhalanxAdmin
                 {
                     string debug = string.Empty;
 
-                    if (!ticket.FechaAceptacionTyC.HasValue)
+                    if (!ticket.FechaAceptacionTyC.HasValue && !ticket.FechaCancelado.HasValue)
                     {
                         collection.Add(ticket);
                     }

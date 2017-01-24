@@ -128,6 +128,11 @@ public partial class DetalleTicket : System.Web.UI.Page
         tbNroSolicitud.Text = ticket.Id.ToString();
         tbUsuario.Text = ticket.UsuarioAplicacion;
 
+        if (ticket.Aplicacion.EsAplicacionRed)
+        {
+            tbTipoSolicitud.Text = "Blanqueo de Usuario de Red";
+        }
+
         trContra.Visible = true;
         tbContra.Text = new TicketNotificacionBlanqueoBusiness().DesencriptarPassword(ticket.PasswordUsuarioAplicacion);
     }

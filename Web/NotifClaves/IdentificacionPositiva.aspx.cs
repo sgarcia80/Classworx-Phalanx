@@ -276,11 +276,23 @@ public partial class IdentificacionPositiva : System.Web.UI.Page
         }
         else
         {
-            //ticket.Errado = true;
+            TicketNotificacionBlanqueoEntity ticket = null;
 
-            //tncb.Save(ticket);
+            if (esNotif)
+            {
+                TicketNotificacionBlanqueoBusiness tnb = new TicketNotificacionBlanqueoBusiness();
+                ticket = tnb.Cancelar(ticketId);
+            }
 
-            lbMensaje.Text = "No se pudo realizar la identificación positiva con éxito";
+            if (ticket != null && ticket.FechaCancelado.HasValue)
+            {
+                lbMensaje.Text = "Se ha superado los intentos. Debe solicitar el blanqueo nuevamente.";
+                btnAceptar.Enabled = false;
+            }
+            else
+            {
+                lbMensaje.Text = "No se pudo realizar la identificación positiva con éxito";
+            }
 
             btnAceptar.Visible = false;
         }

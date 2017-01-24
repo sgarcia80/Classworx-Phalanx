@@ -74,6 +74,28 @@ namespace NDCBL
             Factory.Save(ticket);
         }
 
+        public TicketNotificacionBlanqueoEntity Cancelar(int id)
+        {
+            return Cancelar(GetById(id));
+        }
+
+        public TicketNotificacionBlanqueoEntity Cancelar(TicketNotificacionBlanqueoEntity ticket)
+        {
+            if (ticket == null)
+                return null;
+
+            ticket.Intentos++;
+
+            if (ticket.Intentos == 3)
+            {
+                ticket.FechaCancelado = DateTime.Now;
+            }
+            
+            Factory.Save(ticket);
+
+            return ticket;
+        }
+
         public void Create(TicketNotificacionBlanqueoEntity entidad)
         {
             TicketNotificacionBlanqueoFactory factory = new TicketNotificacionBlanqueoFactory();

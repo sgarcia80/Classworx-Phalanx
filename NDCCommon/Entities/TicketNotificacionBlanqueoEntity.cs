@@ -44,6 +44,8 @@ namespace NDCCommon.Entities
         private DateTime? m_tnb_fecha_vigencia;
         private DateTime? m_tnb_fecha_ace_tyc;
         private int m_tnb_reclamos;
+        private int m_tnb_intentos;
+        private DateTime? m_tnb_fecha_cancelado;
 
         private string m_tnb_user;
         private DateTime m_tnb_fecha;
@@ -322,6 +324,33 @@ namespace NDCCommon.Entities
             {
                 m_isChanged |= (m_tnb_reclamos != value);
                 m_tnb_reclamos = value;
+            }
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public int Intentos
+        {
+            get { return m_tnb_intentos; }
+            set
+            {
+                m_isChanged |= (m_tnb_intentos != value);
+                m_tnb_intentos = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime? FechaCancelado
+        {
+            get { return m_tnb_fecha_cancelado; }
+
+            set
+            {
+                m_isChanged |= (m_tnb_fecha_cancelado != value);
+                m_tnb_fecha_cancelado = value;
             }
         }
 

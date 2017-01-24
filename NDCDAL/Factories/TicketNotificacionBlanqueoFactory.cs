@@ -158,10 +158,16 @@ namespace NDCDAL.Factories
                     DataSearch = DataSearch.Add(Expression.Le("TNB.Fecha", _filFechaHasta));
 
                 if (_filPendiente)
+                {
                     DataSearch = DataSearch.Add(Expression.IsNull("TNB.FechaAceptacionTyC"));
+                    DataSearch = DataSearch.Add(Expression.IsNull("TNB.FechaCancelado"));
+                }
 
                 if (_filTipoNotif > 0)
                     DataSearch = DataSearch.Add(Expression.Eq("TNB.TipoNotificacion", _filTipoNotif));
+
+                //Que el ticket no haya sido cancelado
+                
 
                 try
                 {
@@ -276,7 +282,7 @@ namespace NDCDAL.Factories
                     DataSearch = DataSearch.Add(Expression.Le("TNB.Fecha", _filFechaHasta));
 
                 DataSearch = DataSearch.Add(Expression.IsNull("TNB.FechaAceptacionTyC"));
-                
+
                 try
                 {
                     tickets = DataSearch.List<TicketNotificacionBlanqueoEntity>();

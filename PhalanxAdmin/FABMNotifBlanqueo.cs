@@ -247,15 +247,7 @@ namespace PhalanxAdmin
                 MessageBox.Show("La contraseña no es válida", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-            // chequear pwd1 y 2 iguales
-            //if (tPassword1.Text != tPassword2.Text)
-            //{
-            //    MessageBox.Show("La contraseña y su confirmación no coinciden");
-            //    this.DialogResult = DialogResult.None;
-            //    return;
-            //}
-
+            
             bool esAlta = false;
 
             // asignar datos a la entity

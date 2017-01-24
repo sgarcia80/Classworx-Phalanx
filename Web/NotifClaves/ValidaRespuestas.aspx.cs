@@ -81,7 +81,7 @@ public partial class ValidaRespuestas : System.Web.UI.Page
 
     protected void btnAceptar_Click(object sender, EventArgs e)
     {
-        string mensaje = "Respuestas Incorrectas.";
+        string mensaje = "Respuestas Incorrectas";
         lblInfo.Text = string.Empty;
         bool ok = true;
 
@@ -129,7 +129,18 @@ public partial class ValidaRespuestas : System.Web.UI.Page
         }
         else
         {
-            lblInfo.Text = mensaje;
+            TicketNotificacionBlanqueoBusiness tnb = new TicketNotificacionBlanqueoBusiness();
+            TicketNotificacionBlanqueoEntity ticket = tnb.Cancelar(ticketid);
+
+            if (ticket != null && ticket.FechaCancelado.HasValue)
+            {
+                lblInfo.Text = "Se ha superado los intentos. Debe solicitar el blanqueo nuevamente.";
+                btnAceptar.Enabled = false;
+            }
+            else
+            {
+                lblInfo.Text = mensaje;
+            }
         }
     }
 
