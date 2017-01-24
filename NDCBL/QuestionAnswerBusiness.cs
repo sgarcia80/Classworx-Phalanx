@@ -31,15 +31,32 @@ namespace NDCBL
         public QuestionAnswerEntityCollection GetAll()
         {
             QuestionAnswerFactory factory = new QuestionAnswerFactory();
-
             factory.FilUser = FilUser;
 
-            return factory.GetAll();
+            phxCryptMgr.CCryptMgr encriptacion = new phxCryptMgr.CCryptMgr(); 
+            QuestionAnswerEntityCollection collection = factory.GetAll();
+
+            //Se desencriptan todas las respuestas.
+            foreach (QuestionAnswerEntity question in collection)
+            {
+                question.Respuesta = encriptacion.decrypt(question.Respuesta);
+                question.Respuesta = question.Respuesta.Replace("\0", string.Empty).Trim();
+            }
+
+            return collection;
         }
 
         public void Save(QuestionAnswerEntityCollection collection)
         {
             QuestionAnswerFactory factory = new QuestionAnswerFactory();
+            
+            phxCryptMgr.CCryptMgr encriptacion = new phxCryptMgr.CCryptMgr();
+
+            //Se encriptan todas las respuestas.
+            foreach(QuestionAnswerEntity question in collection)
+            {
+                question.Respuesta = encriptacion.encrypt(question.Respuesta);
+            }
 
             factory.Save(collection);
         }
