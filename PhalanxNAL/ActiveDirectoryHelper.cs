@@ -700,6 +700,10 @@ namespace PhalanxNAL
                     usuario.Properties["LockOutTime"].Value = 0; //unlock account
                 }
 
+                long v = 0;
+                //Se setea para obligar a cambiar la contraseña luego de utilizarla.
+                usuario.Properties["pwdLastSet"].Value = v;
+
                 usuario.CommitChanges();
 
                 log.Info("Blanqueo de contraseña finalizada");
