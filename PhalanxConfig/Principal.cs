@@ -122,6 +122,11 @@ namespace PhalanxConfig
             stringconnection += "uid=" + tBUser.Text + ";";
             stringconnection += "pwd=" + tBPassword.Text;
 
+            if (!string.IsNullOrEmpty(tBTimeout.Text))
+            {
+                stringconnection += ";Connection Timeout=" + tBTimeout.Text + ";";
+            }
+
             string cs = (new phxCryptMgr.CCryptMgr()).encryptConfigFile(stringconnection);
 
             Clipboard.SetDataObject(cs, true);
@@ -161,6 +166,11 @@ namespace PhalanxConfig
         private void btnDesencriptar_Click(object sender, EventArgs e)
         {
             txtDescencTxt.Text = (new phxCryptMgr.CCryptMgr()).decryptConfigFileAndClearBadChars(txtEncTxt.Text);
+        }
+
+        private void btnEncriptar_Click(object sender, EventArgs e)
+        {
+            txtConEncTxt.Text = (new phxCryptMgr.CCryptMgr()).encryptConfigFile(txtSinEncTxt.Text);
         }
     }
 }

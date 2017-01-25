@@ -60,12 +60,20 @@ namespace PhalanxConfig
             this.txtEncTxt = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.bSalir = new System.Windows.Forms.Button();
+            this.tBTimeout = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.txtConEncTxt = new System.Windows.Forms.TextBox();
+            this.btnEncriptar = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txtSinEncTxt = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tipo.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl
@@ -73,15 +81,18 @@ namespace PhalanxConfig
             this.tabControl.Controls.Add(this.tabPage1);
             this.tabControl.Controls.Add(this.tabPage2);
             this.tabControl.Controls.Add(this.tabPage3);
+            this.tabControl.Controls.Add(this.tabPage4);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(477, 283);
+            this.tabControl.Size = new System.Drawing.Size(477, 338);
             this.tabControl.TabIndex = 0;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.tBTimeout);
+            this.tabPage1.Controls.Add(this.label10);
             this.tabPage1.Controls.Add(this.bGenerarConexion);
             this.tabPage1.Controls.Add(this.label5);
             this.tabPage1.Controls.Add(this.tipo);
@@ -97,14 +108,14 @@ namespace PhalanxConfig
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(469, 257);
+            this.tabPage1.Size = new System.Drawing.Size(469, 312);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Conexión Base de Datos";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // bGenerarConexion
             // 
-            this.bGenerarConexion.Location = new System.Drawing.Point(91, 184);
+            this.bGenerarConexion.Location = new System.Drawing.Point(91, 199);
             this.bGenerarConexion.Name = "bGenerarConexion";
             this.bGenerarConexion.Size = new System.Drawing.Size(130, 23);
             this.bGenerarConexion.TabIndex = 12;
@@ -157,7 +168,7 @@ namespace PhalanxConfig
             // 
             // bGuardarConexion
             // 
-            this.bGuardarConexion.Location = new System.Drawing.Point(227, 184);
+            this.bGuardarConexion.Location = new System.Drawing.Point(228, 199);
             this.bGuardarConexion.Name = "bGuardarConexion";
             this.bGuardarConexion.Size = new System.Drawing.Size(75, 23);
             this.bGuardarConexion.TabIndex = 8;
@@ -242,7 +253,7 @@ namespace PhalanxConfig
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(469, 257);
+            this.tabPage2.Size = new System.Drawing.Size(469, 312);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Inteface BPM";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -314,7 +325,7 @@ namespace PhalanxConfig
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(469, 257);
+            this.tabPage3.Size = new System.Drawing.Size(469, 312);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Desencriptador";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -360,15 +371,15 @@ namespace PhalanxConfig
             // 
             this.panel1.Controls.Add(this.bSalir);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 244);
+            this.panel1.Location = new System.Drawing.Point(0, 299);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(477, 39);
             this.panel1.TabIndex = 1;
             // 
             // bSalir
             // 
-            this.bSalir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.bSalir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.bSalir.Location = new System.Drawing.Point(391, 9);
             this.bSalir.Name = "bSalir";
             this.bSalir.Size = new System.Drawing.Size(75, 23);
@@ -377,11 +388,78 @@ namespace PhalanxConfig
             this.bSalir.UseVisualStyleBackColor = true;
             this.bSalir.Click += new System.EventHandler(this.button1_Click);
             // 
+            // tBTimeout
+            // 
+            this.tBTimeout.Location = new System.Drawing.Point(91, 173);
+            this.tBTimeout.Name = "tBTimeout";
+            this.tBTimeout.Size = new System.Drawing.Size(212, 20);
+            this.tBTimeout.TabIndex = 14;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(8, 177);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(45, 13);
+            this.label10.TabIndex = 13;
+            this.label10.Text = "Timeout";
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.txtConEncTxt);
+            this.tabPage4.Controls.Add(this.btnEncriptar);
+            this.tabPage4.Controls.Add(this.label11);
+            this.tabPage4.Controls.Add(this.txtSinEncTxt);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(469, 312);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Encriptador";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // txtConEncTxt
+            // 
+            this.txtConEncTxt.BackColor = System.Drawing.Color.White;
+            this.txtConEncTxt.Location = new System.Drawing.Point(19, 129);
+            this.txtConEncTxt.Multiline = true;
+            this.txtConEncTxt.Name = "txtConEncTxt";
+            this.txtConEncTxt.ReadOnly = true;
+            this.txtConEncTxt.Size = new System.Drawing.Size(426, 79);
+            this.txtConEncTxt.TabIndex = 7;
+            // 
+            // btnEncriptar
+            // 
+            this.btnEncriptar.Location = new System.Drawing.Point(19, 97);
+            this.btnEncriptar.Name = "btnEncriptar";
+            this.btnEncriptar.Size = new System.Drawing.Size(75, 23);
+            this.btnEncriptar.TabIndex = 6;
+            this.btnEncriptar.Text = "Encriptar";
+            this.btnEncriptar.UseVisualStyleBackColor = true;
+            this.btnEncriptar.Click += new System.EventHandler(this.btnEncriptar_Click);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(19, 11);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(87, 13);
+            this.label11.TabIndex = 5;
+            this.label11.Text = "Texto a encriptar";
+            // 
+            // txtSinEncTxt
+            // 
+            this.txtSinEncTxt.Location = new System.Drawing.Point(19, 27);
+            this.txtSinEncTxt.Multiline = true;
+            this.txtSinEncTxt.Name = "txtSinEncTxt";
+            this.txtSinEncTxt.Size = new System.Drawing.Size(426, 62);
+            this.txtSinEncTxt.TabIndex = 4;
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(477, 283);
+            this.ClientSize = new System.Drawing.Size(477, 338);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.tabControl);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -397,6 +475,8 @@ namespace PhalanxConfig
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -434,6 +514,13 @@ namespace PhalanxConfig
         private System.Windows.Forms.TextBox txtDescencTxt;
         private System.Windows.Forms.Button btnDesencriptar;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox tBTimeout;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TextBox txtConEncTxt;
+        private System.Windows.Forms.Button btnEncriptar;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox txtSinEncTxt;
     }
 }
 
