@@ -35,6 +35,7 @@
                     <li><asp:Label ID="lblregla_min_nro" runat="server">Mínimo 2 números</asp:Label></li>
                     <li><asp:Label ID="lblregla_let_rep" runat="server">No puede haber 2 letras iguales seguidas</asp:Label></li>
                     <li><asp:Label ID="lblregla_nro_rep" runat="server">No puede haber 3 números iguales seguidos</asp:Label></li>
+                    <li><asp:Label ID="lblregla_pwd_rep" runat="server">No repetir ninguna de las ultimas 12 password</asp:Label></li>
                 </ul>
             </td>
         </tr>

@@ -188,6 +188,13 @@ public partial class CambioContrasenia : System.Web.UI.Page
                 ticket.RespuestaMensaje = resultado.serviceError.message;
             }
 
+            if (ticket.RespuestaCodigo == 151125)
+            {
+                lblregla_pwd_rep.ForeColor = System.Drawing.Color.Red;
+                MostrarError("La nueva contraseña no cumple con todas las reglas");
+                return;
+            }
+
             TicketAutogestionCobisBusiness ticketBL = new TicketAutogestionCobisBusiness();
             ticketBL.Save(ticket);
         }
@@ -234,6 +241,7 @@ public partial class CambioContrasenia : System.Web.UI.Page
         lblregla_min_nro.ForeColor = Color.Black;
         lblregla_let_rep.ForeColor = Color.Black;
         lblregla_nro_rep.ForeColor = Color.Black;
+        lblregla_pwd_rep.ForeColor = Color.Black;
     }
 
     private void MostrarError(string mensaje)

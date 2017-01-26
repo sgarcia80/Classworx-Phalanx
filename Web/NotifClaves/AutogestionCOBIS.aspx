@@ -8,15 +8,15 @@
     <table class="login">
         <tr>
             <td colspan="2" align="center">
-                <asp:Button ID="btnDesbloqueoCOBIS" Text="Desbloqueo de Usuario" CssClass="btn" Width="180px" 
+                <asp:Button ID="btnDesbloqueoCOBIS" Text="Desbloqueo de Usuario" CssClass="btn" Width="180px" Height="60px" 
                     runat="server" onclick="btnDesbloqueoCOBIS_Click"/>
             </td>
         </tr>
         <tr>
             <td colspan="2" align="center">
                 <br />
-                <asp:Button ID="btnCambioClave" Text="Cambio de Clave" CssClass="btn" 
-                    Width="180px" runat="server" onclick="btnCambioClave_Click"/>
+                <asp:Button ID="btnCambioClave" Text="Cambio de Clave" CssClass="btn" Width="180px" Height="60px" 
+                    runat="server" onclick="btnCambioClave_Click"/>
             </td>
         </tr>
     </table>
