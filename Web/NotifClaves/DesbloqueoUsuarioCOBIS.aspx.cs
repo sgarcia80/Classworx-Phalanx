@@ -57,7 +57,7 @@ public partial class DesbloqueoUsuarioCOBIS : System.Web.UI.Page
             string error = string.Empty;
             try
             {
-                TicketAutogestionCobisEntity ticket = TicketAutogestionCobisEntity.CreateBlanqueo();
+                TicketAutogestionCobisEntity ticket = TicketAutogestionCobisEntity.CreateDesbloqueo();
                 ticket.Usuario = loginFiltro.i_c_login;
                 ticket.Fecha = DateTime.Now;
                 ticket.RespuestaCodigo = 0;
