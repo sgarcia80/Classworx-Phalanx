@@ -81,7 +81,8 @@ public class TicketsDeClaves : System.Web.Services.WebService
         impersonationContext.Undo();
     }
 
-    public TicketsDeClaves () {
+    public TicketsDeClaves()
+    {
 
         //Uncomment the following line if using designed components 
         //InitializeComponent(); 
@@ -91,7 +92,7 @@ public class TicketsDeClaves : System.Web.Services.WebService
     public AgregarTicketResultado AgregarTicket(TicketNotificacionClave ticket)
     {
         string strDebug = "";
-    
+
         AgregarTicketResultado resultado = new AgregarTicketResultado();
 
         // chequea si es DEBUG
@@ -110,7 +111,7 @@ public class TicketsDeClaves : System.Web.Services.WebService
 
         string usuariosAutorizados = configParam != null ? configParam.LongTxtValue : null;
 
-        if (usuariosAutorizados == null || ! new List<string>(usuariosAutorizados.Split(',')).Contains(datosAutenticacion.Usuario))
+        if (usuariosAutorizados == null || !new List<string>(usuariosAutorizados.Split(',')).Contains(datosAutenticacion.Usuario))
         {
             resultado.Exito = false;
             resultado.Mensaje = "Usuario no autorizado";
@@ -232,7 +233,7 @@ public class TicketsDeClaves : System.Web.Services.WebService
             }
 
         }
-         
+
         bool PasaInsertM4 = true; // esto indica true si no hubo que insertar o si hubo que hacerlo y se logro
 
         try
@@ -244,7 +245,7 @@ public class TicketsDeClaves : System.Web.Services.WebService
                 solicitudBPM.ImpactaEnAD = altaUsuarioRed;
 
                 // verifica si es un alta de red para usuario externo
-				bool altaUsuarioRedExterno = string.IsNullOrEmpty(ticket.Legajo) && altaUsuarioRed;
+                bool altaUsuarioRedExterno = string.IsNullOrEmpty(ticket.Legajo) && altaUsuarioRed;
 
                 if (altaUsuarioRedExterno)
                 {
@@ -281,7 +282,7 @@ public class TicketsDeClaves : System.Web.Services.WebService
 
                     //y es alta de red o cobis
                     if (ticket.CodigoAplicacion.Trim().ToLower() == appCobis.Codigo.ToLower()
-						|| altaUsuarioRed)
+                        || altaUsuarioRed)
                     {
                         if (_debugMode)
                         {
@@ -314,9 +315,9 @@ public class TicketsDeClaves : System.Web.Services.WebService
                         }
                         PasaInsertM4 = true;
 
-						if (altaUsuarioRed)
+                        if (altaUsuarioRed)
                         {
-							if (_debugMode)
+                            if (_debugMode)
                                 strDebug += " | Enviando email de alta de usuario de red";
 
 
@@ -328,7 +329,7 @@ public class TicketsDeClaves : System.Web.Services.WebService
                                 strDebug += " | Email enviado";
                         }
                     }
-					if (altaUsuarioRed
+                    if (altaUsuarioRed
                         || aplicacion.Notificable)
                     {
                         if (_debugMode) strDebug += " | El alta de usuario de aplicativo";
@@ -373,7 +374,7 @@ public class TicketsDeClaves : System.Web.Services.WebService
                         if (_debugMode)
                         {
                             strDebug += " | Se va a enviar mail de alta de red para recurso externo";
-                        } 
+                        }
                         EnviarEmailAltaUsuarioRedExterno(solicitudBPM, out debug);
 
                         if (debug != null)
@@ -485,7 +486,7 @@ public class TicketsDeClaves : System.Web.Services.WebService
     {
         debug = "";
 
-        string destino;
+        string destino = string.Empty;
         List<string> mailTo = new List<string>();
 
         if (!string.IsNullOrEmpty(solicitudBPM.CodigoEmpresaSubsidiaria))
@@ -496,22 +497,35 @@ public class TicketsDeClaves : System.Web.Services.WebService
 
             SubsidiariaEntity subsidiaria = subsidiariaBusiness.GetByCodigo(solicitudBPM.CodigoEmpresaSubsidiaria);
 
+            //if (subsidiaria == null)
+            //{
+            //    debug += " | No se encuentra la empresa subsidiaria con código = " + solicitudBPM.CodigoEmpresaSubsidiaria;
+
+            //    return false;
+            //}
+
+            //Si no se encontró la subsidiaria
             if (subsidiaria == null)
             {
                 debug += " | No se encuentra la empresa subsidiaria con código = " + solicitudBPM.CodigoEmpresaSubsidiaria;
-
-                return false;
             }
+            else
+            {
+                destino = solicitudBPM.NombreEmpresaSubsidiaria;
 
-            destino = solicitudBPM.NombreEmpresaSubsidiaria;
-
-            if (!string.IsNullOrEmpty(subsidiaria.Email01))
-                mailTo.Add(subsidiaria.Email01);
-
-            if (!string.IsNullOrEmpty(subsidiaria.Email02))
-                mailTo.Add(subsidiaria.Email02);
+                if (!string.IsNullOrEmpty(subsidiaria.Email01))
+                {
+                    mailTo.Add(subsidiaria.Email01);
+                }
+                if (!string.IsNullOrEmpty(subsidiaria.Email02))
+                {
+                    mailTo.Add(subsidiaria.Email02);
+                }
+            }
         }
-        else
+
+        //Si no se encontró mails de Subsidiaria
+        if (mailTo.Count == 0)
         {
             debug += " | Se busca por Gerencia destino";
 
@@ -538,9 +552,9 @@ public class TicketsDeClaves : System.Web.Services.WebService
 
         debug += " | Envia mail";
 
-		solicitudBPM.MailId = MailToSendBL.AltaUsuarioRedExternoMail(mailTo.ToArray(), solicitante, solicitudBPM.NumeroSolicitud, solicitudBPM.Fecha, solicitudBPM.Token, destino);
+        solicitudBPM.MailId = MailToSendBL.AltaUsuarioRedExternoMail(mailTo.ToArray(), solicitante, solicitudBPM.NumeroSolicitud, solicitudBPM.Fecha, solicitudBPM.Token, destino);
 
-		TicketNotificacionClaveBusiness bsolb = new TicketNotificacionClaveBusiness();
+        TicketNotificacionClaveBusiness bsolb = new TicketNotificacionClaveBusiness();
 
         debug += " | Graba ticket BPM";
 
