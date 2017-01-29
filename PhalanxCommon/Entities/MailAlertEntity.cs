@@ -153,7 +153,7 @@ namespace PhalanxCommon.Entities
 				if( value == null )
                     throw new ArgumentOutOfRangeException("Null value not allowed for Subject", value, "null");
 				
-				if(  value.Length > 100)
+				if(  value.Length > 250)
                     throw new ArgumentOutOfRangeException("Invalid value for Subject", value, value.ToString());
 
                 m_isChanged |= (m_subject != value); m_subject = value;
