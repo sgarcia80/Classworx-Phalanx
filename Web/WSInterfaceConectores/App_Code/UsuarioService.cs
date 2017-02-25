@@ -596,11 +596,11 @@ public class UsuarioService : System.Web.Services.WebService
             return ok;
         }
 
-        if (string.IsNullOrEmpty(request.Email))
-        {
-            response.Mensaje = "Se debe informar el Email";
-            return ok;
-        }
+        //if (string.IsNullOrEmpty(request.Email))
+        //{
+        //    response.Mensaje = "Se debe informar el Email";
+        //    return ok;
+        //}
 
         ok = true;
         return ok;

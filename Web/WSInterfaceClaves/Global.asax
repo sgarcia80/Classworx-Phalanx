@@ -7,6 +7,8 @@
         PhalanxDAL.DBMgr.Application = PhalanxCommon.Entities.App.NotificacionClaves;
         PhalanxDAL.DBMgr.NHAssembly = System.Reflection.Assembly.Load("NDCDAL");
         PhalanxDAL.DBMgr.Inicializar();
+
+        log4net.Config.XmlConfigurator.Configure();
     }
     
     void Application_End(object sender, EventArgs e) 

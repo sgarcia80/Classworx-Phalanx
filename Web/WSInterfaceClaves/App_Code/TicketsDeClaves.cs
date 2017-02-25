@@ -15,6 +15,7 @@ using System.Runtime.InteropServices;
 using PhalanxNAL;
 using PhalanxCommon.Entities;
 using PhalanxDAL.Factories;
+using log4net;
 
 
 
@@ -24,6 +25,8 @@ public class TicketsDeClaves : System.Web.Services.WebService
 {
     public const int LOGON32_LOGON_INTERACTIVE = 2;
     public const int LOGON32_PROVIDER_DEFAULT = 0;
+
+    private static readonly ILog log = LogManager.GetLogger(typeof(ActiveDirectoryHelper));
 
     WindowsImpersonationContext impersonationContext;
 
@@ -127,7 +130,6 @@ public class TicketsDeClaves : System.Web.Services.WebService
             return resultado;
         }
 
-
         // verifica si la aplicación informada existe y si no, la crea
         AplicacionNotificacionClaveBusiness bamb = new AplicacionNotificacionClaveBusiness();
 
@@ -135,6 +137,12 @@ public class TicketsDeClaves : System.Web.Services.WebService
         {
             strDebug += " | Busca aplicación codigo: " + ticket.CodigoAplicacion;
         }
+
+        log.InfoFormat("{0}", "-".PadLeft(80, '-'));
+
+        log.InfoFormat("Se procesa el ticket {0}", ticket.IdSolicitud);
+        log.InfoFormat("Se busca la aplicación {0}", ticket.CodigoAplicacion);
+
         AplicacionNotificacionClaveEntity aplicacion = bamb.GetByCodigo(ticket.CodigoAplicacion);
 
         if (aplicacion == null)
@@ -144,6 +152,8 @@ public class TicketsDeClaves : System.Web.Services.WebService
             aplicacion.Codigo = ticket.CodigoAplicacion;
             aplicacion.Nombre = ticket.NombreAplicacion;
             aplicacion.Notificable = true;
+
+            log.InfoFormat("No existe la aplicacion. Se da de alta [{0}]-[{1}]", ticket.CodigoAplicacion, ticket.NombreAplicacion);
 
             if (_debugMode)
             {
@@ -166,6 +176,7 @@ public class TicketsDeClaves : System.Web.Services.WebService
         }
         else if (ticket.NombreAplicacion != String.Empty && aplicacion.Nombre != ticket.NombreAplicacion)
         {
+            log.InfoFormat("Se encontro la aplicacion [{0}]", ticket.CodigoAplicacion);
             if (_debugMode)
             {
                 strDebug += " | Encontró aplicación en tabla de aplicaciones phx y va a actualizar nombre";
@@ -206,11 +217,15 @@ public class TicketsDeClaves : System.Web.Services.WebService
         solicitudBPM.NombreSolicitante = ticket.NomSolicitante;
         solicitudBPM.ApellidoSolicitante = ticket.ApeSolicitante;
 
+        log.InfoFormat("Se valida si existe una solicitud con el numero {0}", ticket.IdSolicitud);
+
         // verifica si el ticket ingresado ya fue ingresado anteriormente, en función de la aplicación y la solicitud (puede ser una modficación de algunos datos)
         TicketNotificacionClaveEntity ticketOriginal = bsolb.GetDuplicado(ticket.IdSolicitud, aplicacion);
         bool HayQueInsertar = true;
         if (ticketOriginal != null)
         {
+            log.InfoFormat("Ya existe el ticket {0}", ticket.IdSolicitud);
+
             if (ticketOriginal.Equivalente(solicitudBPM))
             {
                 HayQueInsertar = false;
@@ -220,6 +235,7 @@ public class TicketsDeClaves : System.Web.Services.WebService
                 // si el ticket no fue visto, se actualiza 
                 if (ticketOriginal.FechaAceptacionTyC == null)
                 {
+                    log.InfoFormat("Si el ticket {0} no fue visto, se actualiza", ticket.IdSolicitud);
                     solicitudBPM.Id = ticketOriginal.Id;
                     solicitudBPM.Fecha = ticketOriginal.Fecha;
                     bsolb.Save(solicitudBPM);
@@ -227,6 +243,8 @@ public class TicketsDeClaves : System.Web.Services.WebService
                 }
                 else
                 {
+                    log.InfoFormat("Se actualiza la marca de corregido del ticket {0}", ticket.IdSolicitud);
+
                     ticketOriginal.Corregido = true;
                     bsolb.Save(ticketOriginal);
                 }
@@ -247,6 +265,8 @@ public class TicketsDeClaves : System.Web.Services.WebService
                 // verifica si es un alta de red para usuario externo
                 bool altaUsuarioRedExterno = string.IsNullOrEmpty(ticket.Legajo) && altaUsuarioRed;
 
+                log.InfoFormat("El ticket {0} es de RED y {1} es externo", (altaUsuarioRed ? "SI" : "NO"), (altaUsuarioRedExterno ? "SI" : "NO"));
+
                 if (altaUsuarioRedExterno)
                 {
                     //Alta de red usuario externo
@@ -254,6 +274,9 @@ public class TicketsDeClaves : System.Web.Services.WebService
                     {
                         strDebug += " | Es alta de red para usuario externo y va a generar token";
                     }
+
+                    log.InfoFormat("Se genera el token", ticket.IdSolicitud);
+
                     // genera token para alta de red de usuario externo
                     bsolb.GenerateToken(solicitudBPM);
                 }
@@ -262,6 +285,8 @@ public class TicketsDeClaves : System.Web.Services.WebService
                 {
                     strDebug += " | Va a grabar ticket en phx";
                 }
+
+                log.InfoFormat("Se graba el ticket {0}", ticket.IdSolicitud);
 
                 // graba el ticket
                 bsolb.Create(solicitudBPM);
@@ -284,6 +309,8 @@ public class TicketsDeClaves : System.Web.Services.WebService
                     if (ticket.CodigoAplicacion.Trim().ToLower() == appCobis.Codigo.ToLower()
                         || altaUsuarioRed)
                     {
+                        log.InfoFormat("Es alta de Cobis ({0})", appCobis.Codigo);
+
                         if (_debugMode)
                         {
                             strDebug += " | Tiene que grabar ticket en M4";
@@ -308,6 +335,9 @@ public class TicketsDeClaves : System.Web.Services.WebService
                         {
                             strDebug += " | Va a grabar ticket en M4";
                         }
+
+                        log.InfoFormat("Se graba el usuario {0} en META4", ticket.Usuario);
+
                         Meta4Business.Create(Meta4Usuarios);
                         if (_debugMode)
                         {
@@ -320,6 +350,7 @@ public class TicketsDeClaves : System.Web.Services.WebService
                             if (_debugMode)
                                 strDebug += " | Enviando email de alta de usuario de red";
 
+                            log.Info("Se envia el mail de alta de usuario de red");
 
                             MailAlertBusiness MailToSendBL = new MailAlertBusiness();
 
@@ -337,10 +368,14 @@ public class TicketsDeClaves : System.Web.Services.WebService
                         // busca mail de la persona en Meta4, si no encuentra, no hace mas nada
                         Meta4LegajoBusiness m4lb = new Meta4LegajoBusiness();
 
+                        log.InfoFormat("Se busca en META4 el mail del usuario (Documento {0} - {1})", ticket.TipoDocumento, ticket.Documento);
+
                         if (_debugMode) strDebug += " | Busca mail del usuario";
                         Meta4LegajoEntity legajo = m4lb.GetByDocumento(ticket.TipoDocumento, ticket.Documento);
                         if (legajo != null && legajo.EMail != null && legajo.EMail != "")
                         {
+                            log.InfoFormat("Se encontro en META4 y se envia mail a {0}", legajo.EMail);
+
                             if (_debugMode) strDebug += " | Encontro mail del usuario";
                             MailAlertBusiness MailToSendBL = new MailAlertBusiness();
 
@@ -369,6 +404,8 @@ public class TicketsDeClaves : System.Web.Services.WebService
 
                     if (altaUsuarioRedExterno)
                     {
+                        log.Info("Se envia mail para recurso externo");
+
                         string debug;
 
                         if (_debugMode)
@@ -491,6 +528,8 @@ public class TicketsDeClaves : System.Web.Services.WebService
 
         if (!string.IsNullOrEmpty(solicitudBPM.CodigoEmpresaSubsidiaria))
         {
+            log.InfoFormat("Se busca la subsidiaria {0}", solicitudBPM.CodigoEmpresaSubsidiaria);
+
             debug += " | Se busca por Subsidiaria";
             //Subsidiaria
             SubsidiariaBusiness subsidiariaBusiness = new SubsidiariaBusiness();
@@ -507,10 +546,14 @@ public class TicketsDeClaves : System.Web.Services.WebService
             //Si no se encontró la subsidiaria
             if (subsidiaria == null)
             {
+                log.Info("No se encontro la subsidiaria");
+
                 debug += " | No se encuentra la empresa subsidiaria con código = " + solicitudBPM.CodigoEmpresaSubsidiaria;
             }
             else
             {
+                log.InfoFormat("Se encontro la subsidiaria [{0}]", subsidiaria.Nombre);
+
                 destino = solicitudBPM.NombreEmpresaSubsidiaria;
 
                 if (!string.IsNullOrEmpty(subsidiaria.Email01))
@@ -527,6 +570,8 @@ public class TicketsDeClaves : System.Web.Services.WebService
         //Si no se encontró mails de Subsidiaria
         if (mailTo.Count == 0)
         {
+            log.InfoFormat("No se encontro mail de la subsidiaria, se busca por Legajo {0}", solicitudBPM.NumeroLegajoEmpleadoSolicitud);
+
             debug += " | Se busca por Gerencia destino";
 
             destino = solicitudBPM.NombreGerenciaDestino;
@@ -536,6 +581,8 @@ public class TicketsDeClaves : System.Web.Services.WebService
 
             if (email == null)
             {
+                log.Info("No se encontro el usuario en AD");
+
                 debug += " | No se encuentra el email para el legajo = " + solicitudBPM.NumeroLegajoEmpleadoSolicitud;
 
                 return false;
@@ -551,6 +598,8 @@ public class TicketsDeClaves : System.Web.Services.WebService
         MailAlertBusiness MailToSendBL = new MailAlertBusiness();
 
         debug += " | Envia mail";
+
+        log.Info("Se envia mail de alta de usuario externo");
 
         solicitudBPM.MailId = MailToSendBL.AltaUsuarioRedExternoMail(mailTo.ToArray(), solicitante, solicitudBPM.NumeroSolicitud, solicitudBPM.Fecha, solicitudBPM.Token, destino);
 
