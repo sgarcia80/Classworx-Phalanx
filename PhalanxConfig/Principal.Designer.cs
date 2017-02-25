@@ -31,6 +31,8 @@ namespace PhalanxConfig
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Principal));
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tBTimeout = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.bGenerarConexion = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.tipo = new System.Windows.Forms.GroupBox();
@@ -58,22 +60,26 @@ namespace PhalanxConfig
             this.btnDesencriptar = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.txtEncTxt = new System.Windows.Forms.TextBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.bSalir = new System.Windows.Forms.Button();
-            this.tBTimeout = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.txtConEncTxt = new System.Windows.Forms.TextBox();
             this.btnEncriptar = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.txtSinEncTxt = new System.Windows.Forms.TextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.bSalir = new System.Windows.Forms.Button();
+            this.rbDesSimple = new System.Windows.Forms.RadioButton();
+            this.rbDesConfig = new System.Windows.Forms.RadioButton();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.rbEncConfig = new System.Windows.Forms.RadioButton();
+            this.rbEncSimple = new System.Windows.Forms.RadioButton();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tipo.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl
@@ -112,6 +118,22 @@ namespace PhalanxConfig
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Conexión Base de Datos";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tBTimeout
+            // 
+            this.tBTimeout.Location = new System.Drawing.Point(91, 173);
+            this.tBTimeout.Name = "tBTimeout";
+            this.tBTimeout.Size = new System.Drawing.Size(212, 20);
+            this.tBTimeout.TabIndex = 14;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(8, 177);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(45, 13);
+            this.label10.TabIndex = 13;
+            this.label10.Text = "Timeout";
             // 
             // bGenerarConexion
             // 
@@ -318,6 +340,9 @@ namespace PhalanxConfig
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.label12);
+            this.tabPage3.Controls.Add(this.rbDesConfig);
+            this.tabPage3.Controls.Add(this.rbDesSimple);
             this.tabPage3.Controls.Add(this.txtDescencTxt);
             this.tabPage3.Controls.Add(this.btnDesencriptar);
             this.tabPage3.Controls.Add(this.label9);
@@ -333,7 +358,7 @@ namespace PhalanxConfig
             // txtDescencTxt
             // 
             this.txtDescencTxt.BackColor = System.Drawing.Color.White;
-            this.txtDescencTxt.Location = new System.Drawing.Point(19, 129);
+            this.txtDescencTxt.Location = new System.Drawing.Point(19, 149);
             this.txtDescencTxt.Multiline = true;
             this.txtDescencTxt.Name = "txtDescencTxt";
             this.txtDescencTxt.ReadOnly = true;
@@ -342,7 +367,7 @@ namespace PhalanxConfig
             // 
             // btnDesencriptar
             // 
-            this.btnDesencriptar.Location = new System.Drawing.Point(19, 97);
+            this.btnDesencriptar.Location = new System.Drawing.Point(19, 117);
             this.btnDesencriptar.Name = "btnDesencriptar";
             this.btnDesencriptar.Size = new System.Drawing.Size(75, 23);
             this.btnDesencriptar.TabIndex = 2;
@@ -353,7 +378,7 @@ namespace PhalanxConfig
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(19, 11);
+            this.label9.Location = new System.Drawing.Point(19, 31);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(87, 13);
             this.label9.TabIndex = 1;
@@ -361,11 +386,65 @@ namespace PhalanxConfig
             // 
             // txtEncTxt
             // 
-            this.txtEncTxt.Location = new System.Drawing.Point(19, 27);
+            this.txtEncTxt.Location = new System.Drawing.Point(19, 47);
             this.txtEncTxt.Multiline = true;
             this.txtEncTxt.Name = "txtEncTxt";
             this.txtEncTxt.Size = new System.Drawing.Size(426, 62);
             this.txtEncTxt.TabIndex = 0;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.label13);
+            this.tabPage4.Controls.Add(this.rbEncConfig);
+            this.tabPage4.Controls.Add(this.rbEncSimple);
+            this.tabPage4.Controls.Add(this.txtConEncTxt);
+            this.tabPage4.Controls.Add(this.btnEncriptar);
+            this.tabPage4.Controls.Add(this.label11);
+            this.tabPage4.Controls.Add(this.txtSinEncTxt);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(469, 312);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Encriptador";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // txtConEncTxt
+            // 
+            this.txtConEncTxt.BackColor = System.Drawing.Color.White;
+            this.txtConEncTxt.Location = new System.Drawing.Point(19, 149);
+            this.txtConEncTxt.Multiline = true;
+            this.txtConEncTxt.Name = "txtConEncTxt";
+            this.txtConEncTxt.ReadOnly = true;
+            this.txtConEncTxt.Size = new System.Drawing.Size(426, 79);
+            this.txtConEncTxt.TabIndex = 7;
+            // 
+            // btnEncriptar
+            // 
+            this.btnEncriptar.Location = new System.Drawing.Point(19, 117);
+            this.btnEncriptar.Name = "btnEncriptar";
+            this.btnEncriptar.Size = new System.Drawing.Size(75, 23);
+            this.btnEncriptar.TabIndex = 6;
+            this.btnEncriptar.Text = "Encriptar";
+            this.btnEncriptar.UseVisualStyleBackColor = true;
+            this.btnEncriptar.Click += new System.EventHandler(this.btnEncriptar_Click);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(19, 31);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(87, 13);
+            this.label11.TabIndex = 5;
+            this.label11.Text = "Texto a encriptar";
+            // 
+            // txtSinEncTxt
+            // 
+            this.txtSinEncTxt.Location = new System.Drawing.Point(19, 47);
+            this.txtSinEncTxt.Multiline = true;
+            this.txtSinEncTxt.Name = "txtSinEncTxt";
+            this.txtSinEncTxt.Size = new System.Drawing.Size(426, 62);
+            this.txtSinEncTxt.TabIndex = 4;
             // 
             // panel1
             // 
@@ -388,72 +467,67 @@ namespace PhalanxConfig
             this.bSalir.UseVisualStyleBackColor = true;
             this.bSalir.Click += new System.EventHandler(this.button1_Click);
             // 
-            // tBTimeout
+            // rbDesSimple
             // 
-            this.tBTimeout.Location = new System.Drawing.Point(91, 173);
-            this.tBTimeout.Name = "tBTimeout";
-            this.tBTimeout.Size = new System.Drawing.Size(212, 20);
-            this.tBTimeout.TabIndex = 14;
+            this.rbDesSimple.AutoSize = true;
+            this.rbDesSimple.Location = new System.Drawing.Point(118, 6);
+            this.rbDesSimple.Name = "rbDesSimple";
+            this.rbDesSimple.Size = new System.Drawing.Size(56, 17);
+            this.rbDesSimple.TabIndex = 4;
+            this.rbDesSimple.TabStop = true;
+            this.rbDesSimple.Text = "Simple";
+            this.rbDesSimple.UseVisualStyleBackColor = true;
             // 
-            // label10
+            // rbDesConfig
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(8, 177);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(45, 13);
-            this.label10.TabIndex = 13;
-            this.label10.Text = "Timeout";
+            this.rbDesConfig.AutoSize = true;
+            this.rbDesConfig.Location = new System.Drawing.Point(180, 6);
+            this.rbDesConfig.Name = "rbDesConfig";
+            this.rbDesConfig.Size = new System.Drawing.Size(55, 17);
+            this.rbDesConfig.TabIndex = 5;
+            this.rbDesConfig.TabStop = true;
+            this.rbDesConfig.Text = "Config";
+            this.rbDesConfig.UseVisualStyleBackColor = true;
             // 
-            // tabPage4
+            // label12
             // 
-            this.tabPage4.Controls.Add(this.txtConEncTxt);
-            this.tabPage4.Controls.Add(this.btnEncriptar);
-            this.tabPage4.Controls.Add(this.label11);
-            this.tabPage4.Controls.Add(this.txtSinEncTxt);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(469, 312);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Encriptador";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(19, 8);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(93, 13);
+            this.label12.TabIndex = 6;
+            this.label12.Text = "Tipo Encriptación:";
             // 
-            // txtConEncTxt
+            // label13
             // 
-            this.txtConEncTxt.BackColor = System.Drawing.Color.White;
-            this.txtConEncTxt.Location = new System.Drawing.Point(19, 129);
-            this.txtConEncTxt.Multiline = true;
-            this.txtConEncTxt.Name = "txtConEncTxt";
-            this.txtConEncTxt.ReadOnly = true;
-            this.txtConEncTxt.Size = new System.Drawing.Size(426, 79);
-            this.txtConEncTxt.TabIndex = 7;
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(19, 8);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(93, 13);
+            this.label13.TabIndex = 10;
+            this.label13.Text = "Tipo Encriptación:";
             // 
-            // btnEncriptar
+            // rbEncConfig
             // 
-            this.btnEncriptar.Location = new System.Drawing.Point(19, 97);
-            this.btnEncriptar.Name = "btnEncriptar";
-            this.btnEncriptar.Size = new System.Drawing.Size(75, 23);
-            this.btnEncriptar.TabIndex = 6;
-            this.btnEncriptar.Text = "Encriptar";
-            this.btnEncriptar.UseVisualStyleBackColor = true;
-            this.btnEncriptar.Click += new System.EventHandler(this.btnEncriptar_Click);
+            this.rbEncConfig.AutoSize = true;
+            this.rbEncConfig.Location = new System.Drawing.Point(180, 6);
+            this.rbEncConfig.Name = "rbEncConfig";
+            this.rbEncConfig.Size = new System.Drawing.Size(55, 17);
+            this.rbEncConfig.TabIndex = 9;
+            this.rbEncConfig.TabStop = true;
+            this.rbEncConfig.Text = "Config";
+            this.rbEncConfig.UseVisualStyleBackColor = true;
             // 
-            // label11
+            // rbEncSimple
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(19, 11);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(87, 13);
-            this.label11.TabIndex = 5;
-            this.label11.Text = "Texto a encriptar";
-            // 
-            // txtSinEncTxt
-            // 
-            this.txtSinEncTxt.Location = new System.Drawing.Point(19, 27);
-            this.txtSinEncTxt.Multiline = true;
-            this.txtSinEncTxt.Name = "txtSinEncTxt";
-            this.txtSinEncTxt.Size = new System.Drawing.Size(426, 62);
-            this.txtSinEncTxt.TabIndex = 4;
+            this.rbEncSimple.AutoSize = true;
+            this.rbEncSimple.Location = new System.Drawing.Point(118, 6);
+            this.rbEncSimple.Name = "rbEncSimple";
+            this.rbEncSimple.Size = new System.Drawing.Size(56, 17);
+            this.rbEncSimple.TabIndex = 8;
+            this.rbEncSimple.TabStop = true;
+            this.rbEncSimple.Text = "Simple";
+            this.rbEncSimple.UseVisualStyleBackColor = true;
             // 
             // Principal
             // 
@@ -474,9 +548,9 @@ namespace PhalanxConfig
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            this.panel1.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -521,6 +595,12 @@ namespace PhalanxConfig
         private System.Windows.Forms.Button btnEncriptar;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox txtSinEncTxt;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.RadioButton rbDesConfig;
+        private System.Windows.Forms.RadioButton rbDesSimple;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.RadioButton rbEncConfig;
+        private System.Windows.Forms.RadioButton rbEncSimple;
     }
 }
 
