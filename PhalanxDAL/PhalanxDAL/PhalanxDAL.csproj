@@ -390,7 +390,9 @@
     <EmbeddedResource Include="MappingFiles\MailType.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MappingFiles\MailAlert.hbm.xml" />
+    <EmbeddedResource Include="MappingFiles\MailAlert.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MappingFiles\AuditPhxUser.hbm.xml" />

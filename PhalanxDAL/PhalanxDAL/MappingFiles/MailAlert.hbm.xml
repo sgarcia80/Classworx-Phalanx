@@ -8,7 +8,7 @@
     <many-to-one column="mail_type_id" class="PhalanxCommon.Entities.MailTypeEntity,PhalanxCommon" name="MailType" />
     <property column="mail_creation_date" type="DateTime" name="CreationDate" />
     <property column="mail_send_date" type="DateTime" name="SendDate" />
-    <property column="mail_subject" type="String" name="Subject" not-null="true" length="100" />
+    <property column="mail_subject" type="String" name="Subject" not-null="true" length="250" />
     <property column="mail_to_name" type="String" name="ToName" length="100" />
     <property column="mail_to_address" type="String" name="ToAddress" not-null="true" length="150" />
     <property column="mail_cc1_name" type="String" name="Cc1Name" length="100" />
