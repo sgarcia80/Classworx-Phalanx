@@ -18,6 +18,7 @@ namespace PhalanxNAL
         private const string NOMBRE_PROPIEDAD_USERNAME_AD = "displayName";
         private const string NOMBRE_PROPIEDAD_DISABLED_AD = "userAccountControl";
         private const string NOMBRE_PROPIEDAD_LOCKOUTTIME_AD = "LockOutTime";
+        private const string NOMBRE_PROPIEDAD_PWDLASTSET_AD = "pwdLastSet";
 
         private static Dictionary<string, object> settings = new Dictionary<string, object>();
 
@@ -45,6 +46,10 @@ namespace PhalanxNAL
                 settings.Add(nombre, Convert.ChangeType(ConfigurationManager.AppSettings[nombre], typeof(T)));
 
             return (T)settings[nombre];
+        }
+
+        static ActiveDirectoryHelper()
+        {
         }
 
         public static DirectoryEntry BuscarUsuarioPorNombre(string username)
@@ -648,7 +653,7 @@ namespace PhalanxNAL
                 return false;
             }
 
-            DirectoryEntry usuario = BuscarLDAPEntryAdmin(filtroBuscarNombre.Replace("[username]", user), new string[] { NOMBRE_PROPIEDAD_DISABLED_AD, NOMBRE_PROPIEDAD_LOCKOUTTIME_AD });
+            DirectoryEntry usuario = BuscarLDAPEntryAdmin(filtroBuscarNombre.Replace("[username]", user), new string[] { NOMBRE_PROPIEDAD_DISABLED_AD, NOMBRE_PROPIEDAD_LOCKOUTTIME_AD, NOMBRE_PROPIEDAD_PWDLASTSET_AD });
 
             try
             {
@@ -691,18 +696,50 @@ namespace PhalanxNAL
                     throw new InvalidOperationException(mensaje);
                 }
 
-                log.Info("Comienza blanqueo de contraseña...");
+                log.Info("Se blanquea la contraseña...");
 
                 //Se resetea la contraseña del usuario
                 usuario.Invoke("SetPassword", new object[] { password });
-                if (lockouttime)
+
+                log.Info("Se verifica si se encontro la propiedad pwdLastSet...");
+                if (usuario.Properties[NOMBRE_PROPIEDAD_PWDLASTSET_AD] != null)
                 {
-                    usuario.Properties["LockOutTime"].Value = 0; //unlock account
+                    int tipo = 0;
+                    long v = 0;
+
+                    if (ConfigurationManager.AppSettings["PwdLastSet"] != null)
+                    {
+                        int.TryParse(ConfigurationManager.AppSettings["PwdLastSet"], out tipo);
+                    }
+                    if (ConfigurationManager.AppSettings["PwdLastSetValue"] != null)
+                    {
+                        long.TryParse(ConfigurationManager.AppSettings["PwdLastSetValue"], out v);
+                    }
+
+                    //Se setea para obligar a cambiar la contraseña luego de utilizarla.
+                    log.InfoFormat("Se intenta setear el pwdLastSet en {0}...", v);
+
+                    if (tipo == 1)
+                    {
+                        log.InfoFormat("Se intenta setear el campo pwdLastSet en {0}...", v);
+                        usuario.Properties[NOMBRE_PROPIEDAD_PWDLASTSET_AD].Value = v;
+                    }
+                    else
+                    {
+                        log.InfoFormat("Se intenta setear el campo pwdLastSet en {0} con 'InvokeSet'...", v);
+                        usuario.InvokeSet(NOMBRE_PROPIEDAD_PWDLASTSET_AD, new object[] { v });
+                    }
+                }
+                else
+                {
+                    log.Info("No se encontro la propiedad pwdLastSet...");
                 }
 
-                long v = 0;
-                //Se setea para obligar a cambiar la contraseña luego de utilizarla.
-                usuario.Properties["pwdLastSet"].Value = v;
+                if (lockouttime)
+                {
+                    log.Info("Se desbloquea el usuario (LockOutTime)...");
+                    usuario.Properties["LockOutTime"].Value = 0; //unlock account
+                }
 
                 usuario.CommitChanges();
 
