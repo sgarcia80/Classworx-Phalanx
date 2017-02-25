@@ -14,7 +14,8 @@ namespace TestWSInterfaceClaves
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormConectores());
+            Application.Run(new Form1()); 
+            //Application.Run(new FormConectores());
         }
     }
 }

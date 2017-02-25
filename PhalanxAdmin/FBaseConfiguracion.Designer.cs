@@ -29,13 +29,13 @@ namespace PhalanxAdmin
         private void InitializeComponent()
         {
             this.xppnlConfig = new UIComponents.XPPanel(218);
+            this.lnkWSConectores = new System.Windows.Forms.LinkLabel();
             this.lnkNDC = new System.Windows.Forms.LinkLabel();
             this.lnkWSCOBIS = new System.Windows.Forms.LinkLabel();
             this.lnkWSBPM = new System.Windows.Forms.LinkLabel();
             this.lnkEsquemas = new System.Windows.Forms.LinkLabel();
             this.lnkATMs = new System.Windows.Forms.LinkLabel();
             this.lnkconfigMailsExpPwd = new System.Windows.Forms.LinkLabel();
-            this.lnkWSConectores = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
             this.pnlXPGrps.SuspendLayout();
             this.pnlIzq.SuspendLayout();
@@ -90,6 +90,22 @@ namespace PhalanxAdmin
             this.xppnlConfig.TextColors.Foreground = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(93)))), ((int)(((byte)(198)))));
             this.xppnlConfig.TextHighlightColors.Foreground = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(142)))), ((int)(((byte)(255)))));
             this.xppnlConfig.VertAlignment = System.Drawing.StringAlignment.Center;
+            // 
+            // lnkWSConectores
+            // 
+            this.lnkWSConectores.ActiveLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkWSConectores.AutoSize = true;
+            this.lnkWSConectores.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.lnkWSConectores.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.lnkWSConectores.LinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkWSConectores.Location = new System.Drawing.Point(18, 181);
+            this.lnkWSConectores.Name = "lnkWSConectores";
+            this.lnkWSConectores.Size = new System.Drawing.Size(154, 13);
+            this.lnkWSConectores.TabIndex = 15;
+            this.lnkWSConectores.TabStop = true;
+            this.lnkWSConectores.Text = "Web Services Conectores";
+            this.lnkWSConectores.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkWSConectores.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkWSConectores_LinkClicked);
             // 
             // lnkNDC
             // 
@@ -186,22 +202,6 @@ namespace PhalanxAdmin
             this.lnkconfigMailsExpPwd.Text = "Mails";
             this.lnkconfigMailsExpPwd.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
             this.lnkconfigMailsExpPwd.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkconfigMailsExpPwd_LinkClicked);
-            // 
-            // lnkWSConectores
-            // 
-            this.lnkWSConectores.ActiveLinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkWSConectores.AutoSize = true;
-            this.lnkWSConectores.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.lnkWSConectores.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.lnkWSConectores.LinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkWSConectores.Location = new System.Drawing.Point(18, 181);
-            this.lnkWSConectores.Name = "lnkWSConectores";
-            this.lnkWSConectores.Size = new System.Drawing.Size(154, 13);
-            this.lnkWSConectores.TabIndex = 15;
-            this.lnkWSConectores.TabStop = true;
-            this.lnkWSConectores.Text = "Web Services Conectores";
-            this.lnkWSConectores.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkWSConectores.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkWSConectores_LinkClicked);
             // 
             // FBaseConfiguracion
             // 
