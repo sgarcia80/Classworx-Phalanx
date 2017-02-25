@@ -23,6 +23,8 @@ public partial class Login : System.Web.UI.Page
         try
         {
             Session.Remove("externo");
+
+            log4net.Config.XmlConfigurator.Configure();
         }
         catch (Exception)
         {
@@ -108,7 +110,9 @@ public partial class Login : System.Web.UI.Page
 
         if (esExterno)
         {
-            Session["externo"] = (esExterno) ? "S" : "N";
+            //TODO
+            Session["externo"] = "N";
+            //Session["externo"] = (esExterno) ? "S" : "N";
         }
         return authentic;
     }
