@@ -51,7 +51,7 @@ public partial class DesbloqueoUsuarioCOBIS : System.Web.UI.Page
             requestConnection.user = string.Empty;
             COBISDesbloqueo.BloqueoDesbloqueFil loginFiltro = new COBISDesbloqueo.BloqueoDesbloqueFil();
             loginFiltro.i_c_estado = estado;
-            loginFiltro.i_c_login = Session["Usuario"].ToString();
+            loginFiltro.i_c_login = Session["Usuario"].ToString().ToLower();
             loginFiltro.i_m_quien_llama = quienLlama;
             bool ErrorExec = true;
             string error = string.Empty;
