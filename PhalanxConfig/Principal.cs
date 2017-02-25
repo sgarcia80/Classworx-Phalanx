@@ -165,12 +165,26 @@ namespace PhalanxConfig
 
         private void btnDesencriptar_Click(object sender, EventArgs e)
         {
-            txtDescencTxt.Text = (new phxCryptMgr.CCryptMgr()).decryptConfigFileAndClearBadChars(txtEncTxt.Text);
+            if (rbDesConfig.Checked)
+            {
+                txtDescencTxt.Text = (new phxCryptMgr.CCryptMgr()).decryptConfigFileAndClearBadChars(txtEncTxt.Text);
+            }
+            if (rbDesSimple.Checked)
+            {
+                txtDescencTxt.Text = (new phxCryptMgr.CCryptMgr()).decryptAndClearBadChars(txtEncTxt.Text);
+            }
         }
 
         private void btnEncriptar_Click(object sender, EventArgs e)
         {
-            txtConEncTxt.Text = (new phxCryptMgr.CCryptMgr()).encryptConfigFile(txtSinEncTxt.Text);
+            if (rbEncConfig.Checked)
+            {
+                txtConEncTxt.Text = (new phxCryptMgr.CCryptMgr()).encryptConfigFile(txtSinEncTxt.Text);
+            }
+            if (rbEncSimple.Checked)
+            {
+                txtConEncTxt.Text = (new phxCryptMgr.CCryptMgr()).encrypt(txtSinEncTxt.Text);
+            }
         }
     }
 }
