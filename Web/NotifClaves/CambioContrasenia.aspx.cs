@@ -118,7 +118,7 @@ public partial class CambioContrasenia : System.Web.UI.Page
         filtro.i_oficina_adminseg = oficinaASBlanqueoWSCOBIS;
         filtro.i_servidor_adminseg = servidorASBlanqueoWSCOBIS;
         filtro.i_c_clave = tbPassword.Text.ToLower();
-        filtro.i_u_login = Session["Usuario"].ToString();
+        filtro.i_u_login = Session["Usuario"].ToString().ToLower();
 
         try
         {

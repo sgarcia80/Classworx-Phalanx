@@ -19,16 +19,23 @@ namespace PhalanxAdmin
         const int LVM_SETITEMPOSITION32 = (0x1000 + 49);
         //const int LVM_GETITEMTEXTW		 = (0x1000 + 115);
 
+
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(typeof(FPrincipal));
+
         PhxUserEntity _loggedUser;
         PhxUserBusiness _phxUsrBL = new PhxUserBusiness();
         public FPrincipal()
         {
             InitializeComponent();
+
+            log4net.Config.XmlConfigurator.Configure();
+            log.Info("Logging has been configured");
+
         }
 
         private void FPrincipal_Load(object sender, EventArgs e)
         {
-            string Version = "3.17.01.17";
+            string Version = "3.17.02.17";
             this.Text += " v" + Version;
             try
             {
