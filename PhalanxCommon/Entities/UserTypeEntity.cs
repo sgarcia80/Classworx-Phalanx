@@ -3,6 +3,7 @@ insert license info here
 */
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace PhalanxCommon.Entities
 {
@@ -17,7 +18,7 @@ namespace PhalanxCommon.Entities
 		private bool m_isChanged;
 
 		private int m_user_type_id; 
-		private IList m_UsersList; 
+		private IList<UserEntity> m_UsersList; 
 		private string m_user_type_desc; 		
 		#endregion
 
@@ -28,7 +29,7 @@ namespace PhalanxCommon.Entities
 		public UserTypeEntity()
 		{
 			m_user_type_id = 0; 
-			m_UsersList = new ArrayList(); 
+			m_UsersList = new List<UserEntity>(); 
 			m_user_type_desc = String.Empty; 
 		}
 		#endregion // End of Default ( Empty ) Class Constuctor
@@ -63,7 +64,7 @@ namespace PhalanxCommon.Entities
 
 		}
 			
-		public IList UsersList
+		public IList<UserEntity> UsersList
 		{
 			get
 			{

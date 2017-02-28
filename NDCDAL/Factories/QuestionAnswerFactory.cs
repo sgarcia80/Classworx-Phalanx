@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using NDCCommon.Collections;
 using NHibernate;
 using NDCCommon.Entities;
 using Common;
 using PhalanxDAL;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 
 namespace NDCDAL.Factories
 {
@@ -25,9 +23,9 @@ namespace NDCDAL.Factories
                     ICriteria DataSearch = session.CreateCriteria(typeof(QuestionAnswerEntity));
 
                     if (!string.IsNullOrEmpty(FilUser))
-                        DataSearch = DataSearch.Add(Expression.Like("Username", FilUser, MatchMode.Anywhere));
+                        DataSearch = DataSearch.Add(Restrictions.Like("Username", FilUser, MatchMode.Anywhere));
 
-                    DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("Username"));
+                    DataSearch = DataSearch.AddOrder(Order.Asc("Username"));
                     
                     Lst.Add(DataSearch.List<QuestionAnswerEntity>());
                 }

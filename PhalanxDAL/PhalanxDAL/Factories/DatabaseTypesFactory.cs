@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using PhalanxCommon.Entities;
 using NHibernate;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using PhalanxCommon;
 using PhalanxCommon.Collections;
 using System.Collections;
@@ -26,7 +26,7 @@ namespace PhalanxDAL.Factories
                 {
                     ICriteria DataSearch = session.CreateCriteria(typeof(DatabaseTypeEntity));
 
-                    DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("Name"));
+                    DataSearch = DataSearch.AddOrder(Order.Asc("Name"));
                     IList<DatabaseTypeEntity> lstDBTypes = DataSearch.List<DatabaseTypeEntity>();
                     if (_filCargaDatabases)
                     {

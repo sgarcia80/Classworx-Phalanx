@@ -13,13 +13,13 @@ namespace PhalanxCommon.Entities
         private int m_sup_id;
         private string m_sup_name;
         private string m_sup_mail; 
-        private IList m_PhxUsersList;
+        private IList<PhxUserEntity> m_PhxUsersList;
         #endregion
 
         public PhxUserSuperiorEntity()
         {
             m_sup_id = 0;
-            m_PhxUsersList = new ArrayList();
+            m_PhxUsersList = new List<PhxUserEntity>();
             m_sup_name = String.Empty;
             m_sup_mail = String.Empty;
 
@@ -66,7 +66,7 @@ namespace PhalanxCommon.Entities
                 m_isChanged |= (m_sup_mail != value); m_sup_mail = value;
             }
         }
-        public IList PhxUsersList
+        public IList<PhxUserEntity> PhxUsersList
         {
             get
             {

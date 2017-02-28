@@ -1,1 +1,1 @@
-<%@ WebService Language="C#" CodeBehind="~/App_Code/TicketsDeClaves.cs" Class="TicketsDeClaves" %>
+﻿<%@ WebService Language="C#" CodeBehind="TicketsDeClaves.asmx.cs" Class="WSInterfaceClaves.TicketsDeClaves" %>

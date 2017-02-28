@@ -3,6 +3,7 @@ insert license info here
 */
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace PhalanxCommon.Entities
 {
@@ -17,7 +18,7 @@ namespace PhalanxCommon.Entities
 		private bool m_isChanged;
 
 		private int m_unx_id; 
-		private IList m_UnixUsersList; 
+		private IList<UnixUserEntity> m_UnixUsersList; 
 		private string m_unx_server_name; 
 		private Nullable<byte> m_unx_server_ip1;
         private Nullable<byte> m_unx_server_ip2;
@@ -35,7 +36,7 @@ namespace PhalanxCommon.Entities
 		public UnixEntity()
 		{
 			m_unx_id = 0; 
-			m_UnixUsersList = new ArrayList(); 
+			m_UnixUsersList = new List<UnixUserEntity>(); 
 			m_unx_server_name = String.Empty; 
 			m_unx_server_ip1 = new byte(); 
 			m_unx_server_ip2 = new byte(); 
@@ -80,7 +81,7 @@ namespace PhalanxCommon.Entities
 
 		}
 			
-		public IList UnixUsersList
+		public IList<UnixUserEntity> UnixUsersList
 		{
 			get
 			{

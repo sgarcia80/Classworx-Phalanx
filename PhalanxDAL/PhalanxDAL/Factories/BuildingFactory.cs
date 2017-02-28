@@ -4,7 +4,7 @@ using System.Text;
 using PhalanxCommon.Collections;
 using PhalanxCommon.Entities;
 using NHibernate;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using PhalanxCommon;
 
 namespace PhalanxDAL.Factories
@@ -29,7 +29,7 @@ namespace PhalanxDAL.Factories
                     {
                         DataSearch = DataSearch.Add(Expression.Like("Address", m_fil_dir, MatchMode.Anywhere));
                     }
-                    DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("Address"));
+                    DataSearch = DataSearch.AddOrder(Order.Asc("Address"));
                     WinDomLst.Add(DataSearch.List<BuildingEntity>());
                 }
             }

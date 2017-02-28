@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using NDCCommon.Entities;
 using NHibernate;
 using PhalanxDAL;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 
 namespace NDCDAL.Factories
 {
@@ -20,7 +19,7 @@ namespace NDCDAL.Factories
             {
                 ICriteria DataSearch = session.CreateCriteria(typeof(Meta4ClassWorxUsuariosEntity), "ML");
 
-                DataSearch = DataSearch.Add(Expression.Eq("ML.IdUsuarioRed", FilIdUsuarioRed));
+                DataSearch = DataSearch.Add(Restrictions.Eq("ML.IdUsuarioRed", FilIdUsuarioRed));
 
                 try
                 {

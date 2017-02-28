@@ -3,6 +3,7 @@ insert license info here
 */
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace PhalanxCommon.Entities
 {
@@ -17,7 +18,7 @@ namespace PhalanxCommon.Entities
 		private bool m_isChanged;
 
 		private int m_db_id; 
-		private IList m_DatabasesUsersList; 
+		private IList<DatabaseUserEntity> m_DatabasesUsersList; 
 		private DatabaseTypeEntity m_db_type_id; 
 		private string m_db_name; 
 		private string m_db_desc; 
@@ -40,7 +41,7 @@ namespace PhalanxCommon.Entities
 		public DataBaseEntity()
 		{
 			m_db_id = 0; 
-			m_DatabasesUsersList = new ArrayList(); 
+			m_DatabasesUsersList = new List<DatabaseUserEntity>(); 
 			m_db_type_id = new DatabaseTypeEntity(); 
 			m_db_name = String.Empty; 
 			m_db_desc = String.Empty; 
@@ -86,7 +87,7 @@ namespace PhalanxCommon.Entities
 
 		}
 			
-		public IList DatabasesUsersList
+		public IList<DatabaseUserEntity> DatabasesUsersList
 		{
 			get
 			{

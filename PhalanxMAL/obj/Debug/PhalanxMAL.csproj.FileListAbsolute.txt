@@ -9,3 +9,14 @@ C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\PhalanxMAL\bin\D
 C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\PhalanxMAL\obj\Debug\PhalanxMAL.csprojResolveAssemblyReference.cache
 C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\PhalanxMAL\obj\Debug\PhalanxMAL.dll
 C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\PhalanxMAL\obj\Debug\PhalanxMAL.pdb
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxMAL\bin\Debug\PhalanxMAL.dll
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxMAL\bin\Debug\PhalanxMAL.pdb
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxMAL\bin\Debug\PhalanxCommon.dll
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxMAL\bin\Debug\phxCryptMgr.dll
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxMAL\bin\Debug\phxBlowfish.dll
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxMAL\bin\Debug\PhalanxCommon.pdb
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxMAL\bin\Debug\phxCryptMgr.pdb
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxMAL\bin\Debug\phxBlowfish.pdb
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxMAL\obj\Debug\PhalanxMAL.csprojResolveAssemblyReference.cache
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxMAL\obj\Debug\PhalanxMAL.dll
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxMAL\obj\Debug\PhalanxMAL.pdb

@@ -44,12 +44,12 @@ namespace PhalanxCommon.Entities
 		/// </summary>
         public CommunicationDeviceEntity(
             CommunicationDeviceTypeEntity cm_dv_type_id,
-            string cm_dv_name, string m_cm_dv_ip)
+            string cm_dv_name, string cm_dv_ip)
 			: this()
 		{
             m_cm_dv_type_id = cm_dv_type_id;
             m_cm_dv_name = cm_dv_name;
-            m_cm_dv_ip = m_cm_dv_ip;
+            m_cm_dv_ip = cm_dv_ip;
 		}
 		#endregion // End Required Fields Only Constructor
 

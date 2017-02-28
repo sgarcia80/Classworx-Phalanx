@@ -3,7 +3,7 @@ using System.Collections;
 //using PhalanxDAL.Data;
 using PhalanxCommon.Entities;
 using NHibernate;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 
 namespace PhalanxDAL.Factories
 {

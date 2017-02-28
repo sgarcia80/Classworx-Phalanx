@@ -3,6 +3,7 @@ insert license info here
 */
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace PhalanxCommon.Entities
 {
@@ -17,16 +18,16 @@ namespace PhalanxCommon.Entities
 		private bool m_isChanged;
 
 		private int m_phx_user_id; 
-		private IList m_PhxUsersGroupsList;
-        private IList m_PhxUsersFollowupGroupsList; 
-		private IList m_RequestsList;
-		private IList m_RequestsListAuth1; 
-		private IList m_RequestsListAuth2; 
-		private IList m_RqstGrpsDelegListAuth1; 
-		private IList m_RqstGrpsDelegListAuth2; 
-		private IList m_RqstGrpsPwdsListAuth1; 
-		private IList m_RqstGrpsPwdsListAuth2; 
-		private IList m_PhxRolesUsersList; 
+		private IList<PhxUserGroupEntity> m_PhxUsersGroupsList;
+        private IList<FollowupRequestGroupUserEntity> m_PhxUsersFollowupGroupsList; 
+		private IList<RequestEntity> m_RequestsList;
+		private IList<RequestEntity> m_RequestsListAuth1; 
+		private IList<RequestEntity> m_RequestsListAuth2; 
+		private IList<RqstGrpDelegEntity> m_RqstGrpsDelegListAuth1; 
+		private IList<RqstGrpDelegEntity> m_RqstGrpsDelegListAuth2; 
+		private IList<RqstGrpPwdEntity> m_RqstGrpsPwdsListAuth1; 
+		private IList<RqstGrpPwdEntity> m_RqstGrpsPwdsListAuth2; 
+		private IList<PhxRoleUserEntity> m_PhxRolesUsersList; 
 		private string m_username; 
 		private string m_fullname; 
 		private string m_user_domain; 
@@ -51,16 +52,16 @@ namespace PhalanxCommon.Entities
 		public PhxUserEntity()
 		{
 			m_phx_user_id = 0; 
-			m_PhxUsersGroupsList = new ArrayList();
-            m_PhxUsersFollowupGroupsList = new ArrayList(); 
-			m_RequestsList = new ArrayList(); 
-			m_RequestsListAuth1 = new ArrayList(); 
-			m_RequestsListAuth2 = new ArrayList(); 
-			m_RqstGrpsPwdsListAuth1 = new ArrayList(); 
-			m_RqstGrpsPwdsListAuth2 = new ArrayList(); 
-			m_RqstGrpsDelegListAuth1 = new ArrayList(); 
-			m_RqstGrpsDelegListAuth2 = new ArrayList(); 
-			m_PhxRolesUsersList = new ArrayList(); 
+			m_PhxUsersGroupsList = new List<PhxUserGroupEntity>();
+            m_PhxUsersFollowupGroupsList = new List<FollowupRequestGroupUserEntity>(); 
+			m_RequestsList = new List<RequestEntity>(); 
+			m_RequestsListAuth1 = new List<RequestEntity>(); 
+			m_RequestsListAuth2 = new List<RequestEntity>(); 
+			m_RqstGrpsPwdsListAuth1 = new List<RqstGrpPwdEntity>(); 
+			m_RqstGrpsPwdsListAuth2 = new List<RqstGrpPwdEntity>(); 
+			m_RqstGrpsDelegListAuth1 = new List<RqstGrpDelegEntity>(); 
+			m_RqstGrpsDelegListAuth2 = new List<RqstGrpDelegEntity>(); 
+			m_PhxRolesUsersList = new List<PhxRoleUserEntity>(); 
 			m_username = String.Empty; 
 			m_fullname = String.Empty; 
 			m_user_domain = String.Empty; 
@@ -110,7 +111,7 @@ namespace PhalanxCommon.Entities
 
 		}
 			
-		public IList PhxRolesUsersList
+		public IList<PhxRoleUserEntity> PhxRolesUsersList
 		{
 			get
 			{
@@ -122,7 +123,7 @@ namespace PhalanxCommon.Entities
 			}
 		}
 
-		public IList PhxUsersGroupsList
+		public IList<PhxUserGroupEntity> PhxUsersGroupsList
 		{
 			get
 			{
@@ -134,7 +135,7 @@ namespace PhalanxCommon.Entities
 			}
 		}
 
-        public IList PhxUsersFollowupGroupsList
+        public IList<FollowupRequestGroupUserEntity> PhxUsersFollowupGroupsList
 		{
 			get
 			{
@@ -145,7 +146,7 @@ namespace PhalanxCommon.Entities
                 m_PhxUsersFollowupGroupsList = value;
 			}
 		}
-		public IList RequestsList
+		public IList<RequestEntity> RequestsList
 		{
 			get
 			{
@@ -157,7 +158,7 @@ namespace PhalanxCommon.Entities
 			}
 		}
 
-		public IList RequestsListAuth1
+		public IList<RequestEntity> RequestsListAuth1
 		{
 			get
 			{
@@ -169,7 +170,7 @@ namespace PhalanxCommon.Entities
 			}
 		}
 
-		public IList RequestsListAuth2
+		public IList<RequestEntity> RequestsListAuth2
 		{
 			get
 			{
@@ -181,7 +182,7 @@ namespace PhalanxCommon.Entities
 			}
 		}
 
-		public IList RqstGrpsDelegListAuth1
+		public IList<RqstGrpDelegEntity> RqstGrpsDelegListAuth1
 		{
 			get
 			{
@@ -193,7 +194,7 @@ namespace PhalanxCommon.Entities
 			}
 		}
 
-		public IList RqstGrpsDelegListAuth2
+		public IList<RqstGrpDelegEntity> RqstGrpsDelegListAuth2
 		{
 			get
 			{
@@ -205,7 +206,7 @@ namespace PhalanxCommon.Entities
 			}
 		}
 		
-		public IList RqstGrpsPwdsListAuth1
+		public IList<RqstGrpPwdEntity> RqstGrpsPwdsListAuth1
 		{
 			get
 			{
@@ -217,7 +218,7 @@ namespace PhalanxCommon.Entities
 			}
 		}
 		
-		public IList RqstGrpsPwdsListAuth2
+		public IList<RqstGrpPwdEntity> RqstGrpsPwdsListAuth2
 		{
 			get
 			{

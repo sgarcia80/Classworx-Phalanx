@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using PhalanxCommon.Entities;
 using NHibernate;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using NHibernate.Cfg;
 using PhalanxCommon;
 using PhalanxCommon.Collections;
@@ -20,7 +20,7 @@ namespace PhalanxDAL.Factories
                 using (ISession session = DBMgr.factory.OpenSession())
                 {
                     ICriteria DataSearch = session.CreateCriteria(typeof(MailAlertCCEntity));
-                    DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("Id"));
+                    DataSearch = DataSearch.AddOrder(Order.Asc("Id"));
                     MailAlertCCLst.Add(DataSearch.List<MailAlertCCEntity>());
                 }
             }

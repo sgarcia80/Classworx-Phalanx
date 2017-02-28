@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using PhalanxCommon.Entities;
 using NHibernate;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using PhalanxCommon;
 using PhalanxCommon.Collections;
 
@@ -19,7 +19,7 @@ namespace PhalanxDAL.Factories
                 using (ISession session = DBMgr.factory.OpenSession())
                 {
                     ICriteria DataSearch = session.CreateCriteria(typeof(PhxVersionEntity));
-                    DataSearch.AddOrder(NHibernate.Expression.Order.Desc("FechaImplementacion"));
+                    DataSearch.AddOrder(Order.Desc("FechaImplementacion"));
                     WinDomLst.Add(DataSearch.List<PhxVersionEntity>());
                 }
             }

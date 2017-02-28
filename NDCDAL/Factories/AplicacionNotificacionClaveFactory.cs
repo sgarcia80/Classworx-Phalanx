@@ -1,8 +1,6 @@
 using System;
-using System.Data;
-using System.Configuration;
 using NHibernate;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using NDCCommon.Collections;
 using NDCCommon.Entities;
 using Common;
@@ -52,19 +50,19 @@ namespace NDCDAL.Factories
                     ICriteria DataSearch = session.CreateCriteria(typeof(AplicacionNotificacionClaveEntity));
                     
                     if (_filCodigo != null && _filCodigo != "")
-                        DataSearch = DataSearch.Add(Expression.Eq("Codigo", _filCodigo));
-                    //DataSearch = DataSearch.Add(Expression.Like("Codigo", _filCodigo, MatchMode.Anywhere));
+                        DataSearch = DataSearch.Add(Restrictions.Eq("Codigo", _filCodigo));
+                    //DataSearch = DataSearch.Add(Restrictions.Like("Codigo", _filCodigo, MatchMode.Anywhere));
 
                     if (!string.IsNullOrEmpty(_filNombre))
-                        DataSearch = DataSearch.Add(Expression.Like("Nombre", _filNombre, MatchMode.Anywhere));
+                        DataSearch = DataSearch.Add(Restrictions.Like("Nombre", _filNombre, MatchMode.Anywhere));
 
                     if (FilAppRed != null)
-                        DataSearch = DataSearch.Add(Expression.Eq("EsAplicacionRed", FilAppRed.Value));
+                        DataSearch = DataSearch.Add(Restrictions.Eq("EsAplicacionRed", FilAppRed.Value));
 
                     if (FilNotificable.HasValue && FilNotificable.Value)
-                        DataSearch = DataSearch.Add(Expression.Eq("Notificable", true));
+                        DataSearch = DataSearch.Add(Restrictions.Eq("Notificable", true));
                             
-                    DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("Nombre"));
+                    DataSearch = DataSearch.AddOrder(Order.Asc("Nombre"));
                     Lst.Add(DataSearch.List<AplicacionNotificacionClaveEntity>());
                 }
             }
@@ -161,7 +159,7 @@ namespace NDCDAL.Factories
             {
                 ICriteria criteria = session.CreateCriteria(typeof(AplicacionNotificacionClaveEntity));
 
-                criteria.Add(Expression.Eq("EsAplicacionCobis", true));
+                criteria.Add(Restrictions.Eq("EsAplicacionCobis", true));
 
                 return criteria.UniqueResult<AplicacionNotificacionClaveEntity>();
             }

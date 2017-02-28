@@ -1,14 +1,10 @@
-using System;
-using System.Data;
-using System.Configuration;
 using NHibernate;
 using NDCCommon.Entities;
-using NDCDAL;
 using NDCCommon.Collections;
 using System.Collections.Generic;
-using NHibernate.Expression;
 using PhalanxDAL;
 using NHibernate.Transform;
+using NHibernate.Criterion;
 
 /// <summary>
 /// Summary description for BPMSolicitudFactory
@@ -57,13 +53,16 @@ namespace NDCDAL.Factories
                 ICriteria DataSearch = session.CreateCriteria(typeof(TicketNotificacionEntity), "TNB").AddOrder(Order.Desc("TNB.Fecha")); ;
 
                 if (!string.IsNullOrEmpty(_filUsuario))
-                    DataSearch = DataSearch.Add(Expression.Sql("lower({alias}.user_red) = lower('" + _filUsuario + "')"));
+                {
+                    //DataSearch = DataSearch.Add(Restrictions.Sql("lower({alias}.user_red) = lower('" + _filUsuario + "')"));
+                    DataSearch = DataSearch.Add(Restrictions.InsensitiveLike("user_red", _filUsuario, MatchMode.Exact));
+                }
 
                 //if (!string.IsNullOrEmpty(_filDominio))
-                //    DataSearch = DataSearch.Add(Expression.Eq("Dominio", _filDominio));
+                //    DataSearch = DataSearch.Add(Restrictions.Eq("Dominio", _filDominio));
 
                 if (!string.IsNullOrEmpty(_filTipoNotif))
-                    DataSearch = DataSearch.Add(Expression.Eq("Tipo", _filTipoNotif));
+                    DataSearch = DataSearch.Add(Restrictions.Eq("Tipo", _filTipoNotif));
 
                 try
                 {

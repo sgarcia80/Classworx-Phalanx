@@ -1,17 +1,13 @@
-﻿using System;
+﻿using Classworx.Common.Trace;
+using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Configuration;
 using System.DirectoryServices;
-using log4net;
-using PhalanxCommon;
 
 namespace PhalanxNAL
 {
     public class ActiveDirectoryHelper
-    {
-        private static readonly ILog log = LogManager.GetLogger(typeof(ActiveDirectoryHelper));
-
+    {        
         private const string NOMBRE_PROPIEDAD_DESCRIPCION_AD = "description";
         private const string NOMBRE_PROPIEDAD_PATH_AD = "adspath";
         private const string NOMBRE_PROPIEDAD_MAIL_AD = "mail";
@@ -267,10 +263,10 @@ namespace PhalanxNAL
 
         private static DirectoryEntry BuscarLDAPEntry(string path, string filter, IEnumerable<string> properties)
         {
-            log.Info("Comienza busqueda LDAP");
-            log.Info("Path: " + path);
-            log.Info("Filtro: " + filter);
-            log.Info("Propiedades a cargar: " + string.Join(",", new List<string>(properties).ToArray()));
+            TraceHelper.Information("Comienza busqueda LDAP");
+            TraceHelper.Information("Path: " + path);
+            TraceHelper.Information("Filtro: " + filter);
+            TraceHelper.Information("Propiedades a cargar: " + string.Join(",", new List<string>(properties).ToArray()));
 
             try
             {
@@ -280,18 +276,18 @@ namespace PhalanxNAL
 
                 if (dr != null)
                 {
-                    log.Info("Busqueda LDAP finalizada con exito");
+                    TraceHelper.Information("Busqueda LDAP finalizada con exito");
 
                     return dr;
                 }
 
-                log.Info("Busqueda LDAP finalizada, no se encontró la entrada");
+                TraceHelper.Information("Busqueda LDAP finalizada, no se encontró la entrada");
             }
             catch (Exception ex)
             {
-                log.Error("Error al realizar la búsqueda", ex);
+                TraceHelper.Error("Error al realizar la búsqueda", ex);
 
-                log.Info("Busqueda LDAP finalizada con errores");
+                TraceHelper.Information("Busqueda LDAP finalizada con errores");
             }
 
             return null;
@@ -375,31 +371,31 @@ namespace PhalanxNAL
 
         private static DirectoryEntry BuscarLDAPEntryRecursivo(string path, string filter, IEnumerable<string> properties)
         {
-            log.Info("Comienza busqueda LDAP recursiva");
+            TraceHelper.Information("Comienza busqueda LDAP recursiva");
 
             try
             {
                 //Buscar entrada raiz
-                log.Info("Buscando entrada raiz...");
-                log.Debug("Path: " + path);
+                TraceHelper.Information("Buscando entrada raiz...");
+                TraceHelper.Information("Path: " + path);
                 DirectoryEntry rootEntry = new DirectoryEntry(path);
 
                 if (rootEntry == null)
                 {
-                    log.Info("No se encontró la entrada raíz");
+                    TraceHelper.Information("No se encontró la entrada raíz");
 
                     return null;
                 }
 
-                log.Info("Buscando entrada según filtro");
-                log.Debug("Filter: " + filter);
+                TraceHelper.Information("Buscando entrada según filtro");
+                TraceHelper.Information("Filter: " + filter);
 
                 DirectoryEntry entry = BuscarLDAPEntry(rootEntry, filter, properties);
 
                 if (entry == null)
                 {
-                    log.Info("No se encontró la entrada");
-                    log.Info("Buscando OU hijas...");
+                    TraceHelper.Information("No se encontró la entrada");
+                    TraceHelper.Information("Buscando OU hijas...");
                     //Buscar todas las OU
                     DirectorySearcher ouSearch =
                         new DirectorySearcher(rootEntry, path) { Filter = "(objectCategory=organizationalUnit)", SearchScope = SearchScope.OneLevel };
@@ -408,9 +404,9 @@ namespace PhalanxNAL
 
                     foreach (SearchResult sr in ouSearch.FindAll())
                     {
-                        log.Info("OU hija encontrada");
+                        TraceHelper.Information("OU hija encontrada");
 
-                        log.Debug("Propiedades:");
+                        TraceHelper.Information("Propiedades:");
 
                         foreach (string propertyName in sr.Properties.PropertyNames)
                         {
@@ -419,7 +415,7 @@ namespace PhalanxNAL
                             foreach (var value in sr.Properties[propertyName])
                                 values.Add(value.ToString());
 
-                            log.Debug(propertyName + " = " + string.Join(",", values.ToArray()));
+                            TraceHelper.Information(propertyName + " = " + string.Join(",", values.ToArray()));
                         }
 
                         entry = BuscarLDAPEntryRecursivo(sr.Properties[NOMBRE_PROPIEDAD_PATH_AD][0].ToString(), filter, properties);
@@ -428,20 +424,20 @@ namespace PhalanxNAL
                             return entry;
                     }
 
-                    log.Info("No se encontró la entrada en las OU hijas");
+                    TraceHelper.Information("No se encontró la entrada en las OU hijas");
                 }
                 else
                 {
-                    log.Info("Busqueda LDAP recursiva finalizada con exito");
+                    TraceHelper.Information("Busqueda LDAP recursiva finalizada con exito");
 
                     return entry;
                 }
             }
             catch (Exception ex)
             {
-                log.Error("Error al realizar la búsqueda", ex);
+                TraceHelper.Error("Error al realizar la búsqueda", ex);
 
-                log.Info("Busqueda LDAP finalizada con errores");
+                TraceHelper.Information("Busqueda LDAP finalizada con errores");
             }
 
             return null;
@@ -449,40 +445,40 @@ namespace PhalanxNAL
 
         private static DirectoryEntry BuscarLDAPEntryAdmin(string filter, IEnumerable<string> properties)
         {
-            log.Info("Comienza busqueda LDAP recursiva");
+            TraceHelper.Information("Comienza busqueda LDAP recursiva");
 
             try
             {
                 //Buscar entrada raiz
-                log.Info("Buscando entrada raiz...");
-                log.Debug("Path: " + DirectoryAdmin.Path);
+                TraceHelper.Information("Buscando entrada raiz...");
+                TraceHelper.Information("Path: " + DirectoryAdmin.Path);
 
                 DirectoryEntry rootEntry = DirectoryAdmin;
 
                 if (rootEntry == null)
                 {
-                    log.Info("No se encontró la entrada raíz");
+                    TraceHelper.Information("No se encontró la entrada raíz");
 
                     return null;
                 }
 
-                log.Info("Buscando entrada según filtro");
-                log.Debug("Filter: " + filter);
+                TraceHelper.Information("Buscando entrada según filtro");
+                TraceHelper.Information("Filter: " + filter);
 
                 DirectoryEntry entry = BuscarLDAPEntry(rootEntry, filter, properties);
 
                 if (entry != null)
                 {
-                    log.Info("Busqueda LDAP recursiva finalizada con exito");
+                    TraceHelper.Information("Busqueda LDAP recursiva finalizada con exito");
 
                     return entry;
                 }
             }
             catch (Exception ex)
             {
-                log.Error("Error al realizar la búsqueda", ex);
+                TraceHelper.Error("Error al realizar la búsqueda", ex);
 
-                log.Info("Busqueda LDAP finalizada con errores");
+                TraceHelper.Information("Busqueda LDAP finalizada con errores");
 
                 throw;
             }
@@ -514,9 +510,9 @@ namespace PhalanxNAL
 
         public static bool ActualizarPrefijoDescripcionUsuario(string nombreUsuario, string prefijo, string pathLDAP, string filtroBuscarNombre, bool quitarPrefijo)
         {
-            log.Info("Comienza actualizacion descripción...");
-            log.Debug("Nombre usuario: " + nombreUsuario);
-            log.Debug("Prefijo: " + prefijo);
+            TraceHelper.Information("Comienza actualizacion descripción...");
+            TraceHelper.Information("Nombre usuario: " + nombreUsuario);
+            TraceHelper.Information("Prefijo: " + prefijo);
 
             DirectoryEntry usuario = BuscarLDAPEntryRecursivo(pathLDAP, filtroBuscarNombre.Replace("[username]", nombreUsuario), new string[] { NOMBRE_PROPIEDAD_DESCRIPCION_AD });
 
@@ -524,26 +520,26 @@ namespace PhalanxNAL
             {
                 if (usuario != null)
                 {
-                    log.Info("Usuario encontrado");
-                    log.Info("Buscando propiedad \"" + NOMBRE_PROPIEDAD_DESCRIPCION_AD + "\" ...");
+                    TraceHelper.Information("Usuario encontrado");
+                    TraceHelper.Information("Buscando propiedad \"" + NOMBRE_PROPIEDAD_DESCRIPCION_AD + "\" ...");
 
                     string descripcion = null;
 
                     if (usuario.Properties.Contains(NOMBRE_PROPIEDAD_DESCRIPCION_AD))
                     {
-                        log.Info("Propiedad encontrada");
+                        TraceHelper.Information("Propiedad encontrada");
 
                         if (usuario.Properties[NOMBRE_PROPIEDAD_DESCRIPCION_AD] != null)
                         {
                             descripcion = usuario.Properties[NOMBRE_PROPIEDAD_DESCRIPCION_AD].Value.ToString();
-                            log.Debug("Valor de la propiedad: " + descripcion);
+                            TraceHelper.Information("Valor de la propiedad: " + descripcion);
                         }
                         else
-                            log.Debug("El valor de la propiedad es null");
+                            TraceHelper.Information("El valor de la propiedad es null");
 
                         if (quitarPrefijo)
                         {
-                            log.Info("Comienzo eliminación del prefijo...");
+                            TraceHelper.Information("Comienzo eliminación del prefijo...");
 
                             if (descripcion.StartsWith(prefijo))
                             {
@@ -551,31 +547,31 @@ namespace PhalanxNAL
 
                                 if (string.IsNullOrEmpty(strDescrip) || strDescrip == "" || strDescrip.Length == 0)
                                 {
-                                    log.Info("Se va a eliminar la descripción...");
+                                    TraceHelper.Information("Se va a eliminar la descripción...");
 
                                     usuario.Properties[NOMBRE_PROPIEDAD_DESCRIPCION_AD].Clear();
                                 }
                                 else
                                 {
-                                    log.Info("Se va a eliminar el prefijo...");
+                                    TraceHelper.Information("Se va a eliminar el prefijo...");
 
                                     usuario.Properties[NOMBRE_PROPIEDAD_DESCRIPCION_AD].Value = strDescrip;
                                 }
 
                                 usuario.CommitChanges();
 
-                                log.Info("Descripción actualizada");
+                                TraceHelper.Information("Descripción actualizada");
                             }
                             else
-                                log.Info("El valor de la propiedad no comienza con el prefijo dado");
+                                TraceHelper.Information("El valor de la propiedad no comienza con el prefijo dado");
                         }
                     }
                     else
-                        log.Info("No se pudo cargar la propiedad \"" + NOMBRE_PROPIEDAD_DESCRIPCION_AD + "\"");
+                        TraceHelper.Information("No se pudo cargar la propiedad \"" + NOMBRE_PROPIEDAD_DESCRIPCION_AD + "\"");
 
                     if (!quitarPrefijo)
                     {
-                        log.Info("Comienzo adición del prefijo...");
+                        TraceHelper.Information("Comienzo adición del prefijo...");
 
                         if (descripcion != null)
                             usuario.Properties[NOMBRE_PROPIEDAD_DESCRIPCION_AD].Value = prefijo + descripcion;
@@ -584,25 +580,25 @@ namespace PhalanxNAL
 
                         usuario.CommitChanges();
 
-                        log.Info("Descripción actualizada");
+                        TraceHelper.Information("Descripción actualizada");
                     }
                 }
                 else
                 {
-                    log.Info("No se encontró el usuario");
+                    TraceHelper.Information("No se encontró el usuario");
 
                     return false;
                 }
 
-                log.Info("Actualización de descripción finalizada");
+                TraceHelper.Information("Actualización de descripción finalizada");
 
                 return true;
             }
             catch (Exception ex)
             {
-                log.Error("Error al actualizar la descripción del usuario", ex);
+                TraceHelper.Error("Error al actualizar la descripción del usuario", ex);
 
-                log.Info("Actualización de descripción finalizada con errores");
+                TraceHelper.Information("Actualización de descripción finalizada con errores");
             }
 
             return false;
@@ -633,10 +629,10 @@ namespace PhalanxNAL
                     if (entry.Properties[propiedad] != null)
                         return entry.Properties[propiedad].Value.ToString();
                     else
-                        log.Debug("El valor de la propiedad es null");
+                        TraceHelper.Information("El valor de la propiedad es null");
                 }
                 else
-                    log.Info("No se encuentra la propiedad " + propiedad);
+                    TraceHelper.Information("No se encuentra la propiedad " + propiedad);
             }
 
             return null;
@@ -644,7 +640,7 @@ namespace PhalanxNAL
 
         public static bool ResetPassword(string user, string password)
         {
-            log.Debug("Usuario: " + user);
+            TraceHelper.Information("Usuario: " + user);
 
             string filtroBuscarNombre = LDAPBuscarNombreFilter;
 
@@ -663,7 +659,7 @@ namespace PhalanxNAL
 
                 if (usuario != null)
                 {
-                    log.Info("Usuario encontrado");
+                    TraceHelper.Information("Usuario encontrado");
 
                     //Se consulta si la cuenta esta deshabilitada
                     disabled = GetAccountDisable(usuario);
@@ -677,31 +673,31 @@ namespace PhalanxNAL
                         throw new InvalidOperationException(mensaje);
                     }
 
-                    log.Info("Consultando usuario bloqueado...");
+                    TraceHelper.Information("Consultando usuario bloqueado...");
                     bool locked = Convert.ToBoolean(usuario.InvokeGet("IsAccountLocked"));
 
-                    log.Debug("Valor de la propiedad: " + locked.ToString());
+                    TraceHelper.Information("Valor de la propiedad: " + locked.ToString());
 
                     if (locked)
                     {
-                        log.Debug("Se desbloquea el usuario: " + locked.ToString());
+                        TraceHelper.Information("Se desbloquea el usuario: " + locked.ToString());
                         usuario.InvokeSet("IsAccountLocked", false);
                     }
                 }
                 else
                 {
-                    log.Info("No se encontró el usuario");
+                    TraceHelper.Information("No se encontró el usuario");
 
                     mensaje = string.Format("No se encontró el usuario {0}", user);
                     throw new InvalidOperationException(mensaje);
                 }
 
-                log.Info("Se blanquea la contraseña...");
+                TraceHelper.Information("Se blanquea la contraseña...");
 
                 //Se resetea la contraseña del usuario
                 usuario.Invoke("SetPassword", new object[] { password });
 
-                log.Info("Se verifica si se encontro la propiedad pwdLastSet...");
+                TraceHelper.Information("Se verifica si se encontro la propiedad pwdLastSet...");
                 if (usuario.Properties[NOMBRE_PROPIEDAD_PWDLASTSET_AD] != null)
                 {
                     int tipo = 0;
@@ -717,33 +713,33 @@ namespace PhalanxNAL
                     }
 
                     //Se setea para obligar a cambiar la contraseña luego de utilizarla.
-                    log.InfoFormat("Se intenta setear el pwdLastSet en {0}...", v);
+                    TraceHelper.Information("Se intenta setear el pwdLastSet en {0}...", v);
 
                     if (tipo == 1)
                     {
-                        log.InfoFormat("Se intenta setear el campo pwdLastSet en {0}...", v);
+                        TraceHelper.Information("Se intenta setear el campo pwdLastSet en {0}...", v);
                         usuario.Properties[NOMBRE_PROPIEDAD_PWDLASTSET_AD].Value = v;
                     }
                     else
                     {
-                        log.InfoFormat("Se intenta setear el campo pwdLastSet en {0} con 'InvokeSet'...", v);
+                        TraceHelper.Information("Se intenta setear el campo pwdLastSet en {0} con 'InvokeSet'...", v);
                         usuario.InvokeSet(NOMBRE_PROPIEDAD_PWDLASTSET_AD, new object[] { v });
                     }
                 }
                 else
                 {
-                    log.Info("No se encontro la propiedad pwdLastSet...");
+                    TraceHelper.Information("No se encontro la propiedad pwdLastSet...");
                 }
 
                 if (lockouttime)
                 {
-                    log.Info("Se desbloquea el usuario (LockOutTime)...");
+                    TraceHelper.Information("Se desbloquea el usuario (LockOutTime)...");
                     usuario.Properties["LockOutTime"].Value = 0; //unlock account
                 }
 
                 usuario.CommitChanges();
 
-                log.Info("Blanqueo de contraseña finalizada");
+                TraceHelper.Information("Blanqueo de contraseña finalizada");
 
                 return true;
             }
@@ -753,9 +749,9 @@ namespace PhalanxNAL
             }
             catch (Exception ex)
             {
-                log.Error("Error al blanquear la contraseña del usuario", ex);
+                TraceHelper.Error("Error al blanquear la contraseña del usuario", ex);
 
-                log.Info("Blanqueo de contraseña finalizada con errores");
+                TraceHelper.Information("Blanqueo de contraseña finalizada con errores");
 
                 throw;
             }
@@ -765,8 +761,8 @@ namespace PhalanxNAL
 
         public static bool UnlockUserAccount(string user)
         {
-            log.Info("Comienza desbloqueo de usuario...");
-            log.Debug("Usuario: " + user);
+            TraceHelper.Information("Comienza desbloqueo de usuario...");
+            TraceHelper.Information("Usuario: " + user);
 
             string filtroBuscarNombre = LDAPBuscarNombreFilter;
 
@@ -785,7 +781,7 @@ namespace PhalanxNAL
 
                 if (usuario != null)
                 {
-                    log.Info("Usuario encontrado");
+                    TraceHelper.Information("Usuario encontrado");
 
                     //Se consulta si la cuenta esta deshabilitada
                     disabled = GetAccountDisable(usuario);
@@ -799,14 +795,14 @@ namespace PhalanxNAL
                         throw new InvalidOperationException(mensaje);
                     }
 
-                    log.Info("Consultando usuario bloqueado...");
+                    TraceHelper.Information("Consultando usuario bloqueado...");
                     bool locked = Convert.ToBoolean(usuario.InvokeGet("IsAccountLocked"));
 
-                    log.Debug("Valor de la propiedad: " + locked.ToString());
+                    TraceHelper.Information("Valor de la propiedad: " + locked.ToString());
 
                     if (locked)
                     {
-                        log.Debug("Se desbloquea el usuario: " + locked.ToString());
+                        TraceHelper.Information("Se desbloquea el usuario: " + locked.ToString());
                         usuario.InvokeSet("IsAccountLocked", false);
                     }
                     else
@@ -817,13 +813,13 @@ namespace PhalanxNAL
                 }
                 else
                 {
-                    log.Info("No se encontró el usuario");
+                    TraceHelper.Information("No se encontró el usuario");
 
                     mensaje = string.Format("No se encontró el usuario {0}", user);
                     throw new InvalidOperationException(mensaje);
                 }
 
-                log.Info("Comienzo Desbloqueo de Usuario...");
+                TraceHelper.Information("Comienzo Desbloqueo de Usuario...");
 
                 if (lockouttime)
                 {
@@ -832,7 +828,7 @@ namespace PhalanxNAL
 
                 usuario.CommitChanges();
 
-                log.Info("Desbloqueo de Usuario finalizado");
+                TraceHelper.Information("Desbloqueo de Usuario finalizado");
 
                 return true;
             }
@@ -842,9 +838,9 @@ namespace PhalanxNAL
             }
             catch (Exception ex)
             {
-                log.Error("Error al blanquear la contraseña del usuario", ex);
+                TraceHelper.Error("Error al blanquear la contraseña del usuario", ex);
 
-                log.Info("Desbloqueo de Usuario finalizada con errores");
+                TraceHelper.Information("Desbloqueo de Usuario finalizada con errores");
 
                 throw;
             }
@@ -884,7 +880,7 @@ namespace PhalanxNAL
                         return entry.Properties[propiedad].Value.ToString();
                 }
                 else
-                    log.Info("No se encuentra la propiedad " + propiedad);
+                    TraceHelper.Information("No se encuentra la propiedad " + propiedad);
             }
 
             return null;
@@ -895,16 +891,16 @@ namespace PhalanxNAL
             bool disabled = false;
             string propertyvalue = string.Empty;
 
-            log.Info("Buscando propiedad \"" + NOMBRE_PROPIEDAD_DISABLED_AD + "\" ...");
+            TraceHelper.Information("Buscando propiedad \"" + NOMBRE_PROPIEDAD_DISABLED_AD + "\" ...");
 
             if (usuario.Properties.Contains(NOMBRE_PROPIEDAD_DISABLED_AD))
             {
-                log.Info("Propiedad encontrada");
+                TraceHelper.Information("Propiedad encontrada");
 
                 if (usuario.Properties[NOMBRE_PROPIEDAD_DISABLED_AD] != null)
                 {
                     propertyvalue = usuario.Properties[NOMBRE_PROPIEDAD_DISABLED_AD].Value.ToString();
-                    log.Debug("Valor de la propiedad: " + propertyvalue);
+                    TraceHelper.Information("Valor de la propiedad: " + propertyvalue);
 
                     int userAccountControl = 0;
                     int.TryParse(propertyvalue, out userAccountControl);
@@ -913,12 +909,12 @@ namespace PhalanxNAL
                 }
                 else
                 {
-                    log.Debug("El valor de la propiedad es null");
+                    TraceHelper.Information("El valor de la propiedad es null");
                 }
             }
             else
             {
-                log.Info("No se pudo cargar la propiedad \"" + NOMBRE_PROPIEDAD_DISABLED_AD + "\"");
+                TraceHelper.Information("No se pudo cargar la propiedad \"" + NOMBRE_PROPIEDAD_DISABLED_AD + "\"");
             }
 
             return disabled;
@@ -929,27 +925,27 @@ namespace PhalanxNAL
             bool lockouttime = false;
             string propertyvalue = string.Empty;
 
-            log.Info("Buscando propiedad \"" + NOMBRE_PROPIEDAD_LOCKOUTTIME_AD + "\" ...");
+            TraceHelper.Information("Buscando propiedad \"" + NOMBRE_PROPIEDAD_LOCKOUTTIME_AD + "\" ...");
 
             if (usuario.Properties.Contains(NOMBRE_PROPIEDAD_LOCKOUTTIME_AD))
             {
-                log.Info("Propiedad encontrada");
+                TraceHelper.Information("Propiedad encontrada");
 
                 if (usuario.Properties[NOMBRE_PROPIEDAD_LOCKOUTTIME_AD] != null)
                 {
                     lockouttime = true;
 
                     propertyvalue = usuario.Properties[NOMBRE_PROPIEDAD_LOCKOUTTIME_AD].Value.ToString();
-                    log.Debug("Valor de la propiedad: " + propertyvalue);
+                    TraceHelper.Information("Valor de la propiedad: " + propertyvalue);
                 }
                 else
                 {
-                    log.Debug("El valor de la propiedad es null");
+                    TraceHelper.Information("El valor de la propiedad es null");
                 }
             }
             else
             {
-                log.Info("No se pudo cargar la propiedad \"" + NOMBRE_PROPIEDAD_LOCKOUTTIME_AD + "\"");
+                TraceHelper.Information("No se pudo cargar la propiedad \"" + NOMBRE_PROPIEDAD_LOCKOUTTIME_AD + "\"");
             }
 
             return lockouttime;

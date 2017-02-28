@@ -5,6 +5,7 @@ using PhalanxCommon.Collections;
 using NHibernate;
 using PhalanxCommon.Entities;
 using PhalanxCommon;
+using NHibernate.Criterion;
 
 namespace PhalanxDAL.Factories
 {
@@ -25,7 +26,7 @@ namespace PhalanxDAL.Factories
                 {
                     ICriteria DataSearch = session.CreateCriteria(typeof(PhxPrivilegeGroupEntity));
 
-                    DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("Name"));
+                    DataSearch = DataSearch.AddOrder(Order.Asc("Name"));
                     IList<PhxPrivilegeGroupEntity> lstDBTypes = DataSearch.List<PhxPrivilegeGroupEntity>();
                     if (_filCargaPrivilegios)
                     {

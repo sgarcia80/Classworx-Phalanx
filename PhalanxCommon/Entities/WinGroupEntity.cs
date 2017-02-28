@@ -3,6 +3,7 @@ insert license info here
 */
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace PhalanxCommon.Entities
 {
@@ -17,9 +18,9 @@ namespace PhalanxCommon.Entities
 		private bool m_isChanged;
 
 		private int m_win_group_id; 
-		private IList m_DelegationRequestsList; 
-		private IList m_GlobalWinGroupsList; 
-		private IList m_LocalWinGroupsList; 
+		private IList<DelegationRequestEntity> m_DelegationRequestsList; 
+		private IList<GlobalWinGroupEntity> m_GlobalWinGroupsList; 
+		private IList<LocalWinGroupEntity> m_LocalWinGroupsList; 
 		private string m_ad_group_name; 
 		private string m_nt_group_name; 		
 		#endregion
@@ -31,9 +32,9 @@ namespace PhalanxCommon.Entities
 		public WinGroupEntity()
 		{
 			m_win_group_id = 0; 
-			m_DelegationRequestsList = new ArrayList(); 
-			m_GlobalWinGroupsList = new ArrayList(); 
-			m_LocalWinGroupsList = new ArrayList(); 
+			m_DelegationRequestsList = new List<DelegationRequestEntity>(); 
+			m_GlobalWinGroupsList = new List<GlobalWinGroupEntity>(); 
+			m_LocalWinGroupsList = new List<LocalWinGroupEntity>(); 
 			m_ad_group_name = String.Empty; 
 			m_nt_group_name = String.Empty; 
 		}
@@ -69,7 +70,7 @@ namespace PhalanxCommon.Entities
 
 		}
 			
-		public IList DelegationRequestsList
+		public IList<DelegationRequestEntity> DelegationRequestsList
 		{
 			get
 			{
@@ -81,7 +82,7 @@ namespace PhalanxCommon.Entities
 			}
 		}
 
-		public IList GlobalWinGroupsList
+		public IList<GlobalWinGroupEntity> GlobalWinGroupsList
 		{
 			get
 			{
@@ -93,7 +94,7 @@ namespace PhalanxCommon.Entities
 			}
 		}
 
-		public IList LocalWinGroupsList
+		public IList<LocalWinGroupEntity> LocalWinGroupsList
 		{
 			get
 			{

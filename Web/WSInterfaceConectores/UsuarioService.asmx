@@ -1,1 +1,1 @@
-﻿<%@ WebService Language="C#" CodeBehind="~/App_Code/UsuarioService.cs" Class="UsuarioService" %>
+﻿<%@ WebService Language="C#" CodeBehind="UsuarioService.asmx.cs" Class="WSInterfaceConectores.UsuarioService" %>

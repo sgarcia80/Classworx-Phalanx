@@ -3,6 +3,7 @@ insert license info here
 */
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace PhalanxCommon.Entities
 {
@@ -17,7 +18,7 @@ namespace PhalanxCommon.Entities
 		private bool m_isChanged;
 
 		private int m_rqst_state_id; 
-		private IList m_RequestsList; 
+		private IList<RequestEntity> m_RequestsList; 
 		private string m_rqst_state_desc; 		
 		#endregion
 
@@ -28,7 +29,7 @@ namespace PhalanxCommon.Entities
 		public RequestStateEntity()
 		{
 			m_rqst_state_id = 0; 
-			m_RequestsList = new ArrayList(); 
+			m_RequestsList = new List<RequestEntity>(); 
 			m_rqst_state_desc = String.Empty; 
 		}
 		#endregion // End of Default ( Empty ) Class Constuctor
@@ -63,7 +64,7 @@ namespace PhalanxCommon.Entities
 
 		}
 			
-		public IList RequestsList
+		public IList<RequestEntity> RequestsList
 		{
 			get
 			{

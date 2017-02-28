@@ -4,7 +4,7 @@ using System.Collections;
 //using PhalanxDAL.Data;
 using PhalanxCommon.Entities;
 using NHibernate;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using NHibernate.Cfg;
 using PhalanxCommon;
 using PhalanxCommon.Collections;
@@ -46,7 +46,7 @@ namespace PhalanxDAL.Factories
                     {
                         DataSearch = DataSearch.Add(Expression.Eq("Active", _filActivo.Value));
                     }
-                    DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("ServerName"));
+                    DataSearch = DataSearch.AddOrder(Order.Asc("ServerName"));
 
                     UnixPCLst.Add(DataSearch.List<UnixEntity>());
                 }

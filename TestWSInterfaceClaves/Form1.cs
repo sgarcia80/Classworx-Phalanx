@@ -1,36 +1,17 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using TestWSInterfaceClaves.WSTickets;
 using System.Web.Services.Protocols;
 using PhalanxNAL;
-using log4net.Config;
-using log4net.Appender;
-using log4net;
-using log4net.Repository.Hierarchy;
 using System.IO;
 
 namespace TestWSInterfaceClaves
 {
     public partial class Form1 : Form
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(Form1));
-
-        private MemoryAppender memoryAppender;
-
         public Form1()
         {
-            InitializeComponent();
-
-            log4net.Config.XmlConfigurator.Configure();
-            
-            Hierarchy hierarchy = LogManager.GetRepository() as Hierarchy;
-            memoryAppender = hierarchy.Root.GetAppender("MemoryAppender") as MemoryAppender;
-        }
+            InitializeComponent();        }
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
@@ -180,34 +161,13 @@ namespace TestWSInterfaceClaves
             }
             catch (Exception ex)
             {
-                log.Error("Error al actualizar la descripción", ex);
+                string mensaje = string.Format("Error al actualizar la descripción: {0}{1}", System.Environment.NewLine, ex.ToString());
+                txtResultTestCambioDescAD.Text = mensaje;
             }
-
-            log.Info("Terminó la ejecución");
-
-            txtResultTestCambioDescAD.Text += ObtenerMensajesLog();
-
+            
             this.Cursor = Cursors.Default;
         }
-
-        private string ObtenerMensajesLog()
-        {
-            using (StringWriter writer = new StringWriter())
-            {
-                foreach (var loggingEvent in memoryAppender.GetEvents())
-                {
-                    memoryAppender.Layout.Format(writer, loggingEvent);
-
-                    if (loggingEvent.ExceptionObject != null)
-                        writer.Write(loggingEvent.ExceptionObject.ToString());
-                }
-
-                memoryAppender.Clear();
-                
-                return writer.ToString();
-            }
-        }
-
+        
         private void button1_Click(object sender, EventArgs e)
         {
             txtResultTestCambioDescAD.Text = "";
@@ -222,12 +182,9 @@ namespace TestWSInterfaceClaves
             }
             catch (Exception ex)
             {
-                log.Error("Error al actualizar la descripción", ex);
+                string mensaje = string.Format("Error al actualizar la descripción: {0}{1}", System.Environment.NewLine, ex.ToString());
+                txtResultTestCambioDescAD.Text = mensaje;
             }
-
-            log.Info("Terminó la ejecución");
-
-            txtResultTestCambioDescAD.Text += ObtenerMensajesLog();
 
             this.Cursor = Cursors.Default;
         }

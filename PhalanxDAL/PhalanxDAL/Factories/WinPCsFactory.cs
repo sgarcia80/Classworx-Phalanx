@@ -4,7 +4,7 @@ using System.Collections;
 //using PhalanxDAL.Data;
 using PhalanxCommon.Entities;
 using NHibernate;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using NHibernate.Cfg;
 using PhalanxCommon;
 using PhalanxCommon.Collections;
@@ -56,7 +56,7 @@ namespace PhalanxDAL.Factories
                     {
                         DataSearch = DataSearch.Add(Expression.Eq("WinDomain", _filDominio));
                     }
-                    DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("Name"));
+                    DataSearch = DataSearch.AddOrder(Order.Asc("Name"));
                     /*
                     IList<WinPCEntity> lstPCs = DataSearch.List<WinPCEntity>();
                     foreach (WinPCEntity PCE in lstPCs)

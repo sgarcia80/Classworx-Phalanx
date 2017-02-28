@@ -5,7 +5,7 @@ using System.Collections.Generic;
 //using PhalanxDAL.Data;
 using PhalanxCommon.Entities;
 using NHibernate;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using PhalanxCommon;
 using PhalanxCommon.Collections;
 //using NHibernate.Cfg;
@@ -60,7 +60,7 @@ namespace PhalanxDAL.Factories
                                                    );
                     }
 
-                    DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("NtName"));
+                    DataSearch = DataSearch.AddOrder(Order.Asc("NtName"));
                     WinDomLst.Add(DataSearch.List<WinDomainEntity>());
                 }
             }
@@ -94,7 +94,7 @@ namespace PhalanxDAL.Factories
 
                     DataSearch = DataSearch.Add(Expression.Like("Id", id));
 
-                    DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("NtName"));
+                    DataSearch = DataSearch.AddOrder(Order.Asc("NtName"));
                     WinDomLst.Add(DataSearch.List<WinDomainEntity>());
                 }
             }
@@ -155,7 +155,7 @@ namespace PhalanxDAL.Factories
             ISession session = DBMgr.factory.OpenSession();
             session.Lock(objWD, NHibernate.LockMode.None);
             NHibernateUtil.Initialize(objWD);
-            IList lstWDPCs; // = new ArrayList();
+            IList<WinPCEntity> lstWDPCs; // = new ArrayList();
             /*
             IList lstWDPCs;
 
@@ -191,7 +191,7 @@ namespace PhalanxDAL.Factories
                 ISession session = DBMgr.factory.OpenSession();
                 session.Lock(objWP, NHibernate.LockMode.None);
                 NHibernateUtil.Initialize(objWP);
-                IList lstWDUsrs;
+                IList<WinLocalUserEntity> lstWDUsrs;
                 /*
                 IList lstWDPCs;
 

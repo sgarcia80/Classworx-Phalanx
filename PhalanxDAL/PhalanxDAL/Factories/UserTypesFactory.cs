@@ -4,6 +4,7 @@ using NHibernate;
 using PhalanxCommon.Entities;
 using PhalanxCommon.Collections;
 using PhalanxCommon;
+using NHibernate.Criterion;
 
 namespace PhalanxDAL.Factories
 {
@@ -79,7 +80,7 @@ namespace PhalanxDAL.Factories
                 {
                     ICriteria DataSearch = session.CreateCriteria(typeof(UserTypeEntity));
 
-                    DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("Desc"));
+                    DataSearch = DataSearch.AddOrder(Order.Asc("Desc"));
                     WinDomLst.Add(DataSearch.List<UserTypeEntity>());
                 }
             }

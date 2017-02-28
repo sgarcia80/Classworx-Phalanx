@@ -3,6 +3,7 @@ insert license info here
 */
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace PhalanxCommon.Entities
 {
@@ -18,7 +19,7 @@ namespace PhalanxCommon.Entities
 
 		private int _id; 
 		private string _name;
-        private IList _privilege_lst;
+        private IList<PhxPrivilegeEntity> _privilege_lst;
 		#endregion
 
 		#region Default ( Empty ) Class Constuctor
@@ -28,7 +29,7 @@ namespace PhalanxCommon.Entities
 		public PhxPrivilegeGroupEntity()
 		{
             _id = 0;
-            _privilege_lst = new ArrayList();
+            _privilege_lst = new List<PhxPrivilegeEntity>();
 		}
 		#endregion // End of Default ( Empty ) Class Constuctor
 
@@ -53,7 +54,7 @@ namespace PhalanxCommon.Entities
 			}
 
 		}
-        public IList PhxPrivilegeList
+        public IList<PhxPrivilegeEntity> PhxPrivilegeList
         {
             get { return _privilege_lst; }
             set { _privilege_lst = value; }

@@ -3,6 +3,7 @@ insert license info here
 */
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace PhalanxCommon.Entities
 {
@@ -17,7 +18,7 @@ namespace PhalanxCommon.Entities
 		private bool m_isChanged;
 
 		//private int m_user_id; 
-		private IList m_WinDomainControllersList; 
+		private IList<WinDomainControllerEntity> m_WinDomainControllersList; 
 		private WinDomainEntity m_win_domain_id; 
 		private int m_user_domain_id; 		
 		#endregion
@@ -30,7 +31,7 @@ namespace PhalanxCommon.Entities
 		{
 			//m_user_id = 0; 
 			this.Id = 0;
-			m_WinDomainControllersList = new ArrayList(); 
+			m_WinDomainControllersList = new List<WinDomainControllerEntity>(); 
 			m_win_domain_id = new WinDomainEntity(); 
 			m_user_domain_id = 0; 
 		}
@@ -69,7 +70,7 @@ namespace PhalanxCommon.Entities
 		}
 		*/
 			
-		public IList WinDomainControllersList
+		public IList<WinDomainControllerEntity> WinDomainControllersList
 		{
 			get
 			{

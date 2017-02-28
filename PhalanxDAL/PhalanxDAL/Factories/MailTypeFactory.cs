@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using PhalanxCommon.Entities;
 using NHibernate;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using PhalanxCommon;
 using PhalanxCommon.Collections;
 using System.Collections;
@@ -35,7 +35,7 @@ namespace PhalanxDAL.Factories
                 {
                     ICriteria DataSearch = session.CreateCriteria(typeof(MailTypeEntity));
 
-                    DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("Name"));
+                    DataSearch = DataSearch.AddOrder(Order.Asc("Name"));
                     IList<MailTypeEntity> lstDBTypes = DataSearch.List<MailTypeEntity>();
                     WinDomLst.Add(lstDBTypes);
                 }

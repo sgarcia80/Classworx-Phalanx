@@ -3,6 +3,7 @@ insert license info here
 */
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace PhalanxCommon.Entities
 {
@@ -19,7 +20,7 @@ namespace PhalanxCommon.Entities
 		private int m_user_id; 
 		//private IList m_WinDomainUsersList; 
 		//private IList m_WinLocalUsersList; 
-        private IList m_PwdChangesList;
+        private IList<HistPasswordChangeEntity> m_PwdChangesList;
 		private string m_username; 
 		private bool m_active_user; 
 		private DateTime? m_modifying_date;
@@ -47,7 +48,7 @@ namespace PhalanxCommon.Entities
 			m_user_id = 0; 
 			//m_WinDomainUsersList = new ArrayList(); 
 			//m_WinLocalUsersList = new ArrayList(); 
-            m_PwdChangesList = new ArrayList();
+            m_PwdChangesList = new List<HistPasswordChangeEntity>();
 			m_username = String.Empty; 
 			m_active_user = false; 
 			m_user_type_id = new UserTypeEntity(); 
@@ -90,7 +91,7 @@ namespace PhalanxCommon.Entities
 
 		}
 
-        public IList PwdChangesList
+        public IList<HistPasswordChangeEntity> PwdChangesList
 		{
 			get
 			{
@@ -101,33 +102,7 @@ namespace PhalanxCommon.Entities
                 m_PwdChangesList = value;
 			}
 		}
-
-		/*
-		public IList WinDomainUsersList
-		{
-			get
-			{
-				return m_WinDomainUsersList;
-			}
-			set
-			{
-				m_WinDomainUsersList = value;
-			}
-		}
-
-		public IList WinLocalUsersList
-		{
-			get
-			{
-				return m_WinLocalUsersList;
-			}
-			set
-			{
-				m_WinLocalUsersList = value;
-			}
-		}
-		*/
-
+        
 		/// <summary>
 		/// 
 		/// </summary>

@@ -50,35 +50,6 @@ namespace PhalanxCommon.Entities
 
 		#region Public Properties
 		
-		/*
-		/// <summary>
-		/// 
-		/// </summary>
-		public int UserId
-		{
-			get { return m_user_id; }
-			set
-			{
-				m_isChanged |= ( m_user_id != value ); 
-				m_user_id = value;
-			}
-
-		}*/
-			
-		/*
-		public IList WinLocalUsersList
-		{
-			get
-			{
-				return m_WinLocalUsersList;
-			}
-			set
-			{
-				m_WinLocalUsersList = value;
-			}
-		}
-		*/
-
 		/// <summary>
 		/// 
 		/// </summary>

@@ -3,6 +3,7 @@ insert license info here
 */
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace PhalanxCommon.Entities
 {
@@ -17,10 +18,10 @@ namespace PhalanxCommon.Entities
 		private bool m_isChanged;
 
 		private int m_user_password_id; 
-		private IList m_PasswordsRequestsList; 
-		private IList m_RqstGrpsPwdsList;
-        private IList m_FollowupRqstGrpsPwdsList; 
-		private IList m_UsersList; 
+		private IList<PasswordRequestEntity> m_PasswordsRequestsList; 
+		private IList<RqstGrpPwdEntity> m_RqstGrpsPwdsList;
+        private IList<FollowupRequestGroupPasswordEntity> m_FollowupRqstGrpsPwdsList; 
+		private IList<UserEntity> m_UsersList; 
 		private string m_password; 
 		private bool m_static_pwd; 
 		private Nullable<DateTime> m_d_next_change; 
@@ -48,10 +49,10 @@ namespace PhalanxCommon.Entities
 		public UserPasswordEntity()
 		{
 			m_user_password_id = 0; 
-			m_UsersList = new ArrayList(); 
-			m_PasswordsRequestsList = new ArrayList(); 
-			m_RqstGrpsPwdsList = new ArrayList();
-            m_FollowupRqstGrpsPwdsList = new ArrayList(); 
+			m_UsersList = new List<UserEntity>(); 
+			m_PasswordsRequestsList = new List<PasswordRequestEntity>(); 
+			m_RqstGrpsPwdsList = new List<RqstGrpPwdEntity>();
+            m_FollowupRqstGrpsPwdsList = new List<FollowupRequestGroupPasswordEntity>(); 
 			m_password = String.Empty; 
 			m_static_pwd = false; 
 			//m_d_next_change = DateTime.MinValue; 
@@ -126,7 +127,7 @@ namespace PhalanxCommon.Entities
 			}
 
 		}
-		public IList UsersList
+		public IList<UserEntity> UsersList
 		{
 			get
 			{
@@ -138,7 +139,7 @@ namespace PhalanxCommon.Entities
 			}
 		}
 		
-		public IList PasswordsRequestsList
+		public IList<PasswordRequestEntity> PasswordsRequestsList
 		{
 			get
 			{
@@ -150,7 +151,7 @@ namespace PhalanxCommon.Entities
 			}
 		}
 
-		public IList RqstGrpsPwdsList
+		public IList<RqstGrpPwdEntity> RqstGrpsPwdsList
 		{
 			get
 			{
@@ -162,7 +163,7 @@ namespace PhalanxCommon.Entities
 			}
 		}
 
-        public IList FollowupRqstGrpsPwdsList
+        public IList<FollowupRequestGroupPasswordEntity> FollowupRqstGrpsPwdsList
 		{
 			get
 			{

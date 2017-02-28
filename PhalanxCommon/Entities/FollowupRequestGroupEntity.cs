@@ -3,6 +3,7 @@ insert license info here
 */
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace PhalanxCommon.Entities
 {
@@ -17,8 +18,8 @@ namespace PhalanxCommon.Entities
 		private bool m_isChanged;
 
 		private int m_frg_id; 
-		private IList m_FollowupGroupUsersList; 
-		private IList m_FollowupGroupPwdsList;
+		private IList<FollowupRequestGroupUserEntity> m_FollowupGroupUsersList; 
+		private IList<FollowupRequestGroupPasswordEntity> m_FollowupGroupPwdsList;
 		private string m_frg_name;
         private bool m_frg_active; 
 		#endregion
@@ -30,8 +31,8 @@ namespace PhalanxCommon.Entities
 		public FollowupRequestGroupEntity()
 		{
 			m_frg_id = 0; 
-			m_FollowupGroupUsersList = new ArrayList(); 
-			m_FollowupGroupPwdsList = new ArrayList(); 
+			m_FollowupGroupUsersList = new List<FollowupRequestGroupUserEntity>(); 
+			m_FollowupGroupPwdsList = new List<FollowupRequestGroupPasswordEntity>(); 
 			m_frg_name = String.Empty; 
 		}
 		#endregion // End of Default ( Empty ) Class Constuctor
@@ -63,10 +64,9 @@ namespace PhalanxCommon.Entities
 				m_isChanged |= ( m_frg_id != value ); 
 				m_frg_id = value;
 			}
-
 		}
 			
-		public IList FollowupGroupUsersList
+		public IList<FollowupRequestGroupUserEntity> FollowupGroupUsersList
 		{
 			get
 			{
@@ -79,7 +79,7 @@ namespace PhalanxCommon.Entities
 		}
 
 
-		public IList FollowupRequestGroupPasswordList
+		public IList<FollowupRequestGroupPasswordEntity> FollowupRequestGroupPasswordList
 		{
 			get
 			{

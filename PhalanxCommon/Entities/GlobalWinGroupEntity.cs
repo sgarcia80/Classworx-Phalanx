@@ -50,34 +50,6 @@ namespace PhalanxCommon.Entities
 
 		#region Public Properties
 			
-		/*
-		/// <summary>
-		/// 
-		/// </summary>
-		public int WinGroupId
-		{
-			get { return m_win_group_id; }
-			set
-			{
-				m_isChanged |= ( m_win_group_id != value ); 
-				m_win_group_id = value;
-			}
-
-		}*/
-		
-		/*
-		public IList GlobalWinGroupsList
-		{
-			get
-			{
-				return m_GlobalWinGroupsList;
-			}
-			set
-			{
-				m_GlobalWinGroupsList = value;
-			}
-		}*/
-
 		/// <summary>
 		/// dominio al que pertenece el grupo
 		/// </summary>

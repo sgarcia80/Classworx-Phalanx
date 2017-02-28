@@ -3,6 +3,7 @@ insert license info here
 */
 using System;
 using System.Collections;
+using System.Collections.Generic;
 //using Nullables;
 
 namespace PhalanxCommon.Entities
@@ -18,8 +19,8 @@ namespace PhalanxCommon.Entities
 		private bool m_isChanged;
 
 		private int m_request_id; 
-		private IList m_DelegationRequestsList; 
-		private IList m_PasswordsRequestsList; 
+		private IList<DelegationRequestEntity> m_DelegationRequestsList; 
+		private IList<PasswordRequestEntity> m_PasswordsRequestsList; 
 		private PhxUserEntity m_rqst_user_id; 
 		private DateTime m_request_date; 
 		private PhxUserEntity m_auth1_usr_id; 
@@ -51,8 +52,8 @@ namespace PhalanxCommon.Entities
 		public RequestEntity()
 		{
 			m_request_id = 0; 
-			m_DelegationRequestsList = new ArrayList(); 
-			m_PasswordsRequestsList = new ArrayList(); 
+			m_DelegationRequestsList = new List<DelegationRequestEntity>(); 
+			m_PasswordsRequestsList = new List<PasswordRequestEntity>(); 
 			m_rqst_user_id = new PhxUserEntity(); 
 			m_request_date = DateTime.MinValue; 
 			m_auth1_usr_id = null; //new PhxUsers(); 
@@ -109,7 +110,7 @@ namespace PhalanxCommon.Entities
 			}
 		}
 			
-		public IList DelegationRequestsList
+		public IList<DelegationRequestEntity> DelegationRequestsList
 		{
 			get
 			{
@@ -121,7 +122,7 @@ namespace PhalanxCommon.Entities
 			}
 		}
 
-		public IList PasswordsRequestsList
+		public IList<PasswordRequestEntity> PasswordsRequestsList
 		{
 			get
 			{

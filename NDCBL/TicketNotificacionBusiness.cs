@@ -1,12 +1,5 @@
-using System;
-using System.Data;
-using System.Configuration;
-using phxCryptMgr;
-using NDCCommon.Entities;
 using NDCCommon.Collections;
 using NDCDAL.Factories;
-using System.Collections.Generic;
-using PhalanxBL;
 
 namespace NDCBL
 {

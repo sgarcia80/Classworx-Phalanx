@@ -84,10 +84,10 @@ namespace PhalanxDAL
             {
                 config = new NHibernate.Cfg.Configuration();
                 IDictionary props = new Hashtable();
-
-                props["hibernate.connection.provider"] = "NHibernate.Connection.DriverConnectionProvider";
-                props["hibernate.dialect"] = "NHibernate.Dialect.MsSql2000Dialect";
-                props["hibernate.connection.driver_class"] = "NHibernate.Driver.SqlClientDriver";
+                
+                props["connection.provider"] = "NHibernate.Connection.DriverConnectionProvider";
+                props["dialect"] = "NHibernate.Dialect.MsSql2012Dialect";
+                props["connection.driver_class"] = "NHibernate.Driver.SqlClientDriver";
                 //props["hibernate.connection.connection_string"] = "Server=localhost;initial catalog=Northwind;Integrated Security=SSPI" ;
                 //string AppPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase );
 
@@ -122,12 +122,12 @@ namespace PhalanxDAL
                 //string strConn = GetConnString();
                 //}
                 DBLog.registerLog(CLogger.TYPE_INFORMATION, 1, 0, "DBMgr.DBMgr()", "Cadena de conexión: " + strConn, true, false);
-                props["hibernate.connection.connection_string"] = strConn;
+                props["connection.connection_string"] = strConn;
                 foreach (DictionaryEntry de in props)
                 {
                     config.SetProperty(de.Key.ToString(), de.Value.ToString());
                 }
-
+                                
                 Assembly nhAssembly = Assembly.Load("PhalanxDAL");
 
                 config.AddResource("PhalanxDAL.MappingFiles.EventoLogin.hbm.xml", nhAssembly);

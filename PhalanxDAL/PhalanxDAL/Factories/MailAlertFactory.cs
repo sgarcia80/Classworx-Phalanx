@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using PhalanxCommon.Entities;
 using NHibernate;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using NHibernate.Cfg;
 using PhalanxCommon;
 using PhalanxCommon.Collections;
@@ -121,7 +121,7 @@ namespace PhalanxDAL.Factories
                     ICriteria DataSearch = session.CreateCriteria(typeof(MailAlertEntity));
 
                     DataSearch = DataSearch.Add(Expression.IsNull("SendDate"));
-                    DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("CreationDate"));
+                    DataSearch = DataSearch.AddOrder(Order.Asc("CreationDate"));
 
                     MailAlertLst.Add(DataSearch.List<MailAlertEntity>());
                 }
@@ -207,7 +207,7 @@ namespace PhalanxDAL.Factories
                     {
                         DataSearch = DataSearch.Add(Expression.Eq("MailType", _filMailType));
                     }
-                    DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("CreationDate"));
+                    DataSearch = DataSearch.AddOrder(Order.Asc("CreationDate"));
 
                     MailAlertLst.Add(DataSearch.List<MailAlertEntity>());
                 }

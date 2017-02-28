@@ -3,6 +3,7 @@ insert license info here
 */
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace PhalanxCommon.Entities
 {
@@ -17,7 +18,7 @@ namespace PhalanxCommon.Entities
 		private bool m_isChanged;
 
 		private int m_pwd_lock_type_id; 
-		private IList m_UsersPasswordsList; 
+		private IList<UserPasswordEntity> m_UsersPasswordsList; 
 		private string m_pwd_lock_type_code; 
 		private string m_pwd_lock_type_desc; 		
 		#endregion
@@ -29,7 +30,7 @@ namespace PhalanxCommon.Entities
 		public PwdLockTypeEntity()
 		{
 			m_pwd_lock_type_id = 0; 
-			m_UsersPasswordsList = new ArrayList(); 
+			m_UsersPasswordsList = new List<UserPasswordEntity>(); 
 			m_pwd_lock_type_code = String.Empty; 
 			m_pwd_lock_type_desc = String.Empty; 
 		}
@@ -66,7 +67,7 @@ namespace PhalanxCommon.Entities
 
 		}
 			
-		public IList UsersPasswordsList
+		public IList<UserPasswordEntity> UsersPasswordsList
 		{
 			get
 			{

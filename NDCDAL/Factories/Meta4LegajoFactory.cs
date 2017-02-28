@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using NDCCommon.Entities;
 using NDCCommon.Collections;
 using NHibernate;
 using PhalanxDAL;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 
 namespace NDCDAL.Factories
 {
@@ -55,16 +54,16 @@ namespace NDCDAL.Factories
                 ICriteria DataSearch = session.CreateCriteria(typeof(Meta4LegajoEntity), "ML");
                 
                 if (_filId != null)
-                    DataSearch.Add(Expression.Eq("ML.Id", _filId));
+                    DataSearch.Add(Restrictions.Eq("ML.Id", _filId));
 
                 if (_filSociedad != null)
-                    DataSearch = DataSearch.Add(Expression.Eq("ML.Sociedad.Id", _filSociedad));
+                    DataSearch = DataSearch.Add(Restrictions.Eq("ML.Sociedad.Id", _filSociedad));
 
                 if (_filTipoDoc != null)
-                    DataSearch = DataSearch.Add(Expression.Eq("ML.IdTipoDocumento", _filTipoDoc));
+                    DataSearch = DataSearch.Add(Restrictions.Eq("ML.IdTipoDocumento", _filTipoDoc));
 
                 if (_filDoc != null)
-                    DataSearch = DataSearch.Add(Expression.Eq("ML.Documento", _filDoc));
+                    DataSearch = DataSearch.Add(Restrictions.Eq("ML.Documento", _filDoc));
 
                 try
                 {

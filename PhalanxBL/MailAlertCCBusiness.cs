@@ -38,7 +38,7 @@ namespace PhalanxBL
             return entityCC;
         }
 
-        public MailAddressCollection LoadMailAddressC(IList MailCCList)
+        public MailAddressCollection LoadMailAddressC(IList<MailAlertCCEntity> MailCCList)
         {
             MailAddressCollection MailAC_CC = new MailAddressCollection();
 

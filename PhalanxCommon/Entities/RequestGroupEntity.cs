@@ -3,6 +3,7 @@ insert license info here
 */
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace PhalanxCommon.Entities
 {
@@ -17,9 +18,9 @@ namespace PhalanxCommon.Entities
 		private bool m_isChanged;
 
 		private int m_rqst_grp_id; 
-		private IList m_PhxUsersGroupsList; 
-		private IList m_RqstGrpsDelegList; 
-		private IList m_RqstGrpsPwdsList;
+		private IList<PhxUserGroupEntity> m_PhxUsersGroupsList; 
+		private IList<RqstGrpDelegEntity> m_RqstGrpsDelegList; 
+		private IList<RqstGrpPwdEntity> m_RqstGrpsPwdsList;
 		private string m_rqst_grp_name;
         private bool m_rqst_grp_user; 
 		#endregion
@@ -31,9 +32,9 @@ namespace PhalanxCommon.Entities
 		public RequestGroupEntity()
 		{
 			m_rqst_grp_id = 0; 
-			m_PhxUsersGroupsList = new ArrayList(); 
-			m_RqstGrpsDelegList = new ArrayList(); 
-			m_RqstGrpsPwdsList = new ArrayList(); 
+			m_PhxUsersGroupsList = new List<PhxUserGroupEntity>(); 
+			m_RqstGrpsDelegList = new List<RqstGrpDelegEntity>(); 
+			m_RqstGrpsPwdsList = new List<RqstGrpPwdEntity>(); 
 			m_rqst_grp_name = String.Empty; 
 		}
 		#endregion // End of Default ( Empty ) Class Constuctor
@@ -68,7 +69,7 @@ namespace PhalanxCommon.Entities
 
 		}
 			
-		public IList PhxUsersGroupsList
+		public IList<PhxUserGroupEntity> PhxUsersGroupsList
 		{
 			get
 			{
@@ -80,7 +81,7 @@ namespace PhalanxCommon.Entities
 			}
 		}
 
-		public IList RqstGrpsDelegList
+		public IList<RqstGrpDelegEntity> RqstGrpsDelegList
 		{
 			get
 			{
@@ -92,7 +93,7 @@ namespace PhalanxCommon.Entities
 			}
 		}
 
-		public IList RqstGrpsPwdsList
+		public IList<RqstGrpPwdEntity> RqstGrpsPwdsList
 		{
 			get
 			{

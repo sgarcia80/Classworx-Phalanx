@@ -5,7 +5,7 @@ using System.Collections;
 using PhalanxCommon.Entities;
 using Phalanx.Util;
 using NHibernate;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using NHibernate.Cfg;
 
 namespace PhalanxDAL.Factories

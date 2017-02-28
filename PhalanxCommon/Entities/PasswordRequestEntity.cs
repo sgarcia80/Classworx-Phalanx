@@ -86,37 +86,6 @@ namespace PhalanxCommon.Entities
             get { return m_ChangePostReturn; }
         }
 
-
-		/*
-		/// <summary>
-		/// 
-		/// </summary>
-		public int RequestId
-		{
-			get { return m_request_id; }
-			set
-			{
-				m_isChanged |= ( m_request_id != value ); 
-				m_request_id = value;
-			}
-
-		}
-		*/
-	
-		/*
-		public IList PasswordsRequestsList
-		{
-			get
-			{
-				return m_PasswordsRequestsList;
-			}
-			set
-			{
-				m_PasswordsRequestsList = value;
-			}
-		}
-		*/
-
 		/// <summary>
 		/// Password consultado
 		/// </summary>

@@ -50,36 +50,7 @@ namespace PhalanxCommon.Entities
 		#endregion // End Required Fields Only Constructor
 
 		#region Public Properties
-
-        /*			
-		/// <summary>
-		/// 
-		/// </summary>
-		public int WinGroupId
-		{
-			get { return m_win_group_id; }
-			set
-			{
-				m_isChanged |= ( m_win_group_id != value ); 
-				m_win_group_id = value;
-			}
-
-		}
-		*/
-			
-		/*
-		public IList LocalWinGroupsList
-		{
-			get
-			{
-				return m_LocalWinGroupsList;
-			}
-			set
-			{
-				m_LocalWinGroupsList = value;
-			}
-		}*/
-
+        
 		/// <summary>
 		/// 
 		/// </summary>

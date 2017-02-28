@@ -24,7 +24,7 @@
     <ManifestKeyFile>PhalanxAdmin_TemporaryKey.pfx</ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
     <SignManifests>true</SignManifests>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>2.0</OldToolsVersion>
@@ -43,6 +43,7 @@
     <ApplicationVersion>3.1.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -101,11 +102,8 @@
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Iesi.Collections">
-      <HintPath>..\Referencias\Iesi.Collections.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\Referencias\log4net.dll</HintPath>
+    <Reference Include="Classworx.Common.Trace">
+      <HintPath>..\Referencias\Classworx.Common.Trace.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ReportViewer.WinForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
@@ -1431,10 +1429,6 @@
     <ProjectReference Include="..\phxCryptMgr\phxCryptMgr.csproj">
       <Project>{F0941A5C-7856-42E9-9544-CDAC11F3C285}</Project>
       <Name>phxCryptMgr</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\phxLog\phxLog.csproj">
-      <Project>{E8F94161-3F1A-4491-92B4-9AE6777DF183}</Project>
-      <Name>phxLog</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

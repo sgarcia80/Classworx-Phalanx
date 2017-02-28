@@ -3,6 +3,7 @@ insert license info here
 */
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace PhalanxCommon.Entities
 {
@@ -17,7 +18,7 @@ namespace PhalanxCommon.Entities
 		private bool m_isChanged;
 
 		private int m_evento_login_id; 
-		private IList m_AuditLoginList; 
+		private IList<UserPasswordEntity> m_AuditLoginList; 
 		private string m_evento; 		
 		#endregion
 
@@ -28,7 +29,7 @@ namespace PhalanxCommon.Entities
 		public EventoLoginEntity()
 		{
 			m_evento_login_id = 0; 
-			m_AuditLoginList = new ArrayList(); 
+			m_AuditLoginList = new List<UserPasswordEntity>(); 
 			m_evento = String.Empty; 
 		}
 		#endregion // End of Default ( Empty ) Class Constuctor
@@ -63,7 +64,7 @@ namespace PhalanxCommon.Entities
 
 		}
 			
-		public IList UsersPasswordsList
+		public IList<UserPasswordEntity> UsersPasswordsList
 		{
 			get
 			{

@@ -1,9 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using NHibernate;
 using PhalanxCommon.Entities;
-using PhalanxCommon.Collections;
 using PhalanxCommon;
 
 namespace PhalanxDAL.Factories

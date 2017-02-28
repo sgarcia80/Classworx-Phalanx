@@ -5,6 +5,7 @@ using PhalanxCommon.Collections;
 using NHibernate;
 using PhalanxCommon.Entities;
 using PhalanxCommon;
+using NHibernate.Criterion;
 
 namespace PhalanxDAL.Factories
 {
@@ -20,7 +21,7 @@ namespace PhalanxDAL.Factories
                 {
                     ICriteria DataSearch = session.CreateCriteria(typeof(CommunicationDeviceTypeEntity));
 
-                    DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("Name"));
+                    DataSearch = DataSearch.AddOrder(Order.Asc("Name"));
                     IList<CommunicationDeviceTypeEntity> lstCDTypes = DataSearch.List<CommunicationDeviceTypeEntity>();
 
                     CommDevTypeLst.Add(lstCDTypes);

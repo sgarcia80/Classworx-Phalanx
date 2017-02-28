@@ -3,6 +3,7 @@ insert license info here
 */
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace PhalanxCommon.Entities
 {
@@ -17,7 +18,7 @@ namespace PhalanxCommon.Entities
 		private bool m_isChanged;
 
 		private int m_as_id; 
-		private IList m_AS400UsersList; 
+		private IList<AS400UserEntity> m_AS400UsersList; 
 		private string m_as_server_name; 
 		private string m_as_desc; 
 		private string m_as_ip;
@@ -31,7 +32,7 @@ namespace PhalanxCommon.Entities
 		public AS400Entity()
 		{
 			m_as_id = 0; 
-			m_AS400UsersList = new ArrayList(); 
+			m_AS400UsersList = new List<AS400UserEntity>(); 
 			m_as_server_name = String.Empty; 
 			m_as_desc = String.Empty; 
 			m_as_ip = String.Empty; 
@@ -68,7 +69,7 @@ namespace PhalanxCommon.Entities
 
 		}
 			
-		public IList AS400UsersList
+		public IList<AS400UserEntity> AS400UsersList
 		{
 			get
 			{

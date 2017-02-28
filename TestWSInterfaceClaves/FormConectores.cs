@@ -1,35 +1,15 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using System.Web.Services.Protocols;
-using PhalanxNAL;
-using log4net.Config;
-using log4net.Appender;
-using log4net;
-using log4net.Repository.Hierarchy;
-using System.IO;
 using TestWSInterfaceClaves.ConectoresWS;
 
 namespace TestWSInterfaceClaves
 {
     public partial class FormConectores : Form
-    {
-        private static readonly ILog log = LogManager.GetLogger(typeof(Form1));
-
-        private MemoryAppender memoryAppender;
-
+    {        
         public FormConectores()
         {
             InitializeComponent();
-
-            log4net.Config.XmlConfigurator.Configure();
-
-            Hierarchy hierarchy = LogManager.GetRepository() as Hierarchy;
-            memoryAppender = hierarchy.Root.GetAppender("MemoryAppender") as MemoryAppender;
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)

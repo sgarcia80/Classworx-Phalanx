@@ -3,7 +3,7 @@ using System.Collections;
 //using PhalanxDAL.Data;
 using PhalanxCommon.Entities;
 using NHibernate;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using Phalanx.Util;
 using PhalanxCommon.Collections;
 using System.Collections.Generic;
@@ -1540,7 +1540,7 @@ namespace PhalanxDAL.Factories
                     return PasswordRequest.Id;
                     //return true;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     tx.Rollback();
                     return 0;

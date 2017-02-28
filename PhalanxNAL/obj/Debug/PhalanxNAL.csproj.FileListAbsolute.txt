@@ -19,3 +19,25 @@ C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\PhalanxNAL\obj\D
 C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\PhalanxNAL\obj\Debug\PhalanxNAL.pdb
 C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\PhalanxNAL\bin\Debug\PhxPing.dll
 C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\PhalanxNAL\bin\Debug\PhxPing.pdb
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxNAL\bin\Debug\PhalanxNAL.dll
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxNAL\bin\Debug\PhalanxNAL.pdb
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxNAL\bin\Debug\Classworx.Common.Trace.dll
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxNAL\bin\Debug\PhalanxCommon.dll
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxNAL\bin\Debug\PhalanxDAL.dll
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxNAL\bin\Debug\phxBlowfish.dll
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxNAL\bin\Debug\phxCryptMgr.dll
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxNAL\bin\Debug\phxLog.dll
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxNAL\bin\Debug\PhxPing.dll
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxNAL\bin\Debug\NHibernate.dll
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxNAL\bin\Debug\Iesi.Collections.dll
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxNAL\bin\Debug\PhalanxCommon.pdb
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxNAL\bin\Debug\PhalanxDAL.pdb
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxNAL\bin\Debug\phxBlowfish.pdb
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxNAL\bin\Debug\phxCryptMgr.pdb
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxNAL\bin\Debug\phxLog.pdb
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxNAL\bin\Debug\PhxPing.pdb
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxNAL\bin\Debug\NHibernate.xml
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxNAL\bin\Debug\Iesi.Collections.xml
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxNAL\obj\Debug\PhalanxNAL.csprojResolveAssemblyReference.cache
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxNAL\obj\Debug\PhalanxNAL.dll
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxNAL\obj\Debug\PhalanxNAL.pdb

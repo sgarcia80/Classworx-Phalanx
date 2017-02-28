@@ -2,3 +2,8 @@ C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\phxBlowfish\bin\
 C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\phxBlowfish\bin\Debug\phxBlowfish.pdb
 C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\phxBlowfish\obj\Debug\phxBlowfish.dll
 C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\phxBlowfish\obj\Debug\phxBlowfish.pdb
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\phxBlowfish\bin\Debug\phxBlowfish.dll
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\phxBlowfish\bin\Debug\phxBlowfish.pdb
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\phxBlowfish\obj\Debug\phxBlowfish.csprojResolveAssemblyReference.cache
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\phxBlowfish\obj\Debug\phxBlowfish.dll
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\phxBlowfish\obj\Debug\phxBlowfish.pdb

@@ -4,7 +4,7 @@ using System.Text;
 using PhalanxCommon.Collections;
 using NHibernate;
 using PhalanxCommon.Entities;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using PhalanxCommon;
 
 namespace PhalanxDAL.Factories
@@ -55,7 +55,7 @@ namespace PhalanxDAL.Factories
                     if (_filActivo != null)
                         DataSearch = DataSearch.Add(Expression.Eq("Active", _filActivo.Value));
                     
-                    DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("Name"));
+                    DataSearch = DataSearch.AddOrder(Order.Asc("Name"));
 
                     ComDevLst.Add(DataSearch.List<CommunicationDeviceEntity>());
                 }

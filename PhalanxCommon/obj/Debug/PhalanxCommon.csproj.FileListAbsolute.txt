@@ -7,3 +7,12 @@ C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\PhalanxCommon\bi
 C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\PhalanxCommon\obj\Debug\PhalanxCommon.csprojResolveAssemblyReference.cache
 C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\PhalanxCommon\obj\Debug\PhalanxCommon.dll
 C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\PhalanxCommon\obj\Debug\PhalanxCommon.pdb
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxCommon\bin\Debug\PhalanxCommon.dll
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxCommon\bin\Debug\PhalanxCommon.pdb
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxCommon\bin\Debug\phxCryptMgr.dll
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxCommon\bin\Debug\phxBlowfish.dll
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxCommon\bin\Debug\phxCryptMgr.pdb
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxCommon\bin\Debug\phxBlowfish.pdb
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxCommon\obj\Debug\PhalanxCommon.csprojResolveAssemblyReference.cache
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxCommon\obj\Debug\PhalanxCommon.dll
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\PhalanxCommon\obj\Debug\PhalanxCommon.pdb

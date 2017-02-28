@@ -1,14 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using NDCCommon.Collections;
 using NDCCommon.Entities;
 using NDCBL;
-using log4net;
 using PhalanxBL;
 using PhalanxCommon.Collections;
 using PhalanxCommon.Entities;
@@ -16,9 +11,7 @@ using PhalanxCommon.Entities;
 namespace PhalanxAdmin
 {
     public partial class FNotifBlanqueos : PhalanxAdmin.FBaseNotifClaves
-    {
-        private static readonly ILog log = LogManager.GetLogger(typeof(FNotifBlanqueos));
-
+    {   
         protected TicketNotificacionBlanqueoEntityCollection _entities;
         protected AplicacionNotificacionClaveEntityCollection _aplicaciones;
         protected WinDomainEntityCollection _dominios;
@@ -43,11 +36,6 @@ namespace PhalanxAdmin
 
         private void FEquiposWin_Load(object sender, EventArgs e)
         {
-            //NDCBL.TicketNotificacionBlanqueoBusiness business = new TicketNotificacionBlanqueoBusiness();
-            //lnkAdd.Enabled = UsrBL.AccAdmEqWinRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            //lnkModify.Enabled = UsrBL.AccAdmEqWinRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            //lnkDelete.Enabled = UsrBL.AccAdmEqWinRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-
             this.lvLista.ListViewItemSorter = new cwxSorter();
             this.lnkCancelar.Visible = false;
             this.pbDB.Visible = false;

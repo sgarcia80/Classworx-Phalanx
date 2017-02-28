@@ -1,13 +1,7 @@
 using System;
-using System.Data;
-using System.Configuration;
-using phxCryptMgr;
 using NDCCommon.Entities;
 using NDCCommon.Collections;
 using NDCDAL.Factories;
-using System.Collections.Generic;
-using PhalanxBL;
-using log4net;
 
 namespace NDCBL
 {
@@ -16,8 +10,6 @@ namespace NDCBL
     /// </summary>
     public class TicketAutogestionCobisBusiness
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(TicketAutogestionCobisBusiness));
-
         private TicketAutogestionCobisFactory factory;
 
         private TicketAutogestionCobisFactory Factory

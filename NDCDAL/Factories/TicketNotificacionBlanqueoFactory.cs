@@ -1,12 +1,9 @@
 using System;
-using System.Data;
-using System.Configuration;
 using NHibernate;
 using NDCCommon.Entities;
-using NDCDAL;
 using NDCCommon.Collections;
 using System.Collections.Generic;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using PhalanxDAL;
 
 /// <summary>
@@ -136,35 +133,35 @@ namespace NDCDAL.Factories
 
                 if (_filApp != null)
                 {
-                    DataSearch.Add(Expression.Eq("TNB.Aplicacion", _filApp));
+                    DataSearch.Add(Restrictions.Eq("TNB.Aplicacion", _filApp));
                 }
 
                 if (!string.IsNullOrEmpty(_filUsuario))
-                    DataSearch = DataSearch.Add(Expression.InsensitiveLike("TNB.Usuario", string.Format("%{0}%", _filUsuario)));
+                    DataSearch = DataSearch.Add(Restrictions.InsensitiveLike("TNB.Usuario", string.Format("%{0}%", _filUsuario)));
 
                 if (!string.IsNullOrEmpty(_filUsuarioApp))
-                    DataSearch = DataSearch.Add(Expression.InsensitiveLike("TNB.UsuarioAplicacion", string.Format("%{0}%", _filUsuarioApp)));
+                    DataSearch = DataSearch.Add(Restrictions.InsensitiveLike("TNB.UsuarioAplicacion", string.Format("%{0}%", _filUsuarioApp)));
 
                 if (!string.IsNullOrEmpty(_filDominio))
-                    DataSearch = DataSearch.Add(Expression.Eq("TNB.UsuarioDominio", _filDominio));
+                    DataSearch = DataSearch.Add(Restrictions.Eq("TNB.UsuarioDominio", _filDominio));
 
                 if (_filFecha != null)
-                    DataSearch = DataSearch.Add(Expression.Eq("TNB.Fecha", _filFecha));
+                    DataSearch = DataSearch.Add(Restrictions.Eq("TNB.Fecha", _filFecha));
 
                 if (_filFechaDesde != null)
-                    DataSearch = DataSearch.Add(Expression.Ge("TNB.Fecha", _filFechaDesde));
+                    DataSearch = DataSearch.Add(Restrictions.Ge("TNB.Fecha", _filFechaDesde));
 
                 if (_filFechaHasta != null)
-                    DataSearch = DataSearch.Add(Expression.Le("TNB.Fecha", _filFechaHasta));
+                    DataSearch = DataSearch.Add(Restrictions.Le("TNB.Fecha", _filFechaHasta));
 
                 if (_filPendiente)
                 {
-                    DataSearch = DataSearch.Add(Expression.IsNull("TNB.FechaAceptacionTyC"));
-                    DataSearch = DataSearch.Add(Expression.IsNull("TNB.FechaCancelado"));
+                    DataSearch = DataSearch.Add(Restrictions.IsNull("TNB.FechaAceptacionTyC"));
+                    DataSearch = DataSearch.Add(Restrictions.IsNull("TNB.FechaCancelado"));
                 }
 
                 if (_filTipoNotif > 0)
-                    DataSearch = DataSearch.Add(Expression.Eq("TNB.TipoNotificacion", _filTipoNotif));
+                    DataSearch = DataSearch.Add(Restrictions.Eq("TNB.TipoNotificacion", _filTipoNotif));
 
                 //Que el ticket no haya sido cancelado
                 
@@ -193,11 +190,11 @@ namespace NDCDAL.Factories
             using (ISession session = DBMgr.factory.OpenSession())
             {
                 ICriteria DataSearch = session.CreateCriteria(typeof(TicketNotificacionBlanqueoEntity), "TNB");
-                DataSearch = DataSearch.Add(Expression.Eq("TNB.Usuario", usuario).IgnoreCase());
-                DataSearch = DataSearch.Add(Expression.Eq("TNB.UsuarioDominio", dominio).IgnoreCase());
+                DataSearch = DataSearch.Add(Restrictions.Eq("TNB.Usuario", usuario).IgnoreCase());
+                DataSearch = DataSearch.Add(Restrictions.Eq("TNB.UsuarioDominio", dominio).IgnoreCase());
 
                 //DataSearch.CreateCriteria("Aplicacion")
-                //            .Add(Expression.Eq("Notificable", true));
+                //            .Add(Restrictions.Eq("Notificable", true));
 
                 try
                 {
@@ -221,8 +218,8 @@ namespace NDCDAL.Factories
             using (ISession session = DBMgr.factory.OpenSession())
             {
                 ICriteria DataSearch = session.CreateCriteria(typeof(TicketNotificacionBlanqueoEntity), "TNB");
-                DataSearch = DataSearch.Add(Expression.Eq("TNB.Usuario", usuario).IgnoreCase());
-                DataSearch = DataSearch.Add(Expression.Eq("TNB.FechaAceptacionTyC", null));
+                DataSearch = DataSearch.Add(Restrictions.Eq("TNB.Usuario", usuario).IgnoreCase());
+                DataSearch = DataSearch.Add(Restrictions.Eq("TNB.FechaAceptacionTyC", null));
                 DataSearch = DataSearch.SetProjection(Projections.Max("TNB.Fecha"));
 
                 try
@@ -259,29 +256,29 @@ namespace NDCDAL.Factories
 
                 if (_filApp != null)
                 {
-                    DataSearch.Add(Expression.Eq("TNB.Aplicacion", _filApp));
+                    DataSearch.Add(Restrictions.Eq("TNB.Aplicacion", _filApp));
                 }
 
-                DataSearch.Add(Expression.Or(
-                    Expression.Eq("TNB.TipoNotificacion", 1),
-                    Expression.Eq("TNB.TipoNotificacion", 2)));
+                DataSearch.Add(Restrictions.Or(
+                    Restrictions.Eq("TNB.TipoNotificacion", 1),
+                    Restrictions.Eq("TNB.TipoNotificacion", 2)));
 
                 if (_filApp == null)
                 {
                     DataSearch.CreateCriteria("TNB.Aplicacion", "app");
 
-                    DataSearch.Add(Expression.Or(
-                        Expression.Eq("app.EsAplicacionRed", true),
-                        Expression.Eq("app.EsAplicacionCobis", true)));
+                    DataSearch.Add(Restrictions.Or(
+                        Restrictions.Eq("app.EsAplicacionRed", true),
+                        Restrictions.Eq("app.EsAplicacionCobis", true)));
                 }
 
                 if (_filFechaDesde != null)
-                    DataSearch = DataSearch.Add(Expression.Ge("TNB.Fecha", _filFechaDesde));
+                    DataSearch = DataSearch.Add(Restrictions.Ge("TNB.Fecha", _filFechaDesde));
 
                 if (_filFechaHasta != null)
-                    DataSearch = DataSearch.Add(Expression.Le("TNB.Fecha", _filFechaHasta));
+                    DataSearch = DataSearch.Add(Restrictions.Le("TNB.Fecha", _filFechaHasta));
 
-                DataSearch = DataSearch.Add(Expression.IsNull("TNB.FechaAceptacionTyC"));
+                DataSearch = DataSearch.Add(Restrictions.IsNull("TNB.FechaAceptacionTyC"));
 
                 try
                 {
@@ -332,8 +329,8 @@ namespace NDCDAL.Factories
         //            if (esAplicacionRed)
         //            {
         //                ICriteria criteria = session.CreateCriteria(typeof(TicketNotificacionBlanqueoEntity))
-        //                                        .Add(Expression.Eq("Legajo", entidad.Legajo))
-        //                                        .Add(Expression.Eq("EsPasswordDominio", true));
+        //                                        .Add(Restrictions.Eq("Legajo", entidad.Legajo))
+        //                                        .Add(Restrictions.Eq("EsPasswordDominio", true));
 
         //                foreach (TicketNotificacionBlanqueoEntity ticket in criteria.List<TicketNotificacionBlanqueoEntity>())
         //                {
@@ -361,7 +358,7 @@ namespace NDCDAL.Factories
             {
                 ICriteria criteria = session.CreateCriteria(typeof(TicketNotificacionBlanqueoEntity));
 
-                criteria.Add(Expression.Eq("Token", token));
+                criteria.Add(Restrictions.Eq("Token", token));
 
                 return criteria.UniqueResult<TicketNotificacionBlanqueoEntity>();
             }

@@ -1,13 +1,10 @@
 using System;
-using System.Data;
-using System.Configuration;
 using phxCryptMgr;
 using NDCCommon.Entities;
 using NDCCommon.Collections;
 using NDCDAL.Factories;
-using System.Collections.Generic;
 using PhalanxBL;
-using log4net;
+using Classworx.Common.Trace;
 
 namespace NDCBL
 {
@@ -16,8 +13,6 @@ namespace NDCBL
     /// </summary>
     public class TicketNotificacionBlanqueoBusiness
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(TicketNotificacionBlanqueoBusiness));
-
         private const int DEFAULT_HORAS_EXPIRACION_TOKEN = 72;
 
         private TicketNotificacionBlanqueoFactory factory;
@@ -256,7 +251,7 @@ namespace NDCBL
                 }
                 catch (Exception ex)
                 {
-                    log.Error("Error al procesar la Notificación", ex);
+                    TraceHelper.Error("Error al procesar la Notificación", ex);
 
                     mensaje = string.Format("{0}{1}{2}", mensaje, System.Environment.NewLine, ex.Message);
                     throw new InvalidOperationException(mensaje, ex);

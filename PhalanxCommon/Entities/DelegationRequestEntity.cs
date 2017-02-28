@@ -50,36 +50,7 @@ namespace PhalanxCommon.Entities
 		#endregion // End Required Fields Only Constructor
 
 		#region Public Properties
-
-        /*			
-		/// <summary>
-		/// 
-		/// </summary>
-		public int RequestId
-		{
-			get { return m_request_id; }
-			set
-			{
-				m_isChanged |= ( m_request_id != value ); 
-				m_request_id = value;
-			}
-
-		}
-		*/
-		
-		/*
-		public IList DelegationRequestsList
-		{
-			get
-			{
-				return m_DelegationRequestsList;
-			}
-			set
-			{
-				m_DelegationRequestsList = value;
-			}
-		}*/
-
+        
 		/// <summary>
 		/// 
 		/// </summary>

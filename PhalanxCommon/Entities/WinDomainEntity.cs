@@ -3,6 +3,7 @@ insert license info here
 */
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace PhalanxCommon.Entities
 {
@@ -17,12 +18,12 @@ namespace PhalanxCommon.Entities
 		private bool m_isChanged;
 
 		private int m_win_domain_id; 
-		private IList m_GlobalWinGroupsList; 
-		private IList m_WinDomainControllersList; 
-		private IList m_WinDomainUsersList; 
+		private IList<GlobalWinGroupEntity> m_GlobalWinGroupsList; 
+		private IList<WinDomainControllerEntity> m_WinDomainControllersList; 
+		private IList<WinDomainUserEntity> m_WinDomainUsersList; 
 		private string m_nt_name; 
 		private string m_ad_name; 
-		private IList m_WinPCsList;
+		private IList<WinPCEntity> m_WinPCsList;
         private string m_Comments;
         private string m_ldap_path;
         private string m_ldap_user;
@@ -36,10 +37,10 @@ namespace PhalanxCommon.Entities
 		public WinDomainEntity()
 		{
 			m_win_domain_id = 0; 
-			m_GlobalWinGroupsList = new ArrayList(); 
-			m_WinDomainControllersList = new ArrayList(); 
-			m_WinDomainUsersList = new ArrayList(); 
-			m_WinPCsList = new ArrayList(); 
+			m_GlobalWinGroupsList = new List<GlobalWinGroupEntity>(); 
+			m_WinDomainControllersList = new List<WinDomainControllerEntity>(); 
+			m_WinDomainUsersList = new List<WinDomainUserEntity>(); 
+			m_WinPCsList = new List<WinPCEntity>(); 
 			m_nt_name = String.Empty; 
 			m_ad_name = String.Empty;
             m_Comments = string.Empty;
@@ -77,7 +78,7 @@ namespace PhalanxCommon.Entities
 
 		}
 			
-		public IList GlobalWinGroupsList
+		public IList<GlobalWinGroupEntity> GlobalWinGroupsList
 		{
 			get
 			{
@@ -89,7 +90,7 @@ namespace PhalanxCommon.Entities
 			}
 		}
 
-		public IList WinDomainControllersList
+		public IList<WinDomainControllerEntity> WinDomainControllersList
 		{
 			get
 			{
@@ -101,7 +102,7 @@ namespace PhalanxCommon.Entities
 			}
 		}
 
-		public IList WinDomainUsersList
+		public IList<WinDomainUserEntity> WinDomainUsersList
 		{
 			get
 			{
@@ -113,7 +114,7 @@ namespace PhalanxCommon.Entities
 			}
 		}
 
-		public IList WinPCsList
+		public IList<WinPCEntity> WinPCsList
 		{
 			get
 			{

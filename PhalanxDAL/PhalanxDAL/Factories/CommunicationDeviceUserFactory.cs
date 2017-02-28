@@ -4,7 +4,7 @@ using System.Text;
 using PhalanxCommon.Entities;
 using PhalanxCommon.Collections;
 using NHibernate;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using PhalanxCommon;
 using System.Collections;
 

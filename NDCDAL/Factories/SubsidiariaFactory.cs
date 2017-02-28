@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using NDCCommon.Collections;
 using NHibernate;
 using NDCCommon.Entities;
 using Common;
 using PhalanxDAL;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 
 namespace NDCDAL.Factories
 {
@@ -25,9 +23,9 @@ namespace NDCDAL.Factories
                     ICriteria DataSearch = session.CreateCriteria(typeof(SubsidiariaEntity));
 
                     if (!string.IsNullOrEmpty(FilNombre))
-                        DataSearch = DataSearch.Add(Expression.Like("Nombre", FilNombre, MatchMode.Anywhere));
+                        DataSearch = DataSearch.Add(Restrictions.Like("Nombre", FilNombre, MatchMode.Anywhere));
 
-                    DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("Nombre"));
+                    DataSearch = DataSearch.AddOrder(Order.Asc("Nombre"));
                     
                     Lst.Add(DataSearch.List<SubsidiariaEntity>());
                 }
@@ -69,7 +67,7 @@ namespace NDCDAL.Factories
 
                 var a = criteria.List();
 
-                criteria.Add(Expression.Eq("Codigo", codigo));
+                criteria.Add(Restrictions.Eq("Codigo", codigo));
 
                 return criteria.UniqueResult<SubsidiariaEntity>();
             }

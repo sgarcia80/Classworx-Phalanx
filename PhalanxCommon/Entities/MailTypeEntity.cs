@@ -3,6 +3,7 @@ insert license info here
 */
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace PhalanxCommon.Entities
 {
@@ -17,7 +18,7 @@ namespace PhalanxCommon.Entities
 		private bool m_isChanged;
 
         private int m_mail_type_id; 
-		private IList m_MailsList; 
+		private IList<MailAlertEntity> m_MailsList; 
 		private string m_mail_type_name; 		
 		#endregion
 
@@ -28,7 +29,7 @@ namespace PhalanxCommon.Entities
 		public MailTypeEntity()
 		{
 			m_mail_type_id = 0; 
-			m_MailsList = new ArrayList(); 
+			m_MailsList = new List<MailAlertEntity>(); 
 			m_mail_type_name = String.Empty; 
 		}
 		#endregion // End of Default ( Empty ) Class Constuctor
@@ -61,7 +62,7 @@ namespace PhalanxCommon.Entities
 
 		}
 
-        public IList MailsList
+        public IList<MailAlertEntity> MailsList
 		{
 			get
 			{

@@ -6,7 +6,7 @@ using PhalanxCommon;
 using PhalanxCommon.Entities;
 using PhalanxCommon.Collections;
 using NHibernate;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using NHibernate.Cfg;
 using System.Collections.Generic;
 //using Nullables;

@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using NHibernate;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 //using PhalanxDAL.Data;
 using PhalanxCommon.Entities;
 

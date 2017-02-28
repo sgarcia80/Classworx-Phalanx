@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using PhalanxCommon.Entities;
 using NHibernate;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using PhalanxCommon;
 using PhalanxCommon.Collections;
 
@@ -66,7 +64,7 @@ namespace PhalanxDAL.Factories
                         DataSearch = DataSearch.Add(Expression.Like("Name", _filNombre, MatchMode.Anywhere));
                     }
 
-                    DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("Name"));
+                    DataSearch = DataSearch.AddOrder(Order.Asc("Name"));
                     WinDomLst.Add(DataSearch.List<ApplicationEntity>());
                 }
             }

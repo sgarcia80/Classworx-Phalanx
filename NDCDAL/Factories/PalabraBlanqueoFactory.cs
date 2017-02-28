@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using NDCCommon.Collections;
 using NHibernate;
 using NDCCommon.Entities;
 using Common;
 using PhalanxDAL;
-using NHibernate.Expression;
 
 namespace NDCDAL.Factories
 {
@@ -21,7 +18,7 @@ namespace NDCDAL.Factories
                 {
                     ICriteria DataSearch = session.CreateCriteria(typeof(PalabraBlanqueoEntity));
 
-                    //DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("Valor"));
+                    //DataSearch = DataSearch.AddOrder(NHibernate.Restrictions.Order.Asc("Valor"));
                     
                     Lst.Add(DataSearch.List<PalabraBlanqueoEntity>());
                 }

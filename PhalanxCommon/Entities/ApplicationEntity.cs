@@ -3,6 +3,7 @@ insert license info here
 */
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace PhalanxCommon.Entities
 {
@@ -12,12 +13,11 @@ namespace PhalanxCommon.Entities
 	[Serializable]
     public sealed class ApplicationEntity : BaseEntity
 	{
-
 		#region Private Members
 		private bool m_isChanged;
 
 		private int m_app_id; 
-		private IList m_ApplicationsUsersList; 
+		private IList<ApplicationUserEntity> m_ApplicationsUsersList; 
 		private string m_app_name; 
 		private string m_app_desc; 
 		private string m_app_field1_desc; 
@@ -34,7 +34,7 @@ namespace PhalanxCommon.Entities
 		public ApplicationEntity()
 		{
 			m_app_id = 0; 
-			m_ApplicationsUsersList = new ArrayList(); 
+			m_ApplicationsUsersList = new List<ApplicationUserEntity>(); 
 			m_app_name = String.Empty; 
 			m_app_desc = String.Empty; 
 			m_app_field1_desc = String.Empty; 
@@ -75,7 +75,7 @@ namespace PhalanxCommon.Entities
 
 		}
 			
-		public IList ApplicationsUsersList
+		public IList<ApplicationUserEntity> ApplicationsUsersList
 		{
 			get
 			{

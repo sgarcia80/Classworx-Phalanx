@@ -1,9 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using PhalanxBL;
 using PhalanxCommon.Entities;
@@ -19,18 +15,11 @@ namespace PhalanxAdmin
         const int LVM_SETITEMPOSITION32 = (0x1000 + 49);
         //const int LVM_GETITEMTEXTW		 = (0x1000 + 115);
 
-
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(typeof(FPrincipal));
-
         PhxUserEntity _loggedUser;
         PhxUserBusiness _phxUsrBL = new PhxUserBusiness();
         public FPrincipal()
         {
             InitializeComponent();
-
-            log4net.Config.XmlConfigurator.Configure();
-            log.Info("Logging has been configured");
-
         }
 
         private void FPrincipal_Load(object sender, EventArgs e)

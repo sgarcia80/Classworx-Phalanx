@@ -1,6 +1,4 @@
 using System;
-using System.Data;
-using System.Configuration;
 using phxCryptMgr;
 using NDCCommon.Entities;
 using NDCCommon.Collections;

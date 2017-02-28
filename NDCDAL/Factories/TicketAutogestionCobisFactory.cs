@@ -1,12 +1,9 @@
 using System;
-using System.Data;
-using System.Configuration;
 using NHibernate;
 using NDCCommon.Entities;
-using NDCDAL;
 using NDCCommon.Collections;
 using System.Collections.Generic;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using PhalanxDAL;
 
 /// <summary>
@@ -84,16 +81,16 @@ namespace NDCDAL.Factories
                 ICriteria DataSearch = session.CreateCriteria(typeof(TicketAutogestionCobisEntity), "TAC").AddOrder(Order.Desc("TAC.Fecha"));
 
                 if (!string.IsNullOrEmpty(_filUsuario))
-                    DataSearch = DataSearch.Add(Expression.InsensitiveLike("TAC.Usuario", string.Format("%{0}%", _filUsuario)));
+                    DataSearch = DataSearch.Add(Restrictions.InsensitiveLike("TAC.Usuario", string.Format("%{0}%", _filUsuario)));
 
                 if (_filFechaDesde != null)
-                    DataSearch = DataSearch.Add(Expression.Ge("TAC.Fecha", _filFechaDesde));
+                    DataSearch = DataSearch.Add(Restrictions.Ge("TAC.Fecha", _filFechaDesde));
 
                 if (_filFechaHasta != null)
-                    DataSearch = DataSearch.Add(Expression.Le("TAC.Fecha", _filFechaHasta));
+                    DataSearch = DataSearch.Add(Restrictions.Le("TAC.Fecha", _filFechaHasta));
 
                 if (_filTipoNotif > 0)
-                    DataSearch = DataSearch.Add(Expression.Eq("TAC.TipoNotificacion", _filTipoNotif));
+                    DataSearch = DataSearch.Add(Restrictions.Eq("TAC.TipoNotificacion", _filTipoNotif));
 
                 //Que el ticket no haya sido cancelado                
 

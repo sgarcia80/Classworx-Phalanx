@@ -3,6 +3,7 @@ insert license info here
 */
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace PhalanxCommon.Entities
 {
@@ -17,10 +18,10 @@ namespace PhalanxCommon.Entities
 		private bool m_isChanged;
 
 		private int m_phx_role_id; 
-		private IList m_PhxRolesUsersList; 
+		private IList<PhxRoleUserEntity> m_PhxRolesUsersList; 
 		private string m_role_name; 
 		private string m_role_code;
-        private IList m_privilege_role_list;
+        private IList<PhxPrivilegeRoleEntity> m_privilege_role_list;
 		#endregion
 
 		#region Default ( Empty ) Class Constuctor
@@ -30,8 +31,8 @@ namespace PhalanxCommon.Entities
 		public PhxRoleEntity()
 		{
 			m_phx_role_id = 0;
-            m_PhxRolesUsersList = new ArrayList();
-            m_privilege_role_list = new ArrayList();
+            m_PhxRolesUsersList = new List<PhxRoleUserEntity>();
+            m_privilege_role_list = new List<PhxPrivilegeRoleEntity>();
             m_role_name = String.Empty; 
 			m_role_code = String.Empty; 
 		}
@@ -68,7 +69,7 @@ namespace PhalanxCommon.Entities
 
 		}
 			
-		public IList PhxRolesUsersList
+		public IList<PhxRoleUserEntity> PhxRolesUsersList
 		{
 			get
 			{
@@ -80,7 +81,7 @@ namespace PhalanxCommon.Entities
 			}
 		}
 
-        public IList PhxPrivilegeRoleList
+        public IList<PhxPrivilegeRoleEntity> PhxPrivilegeRoleList
 		{
 			get
 			{

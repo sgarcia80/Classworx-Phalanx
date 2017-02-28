@@ -3,6 +3,7 @@ insert license info here
 */
 using System;
 using System.Collections;
+using System.Collections.Generic;
 //using NHibernate;
 
 namespace PhalanxCommon.Entities
@@ -18,9 +19,9 @@ namespace PhalanxCommon.Entities
 		private bool m_isChanged;
 
 		private int m_win_pc_id; 
-		private IList m_LocalWinGroupsList; 
-		private IList m_WinDomainControllersList; 
-		private IList m_WinLocalUsersList; 
+		private IList<LocalWinGroupEntity> m_LocalWinGroupsList; 
+		private IList<WinDomainControllerEntity> m_WinDomainControllersList; 
+		private IList<WinLocalUserEntity> m_WinLocalUsersList; 
 		private string m_pc_name;
         private string m_pc_ip;
         private string m_desc;
@@ -36,9 +37,9 @@ namespace PhalanxCommon.Entities
 		public WinPCEntity()
 		{
 			m_win_pc_id = 0; 
-			m_LocalWinGroupsList = new ArrayList(); 
-			m_WinDomainControllersList = new ArrayList(); 
-			m_WinLocalUsersList = new ArrayList(); 
+			m_LocalWinGroupsList = new List<LocalWinGroupEntity>(); 
+			m_WinDomainControllersList = new List<WinDomainControllerEntity>(); 
+			m_WinLocalUsersList = new List<WinLocalUserEntity>(); 
 			m_pc_name = string.Empty;
             m_pc_ip = string.Empty;
             m_desc = String.Empty;
@@ -98,7 +99,7 @@ namespace PhalanxCommon.Entities
 
         }
 
-		public IList LocalWinGroupsList
+		public IList<LocalWinGroupEntity> LocalWinGroupsList
 		{
 			get
 			{
@@ -110,7 +111,7 @@ namespace PhalanxCommon.Entities
 			}
 		}
 
-		public IList WinDomainControllersList
+		public IList<WinDomainControllerEntity> WinDomainControllersList
 		{
 			get
 			{
@@ -122,7 +123,7 @@ namespace PhalanxCommon.Entities
 			}
 		}
 
-		public IList WinLocalUsersList
+		public IList<WinLocalUserEntity> WinLocalUsersList
 		{
 			get
 			{

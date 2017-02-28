@@ -3,6 +3,7 @@ insert license info here
 */
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace PhalanxCommon.Entities
 {
@@ -17,7 +18,7 @@ namespace PhalanxCommon.Entities
 		private bool m_isChanged;
 
 		private int m_db_type_id; 
-		private IList m_DataBasesList; 
+		private IList<DataBaseEntity> m_DataBasesList; 
 		private string m_db_type_code; 
 		private string m_db_type_name; 		
 		#endregion
@@ -29,7 +30,7 @@ namespace PhalanxCommon.Entities
 		public DatabaseTypeEntity()
 		{
 			m_db_type_id = 0; 
-			m_DataBasesList = new ArrayList(); 
+			m_DataBasesList = new List<DataBaseEntity>(); 
 			m_db_type_code = String.Empty; 
 			m_db_type_name = String.Empty; 
 		}
@@ -65,7 +66,7 @@ namespace PhalanxCommon.Entities
 
 		}
 			
-		public IList DataBasesList
+		public IList<DataBaseEntity> DataBasesList
 		{
 			get
 			{

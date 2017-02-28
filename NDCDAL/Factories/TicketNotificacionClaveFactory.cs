@@ -1,13 +1,10 @@
 using System;
-using System.Data;
-using System.Configuration;
 using NHibernate;
 using NDCCommon.Entities;
-using NDCDAL;
 using NDCCommon.Collections;
 using System.Collections.Generic;
-using NHibernate.Expression;
 using PhalanxDAL;
+using NHibernate.Criterion;
 
 /// <summary>
 /// Summary description for BPMSolicitudFactory
@@ -171,90 +168,90 @@ namespace NDCDAL.Factories
                 ICriteria DataSearch = session.CreateCriteria(typeof(TicketNotificacionClaveEntity), "TNC");
 
                 if (_filApp != null)
-                    DataSearch.Add(Expression.Eq("TNC.Aplicacion", _filApp));
+                    DataSearch.Add(Restrictions.Eq("TNC.Aplicacion", _filApp));
 
                 if (_filUsuario != null && !string.IsNullOrEmpty(_filUsuario))
-                    DataSearch = DataSearch.Add(Expression.Eq("TNC.Usuario", _filUsuario));
+                    DataSearch = DataSearch.Add(Restrictions.Eq("TNC.Usuario", _filUsuario));
 
                 if (_filDominio != null && !string.IsNullOrEmpty(_filDominio))
-                    DataSearch = DataSearch.Add(Expression.Eq("TNC.DominioUsuario", _filDominio));
+                    DataSearch = DataSearch.Add(Restrictions.Eq("TNC.DominioUsuario", _filDominio));
 
                 if (_filFecha != null)
-                    DataSearch = DataSearch.Add(Expression.Eq("TNC.Fecha", _filFecha));
+                    DataSearch = DataSearch.Add(Restrictions.Eq("TNC.Fecha", _filFecha));
 
                 if (_filFechaDesde != null)
-                    DataSearch = DataSearch.Add(Expression.Ge("TNC.Fecha", _filFechaDesde));
+                    DataSearch = DataSearch.Add(Restrictions.Ge("TNC.Fecha", _filFechaDesde));
 
                 if (_filFechaHasta != null)
-                    DataSearch = DataSearch.Add(Expression.Le("TNC.Fecha", _filFechaHasta));
+                    DataSearch = DataSearch.Add(Restrictions.Le("TNC.Fecha", _filFechaHasta));
 
                 if (_filTipoDoc != null)
-                    DataSearch = DataSearch.Add(Expression.Eq("TNC.TipoDocumento", _filTipoDoc));
+                    DataSearch = DataSearch.Add(Restrictions.Eq("TNC.TipoDocumento", _filTipoDoc));
 
                 if (_filTicket != null)
-                    DataSearch = DataSearch.Add(Expression.Eq("TNC.NumeroSolicitud", _filTicket));
+                    DataSearch = DataSearch.Add(Restrictions.Eq("TNC.NumeroSolicitud", _filTicket));
 
                 if (_filDoc != null)
-                    DataSearch = DataSearch.Add(Expression.Eq("TNC.Documento", _filDoc));
+                    DataSearch = DataSearch.Add(Restrictions.Eq("TNC.Documento", _filDoc));
 
                 if (FilFechaTyCNull != null)
                     DataSearch = FilFechaTyCNull.Value
-                        ? DataSearch.Add(Expression.IsNull("TNC.FechaAceptacionTyC"))
-                        : DataSearch.Add(Expression.IsNotNull("TNC.FechaAceptacionTyC"));
+                        ? DataSearch.Add(Restrictions.IsNull("TNC.FechaAceptacionTyC"))
+                        : DataSearch.Add(Restrictions.IsNotNull("TNC.FechaAceptacionTyC"));
 
                 if (_filErrado != null)
-                    DataSearch = DataSearch.Add(Expression.Eq("TNC.Errado", _filErrado));
+                    DataSearch = DataSearch.Add(Restrictions.Eq("TNC.Errado", _filErrado));
 
                 if (_filFilFechaVigencia != null)
                 {
-                    DataSearch = DataSearch.Add(Expression.Or(Expression.IsNull("TNC.FechaVigencia"),
-                        Expression.Le("TNC.FechaVigencia", _filFilFechaVigencia.Value)));
+                    DataSearch = DataSearch.Add(Restrictions.Or(Restrictions.IsNull("TNC.FechaVigencia"),
+                        Restrictions.Le("TNC.FechaVigencia", _filFilFechaVigencia.Value)));
                 }
 
                 if (FilReporteNotif && _filApp == null)
                 {
                     DataSearch.CreateCriteria("TNC.Aplicacion", "app");
 
-                    DataSearch.Add(Expression.Or(
-                        Expression.Eq("app.EsAplicacionRed", true),
-                        Expression.Eq("app.EsAplicacionCobis", true)));
+                    DataSearch.Add(Restrictions.Or(
+                        Restrictions.Eq("app.EsAplicacionRed", true),
+                        Restrictions.Eq("app.EsAplicacionCobis", true)));
                 }
 
                 if (_filSinLegajo != null)
                 {
                     if (_filSinLegajo.Value)
                     {
-                        DataSearch.Add(Expression.Or(
-                            Expression.IsNull("TNC.Legajo"), Expression.Eq("TNC.Legajo", "")));
+                        DataSearch.Add(Restrictions.Or(
+                            Restrictions.IsNull("TNC.Legajo"), Restrictions.Eq("TNC.Legajo", "")));
                     }
                     else
                     {
-                        DataSearch.Add(Expression.IsNotNull("TNC.Legajo")).Add(Expression.Eq("TNC.Legajo", ""));
+                        DataSearch.Add(Restrictions.IsNotNull("TNC.Legajo")).Add(Restrictions.Eq("TNC.Legajo", ""));
                     }
                 }
 
                 if (FilImpactaEnAD != null)
-                    DataSearch = DataSearch.Add(Expression.Eq("TNC.ImpactaEnAD", FilImpactaEnAD));
+                    DataSearch = DataSearch.Add(Restrictions.Eq("TNC.ImpactaEnAD", FilImpactaEnAD));
 
                 if (FilMarcadoEnAD != null)
                     DataSearch = FilMarcadoEnAD.Value
-                        ? DataSearch.Add(Expression.IsNotNull("TNC.FechaSeteoMarcaAD"))
-                        : DataSearch.Add(Expression.IsNull("TNC.FechaSeteoMarcaAD"));
+                        ? DataSearch.Add(Restrictions.IsNotNull("TNC.FechaSeteoMarcaAD"))
+                        : DataSearch.Add(Restrictions.IsNull("TNC.FechaSeteoMarcaAD"));
 
                 if (FilMarcaEliminadaEnAD != null)
                     DataSearch = FilMarcaEliminadaEnAD.Value
-                        ? DataSearch.Add(Expression.IsNotNull("TNC.FechaEliminacionMarcaAD"))
-                        : DataSearch.Add(Expression.IsNull("TNC.FechaEliminacionMarcaAD"));
+                        ? DataSearch.Add(Restrictions.IsNotNull("TNC.FechaEliminacionMarcaAD"))
+                        : DataSearch.Add(Restrictions.IsNull("TNC.FechaEliminacionMarcaAD"));
 
                 if (FilVisualizado != null)
                     DataSearch = FilVisualizado.Value
-                        ? DataSearch.Add(Expression.IsNotNull("TNC.FechaAceptacionTyC"))
-                        : DataSearch.Add(Expression.IsNull("TNC.FechaAceptacionTyC"));
+                        ? DataSearch.Add(Restrictions.IsNotNull("TNC.FechaAceptacionTyC"))
+                        : DataSearch.Add(Restrictions.IsNull("TNC.FechaAceptacionTyC"));
 
                 if (FilVencido != null)
                     DataSearch = FilVencido.Value
-                        ? DataSearch.Add(Expression.Lt("TNC.FechaExpiracionToken", DateTime.Now))
-                        : DataSearch.Add(Expression.Gt("TNC.FechaExpiracionToken", DateTime.Now));
+                        ? DataSearch.Add(Restrictions.Lt("TNC.FechaExpiracionToken", DateTime.Now))
+                        : DataSearch.Add(Restrictions.Gt("TNC.FechaExpiracionToken", DateTime.Now));
 
                 try
                 {
@@ -300,21 +297,21 @@ namespace NDCDAL.Factories
             using (ISession session = DBMgr.factory.OpenSession())
             {
                 ICriteria DataSearch = session.CreateCriteria(typeof(TicketNotificacionClaveEntity), "TNC");
-                DataSearch = DataSearch.Add(Expression.Eq("TNC.Usuario", usuario).IgnoreCase());
-                DataSearch = DataSearch.Add(Expression.Eq("TNC.DominioUsuario", dominio).IgnoreCase());
+                DataSearch = DataSearch.Add(Restrictions.Eq("TNC.Usuario", usuario).IgnoreCase());
+                DataSearch = DataSearch.Add(Restrictions.Eq("TNC.DominioUsuario", dominio).IgnoreCase());
 
                 if (_filCorregido != null)
-                    DataSearch = DataSearch.Add(Expression.Eq("TNC.Corregido", _filCorregido.Value));
+                    DataSearch = DataSearch.Add(Restrictions.Eq("TNC.Corregido", _filCorregido.Value));
 
                 DataSearch.CreateCriteria("Aplicacion","APP")
-                            .Add(Expression.Eq("APP.Notificable", true));
+                            .Add(Restrictions.Eq("APP.Notificable", true));
 
                 if (!string.IsNullOrEmpty(aplicacion))
-                    DataSearch = DataSearch.Add(Expression.Eq("APP.Codigo", aplicacion));
+                    DataSearch = DataSearch.Add(Restrictions.Eq("APP.Codigo", aplicacion));
                 
                 if (fechaVigenciaDesde != null)
-					DataSearch = DataSearch.Add(Expression.Or(Expression.IsNull("TNC.FechaVigencia"), 
-						Expression.Le("TNC.FechaVigencia", fechaVigenciaDesde)));
+					DataSearch = DataSearch.Add(Restrictions.Or(Restrictions.IsNull("TNC.FechaVigencia"), 
+						Restrictions.Le("TNC.FechaVigencia", fechaVigenciaDesde)));
 
 
                 try
@@ -374,8 +371,8 @@ namespace NDCDAL.Factories
                     if (esAplicacionRed)
                     {
                         ICriteria criteria = session.CreateCriteria(typeof(TicketNotificacionClaveEntity))
-                                                .Add(Expression.Eq("Legajo", entidad.Legajo))
-                                                .Add(Expression.Eq("EsPasswordDominio", true));
+                                                .Add(Restrictions.Eq("Legajo", entidad.Legajo))
+                                                .Add(Restrictions.Eq("EsPasswordDominio", true));
 
                         foreach (TicketNotificacionClaveEntity ticket in criteria.List<TicketNotificacionClaveEntity>())
                         {
@@ -403,7 +400,7 @@ namespace NDCDAL.Factories
             {
                 ICriteria criteria = session.CreateCriteria(typeof(TicketNotificacionClaveEntity));
 
-                criteria.Add(Expression.Eq("Token", token));
+                criteria.Add(Restrictions.Eq("Token", token));
 
                 return criteria.UniqueResult<TicketNotificacionClaveEntity>();
             }

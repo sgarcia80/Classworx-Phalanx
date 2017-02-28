@@ -6,6 +6,7 @@ using PhalanxCommon.Collections;
 using PhalanxCommon;
 using NHibernate;
 using System.Configuration;
+using NHibernate.Criterion;
 
 namespace PhalanxDAL.Factories
 {
@@ -19,7 +20,7 @@ namespace PhalanxDAL.Factories
                 using (ISession session = DBMgr.factory.OpenSession())
                 {
                     ICriteria DataSearch = session.CreateCriteria(typeof(PhxContingenciaEntity));
-                    DataSearch.AddOrder(NHibernate.Expression.Order.Desc("Id"));
+                    DataSearch.AddOrder(Order.Desc("Id"));
 
                     IList<PhxContingenciaEntity> lstCont = DataSearch.List<PhxContingenciaEntity>();
                     if (lstCont.Count == 0)

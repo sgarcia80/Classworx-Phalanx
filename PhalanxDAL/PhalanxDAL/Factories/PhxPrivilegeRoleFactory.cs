@@ -5,7 +5,7 @@ using PhalanxCommon.Collections;
 using NHibernate;
 using PhalanxCommon.Entities;
 using PhalanxCommon;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 
 namespace PhalanxDAL.Factories
 {
@@ -23,7 +23,7 @@ namespace PhalanxDAL.Factories
                 {
                     ICriteria DataSearch = session.CreateCriteria(typeof(PhxPrivilegeRoleEntity));
                     DataSearch.Add(Expression.Eq("Role", Rol));
-                    DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("Name"));
+                    DataSearch = DataSearch.AddOrder(Order.Asc("Name"));
                     WinDomLst.Add(DataSearch.List<PhxPrivilegeRoleEntity>());
                 }
             }

@@ -1,0 +1,79 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Principal.master.cs" Inherits="PhalanxWeb.Principal" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Phalanx Security Manager</title>
+    <link href="phalanx.css" type="text/css" rel="stylesheet" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style type="text/css">
+        #TableHeader {
+            border-spacing: 0px;
+            border-collapse: separate;
+        }
+
+        #TableHeader td {
+            padding: 0px;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <table id="TableHeader" style="height: 129px; border-collapse: collapse; padding: 0px; margin: 0px; border-spacing: 0; width: 100%" border="0">
+            <tr style="height: 76px;">
+                <td style="width: 122px; height: 129px;" rowspan="3">
+                    <img alt="" src="./image/PhxHead1.gif" />
+                </td>
+                <td style="width: 352px; background-image: url(./image/PhxHead21.gif);"></td>
+                <td style="background-image: url(./image/PhxHead31.gif); height: 80px;"></td>
+                <td style="background-image: url(./image/PhxHead31.gif); height: 80px; vertical-align: middle; text-align: right;">&nbsp;</td>
+                <td style="width: 28px; background-image: url(./image/PhxHead41.gif); height: 80px;"></td>
+                <td style="width: 13px; background-image: url(./image/PhxHead51.gif); height: 80px;"></td>
+            </tr>
+            <tr style="height: 20px;">
+                <td style="text-align: left; background-color: #000080;" colspan="2">
+                    <asp:Label ID="LabelTitle" runat="server" ForeColor="#ffffff" Font-Size="12px" BackColor="Navy"
+                        Font-Names="Tahoma" Font-Bold="True"></asp:Label>
+                </td>
+                <td style="text-align: right; background-color: #000080; word-wrap: unset;">
+                    <asp:Label ID="LabelUser" runat="server" ForeColor="#ffffff" Font-Size="XX-Small" BackColor="Navy"
+                        Font-Names="Tahoma" Font-Bold="True"></asp:Label>
+                </td>
+                <td style="background-color: #000080;"></td>
+                <td style="background-image: url(./image/PhxHead52.gif);"></td>
+            </tr>
+            <tr style="height: 33px;">
+                <td style="background: url(./image/PhxHead23.gif) left top no-repeat;"></td>
+                <td style="background: url(./image/PhxHead33.gif) left top repeat-x;" colspan="2">&nbsp;</td>
+                <td style="background: url(./image/PhxHead43.gif) left top no-repeat;"></td>
+                <td style="background: url(./image/PhxHead53.gif) left top no-repeat;"></td>
+            </tr>
+        </table>
+        <table height="300px" cellspacing="0" cellpadding="0" width="100%" border="0">
+            <tr valign="top">
+                <td valign="top">
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+                </td>
+            </tr>
+        </table>
+        <asp:Table ID="Table1" runat="server" Width="100%" Height="30px" CellPadding="0" CellSpacing="0"
+            BorderWidth="0px">
+            <asp:TableRow>
+                <asp:TableCell Height="46px" Width="125">
+                    <asp:Image ID="ImageF1" Width="125" Height="46" runat="server" ImageUrl="./image/PhxFoot1.gif"></asp:Image>
+                </asp:TableCell>
+                <asp:TableCell Height="46px">
+                    <asp:Image ID="ImageF2" Width="100%" Height="46" runat="server" ImageUrl="./image/PhxFoot2.gif"></asp:Image>
+                </asp:TableCell>
+                <asp:TableCell Height="46px" Width="136px">
+                    <asp:Image ID="ImageF3" Width="136" Height="46" runat="server" ImageUrl="./image/PhxFoot3.gif"></asp:Image>
+                </asp:TableCell>
+            </asp:TableRow>
+        </asp:Table>
+    </form>
+</body>
+</html>

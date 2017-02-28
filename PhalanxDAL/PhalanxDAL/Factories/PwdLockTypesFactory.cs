@@ -1,19 +1,15 @@
-using System;
-using System.Reflection;
 using System.Collections;
 //using PhalanxDAL.Data;
 using PhalanxCommon.Entities;
 using NHibernate;
-using NHibernate.Expression;
-using NHibernate.Cfg;
-using Nullables;
+using NHibernate.Criterion;
 
 namespace PhalanxDAL.Factories
 {
-	/// <summary>
-	/// Summary description for PwdLockTypesFactory.
-	/// </summary>
-	public class PwdLockTypesFactory
+    /// <summary>
+    /// Summary description for PwdLockTypesFactory.
+    /// </summary>
+    public class PwdLockTypesFactory
 	{
 		public PwdLockTypesFactory()
 		{

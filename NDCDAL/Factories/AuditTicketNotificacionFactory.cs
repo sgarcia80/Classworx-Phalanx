@@ -1,11 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using NDCCommon.Entities;
 using NHibernate;
 using PhalanxDAL;
 using NDCCommon.Collections;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 
 namespace NDCDAL.Factories
 {
@@ -20,7 +18,7 @@ namespace NDCDAL.Factories
                 {
                     ICriteria DataSearch = session.CreateCriteria(typeof(AuditTicketNotificacionEntity));
 
-                    DataSearch = DataSearch.Add(Expression.Eq("Ticket", Ticket));
+                    DataSearch = DataSearch.Add(Restrictions.Eq("Ticket", Ticket));
 
                     return DataSearch.List<SubsidiariaEntity>().Count > 0;
                 }
