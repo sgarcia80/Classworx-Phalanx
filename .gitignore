@@ -43,3 +43,6 @@ phxCryptMgr/obj/Debug
 phxCryptMgr/obj/*
 obj
 bin
+/Web/PhalanxWeb/Properties/PublishProfiles
+/Web/WSInterfaceClaves/Properties/PublishProfiles
+/Web/WSInterfaceConectores/Properties/PublishProfiles

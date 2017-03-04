@@ -19,8 +19,8 @@ namespace PhalanxWeb
             bool internalError = false;
             if (!Page.IsPostBack)
             {
-                //m_DomUser = HttpContext.Current.User.Identity.Name;
-                m_DomUser = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+                m_DomUser = HttpContext.Current.User.Identity.Name;
+                //m_DomUser = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
 
                 if (Page.Request["testing_user"] != null)
                     m_DomUser = Page.Request["testing_user"];
