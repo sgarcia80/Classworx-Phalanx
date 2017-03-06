@@ -23,7 +23,7 @@
     <ManifestCertificateThumbprint>FC529578FAFA5D6FB0693BB35C564DB2A1C51C55</ManifestCertificateThumbprint>
     <ManifestKeyFile>PhalanxAdmin_TemporaryKey.pfx</ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
