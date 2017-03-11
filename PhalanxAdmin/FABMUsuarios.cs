@@ -247,7 +247,7 @@ namespace PhalanxAdmin
         /// </summary>
         /// <param name="LstPermisos">IList de PhxRoleUserEntity de permisos</param>
         /// <returns>array ListViewItem[] para agregar al listview</returns>
-        private ListViewItem[] GenerarLVItmsPermisos(System.Collections.IList LstPermisos)
+        private ListViewItem[] GenerarLVItmsPermisos(IList<PhxRoleUserEntity> LstPermisos)
         {
             ListViewItem[] lviArr = new ListViewItem[LstPermisos.Count];
             int i = 0;
@@ -274,7 +274,7 @@ namespace PhalanxAdmin
         /// </summary>
         /// <param name="LstPermisos">IList de PhxUserGroupEntity de grupos</param>
         /// <returns>array ListViewItem[] para agregar al listview</returns>
-        private ListViewItem[] GenerarLVItmsGrupos(System.Collections.IList LstPermisos)
+        private ListViewItem[] GenerarLVItmsGrupos(IList<PhxUserGroupEntity> LstPermisos)
         {
             ListViewItem[] lviArr = new ListViewItem[LstPermisos.Count];
             int i = 0;
@@ -288,7 +288,7 @@ namespace PhalanxAdmin
             }
             return lviArr;
         }
-        private ListViewItem[] GenerarLVItmsGruposSeguim(System.Collections.IList LstPermisos)
+        private ListViewItem[] GenerarLVItmsGruposSeguim(IList<FollowupRequestGroupUserEntity> LstPermisos)
         {
             ListViewItem[] lviArr = new ListViewItem[LstPermisos.Count];
             int i = 0;
