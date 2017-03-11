@@ -37,28 +37,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NDCBL", "NDCBL\NDCBL.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWSInterfaceClaves", "TestWSInterfaceClaves\TestWSInterfaceClaves.csproj", "{0404619A-D715-4BDC-BA21-64A7C52AEC55}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "NotifClaves", "http://localhost/NotifClaves", "{275FE192-FEE1-42E0-9828-D057C42469FA}"
-	ProjectSection(WebsiteProperties) = preProject
-		UseIISExpress = "false"
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv2.0"
-		ProjectReferences = "{3447B917-0A54-460E-AB95-84BBF24BAF35}|PhalanxDAL.dll;{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}|PhalanxCommon.dll;{F0941A5C-7856-42E9-9544-CDAC11F3C285}|phxCryptMgr.dll;{78D7CC00-F303-476C-A329-0B25856A0B07}|phxBlowfish.dll;{E8F94161-3F1A-4491-92B4-9AE6777DF183}|phxLog.dll;{B3B9B7E1-EAF0-4AD4-9C99-BC0CF980840F}|NDCBL.dll;{66EAFA01-8DD4-4B02-8BB3-716A216844C4}|Common.dll;{3744DE9E-912E-4A88-8897-73FFF9C8DD48}|NDCCommon.dll;{C9E3767E-ADE2-4B50-AED1-47FC226CD539}|NDCDAL.dll;{515C8382-4032-4840-A587-9725F9F6FD19}|PhalanxBL.dll;{4CFFA156-7992-4D21-ABDC-056C31F2AA51}|PhalanxMAL.dll;{D31089F5-A197-4808-B865-C7062DA477AB}|PhalanxNAL.dll;{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}|PhxPing.dll;{1F7A5518-B545-4ACE-95A2-AC8AA4DE5146}|RemoveAddressingHeadersAssertion.dll;"
-		Debug.AspNetCompiler.VirtualPath = "/NotifClaves"
-		Debug.AspNetCompiler.PhysicalPath = "..\master\Web\NotifClaves\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\NotifClaves\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/NotifClaves"
-		Release.AspNetCompiler.PhysicalPath = "..\master\Web\NotifClaves\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\NotifClaves\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		SlnRelativePath = "..\master\Web\NotifClaves\"
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhxPing", "PhxPing\PhxPing.csproj", "{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhxSvcExpirationManager", "PhxSvcExpiratonManager\PhxSvcExpirationManager.csproj", "{DCF4C304-6BCC-4D5E-AFD2-351D68190190}"
@@ -76,6 +54,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSInterfaceClaves", "Web\WSInterfaceClaves\WSInterfaceClaves.csproj", "{B11B6AD2-63B9-4CEB-876E-25E220BC1324}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhalanxWeb", "Web\PhalanxWeb\PhalanxWeb.csproj", "{C71EEEA7-C1E2-4B60-A036-E91E08E96707}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotifClavesWeb", "Web\NotifClavesWeb\NotifClavesWeb.csproj", "{FCCF837A-2354-4D5F-A076-3147A24740AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -777,50 +757,6 @@ Global
 		{0404619A-D715-4BDC-BA21-64A7C52AEC55}.WS Test|Mixed Platforms.ActiveCfg = Remote WS Test|Any CPU
 		{0404619A-D715-4BDC-BA21-64A7C52AEC55}.WS Test|Mixed Platforms.Build.0 = Remote WS Test|Any CPU
 		{0404619A-D715-4BDC-BA21-64A7C52AEC55}.WS Test|x86.ActiveCfg = Remote WS Test|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.App Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.App Debug|Any CPU.Build.0 = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.App Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.App Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.App Debug|x86.ActiveCfg = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.AutCOBIS Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.AutCOBIS Release|Any CPU.Build.0 = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.AutCOBIS Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.AutCOBIS Release|Mixed Platforms.Build.0 = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.AutCOBIS Release|x86.ActiveCfg = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.DbgAutCOBIS|Any CPU.ActiveCfg = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.DbgAutCOBIS|Any CPU.Build.0 = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.DbgAutCOBIS|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.DbgAutCOBIS|Mixed Platforms.Build.0 = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.DbgAutCOBIS|x86.ActiveCfg = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.Release|x86.ActiveCfg = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.Remote WS Test|Any CPU.ActiveCfg = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.Remote WS Test|Any CPU.Build.0 = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.Remote WS Test|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.Remote WS Test|Mixed Platforms.Build.0 = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.Remote WS Test|x86.ActiveCfg = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.TestWS Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.TestWS Debug|Any CPU.Build.0 = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.TestWS Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.TestWS Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.TestWS Debug|x86.ActiveCfg = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.Web Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.Web Debug|Any CPU.Build.0 = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.Web Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.Web Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.Web Debug|x86.ActiveCfg = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.WS Test|Any CPU.ActiveCfg = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.WS Test|Any CPU.Build.0 = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.WS Test|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.WS Test|Mixed Platforms.Build.0 = Debug|Any CPU
-		{275FE192-FEE1-42E0-9828-D057C42469FA}.WS Test|x86.ActiveCfg = Debug|Any CPU
 		{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}.App Debug|Any CPU.ActiveCfg = App Debug|Any CPU
 		{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}.App Debug|Any CPU.Build.0 = App Debug|Any CPU
 		{48FE55B4-5F8F-42C5-9BED-A2473681B8B4}.App Debug|Mixed Platforms.ActiveCfg = App Debug|Any CPU
@@ -1267,15 +1203,69 @@ Global
 		{C71EEEA7-C1E2-4B60-A036-E91E08E96707}.WS Test|Mixed Platforms.Build.0 = Release|Any CPU
 		{C71EEEA7-C1E2-4B60-A036-E91E08E96707}.WS Test|x86.ActiveCfg = Release|Any CPU
 		{C71EEEA7-C1E2-4B60-A036-E91E08E96707}.WS Test|x86.Build.0 = Release|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.App Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.App Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.App Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.App Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.App Debug|x86.ActiveCfg = Debug|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.App Debug|x86.Build.0 = Debug|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.AutCOBIS Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.AutCOBIS Release|Any CPU.Build.0 = Release|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.AutCOBIS Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.AutCOBIS Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.AutCOBIS Release|x86.ActiveCfg = Release|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.AutCOBIS Release|x86.Build.0 = Release|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.DbgAutCOBIS|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.DbgAutCOBIS|Any CPU.Build.0 = Debug|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.DbgAutCOBIS|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.DbgAutCOBIS|Mixed Platforms.Build.0 = Debug|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.DbgAutCOBIS|x86.ActiveCfg = Debug|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.DbgAutCOBIS|x86.Build.0 = Debug|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.Debug|x86.Build.0 = Debug|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.Release|x86.ActiveCfg = Release|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.Release|x86.Build.0 = Release|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.Remote WS Test|Any CPU.ActiveCfg = Release|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.Remote WS Test|Any CPU.Build.0 = Release|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.Remote WS Test|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.Remote WS Test|Mixed Platforms.Build.0 = Release|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.Remote WS Test|x86.ActiveCfg = Release|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.Remote WS Test|x86.Build.0 = Release|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.TestWS Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.TestWS Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.TestWS Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.TestWS Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.TestWS Debug|x86.ActiveCfg = Debug|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.TestWS Debug|x86.Build.0 = Debug|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.Web Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.Web Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.Web Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.Web Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.Web Debug|x86.ActiveCfg = Debug|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.Web Debug|x86.Build.0 = Debug|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.WS Test|Any CPU.ActiveCfg = Release|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.WS Test|Any CPU.Build.0 = Release|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.WS Test|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.WS Test|Mixed Platforms.Build.0 = Release|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.WS Test|x86.ActiveCfg = Release|Any CPU
+		{FCCF837A-2354-4D5F-A076-3147A24740AF}.WS Test|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{275FE192-FEE1-42E0-9828-D057C42469FA} = {379FA69B-6AF9-42A3-9B62-5759C915798D}
 		{FA18468B-3CD4-41CC-ACF4-A0CAFB07210E} = {2211250C-B49C-4EE6-9E0C-B78A6CF40830}
 		{A0FE3667-28D3-4456-B215-99DF378A744B} = {379FA69B-6AF9-42A3-9B62-5759C915798D}
 		{B11B6AD2-63B9-4CEB-876E-25E220BC1324} = {379FA69B-6AF9-42A3-9B62-5759C915798D}
 		{C71EEEA7-C1E2-4B60-A036-E91E08E96707} = {379FA69B-6AF9-42A3-9B62-5759C915798D}
+		{FCCF837A-2354-4D5F-A076-3147A24740AF} = {379FA69B-6AF9-42A3-9B62-5759C915798D}
 	EndGlobalSection
 EndGlobal

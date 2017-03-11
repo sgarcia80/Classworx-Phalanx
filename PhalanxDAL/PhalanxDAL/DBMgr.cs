@@ -257,9 +257,9 @@ namespace PhalanxDAL
                 NHibernate.Cfg.Configuration configMeta4 = new NHibernate.Cfg.Configuration();
                 IDictionary props = new Hashtable();
 
-                props["hibernate.connection.provider"] = "NHibernate.Connection.DriverConnectionProvider";
-                props["hibernate.dialect"] = "NHibernate.Dialect.MsSql2000Dialect";
-                props["hibernate.connection.driver_class"] = "NHibernate.Driver.SqlClientDriver";
+                props["connection.provider"] = "NHibernate.Connection.DriverConnectionProvider";
+                props["dialect"] = "NHibernate.Dialect.MsSql2012Dialect";
+                props["connection.driver_class"] = "NHibernate.Driver.SqlClientDriver";
                 
                 string ConnName = "Meta4";
                 
@@ -278,7 +278,7 @@ namespace PhalanxDAL
 
                 DBLog.registerLog(CLogger.TYPE_INFORMATION, 1, 0, "DBMgr.DBMgr()", "Cadena de conexión: " + strConn, true, false);
                 
-                props["hibernate.connection.connection_string"] = strConn;
+                props["connection.connection_string"] = strConn;
                 
                 foreach (DictionaryEntry de in props)
                     configMeta4.SetProperty(de.Key.ToString(), de.Value.ToString());
