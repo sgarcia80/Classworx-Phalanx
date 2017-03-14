@@ -3,7 +3,6 @@ using NDCBL;
 using NDCCommon.Entities;
 using PhalanxNAL;
 using PhxADService.Properties;
-using log4net;
 using Classworx.Common.Trace;
 
 namespace PhxADService
@@ -12,8 +11,6 @@ namespace PhxADService
     {
         static void Main(string[] args)
         {
-            log4net.Config.XmlConfigurator.Configure();
-
             TraceHelper.Information("Comienzo ejecución servicio...");
 
             try
