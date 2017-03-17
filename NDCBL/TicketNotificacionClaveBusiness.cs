@@ -7,6 +7,7 @@ using NDCCommon.Collections;
 using NDCDAL.Factories;
 using System.Collections.Generic;
 using PhalanxBL;
+using log4net;
 
 namespace NDCBL
 {
@@ -15,6 +16,8 @@ namespace NDCBL
     /// </summary>
     public class TicketNotificacionClaveBusiness
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(TicketNotificacionClaveBusiness));
+
         private const int DEFAULT_HORAS_EXPIRACION_TOKEN = 72;
 
         private TicketNotificacionClaveFactory factory;
@@ -215,6 +218,26 @@ namespace NDCBL
             TicketNotificacionClaveEntity ticket = tickets[0];
 
             return tickets[0];
+        }
+
+        public TicketNotificacionClaveEntityCollection GetAltaTempranaPendientes(string dominio, string usuario)
+        {
+            AplicacionNotificacionClaveBusiness appBusiness = new AplicacionNotificacionClaveBusiness();
+            var app = appBusiness.GetAppRed();
+
+            //No se utiliza el Dominio por la diferencia MACRO vs MACRO.COM.AR
+            //Factory.FilDominio = dominio;
+
+            Factory.FilUsuario = usuario;
+            Factory.FilAplicacion = app;
+            //Factory.FilFechaTyCNull = true;
+            //Factory.FilErrado = false;
+
+            log.InfoFormat("Se busca la aplicación {0} para el usuario {1}/{2}", app.Id, dominio, usuario);
+
+            TicketNotificacionClaveEntityCollection tickets = Factory.GetAll();
+
+            return tickets;
         }
 
         public void AceptarTyC(int id)
