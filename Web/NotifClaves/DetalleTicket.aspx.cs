@@ -43,8 +43,9 @@ public partial class DetalleTicket : System.Web.UI.Page
 
         if (id > 0 && tipo == "BLANQUEO")
         {
-            redirect  = ConsultarTicketNotificacionBlanqueo(id);
             tbTipoSolicitud.Text = "Blanqueo de Usuario de Aplicación";
+
+            redirect = ConsultarTicketNotificacionBlanqueo(id);
         }
 
         Session["tipoticket"] = tipo;

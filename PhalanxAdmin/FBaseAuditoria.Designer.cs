@@ -70,7 +70,7 @@ namespace PhalanxAdmin
             this.lnkLogPwdChg.Size = new System.Drawing.Size(128, 31);
             this.lnkLogPwdChg.TabIndex = 18;
             this.lnkLogPwdChg.TabStop = true;
-            this.lnkLogPwdChg.Text = "Log de Moficación de Contraseñas";
+            this.lnkLogPwdChg.Text = "Log de Modificación de Contraseñas";
             this.lnkLogPwdChg.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
             this.lnkLogPwdChg.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkLogPwdChg_LinkClicked);
             // 
