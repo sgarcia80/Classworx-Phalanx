@@ -133,9 +133,24 @@
     <Content Include="DetalleTicketIp.aspx" />
     <Content Include="Global.asax" />
     <Content Include="IdentificacionPositiva.aspx" />
+    <Content Include="image\logo.png" />
+    <Content Include="image\PhxFoot1.gif" />
+    <Content Include="image\PhxFoot2.gif" />
+    <Content Include="image\PhxFoot3.gif" />
+    <Content Include="image\PhxHead1.gif" />
+    <Content Include="image\PhxHead21.gif" />
+    <Content Include="image\PhxHead23.gif" />
+    <Content Include="image\PhxHead31.gif" />
+    <Content Include="image\PhxHead33.gif" />
+    <Content Include="image\PhxHead41.gif" />
+    <Content Include="image\PhxHead43.gif" />
+    <Content Include="image\PhxHead51.gif" />
+    <Content Include="image\PhxHead52.gif" />
+    <Content Include="image\PhxHead53.gif" />
     <Content Include="Login.aspx" />
     <Content Include="NoPermitido.aspx" />
     <Content Include="NotificacionClave.aspx" />
+    <None Include="Properties\PublishProfiles\NotifClaves.pubxml" />
     <None Include="Service References\ADCambioContrasenia\mockADCambioContraseniaSoapBinding.wsdl" />
     <Content Include="Service References\ADCambioContrasenia\NotifClavesWeb.ADCambioContrasenia.ADCambioContraseniaRes.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -155,6 +170,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Content Include="Styles\common.css" />
     <Content Include="Tickets.aspx" />
     <Content Include="tyc.aspx" />
     <Content Include="tycip.aspx" />
@@ -354,10 +370,7 @@
       <Name>PhalanxNAL</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="image\" />
-    <Folder Include="Styles\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
