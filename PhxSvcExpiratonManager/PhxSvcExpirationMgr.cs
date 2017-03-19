@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using PhalanxBL;
 using System.Configuration;
+using Classworx.Common.Trace;
 
 namespace PhxSvcExpirationManager
 {
@@ -27,6 +28,9 @@ namespace PhxSvcExpirationManager
 
         protected override void OnStart(string[] args)
         {
+            TraceHelper.Information("-".PadLeft(80,'-'));
+            TraceHelper.Information("Se inicia el servicio");
+            
             // Create worker thread; this will invoke the WorkerFunction
             // when we start it.
             // Since we use a separate worker thread, the main service
@@ -43,6 +47,9 @@ namespace PhxSvcExpirationManager
 
         protected override void OnStop()
         {
+            TraceHelper.Information("-".PadLeft(80, '-'));
+            TraceHelper.Information("Se detiene el servicio");
+
             // flag to tell the worker process to stop
             serviceStarted = false;
             int SrvcIntMins = 10;
@@ -73,25 +80,21 @@ namespace PhxSvcExpirationManager
             {
                 try
                 {
-                    if (ConfigurationManager.AppSettings["LogEventViewer"] != null &&
-                        ConfigurationManager.AppSettings["LogEventViewer"] == "1")
-                    {
-
-                        EventLog evt = new EventLog("PhxExpiratonManager");
-
-                        string message = "Phalanx Time:"
-
-                          + DateTime.Now.ToShortDateString() + " "
-
-                          + DateTime.Now.ToShortTimeString();
-
-                        evt.Source = "PhxSvcExpirationManager";
-
-                        evt.WriteEntry(message, EventLogEntryType.Information);
-                    }
+                    //if (ConfigurationManager.AppSettings["LogEventViewer"] != null &&
+                    //    ConfigurationManager.AppSettings["LogEventViewer"] == "1")
+                    //{
+                    //    EventLog evt = new EventLog("PhxExpiratonManager");
+                    //    string message = "Phalanx Time:"
+                    //      + DateTime.Now.ToShortDateString() + " "
+                    //      + DateTime.Now.ToShortTimeString();
+                    //    evt.Source = "PhxSvcExpirationManager";
+                    //    evt.WriteEntry(message, EventLogEntryType.Information);
+                    //}
                     PhxContingenciaBusiness phxContB = new PhxContingenciaBusiness();
                     if (phxContB.VerificaSiConexionUsadaEstaActiva())
                     {
+                        TraceHelper.Information("-".PadLeft(80, '-'));
+                        TraceHelper.Information("Se ejecuta el proceso de expiracion");
 
                         // busca los requests expirados y los setea en estado expirado
                         PasswordRequestBusiness PRBL = new PasswordRequestBusiness();
@@ -106,17 +109,14 @@ namespace PhxSvcExpirationManager
                 }
                 catch (Exception ex)
                 {
-                    EventLog evt = new EventLog("PhxExpiratonManager");
+                    TraceHelper.Error(ex, "Error en el servicio de Expiracion");
 
-                    string message = "ERROR! | " + ex.Message + " | " + "  Phalanx Time:"
-
-                      + DateTime.Now.ToShortDateString() + " "
-
-                      + DateTime.Now.ToShortTimeString();
-
-                    evt.Source = "PhxSvcExpirationManager";
-
-                    evt.WriteEntry(message, EventLogEntryType.Information);
+                    //EventLog evt = new EventLog("PhxExpiratonManager");
+                    //string message = "ERROR! | " + ex.Message + " | " + "  Phalanx Time:"
+                    //  + DateTime.Now.ToShortDateString() + " "
+                    //  + DateTime.Now.ToShortTimeString();
+                    //evt.Source = "PhxSvcExpirationManager";
+                    //evt.WriteEntry(message, EventLogEntryType.Information);
                 }
                
             }

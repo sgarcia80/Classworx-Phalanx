@@ -8,6 +8,7 @@ using Phalanx.Util;
 using PhalanxCommon.Collections;
 using System.Collections.Generic;
 using PhalanxCommon;
+using Classworx.Common.Trace;
 
 namespace PhalanxDAL.Factories
 {
@@ -1453,18 +1454,24 @@ namespace PhalanxDAL.Factories
                     {
                         tx = session.BeginTransaction();
 
+                        TraceHelper.Information("Se consultan las solicitudes visualizadas cuya fecha expiracion ya paso");
+
                         lstRqsts = session.CreateCriteria(typeof(PasswordRequestEntity), "PwdRqst")
                             .Add(Expression.Eq("RqstState.Id", (int)PhxDALUtil.RequestStates.Visualized))
                             .Add(Expression.Le("ExpirationDate", new GetDateFactory().GetDate().GetDate))
                             .List<PasswordRequestEntity>();
 
+                        TraceHelper.Information("Se procesaran {0} solicitudes visualizadas", lstRqsts.Count);
+
                         foreach (PasswordRequestEntity PwdRqstE in lstRqsts)
                         {
                             PhxDALUtil.RequestStates state;
-                           
+
                             // si la solicitud fue de contraseña de ATM y fue vista y expirada, la contraseña se inactiva
                             if (PwdRqstE.User.UserType.Equals(new UserTypesFactory().GetATMUserType()))
                             {
+                                TraceHelper.Information("Se cierra una Contraseña de ATM con Id {0}", PwdRqstE.Id);
+
                                 PwdRqstE.User.ActiveUser = false;
                                 session.Update(PwdRqstE.User);
 
@@ -1479,7 +1486,9 @@ namespace PhalanxDAL.Factories
                                 state = PhxDALUtil.RequestStates.Closed;
                             }
                             else
+                            {
                                 state = PhxDALUtil.RequestStates.Expired;   // solic expirada
+                            }
 
                             PwdRqstE.RqstState = new RequestStatesFactory().GetRqstStateByID((int)state);
                             session.Update(PwdRqstE);
@@ -1488,11 +1497,15 @@ namespace PhalanxDAL.Factories
                             PwdRqstExpired.Add(PwdRqstE);
                         }
 
+                        TraceHelper.Information("Se consultan las Contraseñas que no fueron visualizadas dentro de las 24h de autorizadas");
+
                         /*Agregado por Leandro para expirar las claves que no fueron visualizadas dentro de las 24 horas de autorizadas*/
                         lstRqsts = session.CreateCriteria(typeof(PasswordRequestEntity), "PwdRqst")
                             .Add(Expression.Eq("RqstState.Id", (int)PhxDALUtil.RequestStates.Authorized))
                             .Add(Expression.Le("Auth1Date", new GetDateFactory().GetDate().GetDate.AddHours(-24)))
                             .List<PasswordRequestEntity>();
+
+                        TraceHelper.Information("Se procesaran {0} solicitudes autorizadas", lstRqsts.Count);
 
                         foreach (PasswordRequestEntity PwdRqstE in lstRqsts)
                         {
@@ -1504,6 +1517,9 @@ namespace PhalanxDAL.Factories
                             PwdRqstE.ExpirationDate = DateTime.Now;
                             PwdRqstE.ExpiradaSinVisualizar = true;
                             session.Update(PwdRqstE);
+
+                            TraceHelper.Information("Se cambia la contraseña {0} a {1}", PwdRqstE.UserDesc, PwdRqstE.RqstState.RqstStateDesc);
+
                             // guarda en colección a devolver
                             PwdRqstExpired.Add(PwdRqstE);
                         }
@@ -1514,13 +1530,16 @@ namespace PhalanxDAL.Factories
                     }
                     catch (Exception e)
                     {
+                        TraceHelper.Error(e, "Error al actualizar las Contraseñas");
+
                         tx.Rollback();
                     }
                 }
             }
             catch (Exception ex)
             {
-                
+                TraceHelper.Error(ex, "Error en la conexión del proceso de expiracion");
+
                 return PwdRqstExpired;
             }
             return PwdRqstExpired;

@@ -33,6 +33,7 @@ namespace PhxSvcExpirationManager
             // 
             // PhxSvcPwdRqstExpSrvcProcessInstaller
             // 
+            this.PhxSvcPwdRqstExpSrvcProcessInstaller.Account = System.ServiceProcess.ServiceAccount.NetworkService;
             this.PhxSvcPwdRqstExpSrvcProcessInstaller.Password = null;
             this.PhxSvcPwdRqstExpSrvcProcessInstaller.Username = null;
             // 
