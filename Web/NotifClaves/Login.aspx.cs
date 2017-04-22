@@ -111,8 +111,8 @@ public partial class Login : System.Web.UI.Page
         if (esExterno)
         {
             //TODO
-            Session["externo"] = "N";
-            //Session["externo"] = (esExterno) ? "S" : "N";
+            //Session["externo"] = "N";
+            Session["externo"] = (esExterno) ? "S" : "N";
         }
         return authentic;
     }

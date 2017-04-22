@@ -236,11 +236,21 @@ namespace PhalanxNAL
 
         public static string BuscarEmailPorLegajoUsername(string username)
         {
+            if (string.IsNullOrEmpty(username))
+            {
+                return string.Empty;
+            }
+
             return BuscarLDAPEntryPropiedad(ConfigurationManager.AppSettings["LDAPBuscarNombreFilter"].Replace("[username]", username), NOMBRE_PROPIEDAD_MAIL_AD);
         }
 
         public static string BuscarNombrePorUsername(string username)
         {
+            if (string.IsNullOrEmpty(username))
+            {
+                return string.Empty;
+            }
+
             return BuscarLDAPEntryPropiedad(ConfigurationManager.AppSettings["LDAPBuscarNombreFilter"].Replace("[username]", username), NOMBRE_PROPIEDAD_USERNAME_AD);
         }
 
@@ -260,12 +270,15 @@ namespace PhalanxNAL
                         if (usuario.Properties[NOMBRE_PROPIEDAD_USERNAME_AD] != null)
                         {
                             name = usuario.Properties[NOMBRE_PROPIEDAD_USERNAME_AD].Value.ToString();
+
+                            log.InfoFormat("Se consulta la propiedad {0} con valor '{1}'", NOMBRE_PROPIEDAD_USERNAME_AD, name);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
+                log.Error(ex);
                 throw new Exception("Error al validar el usuario en el Dominio", ex);
             }
 
@@ -651,7 +664,7 @@ namespace PhalanxNAL
                     log.Info("No se encuentra la propiedad " + propiedad);
             }
 
-            return null;
+            return string.Empty;
         }
 
         public static bool ResetPassword(string user, string password)
