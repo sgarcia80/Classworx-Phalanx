@@ -5,7 +5,7 @@
     <br />
     <asp:Panel ID="pnlAltaRed" runat="server"  DefaultButton="btnAlta">
     <div class="titulo">
-        Obten&eacute; tu clave inicial de red
+        Obten&eacute; tu clave inicial de RED
     </div>
     <table class="login">
         <tr>
@@ -21,7 +21,7 @@
     </div>
     <br />
     <div class="titulo">
-        Obten&eacute; tu clave de red
+        Obten&eacute; tu clave de RED
     </div>
     <table class="login">
         <tr>
@@ -37,7 +37,7 @@
     </div>
     <br />
     <div class="titulo">
-        Acced&eacute; a tus claves de aplicativos
+        Acced&eacute; a tus claves de APLICATIVOS
     </div>
     <br />
     <div class="mensaje">
