@@ -46,3 +46,4 @@ bin
 /Web/PhalanxWeb/Properties/PublishProfiles
 /Web/WSInterfaceClaves/Properties/PublishProfiles
 /Web/WSInterfaceConectores/Properties/PublishProfiles
+*.pubxml
