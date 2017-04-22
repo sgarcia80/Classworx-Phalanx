@@ -5,7 +5,7 @@ using NDCCommon.Collections;
 using NDCDAL.Factories;
 using System.Collections.Generic;
 using PhalanxBL;
-using log4net;
+using Classworx.Common.Trace;
 
 namespace NDCBL
 {
@@ -14,8 +14,6 @@ namespace NDCBL
     /// </summary>
     public class TicketNotificacionClaveBusiness
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(TicketNotificacionClaveBusiness));
-
         private const int DEFAULT_HORAS_EXPIRACION_TOKEN = 72;
 
         private TicketNotificacionClaveFactory factory;
@@ -231,7 +229,7 @@ namespace NDCBL
             //Factory.FilFechaTyCNull = true;
             //Factory.FilErrado = false;
 
-            log.InfoFormat("Se busca la aplicación {0} para el usuario {1}/{2}", app.Id, dominio, usuario);
+            TraceHelper.Information("Se busca la aplicación {0} para el usuario {1}/{2}", app.Id, dominio, usuario);
 
             TicketNotificacionClaveEntityCollection tickets = Factory.GetAll();
 

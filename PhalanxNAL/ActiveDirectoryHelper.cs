@@ -1,13 +1,14 @@
-﻿using Classworx.Common.Trace;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Configuration;
 using System.DirectoryServices;
+using Classworx.Common.Trace;
 
 namespace PhalanxNAL
 {
     public class ActiveDirectoryHelper
-    {        
+    {
         private const string NOMBRE_PROPIEDAD_DESCRIPCION_AD = "description";
         private const string NOMBRE_PROPIEDAD_PATH_AD = "adspath";
         private const string NOMBRE_PROPIEDAD_MAIL_AD = "mail";
@@ -15,6 +16,13 @@ namespace PhalanxNAL
         private const string NOMBRE_PROPIEDAD_DISABLED_AD = "userAccountControl";
         private const string NOMBRE_PROPIEDAD_LOCKOUTTIME_AD = "LockOutTime";
         private const string NOMBRE_PROPIEDAD_PWDLASTSET_AD = "pwdLastSet";
+
+        private const string UserAccountControl = "userAccountControl";
+        private const string SetPassword = "SetPassword";
+        private const string LockOutTime = "LockOutTime";
+        private const string PwdLastSet = "pwdLastSet";
+        private const int DontExpirePassword = 0x10000;
+
 
         private static Dictionary<string, object> settings = new Dictionary<string, object>();
 
@@ -225,11 +233,21 @@ namespace PhalanxNAL
 
         public static string BuscarEmailPorLegajoUsername(string username)
         {
+            if (string.IsNullOrEmpty(username))
+            {
+                return string.Empty;
+            }
+
             return BuscarLDAPEntryPropiedad(ConfigurationManager.AppSettings["LDAPBuscarNombreFilter"].Replace("[username]", username), NOMBRE_PROPIEDAD_MAIL_AD);
         }
 
         public static string BuscarNombrePorUsername(string username)
         {
+            if (string.IsNullOrEmpty(username))
+            {
+                return string.Empty;
+            }
+
             return BuscarLDAPEntryPropiedad(ConfigurationManager.AppSettings["LDAPBuscarNombreFilter"].Replace("[username]", username), NOMBRE_PROPIEDAD_USERNAME_AD);
         }
 
@@ -243,18 +261,21 @@ namespace PhalanxNAL
             try
             {
                 if (usuario != null)
-                {                    
+                {
                     if (usuario.Properties.Contains(NOMBRE_PROPIEDAD_USERNAME_AD))
                     {
                         if (usuario.Properties[NOMBRE_PROPIEDAD_USERNAME_AD] != null)
                         {
                             name = usuario.Properties[NOMBRE_PROPIEDAD_USERNAME_AD].Value.ToString();
+
+                            TraceHelper.Information("Se consulta la propiedad {0} con valor '{1}'", NOMBRE_PROPIEDAD_USERNAME_AD, name);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
+                TraceHelper.Error(ex, "Error al validar el usuario en el Dominio");
                 throw new Exception("Error al validar el usuario en el Dominio", ex);
             }
 
@@ -285,7 +306,7 @@ namespace PhalanxNAL
             }
             catch (Exception ex)
             {
-                TraceHelper.Error("Error al realizar la búsqueda", ex);
+                TraceHelper.Error(ex, "Error al realizar la búsqueda");
 
                 TraceHelper.Information("Busqueda LDAP finalizada con errores");
             }
@@ -435,7 +456,7 @@ namespace PhalanxNAL
             }
             catch (Exception ex)
             {
-                TraceHelper.Error("Error al realizar la búsqueda", ex);
+                TraceHelper.Error(ex, "Error al realizar la búsqueda");
 
                 TraceHelper.Information("Busqueda LDAP finalizada con errores");
             }
@@ -476,7 +497,7 @@ namespace PhalanxNAL
             }
             catch (Exception ex)
             {
-                TraceHelper.Error("Error al realizar la búsqueda", ex);
+                TraceHelper.Error(ex, "Error al realizar la búsqueda");
 
                 TraceHelper.Information("Busqueda LDAP finalizada con errores");
 
@@ -596,7 +617,7 @@ namespace PhalanxNAL
             }
             catch (Exception ex)
             {
-                TraceHelper.Error("Error al actualizar la descripción del usuario", ex);
+                TraceHelper.Error(ex, "Error al actualizar la descripción del usuario");
 
                 TraceHelper.Information("Actualización de descripción finalizada con errores");
             }
@@ -609,6 +630,11 @@ namespace PhalanxNAL
             DirectorySearcher search = new DirectorySearcher(directoryEntry);
 
             search.Filter = filter;
+
+            foreach (string property in properties)
+            {
+                search.PropertiesToLoad.Add(property);
+            }
 
             SearchResult sr = search.FindOne();
 
@@ -635,19 +661,21 @@ namespace PhalanxNAL
                     TraceHelper.Information("No se encuentra la propiedad " + propiedad);
             }
 
-            return null;
+            return string.Empty;
         }
 
         public static bool ResetPassword(string user, string password)
         {
             TraceHelper.Information("Usuario: " + user);
 
-            string filtroBuscarNombre = LDAPBuscarNombreFilter;
-
             if (DirectoryAdmin == null)
             {
                 return false;
             }
+
+            string filtroBuscarNombre = "((samaccountname=[username]))";
+
+            TraceHelper.Information("Se busca con filtro: " + filtroBuscarNombre);
 
             DirectoryEntry usuario = BuscarLDAPEntryAdmin(filtroBuscarNombre.Replace("[username]", user), new string[] { NOMBRE_PROPIEDAD_DISABLED_AD, NOMBRE_PROPIEDAD_LOCKOUTTIME_AD, NOMBRE_PROPIEDAD_PWDLASTSET_AD });
 
@@ -659,29 +687,49 @@ namespace PhalanxNAL
 
                 if (usuario != null)
                 {
-                    TraceHelper.Information("Usuario encontrado");
-
-                    //Se consulta si la cuenta esta deshabilitada
-                    disabled = GetAccountDisable(usuario);
-                    //Se consulta si la cuenta esta bloqueada
-                    lockouttime = GetAccountLocked(usuario);
-
-                    //Si la cuenta está bloqueada
-                    if (disabled)
+                    using (usuario)
                     {
-                        mensaje = string.Format("El usuario {0} se encuentra deshabilitado", user);
-                        throw new InvalidOperationException(mensaje);
-                    }
+                        TraceHelper.Information("Usuario encontrado");
 
-                    TraceHelper.Information("Consultando usuario bloqueado...");
-                    bool locked = Convert.ToBoolean(usuario.InvokeGet("IsAccountLocked"));
+                        //Se consulta si la cuenta esta deshabilitada
+                        disabled = GetAccountDisable(usuario);
+                        //Se consulta si la cuenta esta bloqueada
+                        lockouttime = GetAccountLocked(usuario);
 
-                    TraceHelper.Information("Valor de la propiedad: " + locked.ToString());
+                        //Si la cuenta está bloqueada
+                        if (disabled)
+                        {
+                            mensaje = string.Format("El usuario {0} se encuentra deshabilitado", user);
+                            throw new InvalidOperationException(mensaje);
+                        }
 
-                    if (locked)
-                    {
-                        TraceHelper.Information("Se desbloquea el usuario: " + locked.ToString());
-                        usuario.InvokeSet("IsAccountLocked", false);
+                        TraceHelper.Information("Consultando usuario bloqueado...");
+                        bool locked = Convert.ToBoolean(usuario.InvokeGet("IsAccountLocked"));
+
+                        TraceHelper.Information("Valor de la propiedad: " + locked.ToString());
+
+                        if (locked)
+                        {
+                            TraceHelper.Information("Se desbloquea el usuario: " + locked.ToString());
+                            usuario.InvokeSet("IsAccountLocked", false);
+                        }
+
+                        TraceHelper.Information("Se blanquea la contraseña...");
+
+
+                        // Set the password, unlock the account and force the user to change password at next logon
+                        TraceHelper.Information("Se cambia contraseña");
+                        usuario.Invoke(SetPassword, new object[] { password });
+
+                        TraceHelper.Information("Se marca el cambio de contraseña (pwdLastSet)");
+                        usuario.Properties[PwdLastSet].Value = 0; // force change at next logon
+
+                        TraceHelper.Information("Se desbloquea la cuenta");
+                        usuario.Properties[LockOutTime].Value = 0; // unlock account
+
+                        usuario.CommitChanges();
+
+                        TraceHelper.Information("Blanqueo de contraseña finalizada");
                     }
                 }
                 else
@@ -692,54 +740,180 @@ namespace PhalanxNAL
                     throw new InvalidOperationException(mensaje);
                 }
 
-                TraceHelper.Information("Se blanquea la contraseña...");
+                return true;
+            }
+            catch (InvalidOperationException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                TraceHelper.Error(ex, "Error al blanquear la contraseña del usuario");
 
-                //Se resetea la contraseña del usuario
-                usuario.Invoke("SetPassword", new object[] { password });
+                TraceHelper.Information("Blanqueo de contraseña finalizada con errores");
 
-                TraceHelper.Information("Se verifica si se encontro la propiedad pwdLastSet...");
-                if (usuario.Properties[NOMBRE_PROPIEDAD_PWDLASTSET_AD] != null)
+                throw;
+            }
+
+            //return false;
+        }
+
+        public static bool ResetPassword2(string user, string password, bool searched, bool searchedproperties, bool esadmin, bool essecure, string admin, string adminpwd, string path, StringBuilder history)
+        {
+            if (history == null)
+            {
+                history = new StringBuilder();
+            }
+
+            history.AppendLine("Usuario: " + user);
+
+            if (esadmin && DirectoryAdmin == null)
+            {
+                return false;
+            }
+
+            //string filtroBuscarNombre = "((samaccountname=[username]))";//LDAPBuscarNombreFilter;
+
+            //TraceHelper.Information("Se busca con filtro: " + filtroBuscarNombre);
+            //DirectoryEntry usuario = BuscarLDAPEntryAdmin(filtroBuscarNombre.Replace("[username]", user), new string[] { NOMBRE_PROPIEDAD_DISABLED_AD, NOMBRE_PROPIEDAD_LOCKOUTTIME_AD, NOMBRE_PROPIEDAD_PWDLASTSET_AD });
+
+            string filtro = path.Replace("*", string.Format("samaccountname={0},", user));
+
+            history.AppendLine("Filtro: " + filtro);
+
+            DirectoryEntry usuario = null;
+
+            try
+            {
+                if (searched)
                 {
-                    int tipo = 0;
-                    long v = 0;
+                    history.AppendLine("Si va por busqueda de usuario");
+                    System.DirectoryServices.DirectoryServicesPermission permission = new System.DirectoryServices.DirectoryServicesPermission(System.Security.Permissions.PermissionState.Unrestricted);
+                    permission.Assert();
 
-                    if (ConfigurationManager.AppSettings["PwdLastSet"] != null)
-                    {
-                        int.TryParse(ConfigurationManager.AppSettings["PwdLastSet"], out tipo);
-                    }
-                    if (ConfigurationManager.AppSettings["PwdLastSetValue"] != null)
-                    {
-                        long.TryParse(ConfigurationManager.AppSettings["PwdLastSetValue"], out v);
-                    }
+                    history.AppendLine("Se setea el dominio: " + path);
+                    System.DirectoryServices.DirectoryEntry directory = null;
 
-                    //Se setea para obligar a cambiar la contraseña luego de utilizarla.
-                    TraceHelper.Information("Se intenta setear el pwdLastSet en {0}...", v);
-
-                    if (tipo == 1)
+                    if (esadmin)
                     {
-                        TraceHelper.Information("Se intenta setear el campo pwdLastSet en {0}...", v);
-                        usuario.Properties[NOMBRE_PROPIEDAD_PWDLASTSET_AD].Value = v;
+                        if (essecure)
+
+                            directory = new System.DirectoryServices.DirectoryEntry(path, admin, adminpwd, AuthenticationTypes.Secure);
+                        else
+                            directory = new System.DirectoryServices.DirectoryEntry(path, admin, adminpwd);
                     }
                     else
                     {
-                        TraceHelper.Information("Se intenta setear el campo pwdLastSet en {0} con 'InvokeSet'...", v);
-                        usuario.InvokeSet(NOMBRE_PROPIEDAD_PWDLASTSET_AD, new object[] { v });
+                        directory = new System.DirectoryServices.DirectoryEntry(path);
                     }
+
+                    string filter = String.Format("(&(objectClass=user)(samaccountname=" + user + "))");
+                    System.DirectoryServices.DirectorySearcher findUser = new System.DirectoryServices.DirectorySearcher(directory, filter);
+
+                    history.AppendLine("Filtro: " + filter);
+
+                    if (searchedproperties)
+                    {
+                        findUser.PropertiesToLoad.Add(UserAccountControl);
+                        findUser.PropertiesToLoad.Add(PwdLastSet);
+                        findUser.PropertiesToLoad.Add(LockOutTime);
+                    }
+
+                    System.DirectoryServices.SearchResult result = findUser.FindOne();
+
+                    usuario = result.GetDirectoryEntry();
                 }
                 else
                 {
-                    TraceHelper.Information("No se encontro la propiedad pwdLastSet...");
+                    if (esadmin)
+                    {
+                        if (essecure)
+
+                            usuario = new DirectoryEntry(filtro, admin, adminpwd, AuthenticationTypes.Secure);
+                        else
+                            usuario = new DirectoryEntry(filtro, admin, adminpwd);
+                    }
+                    else
+                    {
+                        usuario = new DirectoryEntry(filtro);
+                    }
                 }
 
-                if (lockouttime)
+                bool disabled = false;
+                string mensaje = string.Empty;
+                bool lockouttime = false;
+
+                using (usuario)
                 {
-                    TraceHelper.Information("Se desbloquea el usuario (LockOutTime)...");
-                    usuario.Properties["LockOutTime"].Value = 0; //unlock account
+                    if (usuario != null)
+                    {
+                        history.AppendLine("Usuario encontrado");
+
+                        //if (usuario.Properties != null)
+                        //{
+                        //    history.AppendLine("Propiedades: " + usuario.Properties.Count);
+                        //}
+
+                        //Se consulta si la cuenta esta deshabilitada
+                        disabled = GetAccountDisable(usuario);
+                        //Se consulta si la cuenta esta bloqueada
+                        lockouttime = GetAccountLocked(usuario);
+
+                        //Si la cuenta está bloqueada
+                        if (disabled)
+                        {
+                            mensaje = string.Format("El usuario {0} se encuentra deshabilitado", user);
+                            throw new InvalidOperationException(mensaje);
+                        }
+
+                        TraceHelper.Information("Consultando usuario bloqueado...");
+                        bool locked = Convert.ToBoolean(usuario.InvokeGet("IsAccountLocked"));
+
+                        TraceHelper.Information("Valor de la propiedad: " + locked.ToString());
+
+                        if (locked)
+                        {
+                            TraceHelper.Information("Se desbloquea el usuario: " + locked.ToString());
+                            usuario.InvokeSet("IsAccountLocked", false);
+                        }
+
+                        history.AppendLine("Se blanquea la contraseña...");
+
+                        //if (usuario.Properties.Contains(UserAccountControl))
+                        //{
+                        //    int userAccountControl = (int)usuario.Properties[UserAccountControl].Value;
+
+                        //    bool passwordNeverExpires = (userAccountControl & DontExpirePassword) == DontExpirePassword;
+                        //    if (passwordNeverExpires)
+                        //    {
+                        //        history.AppendLine("Se quita contraseña nunca expira");
+                        //        userAccountControl = userAccountControl & ~DontExpirePassword;
+                        //        usuario.Properties[UserAccountControl].Value = userAccountControl;
+                        //        usuario.CommitChanges();
+                        //        history.AppendLine("Se removio contraseña nunca expira");
+                        //    }
+                        //}
+
+                        // Set the password, unlock the account and force the user to change password at next logon
+                        history.AppendLine("Se cambia contraseña");
+                        usuario.Invoke(SetPassword, new object[] { password });
+                        history.AppendLine("Se marca el cambio de contraseña (pwdLastSet)");
+                        usuario.Properties[PwdLastSet].Value = 0; // force change at next logon
+                        history.AppendLine("Se desbloquea la cuenta");
+                        usuario.Properties[LockOutTime].Value = 0; // unlock account
+
+                        usuario.CommitChanges();
+
+                        history.AppendLine("Blanqueo de contraseña finalizada");
+                    }
+                    else
+                    {
+                        history.AppendLine("No se encontró el usuario");
+
+                        mensaje = string.Format("No se encontró el usuario {0}", user);
+                        throw new InvalidOperationException(mensaje);
+                    }
                 }
-
-                usuario.CommitChanges();
-
-                TraceHelper.Information("Blanqueo de contraseña finalizada");
 
                 return true;
             }
@@ -749,7 +923,7 @@ namespace PhalanxNAL
             }
             catch (Exception ex)
             {
-                TraceHelper.Error("Error al blanquear la contraseña del usuario", ex);
+                TraceHelper.Error(ex, "Error al blanquear la contraseña del usuario");
 
                 TraceHelper.Information("Blanqueo de contraseña finalizada con errores");
 
@@ -838,7 +1012,7 @@ namespace PhalanxNAL
             }
             catch (Exception ex)
             {
-                TraceHelper.Error("Error al blanquear la contraseña del usuario", ex);
+                TraceHelper.Error(ex, "Error al blanquear la contraseña del usuario");
 
                 TraceHelper.Information("Desbloqueo de Usuario finalizada con errores");
 
@@ -862,7 +1036,7 @@ namespace PhalanxNAL
                 adminUserPassword = password;
             }
 
-            DirectoryAdmin = new DirectoryEntry(path, adminUser, adminUserPassword);
+            DirectoryAdmin = new DirectoryEntry(path, adminUser, adminUserPassword, AuthenticationTypes.Secure);
         }
 
         public static string TestAdminConnection(string user)

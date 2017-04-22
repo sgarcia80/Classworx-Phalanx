@@ -1,18 +1,12 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using NDCCommon.Entities;
 using NDCBL;
 using NDCCommon.Collections;
-using System.Collections;
 using PhalanxCommon.Entities;
-using PhalanxCommon;
 using PhalanxBL;
 using PhalanxCommon.Collections;
+using Classworx.Common.Trace;
 
 namespace PhalanxAdmin
 {
@@ -241,16 +235,6 @@ namespace PhalanxAdmin
                 return;
             }
 
-            bool altaTempranaPendiente = ValidarAltaTempranaPendiente(txtUser.Text);
-
-            if (altaTempranaPendiente)
-            {
-                string mensaje = string.Format("El usuario {0} primero debe notificarse de su Alta Temprana", txtUser.Text);
-                MessageBox.Show(mensaje, "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-
             WinDomainEntity dominio = null;
 
             // asignar datos a la entity
@@ -260,6 +244,15 @@ namespace PhalanxAdmin
 
                 _entity.UsuarioDominio = dominio.NtName;
                 _entity.Fecha = DateTime.Now;
+            }
+
+            bool altaTempranaPendiente = ValidarAltaTempranaPendiente(dominio.NtName, txtUser.Text);
+
+            if (altaTempranaPendiente)
+            {
+                string mensaje = string.Format("El usuario {0} tiene una Notificación de Alta Temprana pendiente", txtUser.Text);
+                MessageBox.Show(mensaje, "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
             _entity.Usuario = txtUser.Text.Trim().ToLower();
@@ -324,7 +317,7 @@ namespace PhalanxAdmin
             {
                 MessageBox.Show("Error al consultar las palabras aleatorias", "Notificación de Blanqueo Red", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
+
             int index = 0;
 
             if (RandomWord == null)
@@ -344,25 +337,26 @@ namespace PhalanxAdmin
             tPassword1.Text = string.Format("{0}{1}{2}", palabras[index].Valor.Substring(0, 2).ToUpper(), palabras[index].Valor.Substring(2), randompinresult);
         }
 
-        private bool ValidarAltaTempranaPendiente(string usuario)
+        private bool ValidarAltaTempranaPendiente(string dominio, string usuario)
         {
             bool ok = false;
-            Meta4ClassWorxUsuariosBusiness m4ub = new Meta4ClassWorxUsuariosBusiness();
 
-            IList<Meta4ClassWorxUsuariosEntity> usuarios = m4ub.GetUser(usuario);
+            TicketNotificacionClaveBusiness tncb = new TicketNotificacionClaveBusiness();
 
-            if (usuarios != null && usuarios.Count > 0)
+            TraceHelper.Information("Se consulta Altas Tempranas del usuario {0}/{1} que estén pendientes", dominio, usuario);
+
+            TicketNotificacionClaveEntityCollection tickets = tncb.GetAltaTempranaPendientes(dominio, usuario);
+
+            if (tickets != null)
             {
-                string tipodocumento = usuarios[0].TipoDocumento;
-                string nrodocumento = usuarios[0].Num_Documento;
+                TraceHelper.Information("Se encontraron {0} notificaciones de alta temprana pendientes", tickets.Count);
 
-                TicketNotificacionClaveBusiness tncb = new TicketNotificacionClaveBusiness();
-
-                TicketNotificacionClaveEntity ticket = tncb.GetAltaTempranaTicket(tipodocumento, nrodocumento);
-
-                if (ticket != null)
+                if (tickets.Count > 0)
                 {
-                    ok = true;
+                    if (!tickets[0].FechaAceptacionTyC.HasValue)
+                    {
+                        ok = true;
+                    }
                 }
             }
 
