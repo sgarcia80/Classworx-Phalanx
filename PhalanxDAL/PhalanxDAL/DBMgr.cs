@@ -88,6 +88,9 @@ namespace PhalanxDAL
                 props["connection.provider"] = "NHibernate.Connection.DriverConnectionProvider";
                 props["dialect"] = "NHibernate.Dialect.MsSql2012Dialect";
                 props["connection.driver_class"] = "NHibernate.Driver.SqlClientDriver";
+
+                props["show_sql"] = true;
+
                 //props["hibernate.connection.connection_string"] = "Server=localhost;initial catalog=Northwind;Integrated Security=SSPI" ;
                 //string AppPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase );
 
@@ -97,7 +100,7 @@ namespace PhalanxDAL
                 //{
 
                 //IniFile PhxIni = new IniFile("c:\\classworx\\phalanx\\inis\\phalanx.ini");
-                
+
                 string ConnName = application == App.NotificacionClaves ? "NDC" : "Phalanx";
                 //if (ConfigurationManager.AppSettings["ContingenciaActivado"] != null && ConfigurationManager.AppSettings["ContingenciaActivado"] == "1")
                 {

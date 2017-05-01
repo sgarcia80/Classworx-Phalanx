@@ -639,23 +639,22 @@ namespace PhalanxDAL.Factories
                                 else
                                 {
                                     DataSearch.CreateCriteria("UserPassword", "UsrPwd")
-                                    .CreateCriteria("UsersList", "Usr")
+                                    .CreateCriteria("UsrPwd.UsersList", "Usr")
                                     .CreateCriteria("UsrPwd.RqstGrpsPwdsList", "FRQP")
                                     .CreateCriteria("FRQP.RqstGrp", "FRG")
                                     .Add(Expression.Eq("Usr.Id", User.Id))
                                     .AddOrder(Order.Asc("PwdRqst.RequestDate"));
-
                                 }
                             }
                         }
                         DataSearch.SetProjection(Projections.Distinct(Projections.ProjectionList().Add(Projections.Property("PwdRqst.Id"), "Id")
-                         .Add(Projections.Property("RqstUser"), "RqstUser")
-                         .Add(Projections.Property("RequestDate"), "RequestDate")
-                         .Add(Projections.Property("RqstState"), "RqstState")
-                         .Add(Projections.Property("Auth1Date"), "Auth1Date")
-                         .Add(Projections.Property("ReturnDate"), "ReturnDate")
-                         .Add(Projections.Property("ExpirationDate"), "ExpirationDate")
-                         .Add(Projections.Property("CloseDate"), "CloseDate")
+                         .Add(Projections.Property("PwdRqst.RqstUser"), "RqstUser")
+                         .Add(Projections.Property("PwdRqst.RequestDate"), "RequestDate")
+                         .Add(Projections.Property("PwdRqst.RqstState"), "RqstState")
+                         .Add(Projections.Property("PwdRqst.Auth1Date"), "Auth1Date")
+                         .Add(Projections.Property("PwdRqst.ReturnDate"), "ReturnDate")
+                         .Add(Projections.Property("PwdRqst.ExpirationDate"), "ExpirationDate")
+                         .Add(Projections.Property("PwdRqst.CloseDate"), "CloseDate")
                          ));
 
                     }
@@ -672,8 +671,8 @@ namespace PhalanxDAL.Factories
             }
             catch (Exception ex)
             {
-
-                return null;
+                TraceHelper.Error(ex, "Error al consultar las solicitudes de contraseña");
+                throw;
             }
             return PwdRqstEC;
         }

@@ -38,6 +38,14 @@ namespace PhalanxAdmin
         public FAltaPc(FormType formType, object currentPC)
             : this()
         {
+            m_WinPCBusiness = new WinPCBusiness();
+            m_WinDomBusiness = new WinDomainBusiness();
+            m_UnixPCBusiness = new UnixPCBusiness();
+            m_FormType = formType;
+            lvLista.ListViewItemSorter = new cwxSorter();
+
+            ConfigureControls();
+
             if (currentPC is WinPCEntity)
             {
                 m_IsWindows = true;
@@ -73,17 +81,31 @@ namespace PhalanxAdmin
                 m_IsWindows = (bool)currentPC;
             }
             
-            m_WinPCBusiness = new WinPCBusiness();
-            m_WinDomBusiness = new WinDomainBusiness();
-            m_UnixPCBusiness = new UnixPCBusiness();
-            m_FormType = formType;
-            lvLista.ListViewItemSorter = new cwxSorter(); 
             ConfigureScreen();
         }
 
         public FAltaPc(FormType formType, bool IsWindowsPC): this(formType, (object)IsWindowsPC)
         {
 
+        }
+
+        public void ConfigureControls()
+        {
+            switch (m_FormType)
+            {
+                case FormType.New:
+                    {
+                        if (IsWindowsPC)
+                            cbDominio.DataSource = m_WinDomBusiness.GetAll();
+                        break;
+                    }
+                case FormType.Update:
+                    {
+                        if (IsWindowsPC)
+                            cbDominio.DataSource = m_WinDomBusiness.GetAll();
+                        break;
+                    }
+            }
         }
 
         public void ConfigureScreen()
@@ -99,15 +121,11 @@ namespace PhalanxAdmin
                 case FormType.New:
                     {
                         pNetFind.Visible = true;
-                        if (IsWindowsPC)
-                            cbDominio.DataSource = m_WinDomBusiness.GetAll();
                         tabControl1.TabPages.Remove(tabControl1.TabPages[1]);
                         break;
                     }
                 case FormType.Update:
                     {
-                        if (IsWindowsPC)
-                            cbDominio.DataSource = m_WinDomBusiness.GetAll();
                         DBRefreshEntites();
                         break;
                     }

@@ -89,7 +89,7 @@ namespace PhalanxAdmin
         /// </example>
         private void SetQueryFilters()
         {
-            txtFilNombre.Text = "";
+            //txtFilNombre.Text = "";
         }
 
         private void bwRefreshEntities_DoWork(object sender, DoWorkEventArgs e)

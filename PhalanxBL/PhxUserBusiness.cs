@@ -104,6 +104,12 @@ namespace PhalanxBL
 
         }
 
+        public PhxUserEntity GetUserByDomUsr(string Dom, string Usr)
+        {
+            string DomUsr = string.Format("{0}\\{1}", Dom, Usr);
+
+            return GetUserByDomUsr(DomUsr);
+        }
         public PhxUserEntity GetUserByDomUsr(string DomUsr)
         {
             PhxUsersFactory WDF = new PhxUsersFactory();

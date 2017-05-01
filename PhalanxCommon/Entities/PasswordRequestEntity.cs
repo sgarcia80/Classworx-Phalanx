@@ -27,7 +27,7 @@ namespace PhalanxCommon.Entities
 
 
 		//private int m_request_id; 
-		private IList m_PasswordsRequestsList; 
+		//privae IList m_PasswordsRequestsList; 
 		private UserPasswordEntity m_user_password_id; 		
 		#endregion
 
@@ -39,7 +39,7 @@ namespace PhalanxCommon.Entities
 		{
 			//m_request_id = 0; 
 			base.Id = 0; 
-			m_PasswordsRequestsList = new ArrayList(); 
+			//m_PasswordsRequestsList = new ArrayList(); 
 			m_user_password_id = new UserPasswordEntity(); 
 		}
 		#endregion // End of Default ( Empty ) Class Constuctor

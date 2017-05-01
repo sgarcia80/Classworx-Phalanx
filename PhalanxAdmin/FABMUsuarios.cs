@@ -65,10 +65,10 @@ namespace PhalanxAdmin
                 // Agregado MG
                 txtLegajo.Text = _entity.FileNumber;
                 txtFuncion.Text = _entity.Function;
-                if ( _entity.RelationType != null )
+                if (_entity.RelationType != null)
                     cboRelacionLaboral.SelectedValue = _entity.RelationType;
 
-                if ( _entity.PhxUserSuperior != null )
+                if (_entity.PhxUserSuperior != null)
                     cbSuperior.SelectedItem = _entity.PhxUserSuperior;
 
                 //entity.RelationType = (cboRelacionLaboral.SelectedIndex >= 0 ? cboRelacionLaboral.SelectedText.Substring(1, 1) : "");
@@ -114,7 +114,7 @@ namespace PhalanxAdmin
                     this.tpgDatosUsr.Controls.Add(txtSuperior);
                     cbSuperior.Visible = false;
 
-					btnCargarDatos.Enabled = false;
+                    btnCargarDatos.Enabled = false;
                 }
             }
             CargarPermisosDelUsuario();
@@ -210,7 +210,7 @@ namespace PhalanxAdmin
         }
         private void CargarGruposSeguimDB()
         {
-            
+
             FollowupRequestGroupBusiness RequestGroupB = new FollowupRequestGroupBusiness();
             RequestGroupB.FilActivos = true;
             FollowupRequestGroupEntityCollection DBRequestGroups = RequestGroupB.GetAll();
@@ -517,6 +517,20 @@ namespace PhalanxAdmin
                 cbDominio.Focus();
                 return;
             }
+
+            PhxUserBusiness PhxUserBL = new PhxUserBusiness();
+
+            string dominio = cbDominio.Text;
+            string usuario = txtUserName.Text;
+
+            var otroUsuario = PhxUserBL.GetUserByDomUsr(dominio, usuario);
+
+            if (otroUsuario != null && _entity.Id != otroUsuario.Id)
+            {
+                MessageBox.Show("El usuario introducido ya existe", "Usuario duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             // si es alta o moficiación
             // grabo al usuario
             _entity.Username = txtUserName.Text;
@@ -527,19 +541,18 @@ namespace PhalanxAdmin
 
             _entity.FileNumber = txtLegajo.Text;
             _entity.Function = txtFuncion.Text;
-            _entity.RelationType = ( cboRelacionLaboral.SelectedValue != null 
+            _entity.RelationType = (cboRelacionLaboral.SelectedValue != null
                 ? cboRelacionLaboral.SelectedValue.ToString()
-                : null );
+                : null);
             _entity.Branch = txtSector.Text;
-            
-            _entity.PhxUserSuperior = ( cbSuperior.SelectedIndex > 0
+
+            _entity.PhxUserSuperior = (cbSuperior.SelectedIndex > 0
                 ? (PhxUserSuperiorEntity)cbSuperior.SelectedItem
-                : null );
+                : null);
             _entity.BuildingAdress = cboEdificio.Text;
             //_entity.BuildingFloor = txtPiso.Text;
             //_entity.ExtensionNumber = txtInterno.Text;
 
-            PhxUserBusiness PhxUserBL = new PhxUserBusiness();
             _entity.Id = PhxUserBL.Save(_entity, System.Security.Principal.WindowsIdentity.GetCurrent().Name);
 
             // grabo permisos
@@ -558,7 +571,7 @@ namespace PhalanxAdmin
             PhxUserBL.SetGrupos(_entity, UsrGroups);
             // grabo grupos seguimiento
             FollowupRequestGroupEntityCollection UsrGroupsSeguim = new FollowupRequestGroupEntityCollection();
-            
+
             foreach (ListViewItem lviUsrGroup in lvGruposSeguimUsr.Items)
             {
                 UsrGroupsSeguim.Add((FollowupRequestGroupEntity)lviUsrGroup.Tag);
@@ -732,8 +745,8 @@ namespace PhalanxAdmin
             PasarGrupoSeguimDeUsraDB();
         }
 
-		private void btnCargarDatos_Click(object sender, EventArgs e)
-		{
+        private void btnCargarDatos_Click(object sender, EventArgs e)
+        {
             textBox1.Text = "";
             if (txtUserName.Text.Trim() == "")
             {
@@ -802,7 +815,7 @@ namespace PhalanxAdmin
                 //if (edificioIndex > 0)
                 //    cboEdificio.SelectedIndex = edificioIndex;
             }
-		}
+        }
 
     }
 }

@@ -17,7 +17,7 @@ namespace PhalanxCommon.Entities
 		private bool m_isChanged;
 
 		//private int m_user_id; 
-		private IList m_WinLocalUsersList; 
+		//private IList m_WinLocalUsersList; 
 		private WinPCEntity m_win_pc_id; 		
 		#endregion
 
@@ -29,7 +29,7 @@ namespace PhalanxCommon.Entities
 		{
 			//m_user_id = 0; 
 			this.Id = 0;
-			m_WinLocalUsersList = new ArrayList(); 
+			//m_WinLocalUsersList = new ArrayList(); 
 			m_win_pc_id = new WinPCEntity(); 
 		}
 		#endregion // End of Default ( Empty ) Class Constuctor

@@ -559,7 +559,7 @@ namespace PhalanxAdmin
 
         private void checkBoxVisualizar_CheckedChanged(object sender, EventArgs e)
         {
-            if (m_FormType == FormType.Update && checkBoxVisualizar.Tag == null && 
+            if (m_FormType == FormType.Update && checkBoxVisualizar.Tag == null &&
                 checkBoxVisualizar.Checked)
             {
                 if (MessageBox.Show("Si visualiza la contraseña, se grabará un registro de log con este evento. Desea continuar?",

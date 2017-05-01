@@ -17,6 +17,7 @@ namespace PhalanxAdmin
 
         PhxUserEntity _loggedUser;
         PhxUserBusiness _phxUsrBL = new PhxUserBusiness();
+
         public FPrincipal()
         {
             InitializeComponent();
@@ -24,7 +25,7 @@ namespace PhalanxAdmin
 
         private void FPrincipal_Load(object sender, EventArgs e)
         {
-            string Version = "3.17.02.17";
+            string Version = "3.17.04.17";
             this.Text += " v" + Version;
             try
             {

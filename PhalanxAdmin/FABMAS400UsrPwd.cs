@@ -1135,6 +1135,11 @@ namespace PhalanxAdmin
         }
         private ListViewItem[] GenerateLVItemsSolicitudes()
         {
+            if (this._Solicitudes == null)
+            {
+                return new ListViewItem[0];
+            }
+
             ListViewItem[] lviArr = new ListViewItem[this._Solicitudes.Count];
             int i = 0;
             foreach (PasswordRequestEntity reqpwd in this._Solicitudes)

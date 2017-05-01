@@ -4,6 +4,5 @@ C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\phxLog\obj\Debug
 C:\Users\Cristian\Documents\Visual Studio 2010\Projects\Phalanx\phxLog\obj\Debug\phxLog.pdb
 C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\phxLog\bin\Debug\phxLog.dll
 C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\phxLog\bin\Debug\phxLog.pdb
-C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\phxLog\obj\Debug\phxLog.csprojResolveAssemblyReference.cache
 C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\phxLog\obj\Debug\phxLog.dll
 C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\phxLog\obj\Debug\phxLog.pdb
