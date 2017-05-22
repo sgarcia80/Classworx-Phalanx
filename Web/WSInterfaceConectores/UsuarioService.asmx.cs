@@ -1,4 +1,5 @@
-﻿using PhalanxBL;
+﻿using Classworx.Common.Trace;
+using PhalanxBL;
 using PhalanxCommon.Collections;
 using PhalanxCommon.Entities;
 using System;
@@ -7,6 +8,9 @@ using System.DirectoryServices;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
+using WSInterfaceConectores.Entities;
+using WSInterfaceConectores.Request;
+using WSInterfaceConectores.Response;
 
 namespace WSInterfaceConectores
 {
@@ -213,6 +217,126 @@ namespace WSInterfaceConectores
 
                         resultado.Exito = true;
                     }
+                }
+            }
+
+            return resultado;
+        }
+
+        [WebMethod]
+        public ListaResultado ConsultaRoles(BaseRequest request)
+        {
+            ListaResultado resultado = new ListaResultado();
+            resultado.Exito = false;
+
+            bool autorizado = ValidarCadenaSeguridad(request.StringAutenticacion, resultado);
+
+            //Si pasó los controles de seguridad (autenticación y autorización)
+            if (autorizado)
+            {
+                try
+                {
+                    PhalanxBL.PhxRoleBusiness business = new PhxRoleBusiness();
+
+                    //Se valida si existe el usuario
+                    var list = business.GetAll();
+
+                    List<Item> entities = new List<Item>();
+
+                    foreach (PhxRoleEntity i in list)
+                    {
+                        entities.Add(new Item { Id = i.Id, Descripcion = i.Name });
+                    }
+
+                    resultado.Lista = entities;
+                    resultado.Exito = true;
+                }
+                catch (Exception ex)
+                {
+                    resultado.Mensaje = "Ha ocurrido un error inesperado";
+                    resultado.Exito = false;
+
+                    TraceHelper.Error(ex, resultado.Mensaje);
+                }
+            }
+
+            return resultado;
+        }
+
+        [WebMethod]
+        public ListaResultado ConsultaGrupoSolicitudes(BaseRequest request)
+        {
+            ListaResultado resultado = new ListaResultado();
+            resultado.Exito = false;
+
+            bool autorizado = ValidarCadenaSeguridad(request.StringAutenticacion, resultado);
+
+            //Si pasó los controles de seguridad (autenticación y autorización)
+            if (autorizado)
+            {
+                try
+                {
+                    PhalanxBL.RequestGroupBusiness business = new RequestGroupBusiness();
+                    business.FilActivos = true;
+
+                    var list = business.GetAll();
+
+                    List<Item> entities = new List<Item>();
+
+                    foreach (RequestGroupEntity i in list)
+                    {
+                        entities.Add(new Item { Id = i.Id, Descripcion = i.RqstGrpName });
+                    }
+
+                    resultado.Lista = entities;
+                    resultado.Exito = true;
+                }
+                catch (Exception ex)
+                {
+                    resultado.Mensaje = "Ha ocurrido un error inesperado";
+                    resultado.Exito = false;
+
+                    TraceHelper.Error(ex, resultado.Mensaje);
+                }
+            }
+
+            return resultado;
+        }
+
+        [WebMethod]
+        public ListaResultado ConsultaGrupoSeguimiento(BaseRequest request)
+        {
+            ListaResultado resultado = new ListaResultado();
+            resultado.Exito = false;
+
+            bool autorizado = ValidarCadenaSeguridad(request.StringAutenticacion, resultado);
+
+            //Si pasó los controles de seguridad (autenticación y autorización)
+            if (autorizado)
+            {
+                try
+                {
+                    PhalanxBL.FollowupRequestGroupBusiness business = new FollowupRequestGroupBusiness();
+                    business.FilActivos = true;
+
+                    var list = business.GetAll();
+
+                    List<Item> entities = new List<Item>();
+
+                    foreach (FollowupRequestGroupEntity i in list)
+                    {
+                        entities.Add(new Item { Id = i.Id, Descripcion = i.Name });
+                    }
+
+                    resultado.Lista = entities;
+                    resultado.Exito = true;
+                }
+                catch (Exception ex)
+                {
+                    resultado.Mensaje = "Ha ocurrido un error inesperado";
+                    resultado.Exito = false;
+
+                    TraceHelper.Error(ex, resultado.Mensaje);
                 }
             }
 
@@ -635,23 +759,5 @@ namespace WSInterfaceConectores
         }
 
         #endregion
-    }
-
-    public class Resultado
-    {
-        private bool exito;
-        private string mensaje;
-
-        public bool Exito
-        {
-            set { exito = value; }
-            get { return exito; }
-        }
-
-        public string Mensaje
-        {
-            set { mensaje = value; }
-            get { return mensaje; }
-        }
     }
 }

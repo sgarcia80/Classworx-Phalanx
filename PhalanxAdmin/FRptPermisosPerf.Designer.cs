@@ -50,19 +50,19 @@ namespace PhalanxAdmin
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.lnkCancelar = new System.Windows.Forms.ToolStripStatusLabel();
             this.pnlList = new System.Windows.Forms.Panel();
+            this.btnExportar = new System.Windows.Forms.Button();
             this.lvLista = new System.Windows.Forms.ListView();
             this.bwRefreshEntities = new System.ComponentModel.BackgroundWorker();
-            this.btnExportar = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            columnHeader9 = new System.Windows.Forms.ColumnHeader();
-            columnHeader5 = new System.Windows.Forms.ColumnHeader();
-            columnHeader2 = new System.Windows.Forms.ColumnHeader();
-            columnHeader6 = new System.Windows.Forms.ColumnHeader();
-            columnHeader3 = new System.Windows.Forms.ColumnHeader();
-            columnHeader7 = new System.Windows.Forms.ColumnHeader();
-            columnHeader8 = new System.Windows.Forms.ColumnHeader();
-            columnHeader1 = new System.Windows.Forms.ColumnHeader();
-            columnHeader4 = new System.Windows.Forms.ColumnHeader();
+            columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
             this.pnlXPGrps.SuspendLayout();
             this.pnlIzq.SuspendLayout();
@@ -83,8 +83,7 @@ namespace PhalanxAdmin
             // xppnlMenu
             // 
             this.xppnlMenu.ImageItems.ImageSet = null;
-            this.xppnlMenu.Location = new System.Drawing.Point(8, 8);
-            this.xppnlMenu.Size = new System.Drawing.Size(167, 142);
+            this.xppnlMenu.Size = new System.Drawing.Size(167, 502);
             // 
             // columnHeader9
             // 
@@ -255,12 +254,22 @@ namespace PhalanxAdmin
             this.pnlList.Size = new System.Drawing.Size(497, 386);
             this.pnlList.TabIndex = 25;
             // 
+            // btnExportar
+            // 
+            this.btnExportar.Location = new System.Drawing.Point(18, 0);
+            this.btnExportar.Name = "btnExportar";
+            this.btnExportar.Size = new System.Drawing.Size(132, 21);
+            this.btnExportar.TabIndex = 3;
+            this.btnExportar.Text = "Exportar Listado a CSV";
+            this.btnExportar.UseVisualStyleBackColor = true;
+            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
+            // 
             // lvLista
             // 
             this.lvLista.AllowColumnReorder = true;
-            this.lvLista.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvLista.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvLista.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             columnHeader9,
             columnHeader5,
@@ -289,16 +298,6 @@ namespace PhalanxAdmin
             this.bwRefreshEntities.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwRefreshEntities_DoWork);
             this.bwRefreshEntities.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwRefreshEntities_RunWorkerCompleted);
             // 
-            // btnExportar
-            // 
-            this.btnExportar.Location = new System.Drawing.Point(18, 0);
-            this.btnExportar.Name = "btnExportar";
-            this.btnExportar.Size = new System.Drawing.Size(132, 21);
-            this.btnExportar.TabIndex = 3;
-            this.btnExportar.Text = "Exportar Listado a CSV";
-            this.btnExportar.UseVisualStyleBackColor = true;
-            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
-            // 
             // FRptPermisosPerf
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -307,6 +306,7 @@ namespace PhalanxAdmin
             this.Controls.Add(this.statusbar);
             this.Controls.Add(this.pnlFilters);
             this.Name = "FRptPermisosPerf";
+            this.Load += new System.EventHandler(this.FRptPerfilesUsrs_Load);
             this.Controls.SetChildIndex(this.pnlIzq, 0);
             this.Controls.SetChildIndex(this.pnlFilters, 0);
             this.Controls.SetChildIndex(this.statusbar, 0);

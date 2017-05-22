@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using PhalanxDAL;
 using NHibernate.Transform;
 using NHibernate.Criterion;
+using Classworx.Common.Trace;
+using System;
 
 /// <summary>
 /// Summary description for BPMSolicitudFactory
@@ -67,13 +69,13 @@ namespace NDCDAL.Factories
                 try
                 {
                     tickets = DataSearch.List<TicketNotificacionEntity>();
-                }
-                catch
-                {
-                    tickets = null;
-                }
 
-                TiNotClaEC.Add(tickets);
+                    TiNotClaEC.Add(tickets);
+                }
+                catch(Exception ex)
+                {
+                    TraceHelper.Error(ex, "Error al consultar los Tickets de Notificación del usuario");
+                }
             }
 
             return TiNotClaEC;

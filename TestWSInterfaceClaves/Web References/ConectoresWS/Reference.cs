@@ -45,6 +45,12 @@ namespace TestWSInterfaceClaves.ConectoresWS {
         
         private System.Threading.SendOrPostCallback BajaUsuarioOperationCompleted;
         
+        private System.Threading.SendOrPostCallback ConsultaRolesOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ConsultaGrupoSolicitudesOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ConsultaGrupoSeguimientoOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -106,6 +112,15 @@ namespace TestWSInterfaceClaves.ConectoresWS {
         
         /// <remarks/>
         public event BajaUsuarioCompletedEventHandler BajaUsuarioCompleted;
+        
+        /// <remarks/>
+        public event ConsultaRolesCompletedEventHandler ConsultaRolesCompleted;
+        
+        /// <remarks/>
+        public event ConsultaGrupoSolicitudesCompletedEventHandler ConsultaGrupoSolicitudesCompleted;
+        
+        /// <remarks/>
+        public event ConsultaGrupoSeguimientoCompletedEventHandler ConsultaGrupoSeguimientoCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/AltaGrupoSeguimiento", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -340,6 +355,93 @@ namespace TestWSInterfaceClaves.ConectoresWS {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ConsultaRoles", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public ListaResultado ConsultaRoles(BaseRequest request) {
+            object[] results = this.Invoke("ConsultaRoles", new object[] {
+                        request});
+            return ((ListaResultado)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ConsultaRolesAsync(BaseRequest request) {
+            this.ConsultaRolesAsync(request, null);
+        }
+        
+        /// <remarks/>
+        public void ConsultaRolesAsync(BaseRequest request, object userState) {
+            if ((this.ConsultaRolesOperationCompleted == null)) {
+                this.ConsultaRolesOperationCompleted = new System.Threading.SendOrPostCallback(this.OnConsultaRolesOperationCompleted);
+            }
+            this.InvokeAsync("ConsultaRoles", new object[] {
+                        request}, this.ConsultaRolesOperationCompleted, userState);
+        }
+        
+        private void OnConsultaRolesOperationCompleted(object arg) {
+            if ((this.ConsultaRolesCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ConsultaRolesCompleted(this, new ConsultaRolesCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ConsultaGrupoSolicitudes", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public ListaResultado ConsultaGrupoSolicitudes(BaseRequest request) {
+            object[] results = this.Invoke("ConsultaGrupoSolicitudes", new object[] {
+                        request});
+            return ((ListaResultado)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ConsultaGrupoSolicitudesAsync(BaseRequest request) {
+            this.ConsultaGrupoSolicitudesAsync(request, null);
+        }
+        
+        /// <remarks/>
+        public void ConsultaGrupoSolicitudesAsync(BaseRequest request, object userState) {
+            if ((this.ConsultaGrupoSolicitudesOperationCompleted == null)) {
+                this.ConsultaGrupoSolicitudesOperationCompleted = new System.Threading.SendOrPostCallback(this.OnConsultaGrupoSolicitudesOperationCompleted);
+            }
+            this.InvokeAsync("ConsultaGrupoSolicitudes", new object[] {
+                        request}, this.ConsultaGrupoSolicitudesOperationCompleted, userState);
+        }
+        
+        private void OnConsultaGrupoSolicitudesOperationCompleted(object arg) {
+            if ((this.ConsultaGrupoSolicitudesCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ConsultaGrupoSolicitudesCompleted(this, new ConsultaGrupoSolicitudesCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ConsultaGrupoSeguimiento", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public ListaResultado ConsultaGrupoSeguimiento(BaseRequest request) {
+            object[] results = this.Invoke("ConsultaGrupoSeguimiento", new object[] {
+                        request});
+            return ((ListaResultado)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ConsultaGrupoSeguimientoAsync(BaseRequest request) {
+            this.ConsultaGrupoSeguimientoAsync(request, null);
+        }
+        
+        /// <remarks/>
+        public void ConsultaGrupoSeguimientoAsync(BaseRequest request, object userState) {
+            if ((this.ConsultaGrupoSeguimientoOperationCompleted == null)) {
+                this.ConsultaGrupoSeguimientoOperationCompleted = new System.Threading.SendOrPostCallback(this.OnConsultaGrupoSeguimientoOperationCompleted);
+            }
+            this.InvokeAsync("ConsultaGrupoSeguimiento", new object[] {
+                        request}, this.ConsultaGrupoSeguimientoOperationCompleted, userState);
+        }
+        
+        private void OnConsultaGrupoSeguimientoOperationCompleted(object arg) {
+            if ((this.ConsultaGrupoSeguimientoCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ConsultaGrupoSeguimientoCompleted(this, new ConsultaGrupoSeguimientoCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -364,25 +466,13 @@ namespace TestWSInterfaceClaves.ConectoresWS {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class GrupoSeguimientoRequest {
-        
-        private string stringAutenticacionField;
+    public partial class GrupoSeguimientoRequest : BaseRequest {
         
         private string dominioField;
         
         private string usuarioField;
         
         private string idGruposField;
-        
-        /// <remarks/>
-        public string StringAutenticacion {
-            get {
-                return this.stringAutenticacionField;
-            }
-            set {
-                this.stringAutenticacionField = value;
-            }
-        }
         
         /// <remarks/>
         public string Dominio {
@@ -416,18 +506,19 @@ namespace TestWSInterfaceClaves.ConectoresWS {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(BajaUsuarioRequest))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(AltaUsuarioRequest))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PerfilRequest))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(GrupoSolicitudesRequest))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(GrupoSeguimientoRequest))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class BajaUsuarioRequest {
+    public partial class BaseRequest {
         
         private string stringAutenticacionField;
-        
-        private string dominioField;
-        
-        private string usuarioField;
         
         /// <remarks/>
         public string StringAutenticacion {
@@ -438,6 +529,107 @@ namespace TestWSInterfaceClaves.ConectoresWS {
                 this.stringAutenticacionField = value;
             }
         }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class Item {
+        
+        private int idField;
+        
+        private string descripcionField;
+        
+        /// <remarks/>
+        public int Id {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Descripcion {
+            get {
+                return this.descripcionField;
+            }
+            set {
+                this.descripcionField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ListaResultado))]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class Resultado {
+        
+        private bool exitoField;
+        
+        private string mensajeField;
+        
+        /// <remarks/>
+        public bool Exito {
+            get {
+                return this.exitoField;
+            }
+            set {
+                this.exitoField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Mensaje {
+            get {
+                return this.mensajeField;
+            }
+            set {
+                this.mensajeField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class ListaResultado : Resultado {
+        
+        private Item[] listaField;
+        
+        /// <remarks/>
+        public Item[] Lista {
+            get {
+                return this.listaField;
+            }
+            set {
+                this.listaField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class BajaUsuarioRequest : BaseRequest {
+        
+        private string dominioField;
+        
+        private string usuarioField;
         
         /// <remarks/>
         public string Dominio {
@@ -466,9 +658,7 @@ namespace TestWSInterfaceClaves.ConectoresWS {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class AltaUsuarioRequest {
-        
-        private string stringAutenticacionField;
+    public partial class AltaUsuarioRequest : BaseRequest {
         
         private string dominioField;
         
@@ -479,16 +669,6 @@ namespace TestWSInterfaceClaves.ConectoresWS {
         private string emailField;
         
         private string legajoField;
-        
-        /// <remarks/>
-        public string StringAutenticacion {
-            get {
-                return this.stringAutenticacionField;
-            }
-            set {
-                this.stringAutenticacionField = value;
-            }
-        }
         
         /// <remarks/>
         public string Dominio {
@@ -547,25 +727,13 @@ namespace TestWSInterfaceClaves.ConectoresWS {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class PerfilRequest {
-        
-        private string stringAutenticacionField;
+    public partial class PerfilRequest : BaseRequest {
         
         private string dominioField;
         
         private string usuarioField;
         
         private string idPerfilesField;
-        
-        /// <remarks/>
-        public string StringAutenticacion {
-            get {
-                return this.stringAutenticacionField;
-            }
-            set {
-                this.stringAutenticacionField = value;
-            }
-        }
         
         /// <remarks/>
         public string Dominio {
@@ -604,25 +772,13 @@ namespace TestWSInterfaceClaves.ConectoresWS {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class GrupoSolicitudesRequest {
-        
-        private string stringAutenticacionField;
+    public partial class GrupoSolicitudesRequest : BaseRequest {
         
         private string dominioField;
         
         private string usuarioField;
         
         private string idGruposField;
-        
-        /// <remarks/>
-        public string StringAutenticacion {
-            get {
-                return this.stringAutenticacionField;
-            }
-            set {
-                this.stringAutenticacionField = value;
-            }
-        }
         
         /// <remarks/>
         public string Dominio {
@@ -651,39 +807,6 @@ namespace TestWSInterfaceClaves.ConectoresWS {
             }
             set {
                 this.idGruposField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class Resultado {
-        
-        private bool exitoField;
-        
-        private string mensajeField;
-        
-        /// <remarks/>
-        public bool Exito {
-            get {
-                return this.exitoField;
-            }
-            set {
-                this.exitoField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string Mensaje {
-            get {
-                return this.mensajeField;
-            }
-            set {
-                this.mensajeField = value;
             }
         }
     }
@@ -892,6 +1015,84 @@ namespace TestWSInterfaceClaves.ConectoresWS {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((Resultado)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    public delegate void ConsultaRolesCompletedEventHandler(object sender, ConsultaRolesCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ConsultaRolesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ConsultaRolesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public ListaResultado Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((ListaResultado)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    public delegate void ConsultaGrupoSolicitudesCompletedEventHandler(object sender, ConsultaGrupoSolicitudesCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ConsultaGrupoSolicitudesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ConsultaGrupoSolicitudesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public ListaResultado Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((ListaResultado)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    public delegate void ConsultaGrupoSeguimientoCompletedEventHandler(object sender, ConsultaGrupoSeguimientoCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ConsultaGrupoSeguimientoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ConsultaGrupoSeguimientoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public ListaResultado Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((ListaResultado)(this.results[0]));
             }
         }
     }

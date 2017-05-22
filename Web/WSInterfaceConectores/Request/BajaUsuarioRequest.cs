@@ -8,22 +8,19 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 
-/// <summary>
-/// Summary description for BPMRequest
-/// </summary>
-public class BajaUsuarioRequest
+namespace WSInterfaceConectores.Request
 {
-    public BajaUsuarioRequest()
+    /// <summary>
+    /// Summary description for BPMRequest
+    /// </summary>
+    public class BajaUsuarioRequest : BaseRequest
     {
+        public BajaUsuarioRequest()
+        {
+        }
+        
+        public string Dominio { get; set; }
+
+        public string Usuario { get; set; }
     }
-
-    private string m_stringautenticacion;
-    private string m_dominio;
-    private string m_usuario;
-
-    public string StringAutenticacion { get { return m_stringautenticacion; } set { m_stringautenticacion = value; } }
-
-    public string Dominio { get { return m_dominio; } set { m_dominio = value; } }
-
-    public string Usuario { get { return m_usuario; } set { m_usuario = value; } }
 }

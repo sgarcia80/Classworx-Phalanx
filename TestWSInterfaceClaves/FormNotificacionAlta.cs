@@ -7,9 +7,9 @@ using System.IO;
 
 namespace TestWSInterfaceClaves
 {
-    public partial class Form1 : Form
+    public partial class FormNotificacionAlta : Form
     {
-        public Form1()
+        public FormNotificacionAlta()
         {
             InitializeComponent();        }
 

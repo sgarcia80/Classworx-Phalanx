@@ -94,17 +94,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Item.cs" />
+    <Compile Include="FormConectoresConsulta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormConectoresConsulta.Designer.cs">
+      <DependentUpon>FormConectoresConsulta.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormConectores.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormConectores.Designer.cs">
       <DependentUpon>FormConectores.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="FormNotificacionAlta.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="FormNotificacionAlta.Designer.cs">
+      <DependentUpon>FormNotificacionAlta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Principal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Principal.Designer.cs">
+      <DependentUpon>Principal.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -118,13 +131,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="FormConectoresConsulta.resx">
+      <DependentUpon>FormConectoresConsulta.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormConectores.resx">
       <DependentUpon>FormConectores.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
+    <EmbeddedResource Include="FormNotificacionAlta.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>Form1.cs</DependentUpon>
+      <DependentUpon>FormNotificacionAlta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Principal.resx">
+      <DependentUpon>Principal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -146,6 +166,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="TestWSInterfaceClaves_TemporaryKey.pfx" />
+    <None Include="Web References\ConectoresWS\ListaResultado.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
     <None Include="Web References\ConectoresWS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -222,10 +245,10 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>TestWSInterfaceClaves_WSTickets_TicketsDeClaves</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="http://localhost/WSInterfaceConectores/usuarioservice.asmx">
+    <WebReferenceUrl Include="http://localhost:23587/UsuarioService.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\ConectoresWS\</RelPath>
-      <UpdateFromURL>http://localhost/WSInterfaceConectores/usuarioservice.asmx</UpdateFromURL>
+      <UpdateFromURL>http://localhost:23587/UsuarioService.asmx</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>

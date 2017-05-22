@@ -256,6 +256,8 @@ namespace PhalanxNAL
             string name = string.Empty;
             string filtroBuscarNombre = ConfigurationManager.AppSettings["LDAPBuscarNombreFilter"];
 
+            TraceHelper.Information("Se busca en AD al usuario '{0}'", username);
+
             DirectoryEntry usuario = BuscarLDAPEntryRecursivo(path, filtroBuscarNombre.Replace("[username]", username), new string[] { NOMBRE_PROPIEDAD_USERNAME_AD });
 
             try

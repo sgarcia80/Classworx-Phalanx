@@ -2,11 +2,11 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TestWSInterfaceClaves.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="TestWSInterfaceClaves_WSTickets_TicketsDeClaves" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://localhost/WSInterfaceClaves/TicketsDeClaves.asmx</Value>
-    </Setting>
     <Setting Name="TestWSInterfaceClaves_ConectoresWS_UsuarioService" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://localhost/WSInterfaceConectores/usuarioservice.asmx</Value>
+      <Value Profile="(Default)">http://localhost:23587/UsuarioService.asmx</Value>
+    </Setting>
+    <Setting Name="TestWSInterfaceClaves_WSTickets_TicketsDeClaves" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost:8001/TicketsDeClaves.asmx</Value>
     </Setting>
   </Settings>
 </SettingsFile>

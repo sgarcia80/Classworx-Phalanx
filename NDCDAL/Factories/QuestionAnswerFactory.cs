@@ -26,8 +26,13 @@ namespace NDCDAL.Factories
                         DataSearch = DataSearch.Add(Restrictions.Like("Username", FilUser, MatchMode.Anywhere));
 
                     DataSearch = DataSearch.AddOrder(Order.Asc("Username"));
-                    
-                    Lst.Add(DataSearch.List<QuestionAnswerEntity>());
+
+                    var result = DataSearch.List<QuestionAnswerEntity>();
+
+                    if (result != null)
+                    {
+                        Lst.Add(result);
+                    }
                 }
             }
             catch (NHibernate.ObjectNotFoundException ObjNotFoundEx)
@@ -88,7 +93,7 @@ namespace NDCDAL.Factories
         public void Save(QuestionAnswerEntity entidad)
         {
             ITransaction tx = null;
-            
+
             using (ISession session = DBMgr.factory.OpenSession())
             {
                 try

@@ -1,6 +1,6 @@
 namespace TestWSInterfaceClaves
 {
-    partial class Form1
+    partial class FormNotificacionAlta
     {
         /// <summary>
         /// Required designer variable.

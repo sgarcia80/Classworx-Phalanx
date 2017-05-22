@@ -102,9 +102,7 @@ namespace NotifClavesWeb
 
             if (esExterno)
             {
-                //TODO
-                Session["externo"] = "N";
-                //Session["externo"] = (esExterno) ? "S" : "N";
+               Session["externo"] = (esExterno) ? "S" : "N";
             }
             return authentic;
         }

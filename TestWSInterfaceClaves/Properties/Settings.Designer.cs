@@ -26,20 +26,20 @@ namespace TestWSInterfaceClaves.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost/WSInterfaceClaves/TicketsDeClaves.asmx")]
-        public string TestWSInterfaceClaves_WSTickets_TicketsDeClaves {
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:23587/UsuarioService.asmx")]
+        public string TestWSInterfaceClaves_ConectoresWS_UsuarioService {
             get {
-                return ((string)(this["TestWSInterfaceClaves_WSTickets_TicketsDeClaves"]));
+                return ((string)(this["TestWSInterfaceClaves_ConectoresWS_UsuarioService"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost/WSInterfaceConectores/usuarioservice.asmx")]
-        public string TestWSInterfaceClaves_ConectoresWS_UsuarioService {
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:8001/TicketsDeClaves.asmx")]
+        public string TestWSInterfaceClaves_WSTickets_TicketsDeClaves {
             get {
-                return ((string)(this["TestWSInterfaceClaves_ConectoresWS_UsuarioService"]));
+                return ((string)(this["TestWSInterfaceClaves_WSTickets_TicketsDeClaves"]));
             }
         }
     }

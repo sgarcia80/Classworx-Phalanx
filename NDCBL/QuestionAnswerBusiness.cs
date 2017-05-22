@@ -30,14 +30,17 @@ namespace NDCBL
             QuestionAnswerFactory factory = new QuestionAnswerFactory();
             factory.FilUser = FilUser;
 
-            phxCryptMgr.CCryptMgr encriptacion = new phxCryptMgr.CCryptMgr(); 
+            phxCryptMgr.CCryptMgr encriptacion = new phxCryptMgr.CCryptMgr();
             QuestionAnswerEntityCollection collection = factory.GetAll();
 
-            //Se desencriptan todas las respuestas.
-            foreach (QuestionAnswerEntity question in collection)
+            if (collection != null)
             {
-                question.Respuesta = encriptacion.decrypt(question.Respuesta);
-                question.Respuesta = question.Respuesta.Replace("\0", string.Empty).Trim();
+                //Se desencriptan todas las respuestas.
+                foreach (QuestionAnswerEntity question in collection)
+                {
+                    question.Respuesta = encriptacion.decrypt(question.Respuesta);
+                    question.Respuesta = question.Respuesta.Replace("\0", string.Empty).Trim();
+                }
             }
 
             return collection;
@@ -46,11 +49,11 @@ namespace NDCBL
         public void Save(QuestionAnswerEntityCollection collection)
         {
             QuestionAnswerFactory factory = new QuestionAnswerFactory();
-            
+
             phxCryptMgr.CCryptMgr encriptacion = new phxCryptMgr.CCryptMgr();
 
             //Se encriptan todas las respuestas.
-            foreach(QuestionAnswerEntity question in collection)
+            foreach (QuestionAnswerEntity question in collection)
             {
                 question.Respuesta = encriptacion.encrypt(question.Respuesta);
             }
