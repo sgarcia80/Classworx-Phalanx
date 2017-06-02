@@ -25,6 +25,7 @@ namespace PhalanxDAL.Factories
             AltaUsuarioRedExterno = 9,
             NotificacionBlanqueo = 10,
             DevolucionPwdRqstNoCritic = 11,
+            VencimientoPwdApp = 12,
         }
         public MailTypeEntityCollection GetAll()
         {

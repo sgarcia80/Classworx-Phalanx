@@ -200,6 +200,8 @@ namespace PhalanxDAL
                 config.AddResource("PhalanxDAL.MappingFiles.CommunicationDeviceProtocols.hbm.xml", nhAssembly);
                 config.AddResource("PhalanxDAL.MappingFiles.CommunicationDevices.hbm.xml", nhAssembly);
                 config.AddResource("PhalanxDAL.MappingFiles.PhxLogUsuariosInactivados.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.VencPwdAppLog.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.VencPwdAppLogDet.hbm.xml", nhAssembly);
 
                 if (assembly != null)
                 {

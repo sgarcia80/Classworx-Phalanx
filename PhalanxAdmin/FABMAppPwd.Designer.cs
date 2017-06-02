@@ -50,12 +50,12 @@ namespace PhalanxAdmin
             this.cbAplicativos = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.lps = new System.Windows.Forms.GroupBox();
-            this.chkPwdConcurrente = new System.Windows.Forms.CheckBox();
             this.chkVisualizar = new System.Windows.Forms.CheckBox();
             this.tPassword2 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.tPassword1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.chkPwdConcurrente = new System.Windows.Forms.CheckBox();
             this.lTitleDominio = new System.Windows.Forms.Label();
             this.gbInfoAdic = new System.Windows.Forms.GroupBox();
             this.txtInfoAdic3 = new System.Windows.Forms.TextBox();
@@ -71,6 +71,9 @@ namespace PhalanxAdmin
             this.lblModifying = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpGeneral = new System.Windows.Forms.TabPage();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtDiasRestantesPass = new System.Windows.Forms.TextBox();
+            this.txtDuracionClave = new System.Windows.Forms.TextBox();
             this.tpGrpSolic = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label9 = new System.Windows.Forms.Label();
@@ -337,7 +340,6 @@ namespace PhalanxAdmin
             // lps
             // 
             this.lps.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lps.Controls.Add(this.chkPwdConcurrente);
             this.lps.Controls.Add(this.chkVisualizar);
             this.lps.Controls.Add(this.tPassword2);
             this.lps.Controls.Add(this.label4);
@@ -349,16 +351,6 @@ namespace PhalanxAdmin
             this.lps.TabIndex = 7;
             this.lps.TabStop = false;
             this.lps.Text = "Contraseña del Usuario";
-            // 
-            // chkPwdConcurrente
-            // 
-            this.chkPwdConcurrente.AutoSize = true;
-            this.chkPwdConcurrente.Location = new System.Drawing.Point(322, 81);
-            this.chkPwdConcurrente.Name = "chkPwdConcurrente";
-            this.chkPwdConcurrente.Size = new System.Drawing.Size(84, 17);
-            this.chkPwdConcurrente.TabIndex = 3;
-            this.chkPwdConcurrente.Text = "Concurrente";
-            this.chkPwdConcurrente.UseVisualStyleBackColor = true;
             // 
             // chkVisualizar
             // 
@@ -406,6 +398,16 @@ namespace PhalanxAdmin
             this.label1.Size = new System.Drawing.Size(61, 13);
             this.label1.TabIndex = 3;
             this.label1.Text = "Contraseña";
+            // 
+            // chkPwdConcurrente
+            // 
+            this.chkPwdConcurrente.AutoSize = true;
+            this.chkPwdConcurrente.Location = new System.Drawing.Point(443, 112);
+            this.chkPwdConcurrente.Name = "chkPwdConcurrente";
+            this.chkPwdConcurrente.Size = new System.Drawing.Size(84, 17);
+            this.chkPwdConcurrente.TabIndex = 3;
+            this.chkPwdConcurrente.Text = "Concurrente";
+            this.chkPwdConcurrente.UseVisualStyleBackColor = true;
             // 
             // lTitleDominio
             // 
@@ -489,7 +491,7 @@ namespace PhalanxAdmin
             // 
             this.chkUsuarioCritico.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkUsuarioCritico.AutoSize = true;
-            this.chkUsuarioCritico.Location = new System.Drawing.Point(103, 180);
+            this.chkUsuarioCritico.Location = new System.Drawing.Point(443, 89);
             this.chkUsuarioCritico.Name = "chkUsuarioCritico";
             this.chkUsuarioCritico.Size = new System.Drawing.Size(57, 17);
             this.chkUsuarioCritico.TabIndex = 4;
@@ -554,6 +556,10 @@ namespace PhalanxAdmin
             // 
             // tpGeneral
             // 
+            this.tpGeneral.Controls.Add(this.label3);
+            this.tpGeneral.Controls.Add(this.txtDiasRestantesPass);
+            this.tpGeneral.Controls.Add(this.txtDuracionClave);
+            this.tpGeneral.Controls.Add(this.chkPwdConcurrente);
             this.tpGeneral.Controls.Add(this.lblFolioTit);
             this.tpGeneral.Controls.Add(this.lblFolioNro);
             this.tpGeneral.Controls.Add(this.lTitleDominio);
@@ -577,6 +583,43 @@ namespace PhalanxAdmin
             this.tpGeneral.TabIndex = 0;
             this.tpGeneral.Text = "General";
             this.tpGeneral.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(479, 157);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(140, 13);
+            this.label3.TabIndex = 51;
+            this.label3.Text = "Duración de Clave / Restan";
+            // 
+            // txtDiasRestantesPass
+            // 
+            this.txtDiasRestantesPass.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.txtDiasRestantesPass.Enabled = false;
+            this.txtDiasRestantesPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.txtDiasRestantesPass.Location = new System.Drawing.Point(625, 154);
+            this.txtDiasRestantesPass.MaxLength = 3;
+            this.txtDiasRestantesPass.Name = "txtDiasRestantesPass";
+            this.txtDiasRestantesPass.ReadOnly = true;
+            this.txtDiasRestantesPass.Size = new System.Drawing.Size(30, 20);
+            this.txtDiasRestantesPass.TabIndex = 50;
+            this.txtDiasRestantesPass.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtDuracionClave
+            // 
+            this.txtDuracionClave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.txtDuracionClave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.txtDuracionClave.Location = new System.Drawing.Point(443, 154);
+            this.txtDuracionClave.MaxLength = 3;
+            this.txtDuracionClave.Name = "txtDuracionClave";
+            this.txtDuracionClave.Size = new System.Drawing.Size(30, 20);
+            this.txtDuracionClave.TabIndex = 49;
+            this.txtDuracionClave.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtDuracionClave.TextChanged += new System.EventHandler(this.txtDuracionClave_TextChanged);
+            this.txtDuracionClave.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDuracionClave_KeyPress);
             // 
             // tpGrpSolic
             // 
@@ -1385,6 +1428,9 @@ namespace PhalanxAdmin
         private System.Windows.Forms.ColumnHeader columnHeader9;
         private System.Windows.Forms.ColumnHeader columnHeader10;
         private System.Windows.Forms.ImageList imageList;
+        private System.Windows.Forms.Label label3;
+        protected System.Windows.Forms.TextBox txtDiasRestantesPass;
+        protected System.Windows.Forms.TextBox txtDuracionClave;
 
     }
 }

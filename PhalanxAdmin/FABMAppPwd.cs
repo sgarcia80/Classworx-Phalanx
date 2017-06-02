@@ -209,6 +209,10 @@ namespace PhalanxAdmin
                 tPassword2.Text = strPwd;
                 chkActivo.Checked = _entity.ActiveUser;
                 chkActivo.Enabled = _entity.Application.Active;
+                txtDuracionClave.Text = _entity.Duration.ToString();
+
+                ApplicationUserBusiness auBL = new ApplicationUserBusiness();
+                txtDiasRestantesPass.Text = auBL.getDiasRestantes(txtDuracionClave.Text, _entity.ModifyingPassDate);
 
                 /*
                 txtDBName.Text = _entity.Name;
@@ -462,6 +466,17 @@ namespace PhalanxAdmin
                 MessageBox.Show("Debe seleccionar al menos un Grupo de Seguimiento de Solicitudes asociado a este usuario");
                 return;
             }
+            // chequear que duracion de clave tenga valor y sea mayor a cero
+            if (txtDuracionClave.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("Debe ingresar Duración de Clave");
+                return;
+            }
+            if (Int32.Parse(txtDuracionClave.Text.Trim()) < 1)
+            {
+                MessageBox.Show("Duración de Clave debe ser mayor a cero");
+                return;
+            }
 
 
             // verificar que el usuario no exista para esa BD
@@ -484,10 +499,19 @@ namespace PhalanxAdmin
             }
             _entity.Desc = txtDescrip.Text;
             _entity.Username = txtUsername.Text;
+
+            bool passHasChange = false;
             // si hay cambio de pwd
             if (chkChgPwd.Checked)
             {
-                _entity.UserPassword.Password = AppUsrBL.EncryptPassword(tPassword1.Text);
+                //Verifico que realmente el password ingresado difiera del que esta en la base
+                if (!tPassword1.Text.Equals(AppUsrBL.DecryptPassword(_entity.UserPassword.Password)))
+                {
+                    passHasChange = true;
+                    _entity.ModifyingPassDate = new PhalanxDAL.Factories.GetDateFactory().GetDate().GetDate;
+                    _entity.UserPassword.Password = AppUsrBL.EncryptPassword(tPassword1.Text);
+                }
+
             }
             _entity.ActiveUser = chkActivo.Checked;
             _entity.Field1Value = txtInfoAdic1.Text;
@@ -497,9 +521,22 @@ namespace PhalanxAdmin
             //Agregado MG
             _entity.Critical = chkUsuarioCritico.Checked;
             _entity.UserPassword.Concurrent = chkPwdConcurrente.Checked;
+
+            //Si la duracion anterior era 999 o cero (registro viejo) y lo cambio para que ahora tenga fecha de vencimiento
+            //debo completar la fecha de modificacion de clave
+            if ((_entity.Duration == 999 || _entity.Duration == 0) && !txtDuracionClave.Text.Trim().Equals("999"))
+                _entity.ModifyingPassDate = new PhalanxDAL.Factories.GetDateFactory().GetDate().GetDate;
+
+            _entity.Duration = Int32.Parse(txtDuracionClave.Text.Trim());
+
+            //Si la nueva duracion es 999 limpio la fecha de ultima modificacion de clave
+            //porque esta fecha solo contendra un valor cuando tenga vencimiento
+            if (_entity.Duration == 999)
+                _entity.ModifyingPassDate = null;
+
             // grabar
 
-            int Id = AppUsrBL.Save(_entity, chkChgPwd.Checked, this.GetGruposSolicitudes(), this.GetGruposSeguimientos(), true);
+            int Id = AppUsrBL.Save(_entity, passHasChange, this.GetGruposSolicitudes(), this.GetGruposSeguimientos(), true);
             if (Id > 0)
             {
                 _entity.Id = Id;
@@ -1377,6 +1414,26 @@ namespace PhalanxAdmin
                 
             }
         }
+
+        private void txtDuracionClave_KeyPress(object sender, KeyPressEventArgs e)
+        {
+             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+             {
+                 e.Handled = true;
+             }
+        }
+
+        private void txtDuracionClave_TextChanged(object sender, EventArgs e)
+        {
+            if (txtDuracionClave.Text.Trim().Equals("999"))
+                txtDiasRestantesPass.Text = "";
+            else
+            {
+                ApplicationUserBusiness auBL = new ApplicationUserBusiness();
+                txtDiasRestantesPass.Text = auBL.getDiasRestantes(txtDuracionClave.Text, _entity.ModifyingPassDate);
+            }
+        }
+
 
     }
 }

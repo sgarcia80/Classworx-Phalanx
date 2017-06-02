@@ -509,6 +509,16 @@ namespace PhalanxDAL.Factories
 			}
 		}
 
+        public IList GetProxVencimientos()
+        {
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                IQuery query = session.GetNamedQuery("getProxVencApplicationUsers");
+
+                return query.List();
+            }
+        }
+
         public ApplicationUserEntity Load(int ID)
         {
             ApplicationUserEntity objPhxUsr = null;

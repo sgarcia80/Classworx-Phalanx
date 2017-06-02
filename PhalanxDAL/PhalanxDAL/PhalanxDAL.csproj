@@ -193,6 +193,8 @@
     <Compile Include="DBMgr.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Factories\VencPwdAppLogDetFactory.cs" />
+    <Compile Include="Factories\VencPwdAppLogFactory.cs" />
     <Compile Include="Factories\vwHistPwdVisFactory.cs" />
     <Compile Include="Factories\HistPasswordChangeAccessFactory.cs" />
     <Compile Include="Factories\MailAlertCCFactory.cs" />
@@ -248,7 +250,9 @@
     <EmbeddedResource Include="MappingFiles\PwdLockTypes.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MappingFiles\Users.hbm.xml" />
+    <EmbeddedResource Include="MappingFiles\Users.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MappingFiles\WinPCs.hbm.xml" />
@@ -260,7 +264,9 @@
     <EmbeddedResource Include="MappingFiles\WinDomainControllers.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MappingFiles\Requests.hbm.xml" />
+    <EmbeddedResource Include="MappingFiles\Requests.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MappingFiles\WinDomains.hbm.xml" />
@@ -509,6 +515,12 @@
     <EmbeddedResource Include="MappingFiles\VwHistPwdVis.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\VencPwdAppLog.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\VencPwdAppLogDet.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

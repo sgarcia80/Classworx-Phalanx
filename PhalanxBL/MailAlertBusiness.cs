@@ -34,6 +34,39 @@ namespace PhalanxBL
         }
 
 
+        public void CreateVencPwdAppMail(string sFolio, string sAplicativo, string sUsuario, string sEMail)
+        {
+            string MailBody = "";
+            string MailSubject = "";
+            try
+            {
+                MailAlertEntity MailToSend = new MailAlertEntity();
+                MailToSend.MailType = new MailTypeFactory().GetMailType(MailTypeFactory.MailType.VencimientoPwdApp);
+
+                MailToSend.ToName = sUsuario;
+                MailToSend.ToAddress = sEMail;
+
+                PhxConfigBusiness PhxConfBL = new PhxConfigBusiness();
+                MailBody = ReplaceVencPwdAppTokens(PhxConfBL.GetConfigParam(ConfigCodes.BodyVencPwdAppMails).LongTxtValue, sFolio, sAplicativo, sUsuario);
+                MailSubject = PhxConfBL.GetConfigParam(ConfigCodes.SubjectVencPwdAppMails).ShortTxtValue;
+
+                MailToSend.Body = MailBody;
+                MailToSend.Subject = MailSubject;
+
+                MailAlertFactory MAF = new MailAlertFactory();
+                int IdMailAlert = MAF.Save(MailToSend);
+                if (IdMailAlert > 0)
+                {
+                    this.SendMail(MailToSend);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                // no se pudo crear el mail, seguramente por falta de parametros;
+            }
+        }
+
         public void CreateRqstPwdMail(PasswordRequestEntity PasswordRequest)
         {
 
@@ -844,6 +877,19 @@ namespace PhalanxBL
             MailBody = MailBody.Replace("[TiempoUso]", PwdRqst.HoursGiven + TiempoUso);
             MailBody = MailBody.Replace("[NroTicket]", PwdRqst.Key);
             MailBody = MailBody.Replace("[EstadoSolicitud]", PwdRqst.RqstState.RqstStateDesc);
+            return MailBody;
+        }
+        private string ReplaceVencPwdAppTokens(string MailBody, string sFolio, string sAplicativo, string sUsuario)
+        {
+            /*
+            o	Folio: [Folio]
+            o	Aplicativo: [Aplicativo]
+            o	Usuario: [Usuario]
+             * */
+
+            MailBody = MailBody.Replace("[Folio]", sFolio);
+            MailBody = MailBody.Replace("[Aplicativo]", sAplicativo);
+            MailBody = MailBody.Replace("[Usuario]", sUsuario);
             return MailBody;
         }
 

@@ -52,7 +52,9 @@ namespace PhalanxCommon.Entities
         SubjectDevMailsNoCritic,
         BodyDevMailsNoCritic,
         AutenticacionUsuariosAutorizadosWSConectores,
-        UsuariosAutorizadosWSConectores
+        UsuariosAutorizadosWSConectores,
+        SubjectVencPwdAppMails, // = "@SUBJECT_VENCPWDAPP_MAILS@",
+        BodyVencPwdAppMails // = "@BODY_VENCPWDAPP_MAILS@",
     }
 
 

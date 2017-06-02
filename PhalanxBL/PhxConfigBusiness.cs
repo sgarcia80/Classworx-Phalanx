@@ -161,6 +161,12 @@ namespace PhalanxBL
                 case ConfigCodes.UsuariosAutorizadosWSConectores:
                     strParamCode = "@US_AUT_WSCONECTORES@";
                     break;
+                case ConfigCodes.SubjectVencPwdAppMails:
+                    strParamCode = "@SUBJECT_VENCPWDAPP_MAILS@";
+                    break;
+                case ConfigCodes.BodyVencPwdAppMails:
+                    strParamCode = "@BODY_VENCPWDAPP_MAILS@";
+                    break;
                 default:
                     break;
             }
@@ -257,6 +263,8 @@ namespace PhalanxBL
             ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectDevMailsNoCritic));
             ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyDevMailsNoCritic));
 
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectVencPwdAppMails));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyVencPwdAppMails));
             return ConfEC;
 
         }

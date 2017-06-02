@@ -182,7 +182,16 @@ namespace PhalanxAdmin
 				lviArr[i].SubItems.Add(AppUsrEnt[1].ToString());
 				lviArr[i].SubItems.Add((bool)AppUsrEnt[2] ? "Si" : "No");
 				lviArr[i].SubItems.Add(AppUsrEnt[4].ToString());
-				lviArr[i].Text = "";
+
+                if (AppUsrEnt[6] != null)
+                    if (AppUsrEnt[6].ToString().Equals("999"))
+                        lviArr[i].SubItems.Add("---");
+                    else
+                        lviArr[i].SubItems.Add(AppUsrEnt[6].ToString());
+                else
+                    lviArr[i].SubItems.Add("");
+                
+                lviArr[i].Text = "";
 				lviArr[i].ImageIndex = (bool)AppUsrEnt[3] ? 0 : 1;
                 lviArr[i].Tag = AppUsrEnt[0].ToString();
                 i++;

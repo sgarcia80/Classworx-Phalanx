@@ -203,5 +203,32 @@ namespace PhalanxBL
         {
             return new ApplicationUserFactory().Load(ID);
         }
+
+        public string getDiasRestantes(string sDuration, DateTime? dModifyingPassDate)
+        {
+            if (!dModifyingPassDate.HasValue)
+                return sDuration;
+
+            string sRestantes = "";
+            int duration = 0;
+
+            if (!sDuration.Equals(string.Empty))
+                duration = Int32.Parse(sDuration.Trim());
+
+            if (duration == 999)
+                return sRestantes;
+
+            TimeSpan? ts = DateTime.Now - dModifyingPassDate;
+            if (ts.HasValue)
+                sRestantes = (duration - ts.Value.Days).ToString();
+
+            return sRestantes;
+        }
+
+        public IList GetProxVencimientos()
+        {
+            return new ApplicationUserFactory().GetProxVencimientos();
+        }
+
     }
 }
