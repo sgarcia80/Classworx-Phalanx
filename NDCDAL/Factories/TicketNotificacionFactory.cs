@@ -57,7 +57,7 @@ namespace NDCDAL.Factories
                 if (!string.IsNullOrEmpty(_filUsuario))
                 {
                     //DataSearch = DataSearch.Add(Restrictions.Sql("lower({alias}.user_red) = lower('" + _filUsuario + "')"));
-                    DataSearch = DataSearch.Add(Restrictions.InsensitiveLike("user_red", _filUsuario, MatchMode.Exact));
+                    DataSearch = DataSearch.Add(Restrictions.InsensitiveLike("Usuario", _filUsuario, MatchMode.Exact));
                 }
 
                 //if (!string.IsNullOrEmpty(_filDominio))
