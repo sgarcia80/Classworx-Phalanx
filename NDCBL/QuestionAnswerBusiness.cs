@@ -38,8 +38,11 @@ namespace NDCBL
                 //Se desencriptan todas las respuestas.
                 foreach (QuestionAnswerEntity question in collection)
                 {
-                    question.Respuesta = encriptacion.decrypt(question.Respuesta);
-                    question.Respuesta = question.Respuesta.Replace("\0", string.Empty).Trim();
+                    if (!string.IsNullOrWhiteSpace(question.Respuesta))
+                    {
+                        question.Respuesta = encriptacion.decrypt(question.Respuesta);
+                        question.Respuesta = question.Respuesta.Replace("\0", string.Empty).Trim();
+                    }
                 }
             }
 

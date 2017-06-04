@@ -61,7 +61,7 @@
                     <asp:Button ID="btnAceptar" Text="Aceptar" CssClass="btn" runat="server" ValidationGroup="Aceptar"
                         OnClick="btnAceptar_Click" />
                     <asp:Button ID="btnCancelar" Text="Cancelar" CssClass="btn" runat="server" CausesValidation="false"
-                        PostBackUrl="~/AutogestionCOBIS.aspx" />
+                        OnClick="btnCancelar_Click" />
                 </td>
             </tr>
             <tr runat="server" id="trTitRespuesta">

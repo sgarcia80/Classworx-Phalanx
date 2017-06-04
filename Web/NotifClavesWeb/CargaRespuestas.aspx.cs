@@ -61,6 +61,11 @@ namespace NotifClavesWeb
 
         }
 
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/AltaTemprana.aspx");
+        }
+
         private bool Validar()
         {
             try

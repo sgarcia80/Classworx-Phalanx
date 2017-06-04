@@ -49,6 +49,11 @@ namespace NotifClavesWeb
             }
         }
 
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/AutogestionCOBIS.aspx");
+        }
+
         private void CambiarClave()
         {
             PhxConfigBusiness pcb = new PhxConfigBusiness();

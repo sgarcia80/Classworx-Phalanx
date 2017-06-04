@@ -122,7 +122,7 @@
                 </td>
                 <td align="left" valign="middle">&nbsp;&nbsp;
                     <asp:Button ID="btnVolver" runat="server" CssClass="btn" Text="Volver" Visible="false"
-                        ToolTip="Volver" CausesValidation="False" PostBackUrl="~/AltaTemprana.aspx"></asp:Button>
+                        ToolTip="Volver" CausesValidation="False" OnClick="btnVolver_Click"></asp:Button>
                 </td>
             </tr>
         </table>

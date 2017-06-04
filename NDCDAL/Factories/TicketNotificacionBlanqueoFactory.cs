@@ -5,6 +5,7 @@ using NDCCommon.Collections;
 using System.Collections.Generic;
 using NHibernate.Criterion;
 using PhalanxDAL;
+using Classworx.Common.Trace;
 
 /// <summary>
 /// Summary description for BPMSolicitudFactory
@@ -169,13 +170,14 @@ namespace NDCDAL.Factories
                 try
                 {
                     tickets = DataSearch.List<TicketNotificacionBlanqueoEntity>();
+
+                    TiNotClaEC.Add(tickets);
                 }
-                catch
+                catch(Exception ex)
                 {
+                    TraceHelper.Error(ex, "Error al consultas los tickets de notificacion blanqueo");
                     tickets = null;
                 }
-
-                TiNotClaEC.Add(tickets);
             }
 
             return TiNotClaEC;

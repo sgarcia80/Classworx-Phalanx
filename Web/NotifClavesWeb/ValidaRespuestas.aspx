@@ -82,7 +82,7 @@
                 </td>
                 <td align="left" valign="middle">&nbsp;&nbsp;
                     <asp:Button ID="btnVolver" runat="server" CssClass="btn" Text="Volver"
-                        ToolTip="Volver" CausesValidation="False" PostBackUrl="~/NotificacionClave.aspx"></asp:Button>
+                        ToolTip="Volver" CausesValidation="False" OnClick="btnVolver_Click"></asp:Button>
                 </td>
             </tr>
         </table>

@@ -112,6 +112,11 @@ namespace NotifClavesWeb
 
         }
 
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/ClavesAplicativos.aspx");
+        }
+
         private bool Validar()
         {
             try
