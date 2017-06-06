@@ -72,23 +72,24 @@ namespace PhalanxAppPwdVencimiento
                     try
                     {
 
-                        sEMail = string.Empty;
+                        ApplicationUserBusiness usrBL = new ApplicationUserBusiness();
+                        ApplicationUserEntity auE = new ApplicationUserEntity();
+
+
                         sFolio = string.Empty;
                         sAplicativo = string.Empty;
                         sUsuario = string.Empty;
 
-                        sEMail = AppUsrEnt[0].ToString();
-                        sFolio = AppUsrEnt[1].ToString();
-                        sAplicativo = AppUsrEnt[2].ToString();
-                        sUsuario = AppUsrEnt[3].ToString();
+                        sFolio = AppUsrEnt[0].ToString();
+                        sAplicativo = AppUsrEnt[1].ToString();
+                        sUsuario = AppUsrEnt[2].ToString();
 
-                        vFolio = Int32.Parse(AppUsrEnt[1].ToString());
-                        vCantVenc = Int32.Parse(AppUsrEnt[4].ToString());
+                        vFolio = Int32.Parse(AppUsrEnt[0].ToString());
+                        vCantVenc = Int32.Parse(AppUsrEnt[3].ToString());
 
-                        if (!string.IsNullOrEmpty(sEMail))
-                        {
-                            maBL.CreateVencPwdAppMail(sFolio, sAplicativo, sUsuario, sEMail);
-                        }
+                        auE = usrBL.GetById(vFolio);
+
+                        maBL.CreateVencPwdAppMail(auE);
 
                         VencPwdAppLogDetEntity logdet = new VencPwdAppLogDetEntity();
 

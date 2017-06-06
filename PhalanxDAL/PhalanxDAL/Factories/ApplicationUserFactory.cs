@@ -120,6 +120,17 @@ namespace PhalanxDAL.Factories
 
         }
 
+
+        public ApplicationUserEntity GetById(int userId)
+        {
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                ApplicationUserEntity entity = session.Get<ApplicationUserEntity>(userId);
+
+                return entity;
+            }
+        }
+        
         public ApplicationUserEntity Refresh(ApplicationUserEntity User)
         {
             try

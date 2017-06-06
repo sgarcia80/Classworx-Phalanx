@@ -504,13 +504,20 @@ namespace PhalanxAdmin
             // si hay cambio de pwd
             if (chkChgPwd.Checked)
             {
-                //Verifico que realmente el password ingresado difiera del que esta en la base
-                if (!tPassword1.Text.Equals(AppUsrBL.DecryptPassword(_entity.UserPassword.Password)))
+                //si es alta
+                if (_entity.Id == 0 || !tPassword1.Text.Equals(AppUsrBL.DecryptPassword(_entity.UserPassword.Password)))
                 {
                     passHasChange = true;
                     _entity.ModifyingPassDate = new PhalanxDAL.Factories.GetDateFactory().GetDate().GetDate;
                     _entity.UserPassword.Password = AppUsrBL.EncryptPassword(tPassword1.Text);
                 }
+                ////Verifico que realmente el password ingresado difiera del que esta en la base
+                //else if (!tPassword1.Text.Equals(AppUsrBL.DecryptPassword(_entity.UserPassword.Password)))
+                //{
+                //    passHasChange = true;
+                //    _entity.ModifyingPassDate = new PhalanxDAL.Factories.GetDateFactory().GetDate().GetDate;
+                //    _entity.UserPassword.Password = AppUsrBL.EncryptPassword(tPassword1.Text);
+                //}
 
             }
             _entity.ActiveUser = chkActivo.Checked;

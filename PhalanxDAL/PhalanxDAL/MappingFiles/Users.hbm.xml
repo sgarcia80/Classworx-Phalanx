@@ -264,13 +264,11 @@
   </sql-query>
 
   <sql-query name="getProxVencApplicationUsers">
-    <return-scalar column="EMail" type="String"/>
     <return-scalar column="Folio" type="Int32"/>
     <return-scalar column="Aplicativo" type="String"/>
     <return-scalar column="Usuario" type="String"/>
     <return-scalar column="DiasRestantes" type="Int32"/>
     SELECT
-    dbo.Phx_Users.user_email AS EMail,
     dbo.Applications_Users.user_id AS Folio,
     dbo.Applications.app_name AS Aplicativo,
     dbo.Users.username AS Usuario,
@@ -279,10 +277,6 @@
     dbo.Applications_Users
     INNER JOIN dbo.Applications ON dbo.Applications_Users.app_id = dbo.Applications.app_id
     INNER JOIN dbo.Users ON dbo.Applications_Users.user_id = dbo.Users.user_id
-    INNER JOIN dbo.Users_Passwords ON dbo.Users.user_password_id = dbo.Users_Passwords.user_password_id
-    INNER JOIN dbo.followup_request_group_password ON dbo.Users.user_password_id = dbo.followup_request_group_password.user_password_id
-    INNER JOIN dbo.followup_request_group_user ON dbo.followup_request_group_password.frg_id = dbo.followup_request_group_user.frg_id
-    INNER JOIN dbo.Phx_Users ON dbo.Phx_Users.phx_user_id = dbo.followup_request_group_user.phx_user_id
     WHERE
     dbo.Users.duration &lt;&gt; 999
     AND

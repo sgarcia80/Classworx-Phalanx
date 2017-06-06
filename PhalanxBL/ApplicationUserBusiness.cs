@@ -88,6 +88,12 @@ namespace PhalanxBL
 
         }
 
+        public ApplicationUserEntity GetById(int userId)
+        {
+            return m_AppUserFactory.GetById(userId);
+
+        }
+
         public RqstGrpPwdEntityCollection GetGruposSolicitudes(ApplicationUserEntity CurrentUser)
         {
             return m_AppUserFactory.GetGruposSolicitudes(CurrentUser);

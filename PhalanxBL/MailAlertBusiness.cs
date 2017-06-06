@@ -34,20 +34,45 @@ namespace PhalanxBL
         }
 
 
-        public void CreateVencPwdAppMail(string sFolio, string sAplicativo, string sUsuario, string sEMail)
+        public void CreateVencPwdAppMail(ApplicationUserEntity appUsr)
         {
             string MailBody = "";
             string MailSubject = "";
+            string AuthGroupMail = "";
+
             try
             {
                 MailAlertEntity MailToSend = new MailAlertEntity();
                 MailToSend.MailType = new MailTypeFactory().GetMailType(MailTypeFactory.MailType.VencimientoPwdApp);
 
-                MailToSend.ToName = sUsuario;
-                MailToSend.ToAddress = sEMail;
-
                 PhxConfigBusiness PhxConfBL = new PhxConfigBusiness();
-                MailBody = ReplaceVencPwdAppTokens(PhxConfBL.GetConfigParam(ConfigCodes.BodyVencPwdAppMails).LongTxtValue, sFolio, sAplicativo, sUsuario);
+
+                //MailToSend.ToName = appUsr.Username;
+                //MailToSend.ToAddress = 
+
+                //Obtengo grupo de seguimiento
+                PhxUserBusiness PhxUsrBL = new PhxUserBusiness();
+                PhxUserEntityCollection SeguimientoEC = new PhxUserEntityCollection();
+                SeguimientoEC = PhxUsrBL.GetAllFollowPwdRqstAuth(appUsr.UserPassword);
+
+                MailAlertCCBusiness maccBL = new MailAlertCCBusiness();
+
+                if (SeguimientoEC.Count == 0)
+                {
+                    /// si por algun motivo no se encuentran autorizadores se envia a la direccion
+                    /// de mail del grupo de administradores
+                    AuthGroupMail = PhxConfBL.GetConfigParam(ConfigCodes.AdmMailGrp).ShortTxtValue;
+                    MailToSend.MailAlertCCList.Add(maccBL.CreateCC(AuthGroupMail));
+                }
+                else
+                {
+                    //Agrego CC
+                    foreach (PhxUserEntity entityUser in SeguimientoEC)
+                        MailToSend.MailAlertCCList.Add(maccBL.CreateCC(entityUser.Fullname, entityUser.Email, MailToSend));
+                }
+
+
+                MailBody = ReplaceVencPwdAppTokens(PhxConfBL.GetConfigParam(ConfigCodes.BodyVencPwdAppMails).LongTxtValue, appUsr.Id.ToString(), appUsr.ApplicationName, appUsr.Username);
                 MailSubject = PhxConfBL.GetConfigParam(ConfigCodes.SubjectVencPwdAppMails).ShortTxtValue;
 
                 MailToSend.Body = MailBody;
