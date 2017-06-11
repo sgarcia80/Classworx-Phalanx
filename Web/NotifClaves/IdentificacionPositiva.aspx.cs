@@ -32,49 +32,50 @@ public partial class IdentificacionPositiva : System.Web.UI.Page
             string tipodocumento = string.Empty;
             string nrodocumento = string.Empty;
 
+            Meta4LegajoBusiness m4lb = new Meta4LegajoBusiness();
+            Meta4LegajoEntity legajo = null;
+
             if (esNotif)
             {
-                Meta4ClassWorxUsuariosBusiness m4ub = new Meta4ClassWorxUsuariosBusiness();
                 string usuario = Session["Usuario"].ToString();
 
-                IList<Meta4ClassWorxUsuariosEntity> usuarios = m4ub.GetUser(usuario);
-                if (usuarios != null && usuarios.Count > 0)
+                legajo = m4lb.GetByUsuario(usuario);
+
+                if (legajo != null)
                 {
-                    tipodocumento = usuarios[0].TipoDocumento;
-                    nrodocumento = usuarios[0].Num_Documento;
+                    tipodocumento = legajo.TipoDocumento;
+                    nrodocumento = legajo.Numero;
                 }
 
-                btnVolver.PostBackUrl = Request.UrlReferrer.AbsolutePath;
+                btnVolver.PostBackUrl = Request.UrlReferrer.AbsolutePath;                                
             }
             else
             {
                 TicketNotificacionClaveBusiness tncb = new TicketNotificacionClaveBusiness();
                 TicketNotificacionClaveEntity ticket = tncb.GetById(ticketId);
 
+                if (ticket == null ||
+                    (ticket != null && string.IsNullOrEmpty(ticket.TipoDocumento) && string.IsNullOrEmpty(ticket.Documento)))
+                {
+                    lbMensaje.Text = "No se ha encontrado el ticket de notificacion de clave";
+
+                    pnlIdentificacion.Visible = false;
+                    btnAceptar.Visible = false;
+
+                    return;
+                }
+
                 if (ticket.Errado)
                 {
                     Response.Redirect(FormsAuthentication.LoginUrl);
-
                     return;
                 }
 
                 tipodocumento = ticket.TipoDocumento;
                 nrodocumento = ticket.Documento;
+
+                legajo = m4lb.GetByDocumento(tipodocumento, nrodocumento);
             }
-
-            if (string.IsNullOrEmpty(tipodocumento) && string.IsNullOrEmpty(nrodocumento))
-            {
-                lbMensaje.Text = esNotif ? "No se ha encontrado la información del Empleado en RRHH" : 
-                    "No se ha encontrado el ticket de notificacion de clave";
-
-                pnlIdentificacion.Visible = false;
-                btnAceptar.Visible = false;
-
-                return;
-            }
-            
-            Meta4LegajoBusiness m4lb = new Meta4LegajoBusiness();
-            Meta4LegajoEntity legajo = m4lb.GetByDocumento(tipodocumento, nrodocumento);
 
             if (legajo == null)
             {
@@ -235,17 +236,15 @@ public partial class IdentificacionPositiva : System.Web.UI.Page
         //Si ingreso por Notificacion
         bool esNotif = (Session["externo"] != null);
 
+        Meta4LegajoBusiness m4lb = new Meta4LegajoBusiness();
+        Meta4LegajoEntity legajo = null;
+
         if (esNotif)
         {
             Meta4ClassWorxUsuariosBusiness m4ub = new Meta4ClassWorxUsuariosBusiness();
             string usuario = Session["Usuario"].ToString();
 
-            IList<Meta4ClassWorxUsuariosEntity> usuarios = m4ub.GetUser(usuario);
-            if (usuarios != null && usuarios.Count > 0)
-            {
-                tipodocumento = usuarios[0].TipoDocumento;
-                nrodocumento = usuarios[0].Num_Documento;
-            }
+            legajo = m4lb.GetByUsuario(usuario);
         }
         else
         {
@@ -255,11 +254,9 @@ public partial class IdentificacionPositiva : System.Web.UI.Page
 
             tipodocumento = ticket.TipoDocumento;
             nrodocumento = ticket.Documento;
+            legajo = m4lb.GetByDocumento(tipodocumento, nrodocumento);
         }
-
-        Meta4LegajoBusiness m4lb = new Meta4LegajoBusiness();
-        Meta4LegajoEntity legajo = m4lb.GetByDocumento(tipodocumento, nrodocumento);
-
+        
         if (VerificarRespuestas(legajo))
         {
             if (esNotif)

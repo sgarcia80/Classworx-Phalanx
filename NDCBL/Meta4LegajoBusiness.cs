@@ -24,6 +24,20 @@ namespace NDCBL
             return legajos[0];
         }
 
+        public Meta4LegajoEntity GetByUsuario(string usuario)
+        {
+            Meta4LegajoFactory factory = new Meta4LegajoFactory();
+
+            factory.FilUsuario = usuario;
+
+            Meta4LegajoEntityCollection legajos = factory.GetAll();
+
+            if (legajos.Count < 1)
+                return null;
+
+            return legajos[0];
+        }
+
         public Meta4LegajoEntity GetByDocumento(string tipo, string documento)
         {
             Meta4LegajoFactory factory = new Meta4LegajoFactory();

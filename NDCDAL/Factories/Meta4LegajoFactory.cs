@@ -16,6 +16,7 @@ namespace NDCDAL.Factories
         private string _filId;
         private string _filTipoDoc;
         private string _filDoc;
+        private string _filUsuario;
 
         /*
         public Meta4SociedadEntity FilSociedad
@@ -43,7 +44,12 @@ namespace NDCDAL.Factories
         {
             set { _filDoc = value; }
         }
-
+        
+        public string FilUsuario
+        {
+            set { _filUsuario = value; }
+        }
+        
         public Meta4LegajoEntityCollection GetAll()
         {
             IList<Meta4LegajoEntity> legajos;
@@ -65,6 +71,9 @@ namespace NDCDAL.Factories
 
                 if (_filDoc != null)
                     DataSearch = DataSearch.Add(Expression.Eq("ML.Documento", _filDoc));
+
+                if (_filUsuario != null)
+                    DataSearch = DataSearch.Add(Expression.InsensitiveLike("ML.UsuarioRed", _filUsuario));
 
                 try
                 {
