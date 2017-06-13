@@ -73,7 +73,7 @@ namespace PhalanxBL
 
 
                 MailBody = ReplaceVencPwdAppTokens(PhxConfBL.GetConfigParam(ConfigCodes.BodyVencPwdAppMails).LongTxtValue, appUsr.Id.ToString(), appUsr.ApplicationName, appUsr.Username);
-                MailSubject = PhxConfBL.GetConfigParam(ConfigCodes.SubjectVencPwdAppMails).ShortTxtValue;
+                MailSubject = ReplaceVencPwdAppTokens(PhxConfBL.GetConfigParam(ConfigCodes.SubjectVencPwdAppMails).ShortTxtValue, appUsr.Id.ToString(), appUsr.ApplicationName, appUsr.Username);
 
                 MailToSend.Body = MailBody;
                 MailToSend.Subject = MailSubject;
@@ -914,7 +914,7 @@ namespace PhalanxBL
 
             MailBody = MailBody.Replace("[Folio]", sFolio);
             MailBody = MailBody.Replace("[Aplicativo]", sAplicativo);
-            MailBody = MailBody.Replace("[Usuario]", sUsuario);
+            MailBody = MailBody.Replace("[NombreUsuario]", sUsuario);
             return MailBody;
         }
 

@@ -69,6 +69,7 @@ namespace PhalanxAdmin
                 || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyNotificacionBlanqueoMail)
                 || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyReclamoNotificacionBlanqueoMail)
                 || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyDevMailsNoCritic)
+                || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyVencPwdAppMails)
                 )
             {
                 txtValor.Multiline = true;
@@ -94,6 +95,7 @@ namespace PhalanxAdmin
             PhxConfigBusiness conf = new PhxConfigBusiness();
 
             btnTagNombreSolicitante.Enabled = false;
+            btnFolio.Enabled = false;
 
             if (ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyExpMails))
             {
@@ -323,6 +325,26 @@ namespace PhalanxAdmin
                 btnTagToken.Enabled = true;
                 btnTagDestino.Enabled = true;
             }
+            else if (ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.SubjectVencPwdAppMails)
+                  || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyVencPwdAppMails))
+            {
+                grpTags.Visible = true;
+                btnTagFechaExp.Enabled = false;
+                btnTagFechaSolic.Enabled = false;
+                btnTagNomSolic.Enabled = false;
+                btnTagPwdSolic.Enabled = false;
+                btnTagNroTicket.Enabled = false;
+                btnTagDescUso.Enabled = false;
+                btnTagTiempoUso.Enabled = false;
+                btnTagEstadoSolic.Enabled = false;
+                btnTagNombreUsuario.Enabled = true;
+                btnTagFechaAlta.Enabled = false;
+                btnTagAplicativo.Enabled = true;
+                btnTagFechaDev.Enabled = false;
+                btnTagToken.Enabled = false;
+                btnTagDestino.Enabled = false;
+                btnFolio.Enabled = true;
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -353,6 +375,7 @@ namespace PhalanxAdmin
                 || ConfEnt.Code == new PhxConfigBusiness().ParamCodeToString(ConfigCodes.BodyNotificacionBlanqueoMail)
                 || ConfEnt.Code == new PhxConfigBusiness().ParamCodeToString(ConfigCodes.BodyReclamoNotificacionBlanqueoMail)
                 || ConfEnt.Code == new PhxConfigBusiness().ParamCodeToString(ConfigCodes.BodyDevMailsNoCritic)
+                || ConfEnt.Code == new PhxConfigBusiness().ParamCodeToString(ConfigCodes.BodyVencPwdAppMails)
                 )
             {
                 ((PhxConfigEntity)cbParams.SelectedItem).LongTxtValue = txtValor.Text;
