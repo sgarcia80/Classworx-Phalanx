@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using PhalanxBL;
 using System.Collections;
@@ -46,7 +45,7 @@ namespace PhalanxAppPwdVencimiento
             }
             catch (Exception ex)
             {
-                string mensaje = string.Format("Error al obtener vencimientos. Error interno: {0}", ex.Message);
+                string mensaje = string.Format("Error al obtener vencimientos. Error interno: {0}", ex.ToString());
 
                 Console.WriteLine(mensaje);
                 LogError(mensaje);
@@ -106,7 +105,7 @@ namespace PhalanxAppPwdVencimiento
                     }
                     catch (Exception ex)
                     {
-                        string mensaje = string.Format("Error al procesar vencimiento. Folio: {0}, Error interno: {1}", sFolio, ex.Message);
+                        string mensaje = string.Format("Error al procesar vencimiento. Folio: {0}, Error interno: {1}", sFolio, ex.ToString());
 
                         Console.WriteLine(mensaje);
                         if (LogDetError(mensaje, sFolio) < 0)
@@ -121,7 +120,7 @@ namespace PhalanxAppPwdVencimiento
             }
             catch (Exception ex)
             {
-                string mensaje = string.Format("Error al procesar vencimientos. Error interno: {0}", ex.Message);
+                string mensaje = string.Format("Error al procesar vencimientos. Error interno: {0}", ex.ToString());
 
                 Console.WriteLine(mensaje);
                 LogError(mensaje);
@@ -154,7 +153,7 @@ namespace PhalanxAppPwdVencimiento
             }
             catch (Exception ex)
             {
-                string mensaje = string.Format("Error al guardar log. Error interno: {0}", ex.Message);
+                string mensaje = string.Format("Error al guardar log. Error interno: {0}", ex.ToString());
 
                 Console.WriteLine(mensaje);
                 LogError(mensaje);
@@ -174,7 +173,7 @@ namespace PhalanxAppPwdVencimiento
             }
             catch (Exception ex)
             {
-                string mensaje = string.Format("Error al guardar detalle de log. Error interno: {0}", ex.Message);
+                string mensaje = string.Format("Error al guardar detalle de log. Error interno: {0}", ex.ToString());
 
                 Console.WriteLine(mensaje);
                 LogError(mensaje);
