@@ -237,6 +237,20 @@ namespace PhalanxAdmin
                 MessageBox.Show("Debe introducir un Usuario de Red", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            else
+            {
+                if (!picActivo.Visible)
+                {
+                    bool ok = ValidarUsuarioRed();
+
+                    if (!ok)
+                    {
+                        MessageBox.Show("El Usuario de Red es inválido", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+            }
+
             // chequear pwd no vacia
             if (tPassword1.Text.Trim().Length == 0)
             {
@@ -370,6 +384,46 @@ namespace PhalanxAdmin
             }
 
             return ok;
+        }
+
+        private bool ValidarUsuarioRed()
+        {
+            picActivo.Visible = false;
+
+            if (string.IsNullOrEmpty(txtUser.Text.Trim()))
+            {
+                return false;
+            }
+
+            WinDomainEntity dominio = cbDomain.SelectedItem as WinDomainEntity;
+
+            string path = string.Empty;
+
+            if (!string.IsNullOrEmpty(dominio.LDAPPath))
+            {
+                path = dominio.LDAPPath;
+            }
+
+            try
+            {
+                string nombreUser = PhalanxNAL.ActiveDirectoryHelper.BuscarNombrePorUsername(txtUser.Text.Trim(), path);
+
+                if (!string.IsNullOrEmpty(nombreUser))
+                {
+                    picActivo.Visible = true;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return picActivo.Visible;
+        }
+
+        private void txtUser_Validating(object sender, CancelEventArgs e)
+        {
+            ValidarUsuarioRed();
         }
     }
 }

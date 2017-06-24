@@ -290,6 +290,7 @@ namespace PhalanxAdmin
                     txtInfoAdic2.ReadOnly = true;
                     txtInfoAdic3.ReadOnly = true;
                     chkActivo.Enabled = false;
+                    txtDuracionClave.ReadOnly = true;
 
                     // crea textbox a partir de los combos
                     TextBox txtApplication = new TextBox();
