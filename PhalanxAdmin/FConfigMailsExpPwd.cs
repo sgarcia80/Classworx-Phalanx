@@ -96,6 +96,7 @@ namespace PhalanxAdmin
 
             btnTagNombreSolicitante.Enabled = false;
             btnFolio.Enabled = false;
+            btnDiasRestantes.Enabled = false;
 
             if (ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyExpMails))
             {
@@ -344,6 +345,7 @@ namespace PhalanxAdmin
                 btnTagToken.Enabled = false;
                 btnTagDestino.Enabled = false;
                 btnFolio.Enabled = true;
+                btnDiasRestantes.Enabled = true;
             }
         }
 
@@ -510,6 +512,12 @@ namespace PhalanxAdmin
         private void btnTagNombreSolicitante_Click(object sender, EventArgs e)
         {
             string strTag = "[NombreSolicitante]";
+            AgregarTag(strTag);
+        }
+
+        private void btnDiasRestantes_Click(object sender, EventArgs e)
+        {
+            string strTag = "[DiasRestantes]";
             AgregarTag(strTag);
         }
     }

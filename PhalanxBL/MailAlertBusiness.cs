@@ -34,7 +34,7 @@ namespace PhalanxBL
         }
 
 
-        public void CreateVencPwdAppMail(ApplicationUserEntity appUsr)
+        public void CreateVencPwdAppMail(ApplicationUserEntity appUsr, int diasrestantes)
         {
             string MailBody = "";
             string MailSubject = "";
@@ -71,9 +71,8 @@ namespace PhalanxBL
                         MailToSend.MailAlertCCList.Add(maccBL.CreateCC(entityUser.Fullname, entityUser.Email, MailToSend));
                 }
 
-
-                MailBody = ReplaceVencPwdAppTokens(PhxConfBL.GetConfigParam(ConfigCodes.BodyVencPwdAppMails).LongTxtValue, appUsr.Id.ToString(), appUsr.ApplicationName, appUsr.Username);
-                MailSubject = ReplaceVencPwdAppTokens(PhxConfBL.GetConfigParam(ConfigCodes.SubjectVencPwdAppMails).ShortTxtValue, appUsr.Id.ToString(), appUsr.ApplicationName, appUsr.Username);
+                MailBody = ReplaceVencPwdAppTokens(PhxConfBL.GetConfigParam(ConfigCodes.BodyVencPwdAppMails).LongTxtValue, appUsr.Id.ToString(), appUsr.ApplicationName, appUsr.Username, diasrestantes);
+                MailSubject = ReplaceVencPwdAppTokens(PhxConfBL.GetConfigParam(ConfigCodes.SubjectVencPwdAppMails).ShortTxtValue, appUsr.Id.ToString(), appUsr.ApplicationName, appUsr.Username, diasrestantes);
 
                 MailToSend.Body = MailBody;
                 MailToSend.Subject = MailSubject;
@@ -477,7 +476,7 @@ namespace PhalanxBL
                     //MailToSend.Cc1Address = AuthGroupMail;
                     //MailToSend.Cc2Name = RqstUserName;
                     //MailToSend.Cc2Address = RqstUserMail;
-                    
+
                     //MailToSend.Cc1Name = RqstUserName;
                     //MailToSend.Cc1Address = RqstUserMail;
                     //Agrego CC
@@ -653,14 +652,14 @@ namespace PhalanxBL
                 PhxConfigBusiness PhxConfBL = new PhxConfigBusiness();
 
                 MailToSend.ToAddress = PhxConfBL.GetConfigParam(ConfigCodes.AdmMailGrp).ShortTxtValue;
-                
+
                 MailToSend.Body = string.Format(Properties.Settings.Default.NuevoAplicativoBPMEmailBody, nombre);
                 MailToSend.Subject = Properties.Settings.Default.NuevoAplicativoBPMEmailSubject;
 
                 MailAlertFactory MAF = new MailAlertFactory();
-                
+
                 int IdMailAlert = MAF.Save(MailToSend);
-                
+
                 if (IdMailAlert > 0)
                     SendMail(MailToSend);
             }
@@ -705,7 +704,7 @@ namespace PhalanxBL
 
         public void AltaUsuarioAppSeguridadPropiaMail(string mailTo, string aplicativo, int numeroSolicitud, DateTime fecha)
         {
-            AltaUsuarioAppMail(MailTypeFactory.MailType.AltaUsuarioAplicativoSeguridadPropia, mailTo, ConfigCodes.BodyAltaUsuarioAplicativoSeguridadPropiaMail, 
+            AltaUsuarioAppMail(MailTypeFactory.MailType.AltaUsuarioAplicativoSeguridadPropia, mailTo, ConfigCodes.BodyAltaUsuarioAplicativoSeguridadPropiaMail,
                 ConfigCodes.SubjectAltaUsuarioAplicativoSeguridadPropiaMail, aplicativo, numeroSolicitud, fecha);
         }
 
@@ -739,7 +738,7 @@ namespace PhalanxBL
                     if (to.Length > 1)
                         MailToSend.Cc10Address = to[1];
                 }
-                
+
                 MailToSend.Body = ReplaceAltaUsuarioRedExternoBodyTokens(PhxConfBL.GetConfigParam(ConfigCodes.BodyAltaUsuarioRedExternoMail).LongTxtValue, fecha, numeroSolicitud, token, destino, solicitante);
                 MailToSend.Subject = ReplaceAltaUsuarioRedExternoBodyTokens(PhxConfBL.GetConfigParam(ConfigCodes.SubjectAltaUsuarioRedExternoMail).ShortTxtValue, fecha, numeroSolicitud, token, destino, solicitante);
 
@@ -750,14 +749,14 @@ namespace PhalanxBL
                 if (IdMailAlert > 0)
                     SendMail(MailToSend);
 
-				return IdMailAlert;
+                return IdMailAlert;
             }
             catch (Exception ex)
             {
                 // no se pudo crear el mail;
             }
 
-			return null;
+            return null;
         }
 
         public int? NotificacionBlanqueoMail(string usuario, string mail, int numeroSolicitud, string aplicativo, string solicitante, DateTime fecha)
@@ -904,7 +903,7 @@ namespace PhalanxBL
             MailBody = MailBody.Replace("[EstadoSolicitud]", PwdRqst.RqstState.RqstStateDesc);
             return MailBody;
         }
-        private string ReplaceVencPwdAppTokens(string MailBody, string sFolio, string sAplicativo, string sUsuario)
+        private string ReplaceVencPwdAppTokens(string MailBody, string sFolio, string sAplicativo, string sUsuario, int dias)
         {
             /*
             o	Folio: [Folio]
@@ -915,6 +914,8 @@ namespace PhalanxBL
             MailBody = MailBody.Replace("[Folio]", sFolio);
             MailBody = MailBody.Replace("[Aplicativo]", sAplicativo);
             MailBody = MailBody.Replace("[NombreUsuario]", sUsuario);
+            MailBody = MailBody.Replace("[DiasRestantes]", dias.ToString());
+
             return MailBody;
         }
 
@@ -1401,7 +1402,7 @@ namespace PhalanxBL
                 MailToSend.MailType = new MailTypeFactory().GetMailType(MailTypeFactory.MailType.DevolucionPwdRqst);
 
                 PhxConfigBusiness PhxConfBL = new PhxConfigBusiness();
-                
+
                 AuthGroupMail = PhxConfBL.GetConfigParam(ConfigCodes.AdmMailGrp).ShortTxtValue;
 
                 /// busca los mails de los designados en los grupos de seguimiento de la contraseña
@@ -1508,7 +1509,7 @@ namespace PhalanxBL
                 /// si no hay administradores en los grupos de seguimiento se asigna la casilla del grupo por defecto
 
                 MailAlertCCBusiness maccBL = new MailAlertCCBusiness();
-                
+
                 if (AutorizadoresEC.Count == 0)
                 {
                     //Agrego CC
@@ -1539,7 +1540,7 @@ namespace PhalanxBL
                 // no se pudo crear el mail, seguramente por falta de parametros;
             }
         }
-        
+
         private string ReplaceDevRqstTokens(string MailBody, PasswordRequestEntity PwdRqst)
         {
             MailBody = MailBody.Replace("[NombreSolic]", PwdRqst.RqstUser.Fullname);
@@ -1567,25 +1568,25 @@ namespace PhalanxBL
         {
             Reenviar(MailId, null);
         }
-        
+
         public void Reenviar(int MailId, IEnumerable<string> destinatarios)
-		{
-			MailAlertEntity mail;
+        {
+            MailAlertEntity mail;
 
-			MailAlertFactory mailAlertFactory = new MailAlertFactory();
+            MailAlertFactory mailAlertFactory = new MailAlertFactory();
 
-			mail = mailAlertFactory.GetMailToSend(MailId);
+            mail = mailAlertFactory.GetMailToSend(MailId);
 
-			mail.Id = 0;
-			mail.SendAttemp = 0;
+            mail.Id = 0;
+            mail.SendAttemp = 0;
 
             if (destinatarios != null)
                 SetearDestinatarios(mail, destinatarios);
 
-			mailAlertFactory.Save(mail);
+            mailAlertFactory.Save(mail);
 
-			SendMail(mail);
-		}
+            SendMail(mail);
+        }
 
         public MailAlertEntity GetMail(int MailId)
         {

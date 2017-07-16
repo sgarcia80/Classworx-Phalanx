@@ -88,7 +88,7 @@ namespace PhalanxAppPwdVencimiento
 
                         auE = usrBL.GetById(vFolio);
 
-                        maBL.CreateVencPwdAppMail(auE);
+                        maBL.CreateVencPwdAppMail(auE, vCantVenc);
 
                         VencPwdAppLogDetEntity logdet = new VencPwdAppLogDetEntity();
 

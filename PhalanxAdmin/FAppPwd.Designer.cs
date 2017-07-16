@@ -44,6 +44,7 @@ namespace PhalanxAdmin
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pnlFilters = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cbCritico = new System.Windows.Forms.ComboBox();
@@ -59,7 +60,6 @@ namespace PhalanxAdmin
             this.lnkDelete = new System.Windows.Forms.LinkLabel();
             this.lnkModify = new System.Windows.Forms.LinkLabel();
             this.lnkAdd = new System.Windows.Forms.LinkLabel();
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -211,6 +211,11 @@ namespace PhalanxAdmin
             this.columnHeader7.Tag = "ddMyyyyHHm";
             this.columnHeader7.Text = "Ult. Modificación";
             this.columnHeader7.Width = 110;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Días p/Cambio Clave";
+            this.columnHeader4.Width = 80;
             // 
             // pnlFilters
             // 
@@ -414,11 +419,6 @@ namespace PhalanxAdmin
             this.lnkAdd.Text = "Agregar";
             this.lnkAdd.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
             this.lnkAdd.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAdd_LinkClicked);
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Días p/Cambio Clave";
-            this.columnHeader4.Width = 80;
             // 
             // FAppPwd
             // 
