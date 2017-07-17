@@ -167,6 +167,7 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="phxCryptAES.cs" />
     <Compile Include="phxCryptMgr.cs">
       <SubType>Code</SubType>
     </Compile>
