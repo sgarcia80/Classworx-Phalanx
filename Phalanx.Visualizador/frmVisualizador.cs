@@ -42,7 +42,7 @@ namespace DesencriptadorContrasenias
                     return;
                 }
 
-                string[] contenido = phxCryptAES.DecryptFile(txtArchivo.Text);
+                string[] contenido = phxCryptAES256.DecryptFile(txtArchivo.Text);
 
                 //MemoryStream stream = new MemoryStream(contenido);
 
