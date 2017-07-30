@@ -167,6 +167,12 @@ namespace PhalanxBL
                 case ConfigCodes.BodyVencPwdAppMails:
                     strParamCode = "@BODY_VENCPWDAPP_MAILS@";
                     break;
+                case ConfigCodes.SubjectPwdAppMailsExp:
+                    strParamCode = "@SUBJECT_PWDAPPEXP_MAILS@";
+                    break;
+                case ConfigCodes.BodyPwdAppMailsExp:
+                    strParamCode = "@BODY_PWDAPPEXP_MAILS@";
+                    break;
                 default:
                     break;
             }
@@ -265,8 +271,11 @@ namespace PhalanxBL
 
             ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectVencPwdAppMails));
             ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyVencPwdAppMails));
-            return ConfEC;
 
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectPwdAppMailsExp));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyPwdAppMailsExp));
+            
+            return ConfEC;
         }
 
         public PhxConfigEntityCollection GetWSBPMParams()

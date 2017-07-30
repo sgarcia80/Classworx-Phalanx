@@ -91,6 +91,63 @@ namespace PhalanxBL
             }
         }
 
+        public void CreatePwdAppExpMail(ApplicationUserEntity appUsr, int diasrestantes)
+        {
+            string MailBody = "";
+            string MailSubject = "";
+            string AuthGroupMail = "";
+
+            try
+            {
+                MailAlertEntity MailToSend = new MailAlertEntity();
+                MailToSend.MailType = new MailTypeFactory().GetMailType(MailTypeFactory.MailType.PwdAppExpiradas);
+
+                PhxConfigBusiness PhxConfBL = new PhxConfigBusiness();
+
+                //MailToSend.ToName = appUsr.Username;
+                //MailToSend.ToAddress = 
+
+                //Obtengo grupo de seguimiento
+                PhxUserBusiness PhxUsrBL = new PhxUserBusiness();
+                PhxUserEntityCollection SeguimientoEC = new PhxUserEntityCollection();
+                SeguimientoEC = PhxUsrBL.GetAllFollowPwdRqstAuth(appUsr.UserPassword);
+
+                MailAlertCCBusiness maccBL = new MailAlertCCBusiness();
+
+                if (SeguimientoEC.Count == 0)
+                {
+                    /// si por algun motivo no se encuentran autorizadores se envia a la direccion
+                    /// de mail del grupo de administradores
+                    AuthGroupMail = PhxConfBL.GetConfigParam(ConfigCodes.AdmMailGrp).ShortTxtValue;
+                    MailToSend.MailAlertCCList.Add(maccBL.CreateCC(AuthGroupMail));
+                }
+                else
+                {
+                    //Agrego CC
+                    foreach (PhxUserEntity entityUser in SeguimientoEC)
+                        MailToSend.MailAlertCCList.Add(maccBL.CreateCC(entityUser.Fullname, entityUser.Email, MailToSend));
+                }
+
+                MailBody = ReplaceVencPwdAppTokens(PhxConfBL.GetConfigParam(ConfigCodes.BodyPwdAppMailsExp).LongTxtValue, appUsr.Id.ToString(), appUsr.ApplicationName, appUsr.Username, diasrestantes);
+                MailSubject = ReplaceVencPwdAppTokens(PhxConfBL.GetConfigParam(ConfigCodes.SubjectPwdAppMailsExp).ShortTxtValue, appUsr.Id.ToString(), appUsr.ApplicationName, appUsr.Username, diasrestantes);
+
+                MailToSend.Body = MailBody;
+                MailToSend.Subject = MailSubject;
+
+                MailAlertFactory MAF = new MailAlertFactory();
+                int IdMailAlert = MAF.Save(MailToSend);
+                if (IdMailAlert > 0)
+                {
+                    this.SendMail(MailToSend);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                // no se pudo crear el mail, seguramente por falta de parametros;
+            }
+        }
+
         public void CreateRqstPwdMail(PasswordRequestEntity PasswordRequest)
         {
 

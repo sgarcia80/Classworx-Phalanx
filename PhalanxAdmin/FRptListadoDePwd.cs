@@ -468,7 +468,10 @@ namespace PhalanxAdmin
 
                     //string key = phxCryptAES.GenerateKey();
                     AgregarMensaje("Encriptando...");
-                    phxCryptAES.EncryptFile(filename, filenamenew);//, key);
+                    phxCryptAES256.EncryptFile(filename, filenamenew);//, key);
+
+                    AgregarMensaje("Encriptación finalizada.");
+                    AgregarMensaje("Archivo generado.");
 
                     MessageBox.Show("La exportación ha sido completada", "Exportación a CSV", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }

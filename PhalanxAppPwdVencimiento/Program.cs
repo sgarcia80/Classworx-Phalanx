@@ -88,7 +88,16 @@ namespace PhalanxAppPwdVencimiento
 
                         auE = usrBL.GetById(vFolio);
 
-                        maBL.CreateVencPwdAppMail(auE, vCantVenc);
+                        if (vCantVenc >= 0)
+                        {
+                            //Si la contraseña aún no expiró
+                            maBL.CreateVencPwdAppMail(auE, vCantVenc);
+                        }
+                        else
+                        {
+                            //Si la contraseña ya expiró
+                            maBL.CreatePwdAppExpMail(auE, vCantVenc);
+                        }
 
                         VencPwdAppLogDetEntity logdet = new VencPwdAppLogDetEntity();
 

@@ -35,6 +35,7 @@ namespace PhalanxAdmin
             this.pnlList = new System.Windows.Forms.Panel();
             this.btnTestMail = new System.Windows.Forms.Button();
             this.grpTags = new System.Windows.Forms.GroupBox();
+            this.btnDiasRestantes = new System.Windows.Forms.Button();
             this.btnFolio = new System.Windows.Forms.Button();
             this.btnTagNombreSolicitante = new System.Windows.Forms.Button();
             this.btnTagDestino = new System.Windows.Forms.Button();
@@ -58,7 +59,6 @@ namespace PhalanxAdmin
             this.label2 = new System.Windows.Forms.Label();
             this.txtDescrip = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnDiasRestantes = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
             this.pnlXPGrps.SuspendLayout();
             this.pnlIzq.SuspendLayout();
@@ -176,6 +176,17 @@ namespace PhalanxAdmin
             this.grpTags.TabStop = false;
             this.grpTags.Text = "Tags";
             // 
+            // btnDiasRestantes
+            // 
+            this.btnDiasRestantes.BackColor = System.Drawing.SystemColors.Control;
+            this.btnDiasRestantes.Location = new System.Drawing.Point(131, 94);
+            this.btnDiasRestantes.Name = "btnDiasRestantes";
+            this.btnDiasRestantes.Size = new System.Drawing.Size(119, 20);
+            this.btnDiasRestantes.TabIndex = 16;
+            this.btnDiasRestantes.Text = "Dias restantes";
+            this.btnDiasRestantes.UseVisualStyleBackColor = false;
+            this.btnDiasRestantes.Click += new System.EventHandler(this.btnDiasRestantes_Click);
+            // 
             // btnFolio
             // 
             this.btnFolio.BackColor = System.Drawing.SystemColors.Control;
@@ -185,6 +196,7 @@ namespace PhalanxAdmin
             this.btnFolio.TabIndex = 15;
             this.btnFolio.Text = "Folio";
             this.btnFolio.UseVisualStyleBackColor = false;
+            this.btnFolio.Click += new System.EventHandler(this.btnFolio_Click);
             // 
             // btnTagNombreSolicitante
             // 
@@ -422,17 +434,6 @@ namespace PhalanxAdmin
             this.label1.Size = new System.Drawing.Size(63, 13);
             this.label1.TabIndex = 16;
             this.label1.Text = "Descripción";
-            // 
-            // btnDiasRestantes
-            // 
-            this.btnDiasRestantes.BackColor = System.Drawing.SystemColors.Control;
-            this.btnDiasRestantes.Location = new System.Drawing.Point(131, 94);
-            this.btnDiasRestantes.Name = "btnDiasRestantes";
-            this.btnDiasRestantes.Size = new System.Drawing.Size(119, 20);
-            this.btnDiasRestantes.TabIndex = 16;
-            this.btnDiasRestantes.Text = "Dias restantes";
-            this.btnDiasRestantes.UseVisualStyleBackColor = false;
-            this.btnDiasRestantes.Click += new System.EventHandler(this.btnDiasRestantes_Click);
             // 
             // FConfigMailsExpPwd
             // 

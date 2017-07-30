@@ -70,6 +70,7 @@ namespace PhalanxAdmin
                 || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyReclamoNotificacionBlanqueoMail)
                 || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyDevMailsNoCritic)
                 || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyVencPwdAppMails)
+                || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyPwdAppMailsExp)
                 )
             {
                 txtValor.Multiline = true;
@@ -327,7 +328,9 @@ namespace PhalanxAdmin
                 btnTagDestino.Enabled = true;
             }
             else if (ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.SubjectVencPwdAppMails)
-                  || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyVencPwdAppMails))
+                  || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyVencPwdAppMails)
+                  || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.SubjectPwdAppMailsExp)
+                  || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyPwdAppMailsExp))
             {
                 grpTags.Visible = true;
                 btnTagFechaExp.Enabled = false;
@@ -378,6 +381,7 @@ namespace PhalanxAdmin
                 || ConfEnt.Code == new PhxConfigBusiness().ParamCodeToString(ConfigCodes.BodyReclamoNotificacionBlanqueoMail)
                 || ConfEnt.Code == new PhxConfigBusiness().ParamCodeToString(ConfigCodes.BodyDevMailsNoCritic)
                 || ConfEnt.Code == new PhxConfigBusiness().ParamCodeToString(ConfigCodes.BodyVencPwdAppMails)
+                || ConfEnt.Code == new PhxConfigBusiness().ParamCodeToString(ConfigCodes.BodyPwdAppMailsExp)
                 )
             {
                 ((PhxConfigEntity)cbParams.SelectedItem).LongTxtValue = txtValor.Text;
@@ -518,6 +522,12 @@ namespace PhalanxAdmin
         private void btnDiasRestantes_Click(object sender, EventArgs e)
         {
             string strTag = "[DiasRestantes]";
+            AgregarTag(strTag);
+        }
+
+        private void btnFolio_Click(object sender, EventArgs e)
+        {
+            string strTag = "[Folio]";
             AgregarTag(strTag);
         }
     }
