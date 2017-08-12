@@ -198,6 +198,7 @@ namespace PhalanxAdmin
                 chkChgPwd.Checked = true;
                 chkChgPwd.Enabled = false;
 
+                txtDuracionClave.Text = "999";
             }
             else
             {
@@ -353,6 +354,7 @@ namespace PhalanxAdmin
             chkChgPwd_CheckedChanged(null, null);
             ConfigureScreen();
         }
+
         private void CargaApplications()
         {
             cbAplicativos.Items.Clear();
@@ -618,6 +620,7 @@ namespace PhalanxAdmin
 
 
         }
+
         private void chkChgPwd_CheckedChanged(object sender, EventArgs e)
         {
             if (chkChgPwd.Checked)

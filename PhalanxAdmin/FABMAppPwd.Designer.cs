@@ -134,6 +134,7 @@ namespace PhalanxAdmin
             this.label15 = new System.Windows.Forms.Label();
             this.btnBuscarSolicitudes = new System.Windows.Forms.Button();
             this.btnLimpiarSolicitudes = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
             columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             columnHeader18 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -556,6 +557,7 @@ namespace PhalanxAdmin
             // 
             // tpGeneral
             // 
+            this.tpGeneral.Controls.Add(this.label13);
             this.tpGeneral.Controls.Add(this.label3);
             this.tpGeneral.Controls.Add(this.txtDiasRestantesPass);
             this.tpGeneral.Controls.Add(this.txtDuracionClave);
@@ -589,7 +591,7 @@ namespace PhalanxAdmin
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(479, 157);
+            this.label3.Location = new System.Drawing.Point(479, 140);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(140, 13);
             this.label3.TabIndex = 51;
@@ -600,7 +602,7 @@ namespace PhalanxAdmin
             this.txtDiasRestantesPass.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txtDiasRestantesPass.Enabled = false;
             this.txtDiasRestantesPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.txtDiasRestantesPass.Location = new System.Drawing.Point(625, 154);
+            this.txtDiasRestantesPass.Location = new System.Drawing.Point(625, 137);
             this.txtDiasRestantesPass.MaxLength = 3;
             this.txtDiasRestantesPass.Name = "txtDiasRestantesPass";
             this.txtDiasRestantesPass.ReadOnly = true;
@@ -612,7 +614,7 @@ namespace PhalanxAdmin
             // 
             this.txtDuracionClave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txtDuracionClave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.txtDuracionClave.Location = new System.Drawing.Point(443, 154);
+            this.txtDuracionClave.Location = new System.Drawing.Point(443, 137);
             this.txtDuracionClave.MaxLength = 3;
             this.txtDuracionClave.Name = "txtDuracionClave";
             this.txtDuracionClave.Size = new System.Drawing.Size(30, 20);
@@ -1284,6 +1286,18 @@ namespace PhalanxAdmin
             this.btnLimpiarSolicitudes.UseVisualStyleBackColor = false;
             this.btnLimpiarSolicitudes.Click += new System.EventHandler(this.btnLimpiarSolicitudes_Click);
             // 
+            // label13
+            // 
+            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.Color.Red;
+            this.label13.Location = new System.Drawing.Point(479, 161);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(118, 13);
+            this.label13.TabIndex = 52;
+            this.label13.Text = "(999 = Sin vencimiento)";
+            // 
             // FABMAppPwd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1431,6 +1445,7 @@ namespace PhalanxAdmin
         private System.Windows.Forms.Label label3;
         protected System.Windows.Forms.TextBox txtDiasRestantesPass;
         protected System.Windows.Forms.TextBox txtDuracionClave;
+        private System.Windows.Forms.Label label13;
 
     }
 }
