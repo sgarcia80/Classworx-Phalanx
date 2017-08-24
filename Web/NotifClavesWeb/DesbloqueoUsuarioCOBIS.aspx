@@ -18,6 +18,8 @@
             <td align="center">
                 <br />
                 <br />
+                <asp:Button ID="btnTest" Text="Test" CssClass="btn"
+                    runat="server" OnClick="btnTest_Click" />&nbsp;&nbsp;&nbsp;
                 <asp:Button ID="btnDesbloquear" Text="Desbloquear" CssClass="btn"
                     runat="server" OnClick="btnDesbloquear_Click" />&nbsp;&nbsp;&nbsp;
                 <asp:Button ID="btnVolver" Text="Volver" CssClass="btn" runat="server"

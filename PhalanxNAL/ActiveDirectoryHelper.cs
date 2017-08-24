@@ -403,6 +403,18 @@ namespace PhalanxNAL
                 TraceHelper.Information("Path: " + path);
                 DirectoryEntry rootEntry = new DirectoryEntry(path);
 
+                if (ConfigurationManager.AppSettings["impersonar"] != null)
+                {
+                    rootEntry.Username = "MACRO\\sangarci";
+                    rootEntry.Password = "CLassworx07";
+                    rootEntry.AuthenticationType = AuthenticationTypes.Secure;
+
+                    if (rootEntry.Username != null)
+                    {
+                        TraceHelper.Information("Se impersona con el usuario {0}", rootEntry.Username);
+                    }
+                }
+
                 if (rootEntry == null)
                 {
                     TraceHelper.Information("No se encontró la entrada raíz");
@@ -412,6 +424,7 @@ namespace PhalanxNAL
 
                 TraceHelper.Information("Buscando entrada según filtro");
                 TraceHelper.Information("Filter: " + filter);
+                TraceHelper.Information("Properties: " + string.Join(",", properties));
 
                 DirectoryEntry entry = BuscarLDAPEntry(rootEntry, filter, properties);
 
@@ -630,18 +643,30 @@ namespace PhalanxNAL
         private static DirectoryEntry BuscarLDAPEntry(DirectoryEntry directoryEntry, string filter, IEnumerable<string> properties)
         {
             DirectorySearcher search = new DirectorySearcher(directoryEntry);
-
             search.Filter = filter;
 
-            foreach (string property in properties)
-            {
-                search.PropertiesToLoad.Add(property);
-            }
+            TraceHelper.Information("Se cargan las propiedades");
 
+            //foreach (string property in properties)
+            //{
+            //    search.PropertiesToLoad.Add(property);
+            //}
+
+            TraceHelper.Information("Se ejecuta el FindOne");
+
+            //SearchResultCollection allUsers = search.FindAll();
             SearchResult sr = search.FindOne();
 
+            //if (allUsers.Count > 0)
+            //{
+            TraceHelper.Information("Se analiza respuesta de FindOne");
+
             if (sr != null)
+            {
                 return sr.GetDirectoryEntry();
+            }
+            //    return allUsers[0].GetDirectoryEntry();
+            //}
 
             return null;
         }

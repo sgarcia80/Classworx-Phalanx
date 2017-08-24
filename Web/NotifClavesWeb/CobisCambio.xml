@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservices.cts.ast">
+  <soapenv:Header>
+    <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+      <wsse:UsernameToken wsu:Id="UsernameToken-9EA1B1491D48AF515C15025807420401">
+        <wsse:Username>cwxauges</wsse:Username>
+        <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">a</wsse:Password>
+        <wsse:Nonce EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary">HXCPmUjfFtxGMP88RxPv+w==</wsse:Nonce>
+        <wsu:Created>2017-08-12T23:32:22.036Z</wsu:Created>
+      </wsse:UsernameToken>
+    </wsse:Security>
+  </soapenv:Header>
+  <soapenv:Body>
+    <web:execute>
+      <requestConnection>
+        <user>cwxauges</user>
+        <password>?</password>
+        <applicationID>21</applicationID>
+        <sessionID></sessionID>
+      </requestConnection>
+      <CambioContraseniaFil>
+        <i_u_login_adminseg>?</i_u_login_adminseg>
+        <i_c_clave_adminseg>?</i_c_clave_adminseg>
+        <i_rol_adminseg>233</i_rol_adminseg>
+        <i_oficina_adminseg>811</i_oficina_adminseg>
+        <i_servidor_adminseg>PREPROSRV</i_servidor_adminseg>
+        <i_c_clave>sangarci</i_c_clave>
+        <i_u_login>xxxx</i_u_login>
+      </CambioContraseniaFil>
+    </web:execute>
+  </soapenv:Body>
+</soapenv:Envelope>

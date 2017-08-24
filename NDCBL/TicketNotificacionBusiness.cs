@@ -1,3 +1,4 @@
+using Classworx.Common.Trace;
 using NDCCommon.Collections;
 using NDCDAL.Factories;
 
@@ -56,15 +57,20 @@ namespace NDCBL
             factory.FilDominio = dominio;
             factory.FilUsuario = usuario;
 
+            string tipoCodigo = string.Empty;
             switch (tipo)
             {
                 case "A":
-                    factory.FilTipoNotif = "ALTA";
+                    tipoCodigo = "ALTA";
                     break;
                 case "B":
-                    factory.FilTipoNotif = "BLANQUEO";
+                    tipoCodigo = "BLANQUEO";
                     break;
             }
+
+            factory.FilTipoNotif = tipoCodigo;
+
+            TraceHelper.Information("Se consultan los tickets de {0} para el usuario {1}.", tipoCodigo, usuario);
 
             TicketNotificacionEntityCollection tmpCollection = factory.GetAll();
 

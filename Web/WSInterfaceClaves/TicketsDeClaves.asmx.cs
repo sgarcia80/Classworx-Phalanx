@@ -324,6 +324,7 @@ namespace WSInterfaceClaves
                             Meta4Usuarios.IdUsuarioRed = ticket.Usuario;
                             Meta4Usuarios.Num_Documento = ticket.Documento;
                             Meta4Usuarios.TipoDocumento = ticket.TipoDocumento; //.Trim().PadLeft(2, '0');
+                            Meta4Usuarios.FechaNovedad = DateTime.Now;
 
                             Meta4ClassWorxUsuariosBusiness Meta4Business = new Meta4ClassWorxUsuariosBusiness();
                             if (_debugMode)
@@ -331,7 +332,7 @@ namespace WSInterfaceClaves
                                 strDebug += " | Va a grabar ticket en M4";
                             }
 
-                            TraceHelper.Information("Se graba el usuario {0} en META4", ticket.Usuario);
+                            TraceHelper.Information("Se graba el usuario {0} en META4 (M4_CLASSWORX_USUARIOS)", ticket.Usuario);
 
                             Meta4Business.Create(Meta4Usuarios);
                             if (_debugMode)
@@ -419,15 +420,21 @@ namespace WSInterfaceClaves
             }
             catch (Exception ex)
             {
+                TraceHelper.Error(ex, "Error en ticket");
+
                 try
                 {
                     if (!PasaInsertM4)
                     {
+                        TraceHelper.Error("Va a borrar ticket en phx");
                         if (_debugMode)
                         {
                             strDebug += " | Va a borrar ticket en phx";
                         }
                         bsolb.Delete(solicitudBPM);
+
+                        TraceHelper.Error("Borró ticket en phx");
+
                         if (_debugMode)
                         {
                             strDebug += " | Borró ticket en phx";
@@ -437,7 +444,9 @@ namespace WSInterfaceClaves
                 catch
                 {
                 }
+
                 resultado.Exito = false;
+
                 if (_debugMode)
                 {
                     if (ex.Message != null)

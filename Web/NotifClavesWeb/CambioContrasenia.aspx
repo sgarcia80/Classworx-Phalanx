@@ -58,6 +58,8 @@
                 <td colspan="2" align="center">
                     <br />
                     <br />
+                    <asp:Button ID="btnTest" Text="Test" CssClass="btn"
+                        runat="server" OnClick="btnTest_Click" />&nbsp;&nbsp;&nbsp;
                     <asp:Button ID="btnAceptar" Text="Aceptar" CssClass="btn" runat="server" ValidationGroup="Aceptar"
                         OnClick="btnAceptar_Click" />
                     <asp:Button ID="btnCancelar" Text="Cancelar" CssClass="btn" runat="server" CausesValidation="false"

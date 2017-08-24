@@ -88,6 +88,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.IdentityModel" />
     <Reference Include="System.IO, Version=2.6.10.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Bcl.1.1.10\lib\net40\System.IO.dll</HintPath>
       <Private>True</Private>
@@ -127,6 +128,8 @@
     <Content Include="CargaRespuestas.aspx" />
     <Content Include="CargaRespuestasUsr.aspx" />
     <Content Include="ClavesAplicativos.aspx" />
+    <Content Include="CobisCambio.xml" />
+    <Content Include="CobisDesbloqueo.xml" />
     <Content Include="DesbloqueoUsuarioCOBIS.aspx" />
     <Content Include="DetalleBlanqueo.aspx" />
     <Content Include="DetalleTicket.aspx" />
@@ -175,7 +178,9 @@
     <Content Include="tyc.aspx" />
     <Content Include="tycip.aspx" />
     <Content Include="ValidaRespuestas.aspx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AltaTemprana.aspx.cs">
@@ -220,6 +225,7 @@
     <Compile Include="ClavesAplicativos.aspx.designer.cs">
       <DependentUpon>ClavesAplicativos.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Cobis\WSSecurity.cs" />
     <Compile Include="DesbloqueoUsuarioCOBIS.aspx.cs">
       <DependentUpon>DesbloqueoUsuarioCOBIS.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

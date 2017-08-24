@@ -43,8 +43,11 @@ namespace NDCDAL.Factories
                 {
                     // crear el registro
                     tx = session.BeginTransaction();
-                    session.SaveOrUpdate(entidad);
-                    session.Refresh(entidad);
+                    //session.SaveOrUpdate(entidad);
+                    //session.Refresh(entidad);
+
+                    session.Save(entidad);
+
                     tx.Commit();
                 }
                 catch (Exception e)

@@ -7,7 +7,7 @@ using phxLog;
 using System.Configuration;
 using PhalanxCommon;
 using PhalanxCommon.Entities;
-
+using Classworx.Common.Trace;
 
 namespace PhalanxDAL
 {
@@ -298,6 +298,7 @@ namespace PhalanxDAL
             }
             catch (Exception e)
             {
+                TraceHelper.Error(e, "Error al inicializar la configuración de META4");
                 return false;
             }
         }

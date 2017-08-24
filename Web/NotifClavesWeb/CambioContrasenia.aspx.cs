@@ -1,14 +1,17 @@
-﻿using NDCBL;
+﻿using Classworx.Common.Trace;
+using NDCBL;
 using NDCCommon.Entities;
 using PhalanxBL;
 using System;
 using System.Configuration;
 using System.Drawing;
+using System.IO;
 using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 using System.Web.UI;
+using System.Xml;
 
 namespace NotifClavesWeb
 {
@@ -447,6 +450,69 @@ namespace NotifClavesWeb
                 cer = cers[0];
             };
             return cer;
+        }
+
+
+        protected void btnTest_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                HttpWebRequest request = CreateWebRequest();
+
+                XmlDocument soapEnvelopeXml = new XmlDocument();
+
+                string file = Server.MapPath("CobisCambio.xml");
+                soapEnvelopeXml.Load(file);
+
+                using (Stream stream = request.GetRequestStream())
+                {
+                    soapEnvelopeXml.Save(stream);
+                }
+
+                using (WebResponse response = request.GetResponse())
+                {
+                    using (StreamReader rd = new StreamReader(response.GetResponseStream()))
+                    {
+                        string soapResult = rd.ReadToEnd();
+                        TraceHelper.Information("Respuesta Cobis:");
+                        TraceHelper.Information(soapResult);
+                    }
+                }
+
+                trTitRespuesta.Visible = true;
+                trRespuesta.Visible = true;
+                lblResp2.Text = "Cobis respondio!";
+            }
+            catch (Exception ex)
+            {
+                //TraceHelper.Error(ex, "Error en Cobis");
+                TraceHelper.Error("Error en Cobis: {0}{1}", System.Environment.NewLine, ex.ToString());
+
+                trTitRespuesta.Visible = true;
+                trRespuesta.Visible = true;
+                lblResp2.Text = "Error - Cobis fallo!";
+            }
+        }
+
+        /// <summary>
+        /// Create a soap webrequest to [Url]
+        /// </summary>
+        /// <returns></returns>
+        public HttpWebRequest CreateWebRequest()
+        {
+            string url = @"https://CTSCap:9901/AST-WS-CTS-AD_CAMBIO_CONTRASENIA/services/ADCambioContrasenia";
+            HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
+            webRequest.Headers.Clear();
+            //webRequest.Headers.Add(@"SOAP:Action");
+
+            webRequest.Credentials = CredentialCache.DefaultCredentials;
+
+            webRequest.Headers.Add("SOAPAction", "execute");
+
+            webRequest.ContentType = "text/xml;charset=\"utf-8\"";
+            webRequest.Accept = "text/xml";
+            webRequest.Method = "POST";
+            return webRequest;
         }
     }
 }
