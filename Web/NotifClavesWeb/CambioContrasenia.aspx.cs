@@ -122,27 +122,7 @@ namespace NotifClavesWeb
             filtro.i_servidor_adminseg = servidorASBlanqueoWSCOBIS;
             filtro.i_c_clave = tbPassword.Text.ToLower();
             filtro.i_u_login = Session["Usuario"].ToString().ToLower();
-
-            //try
-            //{
-            //    X509Certificate2 certificate = ObtenerCertificado();
-
-            //    if (certificate == null)
-            //    {
-            //        error = "No se encontró el certificado";
-            //    }
-            //    else
-            //    {
-            //        cert = certificate.Issuer;
-
-            //        serviceProxy.ClientCertificates.Add(certificate);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    error += string.Format("Error: {0}", ex.Message);
-            //}
-
+            
             if (!string.IsNullOrEmpty(error))
             {
                 trRespuesta.Visible = true;
@@ -407,112 +387,6 @@ namespace NotifClavesWeb
             result = !match.Success;
 
             return result;
-        }
-
-        private X509Certificate2 ObtenerCertificado()
-        {
-            X509Certificate2 cer = null;
-
-            string cerName = string.Empty;
-            int cerStore = 0;
-            StoreName storename = StoreName.My;
-
-            if (ConfigurationManager.AppSettings["ADCambioContrasenia_CertificateName"] != null)
-            {
-                cerName = ConfigurationManager.AppSettings["ADCambioContrasenia_CertificateName"];
-            }
-            if (ConfigurationManager.AppSettings["ADCambioContrasenia_CertificateStore"] != null)
-            {
-                int.TryParse(ConfigurationManager.AppSettings["ADCambioContrasenia_CertificateStore"], out cerStore);
-            }
-
-            if (string.IsNullOrEmpty(cerName))
-            {
-                throw new ArgumentException("El nombre del certificado no está configurado");
-            }
-            if (cerStore == 0)
-            {
-                throw new ArgumentException("El respositorio del certificado no está configurado");
-            }
-            else
-            {
-                storename = (StoreName)cerStore;
-            }
-
-            X509Store store = new X509Store(storename, StoreLocation.LocalMachine);
-
-            store.Open(OpenFlags.ReadOnly);
-
-            X509Certificate2Collection cers = store.Certificates.Find(X509FindType.FindBySubjectName, cerName, false);
-
-            if (cers.Count > 0)
-            {
-                cer = cers[0];
-            };
-            return cer;
-        }
-
-
-        protected void btnTest_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                HttpWebRequest request = CreateWebRequest();
-
-                XmlDocument soapEnvelopeXml = new XmlDocument();
-
-                string file = Server.MapPath("CobisCambio.xml");
-                soapEnvelopeXml.Load(file);
-
-                using (Stream stream = request.GetRequestStream())
-                {
-                    soapEnvelopeXml.Save(stream);
-                }
-
-                using (WebResponse response = request.GetResponse())
-                {
-                    using (StreamReader rd = new StreamReader(response.GetResponseStream()))
-                    {
-                        string soapResult = rd.ReadToEnd();
-                        TraceHelper.Information("Respuesta Cobis:");
-                        TraceHelper.Information(soapResult);
-                    }
-                }
-
-                trTitRespuesta.Visible = true;
-                trRespuesta.Visible = true;
-                lblResp2.Text = "Cobis respondio!";
-            }
-            catch (Exception ex)
-            {
-                //TraceHelper.Error(ex, "Error en Cobis");
-                TraceHelper.Error("Error en Cobis: {0}{1}", System.Environment.NewLine, ex.ToString());
-
-                trTitRespuesta.Visible = true;
-                trRespuesta.Visible = true;
-                lblResp2.Text = "Error - Cobis fallo!";
-            }
-        }
-
-        /// <summary>
-        /// Create a soap webrequest to [Url]
-        /// </summary>
-        /// <returns></returns>
-        public HttpWebRequest CreateWebRequest()
-        {
-            string url = @"https://CTSCap:9901/AST-WS-CTS-AD_CAMBIO_CONTRASENIA/services/ADCambioContrasenia";
-            HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
-            webRequest.Headers.Clear();
-            //webRequest.Headers.Add(@"SOAP:Action");
-
-            webRequest.Credentials = CredentialCache.DefaultCredentials;
-
-            webRequest.Headers.Add("SOAPAction", "execute");
-
-            webRequest.ContentType = "text/xml;charset=\"utf-8\"";
-            webRequest.Accept = "text/xml";
-            webRequest.Method = "POST";
-            return webRequest;
         }
     }
 }

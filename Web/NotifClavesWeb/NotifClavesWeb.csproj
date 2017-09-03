@@ -129,7 +129,9 @@
     <Content Include="CargaRespuestasUsr.aspx" />
     <Content Include="ClavesAplicativos.aspx" />
     <Content Include="CobisCambio.xml" />
-    <Content Include="CobisDesbloqueo.xml" />
+    <Content Include="CobisDesbloqueo.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="DesbloqueoUsuarioCOBIS.aspx" />
     <Content Include="DetalleBlanqueo.aspx" />
     <Content Include="DetalleTicket.aspx" />
@@ -225,7 +227,6 @@
     <Compile Include="ClavesAplicativos.aspx.designer.cs">
       <DependentUpon>ClavesAplicativos.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Cobis\WSSecurity.cs" />
     <Compile Include="DesbloqueoUsuarioCOBIS.aspx.cs">
       <DependentUpon>DesbloqueoUsuarioCOBIS.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
