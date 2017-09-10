@@ -22,8 +22,17 @@ namespace PhalanxAdmin
                 l1.ListView.Columns[Column].Tag = "Text";
             }
 
-            if (l1.ListView.Columns[Column].Tag.ToString() == "Numeric")
+            if (l1.ListView.Columns[Column].Tag.ToString().StartsWith("Numeric"))
             {
+                float defaultvalue = 0;
+
+                string type = l1.ListView.Columns[Column].Tag.ToString().Replace("Numeric", string.Empty);
+
+                if (!string.IsNullOrEmpty(type))
+                {
+                    defaultvalue = float.Parse(type);
+                }
+
                 float fl1 = 0;
                 float fl2 = 0;
 
@@ -33,6 +42,10 @@ namespace PhalanxAdmin
                     {
                         fl1 = float.Parse(l1.SubItems[Column].Text);
                     }
+                    else
+                    {
+                        fl1 = defaultvalue;
+                    }
                 }
                 catch { }
                 try
@@ -40,6 +53,10 @@ namespace PhalanxAdmin
                     if (l2.SubItems[Column].Text.Trim() != "")
                     {
                         fl2 = float.Parse(l2.SubItems[Column].Text);
+                    }
+                    else
+                    {
+                        fl2 = defaultvalue;
                     }
                 }
                 catch { }

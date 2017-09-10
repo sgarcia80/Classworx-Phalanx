@@ -200,9 +200,9 @@ namespace PhalanxBL
             DBUsrF.SetPwdState(Users, Active);
         }
 
-		public IList GetAll(bool? critico, bool? estadoUsuario, string nombre)
+		public IList GetAll(bool? critico, bool? estadoUsuario, string nombre, int expiracion)
 		{
-			return new ApplicationUserFactory().GetAll(critico, estadoUsuario, nombre);
+			return new ApplicationUserFactory().GetAll(critico, estadoUsuario, nombre, expiracion);
 		}
 
         public ApplicationUserEntity Load(int ID)
@@ -224,7 +224,7 @@ namespace PhalanxBL
             if (duration == 999)
                 return sRestantes;
 
-            TimeSpan? ts = DateTime.Now - dModifyingPassDate;
+            TimeSpan? ts = DateTime.Today - dModifyingPassDate.Value.Date;
             if (ts.HasValue)
                 sRestantes = (duration - ts.Value.Days).ToString();
 

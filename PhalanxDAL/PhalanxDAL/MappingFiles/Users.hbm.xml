@@ -246,10 +246,10 @@
     dbo.Users_Passwords.d_last_change AS LastChange,
     dbo.Applications.app_name AS AplicationName,
     DiasCambioClave =
-      CASE dbo.Users.duration
-        WHEN 999 THEN 999
-        ELSE dbo.Users.duration - DATEDIFF(day, ISNULL(dbo.Users.modifying_pass_date, GETDATE()), GETDATE())
-      END
+    CASE dbo.Users.duration
+    WHEN 999 THEN 999
+    ELSE dbo.Users.duration - DATEDIFF(day, ISNULL(dbo.Users.modifying_pass_date, GETDATE()), GETDATE())
+    END
     FROM
     dbo.Applications
     INNER JOIN dbo.Applications_Users ON dbo.Applications.app_id = dbo.Applications_Users.app_id
@@ -261,6 +261,12 @@
     (:estadoUsuario = -1 OR dbo.Users.active_user = :estadoUsuario)
     AND
     (:nombre IS NULL OR upper(dbo.Users.username) LIKE :nombre)
+    AND
+    (:expiracion IS NULL OR
+      (:expiracion = 0 AND dbo.Users.duration &lt;&gt; 999) OR
+      (:expiracion = 1 AND dbo.Users.duration = 999)OR
+      (:expiracion = 2)
+    )
   </sql-query>
 
   <sql-query name="getProxVencApplicationUsers">

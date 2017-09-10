@@ -47,6 +47,8 @@ namespace PhalanxAdmin
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pnlFilters = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cboExpirado = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.cbCritico = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cboEstado = new System.Windows.Forms.ComboBox();
@@ -164,9 +166,9 @@ namespace PhalanxAdmin
             // 
             this.pnlList.Controls.Add(this.lvLista);
             this.pnlList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlList.Location = new System.Drawing.Point(200, 101);
+            this.pnlList.Location = new System.Drawing.Point(200, 134);
             this.pnlList.Name = "pnlList";
-            this.pnlList.Size = new System.Drawing.Size(535, 400);
+            this.pnlList.Size = new System.Drawing.Size(535, 367);
             this.pnlList.TabIndex = 22;
             // 
             // lvLista
@@ -188,7 +190,7 @@ namespace PhalanxAdmin
             this.lvLista.Location = new System.Drawing.Point(18, 16);
             this.lvLista.MultiSelect = false;
             this.lvLista.Name = "lvLista";
-            this.lvLista.Size = new System.Drawing.Size(485, 342);
+            this.lvLista.Size = new System.Drawing.Size(485, 309);
             this.lvLista.SmallImageList = this.imageList;
             this.lvLista.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lvLista.TabIndex = 1;
@@ -214,6 +216,7 @@ namespace PhalanxAdmin
             // 
             // columnHeader4
             // 
+            this.columnHeader4.Tag = "Numeric999";
             this.columnHeader4.Text = "Días p/Cambio Clave";
             this.columnHeader4.Width = 80;
             // 
@@ -223,11 +226,13 @@ namespace PhalanxAdmin
             this.pnlFilters.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlFilters.Location = new System.Drawing.Point(200, 0);
             this.pnlFilters.Name = "pnlFilters";
-            this.pnlFilters.Size = new System.Drawing.Size(535, 101);
+            this.pnlFilters.Size = new System.Drawing.Size(535, 134);
             this.pnlFilters.TabIndex = 21;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cboExpirado);
+            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.cbCritico);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.cboEstado);
@@ -238,10 +243,32 @@ namespace PhalanxAdmin
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(18, 8);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(485, 84);
+            this.groupBox1.Size = new System.Drawing.Size(485, 105);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de búsqueda";
+            // 
+            // cboExpirado
+            // 
+            this.cboExpirado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboExpirado.FormattingEnabled = true;
+            this.cboExpirado.Items.AddRange(new object[] {
+            "Si",
+            "No",
+            "Todos"});
+            this.cboExpirado.Location = new System.Drawing.Point(67, 73);
+            this.cboExpirado.Name = "cboExpirado";
+            this.cboExpirado.Size = new System.Drawing.Size(98, 21);
+            this.cboExpirado.TabIndex = 23;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(11, 76);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(42, 13);
+            this.label4.TabIndex = 24;
+            this.label4.Text = "Expiran";
             // 
             // cbCritico
             // 
@@ -251,7 +278,7 @@ namespace PhalanxAdmin
             "Todos",
             "Si",
             "No"});
-            this.cbCritico.Location = new System.Drawing.Point(224, 47);
+            this.cbCritico.Location = new System.Drawing.Point(224, 46);
             this.cbCritico.Name = "cbCritico";
             this.cbCritico.Size = new System.Drawing.Size(98, 21);
             this.cbCritico.TabIndex = 2;
@@ -273,7 +300,7 @@ namespace PhalanxAdmin
             "Activos",
             "Inactivos",
             "Todos"});
-            this.cboEstado.Location = new System.Drawing.Point(67, 47);
+            this.cboEstado.Location = new System.Drawing.Point(67, 46);
             this.cboEstado.Name = "cboEstado";
             this.cboEstado.Size = new System.Drawing.Size(98, 21);
             this.cboEstado.TabIndex = 1;
@@ -479,5 +506,7 @@ namespace PhalanxAdmin
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader7;
         private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ComboBox cboExpirado;
+        protected System.Windows.Forms.Label label4;
     }
 }

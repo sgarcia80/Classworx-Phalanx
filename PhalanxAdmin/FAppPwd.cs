@@ -17,6 +17,7 @@ namespace PhalanxAdmin
 		protected IList _entities;
         protected string _filNombre = "";
         private bool? _filUsuariosActivos;
+        private int _filExpiracion;
         private bool? _filUsuariosCriticos;
         public override string Id
         {
@@ -99,6 +100,8 @@ namespace PhalanxAdmin
                 default:
                     break;
             }
+
+            _filExpiracion = cboExpirado.SelectedIndex;
         }
 
         private void bwRefreshEntities_DoWork(object sender, DoWorkEventArgs e)
@@ -129,7 +132,7 @@ namespace PhalanxAdmin
 			if (txtFilNombre.Text.Trim() != "")
 				nombre = txtFilNombre.Text.Trim();
 
-			_entities = DBUsrBL.GetAll(_filUsuariosCriticos, _filUsuariosActivos, nombre);
+            _entities = DBUsrBL.GetAll(_filUsuariosCriticos, _filUsuariosActivos, nombre, _filExpiracion);
         }
 
         /// <summary>
@@ -185,7 +188,7 @@ namespace PhalanxAdmin
 
                 if (AppUsrEnt[6] != null)
                     if (AppUsrEnt[6].ToString().Equals("999"))
-                        lviArr[i].SubItems.Add("---");
+                        lviArr[i].SubItems.Add("");
                     else
                         lviArr[i].SubItems.Add(AppUsrEnt[6].ToString());
                 else
@@ -276,6 +279,7 @@ namespace PhalanxAdmin
 
             this.lnkCancelar.Visible = false;
             this.pbDB.Visible = false;
+            this.cboExpirado.SelectedIndex = 2;
             this.cboEstado.SelectedIndex = 0;
             this.cbCritico.SelectedIndex = 0;
             ExecEntitiesRefresh();
