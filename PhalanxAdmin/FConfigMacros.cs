@@ -127,7 +127,7 @@ namespace PhalanxAdmin
 
         private void lnkDelete_Click(object sender, EventArgs e)
         {
-            string mensaje = string.Format("Se eliminará la Macro '{0}'", this.Entidad.Name);
+            string mensaje = string.Format("Se eliminará la Macro '{0}'{1}¿Desea continuar?", this.Entidad.Name, System.Environment.NewLine);
 
             if (MessageBox.Show(mensaje, "Confirmación", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.OK)
             {
@@ -137,13 +137,20 @@ namespace PhalanxAdmin
 
                     MacroBusiness business = new MacroBusiness();
 
-                    business.Delete(entity);
+                    bool ok = business.Delete(entity);
 
-                    Limpiar();
+                    if (ok)
+                    {
+                        Limpiar();
 
-                    CargarMacros();
+                        CargarMacros();
 
-                    MessageBox.Show("La Macro ha sido eliminada correctamente", "Macros", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("La Macro ha sido eliminada correctamente", "Macros", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pudo eliminar la Macro. Revise que no esté asociada", "Macros", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 catch (Exception ex)
                 {

@@ -32,6 +32,7 @@ namespace PhalanxAdmin
             this.xppnlDBs = new UIComponents.XPPanel(84);
             this.lnkModificar = new System.Windows.Forms.LinkLabel();
             this.pnlFilters = new System.Windows.Forms.Panel();
+            this.btnSetAppCobis = new System.Windows.Forms.Button();
             this.btnSetAppRed = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnLimpiar = new System.Windows.Forms.Button();
@@ -47,9 +48,10 @@ namespace PhalanxAdmin
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.bwRefreshEntities = new System.ComponentModel.BackgroundWorker();
-            this.btnSetAppCobis = new System.Windows.Forms.Button();
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.bwRefreshEntities = new System.ComponentModel.BackgroundWorker();
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
             this.pnlXPGrps.SuspendLayout();
@@ -80,7 +82,7 @@ namespace PhalanxAdmin
             // columnHeader2
             // 
             columnHeader2.Text = "Código";
-            columnHeader2.Width = 162;
+            columnHeader2.Width = 142;
             // 
             // xppnlDBs
             // 
@@ -135,6 +137,17 @@ namespace PhalanxAdmin
             this.pnlFilters.Name = "pnlFilters";
             this.pnlFilters.Size = new System.Drawing.Size(692, 98);
             this.pnlFilters.TabIndex = 14;
+            // 
+            // btnSetAppCobis
+            // 
+            this.btnSetAppCobis.BackColor = System.Drawing.SystemColors.Control;
+            this.btnSetAppCobis.Location = new System.Drawing.Point(509, 71);
+            this.btnSetAppCobis.Name = "btnSetAppCobis";
+            this.btnSetAppCobis.Size = new System.Drawing.Size(171, 21);
+            this.btnSetAppCobis.TabIndex = 5;
+            this.btnSetAppCobis.Text = "Setear como Aplicación &Cobis";
+            this.btnSetAppCobis.UseVisualStyleBackColor = false;
+            this.btnSetAppCobis.Click += new System.EventHandler(this.btnSetAppCobis_Click);
             // 
             // btnSetAppRed
             // 
@@ -254,7 +267,9 @@ namespace PhalanxAdmin
             this.columnHeader1,
             this.columnHeader3,
             this.columnHeader4,
-            this.columnHeader5});
+            this.columnHeader5,
+            this.columnHeader6,
+            this.columnHeader7});
             this.lvLista.HideSelection = false;
             this.lvLista.Location = new System.Drawing.Point(18, 16);
             this.lvLista.MultiSelect = false;
@@ -274,12 +289,17 @@ namespace PhalanxAdmin
             // columnHeader3
             // 
             this.columnHeader3.Text = "Notificable";
-            this.columnHeader3.Width = 173;
+            this.columnHeader3.Width = 90;
             // 
             // columnHeader4
             // 
             this.columnHeader4.Text = "Aplicación de Red";
-            this.columnHeader4.Width = 160;
+            this.columnHeader4.Width = 110;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Aplicación Cobis";
+            this.columnHeader5.Width = 100;
             // 
             // bwRefreshEntities
             // 
@@ -287,21 +307,15 @@ namespace PhalanxAdmin
             this.bwRefreshEntities.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwRefreshEntities_DoWork);
             this.bwRefreshEntities.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwRefreshEntities_RunWorkerCompleted);
             // 
-            // btnSetAppCobis
+            // columnHeader6
             // 
-            this.btnSetAppCobis.BackColor = System.Drawing.SystemColors.Control;
-            this.btnSetAppCobis.Location = new System.Drawing.Point(509, 71);
-            this.btnSetAppCobis.Name = "btnSetAppCobis";
-            this.btnSetAppCobis.Size = new System.Drawing.Size(171, 21);
-            this.btnSetAppCobis.TabIndex = 5;
-            this.btnSetAppCobis.Text = "Setear como Aplicación &Cobis";
-            this.btnSetAppCobis.UseVisualStyleBackColor = false;
-            this.btnSetAppCobis.Click += new System.EventHandler(this.btnSetAppCobis_Click);
+            this.columnHeader6.Text = "Aplicación Emuladores";
+            this.columnHeader6.Width = 120;
             // 
-            // columnHeader5
+            // columnHeader7
             // 
-            this.columnHeader5.Text = "Aplicación Cobis";
-            this.columnHeader5.Width = 160;
+            this.columnHeader7.Text = "Macro Emuladores";
+            this.columnHeader7.Width = 120;
             // 
             // FAplicativosBPM
             // 
@@ -353,5 +367,7 @@ namespace PhalanxAdmin
         private System.Windows.Forms.ColumnHeader columnHeader4;
         protected System.Windows.Forms.Button btnSetAppCobis;
         private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.ColumnHeader columnHeader7;
     }
 }

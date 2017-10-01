@@ -98,6 +98,10 @@ namespace NDCCommon.Entities
 
         public bool EsAplicacionCobis { set; get; }
 
+        public bool EsEmuladores { get; set; }
+
+        public MacroEntity Macro { get; set; }
+
         #endregion
 
         public override string Key

@@ -168,6 +168,8 @@ namespace PhalanxAdmin
                 lviArr[i].SubItems.Add(ancEntity.Notificable ? "Sí" : "No");
                 lviArr[i].SubItems.Add(ancEntity.EsAplicacionRed ? "Sí" : "No");
                 lviArr[i].SubItems.Add(ancEntity.EsAplicacionCobis ? "Sí" : "No");
+                lviArr[i].SubItems.Add(ancEntity.EsEmuladores ? "Sí" : "No");
+                lviArr[i].SubItems.Add(ancEntity.Macro != null ? ancEntity.Macro.Name : string.Empty);
                 lviArr[i].Tag = ancEntity;
                 i++;
             }
