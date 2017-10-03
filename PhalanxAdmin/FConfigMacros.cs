@@ -129,7 +129,7 @@ namespace PhalanxAdmin
         {
             string mensaje = string.Format("Se eliminará la Macro '{0}'{1}¿Desea continuar?", this.Entidad.Name, System.Environment.NewLine);
 
-            if (MessageBox.Show(mensaje, "Confirmación", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.OK)
+            if (MessageBox.Show(mensaje, "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
             {
                 try
                 {

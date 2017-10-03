@@ -291,6 +291,8 @@ namespace PhalanxBL
         private const string CONF_CONECTORES_R = "@CONF_CONECTORES_R@"; //Configuración de Parametría de Conectores - Lectura
         private const string CONF_MACROS_RW = "@CONF_MACROS_RW@"; //Configuración de Parametría de Notificación de Claves - Escritura
         private const string CONF_MACROS_R = "@CONF_MACROS_R@"; //Configuración de Parametría de Notificación de Claves - Lectura
+        private const string CONF_MACROUSER_RW = "@CONF_MACROUSER_RW@"; //Configuración de Parametría de Notificación de Claves - Escritura
+        private const string CONF_MACROUSER_R = "@CONF_MACROUSER_R@"; //Configuración de Parametría de Notificación de Claves - Lectura
 
         private const string RPT_USR_GRP_SOL = "@RPT_USR_GRP_SOL@";
         private const string RPT_USR_GRP_SEG_SOL = "@RPT_USR_GRP_SEG_SOL@";
@@ -781,13 +783,25 @@ namespace PhalanxBL
 
         public bool AccParamConfigMacros(string usernamedomain)
         {
-            string[] PrivilegiosAcceso = new string[] { CONF_NDC_RW, CONF_NDC_R };
+            string[] PrivilegiosAcceso = new string[] { CONF_MACROS_RW, CONF_MACROS_R };
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
 
         public bool AccParamConfigMacrosRW(string usernamedomain)
         {
-            string[] PrivilegiosAcceso = new string[] { CONF_NDC_RW};
+            string[] PrivilegiosAcceso = new string[] { CONF_MACROS_RW };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+
+        public bool AccParamConfigMacroUsuario(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { CONF_MACROUSER_RW, CONF_MACROUSER_R };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+
+        public bool AccParamConfigMacroUsuarioRW(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { CONF_MACROUSER_RW };
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
 
