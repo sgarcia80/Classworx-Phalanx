@@ -85,7 +85,7 @@ namespace PhalanxAdmin
             this.xppnlDBs.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.xppnlDBs.BackColor = System.Drawing.Color.Transparent;
-            this.xppnlDBs.Caption = "Usuarios Login de Macros";
+            this.xppnlDBs.Caption = "Errores de Macros";
             this.xppnlDBs.CaptionCornerType = ((UIComponents.CornerType)((UIComponents.CornerType.TopLeft | UIComponents.CornerType.TopRight)));
             this.xppnlDBs.CaptionGradient.End = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(213)))), ((int)(((byte)(247)))));
             this.xppnlDBs.CaptionGradient.Start = System.Drawing.Color.White;
