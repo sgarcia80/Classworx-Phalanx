@@ -292,9 +292,11 @@ namespace PhalanxBL
         private const string CONF_MACROS_RW = "@CONF_MACROS_RW@"; 
         private const string CONF_MACROS_R = "@CONF_MACROS_R@"; 
         private const string CONF_MACROUSER_RW = "@CONF_MACROUSER_RW@"; 
-        private const string CONF_MACROUSER_R = "@CONF_MACROUSER_R@"; 
-        private const string CONF_MACROERROR_RW = "@CONF_MACROERROR_RW@"; 
-        private const string CONF_MACROERROR_R = "@CONF_MACROERROR_R@"; 
+        private const string CONF_MACROUSER_R = "@CONF_MACROUSER_R@";
+        private const string CONF_MACROERROR_RW = "@CONF_MACROERROR_RW@";
+        private const string CONF_MACROERROR_R = "@CONF_MACROERROR_R@";
+        private const string CONF_MACROCLAVE_RW = "@CONF_MACROCLAVE_RW@";
+        private const string CONF_MACROCLAVE_R = "@CONF_MACROCLAVE_R@"; 
 
         private const string RPT_USR_GRP_SOL = "@RPT_USR_GRP_SOL@";
         private const string RPT_USR_GRP_SEG_SOL = "@RPT_USR_GRP_SEG_SOL@";
@@ -816,6 +818,18 @@ namespace PhalanxBL
         public bool AccParamConfigMacroErroresRW(string usernamedomain)
         {
             string[] PrivilegiosAcceso = new string[] { CONF_MACROERROR_RW };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+
+        public bool AccParamConfigMacroClaves(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { CONF_MACROCLAVE_RW, CONF_MACROCLAVE_R };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+
+        public bool AccParamConfigMacroClavesRW(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { CONF_MACROCLAVE_RW };
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
 

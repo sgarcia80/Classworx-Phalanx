@@ -34,6 +34,7 @@ namespace PhalanxAdmin
             lnkMacros.Enabled = UsrBL.AccParamConfigMacros(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
             lnkUsuarioLoginMacro.Enabled = UsrBL.AccParamConfigMacroUsuario(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
             lnkMacroErrores.Enabled = UsrBL.AccParamConfigMacroErrores(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            lnkMacroClaves.Enabled = UsrBL.AccParamConfigMacroClaves(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
         }
 
         private void lnkEsquemas_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -80,6 +81,11 @@ namespace PhalanxAdmin
         private void lnkMacroErrores_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             ((FPrincipal)this.MdiParent).OpenForm(new FMacroErrores());
+        }
+
+        private void lnkMacroClaves_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ((FPrincipal)this.MdiParent).OpenForm(new FMacroClaves());
         }
     }
 }

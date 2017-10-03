@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+  <class name="NDCCommon.Entities.MacroClaveEntity,NDCCommon" table="macro_clave">
+
+    <id name="Id" column="macro_clave_id" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <property column="clave" name="Clave" type="String" />
+    <property column="clave_encriptada" name="ClaveEncriptada" type="String" />
+
+  </class>
+</hibernate-mapping>
