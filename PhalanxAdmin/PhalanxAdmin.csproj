@@ -124,6 +124,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FABMMacroError.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FABMMacroError.Designer.cs">
+      <DependentUpon>FABMMacroError.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FMacroErrores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FMacroErrores.Designer.cs">
+      <DependentUpon>FMacroErrores.cs</DependentUpon>
+    </Compile>
     <Compile Include="FABMMacroUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -859,6 +871,14 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FABMMacroError.resx">
+      <DependentUpon>FABMMacroError.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FMacroErrores.resx">
+      <DependentUpon>FMacroErrores.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="FABMMacroUsuario.resx">
       <DependentUpon>FABMMacroUsuario.cs</DependentUpon>
       <SubType>Designer</SubType>

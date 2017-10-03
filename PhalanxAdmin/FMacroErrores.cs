@@ -14,20 +14,20 @@ using NDCCommon.Entities;
 
 namespace PhalanxAdmin
 {
-    public partial class FMacroUsuarios : PhalanxAdmin.FBaseSistema
+    public partial class FMacroErrores : PhalanxAdmin.FBaseSistema
     {
-        protected MacroUsuarioEntityCollection _entities;
-        protected int _filMacro = 0;
+        protected MacroErrorEntityCollection _entities;
+        protected string _filDescripcion = string.Empty;
 
         public override string Id
         {
             get
             {
-                return "MacroUsuario";
+                return "MacroErrores";
             }
         }
 
-        public FMacroUsuarios()
+        public FMacroErrores()
         {
             InitializeComponent();
             lvLista.ListViewItemSorter = new cwxSorter();
@@ -84,7 +84,7 @@ namespace PhalanxAdmin
         /// </example>
         private void SetQueryFilters()
         {
-            _filMacro = (int)cbMacro.SelectedValue;
+            _filDescripcion = txtDescripcion.Text.Trim();
 
         }
 
@@ -110,9 +110,9 @@ namespace PhalanxAdmin
         /// </example>
         private void LoadEntities()
         {
-            MacroUsuarioBusiness business = new MacroUsuarioBusiness();
+            MacroErrorBusiness business = new MacroErrorBusiness();
 
-            _entities = business.GetAll(_filMacro);
+            _entities = business.GetAll(_filDescripcion);
         }
 
         /// <summary>
@@ -156,13 +156,10 @@ namespace PhalanxAdmin
         {
             ListViewItem[] lviArr = new ListViewItem[this._entities.Count];
             int i = 0;
-            foreach (MacroUsuarioEntity entity in this._entities)
+            foreach (MacroErrorEntity entity in this._entities)
             {
                 lviArr[i] = new ListViewItem();
-                lviArr[i].Text = entity.Macro != null ? entity.Macro.Name : string.Empty;
-                lviArr[i].SubItems.Add(entity.Dominio != null ? entity.Dominio.NtName : string.Empty);
-                lviArr[i].SubItems.Add(entity.UsuarioRed);
-                lviArr[i].SubItems.Add(entity.UsuarioTC);
+                lviArr[i].Text = entity.Descripcion;
                 lviArr[i].Tag = entity;
                 i++;
             }
@@ -216,7 +213,7 @@ namespace PhalanxAdmin
 
         private void CleanFilters()
         {
-            cbMacro.SelectedIndex = 0;
+            txtDescripcion.Text = string.Empty;
         }
 
         private void lnkCancelar_Click(object sender, EventArgs e)
@@ -232,17 +229,15 @@ namespace PhalanxAdmin
 
         }
 
-        private void FMacroUsuarios_Load(object sender, EventArgs e)
+        private void FMacroErrores_Load(object sender, EventArgs e)
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
-            bool edit = UsrBL.AccParamConfigMacroUsuarioRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            bool edit = UsrBL.AccParamConfigMacroErroresRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
 
             lnkEdit.Enabled = edit;
             lnkAdd.Enabled = edit;
             lnkDelete.Enabled = edit;
-
-            CargarMacros();
-
+            
             this.lnkCancelar.Visible = false;
             this.pbDB.Visible = false;
             ExecEntitiesRefresh();
@@ -253,7 +248,7 @@ namespace PhalanxAdmin
         {
             if (lvLista.SelectedIndices.Count == 1)
             {
-                MacroUsuarioEntity entity = (MacroUsuarioEntity)lvLista.SelectedItems[0].Tag;
+                MacroErrorEntity entity = (MacroErrorEntity)lvLista.SelectedItems[0].Tag;
 
                 Edit(entity, true);
             }
@@ -286,7 +281,7 @@ namespace PhalanxAdmin
 
         private void lnkAdd_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            FABMMacroUsuario form = new FABMMacroUsuario();
+            FABMMacroError form = new FABMMacroError();
 
             form.ShowDialog();
 
@@ -301,13 +296,13 @@ namespace PhalanxAdmin
         {
             if (lvLista.SelectedItems.Count > 0)
             {
-                MacroUsuarioEntity entity = (MacroUsuarioEntity)lvLista.SelectedItems[0].Tag;
+                MacroErrorEntity entity = (MacroErrorEntity)lvLista.SelectedItems[0].Tag;
 
-                string mensaje = string.Format("Se eliminará el Usuario Login de Macros '{0}'{1}. ¿Desea conitnuar?", entity.UsuarioTC, Environment.NewLine);
+                string mensaje = string.Format("Se eliminará el Error seleccionado. {0}¿Desea conitnuar?", Environment.NewLine);
 
-                if (MessageBox.Show(mensaje, "Eliminar Usuario Login de Macros", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                if (MessageBox.Show(mensaje, "Eliminar Error", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
-                    MacroUsuarioBusiness business = new MacroUsuarioBusiness();
+                    MacroErrorBusiness business = new MacroErrorBusiness();
 
                     if (business.Delete(entity))
                     {
@@ -317,7 +312,7 @@ namespace PhalanxAdmin
                     }
                     else
                     {
-                        MessageBox.Show("Se produjo un error al querer eliminar el Usuario Login de Macros");
+                        MessageBox.Show("Se produjo un error al querer eliminar el Error");
                     }
                 }
             }
@@ -327,15 +322,15 @@ namespace PhalanxAdmin
         {
             if (lvLista.SelectedIndices.Count == 1)
             {
-                MacroUsuarioEntity entity = (MacroUsuarioEntity)lvLista.SelectedItems[0].Tag;
+                MacroErrorEntity entity = (MacroErrorEntity)lvLista.SelectedItems[0].Tag;
 
                 Edit(entity, false);
             }
         }
 
-        private void Edit(MacroUsuarioEntity entity, bool readOnly)
+        private void Edit(MacroErrorEntity entity, bool readOnly)
         {
-            FABMMacroUsuario form = new FABMMacroUsuario(entity, readOnly);
+            FABMMacroError form = new FABMMacroError(entity, readOnly);
 
             form.ShowDialog();
 
@@ -344,16 +339,6 @@ namespace PhalanxAdmin
                 this.CleanFilters();
                 this.ExecEntitiesRefresh();
             }
-        }
-        
-        private void CargarMacros()
-        {
-            MacroBusiness business = new MacroBusiness();
-            var macros = business.GetAll();
-            macros.Insert(0, new MacroEntity());
-
-            cbMacro.DataSource = macros;
-            cbMacro.SelectedValue = 0;
         }
     }
 }

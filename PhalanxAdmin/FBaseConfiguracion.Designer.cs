@@ -28,7 +28,8 @@ namespace PhalanxAdmin
         /// </summary>
         private void InitializeComponent()
         {
-            this.xppnlConfig = new UIComponents.XPPanel(257);
+            this.xppnlConfig = new UIComponents.XPPanel(277);
+            this.lnkUsuarioLoginMacro = new System.Windows.Forms.LinkLabel();
             this.lnkMacros = new System.Windows.Forms.LinkLabel();
             this.lnkWSConectores = new System.Windows.Forms.LinkLabel();
             this.lnkNDC = new System.Windows.Forms.LinkLabel();
@@ -37,7 +38,7 @@ namespace PhalanxAdmin
             this.lnkEsquemas = new System.Windows.Forms.LinkLabel();
             this.lnkATMs = new System.Windows.Forms.LinkLabel();
             this.lnkconfigMailsExpPwd = new System.Windows.Forms.LinkLabel();
-            this.lnkUsuarioLoginMacro = new System.Windows.Forms.LinkLabel();
+            this.lnkMacroErrores = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
             this.pnlXPGrps.SuspendLayout();
             this.pnlIzq.SuspendLayout();
@@ -58,7 +59,7 @@ namespace PhalanxAdmin
             // xppnlMenu
             // 
             this.xppnlMenu.ImageItems.ImageSet = null;
-            this.xppnlMenu.Location = new System.Drawing.Point(8, 273);
+            this.xppnlMenu.Location = new System.Drawing.Point(8, 293);
             // 
             // xppnlConfig
             // 
@@ -71,6 +72,7 @@ namespace PhalanxAdmin
             this.xppnlConfig.CaptionGradient.Start = System.Drawing.Color.White;
             this.xppnlConfig.CaptionGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
             this.xppnlConfig.CaptionUnderline = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.xppnlConfig.Controls.Add(this.lnkMacroErrores);
             this.xppnlConfig.Controls.Add(this.lnkUsuarioLoginMacro);
             this.xppnlConfig.Controls.Add(this.lnkMacros);
             this.xppnlConfig.Controls.Add(this.lnkWSConectores);
@@ -89,11 +91,27 @@ namespace PhalanxAdmin
             this.xppnlConfig.PanelGradient.End = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(223)))), ((int)(((byte)(247)))));
             this.xppnlConfig.PanelGradient.Start = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(223)))), ((int)(((byte)(247)))));
             this.xppnlConfig.PanelGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            this.xppnlConfig.Size = new System.Drawing.Size(184, 257);
+            this.xppnlConfig.Size = new System.Drawing.Size(184, 277);
             this.xppnlConfig.TabIndex = 4;
             this.xppnlConfig.TextColors.Foreground = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(93)))), ((int)(((byte)(198)))));
             this.xppnlConfig.TextHighlightColors.Foreground = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(142)))), ((int)(((byte)(255)))));
             this.xppnlConfig.VertAlignment = System.Drawing.StringAlignment.Center;
+            // 
+            // lnkUsuarioLoginMacro
+            // 
+            this.lnkUsuarioLoginMacro.ActiveLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkUsuarioLoginMacro.AutoSize = true;
+            this.lnkUsuarioLoginMacro.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.lnkUsuarioLoginMacro.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.lnkUsuarioLoginMacro.LinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkUsuarioLoginMacro.Location = new System.Drawing.Point(17, 225);
+            this.lnkUsuarioLoginMacro.Name = "lnkUsuarioLoginMacro";
+            this.lnkUsuarioLoginMacro.Size = new System.Drawing.Size(124, 13);
+            this.lnkUsuarioLoginMacro.TabIndex = 17;
+            this.lnkUsuarioLoginMacro.TabStop = true;
+            this.lnkUsuarioLoginMacro.Text = "Usuario Login Macro";
+            this.lnkUsuarioLoginMacro.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkUsuarioLoginMacro.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkUsuarioLoginMacro_LinkClicked);
             // 
             // lnkMacros
             // 
@@ -223,21 +241,21 @@ namespace PhalanxAdmin
             this.lnkconfigMailsExpPwd.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
             this.lnkconfigMailsExpPwd.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkconfigMailsExpPwd_LinkClicked);
             // 
-            // lnkUsuarioLoginMacro
+            // lnkMacroErrores
             // 
-            this.lnkUsuarioLoginMacro.ActiveLinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkUsuarioLoginMacro.AutoSize = true;
-            this.lnkUsuarioLoginMacro.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.lnkUsuarioLoginMacro.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.lnkUsuarioLoginMacro.LinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkUsuarioLoginMacro.Location = new System.Drawing.Point(17, 225);
-            this.lnkUsuarioLoginMacro.Name = "lnkUsuarioLoginMacro";
-            this.lnkUsuarioLoginMacro.Size = new System.Drawing.Size(124, 13);
-            this.lnkUsuarioLoginMacro.TabIndex = 17;
-            this.lnkUsuarioLoginMacro.TabStop = true;
-            this.lnkUsuarioLoginMacro.Text = "Usuario Login Macro";
-            this.lnkUsuarioLoginMacro.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkUsuarioLoginMacro.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkUsuarioLoginMacro_LinkClicked);
+            this.lnkMacroErrores.ActiveLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkMacroErrores.AutoSize = true;
+            this.lnkMacroErrores.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.lnkMacroErrores.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.lnkMacroErrores.LinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkMacroErrores.Location = new System.Drawing.Point(17, 247);
+            this.lnkMacroErrores.Name = "lnkMacroErrores";
+            this.lnkMacroErrores.Size = new System.Drawing.Size(110, 13);
+            this.lnkMacroErrores.TabIndex = 18;
+            this.lnkMacroErrores.TabStop = true;
+            this.lnkMacroErrores.Text = "Errores de Macros";
+            this.lnkMacroErrores.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkMacroErrores.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkMacroErrores_LinkClicked);
             // 
             // FBaseConfiguracion
             // 
@@ -266,6 +284,7 @@ namespace PhalanxAdmin
         protected System.Windows.Forms.LinkLabel lnkWSConectores;
         protected System.Windows.Forms.LinkLabel lnkMacros;
         protected System.Windows.Forms.LinkLabel lnkUsuarioLoginMacro;
+        protected System.Windows.Forms.LinkLabel lnkMacroErrores;
 
     }
 }
