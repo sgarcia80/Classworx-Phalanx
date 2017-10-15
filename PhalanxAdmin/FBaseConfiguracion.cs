@@ -35,6 +35,7 @@ namespace PhalanxAdmin
             lnkUsuarioLoginMacro.Enabled = UsrBL.AccParamConfigMacroUsuario(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
             lnkMacroErrores.Enabled = UsrBL.AccParamConfigMacroErrores(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
             lnkMacroClaves.Enabled = UsrBL.AccParamConfigMacroClaves(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            lnkUsuarioTC.Enabled = UsrBL.AccParamConfigMacroUsuarioTarjeta(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
         }
 
         private void lnkEsquemas_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -86,6 +87,11 @@ namespace PhalanxAdmin
         private void lnkMacroClaves_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             ((FPrincipal)this.MdiParent).OpenForm(new FMacroClaves());
+        }
+
+        private void lnkUsuarioTC_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ((FPrincipal)this.MdiParent).OpenForm(new FMacroUsuarioTarjeta());
         }
     }
 }

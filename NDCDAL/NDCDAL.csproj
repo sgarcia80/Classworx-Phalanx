@@ -109,6 +109,7 @@
     <Compile Include="DBMgr.cs" />
     <Compile Include="Factories\AplicacionNotificacionClaveFactory.cs" />
     <Compile Include="Factories\AuditTicketNotificacionFactory.cs" />
+    <Compile Include="Factories\MacroUsuarioTarjetaFactory.cs" />
     <Compile Include="Factories\MacroClaveFactory.cs" />
     <Compile Include="Factories\MacroErrorFactory.cs" />
     <Compile Include="Factories\MacroUsuarioFactory.cs" />
@@ -238,6 +239,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MappingFiles\MacroClaveEntity.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\MacroUsuarioTarjetaEntity.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
