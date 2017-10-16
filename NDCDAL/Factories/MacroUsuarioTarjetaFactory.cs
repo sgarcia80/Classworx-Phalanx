@@ -24,15 +24,15 @@ namespace NDCDAL.Factories
 
                     if (!string.IsNullOrEmpty(usuariored))
                     {
-                        DataSearch = DataSearch.Add(Expression.InsensitiveLike("tc.UsuarioRed", usuariored));
+                        DataSearch = DataSearch.Add(Expression.InsensitiveLike("tc.UsuarioRed", usuariored, MatchMode.Anywhere));
                     }
                     if (!string.IsNullOrEmpty(usuariotc))
                     {
-                        DataSearch = DataSearch.Add(Expression.InsensitiveLike("tc.UsuarioTC", usuariotc));
+                        DataSearch = DataSearch.Add(Expression.InsensitiveLike("tc.UsuarioTC", usuariotc, MatchMode.Anywhere));
                     }
                     if (!string.IsNullOrEmpty(appcode))
                     {
-                        DataSearch = DataSearch.Add(Expression.InsensitiveLike("tc.AplicacionCodigo", appcode));
+                        DataSearch = DataSearch.Add(Expression.InsensitiveLike("tc.AplicacionCodigo", appcode, MatchMode.Anywhere));
                     }
                     
                     var data = DataSearch.List<MacroUsuarioTarjetaEntity>();
@@ -57,6 +57,86 @@ namespace NDCDAL.Factories
                 throw (new CwxException(ex.Message, "MacroUsuarioTarjetaFactory GetAll()"));
             }
             return Lst;
+        }
+
+        public MacroUsuarioTarjetaEntityCollection GetAll(string usuariored)
+        {
+            MacroUsuarioTarjetaEntityCollection Lst = new MacroUsuarioTarjetaEntityCollection();
+            try
+            {
+                using (ISession session = DBMgr.factory.OpenSession())
+                {
+                    ICriteria DataSearch = session.CreateCriteria(typeof(MacroUsuarioTarjetaEntity), "tc");
+                    DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("UsuarioRed"));
+
+                    if (!string.IsNullOrEmpty(usuariored))
+                    {
+                        DataSearch = DataSearch.Add(Expression.InsensitiveLike("tc.UsuarioRed", usuariored, MatchMode.Exact));
+                    }
+
+                    var data = DataSearch.List<MacroUsuarioTarjetaEntity>();
+
+                    Lst.Add(data);
+                }
+            }
+            catch (NHibernate.ObjectNotFoundException ObjNotFoundEx)
+            {
+                throw (new CwxException(ObjNotFoundEx.Message, "MacroUsuarioTarjetaFactory GetAll()"));
+            }
+            catch (NHibernate.HibernateException NHEx)
+            {
+                throw (new CwxException(NHEx.Message, "MacroUsuarioTarjetaFactory GetAll()"));
+            }
+            catch (CwxException ex)
+            {
+                throw (ex);
+            }
+            catch (Exception ex)
+            {
+                throw (new CwxException(ex.Message, "MacroUsuarioTarjetaFactory GetAll()"));
+            }
+            return Lst;
+        }
+
+        public bool EsUsuarioTC(string usuariored)
+        {
+            bool es = false;
+
+            MacroUsuarioTarjetaEntityCollection Lst = new MacroUsuarioTarjetaEntityCollection();
+            try
+            {
+                using (ISession session = DBMgr.factory.OpenSession())
+                {
+                    ICriteria DataSearch = session.CreateCriteria(typeof(MacroUsuarioTarjetaEntity), "tc");
+                    DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("UsuarioRed"));
+
+                    if (!string.IsNullOrEmpty(usuariored))
+                    {
+                        DataSearch = DataSearch.Add(Expression.InsensitiveLike("tc.UsuarioRed", usuariored, MatchMode.Anywhere));
+                    }
+
+                    var data = DataSearch.List<MacroUsuarioTarjetaEntity>();
+
+                    es = (data != null && data.Count > 0);
+                }
+            }
+            catch (NHibernate.ObjectNotFoundException ObjNotFoundEx)
+            {
+                throw (new CwxException(ObjNotFoundEx.Message, "MacroUsuarioTarjetaFactory GetAll()"));
+            }
+            catch (NHibernate.HibernateException NHEx)
+            {
+                throw (new CwxException(NHEx.Message, "MacroUsuarioTarjetaFactory GetAll()"));
+            }
+            catch (CwxException ex)
+            {
+                throw (ex);
+            }
+            catch (Exception ex)
+            {
+                throw (new CwxException(ex.Message, "MacroUsuarioTarjetaFactory GetAll()"));
+            }
+            return es;
         }
 
         public MacroUsuarioTarjetaEntity Load(int id)

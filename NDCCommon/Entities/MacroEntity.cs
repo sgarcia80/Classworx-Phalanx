@@ -28,6 +28,8 @@ namespace NDCCommon.Entities
 
         public IList<MacroUsuarioEntity> UsuariosList { get; set; }
 
+        public IList<AplicacionNotificacionClaveEntity> AplicacionesList { get; set; }
+
         #endregion
 
         public override string Key

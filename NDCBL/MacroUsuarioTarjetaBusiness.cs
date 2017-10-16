@@ -34,9 +34,31 @@ namespace NDCBL
             return factory.GetAll(usuariored, usuariotc, appcode);
         }
 
+        public MacroUsuarioTarjetaEntityCollection GetAll(string usuariored)
+        {
+            MacroUsuarioTarjetaFactory factory = new MacroUsuarioTarjetaFactory();
+
+            return factory.GetAll(usuariored);
+        }
+
+        public bool EsUsuarioTC(string usuariored)
+        {
+            MacroUsuarioTarjetaFactory factory = new MacroUsuarioTarjetaFactory();
+
+            return factory.EsUsuarioTC(usuariored);
+        }
+
         public void Save(List<MacroUsuarioTarjetaEntity> list)
         {
             MacroUsuarioTarjetaFactory factory = new MacroUsuarioTarjetaFactory();
+
+            AplicacionNotificacionClaveBusiness appBusiness = new AplicacionNotificacionClaveBusiness();
+            var apps = appBusiness.GetAll();
+
+            foreach (MacroUsuarioTarjetaEntity usuario in list)
+            {
+                usuario.Aplicacion = apps.FindByCodigo(usuario.AplicacionCodigo);
+            }
 
             factory.Save(list);
         }

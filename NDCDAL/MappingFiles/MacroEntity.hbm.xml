@@ -12,7 +12,12 @@
     
     <bag name="UsuariosList" inverse="true" lazy="true" >
       <key column="macro_id" />
-      <one-to-many class="NDCCommon.Entities.MacroUsuarioEntity,NDCCommon" />
+      <one-to-many class="NDCCommon.Entities.MacroUsuarioEntity, NDCCommon" />
+    </bag>
+
+    <bag name="AplicacionesList" inverse="true" lazy="true" >
+      <key column="macro_id" />
+      <one-to-many class="NDCCommon.Entities.AplicacionNotificacionClaveEntity, NDCCommon" />
     </bag>
   </class>
 </hibernate-mapping>

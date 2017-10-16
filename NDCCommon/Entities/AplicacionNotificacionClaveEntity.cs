@@ -118,11 +118,7 @@ namespace NDCCommon.Entities
 
         public override string ToString()
         {
-            if (Id < 0)
-            { return Nombre; }
-            else
-            { return Nombre; }
-
+            return this.Nombre;
         }
     }
 }

@@ -313,19 +313,19 @@ namespace PhalanxAdmin
 
                 if (ok)
                 {
-                    MessageBox.Show("El archivo fue procesado correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("El archivo fue procesado correctamente", "Importación", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     
                     ExecEntitiesRefresh();
                 }
                 else
                 {
-                    MessageBox.Show("El archivo presentó errores que se muestran en la lista", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("El archivo presentó errores que se muestran en la lista", "Importación", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
             }
             catch (Exception)
             {
-                MessageBox.Show("Error al procesar el archivo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al procesar el archivo", "Importación", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
