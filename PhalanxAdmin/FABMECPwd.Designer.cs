@@ -274,6 +274,7 @@ namespace PhalanxAdmin
             this.txtDescrip.Location = new System.Drawing.Point(100, 214);
             this.txtDescrip.Multiline = true;
             this.txtDescrip.Name = "txtDescrip";
+            this.txtDescrip.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtDescrip.Size = new System.Drawing.Size(320, 72);
             this.txtDescrip.TabIndex = 5;
             // 

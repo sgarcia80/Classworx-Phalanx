@@ -71,6 +71,7 @@ namespace PhalanxAdmin
             this.lblModifying = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpGeneral = new System.Windows.Forms.TabPage();
+            this.label13 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.txtDiasRestantesPass = new System.Windows.Forms.TextBox();
             this.txtDuracionClave = new System.Windows.Forms.TextBox();
@@ -134,7 +135,6 @@ namespace PhalanxAdmin
             this.label15 = new System.Windows.Forms.Label();
             this.btnBuscarSolicitudes = new System.Windows.Forms.Button();
             this.btnLimpiarSolicitudes = new System.Windows.Forms.Button();
-            this.label13 = new System.Windows.Forms.Label();
             columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             columnHeader18 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -293,6 +293,7 @@ namespace PhalanxAdmin
             this.txtDescrip.Location = new System.Drawing.Point(103, 102);
             this.txtDescrip.Multiline = true;
             this.txtDescrip.Name = "txtDescrip";
+            this.txtDescrip.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtDescrip.Size = new System.Drawing.Size(320, 72);
             this.txtDescrip.TabIndex = 3;
             // 
@@ -585,6 +586,18 @@ namespace PhalanxAdmin
             this.tpGeneral.TabIndex = 0;
             this.tpGeneral.Text = "General";
             this.tpGeneral.UseVisualStyleBackColor = true;
+            // 
+            // label13
+            // 
+            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.Color.Red;
+            this.label13.Location = new System.Drawing.Point(479, 161);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(118, 13);
+            this.label13.TabIndex = 52;
+            this.label13.Text = "(999 = Sin vencimiento)";
             // 
             // label3
             // 
@@ -1285,18 +1298,6 @@ namespace PhalanxAdmin
             this.btnLimpiarSolicitudes.Text = "&Limpiar";
             this.btnLimpiarSolicitudes.UseVisualStyleBackColor = false;
             this.btnLimpiarSolicitudes.Click += new System.EventHandler(this.btnLimpiarSolicitudes_Click);
-            // 
-            // label13
-            // 
-            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.ForeColor = System.Drawing.Color.Red;
-            this.label13.Location = new System.Drawing.Point(479, 161);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(118, 13);
-            this.label13.TabIndex = 52;
-            this.label13.Text = "(999 = Sin vencimiento)";
             // 
             // FABMAppPwd
             // 

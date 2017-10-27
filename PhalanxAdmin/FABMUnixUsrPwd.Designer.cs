@@ -370,6 +370,7 @@ namespace PhalanxAdmin
             this.tBUserDescript.Location = new System.Drawing.Point(101, 108);
             this.tBUserDescript.Multiline = true;
             this.tBUserDescript.Name = "tBUserDescript";
+            this.tBUserDescript.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.tBUserDescript.Size = new System.Drawing.Size(320, 72);
             this.tBUserDescript.TabIndex = 4;
             // 

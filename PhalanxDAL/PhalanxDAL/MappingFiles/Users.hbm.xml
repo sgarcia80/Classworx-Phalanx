@@ -9,7 +9,7 @@
 		<property column="active_user" type="Boolean" name="ActiveUser" />
 		<many-to-one name="UserPassword" column="user_password_id" class="PhalanxCommon.Entities.UserPasswordEntity,PhalanxCommon" />
 		<many-to-one name="UserType" column="user_type_id" class="PhalanxCommon.Entities.UserTypeEntity,PhalanxCommon" />
-		<property column="user_desc" type="String" name="Desc" length="100" />
+		<property column="user_desc" type="String" name="Desc" length="4000" />
 		<property column="user_critical" type="Boolean" name="Critical" />
 		<property column="modifying_date" type="DateTime" name="ModifyingDate" />
 		<many-to-one name="ModifyingUser" column="modifying_user" class="PhalanxCommon.Entities.PhxUserEntity,PhalanxCommon" />

@@ -480,6 +480,13 @@ namespace PhalanxAdmin
                 MessageBox.Show("Duración de Clave debe ser mayor a cero");
                 return;
             }
+            if (txtDescrip.Text.Length > 4000)
+            {
+                MessageBox.Show("La descripción no puede exceder los 4000 caracteres");
+                this.DialogResult = DialogResult.None;
+                txtDescrip.Focus();
+                return;
+            }
 
 
             // verificar que el usuario no exista para esa BD
@@ -500,6 +507,7 @@ namespace PhalanxAdmin
             {
                 _entity.Application = (ApplicationEntity)cbAplicativos.SelectedItem;
             }
+
             _entity.Desc = txtDescrip.Text;
             _entity.Username = txtUsername.Text;
 

@@ -308,7 +308,7 @@ namespace PhalanxAdmin
             this.lnkNotifClaves.Size = new System.Drawing.Size(161, 30);
             this.lnkNotifClaves.TabIndex = 45;
             this.lnkNotifClaves.TabStop = true;
-            this.lnkNotifClaves.Text = "Claves Pendientes de Notificación";
+            this.lnkNotifClaves.Text = "Notificaciones de Alta pendientes (Red y COBIS)";
             this.lnkNotifClaves.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
             this.lnkNotifClaves.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkNotifClaves_LinkClicked);
             // 

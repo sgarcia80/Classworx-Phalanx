@@ -397,6 +397,12 @@ namespace PhalanxAdmin
                 MessageBox.Show("Debe seleccionar al menos un Grupo de Seguimiento de Solicitudes asociado a este usuario");
                 return false;
             }
+            if (tBUserDescript.Text.Length > 4000)
+            {
+                MessageBox.Show("La descripción no puede exceder los 4000 caracteres");
+                return false;
+            }
+
             return true;
         }
 
@@ -468,6 +474,7 @@ namespace PhalanxAdmin
                 m_CurrentUser.UserPassword.ApplyRealUser = checkBoxRealUser.Checked;
                 m_CurrentUser.UserPassword.RealPassword = pass;
             }
+
             m_CurrentUser.Username = tBUsuario.Text;
             m_CurrentUser.Desc = tBUserDescript.Text.Trim();
             m_CurrentUser.ActiveUser = cBoxActivo.Checked;

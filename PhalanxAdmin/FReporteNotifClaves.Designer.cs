@@ -54,6 +54,7 @@ namespace PhalanxAdmin
             this.colReintentos = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.bwRefreshEntities = new System.ComponentModel.BackgroundWorker();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.colFechaUltimoReclamo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             colTipoNotif = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             colNroTicket = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             colAplicacion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -288,7 +289,8 @@ namespace PhalanxAdmin
             colAplicacion,
             colUsuario,
             this.colFecha,
-            this.colReintentos});
+            this.colReintentos,
+            this.colFechaUltimoReclamo});
             this.lvLista.FullRowSelect = true;
             this.lvLista.HideSelection = false;
             this.lvLista.Location = new System.Drawing.Point(18, 16);
@@ -318,6 +320,12 @@ namespace PhalanxAdmin
             this.bwRefreshEntities.WorkerSupportsCancellation = true;
             this.bwRefreshEntities.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwRefreshEntities_DoWork);
             this.bwRefreshEntities.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwRefreshEntities_RunWorkerCompleted);
+            // 
+            // colFechaUltimoReclamo
+            // 
+            this.colFechaUltimoReclamo.Tag = "ddMMyyyyHHmm";
+            this.colFechaUltimoReclamo.Text = "Fecha Ultimo Reclamo";
+            this.colFechaUltimoReclamo.Width = 140;
             // 
             // FReporteNotifClaves
             // 
@@ -370,6 +378,7 @@ namespace PhalanxAdmin
         protected System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dtpFechaDesde;
         protected System.Windows.Forms.Button btnReenviar;
+        private System.Windows.Forms.ColumnHeader colFechaUltimoReclamo;
 
     }
 }

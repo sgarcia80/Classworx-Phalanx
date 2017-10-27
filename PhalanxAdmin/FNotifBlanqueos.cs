@@ -28,6 +28,9 @@ namespace PhalanxAdmin
         protected string _filUsuario = "";
         protected string _filDominio = "";
         protected int _filTipoNotif = 0;
+        protected DateTime? _fechaDesde;
+        protected DateTime? _fechaHasta;
+        protected string _filCargadoPor = "";
 
         public FNotifBlanqueos()
         {
@@ -137,6 +140,19 @@ namespace PhalanxAdmin
             {
                 _filTipoNotif = 0;
             }
+
+            if (txtCargadoPor.Text.Trim().Equals(string.Empty))
+            {
+                _filCargadoPor = string.Empty;
+            }
+            else
+            {
+                _filCargadoPor = txtCargadoPor.Text;
+            }
+
+            _fechaDesde = dtpFechaDesde.Checked ? dtpFechaDesde.Value : (DateTime?)null;
+            _fechaHasta = dtpFechaHasta.Checked ? dtpFechaHasta.Value : (DateTime?)null;
+
         }
 
         private void bwRefreshEntities_DoWork(object sender, DoWorkEventArgs e)
@@ -164,10 +180,7 @@ namespace PhalanxAdmin
         {
             TicketNotificacionBlanqueoBusiness business = new TicketNotificacionBlanqueoBusiness();
 
-            DateTime? fechaDesde = null;
-            DateTime? fechaHasta = null;
-
-            _entities = business.GetAll(_filTipoNotif, fechaDesde, fechaHasta, _filAplicacion, txtFilUsuarioApp.Text, _filDominio, txtFilUsuario.Text, chkPendiente.Checked);
+            _entities = business.GetAll(_filTipoNotif, _fechaDesde, _fechaHasta, _filAplicacion, txtFilUsuarioApp.Text, _filDominio, txtFilUsuario.Text, chkPendiente.Checked, _filCargadoPor);
         }
         /// <summary>
         /// Llama a la función que genera el array de LV Items y si hay items llama a la que hace el llenado
@@ -231,6 +244,7 @@ namespace PhalanxAdmin
                 lviArr[i].SubItems.Add(entity.Solicitante);
                 lviArr[i].SubItems.Add(estado);
                 lviArr[i].SubItems.Add(entity.FechaAceptacionTyC.HasValue ? entity.FechaAceptacionTyC.Value.ToString("dd/MM/yyyy HH:mm") : string.Empty);
+                lviArr[i].SubItems.Add(entity.UsuarioCarga);
 
                 //lviArr[i].ImageIndex = ;
                 lviArr[i].Tag = entity;

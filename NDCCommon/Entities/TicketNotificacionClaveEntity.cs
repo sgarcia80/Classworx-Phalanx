@@ -508,6 +508,8 @@ namespace NDCCommon.Entities
 		/// </summary>
 		public int? MailId { set; get; }
 
+        public DateTime? FechaUltimoMail { set; get; }
+
         #endregion
 
         public string TipoDocumentoDesc

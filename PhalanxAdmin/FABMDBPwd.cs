@@ -393,6 +393,13 @@ namespace PhalanxAdmin
                 MessageBox.Show("Debe seleccionar al menos un Grupo de Seguimiento de Solicitudes asociado a este usuario");
                 return;
             }
+            if (txtDescrip.Text.Length > 4000)
+            {
+                MessageBox.Show("La descripción no puede exceder los 4000 caracteres");
+                this.DialogResult = DialogResult.None;
+                txtDescrip.Focus();
+                return;
+            }
 
 
 
@@ -415,6 +422,8 @@ namespace PhalanxAdmin
             {
                 _entity.Db = (DataBaseEntity)cbDB.SelectedItem;
             }
+
+
             _entity.Desc = txtDescrip.Text;
             _entity.Username = txtUsername.Text.Trim();
             if (chkChgPwd.Checked)

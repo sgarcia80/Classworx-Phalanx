@@ -419,6 +419,16 @@ namespace PhalanxAdmin
                 }
             }
 
+            //Se valida que no exceda los 4000 caracteres
+            if (txtDescrip.Text.Length > 4000)
+            {
+                MessageBox.Show("La descripción no puede exceder los 4000 caracteres");
+                this.DialogResult = DialogResult.None;
+                txtDescrip.Focus();
+                return;
+            }
+
+
             // asignar datos a la entity
             _entity.ATMName = txtATMName.Text.Trim();
             _entity.Componente = txtComponente.Text.Trim();

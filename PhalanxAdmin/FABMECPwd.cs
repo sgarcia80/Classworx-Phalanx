@@ -460,6 +460,14 @@ namespace PhalanxAdmin
             if (_esAlta)
                 _entity.CommunicationDevice = CommunicationDevice;
 
+            if (Description.Length > 4000)
+            {
+                MessageBox.Show("La descripción no puede exceder los 4000 caracteres");
+                this.DialogResult = DialogResult.None;
+                txtDescrip.Focus();
+                return;
+            }
+
             _entity.Desc = Description;
             _entity.Username = Username;
             

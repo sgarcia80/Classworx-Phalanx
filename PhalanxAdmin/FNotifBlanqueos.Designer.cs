@@ -70,6 +70,13 @@ namespace PhalanxAdmin
             this.lnkView = new System.Windows.Forms.LinkLabel();
             this.lnkReenviar = new System.Windows.Forms.LinkLabel();
             this.lnkAdd = new System.Windows.Forms.LinkLabel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtCargadoPor = new System.Windows.Forms.TextBox();
+            this.colCargadoPor = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.dtpFechaHasta = new System.Windows.Forms.DateTimePicker();
+            this.label6 = new System.Windows.Forms.Label();
+            this.dtpFechaDesde = new System.Windows.Forms.DateTimePicker();
+            this.label7 = new System.Windows.Forms.Label();
             colAplicacion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             colDominioApp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
@@ -115,11 +122,17 @@ namespace PhalanxAdmin
             this.pnlFilters.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlFilters.Location = new System.Drawing.Point(200, 0);
             this.pnlFilters.Name = "pnlFilters";
-            this.pnlFilters.Size = new System.Drawing.Size(830, 108);
+            this.pnlFilters.Size = new System.Drawing.Size(830, 127);
             this.pnlFilters.TabIndex = 10;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.dtpFechaHasta);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.dtpFechaDesde);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.txtCargadoPor);
+            this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.cbTipoNotif);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.chkPendiente);
@@ -135,7 +148,7 @@ namespace PhalanxAdmin
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(18, 8);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(800, 88);
+            this.groupBox1.Size = new System.Drawing.Size(800, 114);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de búsqueda";
@@ -144,7 +157,7 @@ namespace PhalanxAdmin
             // 
             this.cbTipoNotif.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTipoNotif.FormattingEnabled = true;
-            this.cbTipoNotif.Location = new System.Drawing.Point(513, 20);
+            this.cbTipoNotif.Location = new System.Drawing.Point(572, 20);
             this.cbTipoNotif.Name = "cbTipoNotif";
             this.cbTipoNotif.Size = new System.Drawing.Size(222, 21);
             this.cbTipoNotif.TabIndex = 23;
@@ -153,7 +166,7 @@ namespace PhalanxAdmin
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(463, 23);
+            this.label4.Location = new System.Drawing.Point(500, 23);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(28, 13);
             this.label4.TabIndex = 22;
@@ -163,7 +176,7 @@ namespace PhalanxAdmin
             // chkPendiente
             // 
             this.chkPendiente.AutoSize = true;
-            this.chkPendiente.Location = new System.Drawing.Point(466, 49);
+            this.chkPendiente.Location = new System.Drawing.Point(504, 78);
             this.chkPendiente.Name = "chkPendiente";
             this.chkPendiente.Size = new System.Drawing.Size(79, 17);
             this.chkPendiente.TabIndex = 21;
@@ -174,14 +187,14 @@ namespace PhalanxAdmin
             // 
             this.cbDominio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbDominio.FormattingEnabled = true;
-            this.cbDominio.Location = new System.Drawing.Point(73, 20);
+            this.cbDominio.Location = new System.Drawing.Point(93, 20);
             this.cbDominio.Name = "cbDominio";
             this.cbDominio.Size = new System.Drawing.Size(176, 21);
             this.cbDominio.TabIndex = 20;
             // 
             // txtFilUsuarioApp
             // 
-            this.txtFilUsuarioApp.Location = new System.Drawing.Point(326, 47);
+            this.txtFilUsuarioApp.Location = new System.Drawing.Point(347, 47);
             this.txtFilUsuarioApp.Name = "txtFilUsuarioApp";
             this.txtFilUsuarioApp.Size = new System.Drawing.Size(120, 20);
             this.txtFilUsuarioApp.TabIndex = 18;
@@ -189,7 +202,7 @@ namespace PhalanxAdmin
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(255, 50);
+            this.label3.Location = new System.Drawing.Point(275, 50);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(65, 13);
             this.label3.TabIndex = 19;
@@ -208,7 +221,7 @@ namespace PhalanxAdmin
             // 
             this.cbAplicacion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbAplicacion.FormattingEnabled = true;
-            this.cbAplicacion.Location = new System.Drawing.Point(73, 47);
+            this.cbAplicacion.Location = new System.Drawing.Point(93, 47);
             this.cbAplicacion.Name = "cbAplicacion";
             this.cbAplicacion.Size = new System.Drawing.Size(176, 21);
             this.cbAplicacion.TabIndex = 3;
@@ -226,7 +239,7 @@ namespace PhalanxAdmin
             // 
             this.btnLimpiar.BackColor = System.Drawing.SystemColors.Control;
             this.btnLimpiar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnLimpiar.Location = new System.Drawing.Point(659, 46);
+            this.btnLimpiar.Location = new System.Drawing.Point(719, 75);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(76, 21);
             this.btnLimpiar.TabIndex = 4;
@@ -237,7 +250,7 @@ namespace PhalanxAdmin
             // btnBuscar
             // 
             this.btnBuscar.BackColor = System.Drawing.SystemColors.Control;
-            this.btnBuscar.Location = new System.Drawing.Point(577, 46);
+            this.btnBuscar.Location = new System.Drawing.Point(637, 75);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(76, 21);
             this.btnBuscar.TabIndex = 5;
@@ -247,7 +260,7 @@ namespace PhalanxAdmin
             // 
             // txtFilUsuario
             // 
-            this.txtFilUsuario.Location = new System.Drawing.Point(327, 20);
+            this.txtFilUsuario.Location = new System.Drawing.Point(347, 20);
             this.txtFilUsuario.Name = "txtFilUsuario";
             this.txtFilUsuario.Size = new System.Drawing.Size(120, 20);
             this.txtFilUsuario.TabIndex = 0;
@@ -255,7 +268,7 @@ namespace PhalanxAdmin
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(255, 23);
+            this.label2.Location = new System.Drawing.Point(275, 23);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 13);
             this.label2.TabIndex = 3;
@@ -299,9 +312,9 @@ namespace PhalanxAdmin
             // 
             this.pnlList.Controls.Add(this.lvLista);
             this.pnlList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlList.Location = new System.Drawing.Point(200, 108);
+            this.pnlList.Location = new System.Drawing.Point(200, 127);
             this.pnlList.Name = "pnlList";
-            this.pnlList.Size = new System.Drawing.Size(830, 406);
+            this.pnlList.Size = new System.Drawing.Size(830, 387);
             this.pnlList.TabIndex = 12;
             // 
             // lvLista
@@ -321,12 +334,13 @@ namespace PhalanxAdmin
             this.colFecha,
             this.colSolicitante,
             this.colEstado,
-            this.colFechaNotificado});
+            this.colFechaNotificado,
+            this.colCargadoPor});
             this.lvLista.FullRowSelect = true;
             this.lvLista.HideSelection = false;
             this.lvLista.Location = new System.Drawing.Point(18, 6);
             this.lvLista.Name = "lvLista";
-            this.lvLista.Size = new System.Drawing.Size(800, 325);
+            this.lvLista.Size = new System.Drawing.Size(800, 306);
             this.lvLista.SmallImageList = this.imageList;
             this.lvLista.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lvLista.TabIndex = 1;
@@ -511,6 +525,66 @@ namespace PhalanxAdmin
             this.lnkAdd.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
             this.lnkAdd.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAdd_LinkClicked);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(500, 50);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(66, 13);
+            this.label5.TabIndex = 24;
+            this.label5.Text = "Cargado Por";
+            this.label5.Visible = false;
+            // 
+            // txtCargadoPor
+            // 
+            this.txtCargadoPor.Location = new System.Drawing.Point(572, 47);
+            this.txtCargadoPor.Name = "txtCargadoPor";
+            this.txtCargadoPor.Size = new System.Drawing.Size(222, 20);
+            this.txtCargadoPor.TabIndex = 25;
+            // 
+            // colCargadoPor
+            // 
+            this.colCargadoPor.Text = "Cargado Por";
+            this.colCargadoPor.Width = 100;
+            // 
+            // dtpFechaHasta
+            // 
+            this.dtpFechaHasta.CustomFormat = "dd/MM/yyyy";
+            this.dtpFechaHasta.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpFechaHasta.Location = new System.Drawing.Point(347, 78);
+            this.dtpFechaHasta.Name = "dtpFechaHasta";
+            this.dtpFechaHasta.ShowCheckBox = true;
+            this.dtpFechaHasta.Size = new System.Drawing.Size(99, 20);
+            this.dtpFechaHasta.TabIndex = 29;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(275, 79);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(68, 13);
+            this.label6.TabIndex = 28;
+            this.label6.Text = "Fecha Hasta";
+            // 
+            // dtpFechaDesde
+            // 
+            this.dtpFechaDesde.CustomFormat = "dd/MM/yyyy";
+            this.dtpFechaDesde.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpFechaDesde.Location = new System.Drawing.Point(93, 79);
+            this.dtpFechaDesde.Name = "dtpFechaDesde";
+            this.dtpFechaDesde.ShowCheckBox = true;
+            this.dtpFechaDesde.Size = new System.Drawing.Size(99, 20);
+            this.dtpFechaDesde.TabIndex = 27;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(11, 79);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(71, 13);
+            this.label7.TabIndex = 26;
+            this.label7.Text = "Fecha Desde";
+            // 
             // FNotifBlanqueos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -580,6 +654,13 @@ namespace PhalanxAdmin
         private System.Windows.Forms.ColumnHeader colTipoNotif;
         private System.Windows.Forms.ComboBox cbTipoNotif;
         protected System.Windows.Forms.Label label4;
+        protected System.Windows.Forms.TextBox txtCargadoPor;
+        protected System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ColumnHeader colCargadoPor;
+        private System.Windows.Forms.DateTimePicker dtpFechaHasta;
+        protected System.Windows.Forms.Label label6;
+        private System.Windows.Forms.DateTimePicker dtpFechaDesde;
+        protected System.Windows.Forms.Label label7;
 
     }
 }
