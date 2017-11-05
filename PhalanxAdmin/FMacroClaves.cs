@@ -14,7 +14,7 @@ using NDCCommon.Entities;
 
 namespace PhalanxAdmin
 {
-    public partial class FMacroClaves : PhalanxAdmin.FBaseSistema
+    public partial class FMacroClaves : PhalanxAdmin.FConfiguracionTC
     {
         protected MacroClaveEntityCollection _entities;
         protected string _filDescripcion = string.Empty;

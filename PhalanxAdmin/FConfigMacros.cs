@@ -15,7 +15,7 @@ using System.IO;
 
 namespace PhalanxAdmin
 {
-    public partial class FConfigMacros : FBaseConfiguracion
+    public partial class FConfigMacros : FConfiguracionTC
     {
         public MacroEntity Entidad { get; set; }
 
@@ -304,5 +304,10 @@ namespace PhalanxAdmin
         }
 
         #endregion
+
+        private void pnlXPGrps_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

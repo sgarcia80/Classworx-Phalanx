@@ -15,7 +15,7 @@ using System.IO;
 
 namespace PhalanxAdmin
 {
-    public partial class FMacroUsuarioTarjeta : PhalanxAdmin.FBaseSistema
+    public partial class FMacroUsuarioTarjeta : PhalanxAdmin.FConfiguracionTC
     {
         protected MacroUsuarioTarjetaEntityCollection _entities;
         protected string _filUsuarioRed = string.Empty;

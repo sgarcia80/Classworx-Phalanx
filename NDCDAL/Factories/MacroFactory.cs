@@ -56,6 +56,8 @@ namespace NDCDAL.Factories
             {
                 MacroEntity entity = session.Get<MacroEntity>(id);
 
+                int cant = entity.UsuariosList.Count;
+
                 return entity;
             }
         }

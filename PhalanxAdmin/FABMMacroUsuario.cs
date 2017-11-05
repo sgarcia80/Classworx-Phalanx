@@ -41,6 +41,7 @@ namespace PhalanxAdmin
 
             txtUsuarioRed.Text = _entity.UsuarioRed;
             txtUsuario.Text = _entity.UsuarioTC;
+            chkPrincipal.Checked = _entity.Principal;
 
             if (_entity.Id > 0)
             {
@@ -63,6 +64,7 @@ namespace PhalanxAdmin
                 txtUsuarioRed.ReadOnly = true;
                 cbDominio.Enabled = false;
                 cbMacro.Enabled = false;
+                chkPrincipal.Enabled = false;
 
                 cbVisualizar.Enabled = false;
                 btnAceptar.Visible = false;
@@ -108,6 +110,7 @@ namespace PhalanxAdmin
             _entity.UsuarioRed = txtUsuarioRed.Text.Trim();
             _entity.UsuarioTC = txtUsuario.Text.Trim();
             _entity.ClaveTC = new phxCryptMgr.CCryptMgr().encrypt(txtClave.Text.Trim());
+            _entity.Principal = chkPrincipal.Checked;
 
             if (cbMacro.SelectedIndex == 0)
             {

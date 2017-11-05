@@ -5,7 +5,7 @@ using Common;
 
 namespace NDCCommon.Entities
 {
-    public class MacroUsuarioEntity : BaseEntity
+    public class MacroArchivoEntity : BaseEntity
     {
         #region Private Members
 
@@ -18,17 +18,11 @@ namespace NDCCommon.Entities
         /// </summary>
         public int Id { get; set; }
 
-        public PhalanxCommon.Entities.WinDomainEntity Dominio { get; set; }
+        public AplicacionNotificacionClaveEntity Aplicacion { get; set; }
 
-        public string UsuarioRed { get; set; }
+        public string Nombre { get; set; }
 
-        public MacroEntity Macro { get; set; }
-
-        public string UsuarioTC { get; set; }
-
-        public string ClaveTC { get; set; }
-
-        public bool Principal { get; set; }
+        public string Contenido { get; set; }
 
         #endregion
 

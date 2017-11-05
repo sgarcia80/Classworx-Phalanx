@@ -106,6 +106,7 @@
     <Compile Include="Collections\TicketNotificacionClaveEntityCollection.cs" />
     <Compile Include="Entities\AplicacionNotificacionClaveEntity.cs" />
     <Compile Include="Entities\AuditTicketNotificacionEntity.cs" />
+    <Compile Include="Entities\MacroArchivoEntity.cs" />
     <Compile Include="Entities\TicketNotificacionTarjetaEntity.cs" />
     <Compile Include="Entities\MacroUsuarioTarjetaEntity.cs" />
     <Compile Include="Entities\MacroClaveEntity.cs" />

@@ -39,13 +39,15 @@ namespace PhalanxAdmin
             this.label3 = new System.Windows.Forms.Label();
             this.txtClave = new System.Windows.Forms.TextBox();
             this.cbVisualizar = new System.Windows.Forms.CheckBox();
+            this.chkPrincipal = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(0, 187);
+            this.groupBox1.Location = new System.Drawing.Point(0, 207);
             this.groupBox1.Size = new System.Drawing.Size(481, 43);
-            this.groupBox1.TabIndex = 12;
+            this.groupBox1.TabIndex = 14;
             // 
             // btnAceptar
             // 
@@ -158,10 +160,30 @@ namespace PhalanxAdmin
             this.cbVisualizar.UseVisualStyleBackColor = true;
             this.cbVisualizar.CheckedChanged += new System.EventHandler(this.cbVisualizar_CheckedChanged);
             // 
+            // chkPrincipal
+            // 
+            this.chkPrincipal.AutoSize = true;
+            this.chkPrincipal.Location = new System.Drawing.Point(105, 185);
+            this.chkPrincipal.Name = "chkPrincipal";
+            this.chkPrincipal.Size = new System.Drawing.Size(15, 14);
+            this.chkPrincipal.TabIndex = 13;
+            this.chkPrincipal.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(24, 185);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(47, 13);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "Principal";
+            // 
             // FABMMacroUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(481, 230);
+            this.ClientSize = new System.Drawing.Size(481, 250);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.chkPrincipal);
             this.Controls.Add(this.cbVisualizar);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtClave);
@@ -187,6 +209,8 @@ namespace PhalanxAdmin
             this.Controls.SetChildIndex(this.txtClave, 0);
             this.Controls.SetChildIndex(this.label3, 0);
             this.Controls.SetChildIndex(this.cbVisualizar, 0);
+            this.Controls.SetChildIndex(this.chkPrincipal, 0);
+            this.Controls.SetChildIndex(this.label4, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -205,5 +229,7 @@ namespace PhalanxAdmin
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtClave;
         private System.Windows.Forms.CheckBox cbVisualizar;
+        private System.Windows.Forms.CheckBox chkPrincipal;
+        private System.Windows.Forms.Label label4;
     }
 }

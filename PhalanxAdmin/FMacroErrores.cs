@@ -14,7 +14,7 @@ using NDCCommon.Entities;
 
 namespace PhalanxAdmin
 {
-    public partial class FMacroErrores : PhalanxAdmin.FBaseSistema
+    public partial class FMacroErrores : PhalanxAdmin.FConfiguracionTC
     {
         protected MacroErrorEntityCollection _entities;
         protected string _filDescripcion = string.Empty;

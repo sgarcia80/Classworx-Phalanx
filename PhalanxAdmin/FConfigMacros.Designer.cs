@@ -55,6 +55,7 @@ namespace PhalanxAdmin
             this.lnkModify = new System.Windows.Forms.LinkLabel();
             this.lnkAdd = new System.Windows.Forms.LinkLabel();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.xppnlTC.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
             this.pnlXPGrps.SuspendLayout();
             this.pnlIzq.SuspendLayout();
@@ -64,43 +65,16 @@ namespace PhalanxAdmin
             this.xppnlMacros.SuspendLayout();
             this.SuspendLayout();
             // 
-            // lnkEsquemas
+            // xppnlTC
             // 
-            this.lnkEsquemas.TabIndex = 1;
-            // 
-            // lnkATMs
-            // 
-            this.lnkATMs.TabIndex = 2;
-            // 
-            // lnkconfigMailsExpPwd
-            // 
-            this.lnkconfigMailsExpPwd.TabIndex = 0;
-            // 
-            // lnkWSBPM
-            // 
-            this.lnkWSBPM.TabIndex = 3;
-            // 
-            // lnkWSCOBIS
-            // 
-            this.lnkWSCOBIS.TabIndex = 4;
-            // 
-            // lnkNDC
-            // 
-            this.lnkNDC.TabIndex = 5;
-            // 
-            // lnkWSConectores
-            // 
-            this.lnkWSConectores.TabIndex = 6;
-            // 
-            // lnkMacros
-            // 
-            this.lnkMacros.TabIndex = 7;
+            this.xppnlTC.ImageItems.ImageSet = null;
+            this.xppnlTC.Location = new System.Drawing.Point(8, 342);
             // 
             // pnlXPGrps
             // 
             this.pnlXPGrps.Controls.Add(this.xppnlMacros);
             this.pnlXPGrps.Size = new System.Drawing.Size(200, 600);
-            this.pnlXPGrps.Controls.SetChildIndex(this.xppnlMenu, 0);
+            this.pnlXPGrps.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlXPGrps_Paint);
             this.pnlXPGrps.Controls.SetChildIndex(this.xppnlMacros, 0);
             // 
             // pnlIzq
@@ -443,6 +417,8 @@ namespace PhalanxAdmin
             this.Controls.SetChildIndex(this.pnlIzq, 0);
             this.Controls.SetChildIndex(this.pnlFilters, 0);
             this.Controls.SetChildIndex(this.pnlList, 0);
+            this.xppnlTC.ResumeLayout(false);
+            this.xppnlTC.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).EndInit();
             this.pnlXPGrps.ResumeLayout(false);
             this.pnlIzq.ResumeLayout(false);

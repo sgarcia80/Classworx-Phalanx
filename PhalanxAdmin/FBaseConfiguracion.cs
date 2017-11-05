@@ -31,11 +31,7 @@ namespace PhalanxAdmin
             lnkWSBPM.Enabled = UsrBL.AccParamConfigWSBPM(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
             lnkWSCOBIS.Enabled = UsrBL.AccParamConfigWSCOBIS(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
             lnkNDC.Enabled = UsrBL.AccParamConfigNDC(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkMacros.Enabled = UsrBL.AccParamConfigMacros(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkUsuarioLoginMacro.Enabled = UsrBL.AccParamConfigMacroUsuario(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkMacroErrores.Enabled = UsrBL.AccParamConfigMacroErrores(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkMacroClaves.Enabled = UsrBL.AccParamConfigMacroClaves(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkUsuarioTC.Enabled = UsrBL.AccParamConfigMacroUsuarioTarjeta(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            
         }
 
         private void lnkEsquemas_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -67,31 +63,6 @@ namespace PhalanxAdmin
         private void lnkWSConectores_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             ((FPrincipal)this.MdiParent).OpenForm(new FConfigWSConectores());
-        }
-
-        private void lnkMacros_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            ((FPrincipal)this.MdiParent).OpenForm(new FConfigMacros());
-        }
-
-        private void lnkUsuarioLoginMacro_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            ((FPrincipal)this.MdiParent).OpenForm(new FMacroUsuarios());
-        }
-
-        private void lnkMacroErrores_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            ((FPrincipal)this.MdiParent).OpenForm(new FMacroErrores());
-        }
-
-        private void lnkMacroClaves_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            ((FPrincipal)this.MdiParent).OpenForm(new FMacroClaves());
-        }
-
-        private void lnkUsuarioTC_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            ((FPrincipal)this.MdiParent).OpenForm(new FMacroUsuarioTarjeta());
         }
     }
 }

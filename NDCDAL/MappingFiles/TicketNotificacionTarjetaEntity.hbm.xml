@@ -14,7 +14,8 @@
     <property column="tnt_solicitante" type="String" name="Solicitante" not-null="true" length="50" />
     <property column="tnt_user_load" type="String" name="UsuarioCarga" not-null="true" length="50" />
     <property column="tnt_fecha" type="DateTime" name="Fecha" insert="false"/>
-    <property column="tnt_fecha_cierre" type="DateTime" name="FechaCierre" not-null="false" />
+    <property column="tnt_fecha_procesado" type="DateTime" name="FechaProcesado" not-null="false" />
+    <property column="tnt_fecha_notificado" type="DateTime" name="FechaNotificado" not-null="false" />
     <property column="tnt_estado_id" type="Int32" name="Estado" not-null="false" />
     <property column="tnt_mail_id" type="Int32" name="MailId" not-null="false" />
     <many-to-one name="Error" column="tnt_macro_error_id" class="NDCCommon.Entities.MacroErrorEntity,NDCCommon" />

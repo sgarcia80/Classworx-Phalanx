@@ -13,7 +13,7 @@ namespace NDCCommon.Entities
         public enum EstadoTicket
         {
             Ninguno,
-            Pendiente,
+            Ingresado,
             Generado,
             Procesado,
             Error
@@ -238,7 +238,7 @@ namespace NDCCommon.Entities
         /// <summary>
         /// 
         /// </summary>
-        public DateTime? FechaCierre
+        public DateTime? FechaNotificado
         {
             get { return m_tnt_fecha_cierre; }
 
@@ -248,6 +248,8 @@ namespace NDCCommon.Entities
                 m_tnt_fecha_cierre = value;
             }
         }
+
+        public DateTime? FechaProcesado { get; set; }
 
         /// <summary>
         /// 

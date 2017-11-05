@@ -28,11 +28,7 @@ namespace PhalanxAdmin
         /// </summary>
         private void InitializeComponent()
         {
-            this.xppnlConfig = new UIComponents.XPPanel(320);
-            this.lnkMacroClaves = new System.Windows.Forms.LinkLabel();
-            this.lnkMacroErrores = new System.Windows.Forms.LinkLabel();
-            this.lnkUsuarioLoginMacro = new System.Windows.Forms.LinkLabel();
-            this.lnkMacros = new System.Windows.Forms.LinkLabel();
+            this.xppnlConfig = new UIComponents.XPPanel(214);
             this.lnkWSConectores = new System.Windows.Forms.LinkLabel();
             this.lnkNDC = new System.Windows.Forms.LinkLabel();
             this.lnkWSCOBIS = new System.Windows.Forms.LinkLabel();
@@ -40,7 +36,6 @@ namespace PhalanxAdmin
             this.lnkEsquemas = new System.Windows.Forms.LinkLabel();
             this.lnkATMs = new System.Windows.Forms.LinkLabel();
             this.lnkconfigMailsExpPwd = new System.Windows.Forms.LinkLabel();
-            this.lnkUsuarioTC = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
             this.pnlXPGrps.SuspendLayout();
             this.pnlIzq.SuspendLayout();
@@ -61,8 +56,7 @@ namespace PhalanxAdmin
             // xppnlMenu
             // 
             this.xppnlMenu.ImageItems.ImageSet = null;
-            this.xppnlMenu.Location = new System.Drawing.Point(8, 336);
-            this.xppnlMenu.Size = new System.Drawing.Size(167, 190);
+            this.xppnlMenu.Location = new System.Drawing.Point(8, 230);
             // 
             // xppnlConfig
             // 
@@ -75,11 +69,6 @@ namespace PhalanxAdmin
             this.xppnlConfig.CaptionGradient.Start = System.Drawing.Color.White;
             this.xppnlConfig.CaptionGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
             this.xppnlConfig.CaptionUnderline = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.xppnlConfig.Controls.Add(this.lnkUsuarioTC);
-            this.xppnlConfig.Controls.Add(this.lnkMacroClaves);
-            this.xppnlConfig.Controls.Add(this.lnkMacroErrores);
-            this.xppnlConfig.Controls.Add(this.lnkUsuarioLoginMacro);
-            this.xppnlConfig.Controls.Add(this.lnkMacros);
             this.xppnlConfig.Controls.Add(this.lnkWSConectores);
             this.xppnlConfig.Controls.Add(this.lnkNDC);
             this.xppnlConfig.Controls.Add(this.lnkWSCOBIS);
@@ -96,75 +85,11 @@ namespace PhalanxAdmin
             this.xppnlConfig.PanelGradient.End = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(223)))), ((int)(((byte)(247)))));
             this.xppnlConfig.PanelGradient.Start = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(223)))), ((int)(((byte)(247)))));
             this.xppnlConfig.PanelGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            this.xppnlConfig.Size = new System.Drawing.Size(167, 320);
+            this.xppnlConfig.Size = new System.Drawing.Size(184, 214);
             this.xppnlConfig.TabIndex = 4;
             this.xppnlConfig.TextColors.Foreground = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(93)))), ((int)(((byte)(198)))));
             this.xppnlConfig.TextHighlightColors.Foreground = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(142)))), ((int)(((byte)(255)))));
             this.xppnlConfig.VertAlignment = System.Drawing.StringAlignment.Center;
-            // 
-            // lnkMacroClaves
-            // 
-            this.lnkMacroClaves.ActiveLinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkMacroClaves.AutoSize = true;
-            this.lnkMacroClaves.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.lnkMacroClaves.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.lnkMacroClaves.LinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkMacroClaves.Location = new System.Drawing.Point(17, 270);
-            this.lnkMacroClaves.Name = "lnkMacroClaves";
-            this.lnkMacroClaves.Size = new System.Drawing.Size(108, 13);
-            this.lnkMacroClaves.TabIndex = 19;
-            this.lnkMacroClaves.TabStop = true;
-            this.lnkMacroClaves.Text = "Claves de Macros";
-            this.lnkMacroClaves.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkMacroClaves.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkMacroClaves_LinkClicked);
-            // 
-            // lnkMacroErrores
-            // 
-            this.lnkMacroErrores.ActiveLinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkMacroErrores.AutoSize = true;
-            this.lnkMacroErrores.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.lnkMacroErrores.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.lnkMacroErrores.LinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkMacroErrores.Location = new System.Drawing.Point(17, 247);
-            this.lnkMacroErrores.Name = "lnkMacroErrores";
-            this.lnkMacroErrores.Size = new System.Drawing.Size(110, 13);
-            this.lnkMacroErrores.TabIndex = 18;
-            this.lnkMacroErrores.TabStop = true;
-            this.lnkMacroErrores.Text = "Errores de Macros";
-            this.lnkMacroErrores.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkMacroErrores.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkMacroErrores_LinkClicked);
-            // 
-            // lnkUsuarioLoginMacro
-            // 
-            this.lnkUsuarioLoginMacro.ActiveLinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkUsuarioLoginMacro.AutoSize = true;
-            this.lnkUsuarioLoginMacro.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.lnkUsuarioLoginMacro.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.lnkUsuarioLoginMacro.LinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkUsuarioLoginMacro.Location = new System.Drawing.Point(17, 225);
-            this.lnkUsuarioLoginMacro.Name = "lnkUsuarioLoginMacro";
-            this.lnkUsuarioLoginMacro.Size = new System.Drawing.Size(124, 13);
-            this.lnkUsuarioLoginMacro.TabIndex = 17;
-            this.lnkUsuarioLoginMacro.TabStop = true;
-            this.lnkUsuarioLoginMacro.Text = "Usuario Login Macro";
-            this.lnkUsuarioLoginMacro.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkUsuarioLoginMacro.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkUsuarioLoginMacro_LinkClicked);
-            // 
-            // lnkMacros
-            // 
-            this.lnkMacros.ActiveLinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkMacros.AutoSize = true;
-            this.lnkMacros.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.lnkMacros.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.lnkMacros.LinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkMacros.Location = new System.Drawing.Point(18, 203);
-            this.lnkMacros.Name = "lnkMacros";
-            this.lnkMacros.Size = new System.Drawing.Size(111, 13);
-            this.lnkMacros.TabIndex = 16;
-            this.lnkMacros.TabStop = true;
-            this.lnkMacros.Text = "Macro Emuladores";
-            this.lnkMacros.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkMacros.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkMacros_LinkClicked);
             // 
             // lnkWSConectores
             // 
@@ -278,22 +203,6 @@ namespace PhalanxAdmin
             this.lnkconfigMailsExpPwd.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
             this.lnkconfigMailsExpPwd.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkconfigMailsExpPwd_LinkClicked);
             // 
-            // lnkUsuarioTC
-            // 
-            this.lnkUsuarioTC.ActiveLinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkUsuarioTC.AutoSize = true;
-            this.lnkUsuarioTC.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.lnkUsuarioTC.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.lnkUsuarioTC.LinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkUsuarioTC.Location = new System.Drawing.Point(17, 292);
-            this.lnkUsuarioTC.Name = "lnkUsuarioTC";
-            this.lnkUsuarioTC.Size = new System.Drawing.Size(124, 13);
-            this.lnkUsuarioTC.TabIndex = 20;
-            this.lnkUsuarioTC.TabStop = true;
-            this.lnkUsuarioTC.Text = "Usuarios de Tarjetas";
-            this.lnkUsuarioTC.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkUsuarioTC.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkUsuarioTC_LinkClicked);
-            // 
             // FBaseConfiguracion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -311,7 +220,6 @@ namespace PhalanxAdmin
 
         #endregion
 
-        private UIComponents.XPPanel xppnlConfig;
         protected System.Windows.Forms.LinkLabel lnkEsquemas;
         protected System.Windows.Forms.LinkLabel lnkATMs;
         protected System.Windows.Forms.LinkLabel lnkconfigMailsExpPwd;
@@ -319,11 +227,7 @@ namespace PhalanxAdmin
         protected System.Windows.Forms.LinkLabel lnkWSCOBIS;
         protected System.Windows.Forms.LinkLabel lnkNDC;
         protected System.Windows.Forms.LinkLabel lnkWSConectores;
-        protected System.Windows.Forms.LinkLabel lnkMacros;
-        protected System.Windows.Forms.LinkLabel lnkUsuarioLoginMacro;
-        protected System.Windows.Forms.LinkLabel lnkMacroErrores;
-        protected System.Windows.Forms.LinkLabel lnkMacroClaves;
-        protected System.Windows.Forms.LinkLabel lnkUsuarioTC;
+        protected UIComponents.XPPanel xppnlConfig;
 
     }
 }

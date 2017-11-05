@@ -34,6 +34,7 @@ namespace PhalanxAdmin
             this.lnkDominios = new System.Windows.Forms.LinkLabel();
             this.lnkAplicativosBPM = new System.Windows.Forms.LinkLabel();
             this.lnkSubsidiarias = new System.Windows.Forms.LinkLabel();
+            this.lnkTarjetasCred = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
             this.pnlXPGrps.SuspendLayout();
             this.pnlIzq.SuspendLayout();
@@ -51,6 +52,7 @@ namespace PhalanxAdmin
             // xppnlMenu
             // 
             this.xppnlMenu.Caption = "Parametría";
+            this.xppnlMenu.Controls.Add(this.lnkTarjetasCred);
             this.xppnlMenu.Controls.Add(this.lnkSubsidiarias);
             this.xppnlMenu.Controls.Add(this.lnkAplicativosBPM);
             this.xppnlMenu.Controls.Add(this.lnkDominios);
@@ -58,7 +60,7 @@ namespace PhalanxAdmin
             this.xppnlMenu.Controls.Add(this.lnkEdificios);
             this.xppnlMenu.Controls.Add(this.lnkConfiguracion);
             this.xppnlMenu.ImageItems.ImageSet = null;
-            this.xppnlMenu.Size = new System.Drawing.Size(184, 190);
+            this.xppnlMenu.Size = new System.Drawing.Size(184, 214);
             this.xppnlMenu.TabIndex = 2;
             // 
             // lnkConfiguracion
@@ -153,6 +155,21 @@ namespace PhalanxAdmin
             this.lnkSubsidiarias.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
             this.lnkSubsidiarias.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkSubsidiarias_LinkClicked);
             // 
+            // lnkTarjetasCred
+            // 
+            this.lnkTarjetasCred.ActiveLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkTarjetasCred.AutoSize = true;
+            this.lnkTarjetasCred.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.lnkTarjetasCred.LinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkTarjetasCred.Location = new System.Drawing.Point(18, 176);
+            this.lnkTarjetasCred.Name = "lnkTarjetasCred";
+            this.lnkTarjetasCred.Size = new System.Drawing.Size(115, 13);
+            this.lnkTarjetasCred.TabIndex = 15;
+            this.lnkTarjetasCred.TabStop = true;
+            this.lnkTarjetasCred.Text = "Tarjetas de Crédito";
+            this.lnkTarjetasCred.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkTarjetasCred.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkTarjetasCred_LinkClicked);
+            // 
             // FBaseSistema
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -176,5 +193,6 @@ namespace PhalanxAdmin
         private System.Windows.Forms.LinkLabel lnkDominios;
         private System.Windows.Forms.LinkLabel lnkAplicativosBPM;
         private System.Windows.Forms.LinkLabel lnkSubsidiarias;
+        private System.Windows.Forms.LinkLabel lnkTarjetasCred;
     }
 }

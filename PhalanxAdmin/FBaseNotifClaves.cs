@@ -27,6 +27,11 @@ namespace PhalanxAdmin
         {
             ((FPrincipal)this.MdiParent).OpenForm(new FNotifBlanqueos());
         }
+
+        private void linkNotifBlanqueosTC_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ((FPrincipal)this.MdiParent).OpenForm(new FNotifBlanqueosTC());
+        }
     }
 }
 

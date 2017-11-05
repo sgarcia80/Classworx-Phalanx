@@ -8,6 +8,7 @@ using NDCDAL.Factories;
 using System.Collections.Generic;
 using PhalanxBL;
 using log4net;
+using System.Text;
 
 namespace NDCBL
 {
@@ -32,7 +33,7 @@ namespace NDCBL
                 return factory;
             }
         }
-        
+
         public TicketNotificacionTarjetaBusiness()
         {
             //
@@ -46,7 +47,7 @@ namespace NDCBL
 
             foreach (TicketNotificacionTarjetaEntity item in list)
             {
-                item.Estado = TicketNotificacionTarjetaEntity.EstadoTicket.Pendiente;
+                item.Estado = TicketNotificacionTarjetaEntity.EstadoTicket.Ingresado;
             }
 
             factory.Save(list);
@@ -56,7 +57,7 @@ namespace NDCBL
         {
             TicketNotificacionTarjetaFactory factory = new TicketNotificacionTarjetaFactory();
 
-            entidad.Estado = TicketNotificacionTarjetaEntity.EstadoTicket.Pendiente;
+            entidad.Estado = TicketNotificacionTarjetaEntity.EstadoTicket.Ingresado;
 
             factory.Save(entidad);
         }
@@ -66,6 +67,135 @@ namespace NDCBL
             TicketNotificacionTarjetaFactory factory = new TicketNotificacionTarjetaFactory();
 
             factory.Delete(entidad);
+        }
+
+        public List<MacroArchivoEntity> Generar(List<TicketNotificacionTarjetaEntity> list, AplicacionNotificacionClaveEntityCollection apps)
+        {
+            Random rnd = new Random();
+
+            MacroBusiness macrobusiness = new MacroBusiness();
+            MacroClaveEntityCollection claves = new MacroClaveBusiness().GetAll();
+
+            TicketNotificacionTarjetaFactory factory = new TicketNotificacionTarjetaFactory();
+
+            TicketNotificacionTarjetaEntityCollection tickets = new TicketNotificacionTarjetaEntityCollection();
+            List<MacroArchivoEntity> archivos = new List<MacroArchivoEntity>();
+            MacroArchivoEntity archivo = null;
+            MacroEntity macro = null;
+            StringBuilder contenido = null;
+
+            bool generar = false;
+            int indice = 0;
+
+            string header = string.Empty;
+            StringBuilder body = new StringBuilder();
+            string footer = string.Empty;
+            StringBuilder filecontent = new StringBuilder();
+
+            MacroUsuarioEntity usuarioprincipal = null;
+            MacroUsuarioEntity usuariosecundario = null;
+
+            if (claves.Count == 0)
+            {
+                throw new Common.CwxException("No se encontraron Claves definidas");
+            }
+
+            foreach (AplicacionNotificacionClaveEntity aplicacion in apps)
+            {
+                macro = macrobusiness.Load(aplicacion.Macro.Id);
+
+                try
+                {
+                    //Se obtienen los usuarios para la cabecera.
+                    foreach (MacroUsuarioEntity us in macro.UsuariosList)
+                    {
+                        if (usuarioprincipal == null && us.Principal)
+                        {
+                            usuarioprincipal = us;
+                        }
+                        if (usuariosecundario == null && !us.Principal)
+                        {
+                            usuariosecundario = us;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    string mensaje = string.Format("Error al obtener los Usuarios Login de la Macro '{0}'", macro.Name);
+                    log.Error(mensaje, ex);
+                    
+                    throw new Common.CwxException(mensaje);
+                }
+
+                if (usuarioprincipal == null)
+                {
+                    string mensaje = string.Format("No se encontró el Usuario Login Principal de la Macro '{0}'", macro.Name);
+                    throw new Common.CwxException(mensaje);
+                }
+
+                header = macrobusiness.ReplaceHeader(macro.Header,
+                                                    usuarioprincipal,
+                                                    usuariosecundario);
+                footer = macro.Footer;
+
+                //Se resetea el flag
+                generar = false;
+
+                //Se recorren los tickets
+                foreach (TicketNotificacionTarjetaEntity item in list)
+                {
+                    //Si el ticket corresponde a la aplicación 
+                    if (item.Aplicacion.Id == aplicacion.Id)
+                    {
+                        //Se activa el flag para indicar que se encontraron tickets y se debe generar
+                        generar = true;
+
+                        //Si el ticket está Ingresado
+                        if (item.Estado == TicketNotificacionTarjetaEntity.EstadoTicket.Ingresado)
+                        {
+                            //Se calcula al azar una clave
+                            indice = rnd.Next(claves.Count);
+
+                            //Se actualiza como Generado
+                            item.Estado = TicketNotificacionTarjetaEntity.EstadoTicket.Generado;
+                            item.FechaProcesado = DateTime.Now;
+                            item.PasswordUsuarioAplicacion = claves[indice].ClaveEncriptada;
+                        }
+
+                        //Se agrega el cuerpo con el usuario y su clave asignada
+                        body.AppendLine(macrobusiness.ReplaceBody(macro.Body, item.UsuarioAplicacion, item.PasswordUsuarioAplicacion));
+                    }
+                }
+
+                if (generar)
+                {
+                    //Se crea el archivo
+                    archivo = new MacroArchivoEntity();
+                    archivo.Aplicacion = aplicacion;
+                    archivo.Nombre = string.Format("macro_{0:yyyyMMdd}_{0:HHmm}.txt", DateTime.Now);
+
+                    contenido = new StringBuilder();
+                    //Se arma el contenido del archivo
+                    contenido.AppendLine(header);
+                    contenido.AppendLine(body.ToString());
+                    contenido.AppendLine(footer);
+                    archivo.Contenido = contenido.ToString();
+
+                    archivos.Add(archivo);
+                }
+            }
+
+            try
+            {
+                factory.Save(list);
+            }
+            catch (Exception ex)
+            {
+                string mensaje = "Error al grabar los tickets luego de generar las macros";
+                log.Error(mensaje, ex);
+            }
+
+            return archivos;
         }
 
         public TicketNotificacionTarjetaEntityCollection GetAllByUser(string dominio, string usuario)
@@ -94,6 +224,11 @@ namespace NDCBL
             return tmpCollection;
         }
 
+        public void Save(List<TicketNotificacionTarjetaEntity> list)
+        {
+            Factory.Save(list);
+        }
+
         public int Save(TicketNotificacionTarjetaEntity ticket)
         {
             return Factory.Save(ticket);
@@ -104,7 +239,7 @@ namespace NDCBL
             return new TicketNotificacionTarjetaFactory().Load(Id);
         }
 
-        public int EnviarEmail(TicketNotificacionTarjetaEntityCollection collection)
+        public int EnviarEmail(List<TicketNotificacionTarjetaEntity> collection)
         {
             string debug = string.Empty;
             int sent = 0;
@@ -149,7 +284,7 @@ namespace NDCBL
 
             debug += " | Envia mail";
 
-            notificacion.MailId = MailToSendBL.NotificacionBlanqueoMail(notificacion.Usuario, mailTo, notificacion.Id, notificacion.Aplicacion.Nombre, solicitante, notificacion.Fecha);
+            notificacion.MailId = MailToSendBL.NotificacionBlanqueoMail(notificacion.UsuarioAplicacion, mailTo, notificacion.Id, notificacion.Aplicacion.Nombre, solicitante, notificacion.Fecha);
 
             debug += " | Graba ticket BPM";
 
@@ -158,7 +293,7 @@ namespace NDCBL
             return true;
         }
 
-        public int ReenviarEmailReclamo(TicketNotificacionTarjetaEntityCollection collection)
+        public int ReenviarEmailReclamo(List<TicketNotificacionTarjetaEntity> collection)
         {
             string debug = string.Empty;
             int sent = 0;
@@ -199,7 +334,7 @@ namespace NDCBL
 
             debug += " | Envia mail";
 
-            notificacion.MailId = MailToSendBL.ReclamoNotificacionBlanqueoMail(notificacion.Usuario, mailTo, notificacion.Id, notificacion.Aplicacion.Nombre, notificacion.Fecha);
+            notificacion.MailId = MailToSendBL.ReclamoNotificacionBlanqueoMail(notificacion.UsuarioAplicacion, mailTo, notificacion.Id, notificacion.Aplicacion.Nombre, notificacion.Fecha);
 
             debug += " | Graba ticket BPM";
 

@@ -50,7 +50,9 @@ namespace PhalanxAdmin
             this.colUsuarioRed = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colUsuarioTC = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.bwRefreshEntities = new System.ComponentModel.BackgroundWorker();
+            this.colPrincipal = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             colMacro = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.xppnlTC.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
             this.pnlXPGrps.SuspendLayout();
             this.pnlIzq.SuspendLayout();
@@ -61,10 +63,16 @@ namespace PhalanxAdmin
             this.statusbar.SuspendLayout();
             this.SuspendLayout();
             // 
+            // xppnlTC
+            // 
+            this.xppnlTC.ImageItems.ImageSet = null;
+            this.xppnlTC.Location = new System.Drawing.Point(8, 372);
+            // 
             // pnlXPGrps
             // 
             this.pnlXPGrps.Controls.Add(this.xppnlDBs);
             this.pnlXPGrps.Size = new System.Drawing.Size(200, 595);
+            this.pnlXPGrps.Controls.SetChildIndex(this.xppnlTC, 0);
             this.pnlXPGrps.Controls.SetChildIndex(this.xppnlMenu, 0);
             this.pnlXPGrps.Controls.SetChildIndex(this.xppnlDBs, 0);
             // 
@@ -296,7 +304,8 @@ namespace PhalanxAdmin
             colMacro,
             this.colDominio,
             this.colUsuarioRed,
-            this.colUsuarioTC});
+            this.colUsuarioTC,
+            this.colPrincipal});
             this.lvLista.HideSelection = false;
             this.lvLista.Location = new System.Drawing.Point(18, 16);
             this.lvLista.MultiSelect = false;
@@ -321,13 +330,19 @@ namespace PhalanxAdmin
             // colUsuarioTC
             // 
             this.colUsuarioTC.Text = "Usuario TC";
-            this.colUsuarioTC.Width = 200;
+            this.colUsuarioTC.Width = 120;
             // 
             // bwRefreshEntities
             // 
             this.bwRefreshEntities.WorkerSupportsCancellation = true;
             this.bwRefreshEntities.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwRefreshEntities_DoWork);
             this.bwRefreshEntities.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwRefreshEntities_RunWorkerCompleted);
+            // 
+            // colPrincipal
+            // 
+            this.colPrincipal.Text = "Principal";
+            this.colPrincipal.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.colPrincipal.Width = 80;
             // 
             // FMacroUsuarios
             // 
@@ -340,6 +355,8 @@ namespace PhalanxAdmin
             this.Controls.SetChildIndex(this.pnlIzq, 0);
             this.Controls.SetChildIndex(this.pnlFilters, 0);
             this.Controls.SetChildIndex(this.pnlList, 0);
+            this.xppnlTC.ResumeLayout(false);
+            this.xppnlTC.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).EndInit();
             this.pnlXPGrps.ResumeLayout(false);
             this.pnlIzq.ResumeLayout(false);
@@ -379,5 +396,6 @@ namespace PhalanxAdmin
         protected System.Windows.Forms.LinkLabel lnkDelete;
         protected System.Windows.Forms.LinkLabel lnkAdd;
         protected System.Windows.Forms.LinkLabel lnkView;
+        private System.Windows.Forms.ColumnHeader colPrincipal;
     }
 }

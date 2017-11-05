@@ -289,7 +289,7 @@ namespace PhalanxBL
         private const string CONF_NDC_R = "@CONF_NDC_R@"; //Configuración de Parametría de Notificación de Claves - Lectura
         private const string CONF_CONECTORES_RW = "@CONF_CONECTORES_RW@"; //Configuración de Parametría de Conectores - Escritura
         private const string CONF_CONECTORES_R = "@CONF_CONECTORES_R@"; //Configuración de Parametría de Conectores - Lectura
-        private const string CONF_MACROS_RW = "@CONF_MACROS_RW@"; 
+        private const string CONF_MACROS_RW = "@CONF_MACROS_RW@";
         private const string CONF_MACROS_R = "@CONF_MACROS_R@";
         private const string CONF_MACROUSER_RW = "@CONF_MACROUSER_RW@";
         private const string CONF_MACROUSER_R = "@CONF_MACROUSER_R@";
@@ -784,6 +784,16 @@ namespace PhalanxBL
         public bool AccParamConfigNDC(string usernamedomain)
         {
             string[] PrivilegiosAcceso = new string[] { CONF_NDC_RW, CONF_NDC_R };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+
+        public bool AccParamConfigTC(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { CONF_MACROS_RW, CONF_MACROS_R, 
+                                                        CONF_MACROUSER_RW, CONF_MACROUSER_R, 
+                                                        CONF_MACROUSERTC_RW, CONF_MACROUSERTC_R,
+                                                        CONF_MACROERROR_RW, CONF_MACROERROR_R,
+                                                        CONF_MACROCLAVE_RW, CONF_MACROCLAVE_R};
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
 

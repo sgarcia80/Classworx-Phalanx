@@ -141,7 +141,7 @@ namespace NDCDAL.Factories
 
                 if (this.FilEstado != TicketNotificacionTarjetaEntity.EstadoTicket.Ninguno)
                 {
-                    DataSearch = DataSearch.Add(Expression.Eq("TNT.Estado", this.FilEstado));
+                    DataSearch = DataSearch.Add(Expression.Eq("TNT.Estado", (int)this.FilEstado));
                 }
 
                 try

@@ -90,7 +90,7 @@ namespace PhalanxAdmin
                     }
                 case FormType.View:
                     {
-                        this.Title = "Ticket de Notificación de Blanqueo de Red Nro" + nro;
+                        this.Title = "Ticket de Notificación de Blanqueo de Red Nro " + nro;
                         break;
                     }
                 case FormType.Delete:

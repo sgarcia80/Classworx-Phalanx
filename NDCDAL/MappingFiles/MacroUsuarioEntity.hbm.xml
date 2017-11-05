@@ -11,5 +11,7 @@
     <many-to-one column="macro_id" name="Macro" class="NDCCommon.Entities.MacroEntity,NDCCommon" />
     <property column="usuario_tc" name="UsuarioTC" type="String" />
     <property column="clave_tc" name="ClaveTC" type="String" />
+
+    <property column="principal" name="Principal" type="Boolean" />
   </class>
 </hibernate-mapping>

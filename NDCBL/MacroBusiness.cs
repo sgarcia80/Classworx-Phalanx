@@ -66,5 +66,50 @@ namespace NDCBL
 
             return factory.Delete(Macro);
         }
+
+        public string ReplaceHeader(string contenido, MacroUsuarioEntity principal, MacroUsuarioEntity secundario)
+        {
+            string usr1 = string.Empty;
+            string pwd1 = string.Empty;
+
+            string usr2 = string.Empty;
+            string pwd2 = string.Empty;
+
+            if (principal != null)
+            {
+                usr1 = principal.UsuarioTC;
+                pwd1 = principal.ClaveTC;
+            }
+            if (secundario != null)
+            {
+                usr2 = secundario.UsuarioTC;
+                pwd2 = secundario.ClaveTC;
+            }
+
+            return ReplaceHeader(contenido, usr1, pwd1, usr2, pwd2);
+        }
+
+        public string ReplaceHeader(string contenido, string admin1, string adminclave1, string admin2, string adminclave2)
+        { 
+            string value = contenido;
+
+            value = value.Replace(HeaderTags.Tag_Admin_Usuario_1, admin1);
+            value = value.Replace(HeaderTags.Tag_Admin_Clave_1, adminclave1);
+
+            value = value.Replace(HeaderTags.Tag_Admin_Usuario_2, admin2);
+            value = value.Replace(HeaderTags.Tag_Admin_Clave_2, adminclave2);
+
+            return value;
+        }
+
+        public string ReplaceBody(string contenido, string usuario, string clave)
+        {
+            string value = contenido;
+
+            value = value.Replace(BodyTags.Tag_Usuario, usuario);
+            value = value.Replace(BodyTags.Tag_Clave, clave);
+
+            return value;
+        }
     }
 }

@@ -14,7 +14,7 @@ using NDCCommon.Entities;
 
 namespace PhalanxAdmin
 {
-    public partial class FMacroUsuarios : PhalanxAdmin.FBaseSistema
+    public partial class FMacroUsuarios : PhalanxAdmin.FConfiguracionTC
     {
         protected MacroUsuarioEntityCollection _entities;
         protected int _filMacro = 0;
@@ -163,6 +163,8 @@ namespace PhalanxAdmin
                 lviArr[i].SubItems.Add(entity.Dominio != null ? entity.Dominio.NtName : string.Empty);
                 lviArr[i].SubItems.Add(entity.UsuarioRed);
                 lviArr[i].SubItems.Add(entity.UsuarioTC);
+                lviArr[i].SubItems.Add(entity.Principal ? "SI" : string.Empty);
+
                 lviArr[i].Tag = entity;
                 i++;
             }

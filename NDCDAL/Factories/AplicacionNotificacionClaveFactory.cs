@@ -35,6 +35,8 @@ namespace NDCDAL.Factories
 
         public bool? FilNotificable { set; get; }
 
+        public bool? FilEsEmuladores { get; set; }
+
         public AplicacionNotificacionClaveFactory()
         {
             //
@@ -53,7 +55,6 @@ namespace NDCDAL.Factories
                     
                     if (_filCodigo != null && _filCodigo != "")
                         DataSearch = DataSearch.Add(Expression.Eq("Codigo", _filCodigo));
-                    //DataSearch = DataSearch.Add(Expression.Like("Codigo", _filCodigo, MatchMode.Anywhere));
 
                     if (!string.IsNullOrEmpty(_filNombre))
                         DataSearch = DataSearch.Add(Expression.Like("Nombre", _filNombre, MatchMode.Anywhere));
@@ -63,7 +64,10 @@ namespace NDCDAL.Factories
 
                     if (FilNotificable.HasValue && FilNotificable.Value)
                         DataSearch = DataSearch.Add(Expression.Eq("Notificable", true));
-                            
+
+                    if (FilEsEmuladores.HasValue)
+                        DataSearch = DataSearch.Add(Expression.Eq("EsEmuladores", FilEsEmuladores.Value));
+        
                     DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("Nombre"));
                     Lst.Add(DataSearch.List<AplicacionNotificacionClaveEntity>());
                 }

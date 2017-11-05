@@ -34,6 +34,7 @@ namespace PhalanxAdmin
             lnkDominios.Enabled = UsrBL.AccAdmDominiosWin(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
             lnkAplicativosBPM.Enabled = UsrBL.AccParamAplicativosBMP(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
             lnkSubsidiarias.Enabled = UsrBL.AccParamSubsidiarias(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            lnkTarjetasCred.Enabled = UsrBL.AccParamConfigTC(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
         }
 
         private void lnkEdificios_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -63,6 +64,11 @@ namespace PhalanxAdmin
         private void lnkSubsidiarias_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             ((FPrincipal)this.MdiParent).OpenForm(new FSubsidiarias());
+        }
+
+        private void lnkTarjetasCred_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ((FPrincipal)this.MdiParent).OpenForm(new FConfiguracionTC());
         }
     }
 }
