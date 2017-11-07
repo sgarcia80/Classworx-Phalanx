@@ -150,8 +150,10 @@ namespace PhalanxAdmin
                 _filCargadoPor = txtCargadoPor.Text;
             }
 
-            _fechaDesde = dtpFechaDesde.Checked ? dtpFechaDesde.Value : (DateTime?)null;
-            _fechaHasta = dtpFechaHasta.Checked ? dtpFechaHasta.Value : (DateTime?)null;
+            _fechaDesde = dtpFechaDesde.Checked ? dtpFechaDesde.Value.Date : (DateTime?)null;
+            _fechaHasta = dtpFechaHasta.Checked ? dtpFechaHasta.Value.Date : (DateTime?)null;
+            _fechaHasta = _fechaHasta.Value.AddDays(1);
+            _fechaHasta = _fechaHasta.Value.AddSeconds(-1);
 
         }
 
@@ -305,6 +307,14 @@ namespace PhalanxAdmin
             cbAplicacion.SelectedIndex = 0;
             cbDominio.SelectedIndex = 0;
             cbTipoNotif.SelectedIndex = 0;
+            txtCargadoPor.Text = "";
+
+            dtpFechaDesde.Checked = true;
+            dtpFechaHasta.Checked = true;
+
+            dtpFechaDesde.Value = DateTime.Today;
+            dtpFechaHasta.Value = DateTime.Today;
+
         }
 
         private void lnkCancelar_Click(object sender, EventArgs e)
