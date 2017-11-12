@@ -34,9 +34,9 @@ namespace PhalanxAdmin
         private void FEquiposCom_Load(object sender, EventArgs e)
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
-            lnkAdd.Enabled = UsrBL.AccAdmEqComRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkModify.Enabled = UsrBL.AccAdmEqComRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkDelete.Enabled = UsrBL.AccAdmEqComRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            lnkAdd.Enabled = UsrBL.AccAdmEqComRW(this.Usuario);
+            lnkModify.Enabled = UsrBL.AccAdmEqComRW(this.Usuario);
+            lnkDelete.Enabled = UsrBL.AccAdmEqComRW(this.Usuario);
 
             this.lnkCancelar.Visible = false;
             this.pbDB.Visible = false;

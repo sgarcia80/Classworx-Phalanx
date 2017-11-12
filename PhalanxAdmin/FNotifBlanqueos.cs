@@ -44,9 +44,9 @@ namespace PhalanxAdmin
         private void FEquiposWin_Load(object sender, EventArgs e)
         {
             //NDCBL.TicketNotificacionBlanqueoBusiness business = new TicketNotificacionBlanqueoBusiness();
-            //lnkAdd.Enabled = UsrBL.AccAdmEqWinRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            //lnkModify.Enabled = UsrBL.AccAdmEqWinRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            //lnkDelete.Enabled = UsrBL.AccAdmEqWinRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            //lnkAdd.Enabled = UsrBL.AccAdmEqWinRW(this.Usuario);
+            //lnkModify.Enabled = UsrBL.AccAdmEqWinRW(this.Usuario);
+            //lnkDelete.Enabled = UsrBL.AccAdmEqWinRW(this.Usuario);
 
             this.lvLista.ListViewItemSorter = new cwxSorter();
             this.lnkCancelar.Visible = false;
@@ -400,8 +400,8 @@ namespace PhalanxAdmin
 
         private void lnkAdd_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            FABMNotifBlanqueo form = new FABMNotifBlanqueo(0, false, FABMNotifBlanqueo.FormType.New);
-
+            FABMNotifBlanqueo form = new FABMNotifBlanqueo(0, false, FABMNotifBlanqueo.FormType.New, this.Usuario);
+            
             if (form.ShowDialog() == DialogResult.OK)
             {
                 ExecEntitiesRefresh();
@@ -424,21 +424,23 @@ namespace PhalanxAdmin
 
             TicketNotificacionBlanqueoEntity ticket = lvLista.SelectedItems[0].Tag as TicketNotificacionBlanqueoEntity;
 
-            Form form = null;
+            FModalBase form = null;
 
             switch (ticket.TipoNotificacion)
             {
                 case 2:
-                    form = new FABMNotifBlanqueoRed(ticket.Id, !edit, FABMNotifBlanqueoRed.FormType.View);
+                    form = new FABMNotifBlanqueoRed(ticket.Id, !edit, FABMNotifBlanqueoRed.FormType.View, this.Usuario);
                     break;
                 case 3:
-                    form = new FABMNotifDesbloqueoRed(ticket.Id, !edit, FABMNotifDesbloqueoRed.FormType.View);
+                    form = new FABMNotifDesbloqueoRed(ticket.Id, !edit, FABMNotifDesbloqueoRed.FormType.View, this.Usuario);
                     break;
                 case 1:
                 default:
-                    form = new FABMNotifBlanqueo(ticket.Id, !edit, FABMNotifBlanqueo.FormType.View);
+                    form = new FABMNotifBlanqueo(ticket.Id, !edit, FABMNotifBlanqueo.FormType.View, this.Usuario);
                     break;
             }
+            
+            form.Usuario = this.Usuario;
 
             return form.ShowDialog();
         }
@@ -470,8 +472,8 @@ namespace PhalanxAdmin
 
         private void lnkAddBlanqueoRed_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            FABMNotifBlanqueoRed form = new FABMNotifBlanqueoRed(0, false, FABMNotifBlanqueoRed.FormType.New);
-
+            FABMNotifBlanqueoRed form = new FABMNotifBlanqueoRed(0, false, FABMNotifBlanqueoRed.FormType.New, this.Usuario);
+            
             if (form.ShowDialog() == DialogResult.OK)
             {
                 ExecEntitiesRefresh();
@@ -480,8 +482,8 @@ namespace PhalanxAdmin
 
         private void lnkAddDesbloqueoRed_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            FABMNotifDesbloqueoRed form = new FABMNotifDesbloqueoRed(0, false, FABMNotifDesbloqueoRed.FormType.New);
-
+            FABMNotifDesbloqueoRed form = new FABMNotifDesbloqueoRed(0, false, FABMNotifDesbloqueoRed.FormType.New, this.Usuario);
+            
             if (form.ShowDialog() == DialogResult.OK)
             {
                 ExecEntitiesRefresh();

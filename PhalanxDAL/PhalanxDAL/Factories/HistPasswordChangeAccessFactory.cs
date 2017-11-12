@@ -18,7 +18,7 @@ namespace PhalanxDAL.Factories
                 try
                 {
                     PhxUsersFactory PUF = new PhxUsersFactory();
-                    entity.PhxUser = PUF.GetPhxUser(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+                    //entity.PhxUser = PUF.GetPhxUser();
 
                     tx = session.BeginTransaction();
                     session.Save(entity);

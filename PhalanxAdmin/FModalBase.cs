@@ -10,6 +10,7 @@ namespace PhalanxAdmin
 {
     public partial class FModalBase : Form
     {
+        public string Usuario { get; set; }
 
         private int XPos = 0;
         private int YPos = 0;

@@ -13,13 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FPrincipal : Form
     {
+        private string Usuario { get; set; }
+
         private FBienvenida formBienvenida;
         [System.Runtime.InteropServices.DllImport("user32.dll", EntryPoint = "SendMessageA")]
         static extern int SendMessage(System.IntPtr hwnd, int wMsg, int wParam, ref Point lParam);
         const int LVM_SETITEMPOSITION32 = (0x1000 + 49);
         //const int LVM_GETITEMTEXTW		 = (0x1000 + 115);
-
-
+        
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(typeof(FPrincipal));
 
         PhxUserEntity _loggedUser;
@@ -33,15 +34,20 @@ namespace PhalanxAdmin
 
         }
 
+        public FPrincipal(string usuario) : this()
+        {
+            this.Usuario = usuario;
+        }
+
         private void FPrincipal_Load(object sender, EventArgs e)
         {
-            string Version = "3.17.8.17";
+            string Version = "3.17.9.17";
             this.Text += " v" + Version;
             try
             {
-                DBMgr.Application = App.Phalanx;
-                DBMgr.NHAssembly = typeof(DBMgr).Assembly;
-                DBMgr.Inicializar();
+                //DBMgr.Application = App.Phalanx;
+                //DBMgr.NHAssembly = typeof(DBMgr).Assembly;
+                //DBMgr.Inicializar();
 
                 if (formBienvenida == null || formBienvenida.IsDisposed)
                 {
@@ -123,8 +129,9 @@ namespace PhalanxAdmin
                         else
                         {
                             PhxUserBusiness UsrBL = new PhxUserBusiness();
-                            //lnk.Enabled = UsrBL.AccPwd(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-                            if (UsrBL.PermisoActivacionEsquema(System.Security.Principal.WindowsIdentity.GetCurrent().Name))
+                            //lnk.Enabled = UsrBL.AccPwd(this.Usuario);
+                            //if (UsrBL.PermisoActivacionEsquema(this.Usuario))
+                            if (UsrBL.PermisoActivacionEsquema(this.Usuario))
                             {
                                 bool ActivarProduccion = false;
                                 string ConexionConectada = "Contingencia";
@@ -175,8 +182,9 @@ namespace PhalanxAdmin
                     //OpenForm(new FConfiguracion());
                     return;
                 }
-                //_loggedUser = _phxUsrBL.IsActiveSysUser(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-                _loggedUser = _phxUsrBL.AdmLogin(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+                //_loggedUser = _phxUsrBL.IsActiveSysUser(this.Usuario);
+                //_loggedUser = _phxUsrBL.AdmLogin(this.Usuario);
+                _loggedUser = _phxUsrBL.AdmLogin(this.Usuario);
                 if (_loggedUser == null)
                 //if (!SecurityMgr.AuthenticateLoggedWinUser() || !SecurityMgr.CheckAccessToAdminSystem())
                 {
@@ -638,6 +646,8 @@ namespace PhalanxAdmin
                 FormToOpen.Height = this.ClientSize.Height - this.panelIcons.Height - 4;
                 FormToOpen.Width = this.ClientSize.Width - 4;
                 FormToOpen.MdiParent = this;
+
+                FormToOpen.Usuario = this.Usuario;
                 FormToOpen.Show();
                 this.MdiChildResize();
                 FormToOpen.BringToFront();

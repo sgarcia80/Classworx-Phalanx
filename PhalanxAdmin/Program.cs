@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using PhalanxDAL;
+using PhalanxCommon.Entities;
 
 namespace PhalanxAdmin
 {
@@ -14,7 +16,19 @@ namespace PhalanxAdmin
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FPrincipal());
+
+            DBMgr.Application = App.Phalanx;
+            DBMgr.NHAssembly = typeof(DBMgr).Assembly;
+            DBMgr.Inicializar();
+
+            FLogin frmlogin = new FLogin();
+
+            DialogResult result = frmlogin.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                Application.Run(new FPrincipal(frmlogin.Usuario));
+            }
         }
     }
 }
