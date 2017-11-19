@@ -55,7 +55,7 @@ namespace PhalanxAdmin
 
         private void btnProcesar_Click(object sender, EventArgs e)
         {
-            //string DomUsr = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            //string DomUsr = this.Usuario;
             TicketNotificacionClaveBusiness BTNC = new TicketNotificacionClaveBusiness();
             try
             {

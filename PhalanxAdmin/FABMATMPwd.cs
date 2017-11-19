@@ -15,7 +15,7 @@ namespace PhalanxAdmin
     public partial class FABMATMPwd : PhalanxAdmin.FModalBase
     {
         ATMUserEntity _entity = new ATMUserEntity();
-        ATMUserBusiness ATMUsrBL = new ATMUserBusiness();
+        ATMUserBusiness ATMUsrBL = null;
         FollowupRequestGroupEntity _GrupoSeguimDefecto;
         FollowupRequestGroupEntityCollection _GruposSeguimientoSolic = new FollowupRequestGroupEntityCollection();
         //FollowupRequestGroupPasswordEntityCollection _GruposSeguimientoSolic = new FollowupRequestGroupPasswordEntityCollection();
@@ -35,22 +35,24 @@ namespace PhalanxAdmin
         private const string cAsterisk = "**********";
 
 
-        public FABMATMPwd(FormType formType)
+        public FABMATMPwd(FormType formType, string userlogon)
         {
             InitializeComponent();
+
+            this.Usuario = userlogon;
+            ATMUsrBL = new ATMUserBusiness(userlogon);
 
             m_FormType = formType;
             lvLista.ListViewItemSorter = new cwxSorter();
         }
 
 
-        public FABMATMPwd(ATMUserEntity ATMUsr, bool ReadOnly, FormType formType): this(formType)
+        public FABMATMPwd(ATMUserEntity ATMUsr, bool ReadOnly, FormType formType, string userlogon) : this(formType, userlogon)
         {
-            
             ATMUsr = ATMUsrBL.Refresh(ATMUsr);
-            if (ATMUsr.ModifyingDate != null)
+            if (ATMUsr.ModifyingDate != null && ATMUsr.ModifyingUser != null)
             {
-                if (ATMUsr.ModifyingUser.Username != new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(System.Security.Principal.WindowsIdentity.GetCurrent().Name).Username)
+                if (ATMUsr.ModifyingUser.Username != new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario).Username)
                 {
                     if (ATMUsr.ModifyingDate.Value.AddMinutes(10) > new PhalanxDAL.Factories.GetDateFactory().GetDate().GetDate)
                     {
@@ -66,8 +68,8 @@ namespace PhalanxAdmin
                         if (formType == FormType.Update || m_FormType == FormType.Delete)
                         {
                             ATMUsr.ModifyingDate = new PhalanxDAL.Factories.GetDateFactory().GetDate().GetDate;
-                            ATMUsr.ModifyingUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-                            ATMUsrBL.Save(ATMUsr, false,  this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
+                            ATMUsr.ModifyingUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario);
+                            ATMUsrBL.Save(ATMUsr, false, this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
                         }
                     }
                 }
@@ -78,8 +80,8 @@ namespace PhalanxAdmin
                     if (formType == FormType.Update || m_FormType == FormType.Delete)
                     {
                         ATMUsr.ModifyingDate = new PhalanxDAL.Factories.GetDateFactory().GetDate().GetDate;
-                        ATMUsr.ModifyingUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-                        ATMUsrBL.Save(ATMUsr, false,  this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
+                        ATMUsr.ModifyingUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario);
+                        ATMUsrBL.Save(ATMUsr, false, this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
                     }
                 }
             }
@@ -89,8 +91,8 @@ namespace PhalanxAdmin
                 if (formType == FormType.Update || m_FormType == FormType.Delete)
                 {
                     ATMUsr.ModifyingDate = new PhalanxDAL.Factories.GetDateFactory().GetDate().GetDate;
-                    ATMUsr.ModifyingUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-                    ATMUsrBL.Save(ATMUsr, false,  this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
+                    ATMUsr.ModifyingUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario);
+                    ATMUsrBL.Save(ATMUsr, false, this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
                 }
             }
 
@@ -237,7 +239,7 @@ namespace PhalanxAdmin
                 chkUsuarioCritico.Enabled = !_readOnly;
 
 
-                    lblFolioNro.Text = _entity.Key;
+                lblFolioNro.Text = _entity.Key;
 
                 if (_readOnly)
                 {
@@ -262,7 +264,7 @@ namespace PhalanxAdmin
                     // si es modif cargo los combos
                     if (_GruposSolic.Count > 0)
                     {
-                        
+
                         cbGSRegion.SelectedValue = _GruposSolic[0].Id;
                     }
                 }
@@ -299,7 +301,7 @@ namespace PhalanxAdmin
 
                     accessE.HistChgPwd = new HistPasswordChangeEntity();
                     accessE.HistChgPwd.Id = id;
-                    accessE.PhxUser = new PhxUserEntity();
+                    accessE.PhxUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario);
                     accessE.AccessDate = DateTime.Now;
 
                     int Id = accessBL.Save(accessE);
@@ -351,7 +353,7 @@ namespace PhalanxAdmin
             if (_entity.Id != 0)
             {
                 _entity = ATMUsrBL.Refresh(_entity);
-                if (_entity.ModifyingUser.Username != new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(System.Security.Principal.WindowsIdentity.GetCurrent().Name).Username)
+                if (_entity.ModifyingUser.Username != new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario).Username)
                 {
                     MessageBox.Show("Su sesión de edición expiró y la contraseña fue tomada por " + _entity.ModifyingUser.Fullname + " el " + _entity.ModifyingDate.Value.ToShortDateString() + " a las " + _entity.ModifyingDate.Value.ToShortTimeString());
                     this.DialogResult = DialogResult.OK;
@@ -445,8 +447,8 @@ namespace PhalanxAdmin
             _entity.UserPassword.Concurrent = chkPwdConcurrente.Checked;
 
             // grabar
-            
-            int Id = ATMUsrBL.Save(_entity, chkChgPwd.Checked,  (int)cbGSRegion.SelectedValue, _GruposSeguimientoSolic);
+
+            int Id = ATMUsrBL.Save(_entity, chkChgPwd.Checked, (int)cbGSRegion.SelectedValue, _GruposSeguimientoSolic);
             if (Id > 0)
             {
                 _entity.Id = Id;
@@ -483,11 +485,11 @@ namespace PhalanxAdmin
             if (m_FormType == FormType.Update || m_FormType == FormType.Delete)
             {
                 _entity = ATMUsrBL.Refresh(_entity);
-                if (_entity.ModifyingUser.Username == new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(System.Security.Principal.WindowsIdentity.GetCurrent().Name).Username)
+                if (_entity.ModifyingUser.Username == new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario).Username)
                 {
                     _entity.ModifyingDate = null;
                     _entity.ModifyingUser = null;
-                    ATMUsrBL.Save(_entity, false,  this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
+                    ATMUsrBL.Save(_entity, false, this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
                 }
             }
 
@@ -988,7 +990,7 @@ namespace PhalanxAdmin
             cbGSRegion.DataSource = null;
             cbGSRegion.Items.Clear();
             cbGSRegion.DataSource = GruposSolicitudes;
-            ATMUserBusiness ATMUsrBL = new ATMUserBusiness();
+            
             if (_entity.Id > 0)
             {
                 RqstGrpPwdEntityCollection RGPEC = ATMUsrBL.GetGruposSolicitudes(_entity);
@@ -1001,7 +1003,6 @@ namespace PhalanxAdmin
 
         private void CargarGruposSeguimiento()
         {
-            ATMUserBusiness ATMUsrBL = new ATMUserBusiness();            
             FollowupRequestGroupPasswordEntityCollection FRGPEC = ATMUsrBL.GetGruposSeguimiento(_entity);
             foreach (FollowupRequestGroupPasswordEntity FRqstGrpE in FRGPEC)
             {
@@ -1026,7 +1027,7 @@ namespace PhalanxAdmin
 
                     accessE.HistChgPwd = new HistPasswordChangeEntity();
                     accessE.HistChgPwd.Id = ((vwHistPwdChgEntity)((ListView)sender).SelectedItems[0].Tag).Id;
-                    accessE.PhxUser = new PhxUserEntity();
+                    accessE.PhxUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario);
                     accessE.AccessDate = DateTime.Now;
 
                     int Id = accessBL.Save(accessE);

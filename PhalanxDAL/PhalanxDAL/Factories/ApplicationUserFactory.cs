@@ -10,8 +10,8 @@ using System.Collections;
 
 namespace PhalanxDAL.Factories
 {
-    public class ApplicationUserFactory
-    {
+    public class ApplicationUserFactory: BaseFactory
+    {   
         private string _filUserName = "";
         private ApplicationEntity _filApp;
         private bool _orderName = false;
@@ -51,10 +51,16 @@ namespace PhalanxDAL.Factories
         private bool _AvoidInactiveGrps = false;
         public bool SetAvoidInactiveGrps
         { set { _AvoidInactiveGrps = value; } }
-
-
+        
         public bool GetGruposAsignados = false;
         public bool GetGruposSeguimAsignados = false;
+
+        public ApplicationUserFactory() : base()
+        {
+        }
+        public ApplicationUserFactory(string userlogon) : base(userlogon)
+        {
+        }
 
         public ApplicationUserEntityCollection GetAll()
         {
@@ -375,7 +381,7 @@ namespace PhalanxDAL.Factories
                         }
                     }
                     // tengo que grabar el log de modificación
-                    HistPasswordChangeFactory HistPwdChg = new HistPasswordChangeFactory();
+                    HistPasswordChangeFactory HistPwdChg = new HistPasswordChangeFactory(this.UserLogon);
                     HistPwdChg.AddLog(session, (UserEntity)AppUser);
                     tx.Commit();
                 }

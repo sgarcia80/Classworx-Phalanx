@@ -35,7 +35,7 @@ namespace PhalanxAdmin
             lvLista.ListViewItemSorter = new cwxSorter(); 
 
             PhxUserBusiness UsrBL = new PhxUserBusiness();
-            btnVer.Visible = UsrBL.AccTickets(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            btnVer.Visible = UsrBL.AccTickets(this.Usuario);
         }
         /* Proceso de acceso a DB
 * 1 - ExecClientesRefresh

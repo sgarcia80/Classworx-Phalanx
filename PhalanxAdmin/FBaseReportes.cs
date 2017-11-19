@@ -101,23 +101,23 @@ namespace PhalanxAdmin
         private void FBaseReportes_Load(object sender, EventArgs e)
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
-            //lnk.Enabled = UsrBL.AccRpt(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            linkListados.Enabled = UsrBL.AccRptLstPwd(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            linkConingencia.Enabled = UsrBL.AccRptPlanCtrlPwd(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkInventario.Enabled = UsrBL.AccRptInventPwd(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkABMUsr.Enabled = UsrBL.AccRptABMUsr(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkAsigPerf.Enabled = UsrBL.AccRptAsigPerf(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkLstUsuarios.Enabled = UsrBL.AccRptLstUsr(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkUsuariosPorPerfil.Enabled = UsrBL.AccRptUsrPorPerf(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkABMPerf.Enabled = UsrBL.AccRptABMPerf(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkAsigPerm.Enabled = UsrBL.AccRptAsigPerm(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkLstPerfiles.Enabled = UsrBL.AccRptLstPerf(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkLstTickets.Enabled = UsrBL.AccRptLstTickets(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkAltaTempRecExt.Enabled = UsrBL.AccRptTicketsRedRecExt(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            //lnk.Enabled = UsrBL.AccRpt(this.Usuario);
+            linkListados.Enabled = UsrBL.AccRptLstPwd(this.Usuario);
+            linkConingencia.Enabled = UsrBL.AccRptPlanCtrlPwd(this.Usuario);
+            lnkInventario.Enabled = UsrBL.AccRptInventPwd(this.Usuario);
+            lnkABMUsr.Enabled = UsrBL.AccRptABMUsr(this.Usuario);
+            lnkAsigPerf.Enabled = UsrBL.AccRptAsigPerf(this.Usuario);
+            lnkLstUsuarios.Enabled = UsrBL.AccRptLstUsr(this.Usuario);
+            lnkUsuariosPorPerfil.Enabled = UsrBL.AccRptUsrPorPerf(this.Usuario);
+            lnkABMPerf.Enabled = UsrBL.AccRptABMPerf(this.Usuario);
+            lnkAsigPerm.Enabled = UsrBL.AccRptAsigPerm(this.Usuario);
+            lnkLstPerfiles.Enabled = UsrBL.AccRptLstPerf(this.Usuario);
+            lnkLstTickets.Enabled = UsrBL.AccRptLstTickets(this.Usuario);
+            lnkAltaTempRecExt.Enabled = UsrBL.AccRptTicketsRedRecExt(this.Usuario);
 
-            linkLabel1.Enabled = UsrBL.AccRptUsrGrpSol(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            linkLabel2.Enabled = UsrBL.AccRptUsrGrpSegSol(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkPwdRqstGrp.Enabled = UsrBL.AccRptPwdGrpSol(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            linkLabel1.Enabled = UsrBL.AccRptUsrGrpSol(this.Usuario);
+            linkLabel2.Enabled = UsrBL.AccRptUsrGrpSegSol(this.Usuario);
+            lnkPwdRqstGrp.Enabled = UsrBL.AccRptPwdGrpSol(this.Usuario);
 
         }
 

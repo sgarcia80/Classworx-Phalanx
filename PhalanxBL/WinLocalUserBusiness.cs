@@ -14,7 +14,7 @@ namespace PhalanxBL
     {
        // const string m_BlowfishKey = "1234567890abcdefghijABCDEFGHIJzxcvbnmlkj";
         UserTypesFactory m_UserTypesFactory = new UserTypesFactory();
-        WinLocalUsersFactory m_WinUserFactory = new WinLocalUsersFactory();
+        WinLocalUsersFactory m_WinUserFactory = null;
         public UserTypeEntity WinLocalUserType
         {
             get { return m_UserTypesFactory.GetWinLocalUserType(); }
@@ -75,6 +75,15 @@ namespace PhalanxBL
             _orderFolio = true;
             _orderName = false;
             _orderUserName = false;
+        }
+
+        public WinLocalUserBusiness()
+        {
+            m_WinUserFactory = new WinLocalUsersFactory();
+        }
+        public WinLocalUserBusiness(string userlogon)
+        {
+            m_WinUserFactory = new WinLocalUsersFactory(userlogon);
         }
 
         public WinLocalUserEntityCollection GetAll()
@@ -173,8 +182,7 @@ namespace PhalanxBL
         /// 
         public bool RepararPwd(WinLocalUserEntity winUser)
         {
-            WinLocalUsersFactory WLUF = new WinLocalUsersFactory();
-            WLUF.Refresh(winUser);
+            m_WinUserFactory.Refresh(winUser);
             CCryptMgr BF = new CCryptMgr();
             
             NUser NUsr = new NUser();
@@ -342,8 +350,7 @@ namespace PhalanxBL
 
         public void SetPwdState(WinLocalUserEntityCollection Users, bool Active)
         {
-            WinLocalUsersFactory WinUsrF = new WinLocalUsersFactory();
-            WinUsrF.SetPwdState(Users, Active);
+            m_WinUserFactory.SetPwdState(Users, Active);
         }
 
         public WinLocalUserEntity Refresh(WinLocalUserEntity User)
@@ -353,12 +360,12 @@ namespace PhalanxBL
 
 		public IList GetAll(bool? critico, bool? estadoUsuario, string nombre)
 		{
-			return new WinLocalUsersFactory().GetAll(critico, estadoUsuario, nombre);
+            return m_WinUserFactory.GetAll(critico, estadoUsuario, nombre);
 		}
 
         public WinLocalUserEntity Load(int ID)
         {
-            return new WinLocalUsersFactory().Load(ID);
+            return m_WinUserFactory.Load(ID);
         }
     }
 }

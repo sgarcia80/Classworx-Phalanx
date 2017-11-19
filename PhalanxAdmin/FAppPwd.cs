@@ -273,9 +273,9 @@ namespace PhalanxAdmin
         private void FAppPwd_Load(object sender, EventArgs e)
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
-            lnkAdd.Enabled = UsrBL.AccPwdAppRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkModify.Enabled = UsrBL.AccPwdAppRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkDelete.Enabled = UsrBL.AccPwdAppRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            lnkAdd.Enabled = UsrBL.AccPwdAppRW(this.Usuario);
+            lnkModify.Enabled = UsrBL.AccPwdAppRW(this.Usuario);
+            lnkDelete.Enabled = UsrBL.AccPwdAppRW(this.Usuario);
 
             this.lnkCancelar.Visible = false;
             this.pbDB.Visible = false;
@@ -288,7 +288,8 @@ namespace PhalanxAdmin
 
         private void lnkAdd_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            FABMAppPwd FABMAppPwd = new FABMAppPwd(FABMAppPwd.FormType.New);
+            FABMAppPwd FABMAppPwd = new FABMAppPwd(FABMAppPwd.FormType.New, this.Usuario);
+
             FABMAppPwd.ShowDialog();
             if (FABMAppPwd.DialogResult == DialogResult.OK)
             {
@@ -303,7 +304,7 @@ namespace PhalanxAdmin
             if (lvLista.SelectedIndices.Count == 1)
             {
                 ApplicationUserEntity currUser = new ApplicationUserBusiness().Load(Convert.ToInt32(lvLista.SelectedItems[0].Tag.ToString()));
-                FABMAppPwd FABMAppUsr = new FABMAppPwd(currUser, false, FABMAppPwd.FormType.Update);
+                FABMAppPwd FABMAppUsr = new FABMAppPwd(currUser, false, FABMAppPwd.FormType.Update, this.Usuario);
                 FABMAppUsr.ShowDialog();
                 if (FABMAppUsr.DialogResult == DialogResult.OK)
                 {
@@ -320,7 +321,7 @@ namespace PhalanxAdmin
             if (lvLista.SelectedIndices.Count == 1)
             {
                 ApplicationUserEntity currUser = new ApplicationUserBusiness().Load(Convert.ToInt32(lvLista.SelectedItems[0].Tag.ToString()));
-                FABMAppPwd FABMAppUsr = new FABMAppPwd(currUser, true, FABMAppPwd.FormType.View);
+                FABMAppPwd FABMAppUsr = new FABMAppPwd(currUser, true, FABMAppPwd.FormType.View, this.Usuario);
                 FABMAppUsr.ShowDialog();
             }
 

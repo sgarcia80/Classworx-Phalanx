@@ -26,26 +26,29 @@ namespace PhalanxAdmin
         private FormType m_FormType = FormType.View;
         private const string cAsterisk = "**********";
         
-        ApplicationUserBusiness AppUsrBL = new ApplicationUserBusiness();
+        ApplicationUserBusiness AppUsrBL = null;
         ApplicationUserEntity _entity = new ApplicationUserEntity();
         bool _readOnly = false;
         ApplicationBusiness DBTypeBL = null;
 
-        public FABMAppPwd(FormType formType)
+        public FABMAppPwd(FormType formType, string userlogon)
         {
             InitializeComponent();
-            DBTypeBL= new ApplicationBusiness();
+
+            this.Usuario = userlogon;
+            AppUsrBL = new ApplicationUserBusiness(userlogon);
+            
+            DBTypeBL = new ApplicationBusiness();
             m_FormType = formType;
             lvLista.ListViewItemSorter = new cwxSorter();
         }
 
-        public FABMAppPwd(ApplicationUserEntity AppUser, bool ReadOnly, FormType formType)
-            : this(formType)
+        public FABMAppPwd(ApplicationUserEntity AppUser, bool ReadOnly, FormType formType, string userlogon) : this(formType, userlogon)
         {
             AppUser = AppUsrBL.Refresh(AppUser);
-            if (AppUser.ModifyingDate != null)
+            if (AppUser.ModifyingDate != null && AppUser.ModifyingUser != null)
             {
-                if (AppUser.ModifyingUser.Username != new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(System.Security.Principal.WindowsIdentity.GetCurrent().Name).Username)
+                if (AppUser.ModifyingUser.Username != new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario).Username)
                 {
                     if (AppUser.ModifyingDate.Value.AddMinutes(10) > new PhalanxDAL.Factories.GetDateFactory().GetDate().GetDate)
                     {
@@ -61,7 +64,7 @@ namespace PhalanxAdmin
                         if (formType == FormType.Update || m_FormType == FormType.Delete)
                         {
                             AppUser.ModifyingDate = new PhalanxDAL.Factories.GetDateFactory().GetDate().GetDate;
-                            AppUser.ModifyingUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+                            AppUser.ModifyingUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario);
                             AppUsrBL.Save(AppUser, false,  this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
                         }
                     }
@@ -73,7 +76,7 @@ namespace PhalanxAdmin
                     if (formType == FormType.Update || m_FormType == FormType.Delete)
                     {
                         AppUser.ModifyingDate = new PhalanxDAL.Factories.GetDateFactory().GetDate().GetDate;
-                        AppUser.ModifyingUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+                        AppUser.ModifyingUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario);
                         AppUsrBL.Save(AppUser, false,  this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
                     }
                 }
@@ -84,7 +87,7 @@ namespace PhalanxAdmin
                 if (formType == FormType.Update || m_FormType == FormType.Delete)
                 {
                     AppUser.ModifyingDate = new PhalanxDAL.Factories.GetDateFactory().GetDate().GetDate;
-                    AppUser.ModifyingUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+                    AppUser.ModifyingUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario);
                     AppUsrBL.Save(AppUser, false,  this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
                 }
             }
@@ -212,8 +215,7 @@ namespace PhalanxAdmin
                 chkActivo.Enabled = _entity.Application.Active;
                 txtDuracionClave.Text = _entity.Duration.ToString();
 
-                ApplicationUserBusiness auBL = new ApplicationUserBusiness();
-                txtDiasRestantesPass.Text = auBL.getDiasRestantes(txtDuracionClave.Text, _entity.ModifyingPassDate);
+                txtDiasRestantesPass.Text = AppUsrBL.getDiasRestantes(txtDuracionClave.Text, _entity.ModifyingPassDate);
 
                 /*
                 txtDBName.Text = _entity.Name;
@@ -429,7 +431,7 @@ namespace PhalanxAdmin
             if (_entity.Id != 0)
             {
                 _entity = AppUsrBL.Refresh(_entity);
-                if (_entity.ModifyingUser.Username != new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(System.Security.Principal.WindowsIdentity.GetCurrent().Name).Username)
+                if (_entity.ModifyingUser.Username != new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario).Username)
                 {
                     MessageBox.Show("Su sesión de edición expiró y la contraseña fue tomada por " + _entity.ModifyingUser.Fullname + " el " + _entity.ModifyingDate.Value.ToShortDateString() + " a las " + _entity.ModifyingDate.Value.ToShortTimeString());
                     this.DialogResult = DialogResult.OK;
@@ -597,7 +599,7 @@ namespace PhalanxAdmin
 
                     accessE.HistChgPwd = new HistPasswordChangeEntity();
                     accessE.HistChgPwd.Id = id;
-                    accessE.PhxUser = new PhxUserEntity();
+                    accessE.PhxUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario);
                     accessE.AccessDate = DateTime.Now;
 
                     int Id = accessBL.Save(accessE);
@@ -650,7 +652,7 @@ namespace PhalanxAdmin
             if (m_FormType == FormType.Update || m_FormType == FormType.Delete)
             {
                 _entity = AppUsrBL.Refresh(_entity);
-                if (_entity.ModifyingUser.Username == new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(System.Security.Principal.WindowsIdentity.GetCurrent().Name).Username)
+                if (_entity.ModifyingUser.Username == new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario).Username)
                 {
                     _entity.ModifyingDate = null;
                     _entity.ModifyingUser = null;
@@ -1418,7 +1420,7 @@ namespace PhalanxAdmin
 
                     accessE.HistChgPwd = new HistPasswordChangeEntity();
                     accessE.HistChgPwd.Id = ((vwHistPwdChgEntity)((ListView)sender).SelectedItems[0].Tag).Id;
-                    accessE.PhxUser = new PhxUserEntity();
+                    accessE.PhxUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario);
                     accessE.AccessDate = DateTime.Now;
 
                     int Id = accessBL.Save(accessE);
@@ -1448,8 +1450,7 @@ namespace PhalanxAdmin
                 txtDiasRestantesPass.Text = "";
             else
             {
-                ApplicationUserBusiness auBL = new ApplicationUserBusiness();
-                txtDiasRestantesPass.Text = auBL.getDiasRestantes(txtDuracionClave.Text, _entity.ModifyingPassDate);
+                txtDiasRestantesPass.Text = AppUsrBL.getDiasRestantes(txtDuracionClave.Text, _entity.ModifyingPassDate);
             }
         }
 

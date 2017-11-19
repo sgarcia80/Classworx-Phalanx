@@ -77,6 +77,10 @@ namespace PhalanxBL
         {
             m_CDUserFactory = new CommunicationDeviceUserFactory();
         }
+        public CommunicationDeviceUserBusiness(string userlogon)
+        {
+            m_CDUserFactory = new CommunicationDeviceUserFactory(userlogon);
+        }
 
         public CommunicationDeviceUserEntityCollection GetAllForRqst(PhxUserEntity PhxUserRqst, string Filtro)
         {
@@ -195,25 +199,23 @@ namespace PhalanxBL
         
         public CommunicationDeviceUserEntityCollection GetCDUsers(CommunicationDeviceEntity communicationDevice)
         {
-            CommunicationDeviceUserFactory CDUsrF = new CommunicationDeviceUserFactory();
-            CDUsrF.FilEC = communicationDevice;
+            m_CDUserFactory.FilEC = communicationDevice;
 
-            return CDUsrF.GetAll();
+            return m_CDUserFactory.GetAll();
         }
 
         public void SetPwdState(CommunicationDeviceUserEntityCollection Users, bool Active)
         {
-            CommunicationDeviceUserFactory CDUsrF = new CommunicationDeviceUserFactory();
-            CDUsrF.SetPwdState(Users, Active);
+            m_CDUserFactory.SetPwdState(Users, Active);
         }
 
 		public IList GetAll(bool? critico, bool? estadoUsuario, CommunicationDeviceTypeEntity tipo, string nombre)
 		{
-			return new CommunicationDeviceUserFactory().GetAll(critico, estadoUsuario, tipo != null ? new int?(tipo.Id) : null, nombre);
+            return m_CDUserFactory.GetAll(critico, estadoUsuario, tipo != null ? new int?(tipo.Id) : null, nombre);
 		}
         public CommunicationDeviceUserEntity Load(int ID)
         {
-            return new CommunicationDeviceUserFactory().Load(ID);
+            return m_CDUserFactory.Load(ID);
         }
     }
 }

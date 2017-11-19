@@ -32,7 +32,7 @@ namespace PhalanxAdmin
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
 
-            btnModif.Enabled = UsrBL.AccParamGrpSeguimATMRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            btnModif.Enabled = UsrBL.AccParamGrpSeguimATMRW(this.Usuario);
             btnSave.Enabled = false;
             btnCancel.Enabled = false;
 

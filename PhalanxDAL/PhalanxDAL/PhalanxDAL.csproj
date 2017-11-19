@@ -193,6 +193,7 @@
     <Compile Include="DBMgr.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Factories\BaseFactory.cs" />
     <Compile Include="Factories\VencPwdAppLogDetFactory.cs" />
     <Compile Include="Factories\VencPwdAppLogFactory.cs" />
     <Compile Include="Factories\vwHistPwdVisFactory.cs" />

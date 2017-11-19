@@ -60,10 +60,14 @@ namespace PhalanxBL
         }
 
 
-
         public ApplicationUserBusiness()
         {
-            m_AppUserFactory = new ApplicationUserFactory();   
+            m_AppUserFactory = new ApplicationUserFactory();
+        }
+
+        public ApplicationUserBusiness(string userlogon)
+        {
+            m_AppUserFactory = new ApplicationUserFactory(userlogon);   
         }
 
         public ApplicationUserEntityCollection GetAll() //string Nombre, ApplicationEntity Application)

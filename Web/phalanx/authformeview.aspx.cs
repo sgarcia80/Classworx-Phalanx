@@ -189,7 +189,7 @@ public partial class authformwinview : System.Web.UI.Page
                 else if (PwdRqst.RqstState.Id == 4)
                 {
                     btnViewPwd.Visible = false;
-                    TbContrasenia.Text = new CCryptMgr().decrypt(((PasswordRequestEntity)Session["PwdRqst"]).UserPassword.Password);
+                    TbContrasenia.Text = new CCryptMgr().decryptAndClearBadChars(((PasswordRequestEntity)Session["PwdRqst"]).UserPassword.Password);
                 }
                 else
                     btnViewPwd.Visible = false;

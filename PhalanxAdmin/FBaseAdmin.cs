@@ -69,17 +69,16 @@ namespace PhalanxAdmin
         private void FBaseAdmin_Load(object sender, EventArgs e)
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
-            lnkAplicativos.Enabled = UsrBL.AccAdmAplicativos(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkEqWin.Enabled = UsrBL.AccAdmEqWin(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkEqUnix.Enabled = UsrBL.AccAdmEqUnix(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkEqAS400.Enabled = UsrBL.AccAdmEqAS400(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkBD.Enabled = UsrBL.AccAdmBD(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkUsuarios.Enabled = UsrBL.AccAdmUsuarios(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkGrpsSol.Enabled = UsrBL.AccAdmGrpsSolicitudes(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkGrpsSeguimSol.Enabled = UsrBL.AccAdmGrpsSeguimSolicitudes(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            linkEqCom.Enabled = UsrBL.AccAdmEqCom(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkPerfiles.Enabled = UsrBL.AccAdmPerfiles(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            //lnk.Enabled = UsrBL.AccAdm(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            lnkAplicativos.Enabled = UsrBL.AccAdmAplicativos(this.Usuario);
+            lnkEqWin.Enabled = UsrBL.AccAdmEqWin(this.Usuario);
+            lnkEqUnix.Enabled = UsrBL.AccAdmEqUnix(this.Usuario);
+            lnkEqAS400.Enabled = UsrBL.AccAdmEqAS400(this.Usuario);
+            lnkBD.Enabled = UsrBL.AccAdmBD(this.Usuario);
+            lnkUsuarios.Enabled = UsrBL.AccAdmUsuarios(this.Usuario);
+            lnkGrpsSol.Enabled = UsrBL.AccAdmGrpsSolicitudes(this.Usuario);
+            lnkGrpsSeguimSol.Enabled = UsrBL.AccAdmGrpsSeguimSolicitudes(this.Usuario);
+            linkEqCom.Enabled = UsrBL.AccAdmEqCom(this.Usuario);
+            lnkPerfiles.Enabled = UsrBL.AccAdmPerfiles(this.Usuario);
         }
 
         private void lnkGrpsSeguimSol_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

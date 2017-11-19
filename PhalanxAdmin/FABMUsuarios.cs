@@ -540,7 +540,7 @@ namespace PhalanxAdmin
             //_entity.ExtensionNumber = txtInterno.Text;
 
             PhxUserBusiness PhxUserBL = new PhxUserBusiness();
-            _entity.Id = PhxUserBL.Save(_entity, System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            _entity.Id = PhxUserBL.Save(_entity, this.Usuario);
 
             // grabo permisos
             PhxRoleEntityCollection UsrRoles = new PhxRoleEntityCollection();
@@ -548,7 +548,7 @@ namespace PhalanxAdmin
             {
                 UsrRoles.Add((PhxRoleEntity)lviUsrRole.Tag);
             }
-            PhxUserBL.SetRoles(_entity, UsrRoles, System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            PhxUserBL.SetRoles(_entity, UsrRoles, this.Usuario);
             // grabo grupos
             RequestGroupEntityCollection UsrGroups = new RequestGroupEntityCollection();
             foreach (ListViewItem lviUsrGroup in lvGruposUsr.Items)

@@ -69,6 +69,10 @@ namespace PhalanxBL
         {
             m_DBUserFactory = new DatabaseUserFactory();
         }
+        public DatabaseUserBusiness(string userlogon)
+        {
+            m_DBUserFactory = new DatabaseUserFactory(userlogon);
+        }
 
         public DatabaseUserEntityCollection GetAllForRqst(PhxUserEntity PhxUserRqst, string Filtro)
         {

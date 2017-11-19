@@ -8,7 +8,7 @@ using NHibernate.Expression;
 
 namespace PhalanxDAL.Factories
 {
-    public class HistPasswordChangeFactory
+    public class HistPasswordChangeFactory : BaseFactory
     {
         private int? m_FilUserID = null;
         public int FilUserID
@@ -29,6 +29,14 @@ namespace PhalanxDAL.Factories
         public PwdChgOrderBy OrderBy { set { m_OrderBy = value; } }
         private bool m_SoloPrimerRegistro = false;
         public bool SoloPrimerRegistro { set { m_SoloPrimerRegistro = value; } }
+
+        public HistPasswordChangeFactory() : base()
+        {
+        }
+        public HistPasswordChangeFactory(string userlogon) : base(userlogon)
+        {
+        }
+
         public HistPasswordChangeEntityCollection GetAll()
         {
             IList<HistPasswordChangeEntity> lstWLUs;
@@ -80,7 +88,7 @@ namespace PhalanxDAL.Factories
             /// entrar a modificar una clave y no tiene registro en el historial quiere grabar log y
             /// va a poner la fecha en null y ahi salta error
             PhxUsersFactory PUF = new PhxUsersFactory();
-            PhxUserEntity PhxUsrE = PUF.GetPhxUser(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            PhxUserEntity PhxUsrE = PUF.GetPhxUser(this.UserLogon); //user);
             IList<HistPasswordChangeEntity> lstWLUs;
             HistPasswordChangeEntityCollection DBUsrEC = new HistPasswordChangeEntityCollection();
             ICriteria DataSearch = session.CreateCriteria(typeof(HistPasswordChangeEntity));

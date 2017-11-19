@@ -49,9 +49,10 @@ namespace PhalanxAdmin
             m_FormType = formType;
         }
 
-        public FABMNotifBlanqueoRed(int id, bool ReadOnly, FormType formType)
+        public FABMNotifBlanqueoRed(int id, bool ReadOnly, FormType formType, string userlogon)
             : this(formType)
         {
+            this.Usuario = userlogon;
             if (id > 0)
             {
                 this._entity = TicketBL.Load(id);
@@ -62,7 +63,7 @@ namespace PhalanxAdmin
             }
 
             m_FormType = formType;
-            this.user = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            this.user = this.Usuario;
 
             _readOnly = ReadOnly;
         }
