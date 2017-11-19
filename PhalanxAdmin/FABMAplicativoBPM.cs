@@ -35,6 +35,7 @@ namespace PhalanxAdmin
             txtNombre.Text = _entity.Nombre;
             cbNotificable.Checked = _entity.Notificable;
             cbEmuladores.Checked = _entity.EsEmuladores;
+            txtPrefijoUsuario.Text = _entity.PrefijoUsuarioTC;
 
             MacroBusiness business = new MacroBusiness();
             var macros = business.GetAll();
@@ -55,6 +56,7 @@ namespace PhalanxAdmin
             // grabo DB
             _entity.Notificable = cbNotificable.Checked;
             _entity.EsEmuladores = cbEmuladores.Checked;
+            _entity.PrefijoUsuarioTC = txtPrefijoUsuario.Text;
 
             if (cbMacro.SelectedIndex == 0)
             {
@@ -98,10 +100,12 @@ namespace PhalanxAdmin
         private void cbEmuladores_CheckedChanged(object sender, EventArgs e)
         {
             cbMacro.Enabled = cbEmuladores.Checked;
+            txtPrefijoUsuario.Enabled = cbEmuladores.Checked;
 
             if (!cbEmuladores.Checked)
             {
                 cbMacro.SelectedIndex = 0;
+                txtPrefijoUsuario.Text = string.Empty;
             }
 
         }

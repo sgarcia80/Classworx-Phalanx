@@ -34,15 +34,17 @@ namespace PhalanxAdmin
 
             Errores.Insert(0, new MacroErrorEntity { Id = 0, Descripcion = "Seleccionar una opción" });
 
-            cbError.DataSource = Errores;
-            cbError.ValueMember = "Id";
-            cbError.DisplayMember = "Descripcion";
+            cbError.DataSource = Errores.ToList();
+            //cbError.ValueMember = "Id";
+            //cbError.DisplayMember = "Descripcion";
 
             this.Error = null;
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            this.DialogResult = System.Windows.Forms.DialogResult.None;
+
             if (cbError.SelectedIndex == 0)
             {
                 MessageBox.Show("Debe seleccionar un Error", "Error de Solicitud", MessageBoxButtons.OK, MessageBoxIcon.Information);

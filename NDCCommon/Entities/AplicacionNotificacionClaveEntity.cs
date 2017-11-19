@@ -100,6 +100,8 @@ namespace NDCCommon.Entities
 
         public bool EsEmuladores { get; set; }
 
+        public string PrefijoUsuarioTC { get; set; }
+
         public MacroEntity Macro { get; set; }
 
         #endregion

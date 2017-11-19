@@ -34,5 +34,10 @@ namespace NDCCommon.Entities
                 Id = Convert.ToInt32(value);
             }
         }
+
+        public override string ToString()
+        {
+            return string.Format("{0} - {1}", this.Id, this.Descripcion);
+        }
     }
 }

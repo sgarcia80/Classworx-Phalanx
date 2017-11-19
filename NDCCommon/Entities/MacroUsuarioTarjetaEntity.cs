@@ -24,6 +24,11 @@ namespace NDCCommon.Entities
 
         public string UsuarioRed { get; set; }
 
+        /// <summary>
+        /// Esta propiedad es solo para mapear en la grilla
+        /// </summary>
+        public string PrefijoUsuarioTC { get; set; }
+
         public string UsuarioTC { get; set; }
         
         public string AplicacionCodigo { get; set; }

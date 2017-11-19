@@ -28,7 +28,7 @@ namespace PhalanxAdmin
         public FABMMacroError(MacroErrorEntity ancEntity, bool readOnly)
             : this()
         {
-            this.ReadOnly = ReadOnly;
+            this.ReadOnly = readOnly;
 
             _entity = ancEntity;
         }
@@ -43,13 +43,19 @@ namespace PhalanxAdmin
             {
                 txtDescripcion.ReadOnly = true;
 
-                btnAceptar.Visible = false;
+                btnCancelar.Visible = false;
             }
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.None;
+
+            if (this.ReadOnly)
+            {
+                this.DialogResult = DialogResult.OK;
+                return;
+            }
 
             if (string.IsNullOrEmpty(txtDescripcion.Text.Trim()))
             {

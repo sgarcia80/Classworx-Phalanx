@@ -100,12 +100,16 @@ namespace NDCBL
                 throw new Common.CwxException("No se encontraron Claves definidas");
             }
 
+            log.Info("Se procesa cada una de las aplicaciones seleccionadas");
+            
             foreach (AplicacionNotificacionClaveEntity aplicacion in apps)
             {
+                log.InfoFormat("Se buscca la información de la Macro asociada a la aplicación '{0}'", aplicacion.Codigo);
                 macro = macrobusiness.Load(aplicacion.Macro.Id);
 
                 try
                 {
+                    log.InfoFormat("Se toman los usuarios login de la Macro asociada a la aplicación '{0}'", aplicacion.Codigo);
                     //Se obtienen los usuarios para la cabecera.
                     foreach (MacroUsuarioEntity us in macro.UsuariosList)
                     {
@@ -123,7 +127,7 @@ namespace NDCBL
                 {
                     string mensaje = string.Format("Error al obtener los Usuarios Login de la Macro '{0}'", macro.Name);
                     log.Error(mensaje, ex);
-                    
+
                     throw new Common.CwxException(mensaje);
                 }
 
@@ -133,38 +137,57 @@ namespace NDCBL
                     throw new Common.CwxException(mensaje);
                 }
 
-                header = macrobusiness.ReplaceHeader(macro.Header,
-                                                    usuarioprincipal,
-                                                    usuariosecundario);
-                footer = macro.Footer;
-
-                //Se resetea el flag
-                generar = false;
-
-                //Se recorren los tickets
-                foreach (TicketNotificacionTarjetaEntity item in list)
+                try
                 {
-                    //Si el ticket corresponde a la aplicación 
-                    if (item.Aplicacion.Id == aplicacion.Id)
+                    log.InfoFormat("Se reemplaza la cabecera de la macro para la aplicacion '{0}'", aplicacion.Codigo);
+
+                    header = macrobusiness.ReplaceHeader(macro.Header,
+                                                        usuarioprincipal,
+                                                        usuariosecundario);
+
+                    log.InfoFormat("Se toma el footer de la macro para la aplicacion '{0}'", aplicacion.Codigo); 
+                    footer = macro.Footer;
+
+                    //Se resetea el flag
+                    generar = false;
+
+                    log.Info("Se agregan los usuarios de cada notificacion"); 
+                    //Se recorren los tickets
+                    foreach (TicketNotificacionTarjetaEntity item in list)
                     {
-                        //Se activa el flag para indicar que se encontraron tickets y se debe generar
-                        generar = true;
-
-                        //Si el ticket está Ingresado
-                        if (item.Estado == TicketNotificacionTarjetaEntity.EstadoTicket.Ingresado)
+                        //Si el ticket corresponde a la aplicación 
+                        if (item.Aplicacion.Id == aplicacion.Id)
                         {
-                            //Se calcula al azar una clave
-                            indice = rnd.Next(claves.Count);
+                            //Se activa el flag para indicar que se encontraron tickets y se debe generar
+                            generar = true;
 
-                            //Se actualiza como Generado
-                            item.Estado = TicketNotificacionTarjetaEntity.EstadoTicket.Generado;
-                            item.FechaProcesado = DateTime.Now;
-                            item.PasswordUsuarioAplicacion = claves[indice].ClaveEncriptada;
+                            //Si el ticket está Ingresado
+                            if (item.Estado == TicketNotificacionTarjetaEntity.EstadoTicket.Ingresado)
+                            {
+                                log.InfoFormat("Se obtiene una clave al azar para el usuario '{0}'", item.UsuarioAplicacion); 
+                                //Se calcula al azar una clave
+                                indice = rnd.Next(claves.Count);
+
+                                //Se actualiza como Generado
+                                item.Estado = TicketNotificacionTarjetaEntity.EstadoTicket.Generado;
+                                item.FechaProcesado = DateTime.Now;
+                                item.PasswordUsuarioAplicacion = claves[indice].ClaveEncriptada;
+                                item.Clave = claves[indice];
+                            }
+
+                            log.Info("Se formatea el usuario en el cuerpo"); 
+
+                            //Se agrega el cuerpo con el usuario y su clave asignada
+                            body.AppendLine(macrobusiness.ReplaceBody(macro.Body, item.UsuarioAplicacion, item.PasswordUsuarioAplicacion));
                         }
-
-                        //Se agrega el cuerpo con el usuario y su clave asignada
-                        body.AppendLine(macrobusiness.ReplaceBody(macro.Body, item.UsuarioAplicacion, item.PasswordUsuarioAplicacion));
                     }
+                }
+                catch (Exception ex)
+                {
+                    string mensaje = string.Format("Se detecto un error en la macro de la aplicación '{0}'", aplicacion.Codigo);
+
+                    log.Error(mensaje, ex);
+                    throw new Common.CwxException(mensaje);
                 }
 
                 if (generar)
@@ -172,7 +195,7 @@ namespace NDCBL
                     //Se crea el archivo
                     archivo = new MacroArchivoEntity();
                     archivo.Aplicacion = aplicacion;
-                    archivo.Nombre = string.Format("macro_{0:yyyyMMdd}_{0:HHmm}.txt", DateTime.Now);
+                    archivo.Nombre = string.Format("macro_{1}_{0:yyyyMMdd}_{0:HHmm}.txt", DateTime.Now, aplicacion.Codigo.ToLower());
 
                     contenido = new StringBuilder();
                     //Se arma el contenido del archivo
@@ -193,6 +216,8 @@ namespace NDCBL
             {
                 string mensaje = "Error al grabar los tickets luego de generar las macros";
                 log.Error(mensaje, ex);
+
+                throw new Common.CwxException(mensaje);
             }
 
             return archivos;

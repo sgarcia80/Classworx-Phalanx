@@ -38,13 +38,15 @@ namespace PhalanxAdmin
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.cbMacro = new System.Windows.Forms.ComboBox();
+            this.txtPrefijoUsuario = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(0, 187);
+            this.groupBox1.Location = new System.Drawing.Point(0, 205);
             this.groupBox1.Size = new System.Drawing.Size(450, 43);
-            this.groupBox1.TabIndex = 11;
+            this.groupBox1.TabIndex = 13;
             // 
             // btnAceptar
             // 
@@ -145,10 +147,29 @@ namespace PhalanxAdmin
             this.cbMacro.TabIndex = 10;
             this.cbMacro.ValueMember = "Id";
             // 
+            // txtPrefijoUsuario
+            // 
+            this.txtPrefijoUsuario.Location = new System.Drawing.Point(105, 167);
+            this.txtPrefijoUsuario.MaxLength = 10;
+            this.txtPrefijoUsuario.Name = "txtPrefijoUsuario";
+            this.txtPrefijoUsuario.Size = new System.Drawing.Size(128, 20);
+            this.txtPrefijoUsuario.TabIndex = 12;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(24, 170);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(75, 13);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "Prefijo Usuario";
+            // 
             // FABMAplicativoBPM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(450, 230);
+            this.ClientSize = new System.Drawing.Size(450, 248);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.txtPrefijoUsuario);
             this.Controls.Add(this.cbMacro);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.cbEmuladores);
@@ -172,6 +193,8 @@ namespace PhalanxAdmin
             this.Controls.SetChildIndex(this.cbEmuladores, 0);
             this.Controls.SetChildIndex(this.label5, 0);
             this.Controls.SetChildIndex(this.cbMacro, 0);
+            this.Controls.SetChildIndex(this.txtPrefijoUsuario, 0);
+            this.Controls.SetChildIndex(this.label6, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -189,5 +212,7 @@ namespace PhalanxAdmin
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cbMacro;
+        private System.Windows.Forms.TextBox txtPrefijoUsuario;
+        private System.Windows.Forms.Label label6;
     }
 }

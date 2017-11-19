@@ -85,7 +85,6 @@ namespace PhalanxAdmin
             this.cbError.Location = new System.Drawing.Point(67, 30);
             this.cbError.Name = "cbError";
             this.cbError.Size = new System.Drawing.Size(447, 21);
-            this.cbError.Sorted = true;
             this.cbError.TabIndex = 17;
             this.cbError.ValueMember = "Id";
             // 

@@ -146,7 +146,16 @@ namespace PhalanxAdmin
 
         private void CargarUsuarios()
         {
-            var usuarios = UserTarjBL.GetAll(txtUser.Text.Trim());
+            MacroUsuarioTarjetaEntityCollection usuarios = null;
+
+            if (picActivo.Visible)
+            {
+                usuarios = UserTarjBL.GetAll(txtUser.Text.Trim());
+            }
+            else
+            {
+                usuarios = new MacroUsuarioTarjetaEntityCollection();
+            }
 
             gvUsuarios.AutoGenerateColumns = false;
             gvUsuarios.DataSource = usuarios;
@@ -165,6 +174,7 @@ namespace PhalanxAdmin
                 entity = new MacroUsuarioTarjetaEntity
                 {
                     Aplicacion = app,
+                    PrefijoUsuarioTC = app.PrefijoUsuarioTC,
                     UsuarioTC = string.Empty
                 };
 
@@ -247,7 +257,7 @@ namespace PhalanxAdmin
                     _entity.Usuario = txtUser.Text.Trim().ToLower();
 
                     _entity.Aplicacion = tarjeta.Aplicacion;
-                    _entity.UsuarioAplicacion = usuariotarjeta;
+                    _entity.UsuarioAplicacion = string.Format("{0}{1}", tarjeta.Aplicacion.PrefijoUsuarioTC, usuariotarjeta);
 
                     list.Add(_entity);
                 }
@@ -361,12 +371,9 @@ namespace PhalanxAdmin
         {
             ValidarUsuarioRed();
 
-            if (picActivo.Visible)
-            {
-                CargarUsuarios();
+            CargarUsuarios();
 
-                CargarUsuariosOtros();
-            }
+            CargarUsuariosOtros();
         }
     }
 }

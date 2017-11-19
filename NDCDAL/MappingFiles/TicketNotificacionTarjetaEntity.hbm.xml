@@ -18,6 +18,7 @@
     <property column="tnt_fecha_notificado" type="DateTime" name="FechaNotificado" not-null="false" />
     <property column="tnt_estado_id" type="Int32" name="Estado" not-null="false" />
     <property column="tnt_mail_id" type="Int32" name="MailId" not-null="false" />
+    <many-to-one name="Clave" column="tnt_macro_clave_id" class="NDCCommon.Entities.MacroClaveEntity,NDCCommon" />
     <many-to-one name="Error" column="tnt_macro_error_id" class="NDCCommon.Entities.MacroErrorEntity,NDCCommon" />
     <property column="tnt_reclamos" type="Int32" name="Reclamos" not-null="false" />
   </class>

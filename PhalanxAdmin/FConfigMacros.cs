@@ -120,6 +120,12 @@ namespace PhalanxAdmin
 
         private void lnkModify_Click(object sender, EventArgs e)
         {
+            if (this.Entidad == null || (this.Entidad != null && this.Entidad.Id == 0))
+            {
+                MessageBox.Show("Debe seleccionar una Macro para modificar", "Macros", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             btnSave.Enabled = true;
 
             Editar(true);
@@ -127,6 +133,12 @@ namespace PhalanxAdmin
 
         private void lnkDelete_Click(object sender, EventArgs e)
         {
+            if (this.Entidad == null || (this.Entidad != null && this.Entidad.Id == 0))
+            {
+                MessageBox.Show("Debe seleccionar una Macro a eliminar", "Macros", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+         
             string mensaje = string.Format("Se eliminará la Macro '{0}'{1}¿Desea continuar?", this.Entidad.Name, System.Environment.NewLine);
 
             if (MessageBox.Show(mensaje, "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
@@ -226,7 +238,7 @@ namespace PhalanxAdmin
             if (dr == DialogResult.OK)
             {
                 FileStream fs = new FileStream(saveFileDialog1.FileName, FileMode.Create);
-                StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
+                StreamWriter sw = new StreamWriter(fs, new UTF8Encoding());
                 sw.Write(sb.ToString());
                 sw.Close();
                 MessageBox.Show("El archivo se ha generado correctamente", "Generación de Archivo", MessageBoxButtons.OK, MessageBoxIcon.Information);

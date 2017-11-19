@@ -324,7 +324,7 @@ namespace PhalanxAdmin
             {
                 MacroErrorEntity entity = (MacroErrorEntity)lvLista.SelectedItems[0].Tag;
 
-                Edit(entity, false);
+                Edit(entity, true);
             }
         }
 

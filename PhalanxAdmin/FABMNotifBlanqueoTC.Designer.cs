@@ -59,6 +59,7 @@ namespace PhalanxAdmin
             this.label4 = new System.Windows.Forms.Label();
             this.colSeleccionarOtros = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.colAplicacionOtros = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colPrefijoOtros = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colUsuarioOtros = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picActivo)).BeginInit();
@@ -71,7 +72,7 @@ namespace PhalanxAdmin
             // groupBox1
             // 
             this.groupBox1.Location = new System.Drawing.Point(0, 495);
-            this.groupBox1.Size = new System.Drawing.Size(538, 43);
+            this.groupBox1.Size = new System.Drawing.Size(553, 43);
             this.groupBox1.TabIndex = 16;
             // 
             // btnAceptar
@@ -119,6 +120,8 @@ namespace PhalanxAdmin
             // 
             // groupBox2
             // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.picActivo);
             this.groupBox2.Controls.Add(this.cbDomain);
             this.groupBox2.Controls.Add(this.label7);
@@ -126,7 +129,7 @@ namespace PhalanxAdmin
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Location = new System.Drawing.Point(10, 113);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(507, 82);
+            this.groupBox2.Size = new System.Drawing.Size(529, 82);
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Usuario de Red";
@@ -266,10 +269,12 @@ namespace PhalanxAdmin
             // 
             // groupBox3
             // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.gvUsuarios);
             this.groupBox3.Location = new System.Drawing.Point(10, 201);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(507, 142);
+            this.groupBox3.Size = new System.Drawing.Size(529, 142);
             this.groupBox3.TabIndex = 17;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Usuarios Registrados de Tarjeta de Crédito";
@@ -278,6 +283,8 @@ namespace PhalanxAdmin
             // 
             this.gvUsuarios.AllowUserToAddRows = false;
             this.gvUsuarios.AllowUserToDeleteRows = false;
+            this.gvUsuarios.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gvUsuarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvUsuarios.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colSeleccionarUsr,
@@ -286,7 +293,7 @@ namespace PhalanxAdmin
             this.gvUsuarios.Location = new System.Drawing.Point(6, 19);
             this.gvUsuarios.Name = "gvUsuarios";
             this.gvUsuarios.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gvUsuarios.Size = new System.Drawing.Size(495, 115);
+            this.gvUsuarios.Size = new System.Drawing.Size(516, 115);
             this.gvUsuarios.TabIndex = 0;
             // 
             // colSeleccionarUsr
@@ -313,10 +320,12 @@ namespace PhalanxAdmin
             // 
             // groupBox4
             // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.gvUsuariosOtros);
             this.groupBox4.Location = new System.Drawing.Point(10, 349);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(507, 142);
+            this.groupBox4.Size = new System.Drawing.Size(529, 142);
             this.groupBox4.TabIndex = 18;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Otros Usuarios de Tarjeta de Crédito";
@@ -325,15 +334,18 @@ namespace PhalanxAdmin
             // 
             this.gvUsuariosOtros.AllowUserToAddRows = false;
             this.gvUsuariosOtros.AllowUserToDeleteRows = false;
+            this.gvUsuariosOtros.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gvUsuariosOtros.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvUsuariosOtros.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colSeleccionarOtros,
             this.colAplicacionOtros,
+            this.colPrefijoOtros,
             this.colUsuarioOtros});
             this.gvUsuariosOtros.Location = new System.Drawing.Point(6, 19);
             this.gvUsuariosOtros.Name = "gvUsuariosOtros";
             this.gvUsuariosOtros.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gvUsuariosOtros.Size = new System.Drawing.Size(495, 115);
+            this.gvUsuariosOtros.Size = new System.Drawing.Size(516, 115);
             this.gvUsuariosOtros.TabIndex = 0;
             // 
             // txtTicketNro
@@ -370,17 +382,25 @@ namespace PhalanxAdmin
             this.colAplicacionOtros.ReadOnly = true;
             this.colAplicacionOtros.Width = 180;
             // 
+            // colPrefijoOtros
+            // 
+            this.colPrefijoOtros.DataPropertyName = "PrefijoUsuarioTC";
+            this.colPrefijoOtros.HeaderText = "Prefijo";
+            this.colPrefijoOtros.Name = "colPrefijoOtros";
+            this.colPrefijoOtros.ReadOnly = true;
+            this.colPrefijoOtros.Width = 80;
+            // 
             // colUsuarioOtros
             // 
             this.colUsuarioOtros.DataPropertyName = "Usuario";
             this.colUsuarioOtros.HeaderText = "Usuario";
             this.colUsuarioOtros.Name = "colUsuarioOtros";
-            this.colUsuarioOtros.Width = 180;
+            this.colUsuarioOtros.Width = 140;
             // 
             // FABMNotifBlanqueoTC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(538, 538);
+            this.ClientSize = new System.Drawing.Size(553, 538);
             this.Controls.Add(this.txtTicketNro);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.groupBox4);
@@ -459,6 +479,7 @@ namespace PhalanxAdmin
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DataGridViewCheckBoxColumn colSeleccionarOtros;
         private System.Windows.Forms.DataGridViewTextBoxColumn colAplicacionOtros;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colPrefijoOtros;
         private System.Windows.Forms.DataGridViewTextBoxColumn colUsuarioOtros;
 
 

@@ -11,6 +11,7 @@
     <property column="anc_esappred " type="Boolean" name="EsAplicacionRed" not-null="true" />
     <property column="anc_esappcobis " type="Boolean" name="EsAplicacionCobis" not-null="true" />
     <property column="anc_esemuladores" type="Boolean" name="EsEmuladores" not-null="true" />
+    <property column="anc_prefijo_usuario_tc" type="String" name="PrefijoUsuarioTC" not-null="true" />
     <many-to-one column="anc_macro_id" name="Macro" class="NDCCommon.Entities.MacroEntity, NDCCommon" not-null="false" />
   </class>
 </hibernate-mapping>

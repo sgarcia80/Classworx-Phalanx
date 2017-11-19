@@ -331,7 +331,7 @@ namespace PhalanxAdmin
             {
                 MacroUsuarioEntity entity = (MacroUsuarioEntity)lvLista.SelectedItems[0].Tag;
 
-                Edit(entity, false);
+                Edit(entity, true);
             }
         }
 

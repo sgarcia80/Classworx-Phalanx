@@ -429,9 +429,11 @@ namespace PhalanxAdmin
         {
             try
             {
+                string mensaje = string.Empty;
+
                 if (string.IsNullOrEmpty(txtDestino.Text.Trim()))
                 {
-                    throw new Common.CwxException("Debe seleccioanr una Carpeta Destino para los archivos");
+                    throw new Common.CwxException("Debe seleccionar una Carpeta Destino para los archivos");
                 }
                 DirectoryInfo folder = new DirectoryInfo(txtDestino.Text.Trim());
                 //if (!File.Exists(txtDestino.Text.Trim()))
@@ -445,9 +447,23 @@ namespace PhalanxAdmin
 
                 TicketNotificacionTarjetaEntity ticket = null;
 
+                log.Info("Se buscan los aplicativos de las notificaciones seleccionadas");
+                List<string> invalidas = new List<string>();
+
                 foreach (ListViewItem item in lvLista.SelectedItems)
                 {
                     ticket = item.Tag as TicketNotificacionTarjetaEntity;
+
+                    log.InfoFormat("Ticket '{0}' seleccionado de la aplicacion '{1}'", ticket.Id, ticket.Aplicacion.Codigo);
+
+                    if (!ticket.Aplicacion.EsEmuladores)
+                    {
+                        if (invalidas.FindAll(o => o.Equals(string.Format("{0} - {1}", ticket.Aplicacion.Codigo, ticket.Aplicacion.Nombre))).Count == 0)
+                        {
+                            invalidas.Add(string.Format("{0} - {1}", ticket.Aplicacion.Codigo, ticket.Aplicacion.Nombre));
+                        }
+                        continue;
+                    }
 
                     list.Add(ticket);
 
@@ -457,23 +473,35 @@ namespace PhalanxAdmin
                     }
                 }
 
+                if (invalidas.Count > 0)
+                {
+                    mensaje = string.Format("Las siguientes aplicaciones no están habilitadas para Emuladores{0}{1}", System.Environment.NewLine, string.Join(System.Environment.NewLine, invalidas.ToArray()));
+                    MessageBox.Show(mensaje, "Generación de Archivos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 TicketNotificacionTarjetaBusiness business = new TicketNotificacionTarjetaBusiness();
+                log.Info("Se procesan las notificaciones seleccionadas para generar los archivos");
 
                 List<MacroArchivoEntity> archivos = business.Generar(list, apps);
+
+                log.Info("Se proceden a generar los archivos fisicos");
 
                 foreach (MacroArchivoEntity archivo in archivos)
                 {
                     string filename = string.Format("{0}/{1}", folderBrowserDialog1.SelectedPath, archivo.Nombre);
 
-                    using (StreamWriter sw = new StreamWriter(filename, false, Encoding.Unicode))
+                    using (StreamWriter sw = new StreamWriter(filename, false, Encoding.UTF8))
                     {
                         sw.Write(archivo.Contenido);
                         sw.Close();
                     }
                 }
 
-                string mensaje = string.Format("Se generaron correctamente {0} archivos", archivos.Count);
+                mensaje = string.Format("Se generaron correctamente {0} archivos", archivos.Count);
                 MessageBox.Show(mensaje, "Generación de Archivos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                ExecEntitiesRefresh();
             }
             catch (Common.CwxException ex)
             {
@@ -484,13 +512,11 @@ namespace PhalanxAdmin
                 log.Error("Error al generar los archivos", ex);
                 MessageBox.Show("Error al generar los archivos", "Generación de Archivos", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            ExecEntitiesRefresh();
         }
 
         private void lnkProcesadasOk_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            string mensaje = string.Format("Se marcarán las Notifiaciones seleccionadas como 'Procesadas'.{0}¿Desea continuar?", System.Environment.NewLine);
+            string mensaje = string.Format("Se marcarán las Notificaciones seleccionadas como 'Procesadas'.{0}¿Desea continuar?", System.Environment.NewLine);
             DialogResult result = MessageBox.Show(mensaje, "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
             if (result == System.Windows.Forms.DialogResult.No)
@@ -524,12 +550,14 @@ namespace PhalanxAdmin
                 }
                 catch (Exception)
                 {
-                    
+
                     throw;
                 }
 
                 mensaje = string.Format("Las Notificaciones se actualizaron correctamente");
                 MessageBox.Show(mensaje, "Notificaciones Procesadas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                ExecEntitiesRefresh();
             }
             catch (Common.CwxException ex)
             {
@@ -540,8 +568,6 @@ namespace PhalanxAdmin
                 log.Error("Error al procesar las Notificaciones", ex);
                 MessageBox.Show("Error al procesar las Notificaciones", "Notificaciones Procesadas", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            ExecEntitiesRefresh();
         }
 
         private void lnkProcesadasError_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -561,7 +587,7 @@ namespace PhalanxAdmin
                     return;
                 }
 
-                string mensaje = string.Format("Se actualizarán las Notifiaciones seleccionadas a 'Error'.{0}¿Desea continuar?", System.Environment.NewLine);
+                string mensaje = string.Format("Se actualizarán las Notificaciones seleccionadas a 'Error'.{0}¿Desea continuar?", System.Environment.NewLine);
                 result = MessageBox.Show(mensaje, "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
                 if (result == System.Windows.Forms.DialogResult.No)
@@ -577,7 +603,8 @@ namespace PhalanxAdmin
                 {
                     ticket = item.Tag as TicketNotificacionTarjetaEntity;
 
-                    if (ticket.Estado == TicketNotificacionTarjetaEntity.EstadoTicket.Generado)
+                    if (ticket.Estado == TicketNotificacionTarjetaEntity.EstadoTicket.Generado ||
+                        ticket.Estado == TicketNotificacionTarjetaEntity.EstadoTicket.Ingresado)
                     {
                         ticket.Estado = TicketNotificacionTarjetaEntity.EstadoTicket.Error;
                         ticket.Error = form.Error;
@@ -590,6 +617,8 @@ namespace PhalanxAdmin
 
                 mensaje = string.Format("Las Notificaciones con Error se actualizaron correctamente");
                 MessageBox.Show(mensaje, "Notificaciones con Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                ExecEntitiesRefresh();
             }
             catch (Common.CwxException ex)
             {
@@ -600,8 +629,6 @@ namespace PhalanxAdmin
                 log.Error("Error al actualizar las Notificaciones con Error", ex);
                 MessageBox.Show("Error al actualizar las Notificaciones con Error", "Notificaciones con Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            ExecEntitiesRefresh();
         }
 
         private void btnDestino_Click(object sender, EventArgs e)

@@ -264,6 +264,11 @@ namespace NDCCommon.Entities
         /// <summary>
         /// 
         /// </summary>
+        public MacroClaveEntity Clave { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public MacroErrorEntity Error { set; get; }
 
         public int Reclamos { get; set; }

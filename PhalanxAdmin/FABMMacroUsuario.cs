@@ -27,7 +27,7 @@ namespace PhalanxAdmin
 
         public FABMMacroUsuario(MacroUsuarioEntity ancEntity, bool readOnly) : this()
         {
-            this.ReadOnly = ReadOnly;
+            this.ReadOnly = readOnly;
 
             _entity = ancEntity;
         }
@@ -67,13 +67,19 @@ namespace PhalanxAdmin
                 chkPrincipal.Enabled = false;
 
                 cbVisualizar.Enabled = false;
-                btnAceptar.Visible = false;
+                btnCancelar.Visible = false;
             }
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.None;
+
+            if (this.ReadOnly)
+            {
+                this.DialogResult = DialogResult.OK;
+                return;
+            }
 
             if (cbDominio.SelectedIndex == 0)
             {
