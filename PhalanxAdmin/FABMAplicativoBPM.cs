@@ -47,6 +47,8 @@ namespace PhalanxAdmin
             {
                 cbMacro.SelectedValue = _entity.Macro.Id;
             }
+
+            ControlEmuladores(cbEmuladores.Checked);
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -99,15 +101,19 @@ namespace PhalanxAdmin
 
         private void cbEmuladores_CheckedChanged(object sender, EventArgs e)
         {
-            cbMacro.Enabled = cbEmuladores.Checked;
-            txtPrefijoUsuario.Enabled = cbEmuladores.Checked;
+            ControlEmuladores(cbEmuladores.Checked);
+        }
 
-            if (!cbEmuladores.Checked)
+        private void ControlEmuladores(bool enable)
+        {
+            cbMacro.Enabled = enable;
+            txtPrefijoUsuario.Enabled = enable;
+
+            if (!enable)
             {
                 cbMacro.SelectedIndex = 0;
                 txtPrefijoUsuario.Text = string.Empty;
             }
-
         }
     }
 }

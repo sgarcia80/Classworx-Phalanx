@@ -30,8 +30,6 @@ namespace PhalanxAdmin
         MacroUsuarioTarjetaBusiness UserTarjBL = new MacroUsuarioTarjetaBusiness();
 
         bool _readOnly = false;
-        Random RandomWord = null;
-        Random RandomNumber = null;
 
         public enum FormType
         {
@@ -240,38 +238,56 @@ namespace PhalanxAdmin
 
                 if (Convert.ToBoolean(row.Cells[colSeleccionarUsr.Name].Value))
                 {
-                    string usuariotarjeta = row.Cells[colUsuario.Name].Value.ToString();
+                    string usuariotarjeta = string.Empty;
 
-                    _entity = new TicketNotificacionTarjetaEntity();
-
-                    _entity.Fecha = DateTime.Now;
-                    _entity.Solicitante = txtSolicitante.Text.Trim();
-                    _entity.UsuarioCarga = this.user;
-
-                    if (int.TryParse(txtTicketNro.Text, out nro))
+                    if (row.Cells[colUsuario.Name].Value != null)
                     {
-                        _entity.NumeroSolicitud = nro;
+                        usuariotarjeta = row.Cells[colUsuario.Name].Value.ToString();
                     }
 
-                    _entity.UsuarioDominio = dominio.NtName;
-                    _entity.Usuario = txtUser.Text.Trim().ToLower();
+                    if (!string.IsNullOrEmpty(usuariotarjeta))
+                    {
+                        _entity = new TicketNotificacionTarjetaEntity();
 
-                    _entity.Aplicacion = tarjeta.Aplicacion;
-                    _entity.UsuarioAplicacion = string.Format("{0}{1}", tarjeta.Aplicacion.PrefijoUsuarioTC, usuariotarjeta);
+                        _entity.Fecha = DateTime.Now;
+                        _entity.Solicitante = txtSolicitante.Text.Trim();
+                        _entity.UsuarioCarga = this.user;
 
-                    list.Add(_entity);
+                        if (int.TryParse(txtTicketNro.Text, out nro))
+                        {
+                            _entity.NumeroSolicitud = nro;
+                        }
+
+                        _entity.UsuarioDominio = dominio.NtName;
+                        _entity.Usuario = txtUser.Text.Trim();
+
+                        _entity.Aplicacion = tarjeta.Aplicacion;
+                        _entity.UsuarioAplicacion = usuariotarjeta;
+
+                        list.Add(_entity);
+                    }
                 }
             }
 
+            bool hayincompleto = false;
             foreach (DataGridViewRow row in gvUsuariosOtros.Rows)
             {
                 MacroUsuarioTarjetaEntity tarjeta = row.DataBoundItem as MacroUsuarioTarjetaEntity;
 
                 if (Convert.ToBoolean(row.Cells[colSeleccionarOtros.Name].Value))
                 {
-                    string usuariotarjeta = row.Cells[colUsuarioOtros.Name].Value.ToString();
+                    string usuariotarjeta = string.Empty;
 
-                    if (!string.IsNullOrEmpty(usuariotarjeta))
+                    if (row.Cells[colUsuarioOtros.Name].Value != null)
+                    {
+                        usuariotarjeta = row.Cells[colUsuarioOtros.Name].Value.ToString();
+                    }
+
+                    if (string.IsNullOrEmpty(usuariotarjeta))
+                    {
+                        hayincompleto = true;
+                    }
+                    else
                     {
                         _entity = new TicketNotificacionTarjetaEntity();
 
@@ -288,11 +304,22 @@ namespace PhalanxAdmin
                         _entity.Usuario = txtUser.Text.Trim().ToLower();
 
                         _entity.Aplicacion = tarjeta.Aplicacion;
-                        _entity.UsuarioAplicacion = usuariotarjeta;
+                        _entity.UsuarioAplicacion = string.Format("{0}{1}", tarjeta.Aplicacion.PrefijoUsuarioTC, usuariotarjeta);
 
                         list.Add(_entity);
                     }
                 }
+            }
+
+            if (hayincompleto)
+            {
+                MessageBox.Show("Debe completar todos los Usuarios seleccionados", "Notificación de Blanqueo de Tarjeta de Crédito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (list.Count == 0)
+            {
+                MessageBox.Show("Debe seleccionar al menos 1 Usuario para blanquear", "Notificación de Blanqueo de Tarjeta de Crédito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
             }
 
             // grabar
@@ -307,7 +334,7 @@ namespace PhalanxAdmin
 
                 TicketBL.EnviarEmail(_entity, out debug);
 
-                MessageBox.Show("Las Notificaciones se generaron correctamente", "Notificación de Blanqueo Red", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Las Notificaciones se generaron correctamente", "Notificación de Blanqueo de Tarjeta de Crédito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (InvalidOperationException ex)
             {
@@ -320,7 +347,7 @@ namespace PhalanxAdmin
 
             if (!string.IsNullOrEmpty(error))
             {
-                MessageBox.Show(error, "Notificación de Blanqueo Red", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(error, "Notificación de Blanqueo de Tarjeta de Crédito", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

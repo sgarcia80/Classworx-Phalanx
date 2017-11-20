@@ -536,6 +536,7 @@ namespace PhalanxAdmin
 
                     if (ticket.Estado == TicketNotificacionTarjetaEntity.EstadoTicket.Generado)
                     {
+                        ticket.FechaProcesado = DateTime.Now;
                         ticket.Estado = TicketNotificacionTarjetaEntity.EstadoTicket.Procesado;
                         list.Add(ticket);
                     }

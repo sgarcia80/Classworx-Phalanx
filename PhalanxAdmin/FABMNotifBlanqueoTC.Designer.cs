@@ -55,25 +55,32 @@ namespace PhalanxAdmin
             this.colUsuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.gvUsuariosOtros = new System.Windows.Forms.DataGridView();
-            this.txtTicketNro = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.colSeleccionarOtros = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.colAplicacionOtros = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colPrefijoOtros = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colUsuarioOtros = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txtTicketNro = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picActivo)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvUsuarios)).BeginInit();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvUsuariosOtros)).BeginInit();
+            this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
             this.groupBox1.Location = new System.Drawing.Point(0, 495);
             this.groupBox1.Size = new System.Drawing.Size(553, 43);
-            this.groupBox1.TabIndex = 16;
+            this.groupBox1.TabIndex = 17;
             // 
             // btnAceptar
             // 
@@ -272,10 +279,11 @@ namespace PhalanxAdmin
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.gvUsuarios);
+            this.groupBox3.Controls.Add(this.groupBox5);
             this.groupBox3.Location = new System.Drawing.Point(10, 201);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(529, 142);
-            this.groupBox3.TabIndex = 17;
+            this.groupBox3.TabIndex = 14;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Usuarios Registrados de Tarjeta de Crédito";
             // 
@@ -326,7 +334,7 @@ namespace PhalanxAdmin
             this.groupBox4.Location = new System.Drawing.Point(10, 349);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(529, 142);
-            this.groupBox4.TabIndex = 18;
+            this.groupBox4.TabIndex = 16;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Otros Usuarios de Tarjeta de Crédito";
             // 
@@ -347,25 +355,6 @@ namespace PhalanxAdmin
             this.gvUsuariosOtros.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gvUsuariosOtros.Size = new System.Drawing.Size(516, 115);
             this.gvUsuariosOtros.TabIndex = 0;
-            // 
-            // txtTicketNro
-            // 
-            this.txtTicketNro.BackColor = System.Drawing.SystemColors.Window;
-            this.txtTicketNro.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.txtTicketNro.Location = new System.Drawing.Point(97, 79);
-            this.txtTicketNro.Name = "txtTicketNro";
-            this.txtTicketNro.Size = new System.Drawing.Size(122, 20);
-            this.txtTicketNro.TabIndex = 12;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(17, 82);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(75, 13);
-            this.label4.TabIndex = 11;
-            this.label4.Text = "Ticket Nro.:";
             // 
             // colSeleccionarOtros
             // 
@@ -392,10 +381,80 @@ namespace PhalanxAdmin
             // 
             // colUsuarioOtros
             // 
-            this.colUsuarioOtros.DataPropertyName = "Usuario";
+            this.colUsuarioOtros.DataPropertyName = "UsuarioTC";
             this.colUsuarioOtros.HeaderText = "Usuario";
             this.colUsuarioOtros.Name = "colUsuarioOtros";
             this.colUsuarioOtros.Width = 140;
+            // 
+            // txtTicketNro
+            // 
+            this.txtTicketNro.BackColor = System.Drawing.SystemColors.Window;
+            this.txtTicketNro.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.txtTicketNro.Location = new System.Drawing.Point(97, 79);
+            this.txtTicketNro.Name = "txtTicketNro";
+            this.txtTicketNro.Size = new System.Drawing.Size(122, 20);
+            this.txtTicketNro.TabIndex = 10;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(17, 82);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(75, 13);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Ticket Nro.:";
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox5.Controls.Add(this.dataGridView1);
+            this.groupBox5.Location = new System.Drawing.Point(0, 0);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(529, 142);
+            this.groupBox5.TabIndex = 14;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Usuarios Registrados de Tarjeta de Crédito";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewCheckBoxColumn1,
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2});
+            this.dataGridView1.Location = new System.Drawing.Point(6, 19);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.Size = new System.Drawing.Size(516, 115);
+            this.dataGridView1.TabIndex = 0;
+            // 
+            // dataGridViewCheckBoxColumn1
+            // 
+            this.dataGridViewCheckBoxColumn1.HeaderText = "";
+            this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
+            this.dataGridViewCheckBoxColumn1.Width = 60;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "Aplicacion";
+            this.dataGridViewTextBoxColumn1.HeaderText = "Aplicación";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Width = 180;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "UsuarioTC";
+            this.dataGridViewTextBoxColumn2.HeaderText = "Usuario";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 180;
             // 
             // FABMNotifBlanqueoTC
             // 
@@ -443,6 +502,8 @@ namespace PhalanxAdmin
             ((System.ComponentModel.ISupportInitialize)(this.gvUsuarios)).EndInit();
             this.groupBox4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gvUsuariosOtros)).EndInit();
+            this.groupBox5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -481,6 +542,11 @@ namespace PhalanxAdmin
         private System.Windows.Forms.DataGridViewTextBoxColumn colAplicacionOtros;
         private System.Windows.Forms.DataGridViewTextBoxColumn colPrefijoOtros;
         private System.Windows.Forms.DataGridViewTextBoxColumn colUsuarioOtros;
+        protected System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
 
 
     }
