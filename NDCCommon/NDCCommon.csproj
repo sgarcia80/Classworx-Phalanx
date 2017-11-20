@@ -120,6 +120,10 @@
       <Project>{66EAFA01-8DD4-4B02-8BB3-716A216844C4}</Project>
       <Name>Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PhalanxCommon\PhalanxCommon.csproj">
+      <Project>{4C3E1F32-C92A-44D4-B8DF-3259B1B8B705}</Project>
+      <Name>PhalanxCommon</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

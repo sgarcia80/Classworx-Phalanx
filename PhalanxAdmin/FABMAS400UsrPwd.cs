@@ -1036,7 +1036,7 @@ namespace PhalanxAdmin
 
         private void PopulateRequestStates()
         {
-            cbEstadoSolicitud.Items.Clear();
+            //cbEstadoSolicitud.Items.Clear();
             RequestStateEntityCollection reqStates = new RequestStateBusiness().FillFilter();
             cbEstadoSolicitud.DataSource = reqStates;
             cbEstadoSolicitud.SelectedIndex = 0;
@@ -1044,7 +1044,7 @@ namespace PhalanxAdmin
 
         private void PopulateGrupoTareas()
         {
-            cbGrupoTareas.Items.Clear();
+            //cbGrupoTareas.Items.Clear();
             RequestGroupEntityCollection reqGroups = new RequestGroupBusiness().FillFilter();
             cbGrupoTareas.DisplayMember = "RqstGrpName";
             cbGrupoTareas.ValueMember = "Id";
