@@ -227,6 +227,7 @@ namespace PhalanxDAL
                     case App.NotificacionClaves:
                         config.AddResource("NDCDAL.MappingFiles.AplicacionNotificacionClaveEntity.hbm.xml", nhAssembly);
                         config.AddResource("NDCDAL.MappingFiles.MacroEntity.hbm.xml", nhAssembly);
+                        config.AddResource("NDCDAL.MappingFiles.MacroClaveEntity.hbm.xml", nhAssembly);
                         config.AddResource("NDCDAL.MappingFiles.MacroErrorEntity.hbm.xml", nhAssembly);
                         config.AddResource("NDCDAL.MappingFiles.MacroUsuarioEntity.hbm.xml", nhAssembly);
                         config.AddResource("NDCDAL.MappingFiles.MacroUsuarioTarjetaEntity.hbm.xml", nhAssembly);

@@ -64,6 +64,8 @@ namespace NDCCommon.Entities
             }
         }
 
+        public string Subtipo { get; set; }
+
         /// <summary>
         /// 
         /// </summary>

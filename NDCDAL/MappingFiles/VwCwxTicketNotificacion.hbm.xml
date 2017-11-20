@@ -6,6 +6,7 @@
       <generator class="native"/>
     </id>
     <property column="tipo" type="String" name="Tipo" not-null="true" />
+    <property column="subtipo" type="String" name="Subtipo" not-null="true" />
     <property column="numero" type="Int32" name="NumeroSolicitud" not-null="false" />
     <many-to-one name="Aplicacion" column="app_id" class="NDCCommon.Entities.AplicacionNotificacionClaveEntity,NDCCommon" />
     <property column="app_user" type="String" name="UsuarioAplicacion" not-null="true" length="50" />

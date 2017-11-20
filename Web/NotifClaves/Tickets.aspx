@@ -13,7 +13,7 @@
                 <asp:RadioButtonList ID="chkNotifAlta" runat="server"  AutoPostBack="true"
                         onselectedindexchanged="chkNotifAlta_SelectedIndexChanged" >
                    <asp:ListItem Selected="True" Value="A" Text="Notificaciones de Claves de Alta de Usuario de Aplicación" />
-                   <asp:ListItem Value="B" Text="Notificaciones de blanqueo de Claves solicitadas por Remedy" />
+                   <asp:ListItem Value="B" Text="Notificaciones de blanqueo de Claves solicitadas" />
                 </asp:RadioButtonList>
 
                 </td>
@@ -31,7 +31,7 @@
                 <asp:BoundField DataField="Tipo" HeaderText="Tipo" SortExpression="Tipo">
                     <HeaderStyle HorizontalAlign="Left" />
                 </asp:BoundField>
-                <asp:BoundField DataField="Usuario" HeaderText="Usuario" SortExpression="Usuario">
+                <asp:BoundField DataField="UsuarioAplicacion" HeaderText="Usuario" SortExpression="Usuario">
                     <HeaderStyle HorizontalAlign="Left" />
                 </asp:BoundField>
                 <asp:BoundField DataField="Aplicacion" HeaderText="Aplicaci&#243;n" SortExpression="Aplicacion">

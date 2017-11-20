@@ -41,6 +41,21 @@ namespace NDCBL
             //
         }
 
+        public void AceptarTyC(int id)
+        {
+            AceptarTyC(Load(id));
+        }
+
+        public void AceptarTyC(TicketNotificacionTarjetaEntity ticket)
+        {
+            if (ticket == null)
+                return;
+
+            ticket.FechaNotificado = DateTime.Now;
+
+            Factory.Save(ticket);
+        }
+
         public void Create(List<TicketNotificacionTarjetaEntity> list)
         {
             TicketNotificacionTarjetaFactory factory = new TicketNotificacionTarjetaFactory();

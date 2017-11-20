@@ -22,7 +22,7 @@
             </td>
         </tr>
         <tr>
-            <td align="center" valign="top" style="width: 210px;">
+            <td align="center" valign="middle" style="width: 210px;">
                 <asp:Button ID="btnNotifClaves" Text="Notificación de Claves" CssClass="btn" Width="180px"
                     runat="server" OnClick="btnNotifClaves_Click" Height="60px" BorderWidth="2" />
             </td>
