@@ -213,6 +213,7 @@ namespace PhalanxAdmin
             // 
             this.txtDescrip.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.txtDescrip.Location = new System.Drawing.Point(120, 135);
+            this.txtDescrip.MaxLength = 4000;
             this.txtDescrip.Multiline = true;
             this.txtDescrip.Name = "txtDescrip";
             this.txtDescrip.ScrollBars = System.Windows.Forms.ScrollBars.Both;

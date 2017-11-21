@@ -152,9 +152,6 @@ namespace PhalanxAdmin
 
             _fechaDesde = dtpFechaDesde.Checked ? dtpFechaDesde.Value.Date : (DateTime?)null;
             _fechaHasta = dtpFechaHasta.Checked ? dtpFechaHasta.Value.Date : (DateTime?)null;
-            _fechaHasta = _fechaHasta.Value.AddDays(1);
-            _fechaHasta = _fechaHasta.Value.AddSeconds(-1);
-
         }
 
         private void bwRefreshEntities_DoWork(object sender, DoWorkEventArgs e)

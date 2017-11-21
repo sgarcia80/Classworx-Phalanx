@@ -161,7 +161,10 @@ namespace NDCDAL.Factories
                     DataSearch = DataSearch.Add(Expression.Ge("TNB.Fecha", _filFechaDesde));
 
                 if (_filFechaHasta != null)
+                {
+                    _filFechaHasta = _filFechaHasta.Value.AddDays(1).AddSeconds(-1);
                     DataSearch = DataSearch.Add(Expression.Le("TNB.Fecha", _filFechaHasta));
+                }
 
                 if (_filPendiente)
                 {

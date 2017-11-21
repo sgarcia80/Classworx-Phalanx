@@ -305,6 +305,7 @@ namespace PhalanxAdmin
             this.tBUserDescript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.tBUserDescript.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.tBUserDescript.Location = new System.Drawing.Point(94, 94);
+            this.tBUserDescript.MaxLength = 4000;
             this.tBUserDescript.Multiline = true;
             this.tBUserDescript.Name = "tBUserDescript";
             this.tBUserDescript.ScrollBars = System.Windows.Forms.ScrollBars.Both;
