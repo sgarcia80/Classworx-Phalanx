@@ -307,7 +307,8 @@ namespace PhalanxAdmin
         private void UpdateUser()
         {
             m_CurrentUser = m_AS400UserBusiness.Refresh(m_CurrentUser);
-            if (m_CurrentUser.ModifyingUser.Username != new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario).Username)
+            if (m_CurrentUser.ModifyingUser != null && 
+                m_CurrentUser.ModifyingUser.Username != new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario).Username)
             {
                 MessageBox.Show("Su sesión de edición expiró y la contraseña fue tomada por " + m_CurrentUser.ModifyingUser.Fullname + " el " + m_CurrentUser.ModifyingDate.Value.ToShortDateString() + " a las " + m_CurrentUser.ModifyingDate.Value.ToShortTimeString());
                 return;
@@ -348,6 +349,7 @@ namespace PhalanxAdmin
             {
                 m_AS400UserBusiness.Update(m_CurrentUser, chkChgPwd.Checked,  GetGruposSolicitudes(), GetGruposSeguimientos(), true);
                 MessageBox.Show("Se han modificado los datos satisfactoriamente");
+                m_FormType = FormType.View;
             }
             catch (Exception exp)
             {
@@ -536,7 +538,8 @@ namespace PhalanxAdmin
             if (m_FormType == FormType.Update || m_FormType == FormType.Delete)
             {
                 m_CurrentUser = m_AS400UserBusiness.Refresh(m_CurrentUser);
-                if (m_CurrentUser.ModifyingUser.Username == new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario).Username)
+                if (m_CurrentUser.ModifyingUser != null &&
+                    m_CurrentUser.ModifyingUser.Username == new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario).Username)
                 {
                     m_CurrentUser.ModifyingDate = null;
                     m_CurrentUser.ModifyingUser = null;
@@ -1033,7 +1036,7 @@ namespace PhalanxAdmin
 
         private void PopulateRequestStates()
         {
-            cbEstadoSolicitud.Items.Clear();
+            //cbEstadoSolicitud.Items.Clear();
             RequestStateEntityCollection reqStates = new RequestStateBusiness().FillFilter();
             cbEstadoSolicitud.DataSource = reqStates;
             cbEstadoSolicitud.SelectedIndex = 0;
@@ -1041,7 +1044,7 @@ namespace PhalanxAdmin
 
         private void PopulateGrupoTareas()
         {
-            cbGrupoTareas.Items.Clear();
+            //cbGrupoTareas.Items.Clear();
             RequestGroupEntityCollection reqGroups = new RequestGroupBusiness().FillFilter();
             cbGrupoTareas.DisplayMember = "RqstGrpName";
             cbGrupoTareas.ValueMember = "Id";

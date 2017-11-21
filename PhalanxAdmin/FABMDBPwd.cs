@@ -467,7 +467,8 @@ namespace PhalanxAdmin
             if (m_FormType == FormType.Update || m_FormType == FormType.Delete)
             {
                 _entity = DBUsrBL.Refresh(_entity);
-                if (_entity.ModifyingUser.Username == new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario).Username)
+                if (_entity.ModifyingUser != null &&
+                    _entity.ModifyingUser.Username == new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario).Username)
                 {
                     _entity.ModifyingDate = null;
                     _entity.ModifyingUser = null;
