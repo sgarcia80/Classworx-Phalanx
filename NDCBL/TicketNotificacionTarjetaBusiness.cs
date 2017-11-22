@@ -210,7 +210,7 @@ namespace NDCBL
                     //Se crea el archivo
                     archivo = new MacroArchivoEntity();
                     archivo.Aplicacion = aplicacion;
-                    archivo.Nombre = string.Format("macro_{1}_{0:yyyyMMdd}_{0:HHmm}.txt", DateTime.Now, aplicacion.Codigo.ToLower());
+                    archivo.Nombre = string.Format("macro_{1}_{0:yyyyMMdd}_{0:HHmm}.txt", DateTime.Now, macro.Name.ToLower());
 
                     contenido = new StringBuilder();
                     //Se arma el contenido del archivo

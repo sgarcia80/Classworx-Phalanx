@@ -489,7 +489,7 @@ namespace PhalanxAdmin
 
                 foreach (MacroArchivoEntity archivo in archivos)
                 {
-                    string filename = string.Format("{0}/{1}", folderBrowserDialog1.SelectedPath, archivo.Nombre);
+                    string filename = string.Format("{0}/{1}", txtDestino.Text, archivo.Nombre);
 
                     using (StreamWriter sw = new StreamWriter(filename, false, Encoding.UTF8))
                     {
@@ -506,6 +506,11 @@ namespace PhalanxAdmin
             catch (Common.CwxException ex)
             {
                 MessageBox.Show(ex.Message, "Generación de Archivos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                log.Error("Error en la ubicacion de destino", ex);
+                MessageBox.Show("No tiene permisos en la Carpeta destino para generar los archivos", "Generación de Archivos", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {

@@ -60,10 +60,10 @@ namespace PhalanxAdmin
             this.linkNotifBlanqueos.LinkColor = System.Drawing.Color.MidnightBlue;
             this.linkNotifBlanqueos.Location = new System.Drawing.Point(18, 45);
             this.linkNotifBlanqueos.Name = "linkNotifBlanqueos";
-            this.linkNotifBlanqueos.Size = new System.Drawing.Size(111, 13);
+            this.linkNotifBlanqueos.Size = new System.Drawing.Size(139, 13);
             this.linkNotifBlanqueos.TabIndex = 30;
             this.linkNotifBlanqueos.TabStop = true;
-            this.linkNotifBlanqueos.Text = "Blanqueos de Red";
+            this.linkNotifBlanqueos.Text = "Blanqueos de App/Red";
             this.linkNotifBlanqueos.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
             this.linkNotifBlanqueos.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkNotifBlanqueos_LinkClicked);
             // 
