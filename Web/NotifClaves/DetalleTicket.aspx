@@ -106,7 +106,7 @@
                 <td align="left" colspan="2" valign="middle" style="height:30">
                     &nbsp;&nbsp;
                     <asp:Button ID="btnVolver" runat="server" CssClass="btn" Width="75px" Text="Volver"
-                        ToolTip="Volver" CausesValidation="False" OnClick="btnVolver_Click">
+                        ToolTip="Volver" CausesValidation="False" OnClientClick="window.history.back(1)">
                     </asp:Button>
                 </td>
             </tr>
