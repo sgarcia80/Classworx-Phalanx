@@ -14,10 +14,10 @@ namespace NDCBL
     {
         public static class HeaderTags
         {
-            public const string Tag_Admin_Usuario_1 = "[UsuarioAdmin1]";
-            public const string Tag_Admin_Clave_1 = "[ClaveAdmin1]";
-            public const string Tag_Admin_Usuario_2 = "[UsuarioAdmin2]";
-            public const string Tag_Admin_Clave_2 = "[ClaveAdmin2]";
+            public const string Tag_Admin_Usuario_1 = "[Principal]";
+            public const string Tag_Admin_Clave_1 = "[ClavePrincipal]";
+            public const string Tag_Admin_Usuario_2 = "[Secundario]";
+            public const string Tag_Admin_Clave_2 = "[ClaveSecundario]";
         }
         public static class BodyTags
         {

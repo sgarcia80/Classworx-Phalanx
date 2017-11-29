@@ -75,6 +75,8 @@ namespace PhalanxAdmin
             this.pnlXPGrps.Controls.Add(this.xppnlMacros);
             this.pnlXPGrps.Size = new System.Drawing.Size(200, 600);
             this.pnlXPGrps.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlXPGrps_Paint);
+            this.pnlXPGrps.Controls.SetChildIndex(this.xppnlTC, 0);
+            this.pnlXPGrps.Controls.SetChildIndex(this.xppnlMenu, 0);
             this.pnlXPGrps.Controls.SetChildIndex(this.xppnlMacros, 0);
             // 
             // pnlIzq
@@ -192,7 +194,7 @@ namespace PhalanxAdmin
             this.btnAdminClave2.Name = "btnAdminClave2";
             this.btnAdminClave2.Size = new System.Drawing.Size(91, 23);
             this.btnAdminClave2.TabIndex = 7;
-            this.btnAdminClave2.Text = "Clave Admin 2";
+            this.btnAdminClave2.Text = "Clave Secundario";
             this.btnAdminClave2.UseVisualStyleBackColor = true;
             this.btnAdminClave2.Click += new System.EventHandler(this.btnAdminClave2_Click);
             // 
@@ -202,7 +204,7 @@ namespace PhalanxAdmin
             this.btnAdminClave1.Name = "btnAdminClave1";
             this.btnAdminClave1.Size = new System.Drawing.Size(91, 23);
             this.btnAdminClave1.TabIndex = 5;
-            this.btnAdminClave1.Text = "Clave Admin 1";
+            this.btnAdminClave1.Text = "Clave Principal";
             this.btnAdminClave1.UseVisualStyleBackColor = true;
             this.btnAdminClave1.Click += new System.EventHandler(this.btnAdminClave1_Click);
             // 
@@ -212,7 +214,7 @@ namespace PhalanxAdmin
             this.btnAdminUsuario2.Name = "btnAdminUsuario2";
             this.btnAdminUsuario2.Size = new System.Drawing.Size(91, 23);
             this.btnAdminUsuario2.TabIndex = 6;
-            this.btnAdminUsuario2.Text = "Usuario Admin 2";
+            this.btnAdminUsuario2.Text = "Secundario";
             this.btnAdminUsuario2.UseVisualStyleBackColor = true;
             this.btnAdminUsuario2.Click += new System.EventHandler(this.btnAdminUsuario2_Click);
             // 
@@ -222,7 +224,7 @@ namespace PhalanxAdmin
             this.btnAdminUsuario1.Name = "btnAdminUsuario1";
             this.btnAdminUsuario1.Size = new System.Drawing.Size(91, 23);
             this.btnAdminUsuario1.TabIndex = 4;
-            this.btnAdminUsuario1.Text = "Usuario Admin 1";
+            this.btnAdminUsuario1.Text = "Principal";
             this.btnAdminUsuario1.UseVisualStyleBackColor = true;
             this.btnAdminUsuario1.Click += new System.EventHandler(this.btnAdminUsuario1_Click);
             // 
