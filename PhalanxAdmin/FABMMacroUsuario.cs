@@ -25,7 +25,8 @@ namespace PhalanxAdmin
             InitializeComponent();
         }
 
-        public FABMMacroUsuario(MacroUsuarioEntity ancEntity, bool readOnly) : this()
+        public FABMMacroUsuario(MacroUsuarioEntity ancEntity, bool readOnly)
+            : this()
         {
             this.ReadOnly = readOnly;
 
@@ -66,7 +67,7 @@ namespace PhalanxAdmin
                 cbMacro.Enabled = false;
                 chkPrincipal.Enabled = false;
 
-                cbVisualizar.Enabled = false;
+                //cbVisualizar.Enabled = false;
                 btnCancelar.Visible = false;
             }
         }
@@ -153,9 +154,9 @@ namespace PhalanxAdmin
             catch
             {
                 MessageBox.Show("Hubo un error al guardar los datos", "Usuario Login de Macros", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                
+
                 DialogResult = DialogResult.None;
-                
+
                 return;
             }
         }
@@ -167,7 +168,7 @@ namespace PhalanxAdmin
             else
                 DialogResult = DialogResult.Cancel;
         }
-        
+
         private void cbVisualizar_CheckedChanged(object sender, EventArgs e)
         {
             if (cbVisualizar.Checked)

@@ -257,7 +257,7 @@ namespace PhalanxAdmin
             {
                 MacroUsuarioEntity entity = (MacroUsuarioEntity)lvLista.SelectedItems[0].Tag;
 
-                Edit(entity, true);
+                Edit(entity, false);
             }
         }
 
@@ -305,7 +305,7 @@ namespace PhalanxAdmin
             {
                 MacroUsuarioEntity entity = (MacroUsuarioEntity)lvLista.SelectedItems[0].Tag;
 
-                string mensaje = string.Format("Se eliminará el Usuario Login de Macros '{0}'{1}. ¿Desea conitnuar?", entity.UsuarioTC, Environment.NewLine);
+                string mensaje = string.Format("Se eliminará el Usuario Login de Macros '{0}'{1}. ¿Desea continuar?", entity.UsuarioTC, Environment.NewLine);
 
                 if (MessageBox.Show(mensaje, "Eliminar Usuario Login de Macros", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {

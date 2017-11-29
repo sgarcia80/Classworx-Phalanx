@@ -298,7 +298,7 @@ namespace PhalanxAdmin
             {
                 MacroErrorEntity entity = (MacroErrorEntity)lvLista.SelectedItems[0].Tag;
 
-                string mensaje = string.Format("Se eliminará el Error seleccionado. {0}¿Desea conitnuar?", Environment.NewLine);
+                string mensaje = string.Format("Se eliminará el Error seleccionado. {0}¿Desea continuar?", Environment.NewLine);
 
                 if (MessageBox.Show(mensaje, "Eliminar Error", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {

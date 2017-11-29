@@ -299,7 +299,7 @@ namespace PhalanxAdmin
             {
                 MacroClaveEntity entity = (MacroClaveEntity)lvLista.SelectedItems[0].Tag;
 
-                string mensaje = string.Format("Se eliminará la Clave seleccionada. {0}¿Desea conitnuar?", Environment.NewLine);
+                string mensaje = string.Format("Se eliminará la Clave seleccionada. {0}¿Desea continuar?", Environment.NewLine);
 
                 if (MessageBox.Show(mensaje, "Eliminar Clave", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
