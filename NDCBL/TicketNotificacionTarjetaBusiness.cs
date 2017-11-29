@@ -51,6 +51,7 @@ namespace NDCBL
             if (ticket == null)
                 return;
 
+            ticket.Estado = TicketNotificacionTarjetaEntity.EstadoTicket.Notificado;
             ticket.FechaNotificado = DateTime.Now;
 
             Factory.Save(ticket);

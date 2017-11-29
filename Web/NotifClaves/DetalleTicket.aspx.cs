@@ -15,10 +15,10 @@ public partial class DetalleTicket : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        //if (!Page.User.Identity.IsAuthenticated)
-        //{
-        //    Response.Redirect("~/Login.aspx");
-        //}
+        if (!Page.User.Identity.IsAuthenticated)
+        {
+            Response.Redirect("~/Login.aspx");
+        }
 
         int id = 0;
         string tipo = "ALTA";

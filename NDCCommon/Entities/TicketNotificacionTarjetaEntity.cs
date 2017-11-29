@@ -16,7 +16,8 @@ namespace NDCCommon.Entities
             Ingresado,
             Generado,
             Procesado,
-            Error
+            Error,
+            Notificado
         }
 
         public const int TipoNotificacionBlanqueoApp = 1;

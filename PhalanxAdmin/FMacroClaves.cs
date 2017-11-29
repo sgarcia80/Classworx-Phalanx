@@ -251,7 +251,7 @@ namespace PhalanxAdmin
             {
                 MacroClaveEntity entity = (MacroClaveEntity)lvLista.SelectedItems[0].Tag;
 
-                Edit(entity, true);
+                Edit(entity, false);
             }
         }
 
@@ -313,7 +313,7 @@ namespace PhalanxAdmin
                     }
                     else
                     {
-                        MessageBox.Show("Se produjo un error al querer eliminar la Clave");
+                        MessageBox.Show("Se produjo un error al querer eliminar la Clave", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
