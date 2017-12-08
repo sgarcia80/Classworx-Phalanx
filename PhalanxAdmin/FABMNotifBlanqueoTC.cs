@@ -283,7 +283,7 @@ namespace PhalanxAdmin
                         usuariotarjeta = row.Cells[colUsuarioOtros.Name].Value.ToString();
                     }
 
-                    if (string.IsNullOrEmpty(usuariotarjeta))
+                    if (string.IsNullOrEmpty(usuariotarjeta.Trim()))
                     {
                         hayincompleto = true;
                     }

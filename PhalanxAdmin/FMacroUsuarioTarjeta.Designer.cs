@@ -55,10 +55,13 @@ namespace PhalanxAdmin
             this.colDominio = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colUsuarioRed = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colUsuarioTC = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colObservaciones = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.bwRefreshEntities = new System.ComponentModel.BackgroundWorker();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.colObservaciones = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnExportar = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             colAplicacion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.xppnlTC.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
             this.pnlXPGrps.SuspendLayout();
             this.pnlIzq.SuspendLayout();
@@ -70,10 +73,16 @@ namespace PhalanxAdmin
             this.statusbar.SuspendLayout();
             this.SuspendLayout();
             // 
+            // xppnlTC
+            // 
+            this.xppnlTC.ImageItems.ImageSet = null;
+            this.xppnlTC.Location = new System.Drawing.Point(8, 372);
+            // 
             // pnlXPGrps
             // 
             this.pnlXPGrps.Controls.Add(this.xppnlDBs);
             this.pnlXPGrps.Size = new System.Drawing.Size(200, 595);
+            this.pnlXPGrps.Controls.SetChildIndex(this.xppnlTC, 0);
             this.pnlXPGrps.Controls.SetChildIndex(this.xppnlMenu, 0);
             this.pnlXPGrps.Controls.SetChildIndex(this.xppnlDBs, 0);
             // 
@@ -202,6 +211,7 @@ namespace PhalanxAdmin
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnExportar);
             this.groupBox1.Controls.Add(this.txtAplicacion);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.txtUsuarioTC);
@@ -263,7 +273,7 @@ namespace PhalanxAdmin
             // 
             this.btnLimpiar.BackColor = System.Drawing.SystemColors.Control;
             this.btnLimpiar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnLimpiar.Location = new System.Drawing.Point(411, 19);
+            this.btnLimpiar.Location = new System.Drawing.Point(412, 19);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(76, 21);
             this.btnLimpiar.TabIndex = 2;
@@ -373,16 +383,26 @@ namespace PhalanxAdmin
             this.colUsuarioTC.Text = "Usuario TC";
             this.colUsuarioTC.Width = 150;
             // 
+            // colObservaciones
+            // 
+            this.colObservaciones.Text = "";
+            this.colObservaciones.Width = 200;
+            // 
             // bwRefreshEntities
             // 
             this.bwRefreshEntities.WorkerSupportsCancellation = true;
             this.bwRefreshEntities.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwRefreshEntities_DoWork);
             this.bwRefreshEntities.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwRefreshEntities_RunWorkerCompleted);
             // 
-            // colObservaciones
+            // btnExportar
             // 
-            this.colObservaciones.Text = "";
-            this.colObservaciones.Width = 200;
+            this.btnExportar.Location = new System.Drawing.Point(494, 47);
+            this.btnExportar.Name = "btnExportar";
+            this.btnExportar.Size = new System.Drawing.Size(132, 21);
+            this.btnExportar.TabIndex = 9;
+            this.btnExportar.Text = "Exportar Listado a CSV";
+            this.btnExportar.UseVisualStyleBackColor = true;
+            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
             // 
             // FMacroUsuarioTarjeta
             // 
@@ -395,6 +415,8 @@ namespace PhalanxAdmin
             this.Controls.SetChildIndex(this.pnlIzq, 0);
             this.Controls.SetChildIndex(this.pnlFilters, 0);
             this.Controls.SetChildIndex(this.pnlList, 0);
+            this.xppnlTC.ResumeLayout(false);
+            this.xppnlTC.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).EndInit();
             this.pnlXPGrps.ResumeLayout(false);
             this.pnlIzq.ResumeLayout(false);
@@ -444,5 +466,7 @@ namespace PhalanxAdmin
         protected System.Windows.Forms.Label label6;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.ColumnHeader colObservaciones;
+        private System.Windows.Forms.Button btnExportar;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }

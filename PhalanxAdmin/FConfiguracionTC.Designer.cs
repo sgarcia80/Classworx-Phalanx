@@ -28,10 +28,16 @@ namespace PhalanxAdmin
         /// </summary>
         private void InitializeComponent()
         {
+            this.xppnlTC.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
             this.pnlXPGrps.SuspendLayout();
             this.pnlIzq.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // xppnlTC
+            // 
+            this.xppnlTC.ImageItems.ImageSet = null;
+            this.xppnlTC.Location = new System.Drawing.Point(8, 219);
             // 
             // pnlXPGrps
             // 
@@ -44,6 +50,7 @@ namespace PhalanxAdmin
             // xppnlMenu
             // 
             this.xppnlMenu.ImageItems.ImageSet = null;
+            this.xppnlMenu.Location = new System.Drawing.Point(8, 8);
             this.xppnlMenu.Size = new System.Drawing.Size(184, 203);
             // 
             // FConfiguracionTC
@@ -52,6 +59,8 @@ namespace PhalanxAdmin
             this.ClientSize = new System.Drawing.Size(723, 519);
             this.Name = "FConfiguracionTC";
             this.Load += new System.EventHandler(this.FConfiguracion_Load);
+            this.xppnlTC.ResumeLayout(false);
+            this.xppnlTC.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).EndInit();
             this.pnlXPGrps.ResumeLayout(false);
             this.pnlIzq.ResumeLayout(false);

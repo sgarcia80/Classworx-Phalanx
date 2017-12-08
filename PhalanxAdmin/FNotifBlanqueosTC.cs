@@ -491,7 +491,7 @@ namespace PhalanxAdmin
                 {
                     string filename = string.Format("{0}/{1}", txtDestino.Text, archivo.Nombre);
 
-                    using (StreamWriter sw = new StreamWriter(filename, false, Encoding.UTF8))
+                    using (StreamWriter sw = new StreamWriter(filename, false, Encoding.Default))
                     {
                         sw.Write(archivo.Contenido);
                         sw.Close();

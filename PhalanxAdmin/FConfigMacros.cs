@@ -238,7 +238,7 @@ namespace PhalanxAdmin
             if (dr == DialogResult.OK)
             {
                 FileStream fs = new FileStream(saveFileDialog1.FileName, FileMode.Create);
-                StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
+                StreamWriter sw = new StreamWriter(fs, Encoding.Default);
                 sw.Write(sb.ToString());
                 sw.Close();
                 MessageBox.Show("El archivo se ha generado correctamente", "Generación de Archivo", MessageBoxButtons.OK, MessageBoxIcon.Information);

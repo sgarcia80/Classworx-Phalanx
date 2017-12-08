@@ -58,6 +58,8 @@ namespace PhalanxAdmin
             // 
             // xppnlTC
             // 
+            this.xppnlTC.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.xppnlTC.BackColor = System.Drawing.Color.Transparent;
             this.xppnlTC.Caption = "Tarjetas de Crédito";
             this.xppnlTC.CaptionCornerType = ((UIComponents.CornerType)((UIComponents.CornerType.TopLeft | UIComponents.CornerType.TopRight)));
@@ -80,7 +82,7 @@ namespace PhalanxAdmin
             this.xppnlTC.PanelGradient.Start = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(223)))), ((int)(((byte)(247)))));
             this.xppnlTC.PanelGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
             this.xppnlTC.Size = new System.Drawing.Size(184, 173);
-            this.xppnlTC.TabIndex = 4;
+            this.xppnlTC.TabIndex = 0;
             this.xppnlTC.TextColors.Foreground = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(93)))), ((int)(((byte)(198)))));
             this.xppnlTC.TextHighlightColors.Foreground = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(142)))), ((int)(((byte)(255)))));
             this.xppnlTC.VertAlignment = System.Drawing.StringAlignment.Center;

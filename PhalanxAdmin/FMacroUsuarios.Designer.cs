@@ -49,8 +49,8 @@ namespace PhalanxAdmin
             this.colDominio = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colUsuarioRed = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colUsuarioTC = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.bwRefreshEntities = new System.ComponentModel.BackgroundWorker();
             this.colPrincipal = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.bwRefreshEntities = new System.ComponentModel.BackgroundWorker();
             colMacro = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.xppnlTC.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
@@ -73,8 +73,8 @@ namespace PhalanxAdmin
             this.pnlXPGrps.Controls.Add(this.xppnlDBs);
             this.pnlXPGrps.Size = new System.Drawing.Size(200, 595);
             this.pnlXPGrps.Controls.SetChildIndex(this.xppnlTC, 0);
-            this.pnlXPGrps.Controls.SetChildIndex(this.xppnlMenu, 0);
             this.pnlXPGrps.Controls.SetChildIndex(this.xppnlDBs, 0);
+            this.pnlXPGrps.Controls.SetChildIndex(this.xppnlMenu, 0);
             // 
             // pnlIzq
             // 
@@ -84,7 +84,6 @@ namespace PhalanxAdmin
             // 
             this.xppnlMenu.ImageItems.ImageSet = null;
             this.xppnlMenu.Location = new System.Drawing.Point(8, 161);
-            this.xppnlMenu.TabIndex = 1;
             // 
             // colMacro
             // 
@@ -332,17 +331,17 @@ namespace PhalanxAdmin
             this.colUsuarioTC.Text = "Usuario TC";
             this.colUsuarioTC.Width = 120;
             // 
-            // bwRefreshEntities
-            // 
-            this.bwRefreshEntities.WorkerSupportsCancellation = true;
-            this.bwRefreshEntities.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwRefreshEntities_DoWork);
-            this.bwRefreshEntities.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwRefreshEntities_RunWorkerCompleted);
-            // 
             // colPrincipal
             // 
             this.colPrincipal.Text = "Principal";
             this.colPrincipal.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.colPrincipal.Width = 80;
+            // 
+            // bwRefreshEntities
+            // 
+            this.bwRefreshEntities.WorkerSupportsCancellation = true;
+            this.bwRefreshEntities.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwRefreshEntities_DoWork);
+            this.bwRefreshEntities.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwRefreshEntities_RunWorkerCompleted);
             // 
             // FMacroUsuarios
             // 

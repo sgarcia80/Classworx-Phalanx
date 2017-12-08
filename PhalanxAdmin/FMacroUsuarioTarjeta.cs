@@ -420,6 +420,52 @@ namespace PhalanxAdmin
 
             return ok;
         }
+
+        private void btnExportar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (lvLista.Items.Count == 0)
+                {
+                    return;
+                }
+
+                saveFileDialog1.Filter = "csv files (*.csv)|*.csv";
+                saveFileDialog1.FileName = string.Format("usuarios_tc_{0:yyyyMMdd}", DateTime.Today);
+                saveFileDialog1.Title = "Exportar a CSV";
+
+                StringBuilder sb = new StringBuilder();
+                string Separator = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ListSeparator;
+
+                MacroUsuarioTarjetaEntity entity = null;
+
+                foreach (ListViewItem lvi in lvLista.Items)
+                {
+                    entity = lvi.Tag as MacroUsuarioTarjetaEntity;
+
+                    if (entity != null)
+                    {
+                        if (sb.Length > 0)
+                        {
+                            sb.AppendLine();
+                        }
+                        sb.AppendFormat("{0}\\{1};{2};{3}", entity.Dominio, entity.UsuarioRed, entity.AplicacionCodigo, entity.UsuarioRed);
+                    }
+                }
+                DialogResult dr = saveFileDialog1.ShowDialog();
+                if (dr == DialogResult.OK)
+                {
+                    StreamWriter sw = new StreamWriter(saveFileDialog1.FileName, false, Encoding.Unicode);
+                    sw.Write(sb.ToString());
+                    sw.Close();
+                    MessageBox.Show("La exportación ha sido completada", "Exportación a CSV", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No se ha podido completar la exportación. (" + ex.Message + ")", "Error en Exportación a CSV", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
     }
 }
 

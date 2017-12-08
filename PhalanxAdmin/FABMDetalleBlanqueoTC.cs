@@ -202,11 +202,14 @@ namespace PhalanxAdmin
             if (chkVisualizar.Checked)
             {
                 tPassword1.PasswordChar = new char();
+                tPassword1.Text = _entity.Clave != null ? _entity.Clave.Clave : _entity.PasswordUsuarioAplicacion;
             }
             else
             {
+                tPassword1.Text = _entity.Clave != null ? _entity.Clave.ClaveEncriptada : _entity.PasswordUsuarioAplicacion;
                 tPassword1.PasswordChar = '*';
             }
+            
             tPassword1.Refresh();
 
         }

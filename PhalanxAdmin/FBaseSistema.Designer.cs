@@ -61,7 +61,6 @@ namespace PhalanxAdmin
             this.xppnlMenu.Controls.Add(this.lnkConfiguracion);
             this.xppnlMenu.ImageItems.ImageSet = null;
             this.xppnlMenu.Size = new System.Drawing.Size(184, 214);
-            this.xppnlMenu.TabIndex = 2;
             // 
             // lnkConfiguracion
             // 
