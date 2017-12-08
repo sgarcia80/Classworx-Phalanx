@@ -32,13 +32,15 @@ namespace PhalanxAdmin
             this.txtClave = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtClaveEncriptada = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.chkActivo = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(0, 104);
+            this.groupBox1.Location = new System.Drawing.Point(0, 125);
             this.groupBox1.Size = new System.Drawing.Size(561, 43);
-            this.groupBox1.TabIndex = 5;
+            this.groupBox1.TabIndex = 7;
             // 
             // btnAceptar
             // 
@@ -82,10 +84,30 @@ namespace PhalanxAdmin
             this.txtClaveEncriptada.Size = new System.Drawing.Size(395, 20);
             this.txtClaveEncriptada.TabIndex = 4;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(24, 93);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(37, 13);
+            this.label7.TabIndex = 5;
+            this.label7.Text = "Activo";
+            // 
+            // chkActivo
+            // 
+            this.chkActivo.AutoSize = true;
+            this.chkActivo.Location = new System.Drawing.Point(126, 93);
+            this.chkActivo.Name = "chkActivo";
+            this.chkActivo.Size = new System.Drawing.Size(15, 14);
+            this.chkActivo.TabIndex = 6;
+            this.chkActivo.UseVisualStyleBackColor = true;
+            // 
             // FABMMacroClave
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(561, 147);
+            this.ClientSize = new System.Drawing.Size(561, 168);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.chkActivo);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtClaveEncriptada);
             this.Controls.Add(this.label2);
@@ -97,6 +119,8 @@ namespace PhalanxAdmin
             this.Controls.SetChildIndex(this.groupBox1, 0);
             this.Controls.SetChildIndex(this.txtClaveEncriptada, 0);
             this.Controls.SetChildIndex(this.label1, 0);
+            this.Controls.SetChildIndex(this.chkActivo, 0);
+            this.Controls.SetChildIndex(this.label7, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -108,5 +132,7 @@ namespace PhalanxAdmin
         private System.Windows.Forms.TextBox txtClave;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtClaveEncriptada;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.CheckBox chkActivo;
     }
 }

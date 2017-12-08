@@ -161,6 +161,7 @@ namespace PhalanxAdmin
                 lviArr[i] = new ListViewItem();
                 lviArr[i].Text = entity.Clave;
                 lviArr[i].SubItems.Add(entity.ClaveEncriptada);
+                lviArr[i].SubItems.Add(entity.Activo ? "Si": string.Empty);
                 lviArr[i].Tag = entity;
                 i++;
             }

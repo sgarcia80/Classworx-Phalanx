@@ -112,7 +112,7 @@ namespace PhalanxAdmin
         {
             MacroUsuarioBusiness business = new MacroUsuarioBusiness();
 
-            _entities = business.GetAll(_filMacro);
+            _entities = business.GetAll(_filMacro, null, null);
         }
 
         /// <summary>
@@ -163,7 +163,8 @@ namespace PhalanxAdmin
                 lviArr[i].SubItems.Add(entity.Dominio != null ? entity.Dominio.NtName : string.Empty);
                 lviArr[i].SubItems.Add(entity.UsuarioRed);
                 lviArr[i].SubItems.Add(entity.UsuarioTC);
-                lviArr[i].SubItems.Add(entity.Principal ? "SI" : string.Empty);
+                lviArr[i].SubItems.Add(entity.Principal ? "Si" : string.Empty);
+                lviArr[i].SubItems.Add(entity.Activo ? "Si" : string.Empty);
 
                 lviArr[i].Tag = entity;
                 i++;
@@ -305,9 +306,9 @@ namespace PhalanxAdmin
             {
                 MacroUsuarioEntity entity = (MacroUsuarioEntity)lvLista.SelectedItems[0].Tag;
 
-                string mensaje = string.Format("Se eliminará el Usuario Login de Macros '{0}'{1}. ¿Desea continuar?", entity.UsuarioTC, Environment.NewLine);
+                string mensaje = string.Format("Se eliminará el Usuario Login '{0}' de la Macro '{1}'.{2} ¿Desea continuar?", entity.UsuarioTC, entity.Macro.Name, Environment.NewLine);
 
-                if (MessageBox.Show(mensaje, "Eliminar Usuario Login de Macros", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                if (MessageBox.Show(mensaje, "Eliminar Usuario Login de Macro", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
                     MacroUsuarioBusiness business = new MacroUsuarioBusiness();
 
@@ -319,7 +320,7 @@ namespace PhalanxAdmin
                     }
                     else
                     {
-                        MessageBox.Show("Se produjo un error al querer eliminar el Usuario Login de Macros");
+                        MessageBox.Show("Se produjo un error al querer eliminar el Usuario Login de Macro");
                     }
                 }
             }

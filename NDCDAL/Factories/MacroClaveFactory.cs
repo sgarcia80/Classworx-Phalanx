@@ -12,7 +12,7 @@ namespace NDCDAL.Factories
 {
     public class MacroClaveFactory
     {
-        public MacroClaveEntityCollection GetAll(string clave)
+        public MacroClaveEntityCollection GetAll(string clave, bool? activo)
         {
             MacroClaveEntityCollection Lst = new MacroClaveEntityCollection();
             try
@@ -24,6 +24,11 @@ namespace NDCDAL.Factories
                     if (!string.IsNullOrEmpty(clave))
                     {
                         DataSearch = DataSearch.Add(Expression.Like("Clave", clave, MatchMode.Anywhere));
+                    }
+
+                    if (activo.HasValue)
+                    {
+                        DataSearch = DataSearch.Add(Expression.Eq("Activo", activo));
                     }
 
                     DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("Clave"));

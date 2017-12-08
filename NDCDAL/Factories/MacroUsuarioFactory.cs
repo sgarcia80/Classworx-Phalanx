@@ -12,7 +12,7 @@ namespace NDCDAL.Factories
 {
     public class MacroUsuarioFactory
     {
-        public MacroUsuarioEntityCollection GetAll(int macroid)
+        public MacroUsuarioEntityCollection GetAll(int macroid, bool? principal, bool? activo)
         {
             MacroUsuarioEntityCollection Lst = new MacroUsuarioEntityCollection();
             try
@@ -25,6 +25,16 @@ namespace NDCDAL.Factories
                     if (macroid > 0)
                     {
                         DataSearch = DataSearch.Add(Expression.Eq("Macro.Id", macroid));
+                    }
+
+                    if (principal.HasValue)
+                    {
+                        DataSearch = DataSearch.Add(Expression.Eq("Principal", principal));
+                    }
+
+                    if (activo.HasValue)
+                    {
+                        DataSearch = DataSearch.Add(Expression.Eq("Activo", activo));
                     }
 
                     Lst.Add(DataSearch.List<MacroUsuarioEntity>());

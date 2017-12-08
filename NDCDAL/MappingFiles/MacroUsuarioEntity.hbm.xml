@@ -13,5 +13,6 @@
     <property column="clave_tc" name="ClaveTC" type="String" />
 
     <property column="principal" name="Principal" type="Boolean" />
+    <property column="activo" name="Activo" type="Boolean" />
   </class>
 </hibernate-mapping>

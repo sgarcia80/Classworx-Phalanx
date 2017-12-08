@@ -41,13 +41,15 @@ namespace PhalanxAdmin
             this.cbVisualizar = new System.Windows.Forms.CheckBox();
             this.chkPrincipal = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.chkActivo = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(0, 207);
+            this.groupBox1.Location = new System.Drawing.Point(0, 233);
             this.groupBox1.Size = new System.Drawing.Size(481, 43);
-            this.groupBox1.TabIndex = 14;
+            this.groupBox1.TabIndex = 16;
             // 
             // btnAceptar
             // 
@@ -163,7 +165,7 @@ namespace PhalanxAdmin
             // chkPrincipal
             // 
             this.chkPrincipal.AutoSize = true;
-            this.chkPrincipal.Location = new System.Drawing.Point(105, 185);
+            this.chkPrincipal.Location = new System.Drawing.Point(105, 187);
             this.chkPrincipal.Name = "chkPrincipal";
             this.chkPrincipal.Size = new System.Drawing.Size(15, 14);
             this.chkPrincipal.TabIndex = 13;
@@ -172,16 +174,36 @@ namespace PhalanxAdmin
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(24, 185);
+            this.label4.Location = new System.Drawing.Point(24, 187);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(47, 13);
             this.label4.TabIndex = 12;
             this.label4.Text = "Principal";
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(24, 209);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(37, 13);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "Activo";
+            // 
+            // chkActivo
+            // 
+            this.chkActivo.AutoSize = true;
+            this.chkActivo.Location = new System.Drawing.Point(105, 209);
+            this.chkActivo.Name = "chkActivo";
+            this.chkActivo.Size = new System.Drawing.Size(15, 14);
+            this.chkActivo.TabIndex = 15;
+            this.chkActivo.UseVisualStyleBackColor = true;
+            // 
             // FABMMacroUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(481, 250);
+            this.ClientSize = new System.Drawing.Size(481, 276);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.chkActivo);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.chkPrincipal);
             this.Controls.Add(this.cbVisualizar);
@@ -211,6 +233,8 @@ namespace PhalanxAdmin
             this.Controls.SetChildIndex(this.cbVisualizar, 0);
             this.Controls.SetChildIndex(this.chkPrincipal, 0);
             this.Controls.SetChildIndex(this.label4, 0);
+            this.Controls.SetChildIndex(this.chkActivo, 0);
+            this.Controls.SetChildIndex(this.label7, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -231,5 +255,7 @@ namespace PhalanxAdmin
         private System.Windows.Forms.CheckBox cbVisualizar;
         private System.Windows.Forms.CheckBox chkPrincipal;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.CheckBox chkActivo;
     }
 }

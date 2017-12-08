@@ -30,7 +30,14 @@ namespace NDCBL
         {
             MacroUsuarioFactory factory = new MacroUsuarioFactory();
 
-            return factory.GetAll(macroid);
+            return factory.GetAll(macroid, null, null);
+        }
+
+        public MacroUsuarioEntityCollection GetAll(int macroid, bool? principal, bool? activo)
+        {
+            MacroUsuarioFactory factory = new MacroUsuarioFactory();
+
+            return factory.GetAll(macroid, principal, activo);
         }
 
         public void Save(MacroUsuarioEntity entidad)

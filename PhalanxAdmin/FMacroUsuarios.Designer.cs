@@ -51,6 +51,7 @@ namespace PhalanxAdmin
             this.colUsuarioTC = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colPrincipal = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.bwRefreshEntities = new System.ComponentModel.BackgroundWorker();
+            this.colActivo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             colMacro = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.xppnlTC.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
@@ -304,7 +305,8 @@ namespace PhalanxAdmin
             this.colDominio,
             this.colUsuarioRed,
             this.colUsuarioTC,
-            this.colPrincipal});
+            this.colPrincipal,
+            this.colActivo});
             this.lvLista.HideSelection = false;
             this.lvLista.Location = new System.Drawing.Point(18, 16);
             this.lvLista.MultiSelect = false;
@@ -342,6 +344,11 @@ namespace PhalanxAdmin
             this.bwRefreshEntities.WorkerSupportsCancellation = true;
             this.bwRefreshEntities.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwRefreshEntities_DoWork);
             this.bwRefreshEntities.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwRefreshEntities_RunWorkerCompleted);
+            // 
+            // colActivo
+            // 
+            this.colActivo.Text = "Activo";
+            this.colActivo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // FMacroUsuarios
             // 
@@ -396,5 +403,6 @@ namespace PhalanxAdmin
         protected System.Windows.Forms.LinkLabel lnkAdd;
         protected System.Windows.Forms.LinkLabel lnkView;
         private System.Windows.Forms.ColumnHeader colPrincipal;
+        private System.Windows.Forms.ColumnHeader colActivo;
     }
 }

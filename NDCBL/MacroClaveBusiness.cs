@@ -30,14 +30,21 @@ namespace NDCBL
         {
             MacroClaveFactory factory = new MacroClaveFactory();
 
-            return factory.GetAll(string.Empty);
+            return factory.GetAll(string.Empty, null);
         }
 
         public MacroClaveEntityCollection GetAll(string clave)
         {
             MacroClaveFactory factory = new MacroClaveFactory();
 
-            return factory.GetAll(clave);
+            return factory.GetAll(clave, null);
+        }
+
+        public MacroClaveEntityCollection GetAll(string clave, bool? activo)
+        {
+            MacroClaveFactory factory = new MacroClaveFactory();
+
+            return factory.GetAll(clave, activo);
         }
 
         public void Save(MacroClaveEntity entidad)

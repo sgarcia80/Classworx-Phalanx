@@ -90,7 +90,7 @@ namespace NDCBL
             Random rnd = new Random();
 
             MacroBusiness macrobusiness = new MacroBusiness();
-            MacroClaveEntityCollection claves = new MacroClaveBusiness().GetAll();
+            MacroClaveEntityCollection claves = new MacroClaveBusiness().GetAll(string.Empty, true);
 
             TicketNotificacionTarjetaFactory factory = new TicketNotificacionTarjetaFactory();
 
@@ -120,7 +120,7 @@ namespace NDCBL
             
             foreach (AplicacionNotificacionClaveEntity aplicacion in apps)
             {
-                log.InfoFormat("Se buscca la información de la Macro asociada a la aplicación '{0}'", aplicacion.Codigo);
+                log.InfoFormat("Se busca la información de la Macro asociada a la aplicación '{0}'", aplicacion.Codigo);
                 macro = macrobusiness.Load(aplicacion.Macro.Id);
 
                 try
@@ -129,11 +129,11 @@ namespace NDCBL
                     //Se obtienen los usuarios para la cabecera.
                     foreach (MacroUsuarioEntity us in macro.UsuariosList)
                     {
-                        if (usuarioprincipal == null && us.Principal)
+                        if (usuarioprincipal == null && us.Principal && us.Activo)
                         {
                             usuarioprincipal = us;
                         }
-                        if (usuariosecundario == null && !us.Principal)
+                        if (usuariosecundario == null && !us.Principal && us.Activo)
                         {
                             usuariosecundario = us;
                         }

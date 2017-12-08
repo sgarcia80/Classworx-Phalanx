@@ -23,6 +23,8 @@ namespace NDCCommon.Entities
 
         public string ClaveEncriptada { get; set; }
 
+        public bool Activo { get; set; }
+
         #endregion
 
         public override string Key

@@ -48,7 +48,9 @@ namespace PhalanxAdmin
             this.lvLista = new System.Windows.Forms.ListView();
             this.colClaveEncriptada = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.bwRefreshEntities = new System.ComponentModel.BackgroundWorker();
+            this.colActivo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             colClave = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.xppnlTC.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
             this.pnlXPGrps.SuspendLayout();
             this.pnlIzq.SuspendLayout();
@@ -59,10 +61,16 @@ namespace PhalanxAdmin
             this.statusbar.SuspendLayout();
             this.SuspendLayout();
             // 
+            // xppnlTC
+            // 
+            this.xppnlTC.ImageItems.ImageSet = null;
+            this.xppnlTC.Location = new System.Drawing.Point(8, 372);
+            // 
             // pnlXPGrps
             // 
             this.pnlXPGrps.Controls.Add(this.xppnlDBs);
             this.pnlXPGrps.Size = new System.Drawing.Size(200, 595);
+            this.pnlXPGrps.Controls.SetChildIndex(this.xppnlTC, 0);
             this.pnlXPGrps.Controls.SetChildIndex(this.xppnlMenu, 0);
             this.pnlXPGrps.Controls.SetChildIndex(this.xppnlDBs, 0);
             // 
@@ -289,7 +297,8 @@ namespace PhalanxAdmin
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvLista.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             colClave,
-            this.colClaveEncriptada});
+            this.colClaveEncriptada,
+            this.colActivo});
             this.lvLista.HideSelection = false;
             this.lvLista.Location = new System.Drawing.Point(18, 16);
             this.lvLista.MultiSelect = false;
@@ -312,6 +321,11 @@ namespace PhalanxAdmin
             this.bwRefreshEntities.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwRefreshEntities_DoWork);
             this.bwRefreshEntities.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwRefreshEntities_RunWorkerCompleted);
             // 
+            // colActivo
+            // 
+            this.colActivo.Text = "Activo";
+            this.colActivo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // FMacroClaves
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -323,6 +337,8 @@ namespace PhalanxAdmin
             this.Controls.SetChildIndex(this.pnlIzq, 0);
             this.Controls.SetChildIndex(this.pnlFilters, 0);
             this.Controls.SetChildIndex(this.pnlList, 0);
+            this.xppnlTC.ResumeLayout(false);
+            this.xppnlTC.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).EndInit();
             this.pnlXPGrps.ResumeLayout(false);
             this.pnlIzq.ResumeLayout(false);
@@ -360,5 +376,6 @@ namespace PhalanxAdmin
         protected System.Windows.Forms.LinkLabel lnkView;
         private System.Windows.Forms.TextBox txtDescripcion;
         private System.Windows.Forms.ColumnHeader colClaveEncriptada;
+        private System.Windows.Forms.ColumnHeader colActivo;
     }
 }

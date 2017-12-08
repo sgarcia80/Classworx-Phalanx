@@ -39,11 +39,18 @@ namespace PhalanxAdmin
 
             txtClave.Text = _entity.Clave;
             txtClaveEncriptada.Text = _entity.ClaveEncriptada;
+            chkActivo.Checked = _entity.Activo;
+
+            if (_entity.Id == 0)
+            {
+                chkActivo.Checked = true;
+            }
 
             if (this.ReadOnly)
             {
                 txtClave.ReadOnly = true;
                 txtClaveEncriptada.ReadOnly = true;
+                chkActivo.Enabled = false;
 
                 btnCancelar.Visible= false;
             }
@@ -75,6 +82,7 @@ namespace PhalanxAdmin
             // grabo DB
             _entity.Clave = txtClave.Text.Trim();
             _entity.ClaveEncriptada = txtClaveEncriptada.Text.Trim();
+            _entity.Activo = chkActivo.Checked;
 
             MacroClaveBusiness ancBusiness = new MacroClaveBusiness();
 

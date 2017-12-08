@@ -10,6 +10,7 @@ using PhalanxBL;
 using NDCCommon.Entities;
 using NDCBL;
 using PhalanxCommon.Collections;
+using NDCCommon.Collections;
 
 namespace PhalanxAdmin
 {
@@ -43,10 +44,15 @@ namespace PhalanxAdmin
             txtUsuarioRed.Text = _entity.UsuarioRed;
             txtUsuario.Text = _entity.UsuarioTC;
             chkPrincipal.Checked = _entity.Principal;
+            chkActivo.Checked = _entity.Activo;
 
             if (_entity.Id > 0)
             {
                 txtClave.Text = new phxCryptMgr.CCryptMgr().decryptAndClearBadChars(_entity.ClaveTC);
+            }
+            else
+            {
+                chkActivo.Checked = true;
             }
 
             if (_entity.Macro != null)
@@ -66,6 +72,7 @@ namespace PhalanxAdmin
                 cbDominio.Enabled = false;
                 cbMacro.Enabled = false;
                 chkPrincipal.Enabled = false;
+                chkActivo.Enabled = false;
 
                 //cbVisualizar.Enabled = false;
                 btnCancelar.Visible = false;
@@ -118,6 +125,7 @@ namespace PhalanxAdmin
             _entity.UsuarioTC = txtUsuario.Text.Trim();
             _entity.ClaveTC = new phxCryptMgr.CCryptMgr().encrypt(txtClave.Text.Trim());
             _entity.Principal = chkPrincipal.Checked;
+            _entity.Activo = chkActivo.Checked;
 
             if (cbMacro.SelectedIndex == 0)
             {
@@ -145,6 +153,38 @@ namespace PhalanxAdmin
 
             try
             {
+                MacroUsuarioEntityCollection list = ancBusiness.GetAll(_entity.Macro.Id, _entity.Principal, true);
+                bool existe = false;
+
+                if (list.Count > 0)
+                {
+                    if (list.Count == 1)
+                    {
+                        existe = (list[0].Id != _entity.Id);
+                    }
+                    else
+                    {
+                        existe = true;
+                    }
+                }
+
+                if (existe)
+                {
+                    string mensaje = string.Empty;
+
+                    if (_entity.Principal)
+                    {
+                        mensaje = string.Format("Ya existe un Usuario Principal para la Macro '{0}'", _entity.Macro.Name);
+                    }
+                    else
+                    {
+                        mensaje = string.Format("Ya existe un Usuario Secundario para la Macro '{0}'", _entity.Macro.Name);
+                    }
+
+                    MessageBox.Show(mensaje, "Usuario Login de Macros", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 ancBusiness.Save(_entity);
 
                 MessageBox.Show("La operación se ha realizado correctamente", "Usuario Login de Macros", MessageBoxButtons.OK, MessageBoxIcon.Information);

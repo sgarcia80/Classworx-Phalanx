@@ -30,6 +30,8 @@ namespace NDCCommon.Entities
 
         public bool Principal { get; set; }
 
+        public bool Activo { get; set; }
+
         #endregion
 
         public override string Key
