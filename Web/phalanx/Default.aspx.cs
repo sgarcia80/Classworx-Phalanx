@@ -11,17 +11,23 @@ using System.Web.UI.HtmlControls;
 using PhalanxBL;
 using PhalanxCommon.Entities;
 using System.Threading;
+using log4net;
 
 public partial class _Default : System.Web.UI.Page
 {
     protected string m_DomUser;
+    private static readonly ILog log = LogManager.GetLogger(typeof(_Default));
+
     protected void Page_Load(object sender, EventArgs e)
     {
 
         bool internalError = false;
         if (!Page.IsPostBack)
         {
+            log.InfoFormat("Se valida si el usuario tiene acceso a Phalanx Web", m_DomUser);
+
             m_DomUser = HttpContext.Current.User.Identity.Name;
+            log.InfoFormat("Se obtiene el usuario autenticado '{0}'", m_DomUser);
 
             if (Page.Request["testing_user"] != null)
                 m_DomUser = Page.Request["testing_user"];
@@ -41,10 +47,17 @@ public partial class _Default : System.Web.UI.Page
             }
             else
             {
+                log.InfoFormat("Se validan los permisos del usuario");
+
                 PhxUserBusiness PhxUsrBL = new PhxUserBusiness();
                 PhxUserEntity IdentUser = PhxUsrBL.GetUserByDomUsr(m_DomUser);
+
+                log.InfoFormat("Se obtuvieron los permisos del usuario");
+
                 if (IdentUser != null && PhxUsrBL.ChkAccWebApp(IdentUser) && IdentUser.Active)
                 {
+                    log.InfoFormat("Acceso permitido");
+
                     Session["PhxUser"] = IdentUser;
                     Session["phxUserID"] = IdentUser.Id;
                     Session["phxUserName"] = IdentUser.Username;
@@ -52,6 +65,8 @@ public partial class _Default : System.Web.UI.Page
                 }
                 else
                 {
+                    log.InfoFormat("EL usuario no tiene permisos para acceder");
+
                     try
                     {
                         Response.Redirect("noAutho.aspx");
@@ -61,24 +76,34 @@ public partial class _Default : System.Web.UI.Page
                     }
 
                 }
-                // si no tiene permisos para solicitar contraseñas oculta el acceso
-                //bool NotPwdRqstRole = false;
-                if (!PhxUsrBL.ChkPwdsRequest(IdentUser))
+
+                if (IdentUser != null)
                 {
-                    this.tbMenu.Rows[0].Visible = false;
-                    this.tbMenu.Rows[2].Visible = false;
-                    this.tbMenu.Rows[3].Visible = false;
-                    //NotPwdRqstRole = true;
-                }
-                // si no tiene permisos para autorizar pedidos
-                if (!PhxUsrBL.ChkAuthPwdRequest(IdentUser))
-                {
-                    this.tbMenu.Rows[1].Visible = false;
-                    this.tbMenu.Rows[4].Visible = false;
-                    this.tbMenu.Rows[5].Visible = false;
+                    log.InfoFormat("Se controla si el usuario puede solicitar contraseñas");
+
+                    // si no tiene permisos para solicitar contraseñas oculta el acceso
+                    //bool NotPwdRqstRole = false;
+                    if (!PhxUsrBL.ChkPwdsRequest(IdentUser))
+                    {
+                        this.tbMenu.Rows[0].Visible = false;
+                        this.tbMenu.Rows[2].Visible = false;
+                        this.tbMenu.Rows[3].Visible = false;
+                        //NotPwdRqstRole = true;
+                    }
+
+                    log.InfoFormat("Se controla si el usuario puede autorizar solicitudes");
+                    
+                    // si no tiene permisos para autorizar pedidos
+                    if (!PhxUsrBL.ChkAuthPwdRequest(IdentUser))
+                    {
+                        this.tbMenu.Rows[1].Visible = false;
+                        this.tbMenu.Rows[4].Visible = false;
+                        this.tbMenu.Rows[5].Visible = false;
+                    }
                 }
             }
         }
+
         if (!internalError)
         {
             //Session["CtrlTitle"] = "Menu Principal";

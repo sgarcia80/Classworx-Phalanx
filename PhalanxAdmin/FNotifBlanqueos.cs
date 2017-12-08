@@ -28,6 +28,9 @@ namespace PhalanxAdmin
         protected string _filUsuario = "";
         protected string _filDominio = "";
         protected int _filTipoNotif = 0;
+        protected DateTime? _fechaDesde;
+        protected DateTime? _fechaHasta;
+        protected string _filCargadoPor = "";
 
         public FNotifBlanqueos()
         {
@@ -44,9 +47,9 @@ namespace PhalanxAdmin
         private void FEquiposWin_Load(object sender, EventArgs e)
         {
             //NDCBL.TicketNotificacionBlanqueoBusiness business = new TicketNotificacionBlanqueoBusiness();
-            //lnkAdd.Enabled = UsrBL.AccAdmEqWinRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            //lnkModify.Enabled = UsrBL.AccAdmEqWinRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            //lnkDelete.Enabled = UsrBL.AccAdmEqWinRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            //lnkAdd.Enabled = UsrBL.AccAdmEqWinRW(this.Usuario);
+            //lnkModify.Enabled = UsrBL.AccAdmEqWinRW(this.Usuario);
+            //lnkDelete.Enabled = UsrBL.AccAdmEqWinRW(this.Usuario);
 
             this.lvLista.ListViewItemSorter = new cwxSorter();
             this.lnkCancelar.Visible = false;
@@ -137,6 +140,18 @@ namespace PhalanxAdmin
             {
                 _filTipoNotif = 0;
             }
+
+            if (txtCargadoPor.Text.Trim().Equals(string.Empty))
+            {
+                _filCargadoPor = string.Empty;
+            }
+            else
+            {
+                _filCargadoPor = txtCargadoPor.Text;
+            }
+
+            _fechaDesde = dtpFechaDesde.Checked ? dtpFechaDesde.Value.Date : (DateTime?)null;
+            _fechaHasta = dtpFechaHasta.Checked ? dtpFechaHasta.Value.Date : (DateTime?)null;
         }
 
         private void bwRefreshEntities_DoWork(object sender, DoWorkEventArgs e)
@@ -164,10 +179,7 @@ namespace PhalanxAdmin
         {
             TicketNotificacionBlanqueoBusiness business = new TicketNotificacionBlanqueoBusiness();
 
-            DateTime? fechaDesde = null;
-            DateTime? fechaHasta = null;
-
-            _entities = business.GetAll(_filTipoNotif, fechaDesde, fechaHasta, _filAplicacion, txtFilUsuarioApp.Text, _filDominio, txtFilUsuario.Text, chkPendiente.Checked);
+            _entities = business.GetAll(_filTipoNotif, _fechaDesde, _fechaHasta, _filAplicacion, txtFilUsuarioApp.Text, _filDominio, txtFilUsuario.Text, chkPendiente.Checked, _filCargadoPor);
         }
         /// <summary>
         /// Llama a la función que genera el array de LV Items y si hay items llama a la que hace el llenado
@@ -231,6 +243,7 @@ namespace PhalanxAdmin
                 lviArr[i].SubItems.Add(entity.Solicitante);
                 lviArr[i].SubItems.Add(estado);
                 lviArr[i].SubItems.Add(entity.FechaAceptacionTyC.HasValue ? entity.FechaAceptacionTyC.Value.ToString("dd/MM/yyyy HH:mm") : string.Empty);
+                lviArr[i].SubItems.Add(entity.UsuarioCarga);
 
                 //lviArr[i].ImageIndex = ;
                 lviArr[i].Tag = entity;
@@ -291,6 +304,14 @@ namespace PhalanxAdmin
             cbAplicacion.SelectedIndex = 0;
             cbDominio.SelectedIndex = 0;
             cbTipoNotif.SelectedIndex = 0;
+            txtCargadoPor.Text = "";
+
+            dtpFechaDesde.Checked = true;
+            dtpFechaHasta.Checked = true;
+
+            dtpFechaDesde.Value = DateTime.Today;
+            dtpFechaHasta.Value = DateTime.Today;
+
         }
 
         private void lnkCancelar_Click(object sender, EventArgs e)
@@ -400,8 +421,8 @@ namespace PhalanxAdmin
 
         private void lnkAdd_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            FABMNotifBlanqueo form = new FABMNotifBlanqueo(0, false, FABMNotifBlanqueo.FormType.New);
-
+            FABMNotifBlanqueo form = new FABMNotifBlanqueo(0, false, FABMNotifBlanqueo.FormType.New, this.Usuario);
+            
             if (form.ShowDialog() == DialogResult.OK)
             {
                 ExecEntitiesRefresh();
@@ -424,21 +445,23 @@ namespace PhalanxAdmin
 
             TicketNotificacionBlanqueoEntity ticket = lvLista.SelectedItems[0].Tag as TicketNotificacionBlanqueoEntity;
 
-            Form form = null;
+            FModalBase form = null;
 
             switch (ticket.TipoNotificacion)
             {
                 case 2:
-                    form = new FABMNotifBlanqueoRed(ticket.Id, !edit, FABMNotifBlanqueoRed.FormType.View);
+                    form = new FABMNotifBlanqueoRed(ticket.Id, !edit, FABMNotifBlanqueoRed.FormType.View, this.Usuario);
                     break;
                 case 3:
-                    form = new FABMNotifDesbloqueoRed(ticket.Id, !edit, FABMNotifDesbloqueoRed.FormType.View);
+                    form = new FABMNotifDesbloqueoRed(ticket.Id, !edit, FABMNotifDesbloqueoRed.FormType.View, this.Usuario);
                     break;
                 case 1:
                 default:
-                    form = new FABMNotifBlanqueo(ticket.Id, !edit, FABMNotifBlanqueo.FormType.View);
+                    form = new FABMNotifBlanqueo(ticket.Id, !edit, FABMNotifBlanqueo.FormType.View, this.Usuario);
                     break;
             }
+            
+            form.Usuario = this.Usuario;
 
             return form.ShowDialog();
         }
@@ -470,8 +493,8 @@ namespace PhalanxAdmin
 
         private void lnkAddBlanqueoRed_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            FABMNotifBlanqueoRed form = new FABMNotifBlanqueoRed(0, false, FABMNotifBlanqueoRed.FormType.New);
-
+            FABMNotifBlanqueoRed form = new FABMNotifBlanqueoRed(0, false, FABMNotifBlanqueoRed.FormType.New, this.Usuario);
+            
             if (form.ShowDialog() == DialogResult.OK)
             {
                 ExecEntitiesRefresh();
@@ -480,8 +503,8 @@ namespace PhalanxAdmin
 
         private void lnkAddDesbloqueoRed_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            FABMNotifDesbloqueoRed form = new FABMNotifDesbloqueoRed(0, false, FABMNotifDesbloqueoRed.FormType.New);
-
+            FABMNotifDesbloqueoRed form = new FABMNotifDesbloqueoRed(0, false, FABMNotifDesbloqueoRed.FormType.New, this.Usuario);
+            
             if (form.ShowDialog() == DialogResult.OK)
             {
                 ExecEntitiesRefresh();

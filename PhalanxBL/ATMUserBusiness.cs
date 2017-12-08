@@ -60,10 +60,14 @@ namespace PhalanxBL
         }
 
 
-
         public ATMUserBusiness()
         {
-            m_ATMUserFactory = new ATMUserFactory();   
+            m_ATMUserFactory = new ATMUserFactory();
+        }
+
+        public ATMUserBusiness(string userlogon)
+        {
+            m_ATMUserFactory = new ATMUserFactory(userlogon);
         }
 
         public ATMUserEntityCollection GetAll() //string Nombre, ApplicationEntity Application)
@@ -179,25 +183,23 @@ namespace PhalanxBL
 
         public ATMUserEntityCollection GetATMUsers(string ATMName)
         {
-            ATMUserFactory DBUsrF = new ATMUserFactory();
-            DBUsrF.FilATMName = ATMName;
-            return DBUsrF.GetAll();
+            m_ATMUserFactory.FilATMName = ATMName;
+            return m_ATMUserFactory.GetAll();
         }
 
         public void SetPwdState(ATMUserEntityCollection Users, bool Active)
         {
-            ATMUserFactory DBUsrF = new ATMUserFactory();
-            DBUsrF.SetPwdState(Users, Active);
+            m_ATMUserFactory.SetPwdState(Users, Active);
         }
 
 		public IList GetAll(bool? critico, bool? estadoUsuario, string nombre)
 		{
-			return new ATMUserFactory().GetAll(critico, estadoUsuario, nombre);
+            return m_ATMUserFactory.GetAll(critico, estadoUsuario, nombre);
 		}
 
         public ATMUserEntity Load(int ID)
         {
-            return new ATMUserFactory().Load(ID);
+            return m_ATMUserFactory.Load(ID);
         }
     }
 }

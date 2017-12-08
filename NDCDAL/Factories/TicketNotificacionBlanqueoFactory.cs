@@ -25,6 +25,7 @@ namespace NDCDAL.Factories
         private DateTime? _filFechaHasta;
         private bool _filPendiente;
         private int _filTipoNotif;
+        private string _filCargadoPor;
 
         public AplicacionNotificacionClaveEntity FilAplicacion
         {
@@ -69,6 +70,11 @@ namespace NDCDAL.Factories
         public int FilTipoNotif
         {
             set { _filTipoNotif = value; }
+        }
+
+        public string FilCargadoPor
+        {
+            set { _filCargadoPor = value; }
         }
 
         public TicketNotificacionBlanqueoFactory()
@@ -155,7 +161,10 @@ namespace NDCDAL.Factories
                     DataSearch = DataSearch.Add(Expression.Ge("TNB.Fecha", _filFechaDesde));
 
                 if (_filFechaHasta != null)
+                {
+                    _filFechaHasta = _filFechaHasta.Value.AddDays(1).AddSeconds(-1);
                     DataSearch = DataSearch.Add(Expression.Le("TNB.Fecha", _filFechaHasta));
+                }
 
                 if (_filPendiente)
                 {
@@ -165,6 +174,9 @@ namespace NDCDAL.Factories
 
                 if (_filTipoNotif > 0)
                     DataSearch = DataSearch.Add(Expression.Eq("TNB.TipoNotificacion", _filTipoNotif));
+
+                if (!string.IsNullOrEmpty(_filCargadoPor))
+                    DataSearch = DataSearch.Add(Expression.InsensitiveLike("TNB.UsuarioCarga", string.Format("%{0}%", _filCargadoPor)));
 
                 //Que el ticket no haya sido cancelado
                 

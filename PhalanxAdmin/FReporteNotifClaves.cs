@@ -123,6 +123,19 @@ namespace PhalanxAdmin
         private void LoadEntities()
         {
             IList list = new TicketNotificacionClaveBusiness().GetReporteNotif(fechaDesde, fechaHasta, aplicacion, string.Empty, string.Empty);
+            TicketNotificacionClaveEntityCollection tnceC = new TicketNotificacionClaveEntityCollection();
+            tnceC = (TicketNotificacionClaveEntityCollection) list;
+
+            //MailAlertBusiness mBL = new MailAlertBusiness();
+            //foreach (TicketNotificacionClaveEntity e in tnceC)
+            //{
+            //    MailAlertEntity mail = new MailAlertEntity();
+            //    int id = e.MailId == null ? default(int) : (int)e.MailId;
+            //    mail = mBL.GetMail(id);
+            //    if (mail != null)
+            //        e.FechaUltimoMail = mail.CreationDate;
+            //}
+
 
             _entities = list;
         }
@@ -185,6 +198,21 @@ namespace PhalanxAdmin
                 lviArr[i].SubItems.Add(entidad.UsuarioAplicacion);
                 lviArr[i].SubItems.Add(entidad.Fecha.ToString("dd/MM/yyyy HH:mm"));
                 lviArr[i].SubItems.Add(entidad.Reclamos.ToString());
+                //if (entidad.FechaUltimoMail != null)
+                //    lviArr[i].SubItems.Add(entidad.FechaUltimoMail.Value.ToString("dd/MM/yyyy HH:mm"));
+                //else
+                //    lviArr[i].SubItems.Add("");
+
+                if (entidad.Reclamos == 0 || entidad.Mail == null)
+                {
+                    lviArr[i].SubItems.Add(string.Empty);
+                }
+                else
+                {
+                    lviArr[i].SubItems.Add(entidad.Mail.SendDate.Value.ToString("dd/MM/yyyy HH:mm"));
+                }
+
+
                 lviArr[i].Tag = entidad;
                 i++;
             }
@@ -418,7 +446,9 @@ namespace PhalanxAdmin
                 {
                     ticketBL.ReenviarEmailReclamo(collection);
 
-                    MessageBox.Show("Se reenviaron los mails correctamente", "Reenvio", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                    MessageBox.Show("Se reenviaron los mails correctamente", "Reenvio", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    ExecEntitiesRefresh();
                 }
                 catch (Exception ex)
                 {

@@ -26,14 +26,14 @@ namespace PhalanxAdmin
         private void FBaseSistema_Load(object sender, EventArgs e)
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
-            //lnk.Enabled = UsrBL.AccParam(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkConfiguracion.Enabled = (UsrBL.AccParamConfigMails(System.Security.Principal.WindowsIdentity.GetCurrent().Name)
-                || UsrBL.PermisoActivacionEsquema(System.Security.Principal.WindowsIdentity.GetCurrent().Name));
-            lnkEdificios.Enabled = UsrBL.AccParamEdificios(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkSuperv.Enabled = UsrBL.AccParamSupervisores(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkDominios.Enabled = UsrBL.AccAdmDominiosWin(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkAplicativosBPM.Enabled = UsrBL.AccParamAplicativosBMP(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkSubsidiarias.Enabled = UsrBL.AccParamSubsidiarias(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            //lnk.Enabled = UsrBL.AccParam(this.Usuario);
+            lnkConfiguracion.Enabled = (UsrBL.AccParamConfigMails(this.Usuario)
+                || UsrBL.PermisoActivacionEsquema(this.Usuario));
+            lnkEdificios.Enabled = UsrBL.AccParamEdificios(this.Usuario);
+            lnkSuperv.Enabled = UsrBL.AccParamSupervisores(this.Usuario);
+            lnkDominios.Enabled = UsrBL.AccAdmDominiosWin(this.Usuario);
+            lnkAplicativosBPM.Enabled = UsrBL.AccParamAplicativosBMP(this.Usuario);
+            lnkSubsidiarias.Enabled = UsrBL.AccParamSubsidiarias(this.Usuario);
             lnkTarjetasCred.Enabled = UsrBL.AccParamConfigTC(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
         }
 

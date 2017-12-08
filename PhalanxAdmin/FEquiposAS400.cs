@@ -31,9 +31,9 @@ namespace PhalanxAdmin
         private void FEquiposAS400_Load(object sender, EventArgs e)
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
-            lnkAdd.Enabled = UsrBL.AccAdmEqAS400RW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkModify.Enabled = UsrBL.AccAdmEqAS400RW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkDelete.Enabled = UsrBL.AccAdmEqAS400RW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            lnkAdd.Enabled = UsrBL.AccAdmEqAS400RW(this.Usuario);
+            lnkModify.Enabled = UsrBL.AccAdmEqAS400RW(this.Usuario);
+            lnkDelete.Enabled = UsrBL.AccAdmEqAS400RW(this.Usuario);
 
             this.lnkCancelar.Visible = false;
             this.pbDB.Visible = false;

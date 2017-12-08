@@ -30,7 +30,7 @@ namespace PhalanxAdmin
             CargarComboParams();
             PhxUserBusiness UsrBL = new PhxUserBusiness();
 
-            btnModif.Enabled = UsrBL.AccParamConfigWSBPMRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            btnModif.Enabled = UsrBL.AccParamConfigWSBPMRW(this.Usuario);
 
             btnSave.Enabled = false;
             btnCancel.Enabled = false;

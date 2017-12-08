@@ -56,7 +56,7 @@ public partial class NotificacionClave : System.Web.UI.Page
         AplicacionNotificacionClaveEntity aplicacion = ancb.GetAppRed();
         
         TicketNotificacionBlanqueoBusiness tncb = new TicketNotificacionBlanqueoBusiness();
-        TicketNotificacionBlanqueoEntityCollection tickets = tncb.GetAll(TicketNotificacionBlanqueoEntity.TipoNotificacionBlanqueoRed, null, null, aplicacion,usuario, string.Empty, string.Empty, true);
+        TicketNotificacionBlanqueoEntityCollection tickets = tncb.GetAll(TicketNotificacionBlanqueoEntity.TipoNotificacionBlanqueoRed, null, null, aplicacion, usuario, string.Empty, string.Empty, true, string.Empty);
 
         if (tickets == null || tickets.Count == 0)
         {

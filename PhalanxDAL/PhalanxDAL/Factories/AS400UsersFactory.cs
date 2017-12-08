@@ -16,7 +16,7 @@ namespace PhalanxDAL.Factories
 	/// <summary>
 	/// 
 	/// </summary>
-	public class AS400UsersFactory
+	public class AS400UsersFactory : BaseFactory
 	{
 		/*
 		Configuration config;
@@ -46,7 +46,7 @@ namespace PhalanxDAL.Factories
         public bool SetAvoidInactiveGrps
         { set { _AvoidInactiveGrps = value; } }
 
-		public AS400UsersFactory()
+		public AS400UsersFactory() : base()
 		{
 			/*
 			config = new Configuration();
@@ -79,6 +79,10 @@ namespace PhalanxDAL.Factories
 			session = factory.OpenSession();*/
             
 		}
+        public AS400UsersFactory(string userlogon) : base(userlogon)
+        { 
+        }
+
 		/// <summary>
 		/// Make sure we clean up session etc.
 		/// </summary>
@@ -326,7 +330,7 @@ namespace PhalanxDAL.Factories
 
 
                     // tengo que grabar el log de modificación
-                    HistPasswordChangeFactory HistPwdChg = new HistPasswordChangeFactory();
+                    HistPasswordChangeFactory HistPwdChg = new HistPasswordChangeFactory(this.UserLogon);
                     HistPwdChg.AddLog(SessionSaveUser, (UserEntity)winUser);
 
                     //txSaveUser.Commit();
@@ -942,7 +946,7 @@ namespace PhalanxDAL.Factories
                      // crear el usuario en la base
                      SessionSaveUser.SaveOrUpdate(winUser);
                      // tengo que grabar el log de modificación
-                     HistPasswordChangeFactory HistPwdChg = new HistPasswordChangeFactory();
+                     HistPasswordChangeFactory HistPwdChg = new HistPasswordChangeFactory(this.UserLogon);
                      HistPwdChg.AddLog(SessionSaveUser, (UserEntity)winUser);
 
                      //txSaveUser.Commit();

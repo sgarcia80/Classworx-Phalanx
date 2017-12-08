@@ -268,7 +268,7 @@ namespace PhalanxCommon.Entities
 
             set
             {
-                if (value != null && value.Length > 100)
+                if (value != null && value.Length > 4000)
                     throw new ArgumentOutOfRangeException("Invalid value for UserDesc", value, value.ToString());
 
                 m_isChanged |= (m_user_desc != value); m_user_desc = value;

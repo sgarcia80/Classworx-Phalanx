@@ -268,9 +268,9 @@ namespace PhalanxAdmin
         private void FDBPwd_Load(object sender, EventArgs e)
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
-            lnkAdd.Enabled = UsrBL.AccPwdEqComRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkModify.Enabled = UsrBL.AccPwdEqComRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            //lnkDelete.Enabled = UsrBL.AccPwdEqComRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            lnkAdd.Enabled = UsrBL.AccPwdEqComRW(this.Usuario);
+            lnkModify.Enabled = UsrBL.AccPwdEqComRW(this.Usuario);
+            //lnkDelete.Enabled = UsrBL.AccPwdEqComRW(this.Usuario);
 
             this.lnkCancelar.Visible = false;
             this.pbDB.Visible = false;
@@ -291,7 +291,8 @@ namespace PhalanxAdmin
 
         private void lnkAdd_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            FABMECPwd FABMECPwd = new FABMECPwd(FABMECPwd.FormType.New);
+            FABMECPwd FABMECPwd = new FABMECPwd(FABMECPwd.FormType.New, this.Usuario);
+
             FABMECPwd.ShowDialog();
 
             if (FABMECPwd.DialogResult == DialogResult.OK)
@@ -307,7 +308,8 @@ namespace PhalanxAdmin
             {
                 //FABMECPwd FABMCommunicationDevice = new FABMECPwd((CommunicationDeviceUserEntity)lvLista.SelectedItems[0].Tag, false, FABMECPwd.FormType.Update);
                 CommunicationDeviceUserEntity currUser = new CommunicationDeviceUserBusiness().Load(Convert.ToInt32(lvLista.SelectedItems[0].Tag.ToString()));
-                FABMECPwd FABMCommunicationDevice = new FABMECPwd(currUser, false, FABMECPwd.FormType.Update);
+                FABMECPwd FABMCommunicationDevice = new FABMECPwd(currUser, false, FABMECPwd.FormType.Update, this.Usuario);
+                
                 FABMCommunicationDevice.ShowDialog();
 
                 if (FABMCommunicationDevice.DialogResult == DialogResult.OK)
@@ -324,7 +326,8 @@ namespace PhalanxAdmin
             {
                 //FABMECPwd FABMECUsr = new FABMECPwd((CommunicationDeviceUserEntity)lvLista.SelectedItems[0].Tag, true, FABMECPwd.FormType.View);
                 CommunicationDeviceUserEntity currUser = new CommunicationDeviceUserBusiness().Load(Convert.ToInt32(lvLista.SelectedItems[0].Tag.ToString()));
-                FABMECPwd FABMECUsr = new FABMECPwd(currUser, true, FABMECPwd.FormType.View);
+                FABMECPwd FABMECUsr = new FABMECPwd(currUser, true, FABMECPwd.FormType.View, this.Usuario);
+                
                 FABMECUsr.ShowDialog();
             }
         }

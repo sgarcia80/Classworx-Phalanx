@@ -25,12 +25,12 @@ namespace PhalanxAdmin
         private void FBaseConfiguracion_Load(object sender, EventArgs e)
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
-            lnkconfigMailsExpPwd.Enabled = UsrBL.AccParamConfigMails(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkEsquemas.Enabled = UsrBL.PermisoActivacionEsquema(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkATMs.Enabled = UsrBL.AccParamGrpSeguimATM(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkWSBPM.Enabled = UsrBL.AccParamConfigWSBPM(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkWSCOBIS.Enabled = UsrBL.AccParamConfigWSCOBIS(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkNDC.Enabled = UsrBL.AccParamConfigNDC(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            lnkconfigMailsExpPwd.Enabled = UsrBL.AccParamConfigMails(this.Usuario);
+            lnkEsquemas.Enabled = UsrBL.PermisoActivacionEsquema(this.Usuario);
+            lnkATMs.Enabled = UsrBL.AccParamGrpSeguimATM(this.Usuario);
+            lnkWSBPM.Enabled = UsrBL.AccParamConfigWSBPM(this.Usuario);
+            lnkWSCOBIS.Enabled = UsrBL.AccParamConfigWSCOBIS(this.Usuario);
+            lnkNDC.Enabled = UsrBL.AccParamConfigNDC(this.Usuario);
             
         }
 

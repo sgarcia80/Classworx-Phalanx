@@ -10,6 +10,8 @@ namespace PhalanxAdmin
 {
     public partial class FBase : Form
     {
+        public string Usuario { get; set; }
+
         protected int m_PanelWidth;
         protected int m_PanelHeight;
         protected int m_ClientSizeWidth;

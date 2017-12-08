@@ -28,9 +28,9 @@ namespace PhalanxAdmin
         private void FDominios_Load(object sender, EventArgs e)
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
-            lnkAdd.Enabled = UsrBL.AccAdmDominiosWinRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkModify.Enabled = UsrBL.AccAdmDominiosWinRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkDelete.Enabled = UsrBL.AccAdmDominiosWinRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            lnkAdd.Enabled = UsrBL.AccAdmDominiosWinRW(this.Usuario);
+            lnkModify.Enabled = UsrBL.AccAdmDominiosWinRW(this.Usuario);
+            lnkDelete.Enabled = UsrBL.AccAdmDominiosWinRW(this.Usuario);
 
             this.lnkCancelar.Visible = false;
             this.pbDB.Visible = false;
@@ -278,6 +278,7 @@ namespace PhalanxAdmin
         {
             FAltaDominio fAlta = new FAltaDominio();
             fAlta.Title = "Nuevo Dominio en el Sistema";
+            fAlta.Usuario = this.Usuario;
             fAlta.ShowDialog();
             CleanFilters();
             DBRefreshEntites();
@@ -287,6 +288,7 @@ namespace PhalanxAdmin
         {
             FAltaDominio fAlta = new FAltaDominio((WinDomainEntity)lvLista.SelectedItems[0].Tag);
             fAlta.Title = "Modificación de Dominio";
+            fAlta.Usuario = this.Usuario;
             fAlta.ShowDialog();
             CleanFilters();
             DBRefreshEntites();
@@ -296,7 +298,7 @@ namespace PhalanxAdmin
         {
             if (lvLista.SelectedItems.Count > 0)
             {
-                
+
                 string myItem = lvLista.SelectedItems[0].Text;
                 if (MessageBox.Show("Desea Eliminar del Sistema el Dominio " + myItem + Environment.NewLine +
                                      "Debe tener en cuenta que se eliminarán todas sus Pcs del sistema.", "Eliminar dominio del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)

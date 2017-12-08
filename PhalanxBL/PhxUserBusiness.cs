@@ -920,7 +920,7 @@ namespace PhalanxBL
         private string _UsuariosInactivadosNOK = "";
         public string UsuariosInactivadosOK { get { return _UsuariosInactivadosOK; } }
         public string UsuariosInactivadosNOK { get { return _UsuariosInactivadosNOK; } }
-        public IList<PhxUserEntity> InactivarInexistentesEnAD()
+        public IList<PhxUserEntity> InactivarInexistentesEnAD(string username)
         {
             IList<PhxUserEntity> listaUsuariosInactivados = new List<PhxUserEntity>();
 
@@ -953,7 +953,7 @@ namespace PhalanxBL
                         {
                             if (!ActiveDirectoryHelper.UsuarioExiste(ldapPath, usuario.Username))
                             {
-                                InactivateUser(usuario, System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+                                InactivateUser(usuario, username);
 
                                 PhxLogUsuarioInactivado logUsuario = new PhxLogUsuarioInactivado();
                                 logUsuario.Domain = usuario.Domain;

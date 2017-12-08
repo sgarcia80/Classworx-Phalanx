@@ -11,7 +11,7 @@ using System.Collections;
 
 namespace PhalanxDAL.Factories
 {
-    public class DatabaseUserFactory
+    public class DatabaseUserFactory : BaseFactory
     {
 
         private DatabaseTypeEntity _filTipoDB;
@@ -63,6 +63,13 @@ namespace PhalanxDAL.Factories
         private bool _AvoidInactiveGrps = false;
         public bool SetAvoidInactiveGrps
         { set { _AvoidInactiveGrps = value; } }
+
+        public DatabaseUserFactory() : base()
+        { 
+        }
+        public DatabaseUserFactory(string userlogon) : base(userlogon)
+        { 
+        }
 
         public DatabaseUserEntity Refresh(DatabaseUserEntity User)
         {
@@ -407,7 +414,7 @@ namespace PhalanxDAL.Factories
                     }
 
                     // tengo que grabar el log de modificación
-                    HistPasswordChangeFactory HistPwdChg = new HistPasswordChangeFactory();
+                    HistPasswordChangeFactory HistPwdChg = new HistPasswordChangeFactory(this.UserLogon);
                     HistPwdChg.AddLog(session, (UserEntity)DBUser);
                     tx.Commit();
                 }

@@ -242,7 +242,7 @@ namespace PhalanxAdmin
         private void FAplicativosBPM_Load(object sender, EventArgs e)
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
-            lnkModificar.Enabled = UsrBL.AccParamAplicativosBMPRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            lnkModificar.Enabled = UsrBL.AccParamAplicativosBMPRW(this.Usuario);
             
             this.lnkCancelar.Visible = false;
             this.pbDB.Visible = false;

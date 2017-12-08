@@ -30,8 +30,8 @@ namespace PhalanxAdmin
             CargarComboParams();
             PhxUserBusiness UsrBL = new PhxUserBusiness();
 
-            btnModif.Enabled = UsrBL.AccParamConfigMailsRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            btnTestMail.Enabled = UsrBL.AccParamConfigMailsRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            btnModif.Enabled = UsrBL.AccParamConfigMailsRW(this.Usuario);
+            btnTestMail.Enabled = UsrBL.AccParamConfigMailsRW(this.Usuario);
             btnSave.Enabled = false;
             btnCancel.Enabled = false;
             grpTags.Visible = false;

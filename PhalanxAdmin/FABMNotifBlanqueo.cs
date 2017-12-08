@@ -41,9 +41,9 @@ namespace PhalanxAdmin
             m_FormType = formType;
         }
 
-        public FABMNotifBlanqueo(int id, bool ReadOnly, FormType formType)
-            : this(formType)
+        public FABMNotifBlanqueo(int id, bool ReadOnly, FormType formType, string userlogon) : this(formType)
         {
+            this.Usuario = userlogon;
             if (id > 0)
             {
                 this._entity = TicketBL.Load(id);
@@ -54,7 +54,7 @@ namespace PhalanxAdmin
             }
 
             m_FormType = formType;
-            this.user = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            this.user = this.Usuario;
 
             _readOnly = ReadOnly;
         }
@@ -340,7 +340,7 @@ namespace PhalanxAdmin
             //if (m_FormType == FormType.Update || m_FormType == FormType.Delete)
             //{
             //    _entity = TicketBL.Refresh(_entity);
-            //    if (_entity.ModifyingUser.Username == new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(System.Security.Principal.WindowsIdentity.GetCurrent().Name).Username)
+            //    if (_entity.ModifyingUser.Username == new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario).Username)
             //    {
             //        _entity.ModifyingDate = null;
             //        _entity.ModifyingUser = null;

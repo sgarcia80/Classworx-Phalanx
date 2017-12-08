@@ -506,7 +506,11 @@ namespace NDCCommon.Entities
 		/// <summary>
 		/// 
 		/// </summary>
-		public int? MailId { set; get; }
+        public int? MailId { set; get; }
+
+        public PhalanxCommon.Entities.MailAlertEntity Mail { set; get; }
+
+        public DateTime? FechaUltimoMail { set; get; }
 
         #endregion
 

@@ -20,7 +20,7 @@ namespace PhalanxAdmin
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
 
-            //linkLabel1.Enabled = UsrBL.AccRptUsrGrpSol(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            //linkLabel1.Enabled = UsrBL.AccRptUsrGrpSol(this.Usuario);
         }
 
         private void linkNotifBlanqueos_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
