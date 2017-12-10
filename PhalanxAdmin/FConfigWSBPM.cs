@@ -13,6 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FConfigWSBPM : FBaseConfiguracion
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Webservice para BPM");
+            }
+        }
+
         public FConfigWSBPM()
         {
             InitializeComponent();

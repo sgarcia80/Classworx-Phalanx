@@ -160,7 +160,7 @@ namespace PhalanxAdmin
             // btnTest
             // 
             this.btnTest.BackColor = System.Drawing.SystemColors.Control;
-            this.btnTest.Location = new System.Drawing.Point(35, 493);
+            this.btnTest.Location = new System.Drawing.Point(35, 457);
             this.btnTest.Name = "btnTest";
             this.btnTest.Size = new System.Drawing.Size(95, 21);
             this.btnTest.TabIndex = 14;
@@ -170,9 +170,9 @@ namespace PhalanxAdmin
             // 
             // btnClave
             // 
-            this.btnClave.Location = new System.Drawing.Point(494, 248);
+            this.btnClave.Location = new System.Drawing.Point(516, 232);
             this.btnClave.Name = "btnClave";
-            this.btnClave.Size = new System.Drawing.Size(91, 23);
+            this.btnClave.Size = new System.Drawing.Size(101, 23);
             this.btnClave.TabIndex = 11;
             this.btnClave.Text = "Clave";
             this.btnClave.UseVisualStyleBackColor = true;
@@ -180,9 +180,9 @@ namespace PhalanxAdmin
             // 
             // btnUsuario
             // 
-            this.btnUsuario.Location = new System.Drawing.Point(494, 219);
+            this.btnUsuario.Location = new System.Drawing.Point(516, 203);
             this.btnUsuario.Name = "btnUsuario";
-            this.btnUsuario.Size = new System.Drawing.Size(91, 23);
+            this.btnUsuario.Size = new System.Drawing.Size(101, 23);
             this.btnUsuario.TabIndex = 10;
             this.btnUsuario.Text = "Usuario";
             this.btnUsuario.UseVisualStyleBackColor = true;
@@ -190,9 +190,9 @@ namespace PhalanxAdmin
             // 
             // btnAdminClave2
             // 
-            this.btnAdminClave2.Location = new System.Drawing.Point(494, 174);
+            this.btnAdminClave2.Location = new System.Drawing.Point(516, 155);
             this.btnAdminClave2.Name = "btnAdminClave2";
-            this.btnAdminClave2.Size = new System.Drawing.Size(91, 23);
+            this.btnAdminClave2.Size = new System.Drawing.Size(101, 23);
             this.btnAdminClave2.TabIndex = 7;
             this.btnAdminClave2.Text = "Clave Secundario";
             this.btnAdminClave2.UseVisualStyleBackColor = true;
@@ -200,9 +200,9 @@ namespace PhalanxAdmin
             // 
             // btnAdminClave1
             // 
-            this.btnAdminClave1.Location = new System.Drawing.Point(494, 103);
+            this.btnAdminClave1.Location = new System.Drawing.Point(516, 96);
             this.btnAdminClave1.Name = "btnAdminClave1";
-            this.btnAdminClave1.Size = new System.Drawing.Size(91, 23);
+            this.btnAdminClave1.Size = new System.Drawing.Size(101, 23);
             this.btnAdminClave1.TabIndex = 5;
             this.btnAdminClave1.Text = "Clave Principal";
             this.btnAdminClave1.UseVisualStyleBackColor = true;
@@ -210,9 +210,9 @@ namespace PhalanxAdmin
             // 
             // btnAdminUsuario2
             // 
-            this.btnAdminUsuario2.Location = new System.Drawing.Point(494, 145);
+            this.btnAdminUsuario2.Location = new System.Drawing.Point(516, 126);
             this.btnAdminUsuario2.Name = "btnAdminUsuario2";
-            this.btnAdminUsuario2.Size = new System.Drawing.Size(91, 23);
+            this.btnAdminUsuario2.Size = new System.Drawing.Size(101, 23);
             this.btnAdminUsuario2.TabIndex = 6;
             this.btnAdminUsuario2.Text = "Secundario";
             this.btnAdminUsuario2.UseVisualStyleBackColor = true;
@@ -220,9 +220,9 @@ namespace PhalanxAdmin
             // 
             // btnAdminUsuario1
             // 
-            this.btnAdminUsuario1.Location = new System.Drawing.Point(494, 74);
+            this.btnAdminUsuario1.Location = new System.Drawing.Point(516, 67);
             this.btnAdminUsuario1.Name = "btnAdminUsuario1";
-            this.btnAdminUsuario1.Size = new System.Drawing.Size(91, 23);
+            this.btnAdminUsuario1.Size = new System.Drawing.Size(101, 23);
             this.btnAdminUsuario1.TabIndex = 4;
             this.btnAdminUsuario1.Text = "Principal";
             this.btnAdminUsuario1.UseVisualStyleBackColor = true;
@@ -231,18 +231,18 @@ namespace PhalanxAdmin
             // txtFooter
             // 
             this.txtFooter.BackColor = System.Drawing.Color.White;
-            this.txtFooter.Location = new System.Drawing.Point(35, 364);
+            this.txtFooter.Location = new System.Drawing.Point(35, 340);
             this.txtFooter.Multiline = true;
             this.txtFooter.Name = "txtFooter";
             this.txtFooter.ReadOnly = true;
             this.txtFooter.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtFooter.Size = new System.Drawing.Size(453, 123);
+            this.txtFooter.Size = new System.Drawing.Size(475, 111);
             this.txtFooter.TabIndex = 13;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(35, 348);
+            this.label4.Location = new System.Drawing.Point(35, 324);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(37, 13);
             this.label4.TabIndex = 12;
@@ -251,18 +251,18 @@ namespace PhalanxAdmin
             // txtBody
             // 
             this.txtBody.BackColor = System.Drawing.Color.White;
-            this.txtBody.Location = new System.Drawing.Point(35, 219);
+            this.txtBody.Location = new System.Drawing.Point(35, 203);
             this.txtBody.Multiline = true;
             this.txtBody.Name = "txtBody";
             this.txtBody.ReadOnly = true;
             this.txtBody.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtBody.Size = new System.Drawing.Size(453, 123);
+            this.txtBody.Size = new System.Drawing.Size(475, 111);
             this.txtBody.TabIndex = 9;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(35, 203);
+            this.label3.Location = new System.Drawing.Point(35, 187);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(31, 13);
             this.label3.TabIndex = 8;
@@ -271,18 +271,18 @@ namespace PhalanxAdmin
             // txtHeader
             // 
             this.txtHeader.BackColor = System.Drawing.Color.White;
-            this.txtHeader.Location = new System.Drawing.Point(35, 74);
+            this.txtHeader.Location = new System.Drawing.Point(35, 67);
             this.txtHeader.Multiline = true;
             this.txtHeader.Name = "txtHeader";
             this.txtHeader.ReadOnly = true;
             this.txtHeader.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtHeader.Size = new System.Drawing.Size(453, 123);
+            this.txtHeader.Size = new System.Drawing.Size(475, 111);
             this.txtHeader.TabIndex = 3;
             // 
             // btnCancel
             // 
             this.btnCancel.BackColor = System.Drawing.SystemColors.Control;
-            this.btnCancel.Location = new System.Drawing.Point(393, 490);
+            this.btnCancel.Location = new System.Drawing.Point(393, 457);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(95, 21);
             this.btnCancel.TabIndex = 16;
@@ -293,7 +293,7 @@ namespace PhalanxAdmin
             // btnSave
             // 
             this.btnSave.BackColor = System.Drawing.SystemColors.Control;
-            this.btnSave.Location = new System.Drawing.Point(292, 490);
+            this.btnSave.Location = new System.Drawing.Point(292, 457);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(95, 21);
             this.btnSave.TabIndex = 15;
@@ -304,7 +304,7 @@ namespace PhalanxAdmin
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(35, 58);
+            this.label2.Location = new System.Drawing.Point(35, 51);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(42, 13);
             this.label2.TabIndex = 2;
@@ -313,7 +313,7 @@ namespace PhalanxAdmin
             // txtName
             // 
             this.txtName.BackColor = System.Drawing.Color.White;
-            this.txtName.Location = new System.Drawing.Point(35, 32);
+            this.txtName.Location = new System.Drawing.Point(35, 25);
             this.txtName.MaxLength = 250;
             this.txtName.Name = "txtName";
             this.txtName.ReadOnly = true;
@@ -323,7 +323,7 @@ namespace PhalanxAdmin
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(35, 16);
+            this.label1.Location = new System.Drawing.Point(35, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 13);
             this.label1.TabIndex = 0;

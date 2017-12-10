@@ -16,6 +16,14 @@ namespace PhalanxAdmin
 {
     public partial class FMacroClaves : PhalanxAdmin.FConfiguracionTC
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Claves de Macros");
+            }
+        }
+
         protected MacroClaveEntityCollection _entities;
         protected string _filDescripcion = string.Empty;
 
@@ -314,7 +322,7 @@ namespace PhalanxAdmin
                     }
                     else
                     {
-                        MessageBox.Show("Se produjo un error al querer eliminar la Clave", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("La Clave se encuentra en uso, no se puede eliminar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }

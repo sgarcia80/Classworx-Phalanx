@@ -68,6 +68,7 @@ namespace PhalanxAdmin
             // xppnlMenu
             // 
             this.xppnlMenu.ImageItems.ImageSet = null;
+            this.xppnlMenu.Size = new System.Drawing.Size(167, 502);
             // 
             // PasswordRequestEntityBindingSource
             // 

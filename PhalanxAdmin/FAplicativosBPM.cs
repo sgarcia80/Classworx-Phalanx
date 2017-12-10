@@ -16,6 +16,14 @@ namespace PhalanxAdmin
 {
     public partial class FAplicativosBPM : PhalanxAdmin.FBaseSistema
     {
+        public override string Titulo
+        {
+            get
+            {
+                return  GetTitlePath(base.Titulo, "Aplicativos de BPM");
+            }
+        }
+
         protected AplicacionNotificacionClaveEntityCollection _entities;
         protected string _filNombre = "";
         

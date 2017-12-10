@@ -13,6 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FConfATMs : PhalanxAdmin.FBaseConfiguracion
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "ATMs");
+            }
+        }
+
         FollowupRequestGroupEntity _GrupoSeguimDefecto;
 
         public FConfATMs()

@@ -13,6 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FConfigWSConectores : FBaseConfiguracion
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Webservice para Conectoress");
+            }
+        }
+
         public FConfigWSConectores()
         {
             InitializeComponent();

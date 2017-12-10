@@ -13,6 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FConfiguracionTC : PhalanxAdmin.FBaseConfiguracionTC
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Tarjetas de Crédito");
+            }
+        }
+
         public FConfiguracionTC()
         {
             InitializeComponent();

@@ -13,6 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FPCs : PhalanxAdmin.FBaseAdmin
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Equipos PC");
+            }
+        }
+
         protected WinPCEntityCollection _entities;
         protected UnixPCEntityCollection _entitiesUnix;
         protected WinDomainEntityCollection _dominios;

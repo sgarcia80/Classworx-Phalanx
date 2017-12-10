@@ -18,6 +18,14 @@ namespace PhalanxAdmin
 {
     public partial class FNotifBlanqueosTC : PhalanxAdmin.FBaseNotifClaves
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Blanqueo de Tarj. Créd.");
+            }
+        }
+
         private static readonly ILog log = LogManager.GetLogger(typeof(FNotifBlanqueos));
 
         protected TicketNotificacionTarjetaEntityCollection _entities;

@@ -11,6 +11,14 @@ namespace PhalanxAdmin
 {
     public partial class FBaseNotifClaves : PhalanxAdmin.FBasePanel
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Notificaciones");
+            }
+        }
+
         public FBaseNotifClaves()
         {
             InitializeComponent();

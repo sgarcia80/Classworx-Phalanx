@@ -14,6 +14,14 @@ namespace PhalanxAdmin
 {
     public partial class FRptPermisosPerf : PhalanxAdmin.FBaseReportes
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Asignación de Permisos");
+            }
+        }
+
         public override string Id
         {
             get

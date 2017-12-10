@@ -15,6 +15,14 @@ namespace PhalanxAdmin
 {
     public partial class FPwdListados : PhalanxAdmin.FBaseReportes
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Listados");
+            }
+        }
+
         private RequestGroupEntityCollection _myGroups;
         protected WinLocalUserEntityCollection _entities;
         protected string _filNombre = "";

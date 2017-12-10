@@ -11,6 +11,14 @@ namespace PhalanxAdmin
 {
     public partial class FBaseReportes : PhalanxAdmin.FBasePanel
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Reportes");
+            }
+        }
+
         public FBaseReportes()
         {
             InitializeComponent();

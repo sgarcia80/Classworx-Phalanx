@@ -13,6 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FHistPwdChg : PhalanxAdmin.FBaseAuditoria
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Histórico de Contraseñas");
+            }
+        }
+
         protected vwHistPwdChgEntityCollection _entities;
         private PhxUserEntity m_CurrentUser;
         private VwInventarioEntity m_InventUser;

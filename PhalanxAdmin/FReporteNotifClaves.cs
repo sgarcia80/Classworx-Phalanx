@@ -18,6 +18,14 @@ namespace PhalanxAdmin
 {
     public partial class FReporteNotifClaves : PhalanxAdmin.FBaseReportes
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Notificaciones de Altas Pendientes (Red y Cobis)");
+            }
+        }
+
         protected IList _entities;
 
         AplicacionNotificacionClaveEntity aplicacion;

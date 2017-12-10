@@ -14,6 +14,14 @@ namespace PhalanxAdmin
 {
     public partial class FLogPwdVis : PhalanxAdmin.FBaseAuditoria
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Logs de Visualización de Contraseñas");
+            }
+        }
+
         protected vwHistPwdVisEntityCollection _entities;
         private PhxUserEntity m_CurrentUser;
         private VwInventarioEntity m_InventUser;

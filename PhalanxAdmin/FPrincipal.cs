@@ -45,6 +45,7 @@ namespace PhalanxAdmin
             this.Text += " v" + Version;
             try
             {
+                this.lblTitulo.Text = string.Empty;
                 //DBMgr.Application = App.Phalanx;
                 //DBMgr.NHAssembly = typeof(DBMgr).Assembly;
                 //DBMgr.Inicializar();
@@ -229,7 +230,7 @@ namespace PhalanxAdmin
         {
             if (this.MdiChildren.Length > 0) //para saber si hay algun form hijo para resiziar
             {
-                this.ActiveMdiChild.Height = this.ClientSize.Height - this.panelIcons.Height - 4;
+                this.ActiveMdiChild.Height = this.ClientSize.Height - this.panelIcons.Height - 4 - this.pnlTitle.Height;
                 this.ActiveMdiChild.Width = this.ClientSize.Width - 4;
             }
         }
@@ -642,12 +643,17 @@ namespace PhalanxAdmin
             }
             if (!FormAlreadyLoaded)
             {
+                lblTitulo.Text = string.Empty;
+
                 this.AddOwnedForm(FormToOpen);
-                FormToOpen.Height = this.ClientSize.Height - this.panelIcons.Height - 4;
+                FormToOpen.Height = this.ClientSize.Height - this.panelIcons.Height - 4 - this.pnlTitle.Height;
                 FormToOpen.Width = this.ClientSize.Width - 4;
                 FormToOpen.MdiParent = this;
 
                 FormToOpen.Usuario = this.Usuario;
+                
+                lblTitulo.Text = FormToOpen.Titulo;
+
                 FormToOpen.Show();
                 this.MdiChildResize();
                 FormToOpen.BringToFront();

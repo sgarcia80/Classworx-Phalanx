@@ -16,6 +16,14 @@ namespace PhalanxAdmin
 {
     public partial class FMacroUsuarios : PhalanxAdmin.FConfiguracionTC
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Usuarios Login Macro");
+            }
+        }
+
         protected MacroUsuarioEntityCollection _entities;
         protected int _filMacro = 0;
 
@@ -320,7 +328,7 @@ namespace PhalanxAdmin
                     }
                     else
                     {
-                        MessageBox.Show("Se produjo un error al querer eliminar el Usuario Login de Macro");
+                        MessageBox.Show("Se produjo un error al querer eliminar el Usuario Login de Macro", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }

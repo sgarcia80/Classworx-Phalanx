@@ -13,6 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FUsuarios : PhalanxAdmin.FBaseAdmin
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Usuarios");
+            }
+        }
+
         protected PhxUserEntityCollection _entities;
         protected string _filNombre = "";
         protected Nullable<bool> _filActivo = null;

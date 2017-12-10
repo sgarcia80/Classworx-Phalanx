@@ -13,6 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FMailsAlert : PhalanxAdmin.FBaseAuditoria
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Mails y Notificaciones");
+            }
+        }
+
         protected MailAlertEntityCollection _entities;
         protected string _filNombre = "";
         public override string Id

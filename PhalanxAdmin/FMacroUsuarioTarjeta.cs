@@ -17,6 +17,14 @@ namespace PhalanxAdmin
 {
     public partial class FMacroUsuarioTarjeta : PhalanxAdmin.FConfiguracionTC
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Usuarios de Tarjetas");
+            }
+        }
+
         protected MacroUsuarioTarjetaEntityCollection _entities;
         protected string _filUsuarioRed = string.Empty;
         protected string _filUsuarioTC = string.Empty;
@@ -449,7 +457,7 @@ namespace PhalanxAdmin
                         {
                             sb.AppendLine();
                         }
-                        sb.AppendFormat("{0}\\{1};{2};{3}", entity.Dominio, entity.UsuarioRed, entity.AplicacionCodigo, entity.UsuarioRed);
+                        sb.AppendFormat("{0}\\{1};{2};{3}", entity.Dominio, entity.UsuarioRed, entity.AplicacionCodigo, entity.UsuarioTC);
                     }
                 }
                 DialogResult dr = saveFileDialog1.ShowDialog();

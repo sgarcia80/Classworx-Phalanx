@@ -15,6 +15,14 @@ namespace PhalanxAdmin
 {
     public partial class FUsuariosGruposSeguimiento : PhalanxAdmin.FBaseReportes
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Usuarios por Grupos de Seguimiento de Solicitudes");
+            }
+        }
+
         protected IList _entities;
 
 		string nombreGrupo;

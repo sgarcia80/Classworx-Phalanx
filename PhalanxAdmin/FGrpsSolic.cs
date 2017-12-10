@@ -13,6 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FGrpsSolic : PhalanxAdmin.FBaseAdmin
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Grupos de Solicitudes");
+            }
+        }
+
         protected RequestGroupEntityCollection _entities;
 
         protected string _filNombre = "";

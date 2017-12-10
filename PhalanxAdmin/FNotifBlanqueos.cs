@@ -17,6 +17,14 @@ namespace PhalanxAdmin
 {
     public partial class FNotifBlanqueos : PhalanxAdmin.FBaseNotifClaves
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Blanqueos de App/Red");
+            }
+        }
+
         private static readonly ILog log = LogManager.GetLogger(typeof(FNotifBlanqueos));
 
         protected TicketNotificacionBlanqueoEntityCollection _entities;
@@ -117,7 +125,7 @@ namespace PhalanxAdmin
             {
                 _filAplicacion = null;
             }
-            
+
             if (cbDominio.SelectedIndex > 0)
             {
                 WinDomainEntity dominio = cbDominio.SelectedItem as WinDomainEntity;
@@ -422,7 +430,7 @@ namespace PhalanxAdmin
         private void lnkAdd_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             FABMNotifBlanqueo form = new FABMNotifBlanqueo(0, false, FABMNotifBlanqueo.FormType.New, this.Usuario);
-            
+
             if (form.ShowDialog() == DialogResult.OK)
             {
                 ExecEntitiesRefresh();
@@ -460,7 +468,7 @@ namespace PhalanxAdmin
                     form = new FABMNotifBlanqueo(ticket.Id, !edit, FABMNotifBlanqueo.FormType.View, this.Usuario);
                     break;
             }
-            
+
             form.Usuario = this.Usuario;
 
             return form.ShowDialog();
@@ -494,7 +502,7 @@ namespace PhalanxAdmin
         private void lnkAddBlanqueoRed_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             FABMNotifBlanqueoRed form = new FABMNotifBlanqueoRed(0, false, FABMNotifBlanqueoRed.FormType.New, this.Usuario);
-            
+
             if (form.ShowDialog() == DialogResult.OK)
             {
                 ExecEntitiesRefresh();
@@ -504,7 +512,7 @@ namespace PhalanxAdmin
         private void lnkAddDesbloqueoRed_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             FABMNotifDesbloqueoRed form = new FABMNotifDesbloqueoRed(0, false, FABMNotifDesbloqueoRed.FormType.New, this.Usuario);
-            
+
             if (form.ShowDialog() == DialogResult.OK)
             {
                 ExecEntitiesRefresh();

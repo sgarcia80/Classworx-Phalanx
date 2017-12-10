@@ -13,6 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FAplicativos : PhalanxAdmin.FBaseAdmin
     {
+        public override string Titulo
+        {
+            get
+            {
+                return  GetTitlePath(base.Titulo, "Aplicativos");
+            }
+        }
+
         protected ApplicationEntityCollection _entities;
         protected string _filNombre = "";
         public FAplicativos()

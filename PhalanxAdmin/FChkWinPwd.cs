@@ -13,6 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FChkWinPwd : PhalanxAdmin.FBaseContrasenas
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Chequeos Windows");
+            }
+        }
+
         protected LoteChkWinLocalUsersEntityCollection _entities;
         public FChkWinPwd()
         {
@@ -75,7 +83,7 @@ namespace PhalanxAdmin
         /// </example>
         private void SetQueryFilters()
         {
-            
+
 
         }
         private void bwRefreshEntities_DoWork(object sender, DoWorkEventArgs e)
@@ -231,7 +239,7 @@ namespace PhalanxAdmin
         private void CleanFilters()
         {
             txtFilNombre.Text = "";
-            
+
         }
 
         private void lnkCancelar_Click(object sender, EventArgs e)

@@ -16,6 +16,14 @@ namespace PhalanxAdmin
 {
     public partial class FMacroErrores : PhalanxAdmin.FConfiguracionTC
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Errores de Macros");
+            }
+        }
+
         protected MacroErrorEntityCollection _entities;
         protected string _filDescripcion = string.Empty;
 
@@ -312,7 +320,7 @@ namespace PhalanxAdmin
                     }
                     else
                     {
-                        MessageBox.Show("Se produjo un error al querer eliminar el Error");
+                        MessageBox.Show("El Error se encuentra en uso, no se puede eliminar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }

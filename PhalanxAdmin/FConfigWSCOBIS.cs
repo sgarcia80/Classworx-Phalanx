@@ -13,6 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FConfigWSCOBIS : FBaseConfiguracion
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Webservice de Cobis");
+            }
+        }
+
         public FConfigWSCOBIS()
         {
             InitializeComponent();
