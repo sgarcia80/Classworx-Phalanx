@@ -39,6 +39,13 @@ namespace NDCBL
             return factory.Load(id);
         }
 
+        public MacroEntityCollection Exists(string nombre)
+        {
+            MacroFactory factory = new MacroFactory();
+
+            return factory.Exists(nombre);
+        }
+
         public MacroEntityCollection GetAll()
         {
             MacroFactory factory = new MacroFactory();

@@ -17,6 +17,14 @@ namespace PhalanxAdmin
 {
     public partial class FConfigMacros : FConfiguracionTC
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Macros Emuladores");
+            }
+        }
+
         public MacroEntity Entidad { get; set; }
 
         public FConfigMacros()
@@ -83,7 +91,7 @@ namespace PhalanxAdmin
 
                 MacroBusiness business = new MacroBusiness();
 
-                var list = business.GetAll(entity.Name);
+                var list = business.Exists(entity.Name);
                 if (list != null && list.Count > 0)
                 {
                     if (list[0].Id != entity.Id)
