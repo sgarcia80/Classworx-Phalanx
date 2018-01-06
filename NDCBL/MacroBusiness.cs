@@ -4,6 +4,7 @@ using System.Configuration;
 using NDCCommon.Entities;
 using NDCDAL.Factories;
 using NDCCommon.Collections;
+using phxCryptMgr;
 
 namespace NDCBL
 {
@@ -76,6 +77,8 @@ namespace NDCBL
 
         public string ReplaceHeader(string contenido, MacroUsuarioEntity principal, MacroUsuarioEntity secundario)
         {
+            CCryptMgr crypt = new CCryptMgr();
+
             string usr1 = string.Empty;
             string pwd1 = string.Empty;
 
@@ -85,12 +88,12 @@ namespace NDCBL
             if (principal != null)
             {
                 usr1 = principal.UsuarioTC;
-                pwd1 = principal.ClaveTC;
+                pwd1 = crypt.decryptAndClearBadChars(principal.ClaveTC);
             }
             if (secundario != null)
             {
                 usr2 = secundario.UsuarioTC;
-                pwd2 = secundario.ClaveTC;
+                pwd2 = crypt.decryptAndClearBadChars(secundario.ClaveTC);
             }
 
             return ReplaceHeader(contenido, usr1, pwd1, usr2, pwd2);

@@ -161,6 +161,9 @@ namespace NDCBL
                                                         usuarioprincipal,
                                                         usuariosecundario);
 
+                    log.InfoFormat("Se blanquea el footer de la macro para la aplicacion '{0}'", aplicacion.Codigo);
+                    body = new StringBuilder();
+
                     log.InfoFormat("Se toma el footer de la macro para la aplicacion '{0}'", aplicacion.Codigo); 
                     footer = macro.Footer;
 
@@ -191,10 +194,14 @@ namespace NDCBL
                                 item.Clave = claves[indice];
                             }
 
-                            log.Info("Se formatea el usuario en el cuerpo"); 
+                            log.Info("Se formatea el usuario en el cuerpo");
 
+                            if (body.Length > 0)
+                            {
+                                body.AppendLine();
+                            }
                             //Se agrega el cuerpo con el usuario y su clave asignada
-                            body.AppendLine(macrobusiness.ReplaceBody(macro.Body, item.UsuarioAplicacion, item.PasswordUsuarioAplicacion));
+                            body.Append(macrobusiness.ReplaceBody(macro.Body, item.UsuarioAplicacion, item.PasswordUsuarioAplicacion));
                         }
                     }
                 }
