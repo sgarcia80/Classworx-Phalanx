@@ -60,6 +60,9 @@ namespace PhalanxAdmin
             //lnkDelete.Enabled = UsrBL.AccAdmEqWinRW(this.Usuario);
 
             this.lvLista.ListViewItemSorter = new cwxSorter();
+            cwxSorter s = (cwxSorter)this.lvLista.ListViewItemSorter;
+            s.Order = SortOrder.Descending;
+
             this.lnkCancelar.Visible = false;
             this.pbDB.Visible = false;
             CargaComboAplicaciones();

@@ -400,10 +400,10 @@ namespace PhalanxAdmin
 
                 if (string.IsNullOrEmpty(entity.Obseravaciones))
                 {
-                    entity.UsuarioRed = usuariored;
-                    entity.UsuarioTC = usuariotc;
-                    entity.Dominio = dominio;
-                    entity.AplicacionCodigo = aplicacion;
+                    entity.UsuarioRed = usuariored.Trim();
+                    entity.UsuarioTC = usuariotc.Trim();
+                    entity.Dominio = dominio.Trim();
+                    entity.AplicacionCodigo = aplicacion.Trim();
                 }
                 else
                 {

@@ -31,9 +31,12 @@ namespace PhalanxAdmin
         protected TicketNotificacionTarjetaEntityCollection _entities;
         protected AplicacionNotificacionClaveEntityCollection _aplicaciones;
         protected WinDomainEntityCollection _dominios;
+        protected MacroErrorEntityCollection _estados;
+
         protected DominioLoginEntityCollection _tiposNotificaciones;
         private AplicacionNotificacionClaveEntity _filAplicacion;
 
+        protected TicketNotificacionTarjetaEntity.EstadoTicket _filEstado = TicketNotificacionTarjetaEntity.EstadoTicket.Ninguno;
         protected string _filUsuarioApp = "";
         protected string _filUsuario = "";
         protected string _filDominio = "";
@@ -59,10 +62,14 @@ namespace PhalanxAdmin
             //lnkDelete.Enabled = UsrBL.AccAdmEqWinRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
 
             this.lvLista.ListViewItemSorter = new cwxSorter();
+            cwxSorter s = (cwxSorter)this.lvLista.ListViewItemSorter;
+            s.Order = SortOrder.Descending;
+
             this.lnkCancelar.Visible = false;
             this.pbDB.Visible = false;
             CargaComboAplicaciones();
             CargaComboDominios();
+            CargaComboEstados();
             ExecEntitiesRefresh();
         }
 
@@ -138,6 +145,12 @@ namespace PhalanxAdmin
             {
                 _filDominio = string.Empty;
             }
+
+            _filEstado = TicketNotificacionTarjetaEntity.EstadoTicket.Ninguno;
+            if (cbEstado.SelectedIndex > 0)
+            {
+                _filEstado = (TicketNotificacionTarjetaEntity.EstadoTicket)cbEstado.SelectedValue;
+            }
         }
 
         private void bwRefreshEntities_DoWork(object sender, DoWorkEventArgs e)
@@ -168,14 +181,7 @@ namespace PhalanxAdmin
             DateTime? fechaDesde = null;
             DateTime? fechaHasta = null;
 
-            var estado = TicketNotificacionTarjetaEntity.EstadoTicket.Ninguno;
-
-            if (chkPendiente.Checked)
-            {
-                estado = TicketNotificacionTarjetaEntity.EstadoTicket.Ingresado;
-            }
-
-            _entities = business.GetAll(fechaDesde, fechaHasta, _filAplicacion, txtFilUsuarioApp.Text, _filDominio, txtFilUsuario.Text, estado);
+            _entities = business.GetAll(fechaDesde, fechaHasta, _filAplicacion, txtFilUsuarioApp.Text, _filDominio, txtFilUsuario.Text, _filEstado);
         }
         /// <summary>
         /// Llama a la función que genera el array de LV Items y si hay items llama a la que hace el llenado
@@ -290,7 +296,7 @@ namespace PhalanxAdmin
             txtFilUsuarioApp.Text = "";
             cbAplicacion.SelectedIndex = 0;
             cbDominio.SelectedIndex = 0;
-            chkPendiente.Checked = false;
+            cbEstado.SelectedIndex = 0;
         }
 
         private void lnkCancelar_Click(object sender, EventArgs e)
@@ -329,6 +335,22 @@ namespace PhalanxAdmin
             cbDominio.ValueMember = "Id";
         }
 
+        private void CargaComboEstados()
+        {
+            this._estados = new MacroErrorEntityCollection();
+
+            this._estados.Add(new MacroErrorEntity { Id = (int)TicketNotificacionTarjetaEntity.EstadoTicket.Ninguno, Descripcion = "Todos" });
+            this._estados.Add(new MacroErrorEntity { Id = (int)TicketNotificacionTarjetaEntity.EstadoTicket.Error, Descripcion = "Error" });
+            this._estados.Add(new MacroErrorEntity { Id = (int)TicketNotificacionTarjetaEntity.EstadoTicket.Generado, Descripcion = "Generado" });
+            this._estados.Add(new MacroErrorEntity { Id = (int)TicketNotificacionTarjetaEntity.EstadoTicket.Ingresado, Descripcion = "Ingresado" });
+            this._estados.Add(new MacroErrorEntity { Id = (int)TicketNotificacionTarjetaEntity.EstadoTicket.Notificado, Descripcion = "Notificado" });
+            this._estados.Add(new MacroErrorEntity { Id = (int)TicketNotificacionTarjetaEntity.EstadoTicket.Pendiente, Descripcion = "Pendiente" });
+
+            cbEstado.DataSource = this._estados;
+            cbEstado.DisplayMember = "Descripcion";
+            cbEstado.ValueMember = "Id";
+        }
+
         private void lnkView_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Seleccionar(false);
@@ -354,7 +376,7 @@ namespace PhalanxAdmin
                 {
                     string debug = string.Empty;
 
-                    if (ticket.Estado == TicketNotificacionTarjetaEntity.EstadoTicket.Procesado && !ticket.FechaNotificado.HasValue)
+                    if (ticket.Estado == TicketNotificacionTarjetaEntity.EstadoTicket.Pendiente && !ticket.FechaNotificado.HasValue)
                     {
                         collection.Add(ticket);
                     }
@@ -529,7 +551,7 @@ namespace PhalanxAdmin
 
         private void lnkProcesadasOk_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            string mensaje = string.Format("Se marcarán las Notificaciones seleccionadas como 'Procesadas'.{0}¿Desea continuar?", System.Environment.NewLine);
+            string mensaje = string.Format("Se marcarán las Notificaciones seleccionadas como 'Pendientes'.{0}¿Desea continuar?", System.Environment.NewLine);
             DialogResult result = MessageBox.Show(mensaje, "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
             if (result == System.Windows.Forms.DialogResult.No)
@@ -550,7 +572,7 @@ namespace PhalanxAdmin
                     if (ticket.Estado == TicketNotificacionTarjetaEntity.EstadoTicket.Generado)
                     {
                         ticket.FechaProcesado = DateTime.Now;
-                        ticket.Estado = TicketNotificacionTarjetaEntity.EstadoTicket.Procesado;
+                        ticket.Estado = TicketNotificacionTarjetaEntity.EstadoTicket.Pendiente;
                         list.Add(ticket);
                     }
                 }

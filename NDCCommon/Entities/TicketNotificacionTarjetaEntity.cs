@@ -15,7 +15,7 @@ namespace NDCCommon.Entities
             Ninguno,
             Ingresado,
             Generado,
-            Procesado,
+            Pendiente,
             Error,
             Notificado
         }

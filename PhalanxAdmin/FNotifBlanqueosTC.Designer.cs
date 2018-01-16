@@ -38,7 +38,6 @@ namespace PhalanxAdmin
             this.txtDestino = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.chkPendiente = new System.Windows.Forms.CheckBox();
             this.cbDominio = new System.Windows.Forms.ComboBox();
             this.txtFilUsuarioApp = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -75,6 +74,8 @@ namespace PhalanxAdmin
             this.lnkAdd = new System.Windows.Forms.LinkLabel();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.cbEstado = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             colAplicacion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             colDominioApp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
@@ -169,7 +170,8 @@ namespace PhalanxAdmin
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.chkPendiente);
+            this.groupBox1.Controls.Add(this.cbEstado);
+            this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.cbDominio);
             this.groupBox1.Controls.Add(this.txtFilUsuarioApp);
             this.groupBox1.Controls.Add(this.label3);
@@ -186,16 +188,6 @@ namespace PhalanxAdmin
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de búsqueda";
-            // 
-            // chkPendiente
-            // 
-            this.chkPendiente.AutoSize = true;
-            this.chkPendiente.Location = new System.Drawing.Point(466, 49);
-            this.chkPendiente.Name = "chkPendiente";
-            this.chkPendiente.Size = new System.Drawing.Size(79, 17);
-            this.chkPendiente.TabIndex = 8;
-            this.chkPendiente.Text = "Pendientes";
-            this.chkPendiente.UseVisualStyleBackColor = true;
             // 
             // cbDominio
             // 
@@ -253,7 +245,7 @@ namespace PhalanxAdmin
             // 
             this.btnLimpiar.BackColor = System.Drawing.SystemColors.Control;
             this.btnLimpiar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnLimpiar.Location = new System.Drawing.Point(659, 46);
+            this.btnLimpiar.Location = new System.Drawing.Point(681, 46);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(76, 21);
             this.btnLimpiar.TabIndex = 10;
@@ -264,7 +256,7 @@ namespace PhalanxAdmin
             // btnBuscar
             // 
             this.btnBuscar.BackColor = System.Drawing.SystemColors.Control;
-            this.btnBuscar.Location = new System.Drawing.Point(577, 46);
+            this.btnBuscar.Location = new System.Drawing.Point(599, 46);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(76, 21);
             this.btnBuscar.TabIndex = 9;
@@ -555,6 +547,24 @@ namespace PhalanxAdmin
             this.lnkAdd.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
             this.lnkAdd.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAdd_LinkClicked);
             // 
+            // cbEstado
+            // 
+            this.cbEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbEstado.FormattingEnabled = true;
+            this.cbEstado.Location = new System.Drawing.Point(535, 20);
+            this.cbEstado.Name = "cbEstado";
+            this.cbEstado.Size = new System.Drawing.Size(222, 21);
+            this.cbEstado.TabIndex = 12;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(463, 23);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(40, 13);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Estado";
+            // 
             // FNotifBlanqueosTC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -618,7 +628,6 @@ namespace PhalanxAdmin
         private System.Windows.Forms.ComboBox cbDominio;
         private System.Windows.Forms.ColumnHeader colId;
         private System.Windows.Forms.ColumnHeader colTicketNro;
-        private System.Windows.Forms.CheckBox chkPendiente;
         private System.Windows.Forms.ColumnHeader colEstado;
         private System.Windows.Forms.ColumnHeader colFechaNotificado;
         protected System.Windows.Forms.LinkLabel lnkGenerar;
@@ -631,6 +640,8 @@ namespace PhalanxAdmin
         protected System.Windows.Forms.TextBox txtDestino;
         private System.Windows.Forms.Label label4;
         protected System.Windows.Forms.Button btnDestino;
+        private System.Windows.Forms.ComboBox cbEstado;
+        protected System.Windows.Forms.Label label5;
 
     }
 }

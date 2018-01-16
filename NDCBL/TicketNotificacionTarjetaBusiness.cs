@@ -120,6 +120,9 @@ namespace NDCBL
             
             foreach (AplicacionNotificacionClaveEntity aplicacion in apps)
             {
+                usuarioprincipal = null;
+                usuariosecundario = null;
+
                 log.InfoFormat("Se busca la información de la Macro asociada a la aplicación '{0}'", aplicacion.Codigo);
                 macro = macrobusiness.Load(aplicacion.Macro.Id);
 
