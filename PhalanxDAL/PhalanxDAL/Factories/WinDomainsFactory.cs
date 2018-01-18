@@ -139,6 +139,7 @@ namespace PhalanxDAL.Factories
                 ICriteria DataSearch = session.CreateCriteria(typeof(WinDomainEntity));
 
                 DataSearch = DataSearch.Add(Expression.IsNotNull("LDAPPath"));
+                DataSearch = DataSearch.Add(Expression.Not(Expression.Eq("LDAPPath", string.Empty)));
 
                 DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("NtName"));
 
