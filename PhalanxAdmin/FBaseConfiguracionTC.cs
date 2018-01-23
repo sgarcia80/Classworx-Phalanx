@@ -19,11 +19,11 @@ namespace PhalanxAdmin
         private void FBaseConfiguracion_Load(object sender, EventArgs e)
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
-            lnkMacros.Enabled = UsrBL.AccParamConfigMacros(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkUsuarioLoginMacro.Enabled = UsrBL.AccParamConfigMacroUsuario(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkMacroErrores.Enabled = UsrBL.AccParamConfigMacroErrores(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkMacroClaves.Enabled = UsrBL.AccParamConfigMacroClaves(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkUsuarioTC.Enabled = UsrBL.AccParamConfigMacroUsuarioTarjeta(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            lnkMacros.Enabled = UsrBL.AccParamConfigMacros(this.Usuario);
+            lnkUsuarioLoginMacro.Enabled = UsrBL.AccParamConfigMacroUsuario(this.Usuario);
+            lnkMacroErrores.Enabled = UsrBL.AccParamConfigMacroErrores(this.Usuario);
+            lnkMacroClaves.Enabled = UsrBL.AccParamConfigMacroClaves(this.Usuario);
+            lnkUsuarioTC.Enabled = UsrBL.AccParamConfigMacroUsuarioTarjeta(this.Usuario);
         }
 
         private void lnkMacros_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

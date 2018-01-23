@@ -242,7 +242,7 @@ namespace PhalanxAdmin
         private void FMacroClaves_Load(object sender, EventArgs e)
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
-            bool edit = UsrBL.AccParamConfigMacroClavesRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            bool edit = UsrBL.AccParamConfigMacroClavesRW(this.Usuario);
 
             lnkEdit.Enabled = edit;
             lnkAdd.Enabled = edit;

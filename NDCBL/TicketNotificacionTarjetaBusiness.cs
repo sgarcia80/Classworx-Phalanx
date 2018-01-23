@@ -303,8 +303,9 @@ namespace NDCBL
 
                     sent++;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    log.Error(string.Format("Error al enviar el mail del ticket {0}", ticket.Id), ex);
                 }
             }
 

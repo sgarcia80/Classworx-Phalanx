@@ -42,14 +42,15 @@ namespace PhalanxAdmin
         private FormType m_FormType = FormType.View;
         private string user = string.Empty;
 
-        public FABMNotifBlanqueoTC(FormType formType)
+        public FABMNotifBlanqueoTC(FormType formType, string userlogon)
         {
             InitializeComponent();
 
             this._entity = new TicketNotificacionTarjetaEntity();
 
             m_FormType = formType;
-            this.user = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+
+            this.Usuario = userlogon;
 
             _readOnly = false;
         }
@@ -106,7 +107,7 @@ namespace PhalanxAdmin
             if (_entity.Id == 0)
             {
                 txtFecha.Text = DateTime.Now.ToString("dd/MM/yyyy");
-                txtUsuarioCarga.Text = user;
+                txtUsuarioCarga.Text = this.Usuario;
 
                 txtEstado.Text = "Pendiente";
 
@@ -251,7 +252,7 @@ namespace PhalanxAdmin
 
                         _entity.Fecha = DateTime.Now;
                         _entity.Solicitante = txtSolicitante.Text.Trim();
-                        _entity.UsuarioCarga = this.user;
+                        _entity.UsuarioCarga = this.Usuario;
 
                         if (int.TryParse(txtTicketNro.Text, out nro))
                         {
@@ -293,7 +294,7 @@ namespace PhalanxAdmin
 
                         _entity.Fecha = DateTime.Now;
                         _entity.Solicitante = txtSolicitante.Text.Trim();
-                        _entity.UsuarioCarga = this.user;
+                        _entity.UsuarioCarga = this.Usuario;
 
                         if (int.TryParse(txtTicketNro.Text, out nro))
                         {
@@ -332,7 +333,7 @@ namespace PhalanxAdmin
 
                 string debug = string.Empty;
 
-                TicketBL.EnviarEmail(_entity, out debug);
+                //TicketBL.EnviarEmail(_entity, out debug);
 
                 MessageBox.Show("Las Notificaciones se generaron correctamente", "Notificación de Blanqueo de Tarjeta de Crédito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }

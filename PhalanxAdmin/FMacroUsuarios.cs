@@ -246,7 +246,7 @@ namespace PhalanxAdmin
         private void FMacroUsuarios_Load(object sender, EventArgs e)
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
-            bool edit = UsrBL.AccParamConfigMacroUsuarioRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            bool edit = UsrBL.AccParamConfigMacroUsuarioRW(this.Usuario);
 
             lnkEdit.Enabled = edit;
             lnkAdd.Enabled = edit;

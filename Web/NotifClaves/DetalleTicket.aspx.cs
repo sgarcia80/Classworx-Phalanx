@@ -15,10 +15,10 @@ public partial class DetalleTicket : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!Page.User.Identity.IsAuthenticated)
-        {
-            Response.Redirect("~/Login.aspx");
-        }
+        //if (!Page.User.Identity.IsAuthenticated)
+        //{
+        //    Response.Redirect("~/Login.aspx");
+        //}
 
         int id = 0;
         string tipo = "ALTA";
@@ -87,17 +87,20 @@ public partial class DetalleTicket : System.Web.UI.Page
         TicketNotificacionBusiness business = new TicketNotificacionBusiness();
         TicketNotificacionEntity ticket = business.Load(id, tipo);
 
-        if (ticket.Subtipo == "TC")
+        if (ticket != null)
         {
-            tbTipoSolicitud.Text = "Blanqueo de Usuario de Tarjeta de Crédito";
+            if (ticket.Subtipo == "TC")
+            {
+                tbTipoSolicitud.Text = "Blanqueo de Usuario de Tarjeta de Crédito";
 
-            redirect = ConsultarTicketNotificacionTC(id);
-        }
-        else
-        {
-            tbTipoSolicitud.Text = "Blanqueo de Usuario de Aplicación";
+                redirect = ConsultarTicketNotificacionTC(id);
+            }
+            else
+            {
+                tbTipoSolicitud.Text = "Blanqueo de Usuario de Aplicación";
 
-            redirect = ConsultarTicketNotificacionBlanqueo(id);
+                redirect = ConsultarTicketNotificacionBlanqueo(id);
+            }
         }
 
         return redirect;

@@ -240,7 +240,7 @@ namespace PhalanxAdmin
         private void FMacroErrores_Load(object sender, EventArgs e)
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
-            bool edit = UsrBL.AccParamConfigMacroErroresRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            bool edit = UsrBL.AccParamConfigMacroErroresRW(this.Usuario);
 
             lnkEdit.Enabled = edit;
             lnkAdd.Enabled = edit;

@@ -42,7 +42,7 @@ namespace PhalanxAdmin
             lnkDominios.Enabled = UsrBL.AccAdmDominiosWin(this.Usuario);
             lnkAplicativosBPM.Enabled = UsrBL.AccParamAplicativosBMP(this.Usuario);
             lnkSubsidiarias.Enabled = UsrBL.AccParamSubsidiarias(this.Usuario);
-            lnkTarjetasCred.Enabled = UsrBL.AccParamConfigTC(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            lnkTarjetasCred.Enabled = UsrBL.AccParamConfigTC(this.Usuario);
         }
 
         private void lnkEdificios_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

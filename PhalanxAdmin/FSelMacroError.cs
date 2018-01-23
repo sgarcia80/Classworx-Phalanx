@@ -58,16 +58,6 @@ namespace PhalanxAdmin
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            //if (m_FormType == FormType.Update || m_FormType == FormType.Delete)
-            //{
-            //    _entity = TicketBL.Refresh(_entity);
-            //    if (_entity.ModifyingUser.Username == new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(System.Security.Principal.WindowsIdentity.GetCurrent().Name).Username)
-            //    {
-            //        _entity.ModifyingDate = null;
-            //        _entity.ModifyingUser = null;
-            //        TicketBL.Save(_entity, false, this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
-            //    }
-            //}
             this.DialogResult = DialogResult.Cancel;
         }
 

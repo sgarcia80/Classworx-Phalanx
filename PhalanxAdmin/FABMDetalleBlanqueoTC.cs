@@ -35,14 +35,16 @@ namespace PhalanxAdmin
         private FormType m_FormType = FormType.View;
         private string user = string.Empty;
 
-        public FABMDetalleBlanqueoTC(FormType formType)
+        public FABMDetalleBlanqueoTC(FormType formType, string userlogon)
         {
             InitializeComponent();
             m_FormType = formType;
+
+            this.Usuario = userlogon;
         }
 
-        public FABMDetalleBlanqueoTC(int id, bool ReadOnly, FormType formType)
-            : this(formType)
+        public FABMDetalleBlanqueoTC(int id, bool ReadOnly, FormType formType, string userlogon)
+            : this(formType, userlogon)
         {
             if (id > 0)
             {
@@ -54,7 +56,7 @@ namespace PhalanxAdmin
             }
 
             m_FormType = formType;
-            this.user = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            this.user = this.Usuario;
 
             _readOnly = ReadOnly;
         }
@@ -220,16 +222,6 @@ namespace PhalanxAdmin
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            //if (m_FormType == FormType.Update || m_FormType == FormType.Delete)
-            //{
-            //    _entity = TicketBL.Refresh(_entity);
-            //    if (_entity.ModifyingUser.Username == new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(System.Security.Principal.WindowsIdentity.GetCurrent().Name).Username)
-            //    {
-            //        _entity.ModifyingDate = null;
-            //        _entity.ModifyingUser = null;
-            //        TicketBL.Save(_entity, false, this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
-            //    }
-            //}
             this.DialogResult = DialogResult.Cancel;
         }
 

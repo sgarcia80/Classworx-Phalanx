@@ -50,7 +50,7 @@ namespace PhalanxAdmin
             btnSave.Enabled = false;
             btnCancel.Enabled = false;
 
-            bool edit = UsrBL.AccParamConfigMacrosRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            bool edit = UsrBL.AccParamConfigMacrosRW(this.Usuario);
             lnkDelete.Enabled = edit;
             lnkModify.Enabled = edit;
             lnkAdd.Enabled = edit;

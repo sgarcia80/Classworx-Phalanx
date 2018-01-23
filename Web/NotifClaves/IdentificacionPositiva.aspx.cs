@@ -47,7 +47,7 @@ public partial class IdentificacionPositiva : System.Web.UI.Page
                     nrodocumento = legajo.Numero;
                 }
 
-                btnVolver.PostBackUrl = Request.UrlReferrer.AbsolutePath;                                
+                btnVolver.PostBackUrl = Request.UrlReferrer.AbsolutePath;
             }
             else
             {
@@ -121,7 +121,7 @@ public partial class IdentificacionPositiva : System.Web.UI.Page
 
         //opciones.Sort(new RandomComparer());
 
-        foreach(string calle in Shuffle(opciones.ToArray(), 10))
+        foreach (string calle in Shuffle(opciones.ToArray(), 10))
             rblCalle.Items.Add(new ListItem(calle, calle));
 
         ArrayList numeros = new ArrayList(4);
@@ -145,7 +145,7 @@ public partial class IdentificacionPositiva : System.Web.UI.Page
 
         //numeros.Sort(new RandomComparer());
 
-        foreach (string num in Shuffle(numeros.ToArray(), 20))        
+        foreach (string num in Shuffle(numeros.ToArray(), 20))
             rblNumero.Items.Add(new ListItem(num, num));
     }
 
@@ -158,7 +158,7 @@ public partial class IdentificacionPositiva : System.Web.UI.Page
 
         fechas.Add(fecha.ToString("dd/MM/yyyy"));
 
-        int anio = fecha.Year + ( random.Next(1, 3) * ( random.Next(2) == 0 ? -1 : 1));
+        int anio = fecha.Year + (random.Next(1, 3) * (random.Next(2) == 0 ? -1 : 1));
 
         int mes;
 
@@ -197,7 +197,7 @@ public partial class IdentificacionPositiva : System.Web.UI.Page
         IList<string> tipos = m4lb.GetTiposDocumento();
 
         ArrayList opciones = new ArrayList();
-        
+
         foreach (string tipo in tipos)
             opciones.Add(tipo);
 
@@ -225,10 +225,10 @@ public partial class IdentificacionPositiva : System.Web.UI.Page
         foreach (string num in Shuffle(documentos.ToArray(), 50))
             rblDocumento.Items.Add(new ListItem(num, num));
     }
-    
+
     protected void btnAceptar_Click(object sender, EventArgs e)
     {
-        int ticketId = (int) Session["ticketId"];
+        int ticketId = (int)Session["ticketId"];
 
         string tipodocumento = string.Empty;
         string nrodocumento = string.Empty;
@@ -256,42 +256,51 @@ public partial class IdentificacionPositiva : System.Web.UI.Page
             nrodocumento = ticket.Documento;
             legajo = m4lb.GetByDocumento(tipodocumento, nrodocumento);
         }
-        
-        if (VerificarRespuestas(legajo))
+
+        try
         {
-            if (esNotif)
+            if (VerificarRespuestas(legajo))
             {
-                string url = string.Format("DetalleTicket.aspx?id={0}&tipo={1}", ticketId, "BLANQUEO");
-                Response.Redirect(url);
+                if (esNotif)
+                {
+                    string url = string.Format("DetalleTicket.aspx?id={0}&tipo={1}", ticketId, "BLANQUEO");
+                    Response.Redirect(url);
+                }
+                else
+                {
+                    Session["id"] = ticketId;
+
+                    Response.Redirect("tycip.aspx");
+                }
             }
             else
             {
-                Session["id"] = ticketId;
+                TicketNotificacionBlanqueoEntity ticket = null;
 
-                Response.Redirect("tycip.aspx");
+                if (esNotif)
+                {
+                    TicketNotificacionBlanqueoBusiness tnb = new TicketNotificacionBlanqueoBusiness();
+                    ticket = tnb.Cancelar(ticketId);
+                }
+
+                if (ticket != null && ticket.FechaCancelado.HasValue)
+                {
+                    lbMensaje.Text = "Se ha superado los intentos. Debe solicitar el blanqueo nuevamente.";
+                    btnAceptar.Enabled = false;
+                }
+                else
+                {
+                    lbMensaje.Text = "No se pudo realizar la identificación positiva con éxito";
+                }
+
+                btnAceptar.Visible = false;
             }
+
         }
-        else
+        catch (Exception ex)
         {
-            TicketNotificacionBlanqueoEntity ticket = null;
 
-            if (esNotif)
-            {
-                TicketNotificacionBlanqueoBusiness tnb = new TicketNotificacionBlanqueoBusiness();
-                ticket = tnb.Cancelar(ticketId);
-            }
-
-            if (ticket != null && ticket.FechaCancelado.HasValue)
-            {
-                lbMensaje.Text = "Se ha superado los intentos. Debe solicitar el blanqueo nuevamente.";
-                btnAceptar.Enabled = false;
-            }
-            else
-            {
-                lbMensaje.Text = "No se pudo realizar la identificación positiva con éxito";
-            }
-
-            btnAceptar.Visible = false;
+            throw;
         }
     }
 
@@ -351,9 +360,9 @@ public partial class IdentificacionPositiva : System.Web.UI.Page
         #endregion
     }
      * */
-    
+
     protected void btnVolver_Click(object sender, EventArgs e)
     {
-        Response.Redirect("AltaTemprana.aspx"); 
+        Response.Redirect("AltaTemprana.aspx");
     }
 }
