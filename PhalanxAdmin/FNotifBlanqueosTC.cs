@@ -56,11 +56,6 @@ namespace PhalanxAdmin
 
         private void FEquiposWin_Load(object sender, EventArgs e)
         {
-            //NDCBL.TicketNotificacionBlanqueoBusiness business = new TicketNotificacionBlanqueoBusiness();
-            //lnkAdd.Enabled = UsrBL.AccAdmEqWinRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            //lnkModify.Enabled = UsrBL.AccAdmEqWinRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            //lnkDelete.Enabled = UsrBL.AccAdmEqWinRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-
             this.lvLista.ListViewItemSorter = new cwxSorter();
             cwxSorter s = (cwxSorter)this.lvLista.ListViewItemSorter;
             s.Order = SortOrder.Descending;
@@ -376,7 +371,7 @@ namespace PhalanxAdmin
                 {
                     string debug = string.Empty;
 
-                    if (ticket.Estado == TicketNotificacionTarjetaEntity.EstadoTicket.Pendiente && !ticket.FechaNotificado.HasValue)
+                    if (ticket.Estado == TicketNotificacionTarjetaEntity.EstadoTicket.Pendiente)
                     {
                         collection.Add(ticket);
                     }
@@ -398,7 +393,7 @@ namespace PhalanxAdmin
 
         private void lnkAdd_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            FABMNotifBlanqueoTC form = new FABMNotifBlanqueoTC(FABMNotifBlanqueoTC.FormType.New);
+            FABMNotifBlanqueoTC form = new FABMNotifBlanqueoTC(FABMNotifBlanqueoTC.FormType.New, this.Usuario);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
@@ -425,7 +420,7 @@ namespace PhalanxAdmin
             Form form = null;
 
             //TODO
-            form = new FABMDetalleBlanqueoTC(ticket.Id, false, FABMDetalleBlanqueoTC.FormType.View);
+            form = new FABMDetalleBlanqueoTC(ticket.Id, false, FABMDetalleBlanqueoTC.FormType.View, this .Usuario);
 
             return form.ShowDialog();
         }
@@ -640,7 +635,8 @@ namespace PhalanxAdmin
                     ticket = item.Tag as TicketNotificacionTarjetaEntity;
 
                     if (ticket.Estado == TicketNotificacionTarjetaEntity.EstadoTicket.Generado ||
-                        ticket.Estado == TicketNotificacionTarjetaEntity.EstadoTicket.Ingresado)
+                        ticket.Estado == TicketNotificacionTarjetaEntity.EstadoTicket.Ingresado ||
+                        ticket.Estado == TicketNotificacionTarjetaEntity.EstadoTicket.Pendiente)
                     {
                         ticket.Estado = TicketNotificacionTarjetaEntity.EstadoTicket.Error;
                         ticket.Error = form.Error;
