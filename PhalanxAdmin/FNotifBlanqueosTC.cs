@@ -222,9 +222,6 @@ namespace PhalanxAdmin
 
                 lviArr[i] = new ListViewItem();
                 lviArr[i].Text = entity.Id.ToString();
-                lviArr[i].SubItems.Add("Blanqueo");
-                lviArr[i].SubItems.Add(entity.NumeroSolicitud.ToString());
-                lviArr[i].SubItems.Add(entity.UsuarioDominio);
                 lviArr[i].SubItems.Add(entity.Usuario);
                 lviArr[i].SubItems.Add(entity.Aplicacion == null ? string.Empty : entity.Aplicacion.ToString());
                 lviArr[i].SubItems.Add(entity.UsuarioAplicacion);
@@ -232,6 +229,9 @@ namespace PhalanxAdmin
                 lviArr[i].SubItems.Add(entity.Solicitante);
                 lviArr[i].SubItems.Add(entity.Estado.ToString());
                 lviArr[i].SubItems.Add(entity.FechaNotificado.HasValue ? entity.FechaNotificado.Value.ToString("dd/MM/yyyy HH:mm") : string.Empty);
+                lviArr[i].SubItems.Add(entity.NumeroSolicitud.ToString());
+                lviArr[i].SubItems.Add("Blanqueo");
+                lviArr[i].SubItems.Add(entity.UsuarioDominio);
 
                 //lviArr[i].ImageIndex = ;
                 lviArr[i].Tag = entity;

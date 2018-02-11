@@ -38,6 +38,8 @@ namespace PhalanxAdmin
             this.txtDestino = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbEstado = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.cbDominio = new System.Windows.Forms.ComboBox();
             this.txtFilUsuarioApp = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -55,14 +57,14 @@ namespace PhalanxAdmin
             this.pnlList = new System.Windows.Forms.Panel();
             this.lvLista = new System.Windows.Forms.ListView();
             this.colId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colTipoNotif = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colTicketNro = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colUsuario = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colUsuarioApp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colFecha = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colSolicitante = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colEstado = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colFechaNotificado = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colTicketNro = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colTipoNotif = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.bwRefreshEntities = new System.ComponentModel.BackgroundWorker();
             this.xppnlPCs = new UIComponents.XPPanel(198);
@@ -74,8 +76,6 @@ namespace PhalanxAdmin
             this.lnkAdd = new System.Windows.Forms.LinkLabel();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.cbEstado = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
             colAplicacion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             colDominioApp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
@@ -188,6 +188,24 @@ namespace PhalanxAdmin
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de búsqueda";
+            // 
+            // cbEstado
+            // 
+            this.cbEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbEstado.FormattingEnabled = true;
+            this.cbEstado.Location = new System.Drawing.Point(535, 20);
+            this.cbEstado.Name = "cbEstado";
+            this.cbEstado.Size = new System.Drawing.Size(222, 21);
+            this.cbEstado.TabIndex = 12;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(463, 23);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(40, 13);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Estado";
             // 
             // cbDominio
             // 
@@ -331,16 +349,16 @@ namespace PhalanxAdmin
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvLista.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colId,
-            this.colTipoNotif,
-            this.colTicketNro,
-            colDominioApp,
             this.colUsuario,
             colAplicacion,
             this.colUsuarioApp,
             this.colFecha,
             this.colSolicitante,
             this.colEstado,
-            this.colFechaNotificado});
+            this.colFechaNotificado,
+            this.colTicketNro,
+            this.colTipoNotif,
+            colDominioApp});
             this.lvLista.FullRowSelect = true;
             this.lvLista.HideSelection = false;
             this.lvLista.Location = new System.Drawing.Point(18, 6);
@@ -360,26 +378,15 @@ namespace PhalanxAdmin
             this.colId.Text = "Notif. Nro.";
             this.colId.Width = 80;
             // 
-            // colTipoNotif
-            // 
-            this.colTipoNotif.Text = "Tipo Notif.";
-            this.colTipoNotif.Width = 80;
-            // 
-            // colTicketNro
-            // 
-            this.colTicketNro.Tag = "Numeric";
-            this.colTicketNro.Text = "Ticket Nro.";
-            this.colTicketNro.Width = 80;
-            // 
             // colUsuario
             // 
             this.colUsuario.Text = "Usuario Red";
-            this.colUsuario.Width = 94;
+            this.colUsuario.Width = 80;
             // 
             // colUsuarioApp
             // 
             this.colUsuarioApp.Text = "Usuario App";
-            this.colUsuarioApp.Width = 97;
+            this.colUsuarioApp.Width = 80;
             // 
             // colFecha
             // 
@@ -391,12 +398,12 @@ namespace PhalanxAdmin
             // colSolicitante
             // 
             this.colSolicitante.Text = "Solicitante";
-            this.colSolicitante.Width = 111;
+            this.colSolicitante.Width = 80;
             // 
             // colEstado
             // 
             this.colEstado.Text = "Estado";
-            this.colEstado.Width = 100;
+            this.colEstado.Width = 70;
             // 
             // colFechaNotificado
             // 
@@ -404,6 +411,17 @@ namespace PhalanxAdmin
             this.colFechaNotificado.Text = "Fecha Notif.";
             this.colFechaNotificado.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.colFechaNotificado.Width = 117;
+            // 
+            // colTicketNro
+            // 
+            this.colTicketNro.Tag = "Numeric";
+            this.colTicketNro.Text = "Ticket Nro.";
+            this.colTicketNro.Width = 80;
+            // 
+            // colTipoNotif
+            // 
+            this.colTipoNotif.Text = "Tipo Notif.";
+            this.colTipoNotif.Width = 80;
             // 
             // imageList
             // 
@@ -546,24 +564,6 @@ namespace PhalanxAdmin
             this.lnkAdd.Text = "Agregar Blanqueo TC";
             this.lnkAdd.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
             this.lnkAdd.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAdd_LinkClicked);
-            // 
-            // cbEstado
-            // 
-            this.cbEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbEstado.FormattingEnabled = true;
-            this.cbEstado.Location = new System.Drawing.Point(535, 20);
-            this.cbEstado.Name = "cbEstado";
-            this.cbEstado.Size = new System.Drawing.Size(222, 21);
-            this.cbEstado.TabIndex = 12;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(463, 23);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(40, 13);
-            this.label5.TabIndex = 11;
-            this.label5.Text = "Estado";
             // 
             // FNotifBlanqueosTC
             // 

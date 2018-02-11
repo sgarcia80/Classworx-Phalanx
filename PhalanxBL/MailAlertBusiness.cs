@@ -8,11 +8,14 @@ using PhalanxDAL.Factories;
 using PhalanxMAL;
 using System.Net.Mail;
 using System.Reflection;
+using log4net;
 
 namespace PhalanxBL
 {
     public class MailAlertBusiness
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(MailAlertBusiness));
+
         private MailTypeEntity _filMailType;
         private Nullable<bool> _filSentMail; // indica si se filtra por mails enviados o no enviados
 
@@ -872,6 +875,7 @@ namespace PhalanxBL
             }
             catch (Exception ex)
             {
+                log.Error("Error al enviar el mail", ex);
                 // no se pudo crear el mail;
             }
 
