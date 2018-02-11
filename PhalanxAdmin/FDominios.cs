@@ -13,6 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FDominios : PhalanxAdmin.FBaseSistema
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Dominios");
+            }
+        }
+
         protected WinDomainEntityCollection _entities;
         protected WinDomainEntity m_DomainEntity;
         protected WinDomainBusiness m_WinDomBus;

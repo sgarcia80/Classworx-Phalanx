@@ -171,40 +171,51 @@ namespace NDCDAL.Factories
                 ICriteria DataSearch = session.CreateCriteria(typeof(TicketNotificacionClaveEntity), "TNC");
 
                 if (_filApp != null)
+                {
                     DataSearch.Add(Expression.Eq("TNC.Aplicacion", _filApp));
-
+                }
                 if (_filUsuario != null && !string.IsNullOrEmpty(_filUsuario))
+                {
                     DataSearch = DataSearch.Add(Expression.Eq("TNC.Usuario", _filUsuario));
-
+                }
                 if (_filDominio != null && !string.IsNullOrEmpty(_filDominio))
+                {
                     DataSearch = DataSearch.Add(Expression.Eq("TNC.DominioUsuario", _filDominio));
-
+                }
                 if (_filFecha != null)
+                {
                     DataSearch = DataSearch.Add(Expression.Eq("TNC.Fecha", _filFecha));
-
+                }
                 if (_filFechaDesde != null)
+                {
                     DataSearch = DataSearch.Add(Expression.Ge("TNC.Fecha", _filFechaDesde));
-
+                }
                 if (_filFechaHasta != null)
+                {
                     DataSearch = DataSearch.Add(Expression.Le("TNC.Fecha", _filFechaHasta));
-
+                }
                 if (_filTipoDoc != null)
+                {
                     DataSearch = DataSearch.Add(Expression.Eq("TNC.TipoDocumento", _filTipoDoc));
-
+                }
                 if (_filTicket != null)
+                {
                     DataSearch = DataSearch.Add(Expression.Eq("TNC.NumeroSolicitud", _filTicket));
-
+                }
                 if (_filDoc != null)
+                {
                     DataSearch = DataSearch.Add(Expression.Eq("TNC.Documento", _filDoc));
-
+                }
                 if (FilFechaTyCNull != null)
+                {
                     DataSearch = FilFechaTyCNull.Value
-                        ? DataSearch.Add(Expression.IsNull("TNC.FechaAceptacionTyC"))
-                        : DataSearch.Add(Expression.IsNotNull("TNC.FechaAceptacionTyC"));
-
+                       ? DataSearch.Add(Expression.IsNull("TNC.FechaAceptacionTyC"))
+                       : DataSearch.Add(Expression.IsNotNull("TNC.FechaAceptacionTyC"));
+                }
                 if (_filErrado != null)
+                {
                     DataSearch = DataSearch.Add(Expression.Eq("TNC.Errado", _filErrado));
-
+                }
                 if (_filFilFechaVigencia != null)
                 {
                     DataSearch = DataSearch.Add(Expression.Or(Expression.IsNull("TNC.FechaVigencia"),
@@ -234,28 +245,33 @@ namespace NDCDAL.Factories
                 }
 
                 if (FilImpactaEnAD != null)
+                {
                     DataSearch = DataSearch.Add(Expression.Eq("TNC.ImpactaEnAD", FilImpactaEnAD));
-
+                }
                 if (FilMarcadoEnAD != null)
+                {
                     DataSearch = FilMarcadoEnAD.Value
-                        ? DataSearch.Add(Expression.IsNotNull("TNC.FechaSeteoMarcaAD"))
-                        : DataSearch.Add(Expression.IsNull("TNC.FechaSeteoMarcaAD"));
-
+                       ? DataSearch.Add(Expression.IsNotNull("TNC.FechaSeteoMarcaAD"))
+                       : DataSearch.Add(Expression.IsNull("TNC.FechaSeteoMarcaAD"));
+                }
                 if (FilMarcaEliminadaEnAD != null)
+                {
                     DataSearch = FilMarcaEliminadaEnAD.Value
-                        ? DataSearch.Add(Expression.IsNotNull("TNC.FechaEliminacionMarcaAD"))
-                        : DataSearch.Add(Expression.IsNull("TNC.FechaEliminacionMarcaAD"));
-
+                       ? DataSearch.Add(Expression.IsNotNull("TNC.FechaEliminacionMarcaAD"))
+                       : DataSearch.Add(Expression.IsNull("TNC.FechaEliminacionMarcaAD"));
+                }
                 if (FilVisualizado != null)
+                {
                     DataSearch = FilVisualizado.Value
-                        ? DataSearch.Add(Expression.IsNotNull("TNC.FechaAceptacionTyC"))
-                        : DataSearch.Add(Expression.IsNull("TNC.FechaAceptacionTyC"));
-
+                       ? DataSearch.Add(Expression.IsNotNull("TNC.FechaAceptacionTyC"))
+                       : DataSearch.Add(Expression.IsNull("TNC.FechaAceptacionTyC"));
+                }
                 if (FilVencido != null)
+                {
                     DataSearch = FilVencido.Value
                         ? DataSearch.Add(Expression.Lt("TNC.FechaExpiracionToken", DateTime.Now))
                         : DataSearch.Add(Expression.Gt("TNC.FechaExpiracionToken", DateTime.Now));
-
+                }
                 try
                 {
                     tickets = DataSearch.List<TicketNotificacionClaveEntity>();

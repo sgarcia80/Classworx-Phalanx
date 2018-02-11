@@ -13,6 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FPerfiles : PhalanxAdmin.FBaseAdmin
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Perfiles");
+            }
+        }
+
         protected PhxRoleEntityCollection _entities;
 
         public FPerfiles()

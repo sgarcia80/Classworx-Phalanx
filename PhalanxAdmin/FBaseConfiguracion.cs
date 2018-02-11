@@ -11,6 +11,14 @@ namespace PhalanxAdmin
 {
     public partial class FBaseConfiguracion : PhalanxAdmin.FBaseSistema
     {
+        public override string Titulo
+        {
+            get
+            {
+                return  GetTitlePath(base.Titulo, "Configuración");
+            }
+        }
+
         public FBaseConfiguracion()
         {
             InitializeComponent(); 
@@ -31,6 +39,7 @@ namespace PhalanxAdmin
             lnkWSBPM.Enabled = UsrBL.AccParamConfigWSBPM(this.Usuario);
             lnkWSCOBIS.Enabled = UsrBL.AccParamConfigWSCOBIS(this.Usuario);
             lnkNDC.Enabled = UsrBL.AccParamConfigNDC(this.Usuario);
+            
         }
 
         private void lnkEsquemas_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

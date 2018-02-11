@@ -18,6 +18,14 @@ namespace PhalanxAdmin
 {
     public partial class FReporteNotifClaves : PhalanxAdmin.FBaseReportes
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Notificaciones de Altas Pendientes (Red y Cobis)");
+            }
+        }
+
         protected IList _entities;
 
         AplicacionNotificacionClaveEntity aplicacion;
@@ -444,9 +452,16 @@ namespace PhalanxAdmin
 
                 try
                 {
-                    ticketBL.ReenviarEmailReclamo(collection);
+                    int cant = ticketBL.ReenviarEmailReclamo(collection);
 
-                    MessageBox.Show("Se reenviaron los mails correctamente", "Reenvio", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (cant == collection.Count)
+                    {
+                        MessageBox.Show("Se reenviaron los mails correctamente", "Reenvio", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show(string.Format("Se enviaron {0} de {1} reclamos", cant, collection.Count), "Reenvio", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
 
                     ExecEntitiesRefresh();
                 }

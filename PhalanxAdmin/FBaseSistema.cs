@@ -11,6 +11,14 @@ namespace PhalanxAdmin
 {
     public partial class FBaseSistema : PhalanxAdmin.FBasePanel
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Parametría");
+            }
+        }
+
         public FBaseSistema()
         {
             InitializeComponent();
@@ -34,6 +42,7 @@ namespace PhalanxAdmin
             lnkDominios.Enabled = UsrBL.AccAdmDominiosWin(this.Usuario);
             lnkAplicativosBPM.Enabled = UsrBL.AccParamAplicativosBMP(this.Usuario);
             lnkSubsidiarias.Enabled = UsrBL.AccParamSubsidiarias(this.Usuario);
+            lnkTarjetasCred.Enabled = UsrBL.AccParamConfigTC(this.Usuario);
         }
 
         private void lnkEdificios_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -63,6 +72,11 @@ namespace PhalanxAdmin
         private void lnkSubsidiarias_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             ((FPrincipal)this.MdiParent).OpenForm(new FSubsidiarias());
+        }
+
+        private void lnkTarjetasCred_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ((FPrincipal)this.MdiParent).OpenForm(new FConfiguracionTC());
         }
     }
 }

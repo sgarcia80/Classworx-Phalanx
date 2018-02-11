@@ -14,6 +14,14 @@ namespace PhalanxAdmin
 {
     public partial class FATMPwd : PhalanxAdmin.FBaseContrasenas
     {
+        public override string Titulo
+        {
+            get
+            {
+                return  GetTitlePath(base.Titulo, "ATMs");
+            }
+        }
+
 		protected IList _entities;
         protected string _filNombre = "";
         private bool? _filUsuariosActivos;

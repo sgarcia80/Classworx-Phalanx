@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+  <class name="NDCCommon.Entities.MacroErrorEntity,NDCCommon" table="macro_error">
+
+    <id name="Id" column="macro_error_id" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <property column="descripcion" name="Descripcion" type="String" />
+
+  </class>
+</hibernate-mapping>

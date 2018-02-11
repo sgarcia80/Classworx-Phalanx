@@ -11,6 +11,14 @@ namespace PhalanxAdmin
 {
     public partial class FBaseContrasenas : PhalanxAdmin.FBasePanel
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Contraseñas");
+            }
+        }
+
         public FBaseContrasenas()
         {
             InitializeComponent();

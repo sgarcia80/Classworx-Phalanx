@@ -41,10 +41,11 @@ namespace PhalanxAdmin
 
         private void FPrincipal_Load(object sender, EventArgs e)
         {
-            string Version = "3.17.9.17";
+            string Version = "3.17.2.18";
             this.Text += " v" + Version;
             try
             {
+                this.lblTitulo.Text = string.Empty;
                 //DBMgr.Application = App.Phalanx;
                 //DBMgr.NHAssembly = typeof(DBMgr).Assembly;
                 //DBMgr.Inicializar();
@@ -77,38 +78,6 @@ namespace PhalanxAdmin
                     else
                     {
                         PruebaOtroEsquema = true;
-                        /*
-                        // el esquema tiene acceso pero no esta activado en el sistema
-                        PhxContingenciaEntity ContE = ContBL.EsquemaActualHabilitado();
-                        if (ContE.EsProduccion)
-                        {
-                            // hay acceso a contingencia pero el activo es produccion, pregunta si quiere intentar conectar
-                            if (MessageBox.Show("El esquema de Contingencia no está habilitado, desea intentar conectar a Producción?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                            {
-                                PruebaOtroEsquema = true;
-                            }
-                            else
-                            {
-                                Application.Exit();
-                            }
-                        }
-                        else if (ContE.EsContingencia)
-                        {
-                            // hay acceso a produccion pero el activo es contingencia, pregunta si intenta conectar a contingencia
-                            if (MessageBox.Show("El esquema de Producción no está habilitado, desea intentar conectar a Contingencia?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                            {
-                                PruebaOtroEsquema = true;
-                            }
-                            else
-                            {
-                                Application.Exit();
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("Hubo un error al conectar al sistema");
-                            Application.Exit();
-                        }*/
                     }
                 }
                 if (PruebaOtroEsquema)
@@ -194,27 +163,6 @@ namespace PhalanxAdmin
                 }
                 this.MakeMenu();
                 this.lvIconsAdjust();
-                // temita de tiempos
-                /*
-                TimeSpan prue = DateTime.Now - new DateTime(2013, 4, 1);
-                int cantdias = Convert.ToInt32(prue.TotalDays);
-                bool pasara = true;
-                if (cantdias >= 30)
-                {
-                    if (cantdias > 60)
-                    {
-                        cantdias = 60;
-                    }
-                    Random random = new Random();
-                    int randomNumber = random.Next(cantdias, 80);
-                    if (randomNumber >= 65)
-                    {
-                        pasara = false;
-                        MessageBox.Show("Attempted to read or write protected memory. This is often an indication that other memory is corrupt. The application was unable to complete an operation.");
-                        Application.Exit();
-                        return;
-                    }
-                }*/
             }
             catch (Exception ex)
             {
@@ -229,7 +177,7 @@ namespace PhalanxAdmin
         {
             if (this.MdiChildren.Length > 0) //para saber si hay algun form hijo para resiziar
             {
-                this.ActiveMdiChild.Height = this.ClientSize.Height - this.panelIcons.Height - 4;
+                this.ActiveMdiChild.Height = this.ClientSize.Height - this.panelIcons.Height - 4 - this.pnlTitle.Height;
                 this.ActiveMdiChild.Width = this.ClientSize.Width - 4;
             }
         }
@@ -642,12 +590,17 @@ namespace PhalanxAdmin
             }
             if (!FormAlreadyLoaded)
             {
+                lblTitulo.Text = string.Empty;
+
                 this.AddOwnedForm(FormToOpen);
-                FormToOpen.Height = this.ClientSize.Height - this.panelIcons.Height - 4;
+                FormToOpen.Height = this.ClientSize.Height - this.panelIcons.Height - 4 - this.pnlTitle.Height;
                 FormToOpen.Width = this.ClientSize.Width - 4;
                 FormToOpen.MdiParent = this;
 
                 FormToOpen.Usuario = this.Usuario;
+                
+                lblTitulo.Text = FormToOpen.Titulo;
+
                 FormToOpen.Show();
                 this.MdiChildResize();
                 FormToOpen.BringToFront();

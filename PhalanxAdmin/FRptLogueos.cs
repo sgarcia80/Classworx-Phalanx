@@ -14,6 +14,14 @@ namespace PhalanxAdmin
 {
     public partial class FRptLogueos : PhalanxAdmin.FBaseAuditoria
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Logueos");
+            }
+        }
+
         public override string Id
         {
             get

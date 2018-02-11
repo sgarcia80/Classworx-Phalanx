@@ -13,6 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FBaseDeDatos : PhalanxAdmin.FBaseAdmin
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Base de Datos");
+            }
+        }
+
         protected DataBaseEntityCollection _entities;
         protected string _filNombre = "";
         protected bool? _filUsuariosActivos;

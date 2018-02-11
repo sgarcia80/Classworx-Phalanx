@@ -138,7 +138,7 @@ namespace NDCDAL.Factories
 
             using (ISession session = DBMgr.factory.OpenSession())
             {
-                ICriteria DataSearch = session.CreateCriteria(typeof(TicketNotificacionBlanqueoEntity), "TNB").AddOrder(Order.Desc("TNB.Fecha"));
+                ICriteria DataSearch = session.CreateCriteria(typeof(TicketNotificacionBlanqueoEntity), "TNB").AddOrder(Order.Desc("TNB.Id"));
 
                 if (_filApp != null)
                 {

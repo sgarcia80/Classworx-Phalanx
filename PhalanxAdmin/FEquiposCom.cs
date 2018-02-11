@@ -13,6 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FEquiposCom : PhalanxAdmin.FBaseAdmin
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Equipos de Comunicación");
+            }
+        }
+
         protected CommunicationDeviceTypeEntityCollection _tipo_cm;
         protected CommunicationDeviceEntityCollection _entitiesCD;
         protected string _filNombre = "";

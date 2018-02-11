@@ -13,6 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FEquiposAS400 : PhalanxAdmin.FBaseAdmin
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Equipos AS400");
+            }
+        }
+
         protected AS400EntityCollection _entitiesAS400;
         protected string _filNombre = "";
 

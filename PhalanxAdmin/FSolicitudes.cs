@@ -16,6 +16,14 @@ namespace PhalanxAdmin
 {
     public partial class FSolicitudes : PhalanxAdmin.FBaseReportes
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Planilla de Control de Utilización de Contraseñas en Custodia");
+            }
+        }
+
         private SolicitudPwdEntityCollection _PwdRqst;
         private RequestGroupEntityCollection _reqGroups;
         private ArrayList _filEstados;

@@ -151,7 +151,7 @@ namespace PhalanxAdmin
             this.lnkAsigPerm.TabStop = true;
             this.lnkAsigPerm.Text = "Asignación de Permisos";
             this.lnkAsigPerm.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkAsigPerm.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAsigPerf_LinkClicked);
+            this.lnkAsigPerm.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAsigPerm_LinkClicked);
             // 
             // lnkABMPerf
             // 

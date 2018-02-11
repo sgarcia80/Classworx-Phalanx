@@ -14,6 +14,14 @@ namespace PhalanxAdmin
 {
     public partial class FRptClavesGrpSol : PhalanxAdmin.FBaseReportes
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Claves por Grupos de Solicitudes");
+            }
+        }
+
         public FRptClavesGrpSol()
         {
             InitializeComponent();

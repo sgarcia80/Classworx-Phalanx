@@ -14,6 +14,14 @@ namespace PhalanxAdmin
 {
     public partial class FRptLstUsuarios : PhalanxAdmin.FBaseReportes
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Listado de Usuarios");
+            }
+        }
+
         public override string Id
         {
             get

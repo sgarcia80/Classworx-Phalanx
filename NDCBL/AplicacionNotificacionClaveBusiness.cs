@@ -41,6 +41,7 @@ namespace NDCBL
         {
             set { _filEsAppCobis = value; }
         }
+        public bool? FilEsEmuladores { private get;  set; }
 
         public AplicacionNotificacionClaveEntity GetById(int id)
         {
@@ -68,6 +69,7 @@ namespace NDCBL
 
             AppFac.FilNombre = _filNombre;
             AppFac.FilNotificable = _filNotificable;
+            AppFac.FilEsEmuladores = this.FilEsEmuladores;
 
             return AppFac.GetAll();
         }

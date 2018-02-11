@@ -58,7 +58,7 @@ namespace PhalanxAdmin
             this.xppnlMenu.Controls.Add(this.lnkMailsAlert);
             this.xppnlMenu.Controls.Add(this.lnkHistPwd);
             this.xppnlMenu.ImageItems.ImageSet = null;
-            this.xppnlMenu.Size = new System.Drawing.Size(184, 199);
+            this.xppnlMenu.Size = new System.Drawing.Size(184, 208);
             // 
             // lnkLogPwdChg
             // 
@@ -102,7 +102,6 @@ namespace PhalanxAdmin
             this.lnkHistPwd.TabStop = true;
             this.lnkHistPwd.Text = "Histórico de contraseñas";
             this.lnkHistPwd.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkHistPwd.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkHistPwd_LinkClicked_1);
             this.lnkHistPwd.Click += new System.EventHandler(this.lnkHistPwd_Click);
             // 
             // lnkLogueos

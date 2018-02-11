@@ -16,6 +16,14 @@ namespace PhalanxAdmin
 {
     public partial class FSubsidiarias : PhalanxAdmin.FBaseSistema
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Subsidiarias");
+            }
+        }
+
         protected SubsidiariaEntityCollection _entities;
         protected string _filNombre = "";
         public override string Id

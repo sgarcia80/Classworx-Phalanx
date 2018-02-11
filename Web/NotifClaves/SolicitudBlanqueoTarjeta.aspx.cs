@@ -17,6 +17,8 @@ using NDCCommon.Collections;
 public partial class SolicitudBlanqueoTarjeta : System.Web.UI.Page
 {
     private static readonly ILog log = LogManager.GetLogger(typeof(SolicitudBlanqueoTarjeta));
+    string Usuario = string.Empty;
+    string Dominio = string.Empty;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -24,18 +26,23 @@ public partial class SolicitudBlanqueoTarjeta : System.Web.UI.Page
         {
             Response.Redirect("~/Login.aspx");
         }
-        string usuario = string.Empty;
+       
+
         if (Session["Usuario"] != null)
         {
-            usuario = Session["Usuario"].ToString();
+            Usuario = Session["Usuario"].ToString();
         }
-
+        if (Session["Dominio"] != null)
+        {
+            Dominio = Session["Dominio"].ToString();
+        }
+        
         tbFecha.Text = DateTime.Now.ToString("dd/MM/yyyy");
-        tbUsuarioRed.Text = usuario;
+        tbUsuarioRed.Text = string.Format("{0}\\{1}", Dominio, Usuario);
 
         if (!IsPostBack)
         {
-            CargarTarjetas(usuario);
+            CargarTarjetas(Usuario);
 
             if (gvTickets.Rows.Count == 0)
             {
@@ -44,38 +51,6 @@ public partial class SolicitudBlanqueoTarjeta : System.Web.UI.Page
             }
         }
     }
-
-    //private void MostrarDatosTicketNotificacionClave(TicketNotificacionClaveEntity ticket)
-    //{
-    //    tbFecha.Text = ticket.Fecha.ToString();
-    //    tbApp.Text = ticket.Aplicacion.Nombre;
-    //    tbNroSolicitud.Text = ticket.NumeroSolicitud.ToString();
-    //    tbUsuario.Text = ticket.UsuarioAplicacion;
-
-    //    if (ticket.EsPasswordDominio)
-    //        trUsaContraRed.Visible = true;
-    //    else
-    //    {
-    //        trContra.Visible = true;
-    //        tbContra.Text = TicketNotificacionClaveBusiness.DesencriptarPassword(ticket.PasswordUsuarioAplicacion);
-    //    }
-    //}
-
-    //private void MostrarDatosTicketNotificacionBlanqueo(TicketNotificacionBlanqueoEntity ticket)
-    //{
-    //    tbFecha.Text = ticket.Fecha.ToString();
-    //    tbApp.Text = ticket.Aplicacion.Nombre;
-    //    tbNroSolicitud.Text = ticket.Id.ToString();
-    //    tbUsuario.Text = ticket.UsuarioAplicacion;
-
-    //    if (ticket.Aplicacion.EsAplicacionRed)
-    //    {
-    //        tbTipoSolicitud.Text = "Blanqueo de Usuario de Red";
-    //    }
-
-    //    trContra.Visible = true;
-    //    tbContra.Text = new TicketNotificacionBlanqueoBusiness().DesencriptarPassword(ticket.PasswordUsuarioAplicacion);
-    //}
 
     protected void btnAceptar_Click(object sender, EventArgs e)
     {
@@ -114,7 +89,7 @@ public partial class SolicitudBlanqueoTarjeta : System.Web.UI.Page
 
                     solicitud.Fecha = DateTime.Now;
                     solicitud.Solicitante = usuariotc.UsuarioRed;
-                    solicitud.UsuarioCarga = usuariotc.UsuarioRed;
+                    solicitud.UsuarioCarga = tbUsuarioRed.Text;
 
                     list.Add(solicitud);
                 }

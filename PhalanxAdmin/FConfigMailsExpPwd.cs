@@ -13,6 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FConfigMailsExpPwd : FBaseConfiguracion
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Mails");
+            }
+        }
+
         public FConfigMailsExpPwd()
         {
             InitializeComponent();

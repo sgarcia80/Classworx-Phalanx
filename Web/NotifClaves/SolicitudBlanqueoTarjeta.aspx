@@ -56,7 +56,7 @@
                 <td align="center" style="vertical-align: top; text-align: center;" valign="top">
                     &nbsp;</td>
                 <td style="width: auto; text-align: left; vertical-align: top; padding-top: 5px;">
-                    <asp:Label ID="Label2" runat="server" CssClass="LabelNormal">Seleccionar las TC a blanquear</asp:Label>
+                    <asp:Label ID="Label2" runat="server" CssClass="LabelNormal">Seleccionar los Usuarios a blanquear</asp:Label>
                 </td>
                 <td style="height: auto; width: auto;">
                     <asp:GridView ID="gvTickets" runat="server" AutoGenerateColumns="False" EmptyDataRowStyle-CssClass="labelCombo"

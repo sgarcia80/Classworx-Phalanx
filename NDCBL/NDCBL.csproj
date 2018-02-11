@@ -92,6 +92,12 @@
   <ItemGroup>
     <Compile Include="AplicacionNotificacionClaveBusiness.cs" />
     <Compile Include="AuditTicketNotificacionBusiness.cs" />
+    <Compile Include="TicketNotificacionTarjetaBusiness.cs" />
+    <Compile Include="MacroUsuarioTarjetaBusiness.cs" />
+    <Compile Include="MacroClaveBusiness.cs" />
+    <Compile Include="MacroErrorBusiness.cs" />
+    <Compile Include="MacroUsuarioBusiness.cs" />
+    <Compile Include="MacroBusiness.cs" />
     <Compile Include="TicketAutogestionCobisBusiness.cs" />
     <Compile Include="PalabraBlanqueoBusiness.cs" />
     <Compile Include="QuestionAnswerBusiness.cs" />

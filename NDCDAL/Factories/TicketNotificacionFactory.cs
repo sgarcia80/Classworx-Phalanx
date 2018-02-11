@@ -32,7 +32,7 @@ namespace NDCDAL.Factories
         {
             set { _filDominio = value; }
         }
-        
+
         public string FilTipoNotif
         {
             set { _filTipoNotif = value; }
@@ -78,6 +78,36 @@ namespace NDCDAL.Factories
             }
 
             return TiNotClaEC;
+        }
+
+        public TicketNotificacionEntity Load(int id, string tipo)
+        {
+            TicketNotificacionEntity ticket = null;
+            IList<TicketNotificacionEntity> tickets;
+
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                ICriteria DataSearch = session.CreateCriteria(typeof(TicketNotificacionEntity), "TNB").AddOrder(Order.Desc("TNB.Fecha")); ;
+
+                DataSearch = DataSearch.Add(Expression.Eq("Id", id));
+                DataSearch = DataSearch.Add(Expression.Eq("Tipo", tipo));
+
+                try
+                {
+                    tickets = DataSearch.List<TicketNotificacionEntity>();
+
+                    if (tickets.Count > 0)
+                    {
+                        ticket = tickets[0];
+                    }
+                }
+                catch
+                {
+                    
+                }
+            }
+
+            return ticket;
         }
     }
 }

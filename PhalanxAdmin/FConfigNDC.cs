@@ -13,6 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FConfigNDC : FBaseConfiguracion
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Notificación de Claves");
+            }
+        }
+
         public FConfigNDC()
         {
             InitializeComponent();

@@ -34,6 +34,7 @@ namespace Common
         public CwxException(string FriendlyMessage)
         {
             _friendly_message = FriendlyMessage;
+            _message = FriendlyMessage;
         }
 
         public CwxException(string Message, string Source)

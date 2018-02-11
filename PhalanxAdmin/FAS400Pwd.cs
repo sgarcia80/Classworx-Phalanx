@@ -14,6 +14,14 @@ namespace PhalanxAdmin
 {
     public partial class FAS400Pwd : PhalanxAdmin.FBaseContrasenas
     {
+        public override string Titulo
+        {
+            get
+            {
+                return  GetTitlePath(base.Titulo, "AS400");
+            }
+        }
+
 		protected IList _entities;
         protected string _filNombre = "";
         protected bool? _filUsuariosActivos;

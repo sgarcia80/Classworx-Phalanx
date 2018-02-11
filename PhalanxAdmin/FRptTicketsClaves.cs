@@ -17,6 +17,14 @@ namespace PhalanxAdmin
 {
     public partial class FRptTicketsClaves : PhalanxAdmin.FBaseReportes
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Listado de Tickets de Notificación de Claves");
+            }
+        }
+
         protected AplicacionNotificacionClaveEntity _filApp = null;
 
         public override string Id

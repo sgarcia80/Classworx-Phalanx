@@ -13,6 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FEquiposUnix : PhalanxAdmin.FBaseAdmin
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Equipos Unix");
+            }
+        }
+
         protected UnixPCEntityCollection _entitiesUnix;
         protected string _filNombre = "";
         public FEquiposUnix()

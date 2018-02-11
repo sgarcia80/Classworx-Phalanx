@@ -28,7 +28,7 @@ namespace PhalanxAdmin
         /// </summary>
         private void InitializeComponent()
         {
-            this.xppnlConfig = new UIComponents.XPPanel(218);
+            this.xppnlConfig = new UIComponents.XPPanel(214);
             this.lnkWSConectores = new System.Windows.Forms.LinkLabel();
             this.lnkNDC = new System.Windows.Forms.LinkLabel();
             this.lnkWSCOBIS = new System.Windows.Forms.LinkLabel();
@@ -56,7 +56,7 @@ namespace PhalanxAdmin
             // xppnlMenu
             // 
             this.xppnlMenu.ImageItems.ImageSet = null;
-            this.xppnlMenu.Location = new System.Drawing.Point(8, 234);
+            this.xppnlMenu.Location = new System.Drawing.Point(8, 230);
             // 
             // xppnlConfig
             // 
@@ -85,7 +85,7 @@ namespace PhalanxAdmin
             this.xppnlConfig.PanelGradient.End = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(223)))), ((int)(((byte)(247)))));
             this.xppnlConfig.PanelGradient.Start = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(223)))), ((int)(((byte)(247)))));
             this.xppnlConfig.PanelGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            this.xppnlConfig.Size = new System.Drawing.Size(184, 218);
+            this.xppnlConfig.Size = new System.Drawing.Size(184, 214);
             this.xppnlConfig.TabIndex = 4;
             this.xppnlConfig.TextColors.Foreground = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(93)))), ((int)(((byte)(198)))));
             this.xppnlConfig.TextHighlightColors.Foreground = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(142)))), ((int)(((byte)(255)))));
@@ -220,7 +220,6 @@ namespace PhalanxAdmin
 
         #endregion
 
-        private UIComponents.XPPanel xppnlConfig;
         protected System.Windows.Forms.LinkLabel lnkEsquemas;
         protected System.Windows.Forms.LinkLabel lnkATMs;
         protected System.Windows.Forms.LinkLabel lnkconfigMailsExpPwd;
@@ -228,6 +227,7 @@ namespace PhalanxAdmin
         protected System.Windows.Forms.LinkLabel lnkWSCOBIS;
         protected System.Windows.Forms.LinkLabel lnkNDC;
         protected System.Windows.Forms.LinkLabel lnkWSConectores;
+        protected UIComponents.XPPanel xppnlConfig;
 
     }
 }

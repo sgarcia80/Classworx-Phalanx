@@ -21,6 +21,22 @@ namespace PhalanxAdmin
             pnlXPGrps.MovePanel(0, xppnlMenu);
 
         }
+
+        public string GetTitlePath(string parent, string child)
+        {
+            string path = parent;
+
+            if (string.IsNullOrEmpty(parent.Trim()))
+            {
+                path = child;
+            }
+            else
+            {
+                path = string.Format("{0} / {1}", parent, child);
+            }
+
+            return path;
+        }
     }
 }
 
