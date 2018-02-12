@@ -97,7 +97,7 @@ namespace PhalanxNAL
             }
             else
             {
-                IEnumerable<string> propiedades = new string[] { "givenName", "sn", "streetAddress", "mail", "department", "physicalDeliveryOfficeName" };
+                IEnumerable<string> propiedades = new string[] { "givenName", "sn", "streetAddress", "mail", "department", "physicalDeliveryOfficeName", "title" };
                 string filter = LDAPBuscarNombreFilter.Replace("[username]", username);
                 IEnumerable<string> properties = propiedades;
                 Usuario.Username = username;
@@ -161,20 +161,15 @@ namespace PhalanxNAL
                             Usuario.Log += "|physicalDeliveryOfficeName|";
                             Usuario.Office += sr.Properties["physicalDeliveryOfficeName"][0].ToString();
                         }
+
+                        if (sr.Properties["title"] != null && sr.Properties["title"].Count > 0)
+                        {
+                            Usuario.Log += "|title|";
+                            Usuario.Title = sr.Properties["title"][0].ToString() + " ";
+                        }
+
                         break;
                     }
-                    /*
-                    Usuario.Log += "|sr.GetDirectoryEntry|";
-                    DirectoryEntry FoundUser = sr.GetDirectoryEntry();
-                    Usuario.Log += "|givenName|";
-                    Usuario.Name = FoundUser.Properties["givenName"].Value.ToString();
-                    Usuario.Log += "|sn|";
-                    Usuario.Surname = FoundUser.Properties["sn"].Value.ToString();
-                    Usuario.Log += "|mail|";
-                    Usuario.email = FoundUser.Properties["mail"].Value.ToString();
-                    Usuario.Log += "|streetAddress|";
-                    Usuario.Address = FoundUser.Properties["streetAddress"].Value.ToString();
-                    */
                 }
                 catch (Exception ex)
                 {
@@ -284,7 +279,7 @@ namespace PhalanxNAL
 
             return name;
         }
-
+        
         private static DirectoryEntry BuscarLDAPEntry(string path, string filter, IEnumerable<string> properties)
         {
             log.Info("Comienza busqueda LDAP");

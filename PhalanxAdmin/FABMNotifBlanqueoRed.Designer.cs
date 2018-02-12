@@ -35,6 +35,7 @@ namespace PhalanxAdmin
             this.label2 = new System.Windows.Forms.Label();
             this.txtFecha = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.picActivo = new System.Windows.Forms.PictureBox();
             this.btnGenerar = new System.Windows.Forms.Button();
             this.chkVisualizar = new System.Windows.Forms.CheckBox();
             this.tPassword1 = new System.Windows.Forms.TextBox();
@@ -51,9 +52,12 @@ namespace PhalanxAdmin
             this.txtSolicitante = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.txtEstado = new System.Windows.Forms.TextBox();
-            this.picActivo = new System.Windows.Forms.PictureBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtSolicitantePuesto = new System.Windows.Forms.TextBox();
+            this.picSolicitante = new System.Windows.Forms.PictureBox();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picActivo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picSolicitante)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -123,6 +127,19 @@ namespace PhalanxAdmin
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Usuario de Red";
             // 
+            // picActivo
+            // 
+            this.picActivo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.picActivo.ErrorImage = null;
+            this.picActivo.Image = ((System.Drawing.Image)(resources.GetObject("picActivo.Image")));
+            this.picActivo.Location = new System.Drawing.Point(413, 54);
+            this.picActivo.Margin = new System.Windows.Forms.Padding(0);
+            this.picActivo.Name = "picActivo";
+            this.picActivo.Size = new System.Drawing.Size(22, 17);
+            this.picActivo.TabIndex = 48;
+            this.picActivo.TabStop = false;
+            this.picActivo.Visible = false;
+            // 
             // btnGenerar
             // 
             this.btnGenerar.Location = new System.Drawing.Point(413, 76);
@@ -175,6 +192,7 @@ namespace PhalanxAdmin
             this.cbDomain.Sorted = true;
             this.cbDomain.TabIndex = 1;
             this.cbDomain.ValueMember = "Id";
+            this.cbDomain.SelectedIndexChanged += new System.EventHandler(this.cbDomain_SelectedIndexChanged);
             // 
             // label7
             // 
@@ -264,6 +282,7 @@ namespace PhalanxAdmin
             this.txtSolicitante.Name = "txtSolicitante";
             this.txtSolicitante.Size = new System.Drawing.Size(176, 20);
             this.txtSolicitante.TabIndex = 6;
+            this.txtSolicitante.Validating += new System.ComponentModel.CancelEventHandler(this.txtSolicitante_Validating);
             // 
             // label11
             // 
@@ -285,23 +304,46 @@ namespace PhalanxAdmin
             this.txtEstado.TabIndex = 8;
             this.txtEstado.TabStop = false;
             // 
-            // picActivo
+            // label3
             // 
-            this.picActivo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.picActivo.ErrorImage = null;
-            this.picActivo.Image = ((System.Drawing.Image)(resources.GetObject("picActivo.Image")));
-            this.picActivo.Location = new System.Drawing.Point(413, 54);
-            this.picActivo.Margin = new System.Windows.Forms.Padding(0);
-            this.picActivo.Name = "picActivo";
-            this.picActivo.Size = new System.Drawing.Size(22, 17);
-            this.picActivo.TabIndex = 48;
-            this.picActivo.TabStop = false;
-            this.picActivo.Visible = false;
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(17, 82);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(50, 13);
+            this.label3.TabIndex = 17;
+            this.label3.Text = "Puesto:";
+            // 
+            // txtSolicitantePuesto
+            // 
+            this.txtSolicitantePuesto.BackColor = System.Drawing.SystemColors.Control;
+            this.txtSolicitantePuesto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.txtSolicitantePuesto.Location = new System.Drawing.Point(97, 79);
+            this.txtSolicitantePuesto.Name = "txtSolicitantePuesto";
+            this.txtSolicitantePuesto.ReadOnly = true;
+            this.txtSolicitantePuesto.Size = new System.Drawing.Size(176, 20);
+            this.txtSolicitantePuesto.TabIndex = 18;
+            // 
+            // picSolicitante
+            // 
+            this.picSolicitante.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.picSolicitante.ErrorImage = null;
+            this.picSolicitante.Image = ((System.Drawing.Image)(resources.GetObject("picSolicitante.Image")));
+            this.picSolicitante.Location = new System.Drawing.Point(276, 56);
+            this.picSolicitante.Margin = new System.Windows.Forms.Padding(0);
+            this.picSolicitante.Name = "picSolicitante";
+            this.picSolicitante.Size = new System.Drawing.Size(22, 17);
+            this.picSolicitante.TabIndex = 49;
+            this.picSolicitante.TabStop = false;
+            this.picSolicitante.Visible = false;
             // 
             // FABMNotifBlanqueoRed
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(538, 308);
+            this.Controls.Add(this.picSolicitante);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.txtSolicitantePuesto);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.txtEstado);
             this.Controls.Add(this.label10);
@@ -329,9 +371,13 @@ namespace PhalanxAdmin
             this.Controls.SetChildIndex(this.label10, 0);
             this.Controls.SetChildIndex(this.txtEstado, 0);
             this.Controls.SetChildIndex(this.label11, 0);
+            this.Controls.SetChildIndex(this.txtSolicitantePuesto, 0);
+            this.Controls.SetChildIndex(this.label3, 0);
+            this.Controls.SetChildIndex(this.picSolicitante, 0);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picActivo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picSolicitante)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -361,6 +407,9 @@ namespace PhalanxAdmin
         protected System.Windows.Forms.TextBox tPassword1;
         protected System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox picActivo;
+        private System.Windows.Forms.Label label3;
+        protected System.Windows.Forms.TextBox txtSolicitantePuesto;
+        private System.Windows.Forms.PictureBox picSolicitante;
 
 
     }
