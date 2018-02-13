@@ -43,7 +43,7 @@ namespace PhalanxAdmin
             ATMUsrBL = new ATMUserBusiness(userlogon);
 
             m_FormType = formType;
-            lvLista.ListViewItemSorter = new cwxSorter();
+            lvLista.ListViewItemSorter = new cwxSorter(0, SortOrder.Descending);
         }
 
 

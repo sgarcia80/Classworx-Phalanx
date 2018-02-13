@@ -9,6 +9,16 @@ namespace PhalanxAdmin
 {
     class cwxSorter : System.Collections.IComparer
     {
+        public cwxSorter()
+        {
+        }
+
+        public cwxSorter(int column, SortOrder order)
+        {
+            this.Column = column;
+            this.Order = order;
+        }
+
         public int Column = 0;
         public System.Windows.Forms.SortOrder Order = SortOrder.Ascending;
         public int Compare(object x, object y) // IComparer Member   

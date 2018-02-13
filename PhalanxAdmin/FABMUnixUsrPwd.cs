@@ -33,7 +33,7 @@ namespace PhalanxAdmin
         public FABMUnixUsrPwd(FormType formType, string userlogon):base()
         {
             InitializeComponent();
-            lvLista.ListViewItemSorter = new cwxSorter();
+            lvLista.ListViewItemSorter = new cwxSorter(0, SortOrder.Descending);
             m_FormType = formType;
 
             this.Usuario = userlogon;

@@ -34,7 +34,7 @@ namespace PhalanxAdmin
         public FABMAS400UsrPwd(string userlogon) : base()
         {
             InitializeComponent();
-            lvLista.ListViewItemSorter = new cwxSorter();
+            lvLista.ListViewItemSorter = new cwxSorter(0, SortOrder.Descending);
 
         }
         public FABMAS400UsrPwd(FormType formType, string userlogon) : this(userlogon)
@@ -43,7 +43,7 @@ namespace PhalanxAdmin
 
             this.Usuario = userlogon;
             m_FormType = formType;
-            lvLista.ListViewItemSorter = new cwxSorter();
+            lvLista.ListViewItemSorter = new cwxSorter(0, SortOrder.Descending);
 
             m_AS400UserBusiness = new AS400UserBusiness(userlogon);
         }

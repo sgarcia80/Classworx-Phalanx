@@ -105,7 +105,7 @@ namespace PhalanxAdmin
         public FABMECPwd(FormType formType, string userlogon)
         {
             InitializeComponent();
-            lvLista.ListViewItemSorter = new cwxSorter();
+            lvLista.ListViewItemSorter = new cwxSorter(0, SortOrder.Descending);
 
             this.Usuario = userlogon;
             CDUsrBL = new CommunicationDeviceUserBusiness(this.Usuario);

@@ -34,7 +34,7 @@ namespace PhalanxAdmin
         public FABMDBPwd(FormType formType, string userlogon)
         {
             InitializeComponent();
-            lvLista.ListViewItemSorter = new cwxSorter();
+            lvLista.ListViewItemSorter = new cwxSorter(0, SortOrder.Descending);
 
             this.Usuario = userlogon;
             DBUsrBL = new DatabaseUserBusiness(this.Usuario);
