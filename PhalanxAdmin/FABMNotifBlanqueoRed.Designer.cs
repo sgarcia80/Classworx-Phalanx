@@ -31,7 +31,6 @@ namespace PhalanxAdmin
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FABMNotifBlanqueoRed));
             this.imageList = new System.Windows.Forms.ImageList(this.components);
-            this.lblFolioNro = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtFecha = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -64,7 +63,7 @@ namespace PhalanxAdmin
             // 
             this.groupBox1.Location = new System.Drawing.Point(0, 265);
             this.groupBox1.Size = new System.Drawing.Size(538, 43);
-            this.groupBox1.TabIndex = 16;
+            this.groupBox1.TabIndex = 15;
             // 
             // btnAceptar
             // 
@@ -80,14 +79,6 @@ namespace PhalanxAdmin
             this.imageList.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList.Images.SetKeyName(0, "Active.jpg");
             this.imageList.Images.SetKeyName(1, "Desactivo.jpg");
-            // 
-            // lblFolioNro
-            // 
-            this.lblFolioNro.AutoSize = true;
-            this.lblFolioNro.Location = new System.Drawing.Point(92, 198);
-            this.lblFolioNro.Name = "lblFolioNro";
-            this.lblFolioNro.Size = new System.Drawing.Size(0, 13);
-            this.lblFolioNro.TabIndex = 15;
             // 
             // label2
             // 
@@ -145,7 +136,7 @@ namespace PhalanxAdmin
             this.btnGenerar.Location = new System.Drawing.Point(413, 76);
             this.btnGenerar.Name = "btnGenerar";
             this.btnGenerar.Size = new System.Drawing.Size(61, 23);
-            this.btnGenerar.TabIndex = 10;
+            this.btnGenerar.TabIndex = 6;
             this.btnGenerar.Text = "Generar";
             this.btnGenerar.UseVisualStyleBackColor = true;
             this.btnGenerar.Click += new System.EventHandler(this.btnGenerar_Click);
@@ -156,7 +147,7 @@ namespace PhalanxAdmin
             this.chkVisualizar.Location = new System.Drawing.Point(86, 106);
             this.chkVisualizar.Name = "chkVisualizar";
             this.chkVisualizar.Size = new System.Drawing.Size(126, 17);
-            this.chkVisualizar.TabIndex = 9;
+            this.chkVisualizar.TabIndex = 7;
             this.chkVisualizar.Text = "Visualizar contraseña";
             this.chkVisualizar.UseVisualStyleBackColor = true;
             this.chkVisualizar.CheckedChanged += new System.EventHandler(this.chkVisualizar_CheckedChanged);
@@ -170,7 +161,7 @@ namespace PhalanxAdmin
             this.tPassword1.PasswordChar = '*';
             this.tPassword1.ReadOnly = true;
             this.tPassword1.Size = new System.Drawing.Size(320, 22);
-            this.tPassword1.TabIndex = 8;
+            this.tPassword1.TabIndex = 5;
             // 
             // label1
             // 
@@ -178,7 +169,7 @@ namespace PhalanxAdmin
             this.label1.Location = new System.Drawing.Point(6, 80);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(61, 13);
-            this.label1.TabIndex = 7;
+            this.label1.TabIndex = 4;
             this.label1.Text = "Contraseña";
             // 
             // cbDomain
@@ -311,7 +302,7 @@ namespace PhalanxAdmin
             this.label3.Location = new System.Drawing.Point(17, 82);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(50, 13);
-            this.label3.TabIndex = 17;
+            this.label3.TabIndex = 9;
             this.label3.Text = "Puesto:";
             // 
             // txtSolicitantePuesto
@@ -322,7 +313,7 @@ namespace PhalanxAdmin
             this.txtSolicitantePuesto.Name = "txtSolicitantePuesto";
             this.txtSolicitantePuesto.ReadOnly = true;
             this.txtSolicitantePuesto.Size = new System.Drawing.Size(176, 20);
-            this.txtSolicitantePuesto.TabIndex = 18;
+            this.txtSolicitantePuesto.TabIndex = 10;
             // 
             // picSolicitante
             // 
@@ -355,10 +346,8 @@ namespace PhalanxAdmin
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtFecha);
-            this.Controls.Add(this.lblFolioNro);
             this.Name = "FABMNotifBlanqueoRed";
             this.Load += new System.EventHandler(this.FABMDBPwd_Load);
-            this.Controls.SetChildIndex(this.lblFolioNro, 0);
             this.Controls.SetChildIndex(this.txtFecha, 0);
             this.Controls.SetChildIndex(this.label2, 0);
             this.Controls.SetChildIndex(this.groupBox2, 0);
@@ -386,7 +375,6 @@ namespace PhalanxAdmin
         #endregion
 
         private System.Windows.Forms.ImageList imageList;
-        protected System.Windows.Forms.Label lblFolioNro;
         private System.Windows.Forms.Label label2;
         protected System.Windows.Forms.TextBox txtFecha;
         protected System.Windows.Forms.GroupBox groupBox2;

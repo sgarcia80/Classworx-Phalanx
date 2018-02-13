@@ -111,6 +111,7 @@ namespace PhalanxAdmin
             if (_readOnly)
             {
                 btnAceptar.Enabled = false;
+                btnGenerar.Enabled = false;
             }
             else
             {
@@ -153,6 +154,7 @@ namespace PhalanxAdmin
                 txtUsuarioCarga.Text = _entity.UsuarioCarga;
 
                 txtSolicitante.Text = _entity.Solicitante;
+                txtSolicitantePuesto.Text = _entity.SolicitantePuesto;
 
                 txtEstado.Text = _entity.FechaAceptacionTyC.HasValue ? "Notificado" : "Pendiente";
 
@@ -493,19 +495,28 @@ namespace PhalanxAdmin
 
         private void txtUser_Validating(object sender, CancelEventArgs e)
         {
-            ValidarUsuarioRed();
+            if (!this._readOnly)
+            {
+                ValidarUsuarioRed();
+            }
         }
 
         private void txtSolicitante_Validating(object sender, CancelEventArgs e)
         {
-            ValidarUsuarioSolicitante();
+            if (!this._readOnly)
+            {
+                ValidarUsuarioSolicitante();
+            }
         }
 
         private void cbDomain_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ValidarUsuarioRed();
+            if (!this._readOnly)
+            {
+                ValidarUsuarioRed();
 
-            ValidarUsuarioSolicitante();
+                ValidarUsuarioSolicitante();
+            }
         }
     }
 }
