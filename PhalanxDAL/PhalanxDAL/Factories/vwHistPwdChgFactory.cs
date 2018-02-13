@@ -81,7 +81,7 @@ namespace PhalanxDAL.Factories
                     DataSearch = DataSearch.Add(Expression.Lt("DChange", FilFHasta.Value.Date.AddDays(1)));
                 }
                 DataSearch = DataSearch.AddOrder(Order.Asc("Folio"));
-                DataSearch = DataSearch.AddOrder(Order.Asc("DChange"));
+                DataSearch = DataSearch.AddOrder(Order.Desc("DChange"));
 
 
                 lstWLUs = DataSearch.List<vwHistPwdChgEntity>();
