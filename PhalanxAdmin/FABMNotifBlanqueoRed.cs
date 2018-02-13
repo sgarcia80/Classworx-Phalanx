@@ -315,7 +315,7 @@ namespace PhalanxAdmin
                 {
                     string debug = string.Empty;
 
-                    TicketBL.EnviarEmail(_entity, out debug);
+                    TicketBL.EnviarEmailRed(_entity, out debug);
 
                     _entity.Id = Id;
                     MessageBox.Show("La Notificación de Blanqueo de Red se generó correctamente", "Notificación de Blanqueo Red", MessageBoxButtons.OK, MessageBoxIcon.Information);
