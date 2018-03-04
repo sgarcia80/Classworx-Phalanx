@@ -4,6 +4,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using NDCCommon.Entities;
+using NDCBL;
 
 public partial class AutogestionCOBIS : System.Web.UI.Page
 {
@@ -14,6 +15,12 @@ public partial class AutogestionCOBIS : System.Web.UI.Page
             Response.Redirect("~/Login.aspx");
         }
 
+        BloqueoBusiness bloqueoBus = new BloqueoBusiness();
+        bool bloqueoCobis = bloqueoBus.IsBloqueoActivo(BloqueoEntity.TipoBLoqueo.AutogestionCobis);
+
+        lblBloqueoCobis.Visible = bloqueoCobis;
+        btnCambioClave.Enabled = !bloqueoCobis;
+        btnDesbloqueoCOBIS.Enabled = !bloqueoCobis;
     }
     protected void btnVolver_Click(object sender, EventArgs e)
     {

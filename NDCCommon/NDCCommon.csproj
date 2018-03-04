@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="Collections\AplicacionNotificacionClaveEntityCollectionCollection.cs" />
     <Compile Include="Collections\AuditTicketNotificacionEntityCollection.cs" />
+    <Compile Include="Collections\BloqueoEntityCollection.cs" />
     <Compile Include="Collections\TicketNotificacionTarjetaEntityCollection.cs" />
     <Compile Include="Collections\MacroUsuarioTarjetaEntityCollection.cs" />
     <Compile Include="Collections\MacroClaveEntityCollection.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="Collections\TicketNotificacionClaveEntityCollection.cs" />
     <Compile Include="Entities\AplicacionNotificacionClaveEntity.cs" />
     <Compile Include="Entities\AuditTicketNotificacionEntity.cs" />
+    <Compile Include="Entities\BloqueoEntity.cs" />
     <Compile Include="Entities\MacroArchivoEntity.cs" />
     <Compile Include="Entities\TicketNotificacionTarjetaEntity.cs" />
     <Compile Include="Entities\MacroUsuarioTarjetaEntity.cs" />
