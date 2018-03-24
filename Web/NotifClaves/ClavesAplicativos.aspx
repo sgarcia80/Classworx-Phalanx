@@ -13,7 +13,8 @@
                     OnClick="btnCOBIS_Click" Height="60px" BorderWidth="2" />
             </td>
             <td align="left" style="font-weight: normal;">
-                Permite realizar el Desbloqueo o Cambiar la contraseña de COBIS
+                Permite realizar el Desbloqueo o Cambiar la contraseña de COBIS<br />
+                <asp:Label ID="lblBloqueoCobis" runat="server" ForeColor="Red" Font-Bold="true" Text="La Autogestión Cobis está temporalmente deshabilitada."></asp:Label>
             </td>
         </tr>
         <tr>

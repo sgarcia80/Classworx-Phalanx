@@ -5,6 +5,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using NDCBL;
 using NDCCommon.Collections;
+using NDCCommon.Entities;
 
 public partial class ClavesAplicativos : System.Web.UI.Page
 {
@@ -44,10 +45,11 @@ public partial class ClavesAplicativos : System.Web.UI.Page
                 }
             }
 
-            //MacroUsuarioTarjetaBusiness tcBusiness = new MacroUsuarioTarjetaBusiness();
-            //bool esUsuarioTC = tcBusiness.EsUsuarioTC(usuario);
+            BloqueoBusiness bloqueoBus = new BloqueoBusiness();
+            bool bloqueoCobis = bloqueoBus.IsBloqueoActivo(BloqueoEntity.TipoBLoqueo.AutogestionCobis);
 
-            //panelTarjetas.Visible = esUsuarioTC;
+            lblBloqueoCobis.Visible = bloqueoCobis;
+            btnCOBIS.Enabled = !bloqueoCobis;
         }
     }
 

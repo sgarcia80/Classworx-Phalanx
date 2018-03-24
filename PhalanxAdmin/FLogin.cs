@@ -77,6 +77,8 @@ namespace PhalanxAdmin
             }
 
             txtUsuario.Text = user;
+            
+            this.ActiveControl = txtPassword;
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)

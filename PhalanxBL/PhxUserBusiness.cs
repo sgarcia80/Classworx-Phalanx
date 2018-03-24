@@ -300,6 +300,9 @@ namespace PhalanxBL
         private const string CONF_MACROUSERTC_RW = "@CONF_MACROUSERTC_RW@";
         private const string CONF_MACROUSERTC_R = "@CONF_MACROUSERTC_R@";
 
+        private const string CONF_BLOQUEO_SRV_RW = "@CONF_BLOQUEO_SRV_RW@"; //Bloqueo de Servicios - Escritura
+        private const string CONF_BLOQUEO_SRV_R = "@CONF_BLOQUEO_SRV_R@"; //Bloqueo de Servicios - Lectura
+
         private const string RPT_USR_GRP_SOL = "@RPT_USR_GRP_SOL@";
         private const string RPT_USR_GRP_SEG_SOL = "@RPT_USR_GRP_SEG_SOL@";
         private const string RPT_PWD_GRP_SOL = "@RPT_PWD_GRP_SOL@";
@@ -786,6 +789,19 @@ namespace PhalanxBL
             string[] PrivilegiosAcceso = new string[] { CONF_NDC_RW, CONF_NDC_R };
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
+
+        public bool AccParamConfigBloqueoSrv(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { CONF_BLOQUEO_SRV_R, CONF_BLOQUEO_SRV_RW };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+
+        public bool AccParamConfigBloqueoSrvRW(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { CONF_BLOQUEO_SRV_RW };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+
 
         public bool AccParamConfigTC(string usernamedomain)
         {

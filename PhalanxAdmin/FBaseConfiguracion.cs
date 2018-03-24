@@ -39,7 +39,7 @@ namespace PhalanxAdmin
             lnkWSBPM.Enabled = UsrBL.AccParamConfigWSBPM(this.Usuario);
             lnkWSCOBIS.Enabled = UsrBL.AccParamConfigWSCOBIS(this.Usuario);
             lnkNDC.Enabled = UsrBL.AccParamConfigNDC(this.Usuario);
-            
+            lnkBloqueo.Enabled = UsrBL.AccParamConfigBloqueoSrv(this.Usuario);
         }
 
         private void lnkEsquemas_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -71,6 +71,11 @@ namespace PhalanxAdmin
         private void lnkWSConectores_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             ((FPrincipal)this.MdiParent).OpenForm(new FConfigWSConectores());
+        }
+
+        private void lnkBloqueo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ((FPrincipal)this.MdiParent).OpenForm(new FBloqueos());
         }
     }
 }
