@@ -16,6 +16,6 @@ namespace PhalanxNAL
         public string Office;
         public bool Exception = false;
         public bool Found = false;
-
+        public string Title;
     }
 }

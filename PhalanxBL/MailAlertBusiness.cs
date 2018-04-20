@@ -850,6 +850,37 @@ namespace PhalanxBL
             return null;
         }
 
+        public int? NotificacionBlanqueoRedMail(string usuario, string mail, int numeroSolicitud, string solicitante, DateTime fecha)
+        {
+            try
+            {
+                MailAlertEntity MailToSend = new MailAlertEntity();
+                MailToSend.MailType = new MailTypeFactory().GetMailType(MailTypeFactory.MailType.NotificacionBlanqueo);
+
+                PhxConfigBusiness PhxConfBL = new PhxConfigBusiness();
+
+                MailToSend.ToAddress = mail;
+
+                MailToSend.Body = ReplaceNotificacionBlanqueoRedMailTokens(PhxConfBL.GetConfigParam(ConfigCodes.BodyNotificacionBlanqueoRedMail).LongTxtValue, solicitante);
+                MailToSend.Subject = ReplaceNotificacionBlanqueoRedMailTokens(PhxConfBL.GetConfigParam(ConfigCodes.SubjectNotificacionBlanqueoRedMail).ShortTxtValue, solicitante);
+
+                MailAlertFactory MAF = new MailAlertFactory();
+
+                int IdMailAlert = MAF.Save(MailToSend);
+
+                if (IdMailAlert > 0)
+                    SendMail(MailToSend);
+
+                return IdMailAlert;
+            }
+            catch (Exception ex)
+            {
+                // no se pudo crear el mail;
+            }
+
+            return null;
+        }
+
         public int? ReclamoNotificacionBlanqueoMail(string usuario, string mail, int numeroSolicitud, string aplicativo, DateTime fecha)
         {
             try
@@ -1377,6 +1408,11 @@ namespace PhalanxBL
         {
             return text.Replace("[NombreSolicitante]", solicitante)
                             .Replace("[Aplicativo]", aplicacion);
+        }
+
+        private string ReplaceNotificacionBlanqueoRedMailTokens(string text, string solicitante)
+        {
+            return text.Replace("[NombreSolicitante]", solicitante);
         }
 
         private string ReplaceReclamoNotificacionBlanqueoMailTokens(string text, string usuario, string aplicacion, DateTime fecha)

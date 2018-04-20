@@ -33,7 +33,7 @@ namespace PhalanxAdmin
         public FABMUnixUsrPwd(FormType formType, string userlogon):base()
         {
             InitializeComponent();
-            lvLista.ListViewItemSorter = new cwxSorter();
+            lvLista.ListViewItemSorter = new cwxSorter(0, SortOrder.Descending);
             m_FormType = formType;
 
             this.Usuario = userlogon;
@@ -117,8 +117,12 @@ namespace PhalanxAdmin
                         this.Info = "";
                         CargarGruposSolicitudes();
                         CargarGruposSeguimiento();
-                        tabControl1.TabPages.Remove(tabControl1.TabPages[4]);
-                        tabControl1.TabPages.Remove(tabControl1.TabPages[3]);
+
+                        if (tabControl1.TabCount == 5)
+                        {
+                            tabControl1.TabPages.Remove(tabControl1.TabPages[4]);
+                            tabControl1.TabPages.Remove(tabControl1.TabPages[3]);
+                        }
                         break;
                     }
                 case FormType.Update:
@@ -187,7 +191,11 @@ namespace PhalanxAdmin
                         ExecEntitiesRefresh();
                         pnlGruposSolicitudes.Visible = false;
                         pnlGruposSeguimientos.Visible = false;
-                        tabControl1.TabPages.Remove(tabControl1.TabPages[4]);
+
+                        if (tabControl1.TabCount == 5)
+                        {
+                            tabControl1.TabPages.Remove(tabControl1.TabPages[4]);
+                        }
                         break;
                     }
             }
@@ -466,46 +474,6 @@ namespace PhalanxAdmin
 
         private void checkBoxVisualizar_CheckedChanged(object sender, EventArgs e)
         {
-            if (m_FormType == FormType.Update && checkBoxVisualizar.Tag == null &&
-               checkBoxVisualizar.Checked)
-            {
-                if (MessageBox.Show("Si visualiza la contraseña, se grabará un registro de log con este evento. Desea continuar?",
-                        "", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    checkBoxVisualizar.Tag = "logueado";
-
-                    int id = 0;
-                    if (this._entities != null && this._entities.Count > 0)
-                    {
-                        //Se obtiene el ultimo historial
-                        foreach (vwHistPwdChgEntity entity in this._entities)
-                        {
-                            if (entity.Id > id)
-                                id = entity.Id;
-                        }
-                    }
-
-                    HistPasswordChangeAccessBusiness accessBL = new HistPasswordChangeAccessBusiness();
-                    HistPasswordChangeAccessEntity accessE = new HistPasswordChangeAccessEntity();
-
-                    accessE.HistChgPwd = new HistPasswordChangeEntity();
-                    accessE.HistChgPwd.Id = id;
-                    accessE.PhxUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario);
-                    accessE.AccessDate = DateTime.Now;
-
-                    int Id = accessBL.Save(accessE);
-                    if (Id <= 0)
-                    {
-                        MessageBox.Show("Hubo un error al grabar log de visualización de contraseñas", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                else
-                {
-                    checkBoxVisualizar.Checked = false;
-                    return;
-                }
-            }
-
             if (checkBoxVisualizar.Checked)
             {
                 tPassword1.PasswordChar = new char();
@@ -520,6 +488,12 @@ namespace PhalanxAdmin
             }
             tPassword1.Refresh();
             tPassword2.Refresh();
+
+            if (checkBoxVisualizar.Checked)
+            {
+                int id = LoguearVisualizacion();
+            }
+            btnCopy.Enabled = checkBoxVisualizar.Checked;
         }
 
         private void cBoxActivo_CheckedChanged(object sender, EventArgs e)
@@ -1346,24 +1320,85 @@ namespace PhalanxAdmin
         {
             if (((ListView)sender).SelectedItems.Count == 1)
             {
-                if (MessageBox.Show("Si visualiza la contraseña, se grabará un registro de log con este evento. Desea continuar?",
-                    "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+
+                if (((ListView)sender).SelectedItems[0].SubItems[2].Text != cAsterisk)
+                    return;
+
+                int Id = LoguearVisualizacion(((vwHistPwdChgEntity)((ListView)sender).SelectedItems[0].Tag).Id);
+
+                if (Id > 0)
                 {
-                    HistPasswordChangeAccessBusiness accessBL = new HistPasswordChangeAccessBusiness();
-                    HistPasswordChangeAccessEntity accessE = new HistPasswordChangeAccessEntity();
+                    ((ListView)sender).SelectedItems[0].SubItems[2].Text =
+                       ((vwHistPwdChgEntity)((ListView)sender).SelectedItems[0].Tag).PlainPassword;
 
-                    accessE.HistChgPwd = new HistPasswordChangeEntity();
-                    accessE.HistChgPwd.Id = ((vwHistPwdChgEntity)((ListView)sender).SelectedItems[0].Tag).Id;
-                    accessE.PhxUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario);
-                    accessE.AccessDate = DateTime.Now;
+                    btnCopyHist.Enabled = true;
+                }
+            }
+        }
 
-                    int Id = accessBL.Save(accessE);
-                    if (Id > 0)
-                        ((ListView)sender).SelectedItems[0].SubItems[2].Text =
-                            ((vwHistPwdChgEntity)((ListView)sender).SelectedItems[0].Tag).PlainPassword;
-                    else
-                        MessageBox.Show("Hubo un error al grabar log de visualización de contraseñas", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        private int LoguearVisualizacion()
+        {
+            if (this.m_FormType == FormType.New)
+            {
+                return 1;
+            }
 
+            return LoguearVisualizacion(0);
+        }
+
+        private int LoguearVisualizacion(int id)
+        {
+            if (id == 0)
+            {
+                if (this._entities != null && this._entities.Count > 0)
+                {
+                    //Se obtiene el ultimo historial
+                    foreach (vwHistPwdChgEntity entity in this._entities)
+                    {
+                        if (entity.Id > id)
+                            id = entity.Id;
+                    }
+                }
+            }
+
+            HistPasswordChangeAccessBusiness accessBL = new HistPasswordChangeAccessBusiness();
+            HistPasswordChangeAccessEntity accessE = new HistPasswordChangeAccessEntity();
+
+            accessE.HistChgPwd = new HistPasswordChangeEntity();
+            accessE.HistChgPwd.Id = id;
+            accessE.PhxUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario);
+            accessE.AccessDate = DateTime.Now;
+
+            int Id = accessBL.Save(accessE);
+            if (Id <= 0)
+            {
+                MessageBox.Show("Hubo un error al grabar log de visualización de contraseñas", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return id;
+        }
+
+        private void btnCopy_Click(object sender, EventArgs e)
+        {
+            if (checkBoxVisualizar.Checked)
+            {
+                System.Windows.Forms.Clipboard.SetText(tPassword1.Text);
+            }
+        }
+
+        private void btnCopyHist_Click(object sender, EventArgs e)
+        {
+            if (lvLista.SelectedItems != null &&
+                lvLista.SelectedItems.Count > 0)
+            {
+                ListViewItem item = lvLista.SelectedItems[0];
+
+                vwHistPwdChgEntity entity = ((vwHistPwdChgEntity)item.Tag);
+                string text = lvLista.SelectedItems[0].SubItems[2].Text;
+
+                if (text == entity.PlainPassword)
+                {
+                    System.Windows.Forms.Clipboard.SetText(text);
                 }
             }
         }

@@ -14,6 +14,7 @@ using PhalanxCommon;
 using PhalanxBL;
 using PhalanxCommon.Collections;
 using log4net;
+using PhalanxNAL;
 
 namespace PhalanxAdmin
 {
@@ -110,6 +111,7 @@ namespace PhalanxAdmin
             if (_readOnly)
             {
                 btnAceptar.Enabled = false;
+                btnGenerar.Enabled = false;
             }
             else
             {
@@ -152,6 +154,7 @@ namespace PhalanxAdmin
                 txtUsuarioCarga.Text = _entity.UsuarioCarga;
 
                 txtSolicitante.Text = _entity.Solicitante;
+                txtSolicitantePuesto.Text = _entity.SolicitantePuesto;
 
                 txtEstado.Text = _entity.FechaAceptacionTyC.HasValue ? "Notificado" : "Pendiente";
 
@@ -232,6 +235,21 @@ namespace PhalanxAdmin
             }
 
             // chequear campos obligatorios
+
+            if (txtSolicitante.Text.Trim().Length > 0)
+            {
+                if (!picSolicitante.Visible)
+                {
+                    bool ok = ValidarUsuarioSolicitante();
+
+                    if (!ok)
+                    {
+                        MessageBox.Show("El Solicitante es inválido", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+            }
+
             // chequear pwd no vacia
             if (txtUser.Text.Trim().Length == 0)
             {
@@ -283,6 +301,7 @@ namespace PhalanxAdmin
             _entity.UsuarioAplicacion = _entity.Usuario;
             _entity.PasswordUsuarioAplicacion = tPassword1.Text;
             _entity.Solicitante = txtSolicitante.Text.Trim();
+            _entity.SolicitantePuesto = txtSolicitantePuesto.Text.Trim();
 
             _entity.UsuarioCarga = user;
 
@@ -298,7 +317,7 @@ namespace PhalanxAdmin
                 {
                     string debug = string.Empty;
 
-                    TicketBL.EnviarEmail(_entity, out debug);
+                    TicketBL.EnviarEmailRed(_entity, out debug);
 
                     _entity.Id = Id;
                     MessageBox.Show("La Notificación de Blanqueo de Red se generó correctamente", "Notificación de Blanqueo Red", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -422,9 +441,82 @@ namespace PhalanxAdmin
             return picActivo.Visible;
         }
 
+        private bool ValidarUsuarioSolicitante()
+        {
+            picSolicitante.Visible = false;
+            txtSolicitantePuesto.Text = string.Empty;
+
+            if (string.IsNullOrEmpty(txtSolicitante.Text.Trim()))
+            {
+                return false;
+            }
+
+            WinDomainEntity dominio = cbDomain.SelectedItem as WinDomainEntity;
+
+            string path = string.Empty;
+
+            if (!string.IsNullOrEmpty(dominio.LDAPPath))
+            {
+                path = dominio.LDAPPath;
+            }
+
+            try
+            {
+                picSolicitante.Visible = false;
+
+                DomainUser usuario = ActiveDirectoryHelper.BuscarUsuarioADPorNombre(path, txtSolicitante.Text.Trim());
+
+                if (usuario.Exception || !usuario.Found)
+                {
+                    log.InfoFormat(usuario.Log);
+
+                    if (usuario.Found)
+                    {
+                        log.InfoFormat("Se encontró el usuario '{0}' pero hubo un error.", txtSolicitante.Text.Trim());
+                    }
+                    else
+                    {
+                        log.InfoFormat("No se encontró el usuario '{0}'", txtSolicitante.Text.Trim());
+                    }
+                }
+                else
+                {
+                    txtSolicitantePuesto.Text = usuario.Title;
+                    picSolicitante.Visible = true;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return picActivo.Visible;
+        }
+
         private void txtUser_Validating(object sender, CancelEventArgs e)
         {
-            ValidarUsuarioRed();
+            if (!this._readOnly)
+            {
+                ValidarUsuarioRed();
+            }
+        }
+
+        private void txtSolicitante_Validating(object sender, CancelEventArgs e)
+        {
+            if (!this._readOnly)
+            {
+                ValidarUsuarioSolicitante();
+            }
+        }
+
+        private void cbDomain_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!this._readOnly)
+            {
+                ValidarUsuarioRed();
+
+                ValidarUsuarioSolicitante();
+            }
         }
     }
 }

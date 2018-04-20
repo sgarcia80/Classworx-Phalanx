@@ -133,6 +133,10 @@ namespace PhalanxAdmin
             this.label15 = new System.Windows.Forms.Label();
             this.btnBuscarSolicitudes = new System.Windows.Forms.Button();
             this.btnLimpiarSolicitudes = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.btnCopy = new System.Windows.Forms.Button();
+            this.btnCopyHist = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             columnHeader18 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -262,6 +266,7 @@ namespace PhalanxAdmin
             // 
             this.lps.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lps.Controls.Add(this.btnChkPwd);
+            this.lps.Controls.Add(this.btnCopy);
             this.lps.Controls.Add(this.chkPwdConcurrente);
             this.lps.Controls.Add(this.pictureBox2);
             this.lps.Controls.Add(this.checkBoxRealUser);
@@ -279,7 +284,7 @@ namespace PhalanxAdmin
             // 
             // btnChkPwd
             // 
-            this.btnChkPwd.Location = new System.Drawing.Point(412, 43);
+            this.btnChkPwd.Location = new System.Drawing.Point(412, 72);
             this.btnChkPwd.Name = "btnChkPwd";
             this.btnChkPwd.Size = new System.Drawing.Size(75, 23);
             this.btnChkPwd.TabIndex = 25;
@@ -571,6 +576,7 @@ namespace PhalanxAdmin
             // 
             // tpGeneral
             // 
+            this.tpGeneral.Controls.Add(this.textBox1);
             this.tpGeneral.Controls.Add(this.lblFolioTit);
             this.tpGeneral.Controls.Add(this.lblFolioNro);
             this.tpGeneral.Controls.Add(this.chkCheckeable);
@@ -995,7 +1001,9 @@ namespace PhalanxAdmin
             // 
             // pnlFilters
             // 
+            this.pnlFilters.Controls.Add(this.btnCopyHist);
             this.pnlFilters.Controls.Add(this.groupBox2);
+            this.pnlFilters.Controls.Add(this.textBox2);
             this.pnlFilters.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlFilters.Location = new System.Drawing.Point(0, 0);
             this.pnlFilters.Name = "pnlFilters";
@@ -1012,14 +1020,14 @@ namespace PhalanxAdmin
             this.groupBox2.Controls.Add(this.btnLimpiar);
             this.groupBox2.Location = new System.Drawing.Point(6, 8);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(528, 48);
+            this.groupBox2.Size = new System.Drawing.Size(481, 48);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Filtros de búsqueda";
             // 
             // txtFHasta
             // 
-            this.txtFHasta.Location = new System.Drawing.Point(247, 19);
+            this.txtFHasta.Location = new System.Drawing.Point(210, 19);
             this.txtFHasta.Mask = "00/00/0000";
             this.txtFHasta.Name = "txtFHasta";
             this.txtFHasta.Size = new System.Drawing.Size(90, 20);
@@ -1029,7 +1037,7 @@ namespace PhalanxAdmin
             // btnBuscar
             // 
             this.btnBuscar.BackColor = System.Drawing.SystemColors.Control;
-            this.btnBuscar.Location = new System.Drawing.Point(435, 18);
+            this.btnBuscar.Location = new System.Drawing.Point(388, 18);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(76, 21);
             this.btnBuscar.TabIndex = 7;
@@ -1039,7 +1047,7 @@ namespace PhalanxAdmin
             // 
             // txtFDesde
             // 
-            this.txtFDesde.Location = new System.Drawing.Point(78, 19);
+            this.txtFDesde.Location = new System.Drawing.Point(55, 19);
             this.txtFDesde.Mask = "00/00/0000";
             this.txtFDesde.Name = "txtFDesde";
             this.txtFDesde.Size = new System.Drawing.Size(90, 20);
@@ -1049,7 +1057,7 @@ namespace PhalanxAdmin
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(206, 22);
+            this.label11.Location = new System.Drawing.Point(169, 22);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(35, 13);
             this.label11.TabIndex = 14;
@@ -1067,7 +1075,7 @@ namespace PhalanxAdmin
             // btnLimpiar
             // 
             this.btnLimpiar.BackColor = System.Drawing.SystemColors.Control;
-            this.btnLimpiar.Location = new System.Drawing.Point(353, 18);
+            this.btnLimpiar.Location = new System.Drawing.Point(306, 18);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(76, 21);
             this.btnLimpiar.TabIndex = 6;
@@ -1286,6 +1294,52 @@ namespace PhalanxAdmin
             this.btnLimpiarSolicitudes.UseVisualStyleBackColor = false;
             this.btnLimpiarSolicitudes.Click += new System.EventHandler(this.btnLimpiarSolicitudes_Click);
             // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.textBox1.ForeColor = System.Drawing.Color.Blue;
+            this.textBox1.Location = new System.Drawing.Point(524, 305);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(244, 34);
+            this.textBox1.TabIndex = 56;
+            this.textBox1.Text = "Si visualiza la Contraseña se grabará un registro de log con este evento";
+            // 
+            // btnCopy
+            // 
+            this.btnCopy.Enabled = false;
+            this.btnCopy.Location = new System.Drawing.Point(412, 42);
+            this.btnCopy.Name = "btnCopy";
+            this.btnCopy.Size = new System.Drawing.Size(75, 23);
+            this.btnCopy.TabIndex = 55;
+            this.btnCopy.Text = "Copiar";
+            this.btnCopy.UseVisualStyleBackColor = true;
+            this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
+            // 
+            // btnCopyHist
+            // 
+            this.btnCopyHist.Enabled = false;
+            this.btnCopyHist.Location = new System.Drawing.Point(495, 25);
+            this.btnCopyHist.Name = "btnCopyHist";
+            this.btnCopyHist.Size = new System.Drawing.Size(75, 23);
+            this.btnCopyHist.TabIndex = 57;
+            this.btnCopyHist.Text = "Copiar";
+            this.btnCopyHist.UseVisualStyleBackColor = true;
+            this.btnCopyHist.Click += new System.EventHandler(this.btnCopyHist_Click);
+            // 
+            // textBox2
+            // 
+            this.textBox2.BackColor = System.Drawing.SystemColors.Control;
+            this.textBox2.ForeColor = System.Drawing.Color.Blue;
+            this.textBox2.Location = new System.Drawing.Point(576, 19);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(192, 34);
+            this.textBox2.TabIndex = 56;
+            this.textBox2.Text = "Si visualiza la Contraseña se grabará un registro de log con este evento";
+            // 
             // FABMWinUsrPwd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1321,6 +1375,7 @@ namespace PhalanxAdmin
             this.statusbar.ResumeLayout(false);
             this.statusbar.PerformLayout();
             this.pnlFilters.ResumeLayout(false);
+            this.pnlFilters.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.tpSolicitudes.ResumeLayout(false);
@@ -1432,5 +1487,9 @@ namespace PhalanxAdmin
         private System.Windows.Forms.ComboBox cbEstadoSolicitud;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.ImageList imageList;
+        private System.Windows.Forms.Button btnCopy;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button btnCopyHist;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }

@@ -23,17 +23,25 @@ namespace PhalanxAdmin
         public string Title
         {
             set { lTitle.Text = value; }
-            
+
         }
 
         public string Info
         {
-            set { lInfo.Text = value; }
+            set
+            {
+                lInfo.Text = value;
+
+                int x = this.Width - lInfo.Width - 15;
+                int y = lInfo.Location.Y;
+
+                lInfo.Location = new Point(x, y);
+            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void panel1_MouseMove(object sender, MouseEventArgs e)

@@ -436,7 +436,16 @@ namespace NDCBL
             {
                 try
                 {
-                    bool envio = this.EnviarEmail(ticket, out debug);
+                    bool envio = false;
+
+                    if (ticket.Aplicacion.EsAplicacionRed)
+                    {
+                        envio = this.EnviarEmailRed(ticket, out debug);
+                    }
+                    else
+                    {
+                        envio = this.EnviarEmail(ticket, out debug);
+                    }
 
                     sent++;
                 }
@@ -473,6 +482,39 @@ namespace NDCBL
             debug += " | Envia mail";
 
             notificacion.MailId = MailToSendBL.NotificacionBlanqueoMail(notificacion.Usuario, mailTo, notificacion.Id, notificacion.Aplicacion.Nombre, solicitante, notificacion.Fecha);
+
+            debug += " | Graba ticket BPM";
+
+            Save(notificacion);
+
+            return true;
+        }
+
+        public bool EnviarEmailRed(TicketNotificacionBlanqueoEntity notificacion, out string debug)
+        {
+            debug = "";
+
+            string mailTo = string.Empty;
+
+            debug += " Busca el Mail del usuario en AD por usuario de red";
+
+            mailTo = PhalanxNAL.ActiveDirectoryHelper.BuscarEmailPorLegajoUsername(notificacion.Usuario);
+
+            if (string.IsNullOrEmpty(mailTo))
+            {
+                debug += " | No se encontró el Mail del usuario [" + notificacion.Usuario + "] en AD";
+                return false;
+            }
+
+            debug += " | Busca Nombre del usuario que cargó la notificación";
+
+            string solicitante = PhalanxNAL.ActiveDirectoryHelper.BuscarNombrePorUsername(notificacion.Solicitante);
+
+            MailAlertBusiness MailToSendBL = new MailAlertBusiness();
+
+            debug += " | Envia mail";
+
+            notificacion.MailId = MailToSendBL.NotificacionBlanqueoRedMail(notificacion.Usuario, mailTo, notificacion.Id, solicitante, notificacion.Fecha);
 
             debug += " | Graba ticket BPM";
 
