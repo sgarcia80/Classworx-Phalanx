@@ -386,7 +386,7 @@ namespace PhalanxAdmin
 
             TicketNotificacionTarjetaBusiness ticketBL = new TicketNotificacionTarjetaBusiness();
 
-            sent = ticketBL.ReenviarEmailReclamo(collection);
+            sent = ticketBL.EnviarEmail(collection);
 
             MessageBox.Show(string.Format("Se reenviaron {0} de {1} mails", sent, count), "Reenvio de Mails", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
