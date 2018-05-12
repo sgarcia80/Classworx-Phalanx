@@ -19,6 +19,7 @@ namespace PhalanxNAL
         private const string NOMBRE_PROPIEDAD_DISABLED_AD = "userAccountControl";
         private const string NOMBRE_PROPIEDAD_LOCKOUTTIME_AD = "LockOutTime";
         private const string NOMBRE_PROPIEDAD_PWDLASTSET_AD = "pwdLastSet";
+        private const string NOMBRE_PROPIEDAD_EMPLOYEEID = "employeeID";
 
         private const string UserAccountControl = "userAccountControl";
         private const string SetPassword = "SetPassword";
@@ -279,7 +280,43 @@ namespace PhalanxNAL
 
             return name;
         }
-        
+
+        public static string BuscarEmployeeID(string username, string path)
+        {
+            string name = string.Empty;
+            string filtroBuscarNombre = ConfigurationManager.AppSettings["LDAPBuscarNombreFilter"];
+
+            DirectoryEntry usuario = BuscarLDAPEntryRecursivo(path, filtroBuscarNombre.Replace("[username]", username), new string[] { NOMBRE_PROPIEDAD_EMPLOYEEID });
+
+            try
+            {
+                if (usuario != null)
+                {
+                    if (usuario.Properties.Contains(NOMBRE_PROPIEDAD_EMPLOYEEID))
+                    {
+                        if (usuario.Properties[NOMBRE_PROPIEDAD_EMPLOYEEID] != null)
+                        {
+                            name = usuario.Properties[NOMBRE_PROPIEDAD_EMPLOYEEID].Value.ToString();
+
+                            log.InfoFormat("Se consulta la propiedad {0} con valor '{1}'", NOMBRE_PROPIEDAD_EMPLOYEEID, name);
+                        }
+                    }
+                }
+
+                if (string.IsNullOrEmpty(name))
+                {
+                    log.InfoFormat("No se encontró la propiedad '{0}'", NOMBRE_PROPIEDAD_EMPLOYEEID);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                throw new Exception("Error al validar el usuario en el Dominio", ex);
+            }
+
+            return name;
+        }
+
         private static DirectoryEntry BuscarLDAPEntry(string path, string filter, IEnumerable<string> properties)
         {
             log.Info("Comienza busqueda LDAP");

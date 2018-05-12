@@ -48,9 +48,10 @@ public partial class NotificacionClave : System.Web.UI.Page
             path = dominios[0].LDAPPath;
         }
 
-        string nombreUser = PhalanxNAL.ActiveDirectoryHelper.BuscarNombrePorUsername(usuario, path);
+        string legajo = PhalanxNAL.ActiveDirectoryHelper.BuscarEmployeeID(usuario, path);
 
-        bool esExterno = nombreUser.ToUpper().Contains("EXTERNO");
+        //bool esExterno = nombreUser.ToUpper().Contains("EXTERNO");
+        bool esExterno = !string.IsNullOrEmpty(legajo);
 
         AplicacionNotificacionClaveBusiness ancb = new AplicacionNotificacionClaveBusiness();
         AplicacionNotificacionClaveEntity aplicacion = ancb.GetAppRed();

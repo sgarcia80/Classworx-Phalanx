@@ -89,12 +89,13 @@ public partial class Login : System.Web.UI.Page
             object nativeObject = entry.NativeObject;
             authentic = true;
 
-            string name = PhalanxNAL.ActiveDirectoryHelper.BuscarNombrePorUsername(usuario, path);
+            string legajo = PhalanxNAL.ActiveDirectoryHelper.BuscarEmployeeID(usuario, path);
 
-            if (!string.IsNullOrEmpty(name))
-            {
-                esExterno = name.ToUpper().Contains("EXTERNO");
-            }
+            esExterno = !string.IsNullOrEmpty(legajo);
+            //if (!string.IsNullOrEmpty(legajo))
+            //{
+            //    esExterno = legajo.ToUpper().Contains("EXTERNO");
+            //}
 
             auditLoginBusiness.LogAccOK(null, nombreUsuario, null, Request.ServerVariables["REMOTE_ADDR"], PhalanxCommon.Entities.App.NotificacionClaves);
         }
