@@ -9,6 +9,19 @@ namespace NDCBL
 {
     public class Meta4LegajoBusiness
     {
+        public Meta4LegajoEntityCollection GetAll(string usuario, string nombre, string apellido)
+        {
+            Meta4LegajoFactory factory = new Meta4LegajoFactory();
+
+            factory.FilUsuario = usuario;
+            factory.FilApellido = apellido;
+            factory.FilNombre = nombre;
+
+            Meta4LegajoEntityCollection legajos = factory.GetAll();
+
+            return legajos;
+        }
+        
         public Meta4LegajoEntity GetByLegajoAndSociedad(string legajo, string idSociedad)
         {
             Meta4LegajoFactory factory = new Meta4LegajoFactory();
