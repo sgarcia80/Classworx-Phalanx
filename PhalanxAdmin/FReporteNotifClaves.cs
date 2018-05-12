@@ -16,7 +16,7 @@ using NDCCommon.Collections;
 
 namespace PhalanxAdmin
 {
-    public partial class FReporteNotifClaves : PhalanxAdmin.FBaseReportes
+    public partial class FReporteNotifClaves : PhalanxAdmin.FBaseReportesInternos
     {
         public override string Titulo
         {
