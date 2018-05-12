@@ -8,6 +8,7 @@ using NDCCommon.Collections;
 using System.Collections.Generic;
 using NHibernate.Expression;
 using PhalanxDAL;
+using log4net;
 
 /// <summary>
 /// Summary description for BPMSolicitudFactory
@@ -16,6 +17,8 @@ namespace NDCDAL.Factories
 {
     public class TicketNotificacionClaveFactory
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(TicketNotificacionClaveFactory));
+
         private AplicacionNotificacionClaveEntity _filApp = null;
         private string _filUsuario;
         private string _filDominio;
@@ -275,13 +278,15 @@ namespace NDCDAL.Factories
                 try
                 {
                     tickets = DataSearch.List<TicketNotificacionClaveEntity>();
+
+                    TiNotClaEC.Add(tickets);
                 }
-                catch
+                catch (Exception e)
                 {
+                    log.Error("Error al consultar Tickets de Notificacion de Clave", e);
+
                     tickets = null;
                 }
-
-                TiNotClaEC.Add(tickets);
             }
 
             return TiNotClaEC;
