@@ -72,6 +72,11 @@ namespace PhalanxAdmin
             this.pnlList.SuspendLayout();
             this.SuspendLayout();
             // 
+            // xppnlTC
+            // 
+            this.xppnlTC.ImageItems.ImageSet = null;
+            this.xppnlTC.Location = new System.Drawing.Point(8, 120);
+            // 
             // pnlXPGrps
             // 
             this.pnlXPGrps.Size = new System.Drawing.Size(200, 503);
@@ -83,7 +88,7 @@ namespace PhalanxAdmin
             // xppnlMenu
             // 
             this.xppnlMenu.ImageItems.ImageSet = null;
-            this.xppnlMenu.Size = new System.Drawing.Size(167, 502);
+            this.xppnlMenu.Location = new System.Drawing.Point(8, 8);
             // 
             // columnHeader9
             // 
@@ -306,6 +311,7 @@ namespace PhalanxAdmin
             this.Controls.Add(this.statusbar);
             this.Controls.Add(this.pnlFilters);
             this.Name = "FRptPermisosPerf";
+            this.Load += new System.EventHandler(this.FRptPermisosPerf_Load);
             this.Controls.SetChildIndex(this.pnlIzq, 0);
             this.Controls.SetChildIndex(this.pnlFilters, 0);
             this.Controls.SetChildIndex(this.statusbar, 0);

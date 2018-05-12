@@ -50,7 +50,7 @@ namespace PhalanxAdmin
             this.xppnlMenu.Controls.Add(this.linkNotifBlanqueosTC);
             this.xppnlMenu.Controls.Add(this.linkNotifBlanqueos);
             this.xppnlMenu.ImageItems.ImageSet = null;
-            this.xppnlMenu.Size = new System.Drawing.Size(184, 195);
+            this.xppnlMenu.Size = new System.Drawing.Size(184, 106);
             // 
             // linkNotifBlanqueos
             // 

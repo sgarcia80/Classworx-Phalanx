@@ -17,7 +17,7 @@ using PhalanxDAL.Factories;
 
 namespace PhalanxAdmin
 {
-    public partial class FTicketsAltaTempUsrExt : PhalanxAdmin.FBaseReportes
+    public partial class FTicketsAltaTempUsrExt : PhalanxAdmin.FBaseReportesInternos
     {
         public override string Titulo
         {

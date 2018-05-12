@@ -15,7 +15,7 @@ using System.IO;
 
 namespace PhalanxAdmin
 {
-    public partial class FRptTicketsClaves : PhalanxAdmin.FBaseReportes
+    public partial class FRptTicketsClaves : PhalanxAdmin.FBaseReportesInternos
     {
         public override string Titulo
         {

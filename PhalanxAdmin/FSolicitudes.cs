@@ -14,7 +14,7 @@ using System.IO;
 
 namespace PhalanxAdmin
 {
-    public partial class FSolicitudes : PhalanxAdmin.FBaseReportes
+    public partial class FSolicitudes : PhalanxAdmin.FBaseReportesNormativos
     {
         public override string Titulo
         {

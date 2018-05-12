@@ -9,7 +9,7 @@ using PhalanxBL;
 
 namespace PhalanxAdmin
 {
-    public partial class FRptLstPerfiles : PhalanxAdmin.FBaseReportes
+    public partial class FRptLstPerfiles : PhalanxAdmin.FBaseReportesInternos
     {
         public override string Titulo
         {

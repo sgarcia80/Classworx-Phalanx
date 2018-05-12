@@ -13,7 +13,7 @@ using System.Collections;
 
 namespace PhalanxAdmin
 {
-    public partial class FUsuariosGrupos : PhalanxAdmin.FBaseReportes
+    public partial class FUsuariosGrupos : PhalanxAdmin.FBaseReportesNormativos
     {
         public override string Titulo
         {
