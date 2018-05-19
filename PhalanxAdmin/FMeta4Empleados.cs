@@ -32,6 +32,7 @@ namespace PhalanxAdmin
         protected string _filNombre = "";
         protected string _filUsuario = "";
         protected string _filApellido = "";
+        protected string _filDocumento = "";
 
         public FMeta4Empleados()
         {
@@ -136,7 +137,7 @@ namespace PhalanxAdmin
         {
             Meta4LegajoBusiness business = new Meta4LegajoBusiness();
 
-            _entities = business.GetAll(txtFilUsuario.Text, txtFilNombre.Text, txtFilApellido.Text);
+            _entities = business.Search(txtFilUsuario.Text, txtFilNombre.Text, txtFilApellido.Text, txtDocumento.Text);
         }
         /// <summary>
         /// Llama a la función que genera el array de LV Items y si hay items llama a la que hace el llenado

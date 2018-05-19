@@ -79,5 +79,19 @@ namespace NDCBL
 
             return factory.GetTiposDocumento();
         }
+
+        public Meta4LegajoEntityCollection Search(string usuario, string nombre, string apellido, string documento)
+        {
+            Meta4LegajoFactory factory = new Meta4LegajoFactory();
+
+            factory.FilUsuario = usuario;
+            factory.FilApellido = apellido;
+            factory.FilNombre = nombre;
+            factory.FilDocumento = documento;
+
+            Meta4LegajoEntityCollection legajos = factory.Search();
+
+            return legajos;
+        }
     }
 }

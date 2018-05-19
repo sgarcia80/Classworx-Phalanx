@@ -32,6 +32,8 @@ namespace PhalanxAdmin
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FMeta4Empleados));
             this.pnlFilters = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtDocumento = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.txtFilApellido = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtFilNombre = new System.Windows.Forms.TextBox();
@@ -72,7 +74,8 @@ namespace PhalanxAdmin
             // xppnlTC
             // 
             this.xppnlTC.ImageItems.ImageSet = null;
-            this.xppnlTC.Location = new System.Drawing.Point(8, 135);
+            this.xppnlTC.Location = new System.Drawing.Point(8, 120);
+            this.xppnlTC.TabIndex = 1;
             // 
             // pnlXPGrps
             // 
@@ -85,6 +88,7 @@ namespace PhalanxAdmin
             // xppnlMenu
             // 
             this.xppnlMenu.ImageItems.ImageSet = null;
+            this.xppnlMenu.Location = new System.Drawing.Point(8, 8);
             // 
             // pnlFilters
             // 
@@ -97,6 +101,8 @@ namespace PhalanxAdmin
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtDocumento);
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.txtFilApellido);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.txtFilNombre);
@@ -112,12 +118,28 @@ namespace PhalanxAdmin
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de búsqueda";
             // 
+            // txtDocumento
+            // 
+            this.txtDocumento.Location = new System.Drawing.Point(310, 20);
+            this.txtDocumento.Name = "txtDocumento";
+            this.txtDocumento.Size = new System.Drawing.Size(120, 20);
+            this.txtDocumento.TabIndex = 3;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(242, 23);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(62, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Documento";
+            // 
             // txtFilApellido
             // 
             this.txtFilApellido.Location = new System.Drawing.Point(310, 47);
             this.txtFilApellido.Name = "txtFilApellido";
             this.txtFilApellido.Size = new System.Drawing.Size(222, 20);
-            this.txtFilApellido.TabIndex = 11;
+            this.txtFilApellido.TabIndex = 7;
             // 
             // label5
             // 
@@ -125,7 +147,7 @@ namespace PhalanxAdmin
             this.label5.Location = new System.Drawing.Point(260, 49);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(44, 13);
-            this.label5.TabIndex = 10;
+            this.label5.TabIndex = 6;
             this.label5.Text = "Apellido";
             // 
             // txtFilNombre
@@ -133,7 +155,7 @@ namespace PhalanxAdmin
             this.txtFilNombre.Location = new System.Drawing.Point(93, 46);
             this.txtFilNombre.Name = "txtFilNombre";
             this.txtFilNombre.Size = new System.Drawing.Size(120, 20);
-            this.txtFilNombre.TabIndex = 9;
+            this.txtFilNombre.TabIndex = 5;
             // 
             // label3
             // 
@@ -141,7 +163,7 @@ namespace PhalanxAdmin
             this.label3.Location = new System.Drawing.Point(43, 49);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(44, 13);
-            this.label3.TabIndex = 8;
+            this.label3.TabIndex = 4;
             this.label3.Text = "Nombre";
             // 
             // btnLimpiar
@@ -151,7 +173,7 @@ namespace PhalanxAdmin
             this.btnLimpiar.Location = new System.Drawing.Point(675, 46);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(76, 21);
-            this.btnLimpiar.TabIndex = 18;
+            this.btnLimpiar.TabIndex = 9;
             this.btnLimpiar.Text = "&Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = false;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
@@ -162,7 +184,7 @@ namespace PhalanxAdmin
             this.btnBuscar.Location = new System.Drawing.Point(593, 46);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(76, 21);
-            this.btnBuscar.TabIndex = 17;
+            this.btnBuscar.TabIndex = 8;
             this.btnBuscar.Text = "&Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
@@ -172,7 +194,7 @@ namespace PhalanxAdmin
             this.txtFilUsuario.Location = new System.Drawing.Point(93, 20);
             this.txtFilUsuario.Name = "txtFilUsuario";
             this.txtFilUsuario.Size = new System.Drawing.Size(120, 20);
-            this.txtFilUsuario.TabIndex = 3;
+            this.txtFilUsuario.TabIndex = 1;
             // 
             // label2
             // 
@@ -180,7 +202,7 @@ namespace PhalanxAdmin
             this.label2.Location = new System.Drawing.Point(44, 23);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(43, 13);
-            this.label2.TabIndex = 2;
+            this.label2.TabIndex = 0;
             this.label2.Text = "Usuario";
             // 
             // statusbar
@@ -394,6 +416,8 @@ namespace PhalanxAdmin
         private System.Windows.Forms.ColumnHeader col_Departamento;
         private System.Windows.Forms.ColumnHeader col_EstadoCivil;
         private System.Windows.Forms.ColumnHeader col_EMail;
+        protected System.Windows.Forms.TextBox txtDocumento;
+        protected System.Windows.Forms.Label label1;
 
     }
 }
