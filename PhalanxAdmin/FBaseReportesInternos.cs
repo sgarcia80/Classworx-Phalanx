@@ -42,6 +42,10 @@ namespace PhalanxAdmin
             lnkLstPerfiles.Enabled = UsrBL.AccRptLstPerf(this.Usuario);
             lnkLstTickets.Enabled = UsrBL.AccRptLstTickets(this.Usuario);
             lnkAltaTempRecExt.Enabled = UsrBL.AccRptTicketsRedRecExt(this.Usuario);
+
+            lnkAutogestionCobis.Enabled = UsrBL.AccRptAutogestionCobis(this.Usuario);
+            linkMeta4Empleados.Enabled = UsrBL.AccRptEmpleadosMeta4(this.Usuario);
+            lnkNotifClaves.Enabled = UsrBL.AccRptNotifAltaPend(this.Usuario);
         }
         
         private void linkListados_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
