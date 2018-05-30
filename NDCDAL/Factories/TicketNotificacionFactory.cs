@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using NHibernate.Expression;
 using PhalanxDAL;
 using NHibernate.Transform;
+using log4net;
 
 /// <summary>
 /// Summary description for BPMSolicitudFactory
@@ -17,11 +18,15 @@ namespace NDCDAL.Factories
 {
     public class TicketNotificacionFactory
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(TicketNotificacionFactory));
+
         private static readonly IResultTransformer ResultTransformer;
 
         private string _filUsuario;
         private string _filDominio;
         private string _filTipoNotif;
+        private string _filSortColumn;
+        private Int32 _filSortDirection = 1;
 
         public string FilUsuario
         {
@@ -36,6 +41,16 @@ namespace NDCDAL.Factories
         public string FilTipoNotif
         {
             set { _filTipoNotif = value; }
+        }
+
+        public string FilSortColumn
+        {
+            set { _filSortColumn = value; }
+        }
+
+        public int FilSortDirection
+        {
+            set { _filSortDirection = value; }
         }
 
         static TicketNotificacionFactory()
@@ -54,27 +69,50 @@ namespace NDCDAL.Factories
 
             using (ISession session = DBMgr.factory.OpenSession())
             {
-                ICriteria DataSearch = session.CreateCriteria(typeof(TicketNotificacionEntity), "TNB").AddOrder(Order.Desc("TNB.Fecha")); ;
+                ICriteria DataSearch = session.CreateCriteria(typeof(TicketNotificacionEntity), "TNB").CreateCriteria("TNB.Aplicacion", "a", NHibernate.SqlCommand.JoinType.InnerJoin);
+
+                string column = "TNB.Fecha";
+
+                if (!string.IsNullOrEmpty(_filSortColumn))
+                {
+                    column = string.Format("TNB.{0}",_filSortColumn);
+                }
+                if (_filSortColumn == "Aplicacion")
+                {
+                    column = "a.Nombre";
+                }
+
+                if (_filSortDirection == 0)
+                {
+                    DataSearch.AddOrder(Order.Asc(column)); ;
+                }
+                else
+                {
+                    DataSearch.AddOrder(Order.Desc(column)); ;
+                }
 
                 if (!string.IsNullOrEmpty(_filUsuario))
-                    DataSearch = DataSearch.Add(Expression.Sql("lower({alias}.user_red) = lower('" + _filUsuario + "')"));
-
+                {
+                    //DataSearch = DataSearch.Add(Expression.Sql("lower(TNB.Usuario) = lower('" + _filUsuario + "')"));
+                    DataSearch = DataSearch.Add(Expression.InsensitiveLike("TNB.Usuario", _filUsuario, MatchMode.Exact));
+                }
                 //if (!string.IsNullOrEmpty(_filDominio))
                 //    DataSearch = DataSearch.Add(Expression.Eq("Dominio", _filDominio));
 
                 if (!string.IsNullOrEmpty(_filTipoNotif))
-                    DataSearch = DataSearch.Add(Expression.Eq("Tipo", _filTipoNotif));
+                    DataSearch = DataSearch.Add(Expression.Eq("TNB.Tipo", _filTipoNotif));
 
                 try
                 {
                     tickets = DataSearch.List<TicketNotificacionEntity>();
+
+                    TiNotClaEC.Add(tickets);
                 }
-                catch
+                catch (Exception e)
                 {
+                    log.Error("Error al consultar Tickets de Notificacion de Clave", e);
                     tickets = null;
                 }
-
-                TiNotClaEC.Add(tickets);
             }
 
             return TiNotClaEC;
@@ -101,9 +139,9 @@ namespace NDCDAL.Factories
                         ticket = tickets[0];
                     }
                 }
-                catch
+                catch (Exception e)
                 {
-                    
+                    log.Error("Error al consultar el Ticket de Notificacion de Clave", e);
                 }
             }
 
