@@ -56,7 +56,7 @@ namespace NDCBL
             //
         }
 
-        public TicketNotificacionEntityCollection GetAllActiveByUser(string dominio, string usuario, string tipo)
+        public TicketNotificacionEntityCollection GetAllActiveByUser(string dominio, string usuario, string tipo, string sortcolumn, int sortdirection)
         {
             TicketNotificacionFactory factory = new TicketNotificacionFactory();
 
@@ -73,6 +73,9 @@ namespace NDCBL
                     break;
             }
 
+            factory.FilSortColumn = sortcolumn.Replace("DESC", string.Empty).Trim();
+            factory.FilSortDirection = sortdirection;
+            
             TicketNotificacionEntityCollection tmpCollection = factory.GetAll();
 
             return tmpCollection;

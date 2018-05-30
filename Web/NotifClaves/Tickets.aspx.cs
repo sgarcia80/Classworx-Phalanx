@@ -8,6 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
+using NDCCommon.Collections;
 
 public partial class Tickets : System.Web.UI.Page
 {
@@ -23,6 +24,9 @@ public partial class Tickets : System.Web.UI.Page
             string tipo = string.Empty;
 
             Session["TipoNotif"] = chkNotifAlta.SelectedValue;
+
+            Session["sortdirection"] = SortDirection.Descending;
+            Session["sortcolumn"] = "Fecha";
         }
     }
 
@@ -34,11 +38,17 @@ public partial class Tickets : System.Web.UI.Page
 
     protected void ddlTipoNotificacion_SelectedIndexChanged(object sender, EventArgs e)
     {
-        
+
     }
 
     protected void chkNotifAlta_SelectedIndexChanged(object sender, EventArgs e)
     {
         Session["TipoNotif"] = chkNotifAlta.SelectedValue;
+    }
+
+    protected void gvTickets_Sorting(object sender, GridViewSortEventArgs e)
+    {
+        Session["sortdirection"] = e.SortDirection;
+        Session["sortcolumn"] = e.SortExpression;
     }
 }
