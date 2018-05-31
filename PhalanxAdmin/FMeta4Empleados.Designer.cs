@@ -32,6 +32,8 @@ namespace PhalanxAdmin
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FMeta4Empleados));
             this.pnlFilters = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtLegajo = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.txtDocumento = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtFilApellido = new System.Windows.Forms.TextBox();
@@ -49,6 +51,7 @@ namespace PhalanxAdmin
             this.pnlList = new System.Windows.Forms.Panel();
             this.lvLista = new System.Windows.Forms.ListView();
             this.col_UsuarioRed = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.col_Legajo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.col_Nombre = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.col_Apellido = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.col_TipoDocumento = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -101,6 +104,8 @@ namespace PhalanxAdmin
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtLegajo);
+            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.txtDocumento);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.txtFilApellido);
@@ -118,20 +123,40 @@ namespace PhalanxAdmin
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de búsqueda";
             // 
+            // txtLegajo
+            // 
+            this.txtLegajo.Location = new System.Drawing.Point(310, 20);
+            this.txtLegajo.MaxLength = 10;
+            this.txtLegajo.Name = "txtLegajo";
+            this.txtLegajo.Size = new System.Drawing.Size(89, 20);
+            this.txtLegajo.TabIndex = 3;
+            this.txtLegajo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtLegajo_KeyPress);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(265, 23);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(39, 13);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Legajo";
+            // 
             // txtDocumento
             // 
-            this.txtDocumento.Location = new System.Drawing.Point(310, 20);
+            this.txtDocumento.Location = new System.Drawing.Point(499, 20);
+            this.txtDocumento.MaxLength = 11;
             this.txtDocumento.Name = "txtDocumento";
-            this.txtDocumento.Size = new System.Drawing.Size(120, 20);
-            this.txtDocumento.TabIndex = 3;
+            this.txtDocumento.Size = new System.Drawing.Size(89, 20);
+            this.txtDocumento.TabIndex = 5;
+            this.txtDocumento.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDocumento_KeyPress);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(242, 23);
+            this.label1.Location = new System.Drawing.Point(431, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(62, 13);
-            this.label1.TabIndex = 2;
+            this.label1.TabIndex = 4;
             this.label1.Text = "Documento";
             // 
             // txtFilApellido
@@ -139,7 +164,7 @@ namespace PhalanxAdmin
             this.txtFilApellido.Location = new System.Drawing.Point(310, 47);
             this.txtFilApellido.Name = "txtFilApellido";
             this.txtFilApellido.Size = new System.Drawing.Size(222, 20);
-            this.txtFilApellido.TabIndex = 7;
+            this.txtFilApellido.TabIndex = 9;
             // 
             // label5
             // 
@@ -147,7 +172,7 @@ namespace PhalanxAdmin
             this.label5.Location = new System.Drawing.Point(260, 49);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(44, 13);
-            this.label5.TabIndex = 6;
+            this.label5.TabIndex = 8;
             this.label5.Text = "Apellido";
             // 
             // txtFilNombre
@@ -155,7 +180,7 @@ namespace PhalanxAdmin
             this.txtFilNombre.Location = new System.Drawing.Point(93, 46);
             this.txtFilNombre.Name = "txtFilNombre";
             this.txtFilNombre.Size = new System.Drawing.Size(120, 20);
-            this.txtFilNombre.TabIndex = 5;
+            this.txtFilNombre.TabIndex = 7;
             // 
             // label3
             // 
@@ -163,7 +188,7 @@ namespace PhalanxAdmin
             this.label3.Location = new System.Drawing.Point(43, 49);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(44, 13);
-            this.label3.TabIndex = 4;
+            this.label3.TabIndex = 6;
             this.label3.Text = "Nombre";
             // 
             // btnLimpiar
@@ -173,7 +198,7 @@ namespace PhalanxAdmin
             this.btnLimpiar.Location = new System.Drawing.Point(675, 46);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(76, 21);
-            this.btnLimpiar.TabIndex = 9;
+            this.btnLimpiar.TabIndex = 11;
             this.btnLimpiar.Text = "&Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = false;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
@@ -184,7 +209,7 @@ namespace PhalanxAdmin
             this.btnBuscar.Location = new System.Drawing.Point(593, 46);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(76, 21);
-            this.btnBuscar.TabIndex = 8;
+            this.btnBuscar.TabIndex = 10;
             this.btnBuscar.Text = "&Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
@@ -256,6 +281,7 @@ namespace PhalanxAdmin
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvLista.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.col_UsuarioRed,
+            this.col_Legajo,
             this.col_Nombre,
             this.col_Apellido,
             this.col_TipoDocumento,
@@ -283,6 +309,13 @@ namespace PhalanxAdmin
             // 
             this.col_UsuarioRed.Text = "Usuario";
             this.col_UsuarioRed.Width = 100;
+            // 
+            // col_Legajo
+            // 
+            this.col_Legajo.Tag = "Numeric";
+            this.col_Legajo.Text = "Legajo";
+            this.col_Legajo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.col_Legajo.Width = 90;
             // 
             // col_Nombre
             // 
@@ -418,6 +451,9 @@ namespace PhalanxAdmin
         private System.Windows.Forms.ColumnHeader col_EMail;
         protected System.Windows.Forms.TextBox txtDocumento;
         protected System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ColumnHeader col_Legajo;
+        protected System.Windows.Forms.TextBox txtLegajo;
+        protected System.Windows.Forms.Label label4;
 
     }
 }

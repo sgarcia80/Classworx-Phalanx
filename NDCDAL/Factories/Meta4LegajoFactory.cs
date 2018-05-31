@@ -137,7 +137,7 @@ namespace NDCDAL.Factories
                 ICriteria DataSearch = session.CreateCriteria(typeof(Meta4LegajoEntity), "ML");
 
                 if (_filId != null)
-                    DataSearch.Add(Expression.Eq("ML.Id", _filId));
+                    DataSearch = DataSearch.Add(Expression.InsensitiveLike("ML.Id", _filId, MatchMode.Anywhere)); 
 
                 if (_filSociedad != null)
                     DataSearch = DataSearch.Add(Expression.Eq("ML.Sociedad.Id", _filSociedad));

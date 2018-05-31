@@ -137,7 +137,7 @@ namespace PhalanxAdmin
         {
             Meta4LegajoBusiness business = new Meta4LegajoBusiness();
 
-            _entities = business.Search(txtFilUsuario.Text, txtFilNombre.Text, txtFilApellido.Text, txtDocumento.Text);
+            _entities = business.Search(txtFilUsuario.Text, txtFilNombre.Text, txtFilApellido.Text, txtDocumento.Text, txtLegajo.Text);
         }
         /// <summary>
         /// Llama a la función que genera el array de LV Items y si hay items llama a la que hace el llenado
@@ -181,6 +181,7 @@ namespace PhalanxAdmin
             {
                 lviArr[i] = new ListViewItem();
                 lviArr[i].Text = string.IsNullOrEmpty(entity.UsuarioRed) ? string.Empty : entity.UsuarioRed;
+                lviArr[i].SubItems.Add(entity.Id);
                 lviArr[i].SubItems.Add(entity.Nombre);
                 lviArr[i].SubItems.Add(entity.Apellido);
                 lviArr[i].SubItems.Add(entity.TipoDocumento);
@@ -250,6 +251,8 @@ namespace PhalanxAdmin
             txtFilUsuario.Text = "";
             txtFilNombre.Text = "";
             txtFilApellido.Text = "";
+            txtLegajo.Text = "";
+            txtDocumento.Text = "";
         }
 
         private void lvLista_ColumnClick(object sender, ColumnClickEventArgs e)
@@ -275,6 +278,22 @@ namespace PhalanxAdmin
             }
 
             ((ListView)sender).Sort();
+        }
+
+        private void txtLegajo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtDocumento_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

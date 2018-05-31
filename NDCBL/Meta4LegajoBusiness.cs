@@ -80,7 +80,7 @@ namespace NDCBL
             return factory.GetTiposDocumento();
         }
 
-        public Meta4LegajoEntityCollection Search(string usuario, string nombre, string apellido, string documento)
+        public Meta4LegajoEntityCollection Search(string usuario, string nombre, string apellido, string documento, string legajo)
         {
             Meta4LegajoFactory factory = new Meta4LegajoFactory();
 
@@ -88,6 +88,7 @@ namespace NDCBL
             factory.FilApellido = apellido;
             factory.FilNombre = nombre;
             factory.FilDocumento = documento;
+            factory.FilId = legajo;
 
             Meta4LegajoEntityCollection legajos = factory.Search();
 
