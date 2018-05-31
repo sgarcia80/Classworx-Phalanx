@@ -91,7 +91,7 @@ public partial class Login : System.Web.UI.Page
 
             string legajo = PhalanxNAL.ActiveDirectoryHelper.BuscarEmployeeID(usuario, path);
 
-            esExterno = !string.IsNullOrEmpty(legajo);
+            esExterno = string.IsNullOrEmpty(legajo);
             //if (!string.IsNullOrEmpty(legajo))
             //{
             //    esExterno = legajo.ToUpper().Contains("EXTERNO");
