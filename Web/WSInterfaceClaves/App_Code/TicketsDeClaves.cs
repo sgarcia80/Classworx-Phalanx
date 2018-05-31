@@ -96,6 +96,29 @@ public class TicketsDeClaves : System.Web.Services.WebService
     {
         string strDebug = "";
 
+        log.InfoFormat("{0}", "-".PadLeft(80, '-'));
+        log.InfoFormat("NumeroSolicitud: '{0}'", ticket.IdSolicitud);
+        log.InfoFormat("Aplicacion: '{0}'", string.IsNullOrEmpty(ticket.CodigoAplicacion) ? string.Empty : ticket.CodigoAplicacion);
+        log.InfoFormat("Usuario Aplicacion: '{0}'", string.IsNullOrEmpty(ticket.UsuarioAplicacion) ? string.Empty : ticket.UsuarioAplicacion);
+        log.InfoFormat("Dominio: '{0}'", string.IsNullOrEmpty(ticket.DominioUsuario) ? string.Empty : ticket.DominioUsuario);
+        log.InfoFormat("Usuario: '{0}'", string.IsNullOrEmpty(ticket.Usuario) ? string.Empty : ticket.Usuario);
+        log.InfoFormat("Legajo: '{0}'", string.IsNullOrEmpty(ticket.Legajo) ? string.Empty : ticket.Legajo);
+        log.InfoFormat("TipoDocumento: '{0}'", string.IsNullOrEmpty(ticket.TipoDocumento) ? string.Empty : ticket.TipoDocumento);
+        log.InfoFormat("Documento: '{0}'", string.IsNullOrEmpty(ticket.Documento) ? string.Empty : ticket.Documento);
+        log.InfoFormat("EsPasswordDominio: '{0}'", ticket.UsaPasswordDominio ? "Si" : "No");
+        log.InfoFormat("NumeroSolicitudAltaApp: '{0}'", ticket.SolicitudID.HasValue ? ticket.SolicitudID.Value.ToString() : string.Empty);
+        log.InfoFormat("CodigoGerenciaDestino: '{0}'", string.IsNullOrEmpty(ticket.CodigoGerencia) ? string.Empty : ticket.CodigoGerencia);
+        log.InfoFormat("NombreGerenciaDestino: '{0}'", string.IsNullOrEmpty(ticket.NombreGerencia) ? string.Empty : ticket.NombreGerencia);
+        log.InfoFormat("CodigoAreaDestino: '{0}'", string.IsNullOrEmpty(ticket.SiglaArea) ? string.Empty : ticket.SiglaArea);
+        log.InfoFormat("NombreAreaDestino: '{0}'", string.IsNullOrEmpty(ticket.DescripcionArea) ? string.Empty : ticket.DescripcionArea);
+        log.InfoFormat("FechaVigencia: '{0}'", ticket.FechaVigDesde.HasValue ? ticket.FechaVigDesde.Value.ToString("dd/MM/yyyy") : string.Empty);
+        log.InfoFormat("NumeroLegajoEmpleadoSolicitud: '{0}'", string.IsNullOrEmpty(ticket.NroLegajoSoli) ? string.Empty : ticket.NroLegajoSoli);
+        log.InfoFormat("CodigoEmpresaSubsidiaria: '{0}'", string.IsNullOrEmpty(ticket.CodSubsidiaria) ? string.Empty : ticket.CodSubsidiaria);
+        log.InfoFormat("NombreEmpresaSubsidiaria: '{0}'", string.IsNullOrEmpty(ticket.NomSubsidiaria) ? string.Empty : ticket.NomSubsidiaria);
+        log.InfoFormat("NombreSolicitante: '{0}'", string.IsNullOrEmpty(ticket.NomSolicitante) ? string.Empty : ticket.NomSolicitante);
+        log.InfoFormat("ApellidoSolicitante: '{0}'", string.IsNullOrEmpty(ticket.ApeSolicitante) ? string.Empty : ticket.ApeSolicitante);
+        log.InfoFormat("{0}", "-".PadLeft(80, '-'));
+
         AgregarTicketResultado resultado = new AgregarTicketResultado();
 
         // chequea si es DEBUG
@@ -309,12 +332,21 @@ public class TicketsDeClaves : System.Web.Services.WebService
                     if (ticket.CodigoAplicacion.Trim().ToLower() == appCobis.Codigo.ToLower()
                         || altaUsuarioRed)
                     {
-                        log.InfoFormat("Es alta de Cobis ({0})", appCobis.Codigo);
+                        if (ticket.CodigoAplicacion.Trim().ToLower() == appCobis.Codigo.ToLower())
+                        {
+                            log.InfoFormat("Es alta de Cobis ({0})", appCobis.Codigo);
+                        }
+                        if (altaUsuarioRed)
+                        {
+                            log.InfoFormat("Es alta de Red");
+                        }
 
                         if (_debugMode)
                         {
                             strDebug += " | Tiene que grabar ticket en M4";
                         }
+                        log.InfoFormat("Tiene que grabar ticket en Meta4");
+
                         PasaInsertM4 = false;
                         Meta4ClassWorxUsuariosEntity Meta4Usuarios = new Meta4ClassWorxUsuariosEntity();
                         Meta4Usuarios.Cod_Aplicacion = ticket.CodigoAplicacion;
@@ -424,10 +456,13 @@ public class TicketsDeClaves : System.Web.Services.WebService
         }
         catch (Exception ex)
         {
+            log.Error("Error al procesar el ticket", ex);
+
             try
             {
                 if (!PasaInsertM4)
                 {
+                    log.InfoFormat("Se borra el ticket");
                     if (_debugMode)
                     {
                         strDebug += " | Va a borrar ticket en phx";
@@ -465,7 +500,7 @@ public class TicketsDeClaves : System.Web.Services.WebService
             }
         }
 
-
+        log.InfoFormat(resultado.Mensaje);
 
         return resultado;
     }
