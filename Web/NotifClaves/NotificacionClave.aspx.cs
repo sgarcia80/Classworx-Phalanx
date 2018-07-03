@@ -51,7 +51,7 @@ public partial class NotificacionClave : System.Web.UI.Page
         string legajo = PhalanxNAL.ActiveDirectoryHelper.BuscarEmployeeID(usuario, path);
 
         //bool esExterno = nombreUser.ToUpper().Contains("EXTERNO");
-        bool esExterno = !string.IsNullOrEmpty(legajo);
+        bool esExterno = string.IsNullOrEmpty(legajo);
 
         AplicacionNotificacionClaveBusiness ancb = new AplicacionNotificacionClaveBusiness();
         AplicacionNotificacionClaveEntity aplicacion = ancb.GetAppRed();
