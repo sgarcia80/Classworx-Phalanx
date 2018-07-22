@@ -99,7 +99,18 @@ namespace PhalanxAdmin
         private void SetQueryFilters()
         {
             usuario = txtUsuario.Text.Trim();
-            tipo = cbTipo.SelectedIndex;
+            switch (cbTipo.SelectedIndex)
+            {
+                case 0:
+                    tipo = 0;
+                    break;
+                case 1:
+                    tipo = 2;
+                    break;
+                case 2:
+                    tipo = 1;
+                    break;
+            }
 
             fechaDesde = dtpFechaDesde.Checked ? dtpFechaDesde.Value : (DateTime?)null;
             fechaHasta = dtpFechaHasta.Checked ? dtpFechaHasta.Value : (DateTime?)null;
