@@ -132,6 +132,8 @@
     <Compile Include="Collections\CommunicationDeviceTypeEntityCollection.cs" />
     <Compile Include="Collections\CommunicationDeviceUserEntityCollection.cs" />
     <Compile Include="Collections\ATMUserEntityCollection.cs" />
+    <Compile Include="Collections\VencPwdAppLogDetEntityCollection.cs" />
+    <Compile Include="Collections\VencPwdAppLogEntityCollection.cs" />
     <Compile Include="Collections\vwHistPwdVisEntityCollection.cs" />
     <Compile Include="Collections\MailAlertCCEntityCollection.cs" />
     <Compile Include="Collections\SolicitudPwdEntityCollection.cs" />
@@ -200,6 +202,8 @@
     <Compile Include="Entities\CommunicationDeviceTypeEntity.cs" />
     <Compile Include="Entities\CommunicationDeviceUserEntity.cs" />
     <Compile Include="Entities\ATMUserEntity.cs" />
+    <Compile Include="Entities\VencPwdAppLogDetEntity.cs" />
+    <Compile Include="Entities\VencPwdAppLogEntity.cs" />
     <Compile Include="Entities\vwHistPwdVisEntity.cs" />
     <Compile Include="Entities\HistPasswordChangeAccessEntity.cs" />
     <Compile Include="Entities\MailAlertCCEntity.cs" />

@@ -16,6 +16,7 @@ namespace PhalanxNAL
         private const string NOMBRE_PROPIEDAD_DISABLED_AD = "userAccountControl";
         private const string NOMBRE_PROPIEDAD_LOCKOUTTIME_AD = "LockOutTime";
         private const string NOMBRE_PROPIEDAD_PWDLASTSET_AD = "pwdLastSet";
+        private const string NOMBRE_PROPIEDAD_EMPLOYEEID = "employeeID";
 
         private const string UserAccountControl = "userAccountControl";
         private const string SetPassword = "SetPassword";
@@ -94,7 +95,7 @@ namespace PhalanxNAL
             }
             else
             {
-                IEnumerable<string> propiedades = new string[] { "givenName", "sn", "streetAddress", "mail", "department", "physicalDeliveryOfficeName" };
+                IEnumerable<string> propiedades = new string[] { "givenName", "sn", "streetAddress", "mail", "department", "physicalDeliveryOfficeName", "title" };
                 string filter = LDAPBuscarNombreFilter.Replace("[username]", username);
                 IEnumerable<string> properties = propiedades;
                 Usuario.Username = username;
@@ -158,20 +159,15 @@ namespace PhalanxNAL
                             Usuario.Log += "|physicalDeliveryOfficeName|";
                             Usuario.Office += sr.Properties["physicalDeliveryOfficeName"][0].ToString();
                         }
+
+                        if (sr.Properties["title"] != null && sr.Properties["title"].Count > 0)
+                        {
+                            Usuario.Log += "|title|";
+                            Usuario.Title = sr.Properties["title"][0].ToString() + " ";
+                        }
+
                         break;
                     }
-                    /*
-                    Usuario.Log += "|sr.GetDirectoryEntry|";
-                    DirectoryEntry FoundUser = sr.GetDirectoryEntry();
-                    Usuario.Log += "|givenName|";
-                    Usuario.Name = FoundUser.Properties["givenName"].Value.ToString();
-                    Usuario.Log += "|sn|";
-                    Usuario.Surname = FoundUser.Properties["sn"].Value.ToString();
-                    Usuario.Log += "|mail|";
-                    Usuario.email = FoundUser.Properties["mail"].Value.ToString();
-                    Usuario.Log += "|streetAddress|";
-                    Usuario.Address = FoundUser.Properties["streetAddress"].Value.ToString();
-                    */
                 }
                 catch (Exception ex)
                 {
@@ -278,6 +274,42 @@ namespace PhalanxNAL
             catch (Exception ex)
             {
                 TraceHelper.Error(ex, "Error al validar el usuario en el Dominio");
+                throw new Exception("Error al validar el usuario en el Dominio", ex);
+            }
+
+            return name;
+        }
+
+        public static string BuscarEmployeeID(string username, string path)
+        {
+            string name = string.Empty;
+            string filtroBuscarNombre = ConfigurationManager.AppSettings["LDAPBuscarNombreFilter"];
+
+            DirectoryEntry usuario = BuscarLDAPEntryRecursivo(path, filtroBuscarNombre.Replace("[username]", username), new string[] { NOMBRE_PROPIEDAD_EMPLOYEEID });
+
+            try
+            {
+                if (usuario != null)
+                {
+                    if (usuario.Properties.Contains(NOMBRE_PROPIEDAD_EMPLOYEEID))
+                    {
+                        if (usuario.Properties[NOMBRE_PROPIEDAD_EMPLOYEEID] != null)
+                        {
+                            name = usuario.Properties[NOMBRE_PROPIEDAD_EMPLOYEEID].Value.ToString();
+
+                            log.InfoFormat("Se consulta la propiedad {0} con valor '{1}'", NOMBRE_PROPIEDAD_EMPLOYEEID, name);
+                        }
+                    }
+                }
+
+                if (string.IsNullOrEmpty(name))
+                {
+                    log.InfoFormat("No se encontró la propiedad '{0}'", NOMBRE_PROPIEDAD_EMPLOYEEID);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
                 throw new Exception("Error al validar el usuario en el Dominio", ex);
             }
 

@@ -10,13 +10,15 @@ using NDCBL;
 using NDCCommon.Collections;
 using System.Collections;
 using PhalanxCommon.Entities;
+using PhalanxBL;
+using PhalanxCommon.Collections;
 
 namespace PhalanxAdmin
 {
     public partial class FABMNotifBlanqueo : PhalanxAdmin.FModalBase
     {
         TicketNotificacionBlanqueoEntity _entity = new TicketNotificacionBlanqueoEntity();
-        DominioLoginEntityCollection _dominios = new DominioLoginEntityCollection();
+        WinDomainEntityCollection _dominios = new WinDomainEntityCollection();
         AplicacionNotificacionClaveBusiness AplicacionBL = new AplicacionNotificacionClaveBusiness();
         DominioLoginBusiness DominioLoginBL = new DominioLoginBusiness();
         TicketNotificacionBlanqueoBusiness TicketBL = new TicketNotificacionBlanqueoBusiness();
@@ -39,9 +41,9 @@ namespace PhalanxAdmin
             m_FormType = formType;
         }
 
-        public FABMNotifBlanqueo(int id, bool ReadOnly, FormType formType)
-            : this(formType)
+        public FABMNotifBlanqueo(int id, bool ReadOnly, FormType formType, string userlogon) : this(formType)
         {
+            this.Usuario = userlogon;
             if (id > 0)
             {
                 this._entity = TicketBL.Load(id);
@@ -52,11 +54,11 @@ namespace PhalanxAdmin
             }
 
             m_FormType = formType;
-            this.user = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            this.user = this.Usuario;
 
             _readOnly = ReadOnly;
         }
-        
+
         public void ConfigureScreen()
         {
             string nro = string.Empty;
@@ -119,7 +121,16 @@ namespace PhalanxAdmin
                 var dominio = _dominios.FindByName(_entity.UsuarioDominio);
 
                 // no es uno nuevo, cargo los datos
-                cbDomain.SelectedItem = dominio;
+
+                if (dominio != null)
+                {
+                    cbDomain.SelectedItem = dominio;
+                }
+                else
+                {
+                    cbDomain.Text = _entity.UsuarioDominio;
+                }
+
                 txtUser.Text = _entity.Usuario;
 
                 txtUsername.Text = _entity.UsuarioAplicacion;
@@ -169,12 +180,16 @@ namespace PhalanxAdmin
 
         private void CargarDominios()
         {
-            _dominios = DominioLoginBL.GetAllParaCombo();
+            WinDomainBusiness dominioLoginBL = new WinDomainBusiness();
+            dominioLoginBL.FilConfigured = true;
+
+            //_dominios = DominioLoginBL.GetAllParaCombo();
+            _dominios = dominioLoginBL.GetAll();
 
             cbDomain.Items.Clear();
             cbDomain.DataSource = _dominios; // WithDatabases();
-            cbDomain.ValueMember = "Nombre";
-            cbDomain.DisplayMember = "Nombre";
+            cbDomain.ValueMember = "Id";
+            cbDomain.DisplayMember = "NtName";
 
             var macro = _dominios.FindByName("MACRO");
             if (macro != null)
@@ -234,6 +249,20 @@ namespace PhalanxAdmin
                 MessageBox.Show("Debe introducir un Usuario de Red", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            else
+            {
+                if (!picActivo.Visible)
+                {
+                    bool ok = ValidarUsuarioRed();
+
+                    if (!ok)
+                    {
+                        MessageBox.Show("El Usuario de Red es inválido", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+            }
+
             // chequear pwd no vacia
             if (txtUsername.Text.Trim().Length == 0)
             {
@@ -247,7 +276,7 @@ namespace PhalanxAdmin
                 MessageBox.Show("La contraseña no es válida", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            
+
             bool esAlta = false;
 
             // asignar datos a la entity
@@ -261,7 +290,7 @@ namespace PhalanxAdmin
                     return;
                 }
 
-                _entity.UsuarioDominio = ((DominioLoginEntity)cbDomain.SelectedItem).Nombre.Trim();
+                _entity.UsuarioDominio = ((WinDomainEntity)cbDomain.SelectedItem).NtName.Trim();
                 _entity.Aplicacion = app;
                 _entity.Fecha = DateTime.Now;
 
@@ -311,7 +340,7 @@ namespace PhalanxAdmin
             //if (m_FormType == FormType.Update || m_FormType == FormType.Delete)
             //{
             //    _entity = TicketBL.Refresh(_entity);
-            //    if (_entity.ModifyingUser.Username == new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(System.Security.Principal.WindowsIdentity.GetCurrent().Name).Username)
+            //    if (_entity.ModifyingUser.Username == new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario).Username)
             //    {
             //        _entity.ModifyingDate = null;
             //        _entity.ModifyingUser = null;
@@ -319,6 +348,46 @@ namespace PhalanxAdmin
             //    }
             //}
             this.DialogResult = DialogResult.Cancel;
+        }
+
+        private void txtUser_Validating(object sender, CancelEventArgs e)
+        {
+            ValidarUsuarioRed();
+        }
+
+        private bool ValidarUsuarioRed()
+        {
+            picActivo.Visible = false;
+
+            if (string.IsNullOrEmpty(txtUser.Text.Trim()))
+            {
+                return false;
+            }
+
+            WinDomainEntity dominio = cbDomain.SelectedItem as WinDomainEntity;
+
+            string path = string.Empty;
+
+            if (!string.IsNullOrEmpty(dominio.LDAPPath))
+            {
+                path = dominio.LDAPPath;
+            }
+
+            try
+            {
+                string nombreUser = PhalanxNAL.ActiveDirectoryHelper.BuscarNombrePorUsername(txtUser.Text.Trim(), path);
+
+                if (!string.IsNullOrEmpty(nombreUser))
+                {
+                    picActivo.Visible = true;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return picActivo.Visible;
         }
     }
 }

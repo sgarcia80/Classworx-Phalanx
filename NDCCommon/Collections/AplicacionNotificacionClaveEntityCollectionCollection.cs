@@ -62,5 +62,14 @@ namespace NDCCommon.Collections
             }
             return null;
         }
+        public new AplicacionNotificacionClaveEntity FindByCodigo(string codigo)
+        {
+            foreach (AplicacionNotificacionClaveEntity entity in InnerList)
+            {
+                if (entity.Codigo.ToString() == codigo)
+                    return entity;
+            }
+            return null;
+        }
     }
 }

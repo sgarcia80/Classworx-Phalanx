@@ -9,12 +9,14 @@
 		<property column="active_user" type="Boolean" name="ActiveUser" />
 		<many-to-one name="UserPassword" column="user_password_id" class="PhalanxCommon.Entities.UserPasswordEntity,PhalanxCommon" />
 		<many-to-one name="UserType" column="user_type_id" class="PhalanxCommon.Entities.UserTypeEntity,PhalanxCommon" />
-		<property column="user_desc" type="String" name="Desc" length="100" />
+		<property column="user_desc" type="String" name="Desc" length="4000" />
 		<property column="user_critical" type="Boolean" name="Critical" />
 		<property column="modifying_date" type="DateTime" name="ModifyingDate" />
 		<many-to-one name="ModifyingUser" column="modifying_user" class="PhalanxCommon.Entities.PhxUserEntity,PhalanxCommon" />
+    <property column="duration" type="Int32" name="Duration" />
+    <property column="modifying_pass_date" type="DateTime" name="ModifyingPassDate" />
 
-		<bag name="PwdChangesList" inverse="true" lazy="true" >
+    <bag name="PwdChangesList" inverse="true" lazy="true" >
 			<key column="user_id" />
 			<one-to-many class="PhalanxCommon.Entities.HistPasswordChangeEntity,PhalanxCommon" />
 		</bag>
@@ -235,27 +237,62 @@
 		<return-scalar column="Active" type="Boolean"/>
 		<return-scalar column="LastChange" type="DateTime"/>
 		<return-scalar column="AplicationName" type="String"/>
-		SELECT
-		dbo.Applications_Users.user_id AS ID,
-		dbo.Users.username AS Username,
-		dbo.Users.user_critical AS Critical,
-		dbo.Users.active_user AS Active,
-		dbo.Users_Passwords.d_last_change AS LastChange,
-		dbo.Applications.app_name AS AplicationName
-		FROM
-		dbo.Applications
-		INNER JOIN dbo.Applications_Users ON dbo.Applications.app_id = dbo.Applications_Users.app_id
-		INNER JOIN dbo.Users ON dbo.Applications_Users.user_id = dbo.Users.user_id
-		INNER JOIN dbo.Users_Passwords ON dbo.Users.user_password_id = dbo.Users_Passwords.user_password_id
-		WHERE
-		(:critico = -1 OR dbo.Users.user_critical = :critico)
-		AND
-		(:estadoUsuario = -1 OR dbo.Users.active_user = :estadoUsuario)
-		AND
-		(:nombre IS NULL OR upper(dbo.Users.username) LIKE :nombre)
-	</sql-query>
+    <return-scalar column="DiasCambioClave" type="Int32"/>
+    SELECT
+    dbo.Applications_Users.user_id AS ID,
+    dbo.Users.username AS Username,
+    dbo.Users.user_critical AS Critical,
+    dbo.Users.active_user AS Active,
+    dbo.Users_Passwords.d_last_change AS LastChange,
+    dbo.Applications.app_name AS AplicationName,
+    DiasCambioClave =
+    CASE dbo.Users.duration
+    WHEN 999 THEN 999
+    ELSE dbo.Users.duration - DATEDIFF(day, ISNULL(dbo.Users.modifying_pass_date, GETDATE()), GETDATE())
+    END
+    FROM
+    dbo.Applications
+    INNER JOIN dbo.Applications_Users ON dbo.Applications.app_id = dbo.Applications_Users.app_id
+    INNER JOIN dbo.Users ON dbo.Applications_Users.user_id = dbo.Users.user_id
+    INNER JOIN dbo.Users_Passwords ON dbo.Users.user_password_id = dbo.Users_Passwords.user_password_id
+    WHERE
+    (:critico = -1 OR dbo.Users.user_critical = :critico)
+    AND
+    (:estadoUsuario = -1 OR dbo.Users.active_user = :estadoUsuario)
+    AND
+    (:nombre IS NULL OR upper(dbo.Users.username) LIKE :nombre)
+    AND
+    (:expiracion IS NULL OR
+      (:expiracion = 0 AND dbo.Users.duration &lt;&gt; 999) OR
+      (:expiracion = 1 AND dbo.Users.duration = 999)OR
+      (:expiracion = 2)
+    )
+  </sql-query>
 
-	<sql-query name="getAllDatabaseUsers">
+  <sql-query name="getProxVencApplicationUsers">
+    <return-scalar column="Folio" type="Int32"/>
+    <return-scalar column="Aplicativo" type="String"/>
+    <return-scalar column="Usuario" type="String"/>
+    <return-scalar column="DiasRestantes" type="Int32"/>
+    SELECT
+    dbo.Applications_Users.user_id AS Folio,
+    dbo.Applications.app_name AS Aplicativo,
+    dbo.Users.username AS Usuario,
+    dbo.Users.duration - DATEDIFF(day, dbo.Users.modifying_pass_date, GETDATE()) AS DiasRestantes
+    FROM
+    dbo.Applications_Users
+    INNER JOIN dbo.Applications ON dbo.Applications_Users.app_id = dbo.Applications.app_id
+    INNER JOIN dbo.Users ON dbo.Applications_Users.user_id = dbo.Users.user_id
+    WHERE
+    dbo.Users.duration &lt;&gt; 999
+    AND
+    dbo.Users.modifying_pass_date IS NOT NULL
+    AND
+    (dbo.Users.duration - DATEDIFF(day, dbo.Users.modifying_pass_date, GETDATE()) &lt; 6)
+	ORDER BY dbo.Applications_Users.user_id  
+</sql-query>
+
+  <sql-query name="getAllDatabaseUsers">
 		<return-scalar column="ID" type="Int32"/>
 		<return-scalar column="Username" type="String"/>
 		<return-scalar column="Critical" type="Boolean"/>

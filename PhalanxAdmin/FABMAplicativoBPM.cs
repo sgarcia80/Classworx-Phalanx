@@ -34,6 +34,21 @@ namespace PhalanxAdmin
             txtCodigo.Text = _entity.Codigo;
             txtNombre.Text = _entity.Nombre;
             cbNotificable.Checked = _entity.Notificable;
+            cbEmuladores.Checked = _entity.EsEmuladores;
+            txtPrefijoUsuario.Text = _entity.PrefijoUsuarioTC;
+
+            MacroBusiness business = new MacroBusiness();
+            var macros = business.GetAll();
+            macros.Insert(0, new MacroEntity());
+
+            cbMacro.DataSource = macros;
+
+            if (_entity.Macro != null)
+            {
+                cbMacro.SelectedValue = _entity.Macro.Id;
+            }
+
+            ControlEmuladores(cbEmuladores.Checked);
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -42,12 +57,27 @@ namespace PhalanxAdmin
 
             // grabo DB
             _entity.Notificable = cbNotificable.Checked;
+            _entity.EsEmuladores = cbEmuladores.Checked;
+            _entity.PrefijoUsuarioTC = txtPrefijoUsuario.Text;
+
+            if (cbMacro.SelectedIndex == 0)
+            {
+                _entity.Macro = null;
+            }
+            else
+            { 
+                MacroBusiness business = new MacroBusiness();
+                MacroEntity macro = business.Load((int)cbMacro.SelectedValue);
+                _entity.Macro = macro;
+            }
 
             AplicacionNotificacionClaveBusiness ancBusiness = new AplicacionNotificacionClaveBusiness();
 
             try
             {
                 ancBusiness.Update(_entity);
+
+                MessageBox.Show("La operación se ha realizado correctamente", "Macros", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 DialogResult = DialogResult.OK;
             }
@@ -67,6 +97,23 @@ namespace PhalanxAdmin
                 DialogResult = DialogResult.None;
             else
                 DialogResult = DialogResult.Cancel;
+        }
+
+        private void cbEmuladores_CheckedChanged(object sender, EventArgs e)
+        {
+            ControlEmuladores(cbEmuladores.Checked);
+        }
+
+        private void ControlEmuladores(bool enable)
+        {
+            cbMacro.Enabled = enable;
+            txtPrefijoUsuario.Enabled = enable;
+
+            if (!enable)
+            {
+                cbMacro.SelectedIndex = 0;
+                txtPrefijoUsuario.Text = string.Empty;
+            }
         }
     }
 }

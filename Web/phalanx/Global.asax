@@ -4,9 +4,9 @@
 
     void Application_Start(object sender, EventArgs e) 
     {
-        PhalanxDAL.DBMgr.Application = PhalanxCommon.Entities.App.Phalanx;
-        PhalanxDAL.DBMgr.NHAssembly = System.Reflection.Assembly.Load("NDCDAL");
-        PhalanxDAL.DBMgr.Inicializar();
+        //PhalanxDAL.DBMgr.Application = PhalanxCommon.Entities.App.Phalanx;
+        //PhalanxDAL.DBMgr.NHAssembly = System.Reflection.Assembly.Load("NDCDAL");
+        //PhalanxDAL.DBMgr.Inicializar();
 
     }
     

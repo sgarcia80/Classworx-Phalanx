@@ -39,13 +39,16 @@ namespace PhalanxAdmin
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.lnkCancelar = new System.Windows.Forms.ToolStripStatusLabel();
             this.pnlFilters = new System.Windows.Forms.Panel();
+            this.btnDesencriptar = new System.Windows.Forms.Button();
             this.btnExportar = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.pnlList = new System.Windows.Forms.Panel();
+            this.txtInfo = new System.Windows.Forms.TextBox();
             this.lvLista = new System.Windows.Forms.ListView();
             this.bwRefreshEntities = new System.ComponentModel.BackgroundWorker();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -138,6 +141,7 @@ namespace PhalanxAdmin
             // 
             // pnlFilters
             // 
+            this.pnlFilters.Controls.Add(this.btnDesencriptar);
             this.pnlFilters.Controls.Add(this.btnExportar);
             this.pnlFilters.Controls.Add(this.button1);
             this.pnlFilters.Controls.Add(this.btnBuscar);
@@ -147,9 +151,20 @@ namespace PhalanxAdmin
             this.pnlFilters.Size = new System.Drawing.Size(520, 75);
             this.pnlFilters.TabIndex = 24;
             // 
+            // btnDesencriptar
+            // 
+            this.btnDesencriptar.Location = new System.Drawing.Point(387, 45);
+            this.btnDesencriptar.Name = "btnDesencriptar";
+            this.btnDesencriptar.Size = new System.Drawing.Size(117, 21);
+            this.btnDesencriptar.TabIndex = 3;
+            this.btnDesencriptar.Text = "Desencriptar";
+            this.btnDesencriptar.UseVisualStyleBackColor = true;
+            this.btnDesencriptar.Visible = false;
+            this.btnDesencriptar.Click += new System.EventHandler(this.btnDesencriptar_Click);
+            // 
             // btnExportar
             // 
-            this.btnExportar.Location = new System.Drawing.Point(296, 45);
+            this.btnExportar.Location = new System.Drawing.Point(18, 45);
             this.btnExportar.Name = "btnExportar";
             this.btnExportar.Size = new System.Drawing.Size(117, 21);
             this.btnExportar.TabIndex = 2;
@@ -160,33 +175,46 @@ namespace PhalanxAdmin
             // button1
             // 
             this.button1.BackColor = System.Drawing.SystemColors.Control;
-            this.button1.Location = new System.Drawing.Point(158, 45);
+            this.button1.Location = new System.Drawing.Point(264, 45);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(117, 21);
             this.button1.TabIndex = 1;
             this.button1.Text = "&Exportar a PDF";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // btnBuscar
             // 
             this.btnBuscar.BackColor = System.Drawing.SystemColors.Control;
-            this.btnBuscar.Location = new System.Drawing.Point(18, 45);
+            this.btnBuscar.Location = new System.Drawing.Point(141, 45);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(117, 21);
             this.btnBuscar.TabIndex = 0;
             this.btnBuscar.Text = "&Visualizar";
             this.btnBuscar.UseVisualStyleBackColor = false;
+            this.btnBuscar.Visible = false;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click_1);
             // 
             // pnlList
             // 
+            this.pnlList.Controls.Add(this.txtInfo);
             this.pnlList.Controls.Add(this.lvLista);
             this.pnlList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlList.Location = new System.Drawing.Point(200, 75);
             this.pnlList.Name = "pnlList";
             this.pnlList.Size = new System.Drawing.Size(520, 427);
             this.pnlList.TabIndex = 25;
+            // 
+            // txtInfo
+            // 
+            this.txtInfo.Location = new System.Drawing.Point(18, 6);
+            this.txtInfo.Multiline = true;
+            this.txtInfo.Name = "txtInfo";
+            this.txtInfo.ReadOnly = true;
+            this.txtInfo.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtInfo.Size = new System.Drawing.Size(485, 231);
+            this.txtInfo.TabIndex = 1;
             // 
             // lvLista
             // 
@@ -203,14 +231,15 @@ namespace PhalanxAdmin
             columnHeader8});
             this.lvLista.FullRowSelect = true;
             this.lvLista.HideSelection = false;
-            this.lvLista.Location = new System.Drawing.Point(18, 6);
+            this.lvLista.Location = new System.Drawing.Point(18, 243);
             this.lvLista.MultiSelect = false;
             this.lvLista.Name = "lvLista";
-            this.lvLista.Size = new System.Drawing.Size(485, 414);
+            this.lvLista.Size = new System.Drawing.Size(485, 177);
             this.lvLista.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lvLista.TabIndex = 0;
             this.lvLista.UseCompatibleStateImageBehavior = false;
             this.lvLista.View = System.Windows.Forms.View.Details;
+            this.lvLista.Visible = false;
             this.lvLista.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvLista_ColumnClick);
             // 
             // bwRefreshEntities
@@ -218,6 +247,10 @@ namespace PhalanxAdmin
             this.bwRefreshEntities.WorkerSupportsCancellation = true;
             this.bwRefreshEntities.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwRefreshEntities_DoWork);
             this.bwRefreshEntities.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwRefreshEntities_RunWorkerCompleted);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // FRptListadoDePwd
             // 
@@ -239,6 +272,7 @@ namespace PhalanxAdmin
             this.statusbar.PerformLayout();
             this.pnlFilters.ResumeLayout(false);
             this.pnlList.ResumeLayout(false);
+            this.pnlList.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -258,6 +292,9 @@ namespace PhalanxAdmin
         protected System.Windows.Forms.Button button1;
 		protected System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Button btnExportar;
+        private System.Windows.Forms.Button btnDesencriptar;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.TextBox txtInfo;
 
     }
 }

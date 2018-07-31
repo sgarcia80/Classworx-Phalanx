@@ -32,16 +32,19 @@ public partial class IdentificacionPositiva : System.Web.UI.Page
             string tipodocumento = string.Empty;
             string nrodocumento = string.Empty;
 
+            Meta4LegajoBusiness m4lb = new Meta4LegajoBusiness();
+            Meta4LegajoEntity legajo = null;
+
             if (esNotif)
             {
-                Meta4ClassWorxUsuariosBusiness m4ub = new Meta4ClassWorxUsuariosBusiness();
                 string usuario = Session["Usuario"].ToString();
 
-                IList<Meta4ClassWorxUsuariosEntity> usuarios = m4ub.GetUser(usuario);
-                if (usuarios != null && usuarios.Count > 0)
+                legajo = m4lb.GetByUsuario(usuario);
+
+                if (legajo != null)
                 {
-                    tipodocumento = usuarios[0].TipoDocumento;
-                    nrodocumento = usuarios[0].Num_Documento;
+                    tipodocumento = legajo.TipoDocumento;
+                    nrodocumento = legajo.Numero;
                 }
 
                 btnVolver.PostBackUrl = Request.UrlReferrer.AbsolutePath;
@@ -51,30 +54,28 @@ public partial class IdentificacionPositiva : System.Web.UI.Page
                 TicketNotificacionClaveBusiness tncb = new TicketNotificacionClaveBusiness();
                 TicketNotificacionClaveEntity ticket = tncb.GetById(ticketId);
 
+                if (ticket == null ||
+                    (ticket != null && string.IsNullOrEmpty(ticket.TipoDocumento) && string.IsNullOrEmpty(ticket.Documento)))
+                {
+                    lbMensaje.Text = "No se ha encontrado el ticket de notificacion de clave";
+
+                    pnlIdentificacion.Visible = false;
+                    btnAceptar.Visible = false;
+
+                    return;
+                }
+
                 if (ticket.Errado)
                 {
                     Response.Redirect(FormsAuthentication.LoginUrl);
-
                     return;
                 }
 
                 tipodocumento = ticket.TipoDocumento;
                 nrodocumento = ticket.Documento;
+
+                legajo = m4lb.GetByDocumento(tipodocumento, nrodocumento);
             }
-
-            if (string.IsNullOrEmpty(tipodocumento) && string.IsNullOrEmpty(nrodocumento))
-            {
-                lbMensaje.Text = esNotif ? "No se ha encontrado la información del Empleado en RRHH" : 
-                    "No se ha encontrado el ticket de notificacion de clave";
-
-                pnlIdentificacion.Visible = false;
-                btnAceptar.Visible = false;
-
-                return;
-            }
-            
-            Meta4LegajoBusiness m4lb = new Meta4LegajoBusiness();
-            Meta4LegajoEntity legajo = m4lb.GetByDocumento(tipodocumento, nrodocumento);
 
             if (legajo == null)
             {
@@ -120,7 +121,7 @@ public partial class IdentificacionPositiva : System.Web.UI.Page
 
         //opciones.Sort(new RandomComparer());
 
-        foreach(string calle in Shuffle(opciones.ToArray(), 10))
+        foreach (string calle in Shuffle(opciones.ToArray(), 10))
             rblCalle.Items.Add(new ListItem(calle, calle));
 
         ArrayList numeros = new ArrayList(4);
@@ -144,7 +145,7 @@ public partial class IdentificacionPositiva : System.Web.UI.Page
 
         //numeros.Sort(new RandomComparer());
 
-        foreach (string num in Shuffle(numeros.ToArray(), 20))        
+        foreach (string num in Shuffle(numeros.ToArray(), 20))
             rblNumero.Items.Add(new ListItem(num, num));
     }
 
@@ -157,7 +158,7 @@ public partial class IdentificacionPositiva : System.Web.UI.Page
 
         fechas.Add(fecha.ToString("dd/MM/yyyy"));
 
-        int anio = fecha.Year + ( random.Next(1, 3) * ( random.Next(2) == 0 ? -1 : 1));
+        int anio = fecha.Year + (random.Next(1, 3) * (random.Next(2) == 0 ? -1 : 1));
 
         int mes;
 
@@ -196,7 +197,7 @@ public partial class IdentificacionPositiva : System.Web.UI.Page
         IList<string> tipos = m4lb.GetTiposDocumento();
 
         ArrayList opciones = new ArrayList();
-        
+
         foreach (string tipo in tipos)
             opciones.Add(tipo);
 
@@ -224,10 +225,10 @@ public partial class IdentificacionPositiva : System.Web.UI.Page
         foreach (string num in Shuffle(documentos.ToArray(), 50))
             rblDocumento.Items.Add(new ListItem(num, num));
     }
-    
+
     protected void btnAceptar_Click(object sender, EventArgs e)
     {
-        int ticketId = (int) Session["ticketId"];
+        int ticketId = (int)Session["ticketId"];
 
         string tipodocumento = string.Empty;
         string nrodocumento = string.Empty;
@@ -235,17 +236,15 @@ public partial class IdentificacionPositiva : System.Web.UI.Page
         //Si ingreso por Notificacion
         bool esNotif = (Session["externo"] != null);
 
+        Meta4LegajoBusiness m4lb = new Meta4LegajoBusiness();
+        Meta4LegajoEntity legajo = null;
+
         if (esNotif)
         {
             Meta4ClassWorxUsuariosBusiness m4ub = new Meta4ClassWorxUsuariosBusiness();
             string usuario = Session["Usuario"].ToString();
 
-            IList<Meta4ClassWorxUsuariosEntity> usuarios = m4ub.GetUser(usuario);
-            if (usuarios != null && usuarios.Count > 0)
-            {
-                tipodocumento = usuarios[0].TipoDocumento;
-                nrodocumento = usuarios[0].Num_Documento;
-            }
+            legajo = m4lb.GetByUsuario(usuario);
         }
         else
         {
@@ -255,46 +254,53 @@ public partial class IdentificacionPositiva : System.Web.UI.Page
 
             tipodocumento = ticket.TipoDocumento;
             nrodocumento = ticket.Documento;
+            legajo = m4lb.GetByDocumento(tipodocumento, nrodocumento);
         }
 
-        Meta4LegajoBusiness m4lb = new Meta4LegajoBusiness();
-        Meta4LegajoEntity legajo = m4lb.GetByDocumento(tipodocumento, nrodocumento);
-
-        if (VerificarRespuestas(legajo))
+        try
         {
-            if (esNotif)
+            if (VerificarRespuestas(legajo))
             {
-                string url = string.Format("DetalleTicket.aspx?id={0}&tipo={1}", ticketId, "BLANQUEO");
-                Response.Redirect(url);
+                if (esNotif)
+                {
+                    string url = string.Format("DetalleTicket.aspx?id={0}&tipo={1}", ticketId, "BLANQUEO");
+                    Response.Redirect(url);
+                }
+                else
+                {
+                    Session["id"] = ticketId;
+
+                    Response.Redirect("tycip.aspx");
+                }
             }
             else
             {
-                Session["id"] = ticketId;
+                TicketNotificacionBlanqueoEntity ticket = null;
 
-                Response.Redirect("tycip.aspx");
+                if (esNotif)
+                {
+                    TicketNotificacionBlanqueoBusiness tnb = new TicketNotificacionBlanqueoBusiness();
+                    ticket = tnb.Cancelar(ticketId);
+                }
+
+                if (ticket != null && ticket.FechaCancelado.HasValue)
+                {
+                    lbMensaje.Text = "Se ha superado los intentos. Debe solicitar el blanqueo nuevamente.";
+                    btnAceptar.Enabled = false;
+                }
+                else
+                {
+                    lbMensaje.Text = "No se pudo realizar la identificación positiva con éxito";
+                }
+
+                btnAceptar.Visible = false;
             }
+
         }
-        else
+        catch (Exception ex)
         {
-            TicketNotificacionBlanqueoEntity ticket = null;
 
-            if (esNotif)
-            {
-                TicketNotificacionBlanqueoBusiness tnb = new TicketNotificacionBlanqueoBusiness();
-                ticket = tnb.Cancelar(ticketId);
-            }
-
-            if (ticket != null && ticket.FechaCancelado.HasValue)
-            {
-                lbMensaje.Text = "Se ha superado los intentos. Debe solicitar el blanqueo nuevamente.";
-                btnAceptar.Enabled = false;
-            }
-            else
-            {
-                lbMensaje.Text = "No se pudo realizar la identificación positiva con éxito";
-            }
-
-            btnAceptar.Visible = false;
+            throw;
         }
     }
 
@@ -354,9 +360,9 @@ public partial class IdentificacionPositiva : System.Web.UI.Page
         #endregion
     }
      * */
-    
+
     protected void btnVolver_Click(object sender, EventArgs e)
     {
-        Response.Redirect("AltaTemprana.aspx"); 
+        Response.Redirect("AltaTemprana.aspx");
     }
 }

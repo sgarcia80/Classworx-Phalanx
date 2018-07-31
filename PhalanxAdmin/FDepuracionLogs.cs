@@ -14,6 +14,14 @@ namespace PhalanxAdmin
 {
     public partial class FDepuracionLogs : PhalanxAdmin.FBaseAuditoria
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Depuración de Logs");
+            }
+        }
+
         public override string Id
         {
             get

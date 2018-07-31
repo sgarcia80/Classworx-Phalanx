@@ -16,7 +16,7 @@ namespace PhalanxDAL.Factories
 	/// <summary>
 	/// 
 	/// </summary>
-	public class UnixUsersFactory
+	public class UnixUsersFactory : BaseFactory
 	{
 		/*
 		Configuration config;
@@ -79,6 +79,10 @@ namespace PhalanxDAL.Factories
 			session = factory.OpenSession();*/
             
 		}
+        public UnixUsersFactory(string userlogon) : base(userlogon)
+        { 
+        }
+
 		/// <summary>
 		/// Make sure we clean up session etc.
 		/// </summary>
@@ -732,7 +736,7 @@ namespace PhalanxDAL.Factories
 
                     
                     // tengo que grabar el log de modificación
-                    HistPasswordChangeFactory HistPwdChg = new HistPasswordChangeFactory();
+                    HistPasswordChangeFactory HistPwdChg = new HistPasswordChangeFactory(this.UserLogon);
                     HistPwdChg.AddLog(SessionSaveUser, (UserEntity)winUser);
 
                     //txSaveUser.Commit();

@@ -13,6 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FConfigWSBPM : FBaseConfiguracion
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Webservice para BPM");
+            }
+        }
+
         public FConfigWSBPM()
         {
             InitializeComponent();
@@ -30,7 +38,7 @@ namespace PhalanxAdmin
             CargarComboParams();
             PhxUserBusiness UsrBL = new PhxUserBusiness();
 
-            btnModif.Enabled = UsrBL.AccParamConfigWSBPMRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            btnModif.Enabled = UsrBL.AccParamConfigWSBPMRW(this.Usuario);
 
             btnSave.Enabled = false;
             btnCancel.Enabled = false;

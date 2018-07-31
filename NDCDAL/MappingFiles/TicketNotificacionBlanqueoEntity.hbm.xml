@@ -21,5 +21,6 @@
     <property column="tnb_reclamos" type="Int32" name="Reclamos" not-null="false" />
     <property column="tnb_intentos" type="Int32" name="Intentos" not-null="false" />
     <property column="tnb_fecha_cancelado" type="DateTime" name="FechaCancelado" not-null="false" />
+    <property column="tnb_solicitante_puesto" type="String" name="SolicitantePuesto" not-null="false" length="500" />
   </class>
 </hibernate-mapping>

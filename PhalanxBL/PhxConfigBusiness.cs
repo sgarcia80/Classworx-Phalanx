@@ -143,6 +143,12 @@ namespace PhalanxBL
                 case ConfigCodes.BodyNotificacionBlanqueoMail:
                     strParamCode = "@BODY_NOTIF_BLANQUEO_MAIL@";
                     break;
+                case ConfigCodes.SubjectNotificacionBlanqueoRedMail:
+                    strParamCode = "@SUBJECT_NOTIF_BLAN_RED_MAIL@";
+                    break;
+                case ConfigCodes.BodyNotificacionBlanqueoRedMail:
+                    strParamCode = "@BODY_NOTIF_BLAN_RED_MAIL@";
+                    break;
                 case ConfigCodes.SubjectReclamoNotificacionBlanqueoMail:
                     strParamCode = "@SUBJECT_RECL_NOTIF_CLAVE@";
                     break;
@@ -160,6 +166,18 @@ namespace PhalanxBL
                     break;
                 case ConfigCodes.UsuariosAutorizadosWSConectores:
                     strParamCode = "@US_AUT_WSCONECTORES@";
+                    break;
+                case ConfigCodes.SubjectVencPwdAppMails:
+                    strParamCode = "@SUBJECT_VENCPWDAPP_MAILS@";
+                    break;
+                case ConfigCodes.BodyVencPwdAppMails:
+                    strParamCode = "@BODY_VENCPWDAPP_MAILS@";
+                    break;
+                case ConfigCodes.SubjectPwdAppMailsExp:
+                    strParamCode = "@SUBJECT_PWDAPPEXP_MAILS@";
+                    break;
+                case ConfigCodes.BodyPwdAppMailsExp:
+                    strParamCode = "@BODY_PWDAPPEXP_MAILS@";
                     break;
                 default:
                     break;
@@ -251,14 +269,22 @@ namespace PhalanxBL
             ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectNotificacionBlanqueoMail));
             ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyNotificacionBlanqueoMail));
 
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectNotificacionBlanqueoRedMail));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyNotificacionBlanqueoRedMail));
+
             ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectReclamoNotificacionBlanqueoMail));
             ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyReclamoNotificacionBlanqueoMail));
 
             ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectDevMailsNoCritic));
             ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyDevMailsNoCritic));
 
-            return ConfEC;
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectVencPwdAppMails));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyVencPwdAppMails));
 
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectPwdAppMailsExp));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyPwdAppMailsExp));
+            
+            return ConfEC;
         }
 
         public PhxConfigEntityCollection GetWSBPMParams()

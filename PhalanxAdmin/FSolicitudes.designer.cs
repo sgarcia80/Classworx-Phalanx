@@ -48,6 +48,12 @@ namespace PhalanxAdmin
             this.colhdrEstado = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colhdrCriticidad = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colhdrTiempoSolicitado = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colhdrTiempoOtorgado = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colhdrFechaExpiracion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colhdrFechaCierre = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colhdrFechaDevolucion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pnlFilters = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cboGrupos = new System.Windows.Forms.ComboBox();
@@ -190,7 +196,13 @@ namespace PhalanxAdmin
             this.colhdrFechaUltEstado,
             this.colhdrEstado,
             this.columnHeader2,
-            this.columnHeader3});
+            this.columnHeader3,
+            this.colhdrCriticidad,
+            this.colhdrTiempoSolicitado,
+            this.colhdrTiempoOtorgado,
+            this.colhdrFechaExpiracion,
+            this.colhdrFechaCierre,
+            this.colhdrFechaDevolucion});
             this.lvSolicitudes.FullRowSelect = true;
             this.lvSolicitudes.HideSelection = false;
             this.lvSolicitudes.Location = new System.Drawing.Point(18, 34);
@@ -237,6 +249,40 @@ namespace PhalanxAdmin
             // 
             this.columnHeader3.Text = "Usuario Cambio";
             this.columnHeader3.Width = 77;
+            // 
+            // colhdrCriticidad
+            // 
+            this.colhdrCriticidad.Text = "Criticidad";
+            // 
+            // colhdrTiempoSolicitado
+            // 
+            this.colhdrTiempoSolicitado.Text = "Tiempo Solicitado";
+            this.colhdrTiempoSolicitado.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.colhdrTiempoSolicitado.Width = 100;
+            // 
+            // colhdrTiempoOtorgado
+            // 
+            this.colhdrTiempoOtorgado.Text = "Tiempo Otorgado";
+            this.colhdrTiempoOtorgado.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.colhdrTiempoOtorgado.Width = 100;
+            // 
+            // colhdrFechaExpiracion
+            // 
+            this.colhdrFechaExpiracion.Text = "Fecha Expiración";
+            this.colhdrFechaExpiracion.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.colhdrFechaExpiracion.Width = 100;
+            // 
+            // colhdrFechaCierre
+            // 
+            this.colhdrFechaCierre.Text = "Fecha Cierre";
+            this.colhdrFechaCierre.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.colhdrFechaCierre.Width = 100;
+            // 
+            // colhdrFechaDevolucion
+            // 
+            this.colhdrFechaDevolucion.Text = "Fecha Devolución";
+            this.colhdrFechaDevolucion.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.colhdrFechaDevolucion.Width = 100;
             // 
             // pnlFilters
             // 
@@ -412,5 +458,11 @@ namespace PhalanxAdmin
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ImageList imageListStatus;
+        private System.Windows.Forms.ColumnHeader colhdrCriticidad;
+        private System.Windows.Forms.ColumnHeader colhdrTiempoSolicitado;
+        private System.Windows.Forms.ColumnHeader colhdrTiempoOtorgado;
+        private System.Windows.Forms.ColumnHeader colhdrFechaExpiracion;
+        private System.Windows.Forms.ColumnHeader colhdrFechaCierre;
+        private System.Windows.Forms.ColumnHeader colhdrFechaDevolucion;
     }
 }

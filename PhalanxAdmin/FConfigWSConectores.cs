@@ -13,6 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FConfigWSConectores : FBaseConfiguracion
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Webservice para Conectoress");
+            }
+        }
+
         public FConfigWSConectores()
         {
             InitializeComponent();
@@ -30,7 +38,7 @@ namespace PhalanxAdmin
             CargarComboParams();
             PhxUserBusiness UsrBL = new PhxUserBusiness();
 
-            btnModif.Enabled = UsrBL.AccParamConfigWSConectoresRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            btnModif.Enabled = UsrBL.AccParamConfigWSConectoresRW(this.Usuario);
 
             btnSave.Enabled = false;
             btnCancel.Enabled = false;

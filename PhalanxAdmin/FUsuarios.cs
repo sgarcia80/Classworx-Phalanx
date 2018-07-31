@@ -13,6 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FUsuarios : PhalanxAdmin.FBaseAdmin
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Usuarios");
+            }
+        }
+
         protected PhxUserEntityCollection _entities;
         protected string _filNombre = "";
         protected Nullable<bool> _filActivo = null;
@@ -33,9 +41,9 @@ namespace PhalanxAdmin
         private void FUsuarios_Load(object sender, EventArgs e)
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
-            lnkAdd.Enabled = UsrBL.AccAdmUsuariosRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkModify.Enabled = UsrBL.AccAdmUsuariosRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkDelete.Enabled = UsrBL.AccAdmUsuariosRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            lnkAdd.Enabled = UsrBL.AccAdmUsuariosRW(this.Usuario);
+            lnkModify.Enabled = UsrBL.AccAdmUsuariosRW(this.Usuario);
+            lnkDelete.Enabled = UsrBL.AccAdmUsuariosRW(this.Usuario);
 
             this.lnkCancelar.Visible = false;
             this.pbDB.Visible = false;
@@ -341,6 +349,7 @@ namespace PhalanxAdmin
         private void lnkAdd_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             FABMUsuarios FABMUsr = new FABMUsuarios();
+            FABMUsr.Usuario = this.Usuario;
             FABMUsr.ShowDialog();
             if (FABMUsr.DialogResult == DialogResult.OK)
             {
@@ -354,6 +363,7 @@ namespace PhalanxAdmin
             if (lvLista.SelectedIndices.Count == 1)
             {
                 FABMUsuarios FABMUsr = new FABMUsuarios((PhxUserEntity)lvLista.SelectedItems[0].Tag, false);
+                FABMUsr.Usuario = this.Usuario;
                 FABMUsr.ShowDialog();
                 if (FABMUsr.DialogResult == DialogResult.OK)
                 {
@@ -369,6 +379,7 @@ namespace PhalanxAdmin
             if (lvLista.SelectedIndices.Count == 1)
             {
                 FABMUsuarios FABMUsr = new FABMUsuarios((PhxUserEntity)lvLista.SelectedItems[0].Tag, true);
+                FABMUsr.Usuario = this.Usuario;
                 FABMUsr.ShowDialog();
             }
         }
@@ -380,7 +391,7 @@ namespace PhalanxAdmin
                 if (MessageBox.Show("Se va a borrar el usuario. Desea continuar?", "Eliminación de Usuario", MessageBoxButtons.YesNo, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button2)
                     == DialogResult.Yes)
                 {
-                    if (new PhxUserBusiness().InactivateUser((PhxUserEntity)lvLista.Items[0].Tag, System.Security.Principal.WindowsIdentity.GetCurrent().Name) > 0)
+                    if (new PhxUserBusiness().InactivateUser((PhxUserEntity)lvLista.Items[0].Tag, this.Usuario) > 0)
                     {
                         MessageBox.Show("Se eliminó el Usuario", "Eliminación de Usuarios");
                         this.CleanFilters();
@@ -423,7 +434,7 @@ namespace PhalanxAdmin
             Cursor.Current = Cursors.WaitCursor;
 			PhxUserBusiness pub = new PhxUserBusiness();
 
-			IList<PhxUserEntity> inactivados = pub.InactivarInexistentesEnAD();
+			IList<PhxUserEntity> inactivados = pub.InactivarInexistentesEnAD(this.Usuario);
 
 			string message = "";
             bool bInactivados = false;

@@ -29,6 +29,8 @@ namespace PhalanxCommon.Entities
 		private UserPasswordEntity m_user_password_id;
         private string m_user_desc;
         private bool m_critical;
+        private int m_duration;
+        private DateTime? m_modifying_pass_date;
         /// Sacar cuando se encuentre el problema de los reportes
         /// </summary>
         private string m_User_RealPassword = string.Empty;
@@ -55,6 +57,7 @@ namespace PhalanxCommon.Entities
 			m_user_password_id = new UserPasswordEntity();
             m_user_desc = String.Empty;
             m_critical = false;
+            m_duration = 0;
         }
 		#endregion // End of Default ( Empty ) Class Constuctor
 
@@ -176,7 +179,35 @@ namespace PhalanxCommon.Entities
 
 		}
 
-		/// <summary>
+        /// <summary>
+        /// Cantidad Días caducidad password
+        /// </summary>
+        public int Duration
+        {
+            get { return m_duration; }
+            set
+            {
+                m_isChanged |= (m_duration != value);
+                m_duration = value;
+            }
+
+        }
+
+        /// <summary>
+        /// fecha en que se modifico el password por ultima vez
+        /// </summary>
+        public DateTime? ModifyingPassDate
+        {
+            get { return m_modifying_pass_date; }
+            set
+            {
+                m_isChanged |= (m_modifying_pass_date != value);
+                m_modifying_pass_date = value;
+            }
+
+        }
+        
+        /// <summary>
         /// Indica el tipo de usuario (de dominio, de sql server, local de una workstation)
 		/// </summary>
 		public UserTypeEntity UserType
@@ -212,7 +243,7 @@ namespace PhalanxCommon.Entities
 
             set
             {
-                if (value != null && value.Length > 100)
+                if (value != null && value.Length > 4000)
                     throw new ArgumentOutOfRangeException("Invalid value for UserDesc", value, value.ToString());
 
                 m_isChanged |= (m_user_desc != value); m_user_desc = value;

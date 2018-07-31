@@ -22,7 +22,7 @@ public partial class DetalleTicket : System.Web.UI.Page
 
         int id = 0;
         string tipo = "ALTA";
-        
+
         if (Request["id"] != null)
         {
             int.TryParse(Request["id"], out id);
@@ -43,14 +43,12 @@ public partial class DetalleTicket : System.Web.UI.Page
 
         if (id > 0 && tipo == "BLANQUEO")
         {
-            tbTipoSolicitud.Text = "Blanqueo de Usuario de Aplicación";
-
-            redirect = ConsultarTicketNotificacionBlanqueo(id);
+            redirect = ConsultarTicketNotificacion(id, tipo);
         }
 
         Session["tipoticket"] = tipo;
         if (!string.IsNullOrEmpty(redirect))
-        {            
+        {
             Response.Redirect(redirect);
         }
     }
@@ -66,7 +64,7 @@ public partial class DetalleTicket : System.Web.UI.Page
 
         if (ticket.FechaAceptacionTyC == null)
         {
-            return"tyc.aspx?id=" + id.ToString();
+            return "tyc.aspx?id=" + id.ToString();
         }
 
         if (!ticket.Aplicacion.Notificable)
@@ -82,13 +80,39 @@ public partial class DetalleTicket : System.Web.UI.Page
         return string.Empty;
     }
 
+    private string ConsultarTicketNotificacion(int id, string tipo)
+    {
+        string redirect = string.Empty;
+
+        TicketNotificacionBusiness business = new TicketNotificacionBusiness();
+        TicketNotificacionEntity ticket = business.Load(id, tipo);
+
+        if (ticket != null)
+        {
+            if (ticket.Subtipo == "TC")
+            {
+                tbTipoSolicitud.Text = "Blanqueo de Usuario de Tarjeta de Crédito";
+
+                redirect = ConsultarTicketNotificacionTC(id);
+            }
+            else
+            {
+                tbTipoSolicitud.Text = "Blanqueo de Usuario de Aplicación";
+
+                redirect = ConsultarTicketNotificacionBlanqueo(id);
+            }
+        }
+
+        return redirect;
+    }
+
     private string ConsultarTicketNotificacionBlanqueo(int id)
     {
         TicketNotificacionBlanqueoBusiness tncb = new TicketNotificacionBlanqueoBusiness();
 
         TicketNotificacionBlanqueoEntity ticket = tncb.GetById(id);
 
-        if (ticket.Usuario.ToLower() != Session["Usuario"].ToString().ToLower() ) // || ticket.UsuarioDominio.ToLower() != Session["Dominio"].ToString().ToLower())
+        if (ticket.Usuario.ToLower() != Session["Usuario"].ToString().ToLower()) // || ticket.UsuarioDominio.ToLower() != Session["Dominio"].ToString().ToLower())
             return string.Empty;
 
         if (!ticket.Aplicacion.Notificable)
@@ -102,6 +126,32 @@ public partial class DetalleTicket : System.Web.UI.Page
         }
 
         MostrarDatosTicketNotificacionBlanqueo(ticket);
+
+        return string.Empty;
+    }
+
+    private string ConsultarTicketNotificacionTC(int id)
+    {
+        TicketNotificacionTarjetaBusiness tncb = new TicketNotificacionTarjetaBusiness();
+
+        TicketNotificacionTarjetaEntity ticket = tncb.Load(id);
+
+        if (ticket.Usuario.ToLower() != Session["Usuario"].ToString().ToLower()) // || ticket.UsuarioDominio.ToLower() != Session["Dominio"].ToString().ToLower())
+        {
+            return string.Empty;
+        }
+
+        if (!ticket.Aplicacion.Notificable)
+        {
+            return "nopermitido.aspx?id=" + id.ToString();
+        }
+
+        if (!ticket.FechaNotificado.HasValue)
+        {
+            tncb.AceptarTyC(ticket.Id);
+        }
+
+        MostrarDatosTicketNotificacionTC(ticket);
 
         return string.Empty;
     }
@@ -136,6 +186,30 @@ public partial class DetalleTicket : System.Web.UI.Page
 
         trContra.Visible = true;
         tbContra.Text = new TicketNotificacionBlanqueoBusiness().DesencriptarPassword(ticket.PasswordUsuarioAplicacion);
+    }
+
+    private void MostrarDatosTicketNotificacionTC(TicketNotificacionTarjetaEntity ticket)
+    {
+        tbFecha.Text = ticket.Fecha.ToString();
+        tbApp.Text = ticket.Aplicacion.Nombre;
+        tbNroSolicitud.Text = ticket.Id.ToString();
+        tbUsuario.Text = ticket.UsuarioAplicacion;
+
+        if (ticket.Aplicacion.EsAplicacionRed)
+        {
+            tbTipoSolicitud.Text = "Blanqueo de Usuario de Red";
+        }
+
+        trContra.Visible = true;
+
+        if (ticket.Clave == null)
+        {
+            tbContra.Text = ticket.PasswordUsuarioAplicacion;
+        }
+        else
+        {
+            tbContra.Text = ticket.Clave.Clave;
+        }
     }
 
     protected void btnVolver_Click(object sender, EventArgs e)

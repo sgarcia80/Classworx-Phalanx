@@ -47,12 +47,18 @@ namespace PhalanxCommon.Entities
         LoginBlanqueoWSCOBIS,
         SubjectNotificacionBlanqueoMail,
         BodyNotificacionBlanqueoMail,
+        SubjectNotificacionBlanqueoRedMail,
+        BodyNotificacionBlanqueoRedMail,
         SubjectReclamoNotificacionBlanqueoMail,
         BodyReclamoNotificacionBlanqueoMail,
         SubjectDevMailsNoCritic,
         BodyDevMailsNoCritic,
         AutenticacionUsuariosAutorizadosWSConectores,
-        UsuariosAutorizadosWSConectores
+        UsuariosAutorizadosWSConectores,
+        SubjectVencPwdAppMails, // = "@SUBJECT_VENCPWDAPP_MAILS@",
+        BodyVencPwdAppMails, // = "@BODY_VENCPWDAPP_MAILS@",
+        SubjectPwdAppMailsExp, // = "@SUBJECT_VENCPWDAPP_MAILS@",
+        BodyPwdAppMailsExp // = "@BODY_VENCPWDAPP_MAILS@",
     }
 
 

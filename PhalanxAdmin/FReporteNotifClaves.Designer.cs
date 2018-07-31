@@ -52,6 +52,7 @@ namespace PhalanxAdmin
             this.lvLista = new System.Windows.Forms.ListView();
             this.colFecha = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colReintentos = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colFechaUltimoReclamo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.bwRefreshEntities = new System.ComponentModel.BackgroundWorker();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             colTipoNotif = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -78,7 +79,6 @@ namespace PhalanxAdmin
             // xppnlMenu
             // 
             this.xppnlMenu.ImageItems.ImageSet = null;
-            this.xppnlMenu.Size = new System.Drawing.Size(167, 502);
             // 
             // colTipoNotif
             // 
@@ -288,7 +288,8 @@ namespace PhalanxAdmin
             colAplicacion,
             colUsuario,
             this.colFecha,
-            this.colReintentos});
+            this.colReintentos,
+            this.colFechaUltimoReclamo});
             this.lvLista.FullRowSelect = true;
             this.lvLista.HideSelection = false;
             this.lvLista.Location = new System.Drawing.Point(18, 16);
@@ -312,6 +313,12 @@ namespace PhalanxAdmin
             this.colReintentos.Text = "Reintentos";
             this.colReintentos.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.colReintentos.Width = 80;
+            // 
+            // colFechaUltimoReclamo
+            // 
+            this.colFechaUltimoReclamo.Tag = "ddMMyyyyHHmm";
+            this.colFechaUltimoReclamo.Text = "Fecha Ultimo Reclamo";
+            this.colFechaUltimoReclamo.Width = 140;
             // 
             // bwRefreshEntities
             // 
@@ -370,6 +377,7 @@ namespace PhalanxAdmin
         protected System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dtpFechaDesde;
         protected System.Windows.Forms.Button btnReenviar;
+        private System.Windows.Forms.ColumnHeader colFechaUltimoReclamo;
 
     }
 }

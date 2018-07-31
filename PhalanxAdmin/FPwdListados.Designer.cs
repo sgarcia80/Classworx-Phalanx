@@ -29,7 +29,7 @@ namespace PhalanxAdmin
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
+            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource2 = new Microsoft.Reporting.WinForms.ReportDataSource();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FPwdListados));
             this.WinLocalUserEntityBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bwRefreshEntities = new System.ComponentModel.BackgroundWorker();
@@ -67,6 +67,7 @@ namespace PhalanxAdmin
             // xppnlMenu
             // 
             this.xppnlMenu.ImageItems.ImageSet = null;
+            this.xppnlMenu.Size = new System.Drawing.Size(167, 502);
             // 
             // WinLocalUserEntityBindingSource
             // 
@@ -89,9 +90,9 @@ namespace PhalanxAdmin
             // 
             this.reportViewer1.Cursor = System.Windows.Forms.Cursors.Default;
             this.reportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            reportDataSource1.Name = "PhalanxCommon_Entities_WinLocalUserEntity";
-            reportDataSource1.Value = this.WinLocalUserEntityBindingSource;
-            this.reportViewer1.LocalReport.DataSources.Add(reportDataSource1);
+            reportDataSource2.Name = "PhalanxCommon_Entities_WinLocalUserEntity";
+            reportDataSource2.Value = this.WinLocalUserEntityBindingSource;
+            this.reportViewer1.LocalReport.DataSources.Add(reportDataSource2);
             this.reportViewer1.LocalReport.ReportEmbeddedResource = "PhalanxAdmin.UsersPasswordList.rdlc";
             this.reportViewer1.Location = new System.Drawing.Point(0, 0);
             this.reportViewer1.Name = "reportViewer1";

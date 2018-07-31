@@ -5,6 +5,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using NDCBL;
 using NDCCommon.Collections;
+using NDCCommon.Entities;
 
 public partial class ClavesAplicativos : System.Web.UI.Page
 {
@@ -24,12 +25,14 @@ public partial class ClavesAplicativos : System.Web.UI.Page
                 esExterno = Session["externo"].ToString() == "S";
             }
 
+            string usuario = Session["Usuario"].ToString();
+
             panelPreguntas.Visible = esExterno;
 
             if (esExterno)
             {
                 QuestionAnswerBusiness qab = new QuestionAnswerBusiness();
-                qab.FilUser = Session["Usuario"].ToString();
+                qab.FilUser = usuario;
 
                 QuestionAnswerEntityCollection qaEC = new QuestionAnswerEntityCollection();
                 qaEC = qab.GetAll();
@@ -41,22 +44,37 @@ public partial class ClavesAplicativos : System.Web.UI.Page
                     btnNotifClaves.OnClientClick = "alert('Primero debe cargar las preguntas de seguridad'); return false;";
                 }
             }
+
+            BloqueoBusiness bloqueoBus = new BloqueoBusiness();
+            bool bloqueoCobis = bloqueoBus.IsBloqueoActivo(BloqueoEntity.TipoBLoqueo.AutogestionCobis);
+
+            lblBloqueoCobis.Visible = bloqueoCobis;
+            btnCOBIS.Enabled = !bloqueoCobis;
         }
     }
+
     protected void btnCOBIS_Click(object sender, EventArgs e)
     {
         Response.Redirect("AutogestionCOBIS.aspx");
     }
+    
     protected void btnVolver_Click(object sender, EventArgs e)
     {
         Response.Redirect("Login.aspx");
     }
+    
     protected void btnNotifClaves_Click(object sender, EventArgs e)
     {
         Response.Redirect("Tickets.aspx");
     }
+    
     protected void btnPreguntas_Click(object sender, EventArgs e)
     {
         Response.Redirect("CargaRespuestasUsr.aspx");
+    }
+
+    protected void btnTarjetas_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("SolicitudBlanqueoTarjeta.aspx");
     }
 }

@@ -7,11 +7,11 @@ using NHibernate;
 using NHibernate.Criterion;
 using PhalanxCommon;
 using System.Collections;
- 
+
 namespace PhalanxDAL.Factories
 {
-    public class ApplicationUserFactory
-    {
+    public class ApplicationUserFactory: BaseFactory
+    {   
         private string _filUserName = "";
         private ApplicationEntity _filApp;
         private bool _orderName = false;
@@ -51,10 +51,16 @@ namespace PhalanxDAL.Factories
         private bool _AvoidInactiveGrps = false;
         public bool SetAvoidInactiveGrps
         { set { _AvoidInactiveGrps = value; } }
-
-
+        
         public bool GetGruposAsignados = false;
         public bool GetGruposSeguimAsignados = false;
+
+        public ApplicationUserFactory() : base()
+        {
+        }
+        public ApplicationUserFactory(string userlogon) : base(userlogon)
+        {
+        }
 
         public ApplicationUserEntityCollection GetAll()
         {
@@ -118,6 +124,17 @@ namespace PhalanxDAL.Factories
 
             return DBUsrEC;
 
+        }
+
+
+        public ApplicationUserEntity GetById(int userId)
+        {
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                ApplicationUserEntity entity = session.Get<ApplicationUserEntity>(userId);
+
+                return entity;
+            }
         }
 
         public ApplicationUserEntity Refresh(ApplicationUserEntity User)
@@ -251,7 +268,7 @@ namespace PhalanxDAL.Factories
             return AppUsrE;
         }
 
-        public RqstGrpPwdEntityCollection  GetGruposSolicitudes(ApplicationUserEntity CurrentUser)
+        public RqstGrpPwdEntityCollection GetGruposSolicitudes(ApplicationUserEntity CurrentUser)
         {
             IList<RqstGrpPwdEntity> lstRequestGroups;
             RqstGrpPwdEntityCollection colRequestGroups = new RqstGrpPwdEntityCollection();
@@ -364,7 +381,7 @@ namespace PhalanxDAL.Factories
                         }
                     }
                     // tengo que grabar el log de modificación
-                    HistPasswordChangeFactory HistPwdChg = new HistPasswordChangeFactory();
+                    HistPasswordChangeFactory HistPwdChg = new HistPasswordChangeFactory(this.UserLogon);
                     HistPwdChg.AddLog(session, (UserEntity)AppUser);
                     tx.Commit();
                 }
@@ -442,24 +459,24 @@ namespace PhalanxDAL.Factories
         public object GetAppUser(ApplicationEntity AppEntity, string UserName)
         {
 
-			IList lstWLUs;
+            IList lstWLUs;
 
-			using(ISession session = DBMgr.factory.OpenSession())
-			{
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
                 lstWLUs = session.CreateCriteria(typeof(ApplicationUserEntity))
                     .Add(Expression.Eq("Application", AppEntity))
-					.Add(Expression.Eq("Username",UserName))
-					.List();
-			}
+                    .Add(Expression.Eq("Username", UserName))
+                    .List();
+            }
 
-			if (lstWLUs.Count >= 1)
-			{
+            if (lstWLUs.Count >= 1)
+            {
                 return (ApplicationUserEntity)lstWLUs[0];
-			}
-			else
-			{
-				return null;
-			}
+            }
+            else
+            {
+                return null;
+            }
 
         }
 
@@ -486,28 +503,50 @@ namespace PhalanxDAL.Factories
             }
         }
 
-		public IList GetAll(bool? critico, bool? estadoUsuario, string nombre)
-		{
-			using (ISession session = DBMgr.factory.OpenSession())
-			{
-				IQuery query = session.GetNamedQuery("getAllApplicationUsers");
+        public IList GetAll(bool? critico, bool? estadoUsuario, string nombre, int expiracion)
+        {
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                IQuery query = session.GetNamedQuery("getAllApplicationUsers");
 
-				int criticoParam = -1;
-				int estadoUsuarioParam = -1;
+                int criticoParam = -1;
+                int estadoUsuarioParam = -1;
 
-				if (critico != null)
-					criticoParam = critico.Value ? 1 : 0;
+                if (critico != null)
+                    criticoParam = critico.Value ? 1 : 0;
 
-				if (estadoUsuario != null)
-					estadoUsuarioParam = estadoUsuario.Value ? 1 : 0;
+                if (estadoUsuario != null)
+                    estadoUsuarioParam = estadoUsuario.Value ? 1 : 0;
 
-				query.SetString("nombre", nombre != null ? "%" + nombre.ToUpper() + "%" : null);
-				query.SetParameter("critico", criticoParam);
-				query.SetInt32("estadoUsuario", estadoUsuarioParam);
+                switch (expiracion)
+                {
+                    case 0: //0. Si
+                    case 1: //1. No
+                    case 2: //2. Todos
+                        query.SetParameter("expiracion", expiracion);
+                        break;
+                    default:
+                        query.SetParameter("expiracion", 2);
+                        break;
+                }
 
-				return query.List();
-			}
-		}
+                query.SetString("nombre", nombre != null ? "%" + nombre.ToUpper() + "%" : null);
+                query.SetParameter("critico", criticoParam);
+                query.SetInt32("estadoUsuario", estadoUsuarioParam);
+
+                return query.List();
+            }
+        }
+
+        public IList GetProxVencimientos()
+        {
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                IQuery query = session.GetNamedQuery("getProxVencApplicationUsers");
+
+                return query.List();
+            }
+        }
 
         public ApplicationUserEntity Load(int ID)
         {

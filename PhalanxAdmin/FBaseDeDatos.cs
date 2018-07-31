@@ -13,6 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FBaseDeDatos : PhalanxAdmin.FBaseAdmin
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Base de Datos");
+            }
+        }
+
         protected DataBaseEntityCollection _entities;
         protected string _filNombre = "";
         protected bool? _filUsuariosActivos;
@@ -272,9 +280,9 @@ namespace PhalanxAdmin
         private void FBaseDeDatos_Load(object sender, EventArgs e)
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
-            lnkAdd.Enabled = UsrBL.AccAdmBDRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkModify.Enabled = UsrBL.AccAdmBDRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkDelete.Enabled = UsrBL.AccAdmBDRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            lnkAdd.Enabled = UsrBL.AccAdmBDRW(this.Usuario);
+            lnkModify.Enabled = UsrBL.AccAdmBDRW(this.Usuario);
+            lnkDelete.Enabled = UsrBL.AccAdmBDRW(this.Usuario);
 
             this.lnkCancelar.Visible = false;
             this.pbDB.Visible = false;

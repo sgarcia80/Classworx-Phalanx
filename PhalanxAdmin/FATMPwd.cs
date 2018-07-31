@@ -14,6 +14,14 @@ namespace PhalanxAdmin
 {
     public partial class FATMPwd : PhalanxAdmin.FBaseContrasenas
     {
+        public override string Titulo
+        {
+            get
+            {
+                return  GetTitlePath(base.Titulo, "ATMs");
+            }
+        }
+
 		protected IList _entities;
         protected string _filNombre = "";
         private bool? _filUsuariosActivos;
@@ -122,7 +130,7 @@ namespace PhalanxAdmin
         /// </example>
         private void LoadEntities()
         {
-			ATMUserBusiness DBUsrBL = new ATMUserBusiness();
+			ATMUserBusiness DBUsrBL = new ATMUserBusiness(this.Usuario);
 
 			string nombre = null;
 
@@ -261,9 +269,9 @@ namespace PhalanxAdmin
         private void FAppPwd_Load(object sender, EventArgs e)
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
-            lnkAdd.Enabled = UsrBL.AccATMRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkModify.Enabled = UsrBL.AccATMRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkDelete.Enabled = UsrBL.AccATMRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            lnkAdd.Enabled = UsrBL.AccATMRW(this.Usuario);
+            lnkModify.Enabled = UsrBL.AccATMRW(this.Usuario);
+            lnkDelete.Enabled = UsrBL.AccATMRW(this.Usuario);
 
             this.lnkCancelar.Visible = false;
             this.pbDB.Visible = false;
@@ -275,7 +283,8 @@ namespace PhalanxAdmin
 
         private void lnkAdd_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            FABMATMPwd FABMATMPwd = new FABMATMPwd(FABMATMPwd.FormType.New);
+            FABMATMPwd FABMATMPwd = new FABMATMPwd(FABMATMPwd.FormType.New, this.Usuario);
+            FABMATMPwd.Usuario = this.Usuario;
             FABMATMPwd.ShowDialog();
             if (FABMATMPwd.DialogResult == DialogResult.OK)
             {
@@ -289,8 +298,9 @@ namespace PhalanxAdmin
         {
             if (lvLista.SelectedIndices.Count == 1)
             {
-                ATMUserEntity currUser = new ATMUserBusiness().Load(Convert.ToInt32(lvLista.SelectedItems[0].Tag.ToString()));
-                FABMATMPwd FABMAppUsr = new FABMATMPwd(currUser, false, FABMATMPwd.FormType.Update);
+                ATMUserEntity currUser = new ATMUserBusiness(this.Usuario).Load(Convert.ToInt32(lvLista.SelectedItems[0].Tag.ToString()));
+                FABMATMPwd FABMAppUsr = new FABMATMPwd(currUser, false, FABMATMPwd.FormType.Update, this.Usuario);
+                
                 FABMAppUsr.ShowDialog();
                 if (FABMAppUsr.DialogResult == DialogResult.OK)
                 {
@@ -306,8 +316,8 @@ namespace PhalanxAdmin
         {
             if (lvLista.SelectedIndices.Count == 1)
             {
-                ATMUserEntity currUser = new ATMUserBusiness().Load(Convert.ToInt32(lvLista.SelectedItems[0].Tag.ToString()));
-                FABMATMPwd FABMAppUsr = new FABMATMPwd(currUser, true, FABMATMPwd.FormType.View);
+                ATMUserEntity currUser = new ATMUserBusiness(this.Usuario).Load(Convert.ToInt32(lvLista.SelectedItems[0].Tag.ToString()));
+                FABMATMPwd FABMAppUsr = new FABMATMPwd(currUser, true, FABMATMPwd.FormType.View, this.Usuario);
                 FABMAppUsr.ShowDialog();
             }
 

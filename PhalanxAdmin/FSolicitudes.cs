@@ -14,8 +14,16 @@ using System.IO;
 
 namespace PhalanxAdmin
 {
-    public partial class FSolicitudes : PhalanxAdmin.FBaseReportes
+    public partial class FSolicitudes : PhalanxAdmin.FBaseReportesNormativos
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Planilla de Control de Utilización de Contraseñas en Custodia");
+            }
+        }
+
         private SolicitudPwdEntityCollection _PwdRqst;
         private RequestGroupEntityCollection _reqGroups;
         private ArrayList _filEstados;
@@ -124,17 +132,17 @@ namespace PhalanxAdmin
         {
             PasswordRequestBusiness reqpwdBL = new PasswordRequestBusiness();
             //if (true) //
-                if(_filEstados == null && _filGrupos == null && txtFilNroSolic.Text.Trim() == "")
-            {
-                _entities = null;
-                _PwdRqst = reqpwdBL.GetAll();
-            }
-            else
-            {
-                _PwdRqst = null;
-                // seteo filtros
-                _entities = reqpwdBL.GetPassRqstByState(_filEstados, txtFilNroSolic.Text, _filGrupos, true);
-            }
+            //    if(_filEstados == null && _filGrupos == null && txtFilNroSolic.Text.Trim() == "")
+            //{
+                //_entities = null;
+                //_PwdRqst = reqpwdBL.GetAll();
+            //}
+            //else
+            //{
+            _PwdRqst = null;
+            // seteo filtros
+            _entities = reqpwdBL.GetPassRqstByState(_filEstados, txtFilNroSolic.Text, _filGrupos, true);
+            //}
         }
 
         //protected void gvCloseRequests_RowDataBound(object sender)
@@ -254,6 +262,7 @@ namespace PhalanxAdmin
                 int i = 0, imgIndex = 0;
 
                 string tmpString = string.Empty;
+                string sCritical = string.Empty;
 
                 foreach (PasswordRequestEntity reqpwd in this._entities)
                 {
@@ -262,40 +271,47 @@ namespace PhalanxAdmin
                     if (reqpwd.User is WinLocalUserEntity)
                     {
                         tmpString = "Dominio: " + ((WinLocalUserEntity)reqpwd.User).Domain + " - Server: " + ((WinLocalUserEntity)reqpwd.User).WinPc.Name; // +" - Usuario: " + reqpwd.User.Username;
+                        sCritical = ((WinLocalUserEntity)reqpwd.User).Critical ? "Crítico" : "No Crítico"; 
                         imgIndex = 3;
                     }
 
                     if (reqpwd.User is ApplicationUserEntity)
                     {
                         tmpString = "Aplicación: " + ((ApplicationUserEntity)reqpwd.User).ApplicationName; // +" - Usuario: " + reqpwd.User.Username;
+                        sCritical = ((ApplicationUserEntity)reqpwd.User).Critical ? "Crítico" : "No Crítico";
                         imgIndex = 0;
                     }
 
                     if (reqpwd.User is DatabaseUserEntity)
                     {
                         tmpString = "Base de datos: " + ((DatabaseUserEntity)reqpwd.User).DBName + " - Tipo: " + ((DatabaseUserEntity)reqpwd.User).Db.Type.Name;
+                        sCritical = ((DatabaseUserEntity)reqpwd.User).Critical ? "Crítico" : "No Crítico";
                         imgIndex = 1;
                     }
 
                     if (reqpwd.User is UnixUserEntity)
                     {
                         tmpString = "Servidor: " + ((UnixUserEntity)reqpwd.User).Unix.ServerName;
+                        sCritical = ((UnixUserEntity)reqpwd.User).Critical ? "Crítico" : "No Crítico";
                         imgIndex = 2;
                     }
                     if (reqpwd.User is AS400UserEntity)
                     {
                         tmpString = "Servidor: " + ((AS400UserEntity)reqpwd.User).AS400.ServerName;
+                        sCritical = ((AS400UserEntity)reqpwd.User).Critical ? "Crítico" : "No Crítico";
                         imgIndex = 4;
                     }
 
                     if (reqpwd.User is CommunicationDeviceUserEntity)
                     {
                         tmpString = "Eq. de Comunicación: " + ((CommunicationDeviceUserEntity)reqpwd.User).CommunicationDeviceName + " - Tipo: " + ((CommunicationDeviceUserEntity)reqpwd.User).CommunicationDeviceType;
+                        sCritical = ((CommunicationDeviceUserEntity)reqpwd.User).Critical ? "Crítico" : "No Crítico";
                         imgIndex = 5;
                     }
                     if (reqpwd.User is ATMUserEntity)
                     {
                         tmpString = "ATM: " + ((ATMUserEntity)reqpwd.User).ATMName;
+                        sCritical = ((ATMUserEntity)reqpwd.User).Critical ? "Crítico" : "No Crítico";
                         imgIndex = 6;
                     }
                     tmpString += " - Usuario: " + reqpwd.User.Username;
@@ -312,31 +328,31 @@ namespace PhalanxAdmin
                         case 2:
                         // Rechazada
                         case 3:
-                            tmpString = ((DateTime)reqpwd.Auth1Date).ToString("dd/MM/yyyy HH:mm:ss");
+                            if (reqpwd.Auth1Date != null) tmpString = ((DateTime)reqpwd.Auth1Date).ToString("dd/MM/yyyy HH:mm:ss");
                             break;
                         // Visualizada
                         case 4:
-                            tmpString = ((DateTime)reqpwd.Auth1Date).ToString("dd/MM/yyyy HH:mm:ss");
+                            if (reqpwd.Auth1Date != null) tmpString = ((DateTime)reqpwd.Auth1Date).ToString("dd/MM/yyyy HH:mm:ss");
                             break;
                         // Asignaciones
                         case 5:
                         case 6:
                         case 7:
-                            tmpString = ((DateTime)reqpwd.Auth1Date).ToString("dd/MM/yyyy HH:mm:ss");
+                            if (reqpwd.Auth1Date != null) tmpString = ((DateTime)reqpwd.Auth1Date).ToString("dd/MM/yyyy HH:mm:ss");
                             break;
                         // Devuelta por el usuario
                         case 8:
                         // Devuelta por el administrador
                         case 9:
-                            tmpString = ((DateTime)reqpwd.ReturnDate).ToString("dd/MM/yyyy HH:mm:ss");
+                            if (reqpwd.ReturnDate != null) tmpString = ((DateTime)reqpwd.ReturnDate).ToString("dd/MM/yyyy HH:mm:ss");
                             break;
                         // Expirada
                         case 10:
-                            tmpString = ((DateTime)reqpwd.ExpirationDate).ToString("dd/MM/yyyy HH:mm:ss");
+                            if (reqpwd.ExpirationDate != null) tmpString = ((DateTime)reqpwd.ExpirationDate).ToString("dd/MM/yyyy HH:mm:ss");
                             break;
                         // Cerrada
                         case 11:
-                            tmpString = ((DateTime)reqpwd.CloseDate).ToString("dd/MM/yyyy HH:mm:ss");
+                            if (reqpwd.CloseDate != null) tmpString = ((DateTime)reqpwd.CloseDate).ToString("dd/MM/yyyy HH:mm:ss");
                             break;
                     }
                     lviArr[i].SubItems.Add(tmpString);
@@ -352,6 +368,24 @@ namespace PhalanxAdmin
 
                     lviArr[i].SubItems.Add(FechaCambio);
                     lviArr[i].SubItems.Add(UsrCambio);
+
+                    lviArr[i].SubItems.Add(sCritical);
+                    //lviArr[i].SubItems.Add("AreaSolicitante");//Mirando la base, un usuario puede pertenecer a mas de un request group
+
+                    lviArr[i].SubItems.Add(reqpwd.HoursRequested.ToString());
+                    lviArr[i].SubItems.Add(reqpwd.HoursGiven.ToString());
+
+                    tmpString = string.Empty;
+                    if (reqpwd.ExpirationDate != null) tmpString = ((DateTime)reqpwd.ExpirationDate).ToString("dd/MM/yyyy HH:mm:ss");
+                    lviArr[i].SubItems.Add(tmpString);
+
+                    tmpString = string.Empty;
+                    if (reqpwd.CloseDate != null) tmpString = ((DateTime)reqpwd.CloseDate).ToString("dd/MM/yyyy HH:mm:ss");
+                    lviArr[i].SubItems.Add(tmpString);
+
+                    tmpString = string.Empty;
+                    if (reqpwd.ReturnDate != null) tmpString = ((DateTime)reqpwd.ReturnDate).ToString("dd/MM/yyyy HH:mm:ss");
+                    lviArr[i].SubItems.Add(tmpString);
 
                     lviArr[i].Tag = reqpwd;
                     i++;

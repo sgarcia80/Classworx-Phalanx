@@ -14,6 +14,14 @@ namespace PhalanxAdmin
 {
     public partial class FLogPwdChg : PhalanxAdmin.FBaseAuditoria
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Log de Modificación de Contraseñas");
+            }
+        }
+
         protected vwHistPwdChgEntityCollection _entities;
         private PhxUserEntity m_CurrentUser;
         private VwInventarioEntity m_InventUser;

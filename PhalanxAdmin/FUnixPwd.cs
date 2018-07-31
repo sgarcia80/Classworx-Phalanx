@@ -14,6 +14,14 @@ namespace PhalanxAdmin
 {
     public partial class FUnixPwd : PhalanxAdmin.FBaseContrasenas
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Unix");
+            }
+        }
+
 		protected IList _entities;
         protected string _filNombre = "";
         protected bool? _filUsuariosActivos;
@@ -259,9 +267,9 @@ namespace PhalanxAdmin
         private void FUnixPwd_Load(object sender, EventArgs e)
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
-            lnkAdd.Enabled = UsrBL.AccPwdUnixRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkModify.Enabled = UsrBL.AccPwdUnixRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkDelete.Enabled = UsrBL.AccPwdUnixRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            lnkAdd.Enabled = UsrBL.AccPwdUnixRW(this.Usuario);
+            lnkModify.Enabled = UsrBL.AccPwdUnixRW(this.Usuario);
+            lnkDelete.Enabled = UsrBL.AccPwdUnixRW(this.Usuario);
 
             this.lnkCancelar.Visible = false;
             this.pbDB.Visible = false;
@@ -272,8 +280,9 @@ namespace PhalanxAdmin
 
         private void lnkAdd_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            FABMUnixUsrPwd UsrPass = new FABMUnixUsrPwd(FABMUnixUsrPwd.FormType.New);
+            FABMUnixUsrPwd UsrPass = new FABMUnixUsrPwd(FABMUnixUsrPwd.FormType.New, this.Usuario);
             UsrPass.Title = "Nuevo Usuario y Contraseña";
+            
             if (UsrPass.ShowDialog() == DialogResult.OK)
                 ExecEntitiesRefresh();
         }
@@ -281,8 +290,9 @@ namespace PhalanxAdmin
         private void lnkModify_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             UnixUserEntity currUser = new UnixUserBusiness().Load(Convert.ToInt32(lvLista.SelectedItems[0].Tag.ToString()));
-            FABMUnixUsrPwd UsrPass = new FABMUnixUsrPwd(currUser, FABMUnixUsrPwd.FormType.Update);
+            FABMUnixUsrPwd UsrPass = new FABMUnixUsrPwd(currUser, FABMUnixUsrPwd.FormType.Update, this.Usuario);
             UsrPass.Title = "Modificación de Usuario y Contraseña";
+            
             if (UsrPass.ShowDialog() == DialogResult.OK)
                 ExecEntitiesRefresh();
         }
@@ -296,8 +306,9 @@ namespace PhalanxAdmin
             }
             else
             {
-                FABMUnixUsrPwd UsrPass = new FABMUnixUsrPwd(currUser, FABMUnixUsrPwd.FormType.Delete);
+                FABMUnixUsrPwd UsrPass = new FABMUnixUsrPwd(currUser, FABMUnixUsrPwd.FormType.Delete, this.Usuario);
                 UsrPass.Title = "Baja de Usuario y Contraseña";
+                
                 if (UsrPass.ShowDialog() == DialogResult.OK)
                     ExecEntitiesRefresh();
             }
@@ -306,8 +317,9 @@ namespace PhalanxAdmin
         private void lnkView_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             UnixUserEntity currUser = new UnixUserBusiness().Load(Convert.ToInt32(lvLista.SelectedItems[0].Tag.ToString()));
-            FABMUnixUsrPwd UsrPass = new FABMUnixUsrPwd(currUser, FABMUnixUsrPwd.FormType.View);
+            FABMUnixUsrPwd UsrPass = new FABMUnixUsrPwd(currUser, FABMUnixUsrPwd.FormType.View, this.Usuario);
             UsrPass.Title = "Visualización de Usuario y Contraseña";
+            
             UsrPass.ShowDialog();
         }
 

@@ -6,3 +6,4 @@ C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\phxBlowfish\bin\Debug\phxBlowfish
 C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\phxBlowfish\bin\Debug\phxBlowfish.pdb
 C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\phxBlowfish\obj\Debug\phxBlowfish.dll
 C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\phxBlowfish\obj\Debug\phxBlowfish.pdb
+C:\SVN\Classworkx\Fuentes\Phalanx\homologacion\phxBlowfish\obj\Debug\phxBlowfish.csprojResolveAssemblyReference.cache

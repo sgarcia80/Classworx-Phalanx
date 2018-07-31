@@ -17,6 +17,8 @@
 	  <property column="DIRECCION_MAIL" type="String" name="EMail" />
 	  <property column="FEC_NACIMIENTO" type="DateTime" name="FechaNacimiento" />
     <many-to-one name="Sociedad" column="ID_SOCIEDAD" class="NDCCommon.Entities.Meta4SociedadEntity,NDCCommon" />
-	  
+
+    <property column="DOMINIO_RED" type="String" name="DominioRed" />
+    <property column="ID_USUARIO_RED" type="String" name="UsuarioRed" />
   </class>
 </hibernate-mapping>

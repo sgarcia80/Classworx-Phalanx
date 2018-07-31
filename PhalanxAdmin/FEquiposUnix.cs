@@ -13,6 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FEquiposUnix : PhalanxAdmin.FBaseAdmin
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Equipos Unix");
+            }
+        }
+
         protected UnixPCEntityCollection _entitiesUnix;
         protected string _filNombre = "";
         public FEquiposUnix()
@@ -30,9 +38,9 @@ namespace PhalanxAdmin
         private void FEquiposUnix_Load(object sender, EventArgs e)
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
-            lnkAdd.Enabled = UsrBL.AccAdmEqUnixRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkModify.Enabled = UsrBL.AccAdmEqUnixRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkDelete.Enabled = UsrBL.AccAdmEqUnixRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            lnkAdd.Enabled = UsrBL.AccAdmEqUnixRW(this.Usuario);
+            lnkModify.Enabled = UsrBL.AccAdmEqUnixRW(this.Usuario);
+            lnkDelete.Enabled = UsrBL.AccAdmEqUnixRW(this.Usuario);
 
             this.lnkCancelar.Visible = false;
             this.pbDB.Visible = false;

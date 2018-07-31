@@ -11,6 +11,14 @@ namespace PhalanxAdmin
 {
     public partial class FBaseContrasenas : PhalanxAdmin.FBasePanel
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Contraseñas");
+            }
+        }
+
         public FBaseContrasenas()
         {
             InitializeComponent();
@@ -48,15 +56,15 @@ namespace PhalanxAdmin
         private void FBaseContrasenas_Load(object sender, EventArgs e)
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
-            //lnk.Enabled = UsrBL.AccPwd(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkAppPwd.Enabled = UsrBL.AccPwdApp(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkAS400Pwd.Enabled = UsrBL.AccPwdAS400(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkWinPwd.Enabled = UsrBL.AccPwdWin(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkDBPwd.Enabled = UsrBL.AccPwdBD(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkUnixPwd.Enabled = UsrBL.AccPwdUnix(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkChkWin.Enabled = UsrBL.AccChkWinPwd(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            linkEcPwd.Enabled = UsrBL.AccPwdEqCom(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkATMPwd.Enabled = UsrBL.AccATM(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            //lnk.Enabled = UsrBL.AccPwd(this.Usuario);
+            lnkAppPwd.Enabled = UsrBL.AccPwdApp(this.Usuario);
+            lnkAS400Pwd.Enabled = UsrBL.AccPwdAS400(this.Usuario);
+            lnkWinPwd.Enabled = UsrBL.AccPwdWin(this.Usuario);
+            lnkDBPwd.Enabled = UsrBL.AccPwdBD(this.Usuario);
+            lnkUnixPwd.Enabled = UsrBL.AccPwdUnix(this.Usuario);
+            lnkChkWin.Enabled = UsrBL.AccChkWinPwd(this.Usuario);
+            linkEcPwd.Enabled = UsrBL.AccPwdEqCom(this.Usuario);
+            lnkATMPwd.Enabled = UsrBL.AccATM(this.Usuario);
         }
 
         private void lnkChkWin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

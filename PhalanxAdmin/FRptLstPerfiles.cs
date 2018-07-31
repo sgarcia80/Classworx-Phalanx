@@ -9,8 +9,16 @@ using PhalanxBL;
 
 namespace PhalanxAdmin
 {
-    public partial class FRptLstPerfiles : PhalanxAdmin.FBaseReportes
+    public partial class FRptLstPerfiles : PhalanxAdmin.FBaseReportesInternos
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Listado de Perfiles");
+            }
+        }
+
         public override string Id
         {
             get

@@ -60,10 +60,14 @@ namespace PhalanxBL
         }
 
 
-
         public ApplicationUserBusiness()
         {
-            m_AppUserFactory = new ApplicationUserFactory();   
+            m_AppUserFactory = new ApplicationUserFactory();
+        }
+
+        public ApplicationUserBusiness(string userlogon)
+        {
+            m_AppUserFactory = new ApplicationUserFactory(userlogon);   
         }
 
         public ApplicationUserEntityCollection GetAll() //string Nombre, ApplicationEntity Application)
@@ -85,6 +89,12 @@ namespace PhalanxBL
             m_AppUserFactory.GetGruposSeguimAsignados = this.GetGruposSeguimAsignados;
 
             return m_AppUserFactory.GetAll();
+
+        }
+
+        public ApplicationUserEntity GetById(int userId)
+        {
+            return m_AppUserFactory.GetById(userId);
 
         }
 
@@ -194,14 +204,41 @@ namespace PhalanxBL
             DBUsrF.SetPwdState(Users, Active);
         }
 
-		public IList GetAll(bool? critico, bool? estadoUsuario, string nombre)
+		public IList GetAll(bool? critico, bool? estadoUsuario, string nombre, int expiracion)
 		{
-			return new ApplicationUserFactory().GetAll(critico, estadoUsuario, nombre);
+			return new ApplicationUserFactory().GetAll(critico, estadoUsuario, nombre, expiracion);
 		}
 
         public ApplicationUserEntity Load(int ID)
         {
             return new ApplicationUserFactory().Load(ID);
         }
+
+        public string getDiasRestantes(string sDuration, DateTime? dModifyingPassDate)
+        {
+            if (!dModifyingPassDate.HasValue)
+                return sDuration;
+
+            string sRestantes = "";
+            int duration = 0;
+
+            if (!sDuration.Equals(string.Empty))
+                duration = Int32.Parse(sDuration.Trim());
+
+            if (duration == 999)
+                return sRestantes;
+
+            TimeSpan? ts = DateTime.Today - dModifyingPassDate.Value.Date;
+            if (ts.HasValue)
+                sRestantes = (duration - ts.Value.Days).ToString();
+
+            return sRestantes;
+        }
+
+        public IList GetProxVencimientos()
+        {
+            return new ApplicationUserFactory().GetProxVencimientos();
+        }
+
     }
 }

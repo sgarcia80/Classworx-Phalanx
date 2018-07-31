@@ -13,6 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FGrpsSolic : PhalanxAdmin.FBaseAdmin
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Grupos de Solicitudes");
+            }
+        }
+
         protected RequestGroupEntityCollection _entities;
 
         protected string _filNombre = "";
@@ -238,9 +246,9 @@ namespace PhalanxAdmin
         private void FGrpsSolic_Load(object sender, EventArgs e)
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
-            lnkAdd.Enabled = UsrBL.AccAdmGrpsSolicitudesRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkModify.Enabled = UsrBL.AccAdmGrpsSolicitudesRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkDelete.Enabled = UsrBL.AccAdmGrpsSolicitudesRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            lnkAdd.Enabled = UsrBL.AccAdmGrpsSolicitudesRW(this.Usuario);
+            lnkModify.Enabled = UsrBL.AccAdmGrpsSolicitudesRW(this.Usuario);
+            lnkDelete.Enabled = UsrBL.AccAdmGrpsSolicitudesRW(this.Usuario);
 
             this.lnkCancelar.Visible = false;
             this.cboEstado.SelectedIndex = 0;

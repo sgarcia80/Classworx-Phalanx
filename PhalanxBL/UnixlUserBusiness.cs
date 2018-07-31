@@ -14,7 +14,7 @@ namespace PhalanxBL
     {
         //const string m_BlowfishKey = "1234567890abcdefghijABCDEFGHIJzxcvbnmlkj";
         UserTypesFactory m_UserTypesFactory = new UserTypesFactory();
-        UnixUsersFactory m_UnixUserFactory = new UnixUsersFactory();
+        UnixUsersFactory m_UnixUserFactory = null;
         private bool _orderName = false;
         private bool _orderFolio = false;
         private bool _orderUserName = false;
@@ -67,6 +67,15 @@ namespace PhalanxBL
         public bool? FilUsuariosCriticos
         {
             set { _filUsuariosCriticos = value; }
+        }
+
+        public UnixUserBusiness()
+        {
+            m_UnixUserFactory = new UnixUsersFactory();
+        }
+        public UnixUserBusiness(string userlogon)
+        {
+            m_UnixUserFactory = new UnixUsersFactory(userlogon);
         }
 
         public UnixUserEntityCollection GetAll()

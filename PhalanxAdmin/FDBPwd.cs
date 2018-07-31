@@ -14,6 +14,14 @@ namespace PhalanxAdmin
 {
     public partial class FDBPwd : PhalanxAdmin.FBaseContrasenas
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Bases de Datos");
+            }
+        }
+
         protected IList _entities;
         protected string _filNombre = "";
         private bool? _filUsuariosActivos;
@@ -32,7 +40,7 @@ namespace PhalanxAdmin
         public FDBPwd()
         {
             InitializeComponent();
-            lvLista.ListViewItemSorter = new cwxSorter(); 
+            lvLista.ListViewItemSorter = new cwxSorter();
         }
         /* Proceso de acceso a DB
        * 1 - ExecClientesRefresh
@@ -134,12 +142,12 @@ namespace PhalanxAdmin
         {
             DatabaseUserBusiness DBUsrBL = new DatabaseUserBusiness();
             // seteo filtros
-			string nombre = null;
+            string nombre = null;
 
-			if (txtFilNombre.Text.Trim() != "")
-				nombre = txtFilNombre.Text.Trim();
+            if (txtFilNombre.Text.Trim() != "")
+                nombre = txtFilNombre.Text.Trim();
 
-			_entities = DBUsrBL.GetAll(_filUsuariosCriticos, _filUsuariosActivos, _filTipoBD, nombre);
+            _entities = DBUsrBL.GetAll(_filUsuariosCriticos, _filUsuariosActivos, _filTipoBD, nombre);
         }
 
         /// <summary>
@@ -188,35 +196,35 @@ namespace PhalanxAdmin
                 lviArr[i] = new ListViewItem();
                 /// hay que armar los items de lo que se traiga de la DB
                 /// 
-				lviArr[i].SubItems.Add(DBUsrEnt[0].ToString());
-				lviArr[i].SubItems.Add(DBUsrEnt[5].ToString());
-				lviArr[i].SubItems.Add(DBUsrEnt[6].ToString());
-				lviArr[i].SubItems.Add(DBUsrEnt[1].ToString());
+                lviArr[i].SubItems.Add(DBUsrEnt[0].ToString());
+                lviArr[i].SubItems.Add(DBUsrEnt[5].ToString());
+                lviArr[i].SubItems.Add(DBUsrEnt[6].ToString());
+                lviArr[i].SubItems.Add(DBUsrEnt[1].ToString());
 
-				string server = string.Empty;
-				string ip = string.Empty;
+                string server = string.Empty;
+                string ip = string.Empty;
 
-				if (DBUsrEnt[7] != null && DBUsrEnt[8] != null)
-				{
-					server = DBUsrEnt[7].ToString() + @"\" + DBUsrEnt[8].ToString();
+                if (DBUsrEnt[7] != null && DBUsrEnt[8] != null)
+                {
+                    server = DBUsrEnt[7].ToString() + @"\" + DBUsrEnt[8].ToString();
 
-					if (DBUsrEnt[9] != null)
-						ip = DBUsrEnt[9].ToString();
-				}
-				else if (DBUsrEnt[10] != null)
-				{
-					server = DBUsrEnt[10].ToString();
+                    if (DBUsrEnt[9] != null)
+                        ip = DBUsrEnt[9].ToString();
+                }
+                else if (DBUsrEnt[10] != null)
+                {
+                    server = DBUsrEnt[10].ToString();
 
-					if (DBUsrEnt[11] != null)
-						ip = DBUsrEnt[11].ToString();
-				}
+                    if (DBUsrEnt[11] != null)
+                        ip = DBUsrEnt[11].ToString();
+                }
 
-				lviArr[i].SubItems.Add(server);
-				lviArr[i].SubItems.Add(ip);
-				lviArr[i].SubItems.Add((bool)DBUsrEnt[2] ? "Si" : "No");
-				lviArr[i].SubItems.Add(DBUsrEnt[4].ToString());
+                lviArr[i].SubItems.Add(server);
+                lviArr[i].SubItems.Add(ip);
+                lviArr[i].SubItems.Add((bool)DBUsrEnt[2] ? "Si" : "No");
+                lviArr[i].SubItems.Add(DBUsrEnt[4].ToString());
                 lviArr[i].Text = "";
-				lviArr[i].ImageIndex = (bool)DBUsrEnt[3] ? 0 : 1;
+                lviArr[i].ImageIndex = (bool)DBUsrEnt[3] ? 0 : 1;
                 lviArr[i].Tag = DBUsrEnt[0].ToString();
                 i++;
             }
@@ -292,9 +300,9 @@ namespace PhalanxAdmin
         private void FDBPwd_Load(object sender, EventArgs e)
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
-            lnkAdd.Enabled = UsrBL.AccPwdBDRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkModify.Enabled = UsrBL.AccPwdBDRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkDelete.Enabled = UsrBL.AccPwdBDRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            lnkAdd.Enabled = UsrBL.AccPwdBDRW(this.Usuario);
+            lnkModify.Enabled = UsrBL.AccPwdBDRW(this.Usuario);
+            lnkDelete.Enabled = UsrBL.AccPwdBDRW(this.Usuario);
 
             this.lnkCancelar.Visible = false;
             this.pbDB.Visible = false;
@@ -315,7 +323,8 @@ namespace PhalanxAdmin
 
         private void lnkAdd_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            FABMDBPwd FABMDBPwd = new FABMDBPwd(FABMDBPwd.FormType.New);
+            FABMDBPwd FABMDBPwd = new FABMDBPwd(FABMDBPwd.FormType.New, this.Usuario);
+            
             FABMDBPwd.ShowDialog();
             if (FABMDBPwd.DialogResult == DialogResult.OK)
             {
@@ -330,7 +339,8 @@ namespace PhalanxAdmin
             if (lvLista.SelectedIndices.Count == 1)
             {
                 DatabaseUserEntity currUser = new DatabaseUserBusiness().Load(Convert.ToInt32(lvLista.SelectedItems[0].Tag.ToString()));
-                FABMDBPwd FABMDataBase = new FABMDBPwd(currUser, false, FABMDBPwd.FormType.Update);
+                FABMDBPwd FABMDataBase = new FABMDBPwd(currUser, false, FABMDBPwd.FormType.Update, this.Usuario);
+                
                 FABMDataBase.ShowDialog();
                 if (FABMDataBase.DialogResult == DialogResult.OK)
                 {
@@ -346,12 +356,13 @@ namespace PhalanxAdmin
             if (lvLista.SelectedIndices.Count == 1)
             {
                 DatabaseUserEntity currUser = new DatabaseUserBusiness().Load(Convert.ToInt32(lvLista.SelectedItems[0].Tag.ToString()));
-                FABMDBPwd FABMDBUsr = new FABMDBPwd(currUser, true, FABMDBPwd.FormType.View);
+                FABMDBPwd FABMDBUsr = new FABMDBPwd(currUser, true, FABMDBPwd.FormType.View, this.Usuario);
+                
                 FABMDBUsr.ShowDialog();
             }
 
         }
-        
+
         private void lvLista_ColumnClick(object sender, ColumnClickEventArgs e)
         {
             //if (e.Column >= 6)

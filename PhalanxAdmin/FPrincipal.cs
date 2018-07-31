@@ -1,5 +1,9 @@
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 using PhalanxBL;
 using PhalanxCommon.Entities;
@@ -9,29 +13,42 @@ namespace PhalanxAdmin
 {
     public partial class FPrincipal : Form
     {
+        private string Usuario { get; set; }
+
         private FBienvenida formBienvenida;
         [System.Runtime.InteropServices.DllImport("user32.dll", EntryPoint = "SendMessageA")]
         static extern int SendMessage(System.IntPtr hwnd, int wMsg, int wParam, ref Point lParam);
         const int LVM_SETITEMPOSITION32 = (0x1000 + 49);
         //const int LVM_GETITEMTEXTW		 = (0x1000 + 115);
+        
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(typeof(FPrincipal));
 
         PhxUserEntity _loggedUser;
         PhxUserBusiness _phxUsrBL = new PhxUserBusiness();
-
         public FPrincipal()
         {
             InitializeComponent();
+
+            log4net.Config.XmlConfigurator.Configure();
+            log.Info("Logging has been configured");
+
+        }
+
+        public FPrincipal(string usuario) : this()
+        {
+            this.Usuario = usuario;
         }
 
         private void FPrincipal_Load(object sender, EventArgs e)
         {
-            string Version = "3.17.9.17";
+            string Version = "3.17.6.18";
             this.Text += " v" + Version;
             try
             {
-                DBMgr.Application = App.Phalanx;
-                DBMgr.NHAssembly = typeof(DBMgr).Assembly;
-                DBMgr.Inicializar();
+                this.lblTitulo.Text = string.Empty;
+                //DBMgr.Application = App.Phalanx;
+                //DBMgr.NHAssembly = typeof(DBMgr).Assembly;
+                //DBMgr.Inicializar();
 
                 if (formBienvenida == null || formBienvenida.IsDisposed)
                 {
@@ -61,38 +78,6 @@ namespace PhalanxAdmin
                     else
                     {
                         PruebaOtroEsquema = true;
-                        /*
-                        // el esquema tiene acceso pero no esta activado en el sistema
-                        PhxContingenciaEntity ContE = ContBL.EsquemaActualHabilitado();
-                        if (ContE.EsProduccion)
-                        {
-                            // hay acceso a contingencia pero el activo es produccion, pregunta si quiere intentar conectar
-                            if (MessageBox.Show("El esquema de Contingencia no está habilitado, desea intentar conectar a Producción?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                            {
-                                PruebaOtroEsquema = true;
-                            }
-                            else
-                            {
-                                Application.Exit();
-                            }
-                        }
-                        else if (ContE.EsContingencia)
-                        {
-                            // hay acceso a produccion pero el activo es contingencia, pregunta si intenta conectar a contingencia
-                            if (MessageBox.Show("El esquema de Producción no está habilitado, desea intentar conectar a Contingencia?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                            {
-                                PruebaOtroEsquema = true;
-                            }
-                            else
-                            {
-                                Application.Exit();
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("Hubo un error al conectar al sistema");
-                            Application.Exit();
-                        }*/
                     }
                 }
                 if (PruebaOtroEsquema)
@@ -113,8 +98,9 @@ namespace PhalanxAdmin
                         else
                         {
                             PhxUserBusiness UsrBL = new PhxUserBusiness();
-                            //lnk.Enabled = UsrBL.AccPwd(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-                            if (UsrBL.PermisoActivacionEsquema(System.Security.Principal.WindowsIdentity.GetCurrent().Name))
+                            //lnk.Enabled = UsrBL.AccPwd(this.Usuario);
+                            //if (UsrBL.PermisoActivacionEsquema(this.Usuario))
+                            if (UsrBL.PermisoActivacionEsquema(this.Usuario))
                             {
                                 bool ActivarProduccion = false;
                                 string ConexionConectada = "Contingencia";
@@ -165,8 +151,9 @@ namespace PhalanxAdmin
                     //OpenForm(new FConfiguracion());
                     return;
                 }
-                //_loggedUser = _phxUsrBL.IsActiveSysUser(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-                _loggedUser = _phxUsrBL.AdmLogin(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+                //_loggedUser = _phxUsrBL.IsActiveSysUser(this.Usuario);
+                //_loggedUser = _phxUsrBL.AdmLogin(this.Usuario);
+                _loggedUser = _phxUsrBL.AdmLogin(this.Usuario);
                 if (_loggedUser == null)
                 //if (!SecurityMgr.AuthenticateLoggedWinUser() || !SecurityMgr.CheckAccessToAdminSystem())
                 {
@@ -176,27 +163,6 @@ namespace PhalanxAdmin
                 }
                 this.MakeMenu();
                 this.lvIconsAdjust();
-                // temita de tiempos
-                /*
-                TimeSpan prue = DateTime.Now - new DateTime(2013, 4, 1);
-                int cantdias = Convert.ToInt32(prue.TotalDays);
-                bool pasara = true;
-                if (cantdias >= 30)
-                {
-                    if (cantdias > 60)
-                    {
-                        cantdias = 60;
-                    }
-                    Random random = new Random();
-                    int randomNumber = random.Next(cantdias, 80);
-                    if (randomNumber >= 65)
-                    {
-                        pasara = false;
-                        MessageBox.Show("Attempted to read or write protected memory. This is often an indication that other memory is corrupt. The application was unable to complete an operation.");
-                        Application.Exit();
-                        return;
-                    }
-                }*/
             }
             catch (Exception ex)
             {
@@ -211,7 +177,7 @@ namespace PhalanxAdmin
         {
             if (this.MdiChildren.Length > 0) //para saber si hay algun form hijo para resiziar
             {
-                this.ActiveMdiChild.Height = this.ClientSize.Height - this.panelIcons.Height - 4;
+                this.ActiveMdiChild.Height = this.ClientSize.Height - this.panelIcons.Height - 4 - this.pnlTitle.Height;
                 this.ActiveMdiChild.Width = this.ClientSize.Width - 4;
             }
         }
@@ -624,10 +590,17 @@ namespace PhalanxAdmin
             }
             if (!FormAlreadyLoaded)
             {
+                lblTitulo.Text = string.Empty;
+
                 this.AddOwnedForm(FormToOpen);
-                FormToOpen.Height = this.ClientSize.Height - this.panelIcons.Height - 4;
+                FormToOpen.Height = this.ClientSize.Height - this.panelIcons.Height - 4 - this.pnlTitle.Height;
                 FormToOpen.Width = this.ClientSize.Width - 4;
                 FormToOpen.MdiParent = this;
+
+                FormToOpen.Usuario = this.Usuario;
+                
+                lblTitulo.Text = FormToOpen.Titulo;
+
                 FormToOpen.Show();
                 this.MdiChildResize();
                 FormToOpen.BringToFront();

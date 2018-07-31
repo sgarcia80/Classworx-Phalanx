@@ -11,8 +11,8 @@ namespace PhalanxBL
 {
     public class AS400UserBusiness
     {
-        UserTypesFactory m_UserTypesFactory = new UserTypesFactory();
-        AS400UsersFactory m_AS400UserFactory = new AS400UsersFactory();
+        UserTypesFactory m_UserTypesFactory = null;
+        AS400UsersFactory m_AS400UserFactory = null;
         private bool _orderName = false;
         private bool _orderUserName = false;
         private bool _orderFolio = false;
@@ -64,6 +64,17 @@ namespace PhalanxBL
         private bool _AvoidInactiveGrps = false; // indica que no se tomen los grp de seguim y de solic inactivos
         public bool SetAvoidInactiveGrps
         { set { _AvoidInactiveGrps = value; } }
+
+        public AS400UserBusiness()
+        {
+            m_UserTypesFactory = new UserTypesFactory();
+            m_AS400UserFactory = new AS400UsersFactory();
+        }
+        public AS400UserBusiness(string userlogon)
+        {
+            m_UserTypesFactory = new UserTypesFactory();
+            m_AS400UserFactory = new AS400UsersFactory(userlogon);
+        }
 
         public RqstGrpPwdEntityCollection GetGruposSolicitudes(AS400UserEntity CurrentUser)
         {

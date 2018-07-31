@@ -11,6 +11,14 @@ namespace PhalanxAdmin
 {
     public partial class FBaseNotifClaves : PhalanxAdmin.FBasePanel
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Notificaciones");
+            }
+        }
+
         public FBaseNotifClaves()
         {
             InitializeComponent();
@@ -20,12 +28,17 @@ namespace PhalanxAdmin
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
 
-            //linkLabel1.Enabled = UsrBL.AccRptUsrGrpSol(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            //linkLabel1.Enabled = UsrBL.AccRptUsrGrpSol(this.Usuario);
         }
 
         private void linkNotifBlanqueos_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             ((FPrincipal)this.MdiParent).OpenForm(new FNotifBlanqueos());
+        }
+
+        private void linkNotifBlanqueosTC_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ((FPrincipal)this.MdiParent).OpenForm(new FNotifBlanqueosTC());
         }
     }
 }

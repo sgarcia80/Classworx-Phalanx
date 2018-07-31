@@ -93,6 +93,7 @@
     <Compile Include="CwxException.cs" />
     <Compile Include="Entities\AuditLoginEntity.cs" />
     <Compile Include="Entities\EventoLoginEntity.cs" />
+    <Compile Include="Entities\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

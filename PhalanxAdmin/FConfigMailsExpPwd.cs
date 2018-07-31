@@ -13,6 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FConfigMailsExpPwd : FBaseConfiguracion
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Mails");
+            }
+        }
+
         public FConfigMailsExpPwd()
         {
             InitializeComponent();
@@ -30,8 +38,8 @@ namespace PhalanxAdmin
             CargarComboParams();
             PhxUserBusiness UsrBL = new PhxUserBusiness();
 
-            btnModif.Enabled = UsrBL.AccParamConfigMailsRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            btnTestMail.Enabled = UsrBL.AccParamConfigMailsRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            btnModif.Enabled = UsrBL.AccParamConfigMailsRW(this.Usuario);
+            btnTestMail.Enabled = UsrBL.AccParamConfigMailsRW(this.Usuario);
             btnSave.Enabled = false;
             btnCancel.Enabled = false;
             grpTags.Visible = false;
@@ -67,8 +75,11 @@ namespace PhalanxAdmin
                 || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyDevMails)
                 || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyAltaUsuarioRedExternoMail)
                 || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyNotificacionBlanqueoMail)
+                || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyNotificacionBlanqueoRedMail)
                 || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyReclamoNotificacionBlanqueoMail)
                 || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyDevMailsNoCritic)
+                || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyVencPwdAppMails)
+                || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyPwdAppMailsExp)
                 )
             {
                 txtValor.Multiline = true;
@@ -93,7 +104,23 @@ namespace PhalanxAdmin
             PhxConfigEntity ConfEnt = ((PhxConfigEntity)cbParams.SelectedItem);
             PhxConfigBusiness conf = new PhxConfigBusiness();
 
+            btnDiasRestantes.Enabled = false;
+            btnFolio.Enabled = false;
+            btnTagAplicativo.Enabled = false;
+            btnTagDescUso.Enabled = false;
+            btnTagDestino.Enabled = false;
+            btnTagEstadoSolic.Enabled = false;
+            btnTagFechaAlta.Enabled = false;
+            btnTagFechaDev.Enabled = false;
+            btnTagFechaExp.Enabled = false;
+            btnTagFechaSolic.Enabled = false;
             btnTagNombreSolicitante.Enabled = false;
+            btnTagNombreUsuario.Enabled = false;
+            btnTagNomSolic.Enabled = false;
+            btnTagNroTicket.Enabled = false;
+            btnTagPwdSolic.Enabled = false;
+            btnTagTiempoUso.Enabled = false;
+            btnTagToken.Enabled = false;
 
             if (ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyExpMails))
             {
@@ -269,20 +296,13 @@ namespace PhalanxAdmin
                 || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyNotificacionBlanqueoMail))
             {
                 grpTags.Visible = true;
-                btnTagFechaExp.Enabled = false;
-                btnTagFechaSolic.Enabled = false;
-                btnTagNomSolic.Enabled = false;
-                btnTagPwdSolic.Enabled = false;
-                btnTagNroTicket.Enabled = false;
-                btnTagDescUso.Enabled = false;
-                btnTagTiempoUso.Enabled = false;
-                btnTagEstadoSolic.Enabled = false;
-                btnTagNombreUsuario.Enabled = false;
-                btnTagFechaAlta.Enabled = false;
                 btnTagAplicativo.Enabled = true;
-                btnTagFechaDev.Enabled = false;
-                btnTagToken.Enabled = false;
-                btnTagDestino.Enabled = false;
+                btnTagNombreSolicitante.Enabled = true;
+            }
+            else if (ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.SubjectNotificacionBlanqueoRedMail) ||
+                     ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyNotificacionBlanqueoRedMail))
+            {
+                grpTags.Visible = true;
                 btnTagNombreSolicitante.Enabled = true;
             }
             else if (ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.SubjectReclamoNotificacionBlanqueoMail)
@@ -323,6 +343,29 @@ namespace PhalanxAdmin
                 btnTagToken.Enabled = true;
                 btnTagDestino.Enabled = true;
             }
+            else if (ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.SubjectVencPwdAppMails)
+                  || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyVencPwdAppMails)
+                  || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.SubjectPwdAppMailsExp)
+                  || ConfEnt.Code == conf.ParamCodeToString(ConfigCodes.BodyPwdAppMailsExp))
+            {
+                grpTags.Visible = true;
+                btnTagFechaExp.Enabled = false;
+                btnTagFechaSolic.Enabled = false;
+                btnTagNomSolic.Enabled = false;
+                btnTagPwdSolic.Enabled = false;
+                btnTagNroTicket.Enabled = false;
+                btnTagDescUso.Enabled = false;
+                btnTagTiempoUso.Enabled = false;
+                btnTagEstadoSolic.Enabled = false;
+                btnTagNombreUsuario.Enabled = true;
+                btnTagFechaAlta.Enabled = false;
+                btnTagAplicativo.Enabled = true;
+                btnTagFechaDev.Enabled = false;
+                btnTagToken.Enabled = false;
+                btnTagDestino.Enabled = false;
+                btnFolio.Enabled = true;
+                btnDiasRestantes.Enabled = true;
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -340,7 +383,7 @@ namespace PhalanxAdmin
         private void btnSave_Click(object sender, EventArgs e)
         {
             // actualizar el selected item del combo con el nuevo valor y grabarlo
-            
+
             PhxConfigEntity ConfEnt = ((PhxConfigEntity)cbParams.SelectedItem);
             if (ConfEnt.Code == new PhxConfigBusiness().ParamCodeToString(ConfigCodes.BodyExpMails)
                 || ConfEnt.Code == new PhxConfigBusiness().ParamCodeToString(ConfigCodes.BodySolicPwdMails)
@@ -351,8 +394,11 @@ namespace PhalanxAdmin
                 || ConfEnt.Code == new PhxConfigBusiness().ParamCodeToString(ConfigCodes.BodyDevMails)
                 || ConfEnt.Code == new PhxConfigBusiness().ParamCodeToString(ConfigCodes.BodyAltaUsuarioRedExternoMail)
                 || ConfEnt.Code == new PhxConfigBusiness().ParamCodeToString(ConfigCodes.BodyNotificacionBlanqueoMail)
+                || ConfEnt.Code == new PhxConfigBusiness().ParamCodeToString(ConfigCodes.BodyNotificacionBlanqueoRedMail)
                 || ConfEnt.Code == new PhxConfigBusiness().ParamCodeToString(ConfigCodes.BodyReclamoNotificacionBlanqueoMail)
                 || ConfEnt.Code == new PhxConfigBusiness().ParamCodeToString(ConfigCodes.BodyDevMailsNoCritic)
+                || ConfEnt.Code == new PhxConfigBusiness().ParamCodeToString(ConfigCodes.BodyVencPwdAppMails)
+                || ConfEnt.Code == new PhxConfigBusiness().ParamCodeToString(ConfigCodes.BodyPwdAppMailsExp)
                 )
             {
                 ((PhxConfigEntity)cbParams.SelectedItem).LongTxtValue = txtValor.Text;
@@ -375,8 +421,8 @@ namespace PhalanxAdmin
 
         private void btnTagNomSolic_Click(object sender, EventArgs e)
         {
-                string strTag = "[NombreSolic]";
-                AgregarTag(strTag);
+            string strTag = "[NombreSolic]";
+            AgregarTag(strTag);
         }
 
         private void AgregarTag(string strTag)
@@ -440,7 +486,7 @@ namespace PhalanxAdmin
             AgregarTag(strTag);
 
         }
-        
+
         private void btnTagEstadoSolic_Click(object sender, EventArgs e)
         {
             string strTag = "[EstadoSolicitud]";
@@ -487,6 +533,18 @@ namespace PhalanxAdmin
         private void btnTagNombreSolicitante_Click(object sender, EventArgs e)
         {
             string strTag = "[NombreSolicitante]";
+            AgregarTag(strTag);
+        }
+
+        private void btnDiasRestantes_Click(object sender, EventArgs e)
+        {
+            string strTag = "[DiasRestantes]";
+            AgregarTag(strTag);
+        }
+
+        private void btnFolio_Click(object sender, EventArgs e)
+        {
+            string strTag = "[Folio]";
             AgregarTag(strTag);
         }
     }

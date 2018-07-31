@@ -151,11 +151,131 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FBaseReportesNormativos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FBaseReportesNormativos.Designer.cs">
+      <DependentUpon>FBaseReportesNormativos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FBaseReportesInternos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FBaseReportesInternos.Designer.cs">
+      <DependentUpon>FBaseReportesInternos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FReporteAutogestion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FReporteAutogestion.Designer.cs">
+      <DependentUpon>FReporteAutogestion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FMeta4Empleados.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FMeta4Empleados.Designer.cs">
+      <DependentUpon>FMeta4Empleados.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FBloqueos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FBloqueos.Designer.cs">
+      <DependentUpon>FBloqueos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FSelMacroError.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FSelMacroError.Designer.cs">
+      <DependentUpon>FSelMacroError.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FABMDetalleBlanqueoTC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FABMDetalleBlanqueoTC.Designer.cs">
+      <DependentUpon>FABMDetalleBlanqueoTC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FABMNotifBlanqueoTC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FABMNotifBlanqueoTC.Designer.cs">
+      <DependentUpon>FABMNotifBlanqueoTC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FNotifBlanqueosTC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FNotifBlanqueosTC.Designer.cs">
+      <DependentUpon>FNotifBlanqueosTC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FConfiguracionTC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FConfiguracionTC.Designer.cs">
+      <DependentUpon>FConfiguracionTC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FBaseConfiguracionTC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FBaseConfiguracionTC.Designer.cs">
+      <DependentUpon>FBaseConfiguracionTC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FMacroUsuarioTarjeta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FMacroUsuarioTarjeta.Designer.cs">
+      <DependentUpon>FMacroUsuarioTarjeta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FMacroClaves.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FMacroClaves.Designer.cs">
+      <DependentUpon>FMacroClaves.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FABMMacroClave.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FABMMacroClave.Designer.cs">
+      <DependentUpon>FABMMacroClave.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FABMMacroError.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FABMMacroError.Designer.cs">
+      <DependentUpon>FABMMacroError.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FMacroErrores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FMacroErrores.Designer.cs">
+      <DependentUpon>FMacroErrores.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FABMMacroUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FABMMacroUsuario.Designer.cs">
+      <DependentUpon>FABMMacroUsuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FMacroUsuarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FMacroUsuarios.Designer.cs">
+      <DependentUpon>FMacroUsuarios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FConfigMacros.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FConfigMacros.Designer.cs">
+      <DependentUpon>FConfigMacros.cs</DependentUpon>
+    </Compile>
     <Compile Include="FConfigWSConectores.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FConfigWSConectores.Designer.cs">
       <DependentUpon>FConfigWSConectores.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FLogin.Designer.cs">
+      <DependentUpon>FLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="FLogPwdVis.cs">
       <SubType>Form</SubType>
@@ -868,9 +988,88 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FBaseReportesNormativos.resx">
+      <DependentUpon>FBaseReportesNormativos.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FBaseReportesInternos.resx">
+      <DependentUpon>FBaseReportesInternos.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FReporteAutogestion.resx">
+      <DependentUpon>FReporteAutogestion.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FMeta4Empleados.resx">
+      <DependentUpon>FMeta4Empleados.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FBloqueos.resx">
+      <DependentUpon>FBloqueos.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FSelMacroError.resx">
+      <DependentUpon>FSelMacroError.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FABMDetalleBlanqueoTC.resx">
+      <DependentUpon>FABMDetalleBlanqueoTC.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FABMNotifBlanqueoTC.resx">
+      <DependentUpon>FABMNotifBlanqueoTC.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FNotifBlanqueosTC.resx">
+      <DependentUpon>FNotifBlanqueosTC.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FConfiguracionTC.resx">
+      <DependentUpon>FConfiguracionTC.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FBaseConfiguracionTC.resx">
+      <DependentUpon>FBaseConfiguracionTC.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FMacroUsuarioTarjeta.resx">
+      <DependentUpon>FMacroUsuarioTarjeta.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FMacroClaves.resx">
+      <DependentUpon>FMacroClaves.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FABMMacroClave.resx">
+      <DependentUpon>FABMMacroClave.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FABMMacroError.resx">
+      <DependentUpon>FABMMacroError.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FMacroErrores.resx">
+      <DependentUpon>FMacroErrores.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FABMMacroUsuario.resx">
+      <DependentUpon>FABMMacroUsuario.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FMacroUsuarios.resx">
+      <DependentUpon>FMacroUsuarios.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FConfigMacros.resx">
+      <DependentUpon>FConfigMacros.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="FConfigWSConectores.resx">
       <DependentUpon>FConfigWSConectores.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FLogin.resx">
+      <DependentUpon>FLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FLogPwdVis.resx">
       <DependentUpon>FLogPwdVis.cs</DependentUpon>

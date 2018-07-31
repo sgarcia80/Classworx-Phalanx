@@ -98,6 +98,12 @@ namespace NDCCommon.Entities
 
         public bool EsAplicacionCobis { set; get; }
 
+        public bool EsEmuladores { get; set; }
+
+        public string PrefijoUsuarioTC { get; set; }
+
+        public MacroEntity Macro { get; set; }
+
         #endregion
 
         public override string Key
@@ -114,11 +120,7 @@ namespace NDCCommon.Entities
 
         public override string ToString()
         {
-            if (Id < 0)
-            { return Nombre; }
-            else
-            { return Nombre; }
-
+            return this.Nombre;
         }
     }
 }

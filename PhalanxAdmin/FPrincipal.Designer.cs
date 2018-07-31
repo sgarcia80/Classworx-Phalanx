@@ -37,11 +37,14 @@ namespace PhalanxAdmin
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pnlIconsRight = new System.Windows.Forms.Panel();
             this.picMenuRight = new System.Windows.Forms.PictureBox();
+            this.pnlTitle = new System.Windows.Forms.Panel();
+            this.lblTitulo = new System.Windows.Forms.Label();
             this.panelIcons.SuspendLayout();
             this.pnlIconsLeft.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.pnlIconsRight.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picMenuRight)).BeginInit();
+            this.pnlTitle.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelIcons
@@ -54,7 +57,7 @@ namespace PhalanxAdmin
             this.panelIcons.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelIcons.Location = new System.Drawing.Point(0, 0);
             this.panelIcons.Name = "panelIcons";
-            this.panelIcons.Size = new System.Drawing.Size(848, 104);
+            this.panelIcons.Size = new System.Drawing.Size(848, 99);
             this.panelIcons.TabIndex = 1;
             this.panelIcons.Resize += new System.EventHandler(this.panelIcons_Resize);
             // 
@@ -95,7 +98,7 @@ namespace PhalanxAdmin
             this.pnlIconsLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlIconsLeft.Location = new System.Drawing.Point(0, 0);
             this.pnlIconsLeft.Name = "pnlIconsLeft";
-            this.pnlIconsLeft.Size = new System.Drawing.Size(73, 104);
+            this.pnlIconsLeft.Size = new System.Drawing.Size(73, 99);
             this.pnlIconsLeft.TabIndex = 1;
             // 
             // pictureBox1
@@ -113,7 +116,7 @@ namespace PhalanxAdmin
             this.pnlIconsRight.Dock = System.Windows.Forms.DockStyle.Right;
             this.pnlIconsRight.Location = new System.Drawing.Point(669, 0);
             this.pnlIconsRight.Name = "pnlIconsRight";
-            this.pnlIconsRight.Size = new System.Drawing.Size(179, 104);
+            this.pnlIconsRight.Size = new System.Drawing.Size(179, 99);
             this.pnlIconsRight.TabIndex = 0;
             // 
             // picMenuRight
@@ -125,11 +128,32 @@ namespace PhalanxAdmin
             this.picMenuRight.TabIndex = 0;
             this.picMenuRight.TabStop = false;
             // 
+            // pnlTitle
+            // 
+            this.pnlTitle.Controls.Add(this.lblTitulo);
+            this.pnlTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlTitle.Location = new System.Drawing.Point(0, 99);
+            this.pnlTitle.Name = "pnlTitle";
+            this.pnlTitle.Size = new System.Drawing.Size(848, 30);
+            this.pnlTitle.TabIndex = 3;
+            // 
+            // lblTitulo
+            // 
+            this.lblTitulo.AutoSize = true;
+            this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.lblTitulo.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.lblTitulo.Location = new System.Drawing.Point(7, 5);
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Size = new System.Drawing.Size(57, 20);
+            this.lblTitulo.TabIndex = 0;
+            this.lblTitulo.Text = "label1";
+            // 
             // FPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(848, 381);
+            this.Controls.Add(this.pnlTitle);
             this.Controls.Add(this.panelIcons);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
@@ -143,6 +167,8 @@ namespace PhalanxAdmin
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.pnlIconsRight.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picMenuRight)).EndInit();
+            this.pnlTitle.ResumeLayout(false);
+            this.pnlTitle.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -156,5 +182,7 @@ namespace PhalanxAdmin
         private System.Windows.Forms.PictureBox picMenuRight;
         private System.Windows.Forms.ListView lVIcons;
         private System.Windows.Forms.ImageList iListIcons;
+        private System.Windows.Forms.Panel pnlTitle;
+        private System.Windows.Forms.Label lblTitulo;
     }
 }

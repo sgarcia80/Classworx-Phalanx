@@ -13,6 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FConfigWSCOBIS : FBaseConfiguracion
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Webservice de Cobis");
+            }
+        }
+
         public FConfigWSCOBIS()
         {
             InitializeComponent();
@@ -30,7 +38,7 @@ namespace PhalanxAdmin
             CargarComboParams();
             PhxUserBusiness UsrBL = new PhxUserBusiness();
 
-            btnModif.Enabled = UsrBL.AccParamConfigWSCOBISRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            btnModif.Enabled = UsrBL.AccParamConfigWSCOBISRW(this.Usuario);
 
             btnSave.Enabled = false;
             btnCancel.Enabled = false;

@@ -13,6 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FEdificios : PhalanxAdmin.FBaseSistema
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Edificios");
+            }
+        }
+
         protected BuildingEntityCollection _entities;
         protected string _filNombre = "";
         public override string Id
@@ -232,9 +240,9 @@ namespace PhalanxAdmin
         private void FEdificios_Load(object sender, EventArgs e)
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
-            lnkAdd.Enabled = UsrBL.AccParamEdificiosRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkModify.Enabled = UsrBL.AccParamEdificiosRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkDelete.Enabled = UsrBL.AccParamEdificiosRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            lnkAdd.Enabled = UsrBL.AccParamEdificiosRW(this.Usuario);
+            lnkModify.Enabled = UsrBL.AccParamEdificiosRW(this.Usuario);
+            lnkDelete.Enabled = UsrBL.AccParamEdificiosRW(this.Usuario);
             this.lnkCancelar.Visible = false;
             this.pbDB.Visible = false;
             ExecEntitiesRefresh();

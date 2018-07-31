@@ -14,9 +14,18 @@ namespace PhalanxAdmin
 {
     public partial class FAppPwd : PhalanxAdmin.FBaseContrasenas
     {
+        public override string Titulo
+        {
+            get
+            {
+                return  GetTitlePath(base.Titulo, "Aplicativos");
+            }
+        }
+
 		protected IList _entities;
         protected string _filNombre = "";
         private bool? _filUsuariosActivos;
+        private int _filExpiracion;
         private bool? _filUsuariosCriticos;
         public override string Id
         {
@@ -99,6 +108,8 @@ namespace PhalanxAdmin
                 default:
                     break;
             }
+
+            _filExpiracion = cboExpirado.SelectedIndex;
         }
 
         private void bwRefreshEntities_DoWork(object sender, DoWorkEventArgs e)
@@ -129,7 +140,7 @@ namespace PhalanxAdmin
 			if (txtFilNombre.Text.Trim() != "")
 				nombre = txtFilNombre.Text.Trim();
 
-			_entities = DBUsrBL.GetAll(_filUsuariosCriticos, _filUsuariosActivos, nombre);
+            _entities = DBUsrBL.GetAll(_filUsuariosCriticos, _filUsuariosActivos, nombre, _filExpiracion);
         }
 
         /// <summary>
@@ -182,7 +193,16 @@ namespace PhalanxAdmin
 				lviArr[i].SubItems.Add(AppUsrEnt[1].ToString());
 				lviArr[i].SubItems.Add((bool)AppUsrEnt[2] ? "Si" : "No");
 				lviArr[i].SubItems.Add(AppUsrEnt[4].ToString());
-				lviArr[i].Text = "";
+
+                if (AppUsrEnt[6] != null)
+                    if (AppUsrEnt[6].ToString().Equals("999"))
+                        lviArr[i].SubItems.Add("");
+                    else
+                        lviArr[i].SubItems.Add(AppUsrEnt[6].ToString());
+                else
+                    lviArr[i].SubItems.Add("");
+                
+                lviArr[i].Text = "";
 				lviArr[i].ImageIndex = (bool)AppUsrEnt[3] ? 0 : 1;
                 lviArr[i].Tag = AppUsrEnt[0].ToString();
                 i++;
@@ -261,12 +281,13 @@ namespace PhalanxAdmin
         private void FAppPwd_Load(object sender, EventArgs e)
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
-            lnkAdd.Enabled = UsrBL.AccPwdAppRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkModify.Enabled = UsrBL.AccPwdAppRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkDelete.Enabled = UsrBL.AccPwdAppRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            lnkAdd.Enabled = UsrBL.AccPwdAppRW(this.Usuario);
+            lnkModify.Enabled = UsrBL.AccPwdAppRW(this.Usuario);
+            lnkDelete.Enabled = UsrBL.AccPwdAppRW(this.Usuario);
 
             this.lnkCancelar.Visible = false;
             this.pbDB.Visible = false;
+            this.cboExpirado.SelectedIndex = 2;
             this.cboEstado.SelectedIndex = 0;
             this.cbCritico.SelectedIndex = 0;
             ExecEntitiesRefresh();
@@ -275,7 +296,8 @@ namespace PhalanxAdmin
 
         private void lnkAdd_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            FABMAppPwd FABMAppPwd = new FABMAppPwd(FABMAppPwd.FormType.New);
+            FABMAppPwd FABMAppPwd = new FABMAppPwd(FABMAppPwd.FormType.New, this.Usuario);
+
             FABMAppPwd.ShowDialog();
             if (FABMAppPwd.DialogResult == DialogResult.OK)
             {
@@ -290,7 +312,7 @@ namespace PhalanxAdmin
             if (lvLista.SelectedIndices.Count == 1)
             {
                 ApplicationUserEntity currUser = new ApplicationUserBusiness().Load(Convert.ToInt32(lvLista.SelectedItems[0].Tag.ToString()));
-                FABMAppPwd FABMAppUsr = new FABMAppPwd(currUser, false, FABMAppPwd.FormType.Update);
+                FABMAppPwd FABMAppUsr = new FABMAppPwd(currUser, false, FABMAppPwd.FormType.Update, this.Usuario);
                 FABMAppUsr.ShowDialog();
                 if (FABMAppUsr.DialogResult == DialogResult.OK)
                 {
@@ -307,7 +329,7 @@ namespace PhalanxAdmin
             if (lvLista.SelectedIndices.Count == 1)
             {
                 ApplicationUserEntity currUser = new ApplicationUserBusiness().Load(Convert.ToInt32(lvLista.SelectedItems[0].Tag.ToString()));
-                FABMAppPwd FABMAppUsr = new FABMAppPwd(currUser, true, FABMAppPwd.FormType.View);
+                FABMAppPwd FABMAppUsr = new FABMAppPwd(currUser, true, FABMAppPwd.FormType.View, this.Usuario);
                 FABMAppUsr.ShowDialog();
             }
 

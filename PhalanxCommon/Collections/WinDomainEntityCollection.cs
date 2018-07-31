@@ -50,5 +50,14 @@ namespace PhalanxCommon.Collections
             }
             return null;
         }
+        public new WinDomainEntity FindByName(string name)
+        {
+            foreach (WinDomainEntity entity in InnerList)
+            {
+                if (entity.NtName.ToString() == name)
+                    return entity;
+            }
+            return null;
+        }
     }
 }

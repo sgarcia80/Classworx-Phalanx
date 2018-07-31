@@ -12,8 +12,16 @@ using System.IO;
 
 namespace PhalanxAdmin
 {
-    public partial class FRptABMPerfiles : PhalanxAdmin.FBaseReportes
+    public partial class FRptABMPerfiles : PhalanxAdmin.FBaseReportesInternos
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "ABM de Perfiles");
+            }
+        }
+
         public override string Id
         {
             get

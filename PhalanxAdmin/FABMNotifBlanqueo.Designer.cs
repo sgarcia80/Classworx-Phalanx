@@ -35,6 +35,7 @@ namespace PhalanxAdmin
             this.label2 = new System.Windows.Forms.Label();
             this.txtFecha = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.picActivo = new System.Windows.Forms.PictureBox();
             this.cbDomain = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtUser = new System.Windows.Forms.TextBox();
@@ -58,6 +59,7 @@ namespace PhalanxAdmin
             this.label11 = new System.Windows.Forms.Label();
             this.txtEstado = new System.Windows.Forms.TextBox();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picActivo)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -112,6 +114,7 @@ namespace PhalanxAdmin
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.picActivo);
             this.groupBox2.Controls.Add(this.cbDomain);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.txtUser);
@@ -123,10 +126,23 @@ namespace PhalanxAdmin
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Usuario de Red";
             // 
+            // picActivo
+            // 
+            this.picActivo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.picActivo.ErrorImage = null;
+            this.picActivo.Image = ((System.Drawing.Image)(resources.GetObject("picActivo.Image")));
+            this.picActivo.Location = new System.Drawing.Point(410, 54);
+            this.picActivo.Margin = new System.Windows.Forms.Padding(0);
+            this.picActivo.Name = "picActivo";
+            this.picActivo.Size = new System.Drawing.Size(22, 17);
+            this.picActivo.TabIndex = 47;
+            this.picActivo.TabStop = false;
+            this.picActivo.Visible = false;
+            // 
             // cbDomain
             // 
             this.cbDomain.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cbDomain.DisplayMember = "Nombre";
+            this.cbDomain.DisplayMember = "NtName";
             this.cbDomain.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbDomain.FormattingEnabled = true;
             this.cbDomain.Location = new System.Drawing.Point(87, 25);
@@ -156,6 +172,7 @@ namespace PhalanxAdmin
             this.txtUser.Name = "txtUser";
             this.txtUser.Size = new System.Drawing.Size(320, 20);
             this.txtUser.TabIndex = 3;
+            this.txtUser.Validating += new System.ComponentModel.CancelEventHandler(this.txtUser_Validating);
             // 
             // label5
             // 
@@ -392,6 +409,7 @@ namespace PhalanxAdmin
             this.Controls.SetChildIndex(this.label11, 0);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picActivo)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
@@ -428,6 +446,7 @@ namespace PhalanxAdmin
         protected System.Windows.Forms.TextBox txtSolicitante;
         private System.Windows.Forms.Label label11;
         protected System.Windows.Forms.TextBox txtEstado;
+        private System.Windows.Forms.PictureBox picActivo;
 
 
     }

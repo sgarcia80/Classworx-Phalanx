@@ -17,8 +17,16 @@ using PhalanxDAL.Factories;
 
 namespace PhalanxAdmin
 {
-    public partial class FTicketsAltaTempUsrExt : PhalanxAdmin.FBaseReportes
+    public partial class FTicketsAltaTempUsrExt : PhalanxAdmin.FBaseReportesInternos
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Alta Temprana de Recursos Externos");
+            }
+        }
+
         protected AplicacionNotificacionClaveEntity _filApp = null;
 
         public override string Id

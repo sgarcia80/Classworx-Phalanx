@@ -13,6 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FSupervisores : PhalanxAdmin.FBaseSistema
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Supervisores");
+            }
+        }
+
         protected PhxUserSuperiorEntityCollection _entities;
         protected string _filNombre = "";
         public override string Id
@@ -233,9 +241,9 @@ namespace PhalanxAdmin
         private void FSupervisores_Load(object sender, EventArgs e)
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
-            lnkAdd.Enabled = UsrBL.AccParamSupervisoresRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkModify.Enabled = UsrBL.AccParamSupervisoresRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkDelete.Enabled = UsrBL.AccParamSupervisoresRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            lnkAdd.Enabled = UsrBL.AccParamSupervisoresRW(this.Usuario);
+            lnkModify.Enabled = UsrBL.AccParamSupervisoresRW(this.Usuario);
+            lnkDelete.Enabled = UsrBL.AccParamSupervisoresRW(this.Usuario);
 
             this.lnkCancelar.Visible = false;
             this.pbDB.Visible = false;

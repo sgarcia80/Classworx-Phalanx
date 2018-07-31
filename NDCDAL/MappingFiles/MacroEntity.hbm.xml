@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+  <class name="NDCCommon.Entities.MacroEntity,NDCCommon" table="macro">
+
+    <id name="Id" column="macro_id" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <property column="name" name="Name" type="String" />
+    <property column="header" name="Header" type="String" />
+    <property column="body" name="Body" type="String" />
+    <property column="footer" name="Footer" type="String" />
+    
+    <bag name="UsuariosList" inverse="true" lazy="true" >
+      <key column="macro_id" />
+      <one-to-many class="NDCCommon.Entities.MacroUsuarioEntity, NDCCommon" />
+    </bag>
+
+    <bag name="AplicacionesList" inverse="true" lazy="true" >
+      <key column="macro_id" />
+      <one-to-many class="NDCCommon.Entities.AplicacionNotificacionClaveEntity, NDCCommon" />
+    </bag>
+  </class>
+</hibernate-mapping>

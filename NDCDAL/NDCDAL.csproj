@@ -102,6 +102,13 @@
     <Compile Include="DBMgr.cs" />
     <Compile Include="Factories\AplicacionNotificacionClaveFactory.cs" />
     <Compile Include="Factories\AuditTicketNotificacionFactory.cs" />
+    <Compile Include="Factories\BloqueoFactory.cs" />
+    <Compile Include="Factories\TicketNotificacionTarjetaFactory.cs" />
+    <Compile Include="Factories\MacroUsuarioTarjetaFactory.cs" />
+    <Compile Include="Factories\MacroClaveFactory.cs" />
+    <Compile Include="Factories\MacroErrorFactory.cs" />
+    <Compile Include="Factories\MacroUsuarioFactory.cs" />
+    <Compile Include="Factories\MacroFactory.cs" />
     <Compile Include="Factories\TicketAutogestionCobisFactory.cs" />
     <Compile Include="Factories\PalabraBlanqueoFactory.cs" />
     <Compile Include="Factories\QuestionAnswerFactory.cs" />
@@ -154,7 +161,9 @@
     <EmbeddedResource Include="MappingFiles\AuditTicketNotificacionEntity.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MappingFiles\Meta4ClassWorxUsuariosEntity.hbm.xml" />
+    <EmbeddedResource Include="MappingFiles\Meta4ClassWorxUsuariosEntity.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="MappingFiles\Meta4LegajoEntity.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -207,6 +216,41 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MappingFiles\TicketAutogestionCobisEntity.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\MacroEntity.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\MacroUsuarioEntity.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\MacroErrorEntity.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\MacroClaveEntity.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\MacroUsuarioTarjetaEntity.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\TicketNotificacionTarjetaEntity.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MappingFiles\BloqueoEntity.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

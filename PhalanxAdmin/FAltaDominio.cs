@@ -180,7 +180,7 @@ namespace PhalanxAdmin
             {
                 string user = string.Empty;
 
-                user = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+                user = this.Usuario;
 
                 PhalanxNAL.ActiveDirectoryHelper.TestAdminConnection(user);
             }

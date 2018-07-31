@@ -13,6 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FConfATMs : PhalanxAdmin.FBaseConfiguracion
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "ATMs");
+            }
+        }
+
         FollowupRequestGroupEntity _GrupoSeguimDefecto;
 
         public FConfATMs()
@@ -32,7 +40,7 @@ namespace PhalanxAdmin
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
 
-            btnModif.Enabled = UsrBL.AccParamGrpSeguimATMRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            btnModif.Enabled = UsrBL.AccParamGrpSeguimATMRW(this.Usuario);
             btnSave.Enabled = false;
             btnCancel.Enabled = false;
 

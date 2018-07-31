@@ -526,8 +526,8 @@ namespace PhalanxCommon.Entities
 				if( value == null )
                     throw new ArgumentOutOfRangeException("Null value not allowed for Body", value, "null");
 				
-				if(  value.Length > 1000)
-                    throw new ArgumentOutOfRangeException("Invalid value for Body", value, value.ToString());
+                //if(  value.Length > 1000)
+                //    throw new ArgumentOutOfRangeException("Invalid value for Body", value, value.ToString());
 
                 m_isChanged |= (m_body != value); m_body = value;
 			}

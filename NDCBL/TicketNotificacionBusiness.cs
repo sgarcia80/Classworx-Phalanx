@@ -1,6 +1,12 @@
-using Classworx.Common.Trace;
+using System;
+using System.Data;
+using System.Configuration;
+using phxCryptMgr;
+using NDCCommon.Entities;
 using NDCCommon.Collections;
 using NDCDAL.Factories;
+using System.Collections.Generic;
+using PhalanxBL;
 
 namespace NDCBL
 {
@@ -50,31 +56,38 @@ namespace NDCBL
             //
         }
 
-        public TicketNotificacionEntityCollection GetAllActiveByUser(string dominio, string usuario, string tipo)
+        public TicketNotificacionEntityCollection GetAllActiveByUser(string dominio, string usuario, string tipo, string sortcolumn, int sortdirection)
         {
             TicketNotificacionFactory factory = new TicketNotificacionFactory();
 
             factory.FilDominio = dominio;
             factory.FilUsuario = usuario;
 
-            string tipoCodigo = string.Empty;
             switch (tipo)
             {
                 case "A":
-                    tipoCodigo = "ALTA";
+                    factory.FilTipoNotif = "ALTA";
                     break;
                 case "B":
-                    tipoCodigo = "BLANQUEO";
+                    factory.FilTipoNotif = "BLANQUEO";
                     break;
             }
 
-            factory.FilTipoNotif = tipoCodigo;
-
-            TraceHelper.Information("Se consultan los tickets de {0} para el usuario {1}.", tipoCodigo, usuario);
-
+            factory.FilSortColumn = sortcolumn.Replace("DESC", string.Empty).Trim();
+            factory.FilSortDirection = sortdirection;
+            
             TicketNotificacionEntityCollection tmpCollection = factory.GetAll();
 
             return tmpCollection;
+        }
+
+        public TicketNotificacionEntity Load(int id, string tipo)
+        {
+            TicketNotificacionFactory factory = new TicketNotificacionFactory();
+
+            TicketNotificacionEntity entity = factory.Load(id, tipo);
+
+            return entity;
         }
     }
 }

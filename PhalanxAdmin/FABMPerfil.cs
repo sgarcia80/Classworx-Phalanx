@@ -152,7 +152,7 @@ namespace PhalanxAdmin
                 }
                 PhxRoleBusiness RolBL = new PhxRoleBusiness();
                 _entity.Name = txtNombre.Text;
-                int Id = RolBL.Save(_entity, PrivEC, System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+                int Id = RolBL.Save(_entity, PrivEC, this.Usuario);
                 if (Id == 0)
                 {
                     MessageBox.Show("Hubo un error al grabar el Perfil", "Perfiles", MessageBoxButtons.OK, MessageBoxIcon.Error);

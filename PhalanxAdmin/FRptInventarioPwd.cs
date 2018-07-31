@@ -12,8 +12,16 @@ using System.IO;
 
 namespace PhalanxAdmin
 {
-    public partial class FRptInventarioPwd : PhalanxAdmin.FBaseReportes
+    public partial class FRptInventarioPwd : PhalanxAdmin.FBaseReportesNormativos
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Inventario de Claves en Custodia");
+            }
+        }
+
         protected WinLocalUserEntityCollection _entities;
         public override string Id
         {

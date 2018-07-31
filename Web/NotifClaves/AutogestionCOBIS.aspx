@@ -23,6 +23,7 @@
     <div class="mensaje">
         <br />
         <asp:Label ID="lbMensaje" Visible="false" runat="server" />
+        <asp:Label ID="lblBloqueoCobis" runat="server" ForeColor="Red" Font-Bold="true" Text="La Autogestión Cobis está temporalmente deshabilitada.&nbsp;"></asp:Label>
     </div>
     <br />
     <div class="division">

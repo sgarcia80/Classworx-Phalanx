@@ -8,9 +8,12 @@ using NDCCommon.Entities;
 using NDCCommon.Collections;
 using NDCBL;
 using System.Collections.Generic;
+using log4net;
 
 public partial class ValidaRespuestas : System.Web.UI.Page
 {
+    private static readonly ILog log = LogManager.GetLogger(typeof(ValidaRespuestas));
+
     public List<QuestionAnswerEntity> Questions
     {
         get
@@ -29,12 +32,16 @@ public partial class ValidaRespuestas : System.Web.UI.Page
     {
         try
         {
+            log.InfoFormat("Se ingresa a ValidarRespuestas.aspx"); 
+
             if (Session["Usuario"] != null)
             {
                 if (!IsPostBack)
                 {
                     QuestionAnswerBusiness qab = new QuestionAnswerBusiness();
                     qab.FilUser = (string)Session["Usuario"];
+
+                    log.InfoFormat("Se buscan las preguntas de {0}", qab.FilUser.Trim()); 
 
                     QuestionAnswerEntityCollection qaEC = qab.GetAll();
                     List<QuestionAnswerEntity> list = new List<QuestionAnswerEntity>();
@@ -143,6 +150,9 @@ public partial class ValidaRespuestas : System.Web.UI.Page
             }
         }
     }
-
-
+    
+    protected void btnVolver_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("NotificacionClave.aspx");
+    }
 }

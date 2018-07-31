@@ -670,12 +670,22 @@ namespace WSInterfaceConectores
 
             PhxConfigBusiness pcb = new PhxConfigBusiness();
 
-            PhxConfigEntity configParam = pcb.GetConfigParam(ConfigCodes.UsuariosAutorizadosWSBPM);
+            TraceHelper.Information("Se consultan los usuarios autorizados");
+
+            PhxConfigEntity configParam = pcb.GetConfigParam(ConfigCodes.UsuariosAutorizadosWSConectores);
 
             string usuariosAutorizados = configParam != null ? configParam.LongTxtValue : null;
 
-            if (usuariosAutorizados == null || !new List<string>(usuariosAutorizados.Split(',')).Contains(datosAutenticacion.Usuario))
+            if (usuariosAutorizados == null)
             {
+                resultado.Exito = false;
+                resultado.Mensaje = "No se encontraron los usuarios autorizados";
+
+                return false;
+            }
+            else if (!new List<string>(usuariosAutorizados.Split(',')).Contains(datosAutenticacion.Usuario.ToLower()))
+            {
+                TraceHelper.Information("El usuario '{0}' no esta autorizado", datosAutenticacion.Usuario);
                 resultado.Exito = false;
                 resultado.Mensaje = "Usuario no autorizado";
 

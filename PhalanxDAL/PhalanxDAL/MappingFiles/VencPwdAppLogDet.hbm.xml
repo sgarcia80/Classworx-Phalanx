@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.VencPwdAppLogDetEntity,PhalanxCommon" table="Phx_Log_VencPwdApp_Det">
+
+    <id name="Id" column="batch_vencpwdappdet_log_id" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <property column="folio" type="Int32" name="Folio" not-null="false"/>
+    <property column="aplicativo" type="String" name="Aplicativo" not-null="false" length="50" />
+    <property column="usuario_app" type="String" name="UsuarioApp" not-null="false" length="50" />
+    <property column="email_usr_seg" type="String" name="EmailUsrSeg" not-null="false" length="50" />
+    <property column="fecha_ejecucion" type="DateTime" name="FechaEjecucion" not-null="false"/>
+    <property column="dias_restantes" type="Int32" name="DiasRestantes" not-null="false"/>
+    <many-to-one name="Ejecucion" column="batch_vencpwdapp_log_id" class="PhalanxCommon.Entities.VencPwdAppLogEntity,PhalanxCommon" not-null="false" />
+    <property column="resultado" type="String" name="Resultado" not-null="false" length="10" />
+    <property column="observaciones" type="String" name="Observaciones" not-null="false" length="200" />
+
+  </class>
+</hibernate-mapping>

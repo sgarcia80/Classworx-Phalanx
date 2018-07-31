@@ -49,6 +49,7 @@ namespace NDCCommon.Entities
 
         private string m_tnb_user;
         private DateTime m_tnb_fecha;
+        private string m_tnb_solicitante_puesto;
 
         #endregion
 
@@ -250,6 +251,20 @@ namespace NDCCommon.Entities
 
                 m_isChanged |= (m_tnb_solicitante != value);
                 m_tnb_solicitante = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string SolicitantePuesto
+        {
+            get { return m_tnb_solicitante_puesto; }
+
+            set
+            {
+                m_isChanged |= (m_tnb_solicitante_puesto != value);
+                m_tnb_solicitante_puesto = value;
             }
         }
 

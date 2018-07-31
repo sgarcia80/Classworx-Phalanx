@@ -73,6 +73,7 @@ namespace PhalanxAdmin
             // xppnlMenu
             // 
             this.xppnlMenu.ImageItems.ImageSet = null;
+            this.xppnlMenu.Size = new System.Drawing.Size(184, 206);
             // 
             // columnHeader3
             // 

@@ -24,6 +24,9 @@ namespace NDCCommon.Entities
         private DateTime ml_fecha_nac;
         private Meta4SociedadEntity ml_sociedad;
 
+        private string ml_dominiored;
+        private string ml_usuariored;
+
         #endregion
 
         #region Public Properties
@@ -112,6 +115,18 @@ namespace NDCCommon.Entities
         {
             get { return ml_sociedad; }
             set { ml_sociedad = value; }
+        }
+
+        public string DominioRed
+        {
+            get { return ml_dominiored; }
+            set { ml_dominiored = value; }
+        }
+
+        public string UsuarioRed
+        {
+            get { return ml_usuariored; }
+            set { ml_usuariored = value; }
         }
 
         #endregion

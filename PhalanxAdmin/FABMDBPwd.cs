@@ -16,7 +16,7 @@ namespace PhalanxAdmin
     {
         DatabaseUserEntity _entity = new DatabaseUserEntity();
         DatabaseTypeBusiness DBTypeBL = new DatabaseTypeBusiness();
-        DatabaseUserBusiness DBUsrBL = new DatabaseUserBusiness();
+        DatabaseUserBusiness DBUsrBL = null;
         bool _readOnly = false;
 
         public enum FormType
@@ -31,21 +31,22 @@ namespace PhalanxAdmin
         private const string cAsterisk = "**********";
 
 
-        public FABMDBPwd(FormType formType)
+        public FABMDBPwd(FormType formType, string userlogon)
         {
             InitializeComponent();
+            lvLista.ListViewItemSorter = new cwxSorter(0, SortOrder.Descending);
+
+            this.Usuario = userlogon;
+            DBUsrBL = new DatabaseUserBusiness(this.Usuario);
             m_FormType = formType;
-            lvLista.ListViewItemSorter = new cwxSorter();
         }
 
-
-        public FABMDBPwd(DatabaseUserEntity DataBase, bool ReadOnly, FormType formType)
-            : this(formType)
+        public FABMDBPwd(DatabaseUserEntity DataBase, bool ReadOnly, FormType formType, string userlogon) : this(formType, userlogon)
         {
             DataBase = DBUsrBL.Refresh(DataBase);
-            if (DataBase.ModifyingDate != null)
+            if (DataBase.ModifyingDate != null && DataBase.ModifyingUser != null)
             {
-                if (DataBase.ModifyingUser.Username != new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(System.Security.Principal.WindowsIdentity.GetCurrent().Name).Username)
+                if (DataBase.ModifyingUser.Username != new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario).Username)
                 {
                     if (DataBase.ModifyingDate.Value.AddMinutes(10) > new PhalanxDAL.Factories.GetDateFactory().GetDate().GetDate)
                     {
@@ -61,7 +62,7 @@ namespace PhalanxAdmin
                         if (formType == FormType.Update || m_FormType == FormType.Delete)
                         {
                             DataBase.ModifyingDate = new PhalanxDAL.Factories.GetDateFactory().GetDate().GetDate;
-                            DataBase.ModifyingUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+                            DataBase.ModifyingUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario);
                             DBUsrBL.Save(DataBase, false, this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
                         }
                     }
@@ -73,7 +74,7 @@ namespace PhalanxAdmin
                     if (formType == FormType.Update || m_FormType == FormType.Delete)
                     {
                         DataBase.ModifyingDate = new PhalanxDAL.Factories.GetDateFactory().GetDate().GetDate;
-                        DataBase.ModifyingUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+                        DataBase.ModifyingUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario);
                         DBUsrBL.Save(DataBase, false, this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
                     }
                 }
@@ -84,7 +85,7 @@ namespace PhalanxAdmin
                 if (formType == FormType.Update || m_FormType == FormType.Delete)
                 {
                     DataBase.ModifyingDate = new PhalanxDAL.Factories.GetDateFactory().GetDate().GetDate;
-                    DataBase.ModifyingUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+                    DataBase.ModifyingUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario);
                     DBUsrBL.Save(DataBase, false, this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
                 }
             }
@@ -104,8 +105,12 @@ namespace PhalanxAdmin
                         this.Title = "Nuevo Usuario y Contraseña";
                         CargarGruposSolicitudes();
                         CargarGruposSeguimiento();
-                        tabControl1.TabPages.Remove(tabControl1.TabPages[4]);
-                        tabControl1.TabPages.Remove(tabControl1.TabPages[3]);
+
+                        if (tabControl1.TabCount == 5)
+                        {
+                            tabControl1.TabPages.Remove(tabControl1.TabPages[4]);
+                            tabControl1.TabPages.Remove(tabControl1.TabPages[3]);
+                        }
                         this.chkVisualizar.Enabled = true;
                         break;
                     }
@@ -141,7 +146,11 @@ namespace PhalanxAdmin
                         ExecEntitiesRefresh();
                         pnlGruposSolicitudes.Visible = false;
                         pnlGruposSeguimientos.Visible = false;
-                        tabControl1.TabPages.Remove(tabControl1.TabPages[4]);
+
+                        if (tabControl1.TabCount == 5)
+                        {
+                            tabControl1.TabPages.Remove(tabControl1.TabPages[4]);
+                        }
                         break;
                     }
             }
@@ -276,46 +285,6 @@ namespace PhalanxAdmin
 
         private void chkVisualizar_CheckedChanged(object sender, EventArgs e)
         {
-            if (m_FormType == FormType.Update && chkVisualizar.Tag == null &&
-                 chkVisualizar.Checked)
-            {
-                if (MessageBox.Show("Si visualiza la contraseña, se grabará un registro de log con este evento. Desea continuar?",
-                        "", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    chkVisualizar.Tag = "logueado";
-
-                    int id = 0;
-                    if (this._entities != null && this._entities.Count > 0)
-                    {
-                        //Se obtiene el ultimo historial
-                        foreach (vwHistPwdChgEntity entity in this._entities)
-                        {
-                            if (entity.Id > id)
-                                id = entity.Id;
-                        }
-                    }
-
-                    HistPasswordChangeAccessBusiness accessBL = new HistPasswordChangeAccessBusiness();
-                    HistPasswordChangeAccessEntity accessE = new HistPasswordChangeAccessEntity();
-
-                    accessE.HistChgPwd = new HistPasswordChangeEntity();
-                    accessE.HistChgPwd.Id = id;
-                    accessE.PhxUser = new PhxUserEntity();
-                    accessE.AccessDate = DateTime.Now;
-
-                    int Id = accessBL.Save(accessE);
-                    if (Id <= 0)
-                    {
-                        MessageBox.Show("Hubo un error al grabar log de visualización de contraseñas", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                else
-                {
-                    chkVisualizar.Checked = false;
-                    return;
-                }
-            }
-
             if (chkVisualizar.Checked)
             {
                 tPassword1.PasswordChar = new char();
@@ -329,6 +298,11 @@ namespace PhalanxAdmin
             tPassword1.Refresh();
             tPassword2.Refresh();
 
+            if (chkVisualizar.Checked)
+            {
+                int id = LoguearVisualizacion();
+            }
+            btnCopy.Enabled = chkVisualizar.Checked;
         }
 
         private void chkActivo_CheckedChanged(object sender, EventArgs e)
@@ -352,7 +326,7 @@ namespace PhalanxAdmin
             if (_entity.Id != 0)
             {
                 _entity = DBUsrBL.Refresh(_entity);
-                if (_entity.ModifyingUser.Username != new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(System.Security.Principal.WindowsIdentity.GetCurrent().Name).Username)
+                if (_entity.ModifyingUser.Username != new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario).Username)
                 {
                     MessageBox.Show("Su sesión de edición expiró y la contraseña fue tomada por " + _entity.ModifyingUser.Fullname + " el " + _entity.ModifyingDate.Value.ToShortDateString() + " a las " + _entity.ModifyingDate.Value.ToShortTimeString());
                     this.DialogResult = DialogResult.OK;
@@ -393,6 +367,13 @@ namespace PhalanxAdmin
                 MessageBox.Show("Debe seleccionar al menos un Grupo de Seguimiento de Solicitudes asociado a este usuario");
                 return;
             }
+            if (txtDescrip.Text.Length > 4000)
+            {
+                MessageBox.Show("La descripción no puede exceder los 4000 caracteres");
+                this.DialogResult = DialogResult.None;
+                txtDescrip.Focus();
+                return;
+            }
 
 
 
@@ -415,6 +396,8 @@ namespace PhalanxAdmin
             {
                 _entity.Db = (DataBaseEntity)cbDB.SelectedItem;
             }
+
+
             _entity.Desc = txtDescrip.Text;
             _entity.Username = txtUsername.Text.Trim();
             if (chkChgPwd.Checked)
@@ -466,7 +449,8 @@ namespace PhalanxAdmin
             if (m_FormType == FormType.Update || m_FormType == FormType.Delete)
             {
                 _entity = DBUsrBL.Refresh(_entity);
-                if (_entity.ModifyingUser.Username == new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(System.Security.Principal.WindowsIdentity.GetCurrent().Name).Username)
+                if (_entity.ModifyingUser != null &&
+                    _entity.ModifyingUser.Username == new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario).Username)
                 {
                     _entity.ModifyingDate = null;
                     _entity.ModifyingUser = null;
@@ -1218,34 +1202,87 @@ namespace PhalanxAdmin
         {
             if (((ListView)sender).SelectedItems.Count == 1)
             {
-
                 if (((ListView)sender).SelectedItems[0].SubItems[2].Text != cAsterisk)
                     return;
 
-                if (MessageBox.Show("Si visualiza la contraseña, se grabará un registro de log con este evento. Desea continuar?",
-                    "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                int Id = LoguearVisualizacion(((vwHistPwdChgEntity)((ListView)sender).SelectedItems[0].Tag).Id);
+
+                if (Id > 0)
                 {
-                    HistPasswordChangeAccessBusiness accessBL = new HistPasswordChangeAccessBusiness();
-                    HistPasswordChangeAccessEntity accessE = new HistPasswordChangeAccessEntity();
+                    ((ListView)sender).SelectedItems[0].SubItems[2].Text =
+                       ((vwHistPwdChgEntity)((ListView)sender).SelectedItems[0].Tag).PlainPassword;
 
-                    accessE.HistChgPwd = new HistPasswordChangeEntity();
-                    accessE.HistChgPwd.Id = ((vwHistPwdChgEntity)((ListView)sender).SelectedItems[0].Tag).Id;
-                    accessE.PhxUser = new PhxUserEntity();
-                    accessE.AccessDate = DateTime.Now;
-
-                    int Id = accessBL.Save(accessE);
-                    if (Id > 0)
-                        ((ListView)sender).SelectedItems[0].SubItems[2].Text =
-                            ((vwHistPwdChgEntity)((ListView)sender).SelectedItems[0].Tag).PlainPassword;
-                    else
-                        MessageBox.Show("Hubo un error al grabar log de visualización de contraseñas", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                    btnCopyHist.Enabled = true;
                 }
-
-
             }
         }
 
+        private int LoguearVisualizacion()
+        {
+            if (this.m_FormType == FormType.New)
+            {
+                return 1;
+            }
+
+            return LoguearVisualizacion(0);
+        }
+
+        private int LoguearVisualizacion(int id)
+        {
+            if (id == 0)
+            {
+                if (this._entities != null && this._entities.Count > 0)
+                {
+                    //Se obtiene el ultimo historial
+                    foreach (vwHistPwdChgEntity entity in this._entities)
+                    {
+                        if (entity.Id > id)
+                            id = entity.Id;
+                    }
+                }
+            }
+
+            HistPasswordChangeAccessBusiness accessBL = new HistPasswordChangeAccessBusiness();
+            HistPasswordChangeAccessEntity accessE = new HistPasswordChangeAccessEntity();
+
+            accessE.HistChgPwd = new HistPasswordChangeEntity();
+            accessE.HistChgPwd.Id = id;
+            accessE.PhxUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario);
+            accessE.AccessDate = DateTime.Now;
+
+            int Id = accessBL.Save(accessE);
+            if (Id <= 0)
+            {
+                MessageBox.Show("Hubo un error al grabar log de visualización de contraseñas", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return id;
+        }
+
+        private void btnCopy_Click(object sender, EventArgs e)
+        {
+            if (chkVisualizar.Checked)
+            {
+                System.Windows.Forms.Clipboard.SetText(tPassword1.Text);
+            }
+        }
+
+        private void btnCopyHist_Click(object sender, EventArgs e)
+        {
+            if (lvLista.SelectedItems != null &&
+                lvLista.SelectedItems.Count > 0)
+            {
+                ListViewItem item = lvLista.SelectedItems[0];
+
+                vwHistPwdChgEntity entity = ((vwHistPwdChgEntity)item.Tag);
+                string text = lvLista.SelectedItems[0].SubItems[2].Text;
+
+                if (text == entity.PlainPassword)
+                {
+                    System.Windows.Forms.Clipboard.SetText(text);
+                }
+            }
+        }
     }
 }
 

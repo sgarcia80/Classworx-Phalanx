@@ -10,7 +10,7 @@ using System.Collections;
 
 namespace PhalanxDAL.Factories
 {
-    public class CommunicationDeviceUserFactory
+    public class CommunicationDeviceUserFactory : BaseFactory
     {
         private CommunicationDeviceTypeEntity _filTipoEC;
         private string _filUserName = "";
@@ -70,6 +70,13 @@ namespace PhalanxDAL.Factories
         private bool _AvoidInactiveGrps = false;
         public bool SetAvoidInactiveGrps
         { set { _AvoidInactiveGrps = value; } }
+
+        public CommunicationDeviceUserFactory() : base()
+        { 
+        }
+        public CommunicationDeviceUserFactory(string userlogon) : base(userlogon)
+        { 
+        }
 
         public CommunicationDeviceUserEntityCollection GetAll()
         {
@@ -392,7 +399,7 @@ namespace PhalanxDAL.Factories
                     }
 
                     // tengo que grabar el log de modificación
-                    HistPasswordChangeFactory HistPwdChg = new HistPasswordChangeFactory();
+                    HistPasswordChangeFactory HistPwdChg = new HistPasswordChangeFactory(this.UserLogon);
                     HistPwdChg.AddLog(session, (UserEntity)CDUser);
 
                     tx.Commit();

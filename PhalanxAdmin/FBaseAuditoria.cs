@@ -11,6 +11,14 @@ namespace PhalanxAdmin
 {
     public partial class FBaseAuditoria : PhalanxAdmin.FBasePanel
     {
+        public override string Titulo
+        {
+            get
+            {
+                return  GetTitlePath(base.Titulo, "Auditoria");
+            }
+        }
+
         public FBaseAuditoria()
         {
             InitializeComponent();
@@ -99,12 +107,12 @@ namespace PhalanxAdmin
         private void FBaseAuditoria_Load(object sender, EventArgs e)
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
-            //lnk.Enabled = UsrBL.AccRpt(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkLogPwdChg.Enabled = UsrBL.AccRptLogModifPwd(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkMailsAlert.Enabled = UsrBL.AccRptMailsNotif(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkHistPwd.Enabled = UsrBL.AccRptHistPwd(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkLogueos.Enabled = UsrBL.AccRptLogin(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkDepuracionLogs.Enabled = UsrBL.AccDepuracionLogs(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            //lnk.Enabled = UsrBL.AccRpt(this.Usuario);
+            lnkLogPwdChg.Enabled = UsrBL.AccRptLogModifPwd(this.Usuario);
+            lnkMailsAlert.Enabled = UsrBL.AccRptMailsNotif(this.Usuario);
+            lnkHistPwd.Enabled = UsrBL.AccRptHistPwd(this.Usuario);
+            lnkLogueos.Enabled = UsrBL.AccRptLogin(this.Usuario);
+            lnkDepuracionLogs.Enabled = UsrBL.AccDepuracionLogs(this.Usuario);
         }
 
         private void lnkLstTickets_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

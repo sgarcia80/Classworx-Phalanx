@@ -13,7 +13,8 @@
                     OnClick="btnCOBIS_Click" Height="60px" BorderWidth="2" />
             </td>
             <td align="left" style="font-weight: normal;">
-                Permite realizar el Desbloqueo o Cambiar la contraseña de COBIS
+                Permite realizar el Desbloqueo o Cambiar la contraseña de COBIS<br />
+                <asp:Label ID="lblBloqueoCobis" runat="server" ForeColor="Red" Font-Bold="true" Text="La Autogestión Cobis está temporalmente deshabilitada."></asp:Label>
             </td>
         </tr>
         <tr>
@@ -22,22 +23,40 @@
             </td>
         </tr>
         <tr>
-            <td align="center" valign="top" style="width: 210px;">
+            <td align="center" valign="middle" style="width: 210px;">
                 <asp:Button ID="btnNotifClaves" Text="Notificación de Claves" CssClass="btn" Width="180px"
                     runat="server" OnClick="btnNotifClaves_Click" Height="60px" BorderWidth="2" />
             </td>
             <td align="left" style="font-weight: normal;">
                 Ingresando por esta opción, vas a poder acceder a:<ul>
                     <li>Notificaciones de Claves de Alta de Usuario de Aplicación</li>
-                    <li>Notificaciones de blanqueo de Claves solicitadas por Remedy</li>
+                    <li>Notificaciones de Blanqueo de Claves solicitadas por Remedy</li>
+                    <li>Notificaciones de Blanqueo de Claves de Tarjetas de Crédito</li>
                 </ul>
             </td>
         </tr>
     </table>
     <div class="tituloSeccion">
     </div>
-    <br />
+    <asp:Panel ID="panelTarjetas" runat="server">
+        <br />
+        <table class="login" style="font-size: 10pt;">
+            <tr>
+                <td align="center" valign="top" style="width: 210px;">
+                    <asp:Button ID="btnTarjetas" Text="Blanqueo Usuario Tarj." CssClass="btn" Width="180px"
+                        runat="server" OnClick="btnTarjetas_Click" Height="60px" BorderWidth="2" />
+                </td>
+                <td align="left" style="font-weight: normal; width: 387px;">
+                    Permite solicitar un Blanqueo de Usuario de Tarjetas de Crédito
+                </td>
+            </tr>
+        </table>
+    </asp:Panel>
     <asp:Panel ID="panelPreguntas" runat="server">
+        <br />
+        <div class="division">
+        </div>
+        <br />
         <table class="login" style="font-size: 10pt;">
             <tr>
                 <td align="center" valign="top" style="width: 210px;">

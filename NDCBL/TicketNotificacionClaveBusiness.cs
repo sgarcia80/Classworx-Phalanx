@@ -493,10 +493,14 @@ namespace NDCBL
                 {
                     bool envio = this.ReenviarEmailReclamo(ticket, out debug);
 
+                    log.Info("Debug de ticket id " + ticket.Id.ToString() + ".");
+                    log.Info(debug);
+
                     sent++;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    log.Error(string.Format("Error al reclamar la notificación (Id {0}) de alta de usuario", ticket.Id), ex);
                 }
             }
 
@@ -523,13 +527,18 @@ namespace NDCBL
 
             debug += " | Envia mail";
 
+            //mailTo = "sgarcia@classworx.com.ar";
+
             notificacion.MailId = MailToSendBL.ReclamoNotificacionBlanqueoMail(notificacion.Usuario, mailTo, notificacion.Id, notificacion.Aplicacion.Nombre, notificacion.Fecha);
 
             debug += " | Graba ticket BPM";
 
-            notificacion.Reclamos++;
+            if (notificacion.MailId.HasValue)
+            {
+                notificacion.Reclamos++;
 
-            Save(notificacion);
+                Save(notificacion);
+            }
 
             return true;
         }

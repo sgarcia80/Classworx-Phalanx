@@ -13,6 +13,14 @@ namespace PhalanxAdmin
 {
     public partial class FPerfiles : PhalanxAdmin.FBaseAdmin
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Perfiles");
+            }
+        }
+
         protected PhxRoleEntityCollection _entities;
 
         public FPerfiles()
@@ -76,6 +84,7 @@ namespace PhalanxAdmin
         {
             FABMPerfil FPerfiles = new FABMPerfil();
             FPerfiles.Title = "Perfil";
+            FPerfiles.Usuario = this.Usuario;
             FPerfiles.ShowDialog();
             if (FPerfiles.DialogResult == DialogResult.OK)
             {
@@ -88,9 +97,9 @@ namespace PhalanxAdmin
         private void FPerfiles_Load(object sender, EventArgs e)
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
-            lnkAdd.Enabled = UsrBL.AccAdmPerfilesRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            lnkModify.Enabled = UsrBL.AccAdmPerfilesRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            //lnkDelete.Enabled = UsrBL.AccParamSupervisoresRW(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            lnkAdd.Enabled = UsrBL.AccAdmPerfilesRW(this.Usuario);
+            lnkModify.Enabled = UsrBL.AccAdmPerfilesRW(this.Usuario);
+            //lnkDelete.Enabled = UsrBL.AccParamSupervisoresRW(this.Usuario);
 
             this.lnkCancelar.Visible = false;
             this.pbDB.Visible = false;
@@ -348,6 +357,7 @@ namespace PhalanxAdmin
             if (lvLista.SelectedIndices.Count == 1)
             {
                 FABMPerfil FABMPerf = new FABMPerfil((PhxRoleEntity)lvLista.SelectedItems[0].Tag, false, false);
+                FABMPerf.Usuario = this.Usuario;
                 FABMPerf.ShowDialog();
                 if (FABMPerf.DialogResult == DialogResult.OK)
                 {
@@ -363,6 +373,7 @@ namespace PhalanxAdmin
             if (lvLista.SelectedIndices.Count == 1)
             {
                 FABMPerfil FABMPerf = new FABMPerfil((PhxRoleEntity)lvLista.SelectedItems[0].Tag, true, false);
+                FABMPerf.Usuario = this.Usuario;
                 FABMPerf.ShowDialog();
             }
 

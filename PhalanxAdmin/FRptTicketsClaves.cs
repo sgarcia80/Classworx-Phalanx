@@ -15,8 +15,16 @@ using System.IO;
 
 namespace PhalanxAdmin
 {
-    public partial class FRptTicketsClaves : PhalanxAdmin.FBaseReportes
+    public partial class FRptTicketsClaves : PhalanxAdmin.FBaseReportesInternos
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Listado de Tickets de Notificación de Claves");
+            }
+        }
+
         protected AplicacionNotificacionClaveEntity _filApp = null;
 
         public override string Id
@@ -35,7 +43,7 @@ namespace PhalanxAdmin
             lvLista.ListViewItemSorter = new cwxSorter(); 
 
             PhxUserBusiness UsrBL = new PhxUserBusiness();
-            btnVer.Visible = UsrBL.AccTickets(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            btnVer.Visible = UsrBL.AccTickets(this.Usuario);
         }
         /* Proceso de acceso a DB
 * 1 - ExecClientesRefresh

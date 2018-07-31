@@ -136,12 +136,21 @@ namespace PhalanxDAL.Factories
             //ITransaction tx = null;
             using (ISession session = DBMgr.factory.OpenSession())
             {
+                ICriteria DataSearch = session.CreateCriteria(typeof(WinDomainEntity));
+
+                DataSearch = DataSearch.Add(Expression.IsNotNull("LDAPPath"));
+                DataSearch = DataSearch.Add(Expression.Not(Expression.Eq("LDAPPath", string.Empty)));
+
+                DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("NtName"));
+
                 // Retrieve data here (with the session)
-                lstWDom = session.CreateCriteria(typeof(WinDomainEntity)).List<WinDomainEntity>();
-                foreach (WinDomainEntity objWD in lstWDom)
-                {
-                    int i = objWD.WinDomainControllersList.Count;
-                }
+                //lstWDom = session.CreateCriteria(typeof(WinDomainEntity)).List<WinDomainEntity>();
+                lstWDom = DataSearch.List<WinDomainEntity>();
+
+                //foreach (WinDomainEntity objWD in lstWDom)
+                //{
+                //    int i = objWD.WinDomainControllersList.Count;
+                //}
             }
             WinDomainEntityCollection WinDomEC = new WinDomainEntityCollection();
             WinDomEC.Add(lstWDom);

@@ -1,17 +1,27 @@
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 using NDCCommon.Entities;
 using NDCBL;
 using NDCCommon.Collections;
+using System.Collections;
 using PhalanxCommon.Entities;
+using PhalanxCommon;
 using PhalanxBL;
 using PhalanxCommon.Collections;
-using Classworx.Common.Trace;
+using log4net;
+using PhalanxNAL;
 
 namespace PhalanxAdmin
 {
     public partial class FABMNotifBlanqueoRed : PhalanxAdmin.FModalBase
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(FABMNotifBlanqueoRed));
+
         TicketNotificacionBlanqueoEntity _entity = new TicketNotificacionBlanqueoEntity();
         WinDomainEntityCollection _dominios = new WinDomainEntityCollection();
 
@@ -40,9 +50,10 @@ namespace PhalanxAdmin
             m_FormType = formType;
         }
 
-        public FABMNotifBlanqueoRed(int id, bool ReadOnly, FormType formType)
+        public FABMNotifBlanqueoRed(int id, bool ReadOnly, FormType formType, string userlogon)
             : this(formType)
         {
+            this.Usuario = userlogon;
             if (id > 0)
             {
                 this._entity = TicketBL.Load(id);
@@ -53,7 +64,7 @@ namespace PhalanxAdmin
             }
 
             m_FormType = formType;
-            this.user = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            this.user = this.Usuario;
 
             _readOnly = ReadOnly;
         }
@@ -81,7 +92,7 @@ namespace PhalanxAdmin
                     }
                 case FormType.View:
                     {
-                        this.Title = "Ticket de Notificación de Blanqueo de Red Nro" + nro;
+                        this.Title = "Ticket de Notificación de Blanqueo de Red Nro " + nro;
                         break;
                     }
                 case FormType.Delete:
@@ -100,6 +111,7 @@ namespace PhalanxAdmin
             if (_readOnly)
             {
                 btnAceptar.Enabled = false;
+                btnGenerar.Enabled = false;
             }
             else
             {
@@ -142,6 +154,7 @@ namespace PhalanxAdmin
                 txtUsuarioCarga.Text = _entity.UsuarioCarga;
 
                 txtSolicitante.Text = _entity.Solicitante;
+                txtSolicitantePuesto.Text = _entity.SolicitantePuesto;
 
                 txtEstado.Text = _entity.FechaAceptacionTyC.HasValue ? "Notificado" : "Pendiente";
 
@@ -222,12 +235,41 @@ namespace PhalanxAdmin
             }
 
             // chequear campos obligatorios
+
+            if (txtSolicitante.Text.Trim().Length > 0)
+            {
+                if (!picSolicitante.Visible)
+                {
+                    bool ok = ValidarUsuarioSolicitante();
+
+                    if (!ok)
+                    {
+                        MessageBox.Show("El Solicitante es inválido", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+            }
+
             // chequear pwd no vacia
             if (txtUser.Text.Trim().Length == 0)
             {
                 MessageBox.Show("Debe introducir un Usuario de Red", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            else
+            {
+                if (!picActivo.Visible)
+                {
+                    bool ok = ValidarUsuarioRed();
+
+                    if (!ok)
+                    {
+                        MessageBox.Show("El Usuario de Red es inválido", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+            }
+
             // chequear pwd no vacia
             if (tPassword1.Text.Trim().Length == 0)
             {
@@ -259,6 +301,7 @@ namespace PhalanxAdmin
             _entity.UsuarioAplicacion = _entity.Usuario;
             _entity.PasswordUsuarioAplicacion = tPassword1.Text;
             _entity.Solicitante = txtSolicitante.Text.Trim();
+            _entity.SolicitantePuesto = txtSolicitantePuesto.Text.Trim();
 
             _entity.UsuarioCarga = user;
 
@@ -274,7 +317,7 @@ namespace PhalanxAdmin
                 {
                     string debug = string.Empty;
 
-                    TicketBL.EnviarEmail(_entity, out debug);
+                    TicketBL.EnviarEmailRed(_entity, out debug);
 
                     _entity.Id = Id;
                     MessageBox.Show("La Notificación de Blanqueo de Red se generó correctamente", "Notificación de Blanqueo Red", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -343,13 +386,13 @@ namespace PhalanxAdmin
 
             TicketNotificacionClaveBusiness tncb = new TicketNotificacionClaveBusiness();
 
-            TraceHelper.Information("Se consulta Altas Tempranas del usuario {0}/{1} que estén pendientes", dominio, usuario);
+            log.InfoFormat("Se consulta Altas Tempranas del usuario {0}/{1} que estén pendientes", dominio, usuario);
 
             TicketNotificacionClaveEntityCollection tickets = tncb.GetAltaTempranaPendientes(dominio, usuario);
 
             if (tickets != null)
             {
-                TraceHelper.Information("Se encontraron {0} notificaciones de alta temprana pendientes", tickets.Count);
+                log.InfoFormat("Se encontraron {0} notificaciones de alta temprana pendientes", tickets.Count);
 
                 if (tickets.Count > 0)
                 {
@@ -361,6 +404,119 @@ namespace PhalanxAdmin
             }
 
             return ok;
+        }
+
+        private bool ValidarUsuarioRed()
+        {
+            picActivo.Visible = false;
+
+            if (string.IsNullOrEmpty(txtUser.Text.Trim()))
+            {
+                return false;
+            }
+
+            WinDomainEntity dominio = cbDomain.SelectedItem as WinDomainEntity;
+
+            string path = string.Empty;
+
+            if (!string.IsNullOrEmpty(dominio.LDAPPath))
+            {
+                path = dominio.LDAPPath;
+            }
+
+            try
+            {
+                string nombreUser = PhalanxNAL.ActiveDirectoryHelper.BuscarNombrePorUsername(txtUser.Text.Trim(), path);
+
+                if (!string.IsNullOrEmpty(nombreUser))
+                {
+                    picActivo.Visible = true;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return picActivo.Visible;
+        }
+
+        private bool ValidarUsuarioSolicitante()
+        {
+            picSolicitante.Visible = false;
+            txtSolicitantePuesto.Text = string.Empty;
+
+            if (string.IsNullOrEmpty(txtSolicitante.Text.Trim()))
+            {
+                return false;
+            }
+
+            WinDomainEntity dominio = cbDomain.SelectedItem as WinDomainEntity;
+
+            string path = string.Empty;
+
+            if (!string.IsNullOrEmpty(dominio.LDAPPath))
+            {
+                path = dominio.LDAPPath;
+            }
+
+            try
+            {
+                picSolicitante.Visible = false;
+
+                DomainUser usuario = ActiveDirectoryHelper.BuscarUsuarioADPorNombre(path, txtSolicitante.Text.Trim());
+
+                if (usuario.Exception || !usuario.Found)
+                {
+                    log.InfoFormat(usuario.Log);
+
+                    if (usuario.Found)
+                    {
+                        log.InfoFormat("Se encontró el usuario '{0}' pero hubo un error.", txtSolicitante.Text.Trim());
+                    }
+                    else
+                    {
+                        log.InfoFormat("No se encontró el usuario '{0}'", txtSolicitante.Text.Trim());
+                    }
+                }
+                else
+                {
+                    txtSolicitantePuesto.Text = usuario.Title;
+                    picSolicitante.Visible = true;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return picActivo.Visible;
+        }
+
+        private void txtUser_Validating(object sender, CancelEventArgs e)
+        {
+            if (!this._readOnly)
+            {
+                ValidarUsuarioRed();
+            }
+        }
+
+        private void txtSolicitante_Validating(object sender, CancelEventArgs e)
+        {
+            if (!this._readOnly)
+            {
+                ValidarUsuarioSolicitante();
+            }
+        }
+
+        private void cbDomain_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!this._readOnly)
+            {
+                ValidarUsuarioRed();
+
+                ValidarUsuarioSolicitante();
+            }
         }
     }
 }

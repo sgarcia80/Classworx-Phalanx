@@ -12,8 +12,16 @@ using System.IO;
 
 namespace PhalanxAdmin
 {
-    public partial class FRptClavesGrpSol : PhalanxAdmin.FBaseReportes
+    public partial class FRptClavesGrpSol : PhalanxAdmin.FBaseReportesNormativos
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Claves por Grupos de Solicitudes");
+            }
+        }
+
         public FRptClavesGrpSol()
         {
             InitializeComponent();
@@ -225,7 +233,8 @@ namespace PhalanxAdmin
             #region comun en herencia FBaseReportes NO se modifica
             this.lnkCancelar.Visible = false;
             this.pbDB.Visible = false;
-            ExecEntitiesRefresh();
+            lblStatus.Text = "Listo";
+            //ExecEntitiesRefresh();
         #endregion
 
         }

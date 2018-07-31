@@ -12,8 +12,16 @@ using System.IO;
 
 namespace PhalanxAdmin
 {
-    public partial class FRptPermisosPerf : PhalanxAdmin.FBaseReportes
+    public partial class FRptPermisosPerf : PhalanxAdmin.FBaseReportesInternos
     {
+        public override string Titulo
+        {
+            get
+            {
+                return GetTitlePath(base.Titulo, "Asignación de Permisos");
+            }
+        }
+
         public override string Id
         {
             get
@@ -189,7 +197,7 @@ namespace PhalanxAdmin
             }
         }
 
-        private void FRptPerfilesUsrs_Load(object sender, EventArgs e)
+        private void FRptPermisosPerf_Load(object sender, EventArgs e)
         {
             this.lnkCancelar.Visible = false;
             this.pbDB.Visible = false;

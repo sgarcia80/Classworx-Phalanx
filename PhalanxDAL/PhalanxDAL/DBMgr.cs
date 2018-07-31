@@ -203,6 +203,8 @@ namespace PhalanxDAL
                 config.AddResource("PhalanxDAL.MappingFiles.CommunicationDeviceProtocols.hbm.xml", nhAssembly);
                 config.AddResource("PhalanxDAL.MappingFiles.CommunicationDevices.hbm.xml", nhAssembly);
                 config.AddResource("PhalanxDAL.MappingFiles.PhxLogUsuariosInactivados.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.VencPwdAppLog.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.VencPwdAppLogDet.hbm.xml", nhAssembly);
 
                 if (assembly != null)
                 {
@@ -227,8 +229,15 @@ namespace PhalanxDAL
                         break;
                     case App.NotificacionClaves:
                         config.AddResource("NDCDAL.MappingFiles.AplicacionNotificacionClaveEntity.hbm.xml", nhAssembly);
+                        config.AddResource("NDCDAL.MappingFiles.BloqueoEntity.hbm.xml", nhAssembly);
+                        config.AddResource("NDCDAL.MappingFiles.MacroEntity.hbm.xml", nhAssembly);
+                        config.AddResource("NDCDAL.MappingFiles.MacroClaveEntity.hbm.xml", nhAssembly);
+                        config.AddResource("NDCDAL.MappingFiles.MacroErrorEntity.hbm.xml", nhAssembly);
+                        config.AddResource("NDCDAL.MappingFiles.MacroUsuarioEntity.hbm.xml", nhAssembly);
+                        config.AddResource("NDCDAL.MappingFiles.MacroUsuarioTarjetaEntity.hbm.xml", nhAssembly);
                         config.AddResource("NDCDAL.MappingFiles.TicketNotificacionClaveEntity.hbm.xml", nhAssembly);
                         config.AddResource("NDCDAL.MappingFiles.TicketNotificacionBlanqueoEntity.hbm.xml", nhAssembly);
+                        config.AddResource("NDCDAL.MappingFiles.TicketNotificacionTarjetaEntity.hbm.xml", nhAssembly);
                         config.AddResource("NDCDAL.MappingFiles.TicketAutogestionCobisEntity.hbm.xml", nhAssembly);
                         config.AddResource("NDCDAL.MappingFiles.VwCwxTicketNotificacion.hbm.xml", nhAssembly);
                         config.AddResource("NDCDAL.MappingFiles.AuditTicketNotificacionEntity.hbm.xml", nhAssembly);

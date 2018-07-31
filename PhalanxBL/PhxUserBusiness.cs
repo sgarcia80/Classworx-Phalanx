@@ -295,11 +295,27 @@ namespace PhalanxBL
         private const string CONF_NDC_R = "@CONF_NDC_R@"; //Configuración de Parametría de Notificación de Claves - Lectura
         private const string CONF_CONECTORES_RW = "@CONF_CONECTORES_RW@"; //Configuración de Parametría de Conectores - Escritura
         private const string CONF_CONECTORES_R = "@CONF_CONECTORES_R@"; //Configuración de Parametría de Conectores - Lectura
+        private const string CONF_MACROS_RW = "@CONF_MACROS_RW@";
+        private const string CONF_MACROS_R = "@CONF_MACROS_R@";
+        private const string CONF_MACROUSER_RW = "@CONF_MACROUSER_RW@";
+        private const string CONF_MACROUSER_R = "@CONF_MACROUSER_R@";
+        private const string CONF_MACROERROR_RW = "@CONF_MACROERROR_RW@";
+        private const string CONF_MACROERROR_R = "@CONF_MACROERROR_R@";
+        private const string CONF_MACROCLAVE_RW = "@CONF_MACROCLAVE_RW@";
+        private const string CONF_MACROCLAVE_R = "@CONF_MACROCLAVE_R@";
+        private const string CONF_MACROUSERTC_RW = "@CONF_MACROUSERTC_RW@";
+        private const string CONF_MACROUSERTC_R = "@CONF_MACROUSERTC_R@";
 
+        private const string CONF_BLOQUEO_SRV_RW = "@CONF_BLOQUEO_SRV_RW@"; //Bloqueo de Servicios - Escritura
+        private const string CONF_BLOQUEO_SRV_R = "@CONF_BLOQUEO_SRV_R@"; //Bloqueo de Servicios - Lectura
 
         private const string RPT_USR_GRP_SOL = "@RPT_USR_GRP_SOL@";
         private const string RPT_USR_GRP_SEG_SOL = "@RPT_USR_GRP_SEG_SOL@";
         private const string RPT_PWD_GRP_SOL = "@RPT_PWD_GRP_SOL@";
+
+        private const string RPT_AUTO_COBIS = "@RPT_AUTO_COBIS@";
+        private const string RPT_EMP_META4 = "@RPT_EMP_META4@";
+        private const string RPT_NOTIF_ALT_PEND = "@RPT_NOTIF_ALT_PEND@";
 
         /// <summary>
         /// Chequea si el usuario tiene acceso a la aplicación WEB
@@ -566,6 +582,21 @@ namespace PhalanxBL
             string[] PrivilegiosAcceso = new string[] { RPT_PWD_GRP_SOL };
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
+        public bool AccRptAutogestionCobis(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { RPT_AUTO_COBIS };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+        public bool AccRptEmpleadosMeta4(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { RPT_EMP_META4 };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+        public bool AccRptNotifAltaPend(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { RPT_NOTIF_ALT_PEND };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
 
         public bool AccParamConfigMailsRW(string usernamedomain)
         {
@@ -784,6 +815,89 @@ namespace PhalanxBL
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
 
+        public bool AccParamConfigBloqueoSrv(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { CONF_BLOQUEO_SRV_R, CONF_BLOQUEO_SRV_RW };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+
+        public bool AccParamConfigBloqueoSrvRW(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { CONF_BLOQUEO_SRV_RW };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+
+
+        public bool AccParamConfigTC(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { CONF_MACROS_RW, CONF_MACROS_R, 
+                                                        CONF_MACROUSER_RW, CONF_MACROUSER_R, 
+                                                        CONF_MACROUSERTC_RW, CONF_MACROUSERTC_R,
+                                                        CONF_MACROERROR_RW, CONF_MACROERROR_R,
+                                                        CONF_MACROCLAVE_RW, CONF_MACROCLAVE_R};
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+
+        public bool AccParamConfigMacros(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { CONF_MACROS_RW, CONF_MACROS_R };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+
+        public bool AccParamConfigMacrosRW(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { CONF_MACROS_RW };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+
+        public bool AccParamConfigMacroUsuario(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { CONF_MACROUSER_RW, CONF_MACROUSER_R };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+
+        public bool AccParamConfigMacroUsuarioRW(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { CONF_MACROUSER_RW };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+
+        public bool AccParamConfigMacroUsuarioTarjeta(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { CONF_MACROUSERTC_RW, CONF_MACROUSERTC_R };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+
+        public bool AccParamConfigMacroUsuarioTarjetaRW(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { CONF_MACROUSERTC_RW };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+
+        public bool AccParamConfigMacroErrores(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { CONF_MACROERROR_RW, CONF_MACROERROR_R };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+
+        public bool AccParamConfigMacroErroresRW(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { CONF_MACROERROR_RW };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+
+        public bool AccParamConfigMacroClaves(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { CONF_MACROCLAVE_RW, CONF_MACROCLAVE_R };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+
+        public bool AccParamConfigMacroClavesRW(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { CONF_MACROCLAVE_RW };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+
         public bool AccParamConfigWSConectoresRW(string usernamedomain)
         {
             string[] PrivilegiosAcceso = new string[] { CONF_CONECTORES_RW };
@@ -847,7 +961,7 @@ namespace PhalanxBL
         private string _UsuariosInactivadosNOK = "";
         public string UsuariosInactivadosOK { get { return _UsuariosInactivadosOK; } }
         public string UsuariosInactivadosNOK { get { return _UsuariosInactivadosNOK; } }
-        public IList<PhxUserEntity> InactivarInexistentesEnAD()
+        public IList<PhxUserEntity> InactivarInexistentesEnAD(string username)
         {
             IList<PhxUserEntity> listaUsuariosInactivados = new List<PhxUserEntity>();
 
@@ -880,7 +994,7 @@ namespace PhalanxBL
                         {
                             if (!ActiveDirectoryHelper.UsuarioExiste(ldapPath, usuario.Username))
                             {
-                                InactivateUser(usuario, System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+                                InactivateUser(usuario, username);
 
                                 PhxLogUsuarioInactivado logUsuario = new PhxLogUsuarioInactivado();
                                 logUsuario.Domain = usuario.Domain;
