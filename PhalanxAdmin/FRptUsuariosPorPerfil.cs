@@ -12,7 +12,7 @@ using System.IO;
 
 namespace PhalanxAdmin
 {
-    public partial class FRptUsuariosPorPerfil : PhalanxAdmin.FBaseReportes
+    public partial class FRptUsuariosPorPerfil : PhalanxAdmin.FBaseReportesNormativos
     {
         public override string Titulo
         {

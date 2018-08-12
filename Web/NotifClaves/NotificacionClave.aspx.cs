@@ -14,9 +14,12 @@ using NDCCommon.Collections;
 using PhalanxBL;
 using PhalanxCommon.Collections;
 using PhalanxCommon.Entities;
+using log4net;
 
 public partial class NotificacionClave : System.Web.UI.Page
 {
+    private static readonly ILog log = LogManager.GetLogger(typeof(NotificacionClave));
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -48,18 +51,23 @@ public partial class NotificacionClave : System.Web.UI.Page
             path = dominios[0].LDAPPath;
         }
 
-        string nombreUser = PhalanxNAL.ActiveDirectoryHelper.BuscarNombrePorUsername(usuario, path);
+        log.InfoFormat("Se valida el usuario {0}", usuario);
+        string legajo = PhalanxNAL.ActiveDirectoryHelper.BuscarEmployeeID(usuario, path);
 
-        bool esExterno = nombreUser.ToUpper().Contains("EXTERNO");
+        //bool esExterno = nombreUser.ToUpper().Contains("EXTERNO");
+        bool esExterno = string.IsNullOrEmpty(legajo);
 
+        log.InfoFormat("El usuario es {0}", (esExterno? "Externo": "Interno"));
         AplicacionNotificacionClaveBusiness ancb = new AplicacionNotificacionClaveBusiness();
         AplicacionNotificacionClaveEntity aplicacion = ancb.GetAppRed();
-        
+
+        log.InfoFormat("Se consulta si existe un ticket de blanqueo");
         TicketNotificacionBlanqueoBusiness tncb = new TicketNotificacionBlanqueoBusiness();
         TicketNotificacionBlanqueoEntityCollection tickets = tncb.GetAll(TicketNotificacionBlanqueoEntity.TipoNotificacionBlanqueoRed, null, null, aplicacion, usuario, string.Empty, string.Empty, true, string.Empty);
 
         if (tickets == null || tickets.Count == 0)
         {
+            log.InfoFormat("No existe ticket de blanqueo"); 
             lblMensajeNotif.Text = "No existe ticket de Blanqueo para este Usuario";
 
             return;
@@ -71,6 +79,8 @@ public partial class NotificacionClave : System.Web.UI.Page
 
         if (esExterno)
         {
+            log.InfoFormat("Se valida si existen las preguntas secretas");
+            
             QuestionAnswerBusiness qab = new QuestionAnswerBusiness();
             qab.FilUser = usuario;
 
@@ -87,13 +97,15 @@ public partial class NotificacionClave : System.Web.UI.Page
         }
         else //INTERNO
         {
-            Session["seed"] = TimeSpan.FromTicks(DateTime.Now.Ticks).Seconds;;
+            log.InfoFormat("Se debe utilizar Identificacion Positiva");
+            Session["seed"] = TimeSpan.FromTicks(DateTime.Now.Ticks).Seconds; ;
 
             url = "IdentificacionPositiva.aspx?";
         }
 
         if (!string.IsNullOrEmpty(url))
         {
+            log.InfoFormat("Se redirecciona a {0}", url);
             Session["Dominio"] = "MACRO";
             Session["Usuario"] = usuario;
             Session["ticketId"] = tickets[0].Id;

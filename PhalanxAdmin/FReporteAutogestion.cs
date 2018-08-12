@@ -10,40 +10,45 @@ using PhalanxBL;
 using PhalanxCommon.Entities;
 using System.IO;
 using System.Collections;
+using NDCBL;
+using NDCCommon.Entities;
+using NDCCommon.Collections;
 
 namespace PhalanxAdmin
 {
-    public partial class FUsuariosGruposSeguimiento : PhalanxAdmin.FBaseReportesNormativos
+    public partial class FReporteAutogestion : PhalanxAdmin.FBaseReportesInternos
     {
         public override string Titulo
         {
             get
             {
-                return GetTitlePath(base.Titulo, "Usuarios por Grupos de Seguimiento de Solicitudes");
+                return GetTitlePath(base.Titulo, "Autogetión Cobis");
             }
         }
 
         protected IList _entities;
 
-		string nombreGrupo;
-		bool? grupoActivo;
-		bool? usuarioActivo;
-        
-		public override string Id
+        int tipo;
+        string usuario;
+        DateTime? fechaDesde;
+        DateTime? fechaHasta;
+
+        public override string Id
         {
             get
             {
-				return "FUsuariosGruposSeguimiento";
+                return "FReporteAutogestionCobis";
             }
         }
-		public FUsuariosGruposSeguimiento()
+
+        public FReporteAutogestion()
         {
             InitializeComponent();
             lvLista.ListViewItemSorter = new cwxSorter();
-
-			cboEstadoGrupo.SelectedIndex = 0;
-			cboEstadoUsuario.SelectedIndex = 0;
+            
+            cbTipo.SelectedIndex = 0;
         }
+
         /* Proceso de acceso a DB
        * 1 - ExecClientesRefresh
        * 2 - se ejecuta la función asociada al evento DoWork del background worker
@@ -93,20 +98,22 @@ namespace PhalanxAdmin
         /// </example>
         private void SetQueryFilters()
         {
-			nombreGrupo = txtFilNombre.Text.Trim();
+            usuario = txtUsuario.Text.Trim();
+            switch (cbTipo.SelectedIndex)
+            {
+                case 0:
+                    tipo = 0;
+                    break;
+                case 1:
+                    tipo = 2;
+                    break;
+                case 2:
+                    tipo = 1;
+                    break;
+            }
 
-			if (nombreGrupo == string.Empty)
-				nombreGrupo = null;
-
-			grupoActivo = null;
-			usuarioActivo = null;
-
-			if (cboEstadoGrupo.SelectedIndex < 2)
-				grupoActivo = cboEstadoGrupo.SelectedIndex == 0;
-
-			if (cboEstadoUsuario.SelectedIndex < 2)
-				usuarioActivo = cboEstadoUsuario.SelectedIndex == 0;
-
+            fechaDesde = dtpFechaDesde.Checked ? dtpFechaDesde.Value : (DateTime?)null;
+            fechaHasta = dtpFechaHasta.Checked ? dtpFechaHasta.Value : (DateTime?)null;
         }
 
         private void bwRefreshEntities_DoWork(object sender, DoWorkEventArgs e)
@@ -131,8 +138,10 @@ namespace PhalanxAdmin
         /// </example>
         private void LoadEntities()
         {
-			IList list = new PhxUserBusiness().GetAllByGrupoSeguimientoSolicitud(nombreGrupo, grupoActivo, usuarioActivo);
-			
+            IList list = new TicketAutogestionCobisBusiness().GetAll(tipo,fechaDesde, fechaHasta, usuario);
+            TicketAutogestionCobisEntityCollection tnceC = new TicketAutogestionCobisEntityCollection();
+            tnceC = (TicketAutogestionCobisEntityCollection)list;
+            
             _entities = list;
         }
 
@@ -177,7 +186,7 @@ namespace PhalanxAdmin
         {
             ListViewItem[] lviArr = new ListViewItem[this._entities.Count];
             int i = 0;
-            foreach (object[] entidad in this._entities)
+            foreach (TicketAutogestionCobisEntity entidad in this._entities)
             {
                 lviArr[i] = new ListViewItem();
                 /// hay que armar los items de lo que se traiga de la DB
@@ -185,15 +194,16 @@ namespace PhalanxAdmin
                 lviArr[i].SubItems.Add(HistChgPwdEnt.Db.Type.Name);
                 lviArr[i].SubItems.Add(HistChgPwdEnt.Db.ServerName);
                 lviArr[i].ImageIndex = HistChgPwdEnt.ActiveUser ? 0 : 1;*/
-				
-                lviArr[i].Text = entidad[0].ToString(); // HistChgPwdEnt.User.Username;
-                lviArr[i].SubItems.Add(entidad[1].ToString());
-                lviArr[i].SubItems.Add((bool) entidad[2] ? "Activo" : "Inactivo");
-                lviArr[i].SubItems.Add(entidad[3].ToString());
-				lviArr[i].SubItems.Add(entidad[4].ToString());
-				lviArr[i].SubItems.Add(entidad[5].ToString());
-				lviArr[i].SubItems.Add(entidad[6].ToString());
-				lviArr[i].SubItems.Add((bool)entidad[7] ? "Activo" : "Inactivo");
+
+
+                lviArr[i].Text = entidad.Id.ToString(); // HistChgPwdEnt.User.Username;
+                //lviArr[i].SubItems.Add(entidad.TipoNotificacionDescr);
+                lviArr[i].SubItems.Add(entidad.TipoNotificacionDescr);
+                lviArr[i].SubItems.Add(entidad.Usuario);
+                lviArr[i].SubItems.Add(entidad.Fecha.ToString("dd/MM/yyyy HH:mm"));
+                lviArr[i].SubItems.Add(entidad.RespuestaCodigo.ToString());
+                lviArr[i].SubItems.Add(entidad.RespuestaMensaje);
+
                 lviArr[i].Tag = entidad;
                 i++;
             }
@@ -258,9 +268,13 @@ namespace PhalanxAdmin
 
         private void CleanFilters()
         {
-            txtFilNombre.Text = "";
-			cboEstadoGrupo.SelectedIndex = 0;
-			cboEstadoUsuario.SelectedIndex = 0;
+            cbTipo.SelectedIndex = 0;
+
+            dtpFechaDesde.Checked = false;
+            dtpFechaHasta.Checked = true;
+
+            dtpFechaDesde.Value = DateTime.Today;
+            dtpFechaHasta.Value = DateTime.Today;
         }
 
         private void lnkCancelar_Click(object sender, EventArgs e)
@@ -321,41 +335,37 @@ namespace PhalanxAdmin
                     DBRefreshEntites();
 
                     saveFileDialog1.Filter = "csv files (*.csv)|*.csv";
-                    saveFileDialog1.FileName = "UsuariosPorGrupoSeguimientoSolicitudes";
+                    saveFileDialog1.FileName = string.Format("Autogestion_cobis_{0:yyyyMMdd_HHmm}", DateTime.Now);
                     saveFileDialog1.Title = "Exportar a CSV";
 
                     StringBuilder sb = new StringBuilder();
                     string Separator = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ListSeparator;
-                    sb.Append("Id Grupo" + Separator);
-                    sb.Append("Nombre grupo" + Separator);
-                    sb.Append("Estado grupo" + Separator);
-                    sb.Append("Id usuario" + Separator);
-					sb.Append("Dominio usuario" + Separator);
-					sb.Append("Usuario red" + Separator);
-					sb.Append("Nombre completo" + Separator);
-					sb.Append("Estado usuario");
-
-					foreach (object[] entidad in this._entities)
-					{
+                    sb.Append("Nro" + Separator);
+                    sb.Append("Tipo" + Separator);
+                    sb.Append("Usuario" + Separator);
+                    sb.Append("Fecha" + Separator);
+                    sb.Append("Respuesta" + Separator);
+                    sb.Append("Mensaje");
+                    
+                    foreach (TicketAutogestionCobisEntity entidad in this._entities)
+                    {
                         sb.AppendLine();
-                        sb.Append(entidad[0].ToString() + Separator);
-						sb.Append(entidad[1].ToString() + Separator);
-                        sb.Append((bool)entidad[2] ? "Activo" : "Inactivo" + Separator);
-						sb.Append(entidad[3].ToString());
-						sb.Append(entidad[4].ToString() + Separator);
-						sb.Append(entidad[5].ToString() + Separator);
-						sb.Append(entidad[6].ToString() + Separator);
-						sb.Append((bool)entidad[7] ? "Activo" : "Inactivo" + Separator);
+                        sb.Append(entidad.Id.ToString() + Separator);
+                        sb.Append(entidad.TipoNotificacionDescr + Separator);
+                        sb.Append(entidad.Usuario + Separator);
+                        sb.Append(entidad.Fecha.ToString("dd/MM/yyyy HH:mm") + Separator);
+                        sb.Append(entidad.RespuestaCodigo.ToString() + Separator);
+                        sb.Append(entidad.RespuestaMensaje + Separator);
                     }
 
                     DialogResult dr = saveFileDialog1.ShowDialog();
-                    
+
                     if (dr == DialogResult.OK)
                     {
                         StreamWriter sw = new StreamWriter(saveFileDialog1.FileName, false, Encoding.Unicode);
                         sw.Write(sb.ToString());
                         sw.Close();
-                        
+
                         MessageBox.Show("La exportación ha sido completada", "Exportación a CSV", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }

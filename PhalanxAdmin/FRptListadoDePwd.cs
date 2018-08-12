@@ -14,7 +14,7 @@ using phxCryptMgr;
 
 namespace PhalanxAdmin
 {
-    public partial class FRptListadoDePwd : PhalanxAdmin.FBaseReportes
+    public partial class FRptListadoDePwd : PhalanxAdmin.FBaseReportesInternos
     {
         public override string Titulo
         {

@@ -11,7 +11,7 @@ using PhalanxCommon.Entities;
 
 namespace PhalanxAdmin
 {
-    public partial class FRptABMUsuarios : PhalanxAdmin.FBaseReportes
+    public partial class FRptABMUsuarios : PhalanxAdmin.FBaseReportesNormativos
     {
         public override string Titulo
         {

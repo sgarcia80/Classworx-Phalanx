@@ -1,6 +1,6 @@
 namespace PhalanxAdmin
 {
-    partial class FRptPermisosPerf
+    partial class FReporteAutogestion
     {
         /// <summary>
         /// Required designer variable.
@@ -28,21 +28,20 @@ namespace PhalanxAdmin
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ColumnHeader columnHeader9;
-            System.Windows.Forms.ColumnHeader columnHeader5;
-            System.Windows.Forms.ColumnHeader columnHeader2;
-            System.Windows.Forms.ColumnHeader columnHeader6;
-            System.Windows.Forms.ColumnHeader columnHeader3;
-            System.Windows.Forms.ColumnHeader columnHeader7;
-            System.Windows.Forms.ColumnHeader columnHeader8;
-            System.Windows.Forms.ColumnHeader columnHeader1;
-            System.Windows.Forms.ColumnHeader columnHeader4;
+            System.Windows.Forms.ColumnHeader colTipoNotif;
+            System.Windows.Forms.ColumnHeader colNroTicket;
+            System.Windows.Forms.ColumnHeader colUsuario;
             this.pnlFilters = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txtFHasta = new System.Windows.Forms.MaskedTextBox();
-            this.txtFDesde = new System.Windows.Forms.MaskedTextBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.txtUsuario = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.btnExportar = new System.Windows.Forms.Button();
+            this.dtpFechaHasta = new System.Windows.Forms.DateTimePicker();
+            this.label2 = new System.Windows.Forms.Label();
+            this.dtpFechaDesde = new System.Windows.Forms.DateTimePicker();
+            this.cbTipo = new System.Windows.Forms.ComboBox();
+            this.labelApp = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.statusbar = new System.Windows.Forms.StatusStrip();
@@ -50,19 +49,15 @@ namespace PhalanxAdmin
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.lnkCancelar = new System.Windows.Forms.ToolStripStatusLabel();
             this.pnlList = new System.Windows.Forms.Panel();
-            this.btnExportar = new System.Windows.Forms.Button();
             this.lvLista = new System.Windows.Forms.ListView();
+            this.colFecha = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colRespuesta = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colMensaje = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.bwRefreshEntities = new System.ComponentModel.BackgroundWorker();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            colTipoNotif = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            colNroTicket = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            colUsuario = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
             this.pnlXPGrps.SuspendLayout();
             this.pnlIzq.SuspendLayout();
@@ -72,65 +67,34 @@ namespace PhalanxAdmin
             this.pnlList.SuspendLayout();
             this.SuspendLayout();
             // 
-            // xppnlTC
-            // 
-            this.xppnlTC.ImageItems.ImageSet = null;
-            this.xppnlTC.Location = new System.Drawing.Point(8, 120);
-            // 
             // pnlXPGrps
             // 
-            this.pnlXPGrps.Size = new System.Drawing.Size(200, 503);
+            this.pnlXPGrps.Size = new System.Drawing.Size(200, 508);
             // 
             // pnlIzq
             // 
-            this.pnlIzq.Size = new System.Drawing.Size(200, 503);
+            this.pnlIzq.Size = new System.Drawing.Size(200, 508);
             // 
             // xppnlMenu
             // 
             this.xppnlMenu.ImageItems.ImageSet = null;
-            this.xppnlMenu.Location = new System.Drawing.Point(8, 8);
             // 
-            // columnHeader9
+            // colTipoNotif
             // 
-            columnHeader9.Text = "Recurso";
-            columnHeader9.Width = 66;
+            colTipoNotif.Text = "Tipo";
+            colTipoNotif.Width = 130;
             // 
-            // columnHeader5
+            // colNroTicket
             // 
-            columnHeader5.Tag = "ddMMyyyyHHmss";
-            columnHeader5.Text = "Fecha";
+            colNroTicket.Tag = "Numeric";
+            colNroTicket.Text = "Nro Ticket";
+            colNroTicket.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            colNroTicket.Width = 90;
             // 
-            // columnHeader2
+            // colUsuario
             // 
-            columnHeader2.Text = "Terminal";
-            columnHeader2.Width = 120;
-            // 
-            // columnHeader6
-            // 
-            columnHeader6.Text = "Usuario Operador";
-            // 
-            // columnHeader3
-            // 
-            columnHeader3.Text = "Nombre Operador";
-            columnHeader3.Width = 130;
-            // 
-            // columnHeader7
-            // 
-            columnHeader7.Text = "Permiso";
-            // 
-            // columnHeader8
-            // 
-            columnHeader8.Text = "Acción";
-            // 
-            // columnHeader1
-            // 
-            columnHeader1.Text = "Valor";
-            columnHeader1.Width = 90;
-            // 
-            // columnHeader4
-            // 
-            columnHeader4.Text = "Perfil";
-            columnHeader4.Width = 137;
+            colUsuario.Text = "Usuario";
+            colUsuario.Width = 120;
             // 
             // pnlFilters
             // 
@@ -138,65 +102,122 @@ namespace PhalanxAdmin
             this.pnlFilters.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlFilters.Location = new System.Drawing.Point(200, 0);
             this.pnlFilters.Name = "pnlFilters";
-            this.pnlFilters.Size = new System.Drawing.Size(497, 95);
-            this.pnlFilters.TabIndex = 23;
+            this.pnlFilters.Size = new System.Drawing.Size(803, 118);
+            this.pnlFilters.TabIndex = 19;
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.txtFHasta);
-            this.groupBox1.Controls.Add(this.txtFDesde);
-            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.txtUsuario);
             this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.btnExportar);
+            this.groupBox1.Controls.Add(this.dtpFechaHasta);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.dtpFechaDesde);
+            this.groupBox1.Controls.Add(this.cbTipo);
+            this.groupBox1.Controls.Add(this.labelApp);
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.btnLimpiar);
             this.groupBox1.Controls.Add(this.btnBuscar);
             this.groupBox1.Location = new System.Drawing.Point(18, 8);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(476, 81);
+            this.groupBox1.Size = new System.Drawing.Size(530, 104);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de búsqueda";
             // 
-            // txtFHasta
+            // txtUsuario
             // 
-            this.txtFHasta.Location = new System.Drawing.Point(242, 23);
-            this.txtFHasta.Mask = "00/00/0000";
-            this.txtFHasta.Name = "txtFHasta";
-            this.txtFHasta.Size = new System.Drawing.Size(90, 20);
-            this.txtFHasta.TabIndex = 5;
-            this.txtFHasta.ValidatingType = typeof(System.DateTime);
-            // 
-            // txtFDesde
-            // 
-            this.txtFDesde.Location = new System.Drawing.Point(73, 23);
-            this.txtFDesde.Mask = "00/00/0000";
-            this.txtFDesde.Name = "txtFDesde";
-            this.txtFDesde.Size = new System.Drawing.Size(90, 20);
-            this.txtFDesde.TabIndex = 4;
-            this.txtFDesde.ValidatingType = typeof(System.DateTime);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(201, 26);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 13);
-            this.label4.TabIndex = 14;
-            this.label4.Text = "Hasta";
+            this.txtUsuario.Location = new System.Drawing.Point(94, 23);
+            this.txtUsuario.MaxLength = 10;
+            this.txtUsuario.Name = "txtUsuario";
+            this.txtUsuario.Size = new System.Drawing.Size(100, 20);
+            this.txtUsuario.TabIndex = 23;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 26);
+            this.label3.Location = new System.Drawing.Point(17, 26);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(38, 13);
-            this.label3.TabIndex = 13;
-            this.label3.Text = "Desde";
+            this.label3.Size = new System.Drawing.Size(43, 13);
+            this.label3.TabIndex = 22;
+            this.label3.Text = "Usuario";
+            // 
+            // btnExportar
+            // 
+            this.btnExportar.BackColor = System.Drawing.SystemColors.Control;
+            this.btnExportar.Location = new System.Drawing.Point(449, 77);
+            this.btnExportar.Name = "btnExportar";
+            this.btnExportar.Size = new System.Drawing.Size(76, 21);
+            this.btnExportar.TabIndex = 6;
+            this.btnExportar.Text = "Exportar";
+            this.btnExportar.UseVisualStyleBackColor = false;
+            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
+            // 
+            // dtpFechaHasta
+            // 
+            this.dtpFechaHasta.CustomFormat = "dd/MM/yyyy";
+            this.dtpFechaHasta.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpFechaHasta.Location = new System.Drawing.Point(276, 50);
+            this.dtpFechaHasta.Name = "dtpFechaHasta";
+            this.dtpFechaHasta.ShowCheckBox = true;
+            this.dtpFechaHasta.Size = new System.Drawing.Size(99, 20);
+            this.dtpFechaHasta.TabIndex = 21;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(199, 54);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(68, 13);
+            this.label2.TabIndex = 20;
+            this.label2.Text = "Fecha Hasta";
+            // 
+            // dtpFechaDesde
+            // 
+            this.dtpFechaDesde.CustomFormat = "dd/MM/yyyy";
+            this.dtpFechaDesde.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpFechaDesde.Location = new System.Drawing.Point(94, 50);
+            this.dtpFechaDesde.Name = "dtpFechaDesde";
+            this.dtpFechaDesde.ShowCheckBox = true;
+            this.dtpFechaDesde.Size = new System.Drawing.Size(99, 20);
+            this.dtpFechaDesde.TabIndex = 19;
+            // 
+            // cbTipo
+            // 
+            this.cbTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTipo.FormattingEnabled = true;
+            this.cbTipo.Items.AddRange(new object[] {
+            "Todos",
+            "Blanqueo",
+            "Desbloqueo"});
+            this.cbTipo.Location = new System.Drawing.Point(276, 23);
+            this.cbTipo.Name = "cbTipo";
+            this.cbTipo.Size = new System.Drawing.Size(99, 21);
+            this.cbTipo.TabIndex = 17;
+            // 
+            // labelApp
+            // 
+            this.labelApp.AutoSize = true;
+            this.labelApp.Location = new System.Drawing.Point(199, 26);
+            this.labelApp.Name = "labelApp";
+            this.labelApp.Size = new System.Drawing.Size(28, 13);
+            this.labelApp.TabIndex = 18;
+            this.labelApp.Text = "Tipo";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(17, 54);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(71, 13);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Fecha Desde";
             // 
             // btnLimpiar
             // 
             this.btnLimpiar.BackColor = System.Drawing.SystemColors.Control;
             this.btnLimpiar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnLimpiar.Location = new System.Drawing.Point(388, 22);
+            this.btnLimpiar.Location = new System.Drawing.Point(449, 22);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(76, 21);
             this.btnLimpiar.TabIndex = 6;
@@ -207,7 +228,7 @@ namespace PhalanxAdmin
             // btnBuscar
             // 
             this.btnBuscar.BackColor = System.Drawing.SystemColors.Control;
-            this.btnBuscar.Location = new System.Drawing.Point(389, 50);
+            this.btnBuscar.Location = new System.Drawing.Point(449, 50);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(76, 21);
             this.btnBuscar.TabIndex = 7;
@@ -221,10 +242,10 @@ namespace PhalanxAdmin
             this.pbDB,
             this.lblStatus,
             this.lnkCancelar});
-            this.statusbar.Location = new System.Drawing.Point(200, 481);
+            this.statusbar.Location = new System.Drawing.Point(200, 486);
             this.statusbar.Name = "statusbar";
-            this.statusbar.Size = new System.Drawing.Size(497, 22);
-            this.statusbar.TabIndex = 24;
+            this.statusbar.Size = new System.Drawing.Size(803, 22);
+            this.statusbar.TabIndex = 20;
             this.statusbar.Text = "statusStrip1";
             // 
             // pbDB
@@ -248,26 +269,16 @@ namespace PhalanxAdmin
             this.lnkCancelar.Size = new System.Drawing.Size(53, 17);
             this.lnkCancelar.Text = "Cancelar";
             this.lnkCancelar.ToolTipText = "Cancela la ejecución actual";
+            this.lnkCancelar.Click += new System.EventHandler(this.lnkCancelar_Click);
             // 
             // pnlList
             // 
-            this.pnlList.Controls.Add(this.btnExportar);
             this.pnlList.Controls.Add(this.lvLista);
             this.pnlList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlList.Location = new System.Drawing.Point(200, 95);
+            this.pnlList.Location = new System.Drawing.Point(200, 118);
             this.pnlList.Name = "pnlList";
-            this.pnlList.Size = new System.Drawing.Size(497, 386);
-            this.pnlList.TabIndex = 25;
-            // 
-            // btnExportar
-            // 
-            this.btnExportar.Location = new System.Drawing.Point(18, 0);
-            this.btnExportar.Name = "btnExportar";
-            this.btnExportar.Size = new System.Drawing.Size(132, 21);
-            this.btnExportar.TabIndex = 3;
-            this.btnExportar.Text = "Exportar Listado a CSV";
-            this.btnExportar.UseVisualStyleBackColor = true;
-            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
+            this.pnlList.Size = new System.Drawing.Size(803, 368);
+            this.pnlList.TabIndex = 21;
             // 
             // lvLista
             // 
@@ -276,26 +287,41 @@ namespace PhalanxAdmin
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvLista.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            columnHeader9,
-            columnHeader5,
-            columnHeader2,
-            columnHeader6,
-            columnHeader3,
-            columnHeader7,
-            columnHeader8,
-            columnHeader1,
-            columnHeader4});
+            colNroTicket,
+            colTipoNotif,
+            colUsuario,
+            this.colFecha,
+            this.colRespuesta,
+            this.colMensaje});
             this.lvLista.FullRowSelect = true;
             this.lvLista.HideSelection = false;
-            this.lvLista.Location = new System.Drawing.Point(18, 27);
-            this.lvLista.MultiSelect = false;
+            this.lvLista.Location = new System.Drawing.Point(18, 16);
             this.lvLista.Name = "lvLista";
-            this.lvLista.Size = new System.Drawing.Size(462, 352);
+            this.lvLista.Size = new System.Drawing.Size(773, 345);
             this.lvLista.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lvLista.TabIndex = 1;
             this.lvLista.UseCompatibleStateImageBehavior = false;
             this.lvLista.View = System.Windows.Forms.View.Details;
             this.lvLista.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvLista_ColumnClick);
+            // 
+            // colFecha
+            // 
+            this.colFecha.Tag = "ddMMyyyyHHmm";
+            this.colFecha.Text = "Fecha";
+            this.colFecha.Width = 100;
+            // 
+            // colRespuesta
+            // 
+            this.colRespuesta.Tag = "Numeric";
+            this.colRespuesta.Text = "Respuesta";
+            this.colRespuesta.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.colRespuesta.Width = 80;
+            // 
+            // colMensaje
+            // 
+            this.colMensaje.Tag = "";
+            this.colMensaje.Text = "Mensaje";
+            this.colMensaje.Width = 200;
             // 
             // bwRefreshEntities
             // 
@@ -303,15 +329,15 @@ namespace PhalanxAdmin
             this.bwRefreshEntities.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwRefreshEntities_DoWork);
             this.bwRefreshEntities.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwRefreshEntities_RunWorkerCompleted);
             // 
-            // FRptPermisosPerf
+            // FReporteAutogestion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(697, 503);
+            this.ClientSize = new System.Drawing.Size(1003, 508);
             this.Controls.Add(this.pnlList);
             this.Controls.Add(this.statusbar);
             this.Controls.Add(this.pnlFilters);
-            this.Name = "FRptPermisosPerf";
-            this.Load += new System.EventHandler(this.FRptPermisosPerf_Load);
+            this.Name = "FReporteAutogestion";
+            this.Load += new System.EventHandler(this.FHistPwdChg_Load);
             this.Controls.SetChildIndex(this.pnlIzq, 0);
             this.Controls.SetChildIndex(this.pnlFilters, 0);
             this.Controls.SetChildIndex(this.statusbar, 0);
@@ -334,10 +360,6 @@ namespace PhalanxAdmin
 
         private System.Windows.Forms.Panel pnlFilters;
         protected System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.MaskedTextBox txtFHasta;
-        private System.Windows.Forms.MaskedTextBox txtFDesde;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
         protected System.Windows.Forms.Button btnLimpiar;
         protected System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.StatusStrip statusbar;
@@ -346,8 +368,20 @@ namespace PhalanxAdmin
         private System.Windows.Forms.ToolStripStatusLabel lnkCancelar;
         private System.Windows.Forms.Panel pnlList;
         protected System.Windows.Forms.ListView lvLista;
-        private System.ComponentModel.BackgroundWorker bwRefreshEntities;
-        private System.Windows.Forms.Button btnExportar;
+		private System.ComponentModel.BackgroundWorker bwRefreshEntities;
+		protected System.Windows.Forms.Label label1;
+        protected System.Windows.Forms.Button btnExportar;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+		private System.Windows.Forms.ColumnHeader colFecha;
+        private System.Windows.Forms.ColumnHeader colRespuesta;
+        private System.Windows.Forms.ComboBox cbTipo;
+        private System.Windows.Forms.Label labelApp;
+        private System.Windows.Forms.DateTimePicker dtpFechaHasta;
+        protected System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DateTimePicker dtpFechaDesde;
+        private System.Windows.Forms.ColumnHeader colMensaje;
+        private System.Windows.Forms.TextBox txtUsuario;
+        protected System.Windows.Forms.Label label3;
+
     }
 }

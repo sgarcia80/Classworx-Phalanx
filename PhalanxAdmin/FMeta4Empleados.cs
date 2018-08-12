@@ -5,53 +5,69 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using PhalanxCommon.Collections;
+using NDCCommon.Collections;
+using NDCCommon.Entities;
+using NDCBL;
+using log4net;
 using PhalanxBL;
+using PhalanxCommon.Collections;
 using PhalanxCommon.Entities;
-using System.IO;
-using System.Collections;
 
 namespace PhalanxAdmin
 {
-    public partial class FUsuariosGruposSeguimiento : PhalanxAdmin.FBaseReportesNormativos
+    public partial class FMeta4Empleados : PhalanxAdmin.FBaseReportesInternos
     {
         public override string Titulo
         {
             get
             {
-                return GetTitlePath(base.Titulo, "Usuarios por Grupos de Seguimiento de Solicitudes");
+                return GetTitlePath(base.Titulo, "Empleados Meta4");
             }
         }
 
-        protected IList _entities;
+        private static readonly ILog log = LogManager.GetLogger(typeof(FNotifBlanqueos));
 
-		string nombreGrupo;
-		bool? grupoActivo;
-		bool? usuarioActivo;
-        
-		public override string Id
+        protected Meta4LegajoEntityCollection _entities;
+
+        protected string _filNombre = "";
+        protected string _filUsuario = "";
+        protected string _filApellido = "";
+        protected string _filDocumento = "";
+
+        public FMeta4Empleados()
+        {
+            InitializeComponent();
+        }
+        public override string Id
         {
             get
             {
-				return "FUsuariosGruposSeguimiento";
+                return "FMeta4Empleados";
             }
         }
-		public FUsuariosGruposSeguimiento()
-        {
-            InitializeComponent();
-            lvLista.ListViewItemSorter = new cwxSorter();
 
-			cboEstadoGrupo.SelectedIndex = 0;
-			cboEstadoUsuario.SelectedIndex = 0;
+        private void FEquiposWin_Load(object sender, EventArgs e)
+        {
+            //NDCBL.TicketNotificacionBlanqueoBusiness business = new TicketNotificacionBlanqueoBusiness();
+            //lnkAdd.Enabled = UsrBL.AccAdmEqWinRW(this.Usuario);
+            //lnkModify.Enabled = UsrBL.AccAdmEqWinRW(this.Usuario);
+            //lnkDelete.Enabled = UsrBL.AccAdmEqWinRW(this.Usuario);
+
+            this.lvLista.ListViewItemSorter = new cwxSorter();
+            cwxSorter s = (cwxSorter)this.lvLista.ListViewItemSorter;
+
+            this.lnkCancelar.Visible = false;
+            this.pbDB.Visible = false;
         }
+        //protected virtual void InicializaFiltros
         /* Proceso de acceso a DB
-       * 1 - ExecClientesRefresh
-       * 2 - se ejecuta la función asociada al evento DoWork del background worker
-       * 3 - DBRefreshEntites()
-       * 4 - LoadEntities: acá regenera la lista de entidades
-       * 5 - RefreshClientesLV: arma los listview items
-       * 6 - SetLVItems: agrega los LVItems al LV mediante callbacks
-       */
+         * 1 - ExecClientesRefresh
+         * 2 - se ejecuta la función asociada al evento DoWork del background worker
+         * 3 - DBRefreshEntites()
+         * 4 - LoadEntities: acá regenera la lista de entidades
+         * 5 - RefreshClientesLV: arma los listview items
+         * 6 - SetLVItems: agrega los LVItems al LV mediante callbacks
+         */
         /// <summary>
         /// Pone el form en estado de búsqueda, setea los filtros de búsqueda y arranda el BackgroundWorker
         /// </summary>
@@ -93,25 +109,12 @@ namespace PhalanxAdmin
         /// </example>
         private void SetQueryFilters()
         {
-			nombreGrupo = txtFilNombre.Text.Trim();
-
-			if (nombreGrupo == string.Empty)
-				nombreGrupo = null;
-
-			grupoActivo = null;
-			usuarioActivo = null;
-
-			if (cboEstadoGrupo.SelectedIndex < 2)
-				grupoActivo = cboEstadoGrupo.SelectedIndex == 0;
-
-			if (cboEstadoUsuario.SelectedIndex < 2)
-				usuarioActivo = cboEstadoUsuario.SelectedIndex == 0;
 
         }
 
         private void bwRefreshEntities_DoWork(object sender, DoWorkEventArgs e)
         {
-            this.DBRefreshEntites();
+            DBRefreshEntites();
         }
 
         private void DBRefreshEntites()
@@ -119,6 +122,7 @@ namespace PhalanxAdmin
             LoadEntities();
             RefreshEntitiesLV();
         }
+
         /// <summary>
         /// Carga la lista de entidades a mostrar en el listview
         /// </summary>
@@ -131,11 +135,10 @@ namespace PhalanxAdmin
         /// </example>
         private void LoadEntities()
         {
-			IList list = new PhxUserBusiness().GetAllByGrupoSeguimientoSolicitud(nombreGrupo, grupoActivo, usuarioActivo);
-			
-            _entities = list;
-        }
+            Meta4LegajoBusiness business = new Meta4LegajoBusiness();
 
+            _entities = business.Search(txtFilUsuario.Text, txtFilNombre.Text, txtFilApellido.Text, txtDocumento.Text, txtLegajo.Text);
+        }
         /// <summary>
         /// Llama a la función que genera el array de LV Items y si hay items llama a la que hace el llenado
         /// usando el delegado
@@ -146,6 +149,7 @@ namespace PhalanxAdmin
             SetLVItems(lviArr);
         }
         delegate void SetItemsAddRangeCallback(ListViewItem[] lvitems);
+
 
         /// <summary>
         /// Llena el Listview con los items pasados en el array
@@ -163,42 +167,38 @@ namespace PhalanxAdmin
                 this.lvLista.Items.Clear();
                 if (lviArr.Length > 0)
                 {
-
                     this.lvLista.Items.AddRange(lviArr);
                 }
             }
         }
 
-        /// <summary>
-        /// Genera los list view items para llenar el list view
-        /// </summary>
-        /// <returns>Devuelve el arrary de list view items para llenar el listview</returns>
         private ListViewItem[] GenerateLVItems()
         {
-            ListViewItem[] lviArr = new ListViewItem[this._entities.Count];
+            ListViewItem[] lviArr = null;
+            lviArr = new ListViewItem[this._entities.Count];
             int i = 0;
-            foreach (object[] entidad in this._entities)
+            foreach (Meta4LegajoEntity entity in this._entities)
             {
                 lviArr[i] = new ListViewItem();
-                /// hay que armar los items de lo que se traiga de la DB
-                /*lviArr[i].SubItems.Add(HistChgPwdEnt.User.);
-                lviArr[i].SubItems.Add(HistChgPwdEnt.Db.Type.Name);
-                lviArr[i].SubItems.Add(HistChgPwdEnt.Db.ServerName);
-                lviArr[i].ImageIndex = HistChgPwdEnt.ActiveUser ? 0 : 1;*/
-				
-                lviArr[i].Text = entidad[0].ToString(); // HistChgPwdEnt.User.Username;
-                lviArr[i].SubItems.Add(entidad[1].ToString());
-                lviArr[i].SubItems.Add((bool) entidad[2] ? "Activo" : "Inactivo");
-                lviArr[i].SubItems.Add(entidad[3].ToString());
-				lviArr[i].SubItems.Add(entidad[4].ToString());
-				lviArr[i].SubItems.Add(entidad[5].ToString());
-				lviArr[i].SubItems.Add(entidad[6].ToString());
-				lviArr[i].SubItems.Add((bool)entidad[7] ? "Activo" : "Inactivo");
-                lviArr[i].Tag = entidad;
+                lviArr[i].Text = string.IsNullOrEmpty(entity.UsuarioRed) ? string.Empty : entity.UsuarioRed;
+                lviArr[i].SubItems.Add(entity.Id);
+                lviArr[i].SubItems.Add(entity.Nombre);
+                lviArr[i].SubItems.Add(entity.Apellido);
+                lviArr[i].SubItems.Add(entity.TipoDocumento);
+                lviArr[i].SubItems.Add(entity.Documento);
+                lviArr[i].SubItems.Add(entity.FechaNacimiento.ToString("dd/MM/yyyy"));
+                lviArr[i].SubItems.Add(entity.Calle);
+                lviArr[i].SubItems.Add(entity.Numero);
+                lviArr[i].SubItems.Add(entity.Piso);
+                lviArr[i].SubItems.Add(entity.Departamento);
+                lviArr[i].SubItems.Add(entity.EstadoCivil);
+                lviArr[i].SubItems.Add(entity.EMail);
+
+                //lviArr[i].ImageIndex = ;
+                lviArr[i].Tag = entity;
                 i++;
             }
             return lviArr;
-
         }
 
         private void bwRefreshEntities_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -238,17 +238,7 @@ namespace PhalanxAdmin
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            if (ValidateFilters())
-            {
-                try
-                {
-                    ExecEntitiesRefresh();
-                }
-                catch
-                {
-                    MessageBox.Show("Error al realizar la búsqueda", "Error");
-                }
-            }
+            ExecEntitiesRefresh();
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
@@ -258,35 +248,19 @@ namespace PhalanxAdmin
 
         private void CleanFilters()
         {
+            txtFilUsuario.Text = "";
             txtFilNombre.Text = "";
-			cboEstadoGrupo.SelectedIndex = 0;
-			cboEstadoUsuario.SelectedIndex = 0;
-        }
-
-        private void lnkCancelar_Click(object sender, EventArgs e)
-        {
-            this.bwRefreshEntities.CancelAsync();
-            this.lnkCancelar.Visible = false;
-            this.pbDB.Visible = false;
-            this.lblStatus.Text = "Cancelado";
-            this.lvLista.Items.Clear();
-            this.pnlFilters.Enabled = true;
-            this.pnlList.Enabled = true;
-            this.Cursor = Cursors.Default;
-
-        }
-
-        private void FHistPwdChg_Load(object sender, EventArgs e)
-        {
-            this.lnkCancelar.Visible = false;
-            this.pbDB.Visible = false;
-            lblStatus.Text = "Listo";
+            txtFilApellido.Text = "";
+            txtLegajo.Text = "";
+            txtDocumento.Text = "";
         }
 
         private void lvLista_ColumnClick(object sender, ColumnClickEventArgs e)
         {
             if (((ListView)sender).Items.Count == 0)
+            {
                 return;
+            }
 
             cwxSorter s = (cwxSorter)((ListView)sender).ListViewItemSorter;
 
@@ -304,65 +278,21 @@ namespace PhalanxAdmin
             }
 
             ((ListView)sender).Sort();
-
         }
 
-        private bool ValidateFilters()
+        private void txtLegajo_KeyPress(object sender, KeyPressEventArgs e)
         {
-            return true;
-        }
-
-        private void btnExportar_Click(object sender, EventArgs e)
-        {
-            try
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
-                if (ValidateFilters())
-                {
-                    DBRefreshEntites();
-
-                    saveFileDialog1.Filter = "csv files (*.csv)|*.csv";
-                    saveFileDialog1.FileName = "UsuariosPorGrupoSeguimientoSolicitudes";
-                    saveFileDialog1.Title = "Exportar a CSV";
-
-                    StringBuilder sb = new StringBuilder();
-                    string Separator = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ListSeparator;
-                    sb.Append("Id Grupo" + Separator);
-                    sb.Append("Nombre grupo" + Separator);
-                    sb.Append("Estado grupo" + Separator);
-                    sb.Append("Id usuario" + Separator);
-					sb.Append("Dominio usuario" + Separator);
-					sb.Append("Usuario red" + Separator);
-					sb.Append("Nombre completo" + Separator);
-					sb.Append("Estado usuario");
-
-					foreach (object[] entidad in this._entities)
-					{
-                        sb.AppendLine();
-                        sb.Append(entidad[0].ToString() + Separator);
-						sb.Append(entidad[1].ToString() + Separator);
-                        sb.Append((bool)entidad[2] ? "Activo" : "Inactivo" + Separator);
-						sb.Append(entidad[3].ToString());
-						sb.Append(entidad[4].ToString() + Separator);
-						sb.Append(entidad[5].ToString() + Separator);
-						sb.Append(entidad[6].ToString() + Separator);
-						sb.Append((bool)entidad[7] ? "Activo" : "Inactivo" + Separator);
-                    }
-
-                    DialogResult dr = saveFileDialog1.ShowDialog();
-                    
-                    if (dr == DialogResult.OK)
-                    {
-                        StreamWriter sw = new StreamWriter(saveFileDialog1.FileName, false, Encoding.Unicode);
-                        sw.Write(sb.ToString());
-                        sw.Close();
-                        
-                        MessageBox.Show("La exportación ha sido completada", "Exportación a CSV", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                }
+                e.Handled = true;
             }
-            catch (Exception ex)
+        }
+
+        private void txtDocumento_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
-                MessageBox.Show("No se ha podido completar la exportación. (" + ex.Message + ")", "Error en Exportación a CSV", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                e.Handled = true;
             }
         }
     }

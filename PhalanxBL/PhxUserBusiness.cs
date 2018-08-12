@@ -307,6 +307,10 @@ namespace PhalanxBL
         private const string RPT_USR_GRP_SEG_SOL = "@RPT_USR_GRP_SEG_SOL@";
         private const string RPT_PWD_GRP_SOL = "@RPT_PWD_GRP_SOL@";
 
+        private const string RPT_AUTO_COBIS = "@RPT_AUTO_COBIS@";
+        private const string RPT_EMP_META4 = "@RPT_EMP_META4@";
+        private const string RPT_NOTIF_ALT_PEND = "@RPT_NOTIF_ALT_PEND@";
+
         /// <summary>
         /// Chequea si el usuario tiene acceso a la aplicación WEB
         /// </summary>
@@ -570,6 +574,21 @@ namespace PhalanxBL
         public bool AccRptPwdGrpSol(string usernamedomain)
         {
             string[] PrivilegiosAcceso = new string[] { RPT_PWD_GRP_SOL };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+        public bool AccRptAutogestionCobis(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { RPT_AUTO_COBIS };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+        public bool AccRptEmpleadosMeta4(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { RPT_EMP_META4 };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+        public bool AccRptNotifAltaPend(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { RPT_NOTIF_ALT_PEND };
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
 

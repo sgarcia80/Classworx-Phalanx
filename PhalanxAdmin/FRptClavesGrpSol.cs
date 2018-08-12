@@ -12,7 +12,7 @@ using System.IO;
 
 namespace PhalanxAdmin
 {
-    public partial class FRptClavesGrpSol : PhalanxAdmin.FBaseReportes
+    public partial class FRptClavesGrpSol : PhalanxAdmin.FBaseReportesNormativos
     {
         public override string Titulo
         {
@@ -233,7 +233,8 @@ namespace PhalanxAdmin
             #region comun en herencia FBaseReportes NO se modifica
             this.lnkCancelar.Visible = false;
             this.pbDB.Visible = false;
-            ExecEntitiesRefresh();
+            lblStatus.Text = "Listo";
+            //ExecEntitiesRefresh();
         #endregion
 
         }

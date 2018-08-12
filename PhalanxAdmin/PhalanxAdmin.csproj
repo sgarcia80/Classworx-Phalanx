@@ -124,6 +124,30 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FBaseReportesNormativos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FBaseReportesNormativos.Designer.cs">
+      <DependentUpon>FBaseReportesNormativos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FBaseReportesInternos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FBaseReportesInternos.Designer.cs">
+      <DependentUpon>FBaseReportesInternos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FReporteAutogestion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FReporteAutogestion.Designer.cs">
+      <DependentUpon>FReporteAutogestion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FMeta4Empleados.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FMeta4Empleados.Designer.cs">
+      <DependentUpon>FMeta4Empleados.cs</DependentUpon>
+    </Compile>
     <Compile Include="FBloqueos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -937,6 +961,22 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FBaseReportesNormativos.resx">
+      <DependentUpon>FBaseReportesNormativos.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FBaseReportesInternos.resx">
+      <DependentUpon>FBaseReportesInternos.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FReporteAutogestion.resx">
+      <DependentUpon>FReporteAutogestion.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FMeta4Empleados.resx">
+      <DependentUpon>FMeta4Empleados.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="FBloqueos.resx">
       <DependentUpon>FBloqueos.cs</DependentUpon>
       <SubType>Designer</SubType>
