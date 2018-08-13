@@ -148,7 +148,15 @@ namespace PhalanxAdmin
                 txtTicketNro.Text = _entity.NumeroSolicitud.HasValue ? _entity.NumeroSolicitud.Value.ToString() : string.Empty;
 
                 txtEstado.Text = _entity.FechaAceptacionTyC.HasValue ? "Notificado" : "Pendiente";
-
+                if (_entity.FechaCancelado.HasValue)
+                {
+                    txtEstado.Text = "Cancelado";
+                }
+                
+                if (_entity.FechaCancelado.HasValue)
+                {
+                    txtEstado.Text = "Cancelado";
+                }
                 if (_readOnly)
                 {
                     // hace readonly los campos

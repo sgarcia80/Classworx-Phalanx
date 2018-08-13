@@ -157,6 +157,10 @@ namespace PhalanxAdmin
                 txtSolicitantePuesto.Text = _entity.SolicitantePuesto;
 
                 txtEstado.Text = _entity.FechaAceptacionTyC.HasValue ? "Notificado" : "Pendiente";
+                if (_entity.FechaCancelado.HasValue)
+                {
+                    txtEstado.Text = "Cancelado";
+                }
 
                 if (_readOnly)
                 {

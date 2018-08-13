@@ -87,10 +87,10 @@ namespace NDCDAL.Factories
                     DataSearch = DataSearch.Add(Expression.InsensitiveLike("TAC.Usuario", string.Format("%{0}%", _filUsuario)));
 
                 if (_filFechaDesde != null)
-                    DataSearch = DataSearch.Add(Expression.Ge("TAC.Fecha", _filFechaDesde));
+                    DataSearch = DataSearch.Add(Expression.Ge("TAC.Fecha", _filFechaDesde.Value.Date));
 
                 if (_filFechaHasta != null)
-                    DataSearch = DataSearch.Add(Expression.Le("TAC.Fecha", _filFechaHasta));
+                    DataSearch = DataSearch.Add(Expression.Le("TAC.Fecha", _filFechaHasta.Value.Date.AddDays(1).AddSeconds(-1)));
 
                 if (_filTipoNotif > 0)
                     DataSearch = DataSearch.Add(Expression.Eq("TAC.TipoNotificacion", _filTipoNotif));
