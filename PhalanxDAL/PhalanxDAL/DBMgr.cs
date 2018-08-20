@@ -7,6 +7,7 @@ using phxLog;
 using System.Configuration;
 using PhalanxCommon;
 using PhalanxCommon.Entities;
+using log4net;
 
 
 namespace PhalanxDAL
@@ -16,6 +17,8 @@ namespace PhalanxDAL
     /// </summary>
     public class DBMgr
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(DBMgr));
+
         static NHibernate.Cfg.Configuration config;
         static private ISessionFactory _factory;
         static private ISessionFactory _factoryMeta4;
@@ -254,6 +257,8 @@ namespace PhalanxDAL
             }
             catch (Exception e)
             {
+                log.Error("Error al inicializar la configuracion", e);
+
                 return false;
                 //string InnerEx = e.InnerException.ToString();
             }
