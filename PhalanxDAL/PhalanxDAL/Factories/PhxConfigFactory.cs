@@ -10,22 +10,22 @@ namespace PhalanxDAL.Factories
     {
         public PhxConfigEntity GetConfigParam(string ParamCode)
         {
-            try
+            PhxConfigEntity objParam = null;
+            using (ISession session = DBMgr.factory.OpenSession())
             {
-                PhxConfigEntity objParam = null;
-                using (ISession session = DBMgr.factory.OpenSession())
+                try
                 {
+
                     objParam = (PhxConfigEntity)session.Load(typeof(PhxConfigEntity), ParamCode);
                     //objParam = (PhxConfigEntity)session.Load(typeof(PhxConfigEntity), "'" + ParamCode + "'");
-
+                    
+                    return objParam;
                 }
-                return objParam;
+                catch (Exception ex)
+                {
+                    return null;
+                }
             }
-            catch (Exception ex)
-            {
-                return null;
-            }
-
         }
         public void Save(PhxConfigEntity ConfigParam)
         {

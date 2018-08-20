@@ -7,15 +7,29 @@
         <table class="login" style="width: 70%;">
             <tr>
                 <td style="width:160px;">
-                    <asp:Label ID="lblTitulo" runat="server" Text="Tipo de Notificación:"></asp:Label>
+                    <asp:Label ID="lblTitulo" runat="server" Text="Tipo de Notificaciones:"></asp:Label>
                 </td>
                 <td>
                 <asp:RadioButtonList ID="chkNotifAlta" runat="server"  AutoPostBack="true"
                         onselectedindexchanged="chkNotifAlta_SelectedIndexChanged" >
-                   <asp:ListItem Selected="True" Value="A" Text="Notificaciones de Claves de Alta de Usuario de Aplicación" />
-                   <asp:ListItem Value="B" Text="Notificaciones de blanqueo de Claves solicitadas" />
+                   <asp:ListItem Selected="True" Value="A" Text="Claves de Alta de Usuario de Aplicación" />
+                   <asp:ListItem Value="B" Text="Blanqueo de Claves solicitadas" />
                 </asp:RadioButtonList>
-
+                </td>
+                <td>
+                    <asp:Label ID="Label1" runat="server" Text="Consultar los últimos:"></asp:Label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlVigencia" runat="server"  AutoPostBack="true"
+                        onselectedindexchanged="ddlVigencia_SelectedIndexChanged">
+                        <asp:ListItem Value="30" Text="30 dias" Selected="True"></asp:ListItem>
+                        <asp:ListItem Value="60" Text="60 dias"></asp:ListItem>
+                        <asp:ListItem Value="90" Text="90 dias"></asp:ListItem>
+                        <asp:ListItem Value="120" Text="120 dias"></asp:ListItem>
+                    </asp:DropDownList>
+                </td>
+                <td>
+                    <asp:Button ID="btnBuscar" runat="server" OnClick="btnBuscar_Click" Text="Refrescar" />
                 </td>
             </tr>
         </table>
@@ -58,6 +72,8 @@
                 <asp:SessionParameter Name="dominio" SessionField="Dominio" Type="String" />
                 <asp:SessionParameter Name="usuario" SessionField="Usuario" Type="String" />
                 <asp:SessionParameter Name="tipo" SessionField="TipoNotif" Type="String" />
+                <asp:SessionParameter Name="fechadesde" SessionField="FechaDesde" Type="DateTime" />
+                <asp:SessionParameter Name="fechahasta" SessionField="FechaHasta" Type="DateTime" />
                 <asp:SessionParameter Name="sortcolumn" SessionField="sortcolumn" Type="String" />
                 <asp:SessionParameter Name="sortdirection" SessionField="sortdirection" Type="Int32" />
             </SelectParameters>

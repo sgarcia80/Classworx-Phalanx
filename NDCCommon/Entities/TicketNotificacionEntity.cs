@@ -14,12 +14,12 @@ namespace NDCCommon.Entities
         private bool m_isChanged;
 
         private int m_id;
-        private int m_numerosolicitud;
+        private int m_numero;
         private string m_tipo;
         private string m_usuario_aplicacion;
         private string m_usuario;
         private string m_dominio;
-        private AplicacionNotificacionClaveEntity m_aplicacion;
+        private string m_aplicacion;
         private DateTime m_fecha;
 
         #endregion
@@ -69,13 +69,13 @@ namespace NDCCommon.Entities
         /// <summary>
         /// 
         /// </summary>
-        public int NumeroSolicitud
+        public int Numero
         {
-            get { return m_numerosolicitud; }
+            get { return m_numero; }
             set
             {
-                m_isChanged |= (m_numerosolicitud != value);
-                m_numerosolicitud = value;
+                m_isChanged |= (m_numero != value);
+                m_numero = value;
             }
 
         }
@@ -83,7 +83,7 @@ namespace NDCCommon.Entities
         /// <summary>
         /// 
         /// </summary>
-        public AplicacionNotificacionClaveEntity Aplicacion
+        public string Aplicacion
         {
             get { return m_aplicacion; }
 

@@ -43,6 +43,9 @@ namespace NDCDAL.Factories
             set { _filTipoNotif = value; }
         }
 
+        public DateTime FilFechaDesde { get; set; }
+        public DateTime FilFechaHasta { get; set; }
+
         public string FilSortColumn
         {
             set { _filSortColumn = value; }
@@ -69,50 +72,63 @@ namespace NDCDAL.Factories
 
             using (ISession session = DBMgr.factory.OpenSession())
             {
-                ICriteria DataSearch = session.CreateCriteria(typeof(TicketNotificacionEntity), "TNB").CreateCriteria("TNB.Aplicacion", "a", NHibernate.SqlCommand.JoinType.InnerJoin);
+                //ICriteria DataSearch = session.CreateCriteria(typeof(TicketNotificacionEntity), "TNB").CreateCriteria("TNB.Aplicacion", "a", NHibernate.SqlCommand.JoinType.InnerJoin);
 
-                string column = "TNB.Fecha";
+                //string column = "TNB.Fecha";
 
-                if (!string.IsNullOrEmpty(_filSortColumn))
-                {
-                    column = string.Format("TNB.{0}",_filSortColumn);
-                }
-                if (_filSortColumn == "Aplicacion")
-                {
-                    column = "a.Nombre";
-                }
+                //if (!string.IsNullOrEmpty(_filSortColumn))
+                //{
+                //    column = string.Format("TNB.{0}", _filSortColumn);
+                //}
+                //if (_filSortColumn == "Aplicacion")
+                //{
+                //    column = "a.Nombre";
+                //}
 
-                if (_filSortDirection == 0)
-                {
-                    DataSearch.AddOrder(Order.Asc(column)); ;
-                }
-                else
-                {
-                    DataSearch.AddOrder(Order.Desc(column)); ;
-                }
+                //if (_filSortDirection == 0)
+                //{
+                //    DataSearch.AddOrder(Order.Asc(column)); ;
+                //}
+                //else
+                //{
+                //    DataSearch.AddOrder(Order.Desc(column)); ;
+                //}
 
-                if (!string.IsNullOrEmpty(_filUsuario))
-                {
-                    //DataSearch = DataSearch.Add(Expression.Sql("lower(TNB.Usuario) = lower('" + _filUsuario + "')"));
-                    DataSearch = DataSearch.Add(Expression.InsensitiveLike("TNB.Usuario", _filUsuario, MatchMode.Exact));
-                }
-                //if (!string.IsNullOrEmpty(_filDominio))
-                //    DataSearch = DataSearch.Add(Expression.Eq("Dominio", _filDominio));
+                //if (!string.IsNullOrEmpty(_filUsuario))
+                //{
+                //    //DataSearch = DataSearch.Add(Expression.Sql("lower(TNB.Usuario) = lower('" + _filUsuario + "')"));
+                //    DataSearch = DataSearch.Add(Expression.InsensitiveLike("TNB.Usuario", _filUsuario, MatchMode.Exact));
+                //}
+                ////if (!string.IsNullOrEmpty(_filDominio))
+                ////    DataSearch = DataSearch.Add(Expression.Eq("Dominio", _filDominio));
 
-                if (!string.IsNullOrEmpty(_filTipoNotif))
-                    DataSearch = DataSearch.Add(Expression.Eq("TNB.Tipo", _filTipoNotif));
+                //if (!string.IsNullOrEmpty(_filTipoNotif))
+                //    DataSearch = DataSearch.Add(Expression.Eq("TNB.Tipo", _filTipoNotif));
 
-                try
-                {
-                    tickets = DataSearch.List<TicketNotificacionEntity>();
+                //try
+                //{
+                //    tickets = DataSearch.List<TicketNotificacionEntity>();
 
-                    TiNotClaEC.Add(tickets);
-                }
-                catch (Exception e)
-                {
-                    log.Error("Error al consultar Tickets de Notificacion de Clave", e);
-                    tickets = null;
-                }
+                //    TiNotClaEC.Add(tickets);
+                //}
+                //catch (Exception e)
+                //{
+                //    log.Error("Error al consultar Tickets de Notificacion de Clave", e);
+                //    tickets = null;
+                //}
+
+                IQuery query = session.GetNamedQuery("GetNotificacionByUser");
+
+                query.SetParameter("usuario", _filUsuario);
+                query.SetParameter("tipo", _filTipoNotif);
+                query.SetParameter("fecha_desde", this.FilFechaDesde);
+                query.SetParameter("fecha_hasta", this.FilFechaHasta.AddDays(1).AddSeconds(-1));
+
+                query.SetResultTransformer(ResultTransformer);
+
+                tickets = query.List<TicketNotificacionEntity>();
+
+                TiNotClaEC.Add(tickets);
             }
 
             return TiNotClaEC;
