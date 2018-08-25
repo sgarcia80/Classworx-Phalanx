@@ -13,6 +13,8 @@
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" name="StringAutenticacion" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="IdSolicitud" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="EventoId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EventoDescr" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="CodigoAplicacion" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="NombreAplicacion" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="UsuarioAplicacion" type="s:string" />

@@ -21,6 +21,7 @@ namespace NDCDAL.Factories
 
         private AplicacionNotificacionClaveEntity _filApp = null;
         private string _filUsuario;
+        private string _filUsuarioApp;
         private string _filDominio;
         private DateTime? _filFecha;
         private DateTime? _filFechaDesde;
@@ -41,6 +42,11 @@ namespace NDCDAL.Factories
         public string FilUsuario
         {
             set { _filUsuario = value; }
+        }
+
+        public string FilUsuarioApp
+        {
+            set { _filUsuarioApp = value; }
         }
 
         public string FilDominio
@@ -177,6 +183,10 @@ namespace NDCDAL.Factories
                 {
                     DataSearch.Add(Expression.Eq("TNC.Aplicacion", _filApp));
                 }
+                if (_filUsuarioApp != null && !string.IsNullOrEmpty(_filUsuarioApp))
+                {
+                    DataSearch = DataSearch.Add(Expression.Eq("TNC.UsuarioAplicacion", _filUsuarioApp));
+                }
                 if (_filUsuario != null && !string.IsNullOrEmpty(_filUsuario))
                 {
                     DataSearch = DataSearch.Add(Expression.Eq("TNC.Usuario", _filUsuario));
@@ -211,9 +221,16 @@ namespace NDCDAL.Factories
                 }
                 if (FilFechaTyCNull != null)
                 {
-                    DataSearch = FilFechaTyCNull.Value
-                       ? DataSearch.Add(Expression.IsNull("TNC.FechaAceptacionTyC"))
-                       : DataSearch.Add(Expression.IsNotNull("TNC.FechaAceptacionTyC"));
+                    if (FilFechaTyCNull.Value)
+                    {
+                        DataSearch = DataSearch.Add(Expression.IsNull("TNC.FechaAceptacionTyC"));
+                    }
+                    else
+                    {
+                        DataSearch = DataSearch.Add(Expression.IsNotNull("TNC.FechaAceptacionTyC"));
+                        DataSearch = DataSearch.Add(Expression.Not(Expression.Eq("TNC.FechaAceptacionTyC", new DateTime(1900,1,1))));
+
+                    }
                 }
                 if (_filErrado != null)
                 {
@@ -265,9 +282,16 @@ namespace NDCDAL.Factories
                 }
                 if (FilVisualizado != null)
                 {
-                    DataSearch = FilVisualizado.Value
-                       ? DataSearch.Add(Expression.IsNotNull("TNC.FechaAceptacionTyC"))
-                       : DataSearch.Add(Expression.IsNull("TNC.FechaAceptacionTyC"));
+                    if (FilVisualizado.Value)
+                    {
+                        DataSearch = DataSearch.Add(Expression.IsNull("TNC.FechaAceptacionTyC"));
+                    }
+                    else
+                    {
+                        DataSearch = DataSearch.Add(Expression.IsNotNull("TNC.FechaAceptacionTyC"));
+                        DataSearch = DataSearch.Add(Expression.Not(Expression.Eq("TNC.FechaAceptacionTyC", new DateTime(1900, 1, 1))));
+
+                    } 
                 }
                 if (FilVencido != null)
                 {

@@ -168,6 +168,22 @@ namespace NDCBL
             return tmpCollection;
         }
 
+        public TicketNotificacionClaveEntityCollection GetTickesByUser(AplicacionNotificacionClaveEntity aplicacion, string dominio, string usuario, string app_user, bool? notificado)
+        {
+            TicketNotificacionClaveFactory factory = new TicketNotificacionClaveFactory();
+
+            factory.FilAplicacion = aplicacion;
+            factory.FilDominio = dominio;
+            factory.FilUsuario = usuario;
+            factory.FilUsuarioApp = app_user;
+            
+            if (notificado != null)
+                factory.FilFechaTyCNull = !notificado.Value;
+
+            TicketNotificacionClaveEntityCollection tmpCollection = factory.GetAll();
+
+            return tmpCollection;
+        }
         public TicketNotificacionClaveEntityCollection ObtenerTodosAgregarMarcaAD()
         {
             TicketNotificacionClaveFactory factory = new TicketNotificacionClaveFactory();

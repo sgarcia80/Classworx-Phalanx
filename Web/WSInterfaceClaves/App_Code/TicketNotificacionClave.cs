@@ -15,6 +15,10 @@ public class TicketNotificacionClave
 {
     private string m_string_autenticacion;
     private int m_solicitud_id;
+
+    private string m_evento_id;
+    private string m_evento_descr;
+
     private string m_cod_app;
     private string m_nombre_app;
     private string m_us_app;
@@ -55,6 +59,18 @@ public class TicketNotificacionClave
     {
         set { m_solicitud_id = value; }
         get { return m_solicitud_id; }
+    }
+    
+    public string EventoId
+    {
+        set { m_evento_id = value; }
+        get { return m_evento_id; }
+    }
+
+    public string EventoDescr
+    {
+        set { m_evento_descr = value; }
+        get { return m_evento_descr; }
     }
 
     public string CodigoAplicacion

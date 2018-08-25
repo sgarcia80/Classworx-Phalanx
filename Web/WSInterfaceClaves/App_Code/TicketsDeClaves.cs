@@ -16,6 +16,7 @@ using PhalanxNAL;
 using PhalanxCommon.Entities;
 using PhalanxDAL.Factories;
 using log4net;
+using NDCCommon.Collections;
 
 
 
@@ -117,6 +118,8 @@ public class TicketsDeClaves : System.Web.Services.WebService
         log.InfoFormat("NombreEmpresaSubsidiaria: '{0}'", string.IsNullOrEmpty(ticket.NomSubsidiaria) ? string.Empty : ticket.NomSubsidiaria);
         log.InfoFormat("NombreSolicitante: '{0}'", string.IsNullOrEmpty(ticket.NomSolicitante) ? string.Empty : ticket.NomSolicitante);
         log.InfoFormat("ApellidoSolicitante: '{0}'", string.IsNullOrEmpty(ticket.ApeSolicitante) ? string.Empty : ticket.ApeSolicitante);
+        log.InfoFormat("EventoId: '{0}'", string.IsNullOrEmpty(ticket.EventoId) ? string.Empty : ticket.EventoId);
+        log.InfoFormat("EventoDescr: '{0}'", string.IsNullOrEmpty(ticket.EventoDescr) ? string.Empty : ticket.EventoDescr);
         log.InfoFormat("{0}", "-".PadLeft(80, '-'));
 
         AgregarTicketResultado resultado = new AgregarTicketResultado();
@@ -240,11 +243,18 @@ public class TicketsDeClaves : System.Web.Services.WebService
         solicitudBPM.NombreSolicitante = ticket.NomSolicitante;
         solicitudBPM.ApellidoSolicitante = ticket.ApeSolicitante;
 
+        int eventoid = 0;
+        int.TryParse(ticket.EventoId, out eventoid);
+
+        solicitudBPM.EventoId = eventoid > 0 ? eventoid : (int?)null;
+        solicitudBPM.EventoDescr = ticket.EventoDescr;
+
         log.InfoFormat("Se valida si existe una solicitud con el numero {0}", ticket.IdSolicitud);
 
         // verifica si el ticket ingresado ya fue ingresado anteriormente, en función de la aplicación y la solicitud (puede ser una modficación de algunos datos)
         TicketNotificacionClaveEntity ticketOriginal = bsolb.GetDuplicado(ticket.IdSolicitud, aplicacion);
         bool HayQueInsertar = true;
+
         if (ticketOriginal != null)
         {
             log.InfoFormat("Ya existe el ticket {0}", ticket.IdSolicitud);
@@ -261,6 +271,8 @@ public class TicketsDeClaves : System.Web.Services.WebService
                     log.InfoFormat("Si el ticket {0} no fue visto, se actualiza", ticket.IdSolicitud);
                     solicitudBPM.Id = ticketOriginal.Id;
                     solicitudBPM.Fecha = ticketOriginal.Fecha;
+                    ticketOriginal.EventoId = solicitudBPM.EventoId;
+                    ticketOriginal.EventoDescr = solicitudBPM.EventoDescr;
                     bsolb.Save(solicitudBPM);
                     HayQueInsertar = false;
                 }
@@ -275,14 +287,26 @@ public class TicketsDeClaves : System.Web.Services.WebService
 
         }
 
+        bool altaUsuarioRed = ticket.CodigoAplicacion.Trim().ToLower() == bamb.GetAppRed().Codigo.ToLower();
+
+        //Nuevo control: Usuario ya notificado
+        if (altaUsuarioRed || aplicacion.Notificable)
+        {
+            //Se buscan si la aplicacion/usuario ya tienen algun ticket previo donde se haya notificado
+            TicketNotificacionClaveEntityCollection notificados = bsolb.GetTickesByUser(solicitudBPM.Aplicacion, solicitudBPM.DominioUsuario, solicitudBPM.Usuario, solicitudBPM.UsuarioAplicacion, true);
+
+            if (notificados != null && notificados.Count > 0)
+            {
+                solicitudBPM.FechaAceptacionTyC = new DateTime(1900, 1, 1);
+            }
+        }
+
         bool PasaInsertM4 = true; // esto indica true si no hubo que insertar o si hubo que hacerlo y se logro
 
         try
         {
             if (HayQueInsertar)
             {
-                bool altaUsuarioRed = ticket.CodigoAplicacion.Trim().ToLower() == bamb.GetAppRed().Codigo.ToLower();
-
                 solicitudBPM.ImpactaEnAD = altaUsuarioRed;
 
                 // verifica si es un alta de red para usuario externo
@@ -318,136 +342,140 @@ public class TicketsDeClaves : System.Web.Services.WebService
                     strDebug += " | Guardó ticket en phx";
                 }
 
-                // si se informa legajo (o sea es un alta para recurso interno) 
-                if (ticket.Legajo != null && ticket.Legajo != "")
+                // y que la notificacion no tenga fecha de notificado
+                if (!solicitudBPM.FechaAceptacionTyC.HasValue)
                 {
-                    if (_debugMode)
+                    // si se informa legajo (o sea es un alta para recurso interno) 
+                    if (ticket.Legajo != null && ticket.Legajo != "")
                     {
-                        strDebug += " | Es alta para recurso interno, legajo nro " + ticket.Legajo;
-                    }
-
-                    AplicacionNotificacionClaveEntity appCobis = bamb.GetAppCobis();
-
-                    //y es alta de red o cobis
-                    if (ticket.CodigoAplicacion.Trim().ToLower() == appCobis.Codigo.ToLower()
-                        || altaUsuarioRed)
-                    {
-                        if (ticket.CodigoAplicacion.Trim().ToLower() == appCobis.Codigo.ToLower())
-                        {
-                            log.InfoFormat("Es alta de Cobis ({0})", appCobis.Codigo);
-                        }
-                        if (altaUsuarioRed)
-                        {
-                            log.InfoFormat("Es alta de Red");
-                        }
-
                         if (_debugMode)
                         {
-                            strDebug += " | Tiene que grabar ticket en M4";
-                        }
-                        log.InfoFormat("Tiene que grabar ticket en Meta4");
-
-                        PasaInsertM4 = false;
-                        Meta4ClassWorxUsuariosEntity Meta4Usuarios = new Meta4ClassWorxUsuariosEntity();
-                        Meta4Usuarios.Cod_Aplicacion = ticket.CodigoAplicacion;
-                        Meta4Usuarios.Cod_Novedad = "A";//Alta
-                        Meta4Usuarios.Dominio_Red = ticket.DominioUsuario;
-                        Meta4Usuarios.Id_Empleado = ticket.Legajo.Trim().PadLeft(6, '0');
-                        Meta4Usuarios.Id_Sociedad = "01";
-                        if (ticket.CodigoAplicacion.Trim().ToLower() == appCobis.Codigo.ToLower())
-                        { Meta4Usuarios.IdUsuarioCore = ticket.UsuarioAplicacion; }
-                        else
-                        { Meta4Usuarios.IdUsuarioCore = null; }
-                        Meta4Usuarios.IdUsuarioRed = ticket.Usuario;
-                        Meta4Usuarios.Num_Documento = ticket.Documento;
-                        Meta4Usuarios.TipoDocumento = ticket.TipoDocumento; //.Trim().PadLeft(2, '0');
-
-                        Meta4ClassWorxUsuariosBusiness Meta4Business = new Meta4ClassWorxUsuariosBusiness();
-                        if (_debugMode)
-                        {
-                            strDebug += " | Va a grabar ticket en M4";
+                            strDebug += " | Es alta para recurso interno, legajo nro " + ticket.Legajo;
                         }
 
-                        log.InfoFormat("Se graba el usuario {0} en META4", ticket.Usuario);
+                        AplicacionNotificacionClaveEntity appCobis = bamb.GetAppCobis();
 
-                        Meta4Business.Create(Meta4Usuarios);
-                        if (_debugMode)
+                        //y es alta de red o cobis
+                        if (ticket.CodigoAplicacion.Trim().ToLower() == appCobis.Codigo.ToLower()
+                            || altaUsuarioRed)
                         {
-                            strDebug += " | Grabó ticket en M4";
-                        }
-                        PasaInsertM4 = true;
-
-                        if (altaUsuarioRed)
-                        {
-                            if (_debugMode)
-                                strDebug += " | Enviando email de alta de usuario de red";
-
-                            log.Info("Se envia el mail de alta de usuario de red");
-
-                            MailAlertBusiness MailToSendBL = new MailAlertBusiness();
-
-                            MailToSendBL.AltaUsuarioRedMail(Meta4Usuarios.IdUsuarioRed, solicitudBPM.NumeroSolicitud, Meta4Usuarios.FechaNovedad);
-
-                            if (_debugMode)
-                                strDebug += " | Email enviado";
-                        }
-                    }
-                    if (altaUsuarioRed
-                        || aplicacion.Notificable)
-                    {
-                        if (_debugMode) strDebug += " | El alta de usuario de aplicativo";
-                        // es alta de aplicativo
-                        // busca mail de la persona en Meta4, si no encuentra, no hace mas nada
-                        Meta4LegajoBusiness m4lb = new Meta4LegajoBusiness();
-
-                        log.InfoFormat("Se busca en META4 el mail del usuario (Documento {0} - {1})", ticket.TipoDocumento, ticket.Documento);
-
-                        if (_debugMode) strDebug += " | Busca mail del usuario";
-                        Meta4LegajoEntity legajo = m4lb.GetByDocumento(ticket.TipoDocumento, ticket.Documento);
-                        if (legajo != null && legajo.EMail != null && legajo.EMail != "")
-                        {
-                            log.InfoFormat("Se encontro en META4 y se envia mail a {0}", legajo.EMail);
-
-                            if (_debugMode) strDebug += " | Encontro mail del usuario";
-                            MailAlertBusiness MailToSendBL = new MailAlertBusiness();
-
-                            // enviar mail al usuario si es notificable
-                            if (ticket.UsaPasswordDominio)
+                            if (ticket.CodigoAplicacion.Trim().ToLower() == appCobis.Codigo.ToLower())
                             {
-                                if (_debugMode) strDebug += " | Es aplicativo con seguridad integrada y va a enviar mail";
-                                // si es aplicativo con seguridad integrada envia mail de tal fin
-                                MailToSendBL.MailAltaUsuarioAplicativoConSegInt(solicitudBPM.Aplicacion.Nombre, solicitudBPM.Fecha.ToString("dd/MM/yyyy"), solicitudBPM.NumeroSolicitud.ToString(), legajo.EMail);
+                                log.InfoFormat("Es alta de Cobis ({0})", appCobis.Codigo);
                             }
+                            if (altaUsuarioRed)
+                            {
+                                log.InfoFormat("Es alta de Red");
+                            }
+
+                            if (_debugMode)
+                            {
+                                strDebug += " | Tiene que grabar ticket en M4";
+                            }
+                            log.InfoFormat("Tiene que grabar ticket en Meta4");
+
+                            PasaInsertM4 = false;
+                            Meta4ClassWorxUsuariosEntity Meta4Usuarios = new Meta4ClassWorxUsuariosEntity();
+                            Meta4Usuarios.Cod_Aplicacion = ticket.CodigoAplicacion;
+                            Meta4Usuarios.Cod_Novedad = "A";//Alta
+                            Meta4Usuarios.Dominio_Red = ticket.DominioUsuario;
+                            Meta4Usuarios.Id_Empleado = ticket.Legajo.Trim().PadLeft(6, '0');
+                            Meta4Usuarios.Id_Sociedad = "01";
+                            if (ticket.CodigoAplicacion.Trim().ToLower() == appCobis.Codigo.ToLower())
+                            { Meta4Usuarios.IdUsuarioCore = ticket.UsuarioAplicacion; }
                             else
+                            { Meta4Usuarios.IdUsuarioCore = null; }
+                            Meta4Usuarios.IdUsuarioRed = ticket.Usuario;
+                            Meta4Usuarios.Num_Documento = ticket.Documento;
+                            Meta4Usuarios.TipoDocumento = ticket.TipoDocumento; //.Trim().PadLeft(2, '0');
+
+                            Meta4ClassWorxUsuariosBusiness Meta4Business = new Meta4ClassWorxUsuariosBusiness();
+                            if (_debugMode)
                             {
-                                // si es aplicativo con seguridad propia envia mail de tal fin
-                                if (_debugMode) strDebug += " | Es aplicativo con seguridad propia y va a enviar mail";
-                                MailToSendBL.MailAltaUsuarioAplicativoConSegProp(solicitudBPM.Aplicacion.Nombre, solicitudBPM.Fecha.ToString("dd/MM/yyyy"), solicitudBPM.NumeroSolicitud.ToString(), legajo.EMail);
+                                strDebug += " | Va a grabar ticket en M4";
+                            }
+
+                            log.InfoFormat("Se graba el usuario {0} en META4", ticket.Usuario);
+
+                            Meta4Business.Create(Meta4Usuarios);
+                            if (_debugMode)
+                            {
+                                strDebug += " | Grabó ticket en M4";
+                            }
+                            PasaInsertM4 = true;
+
+                            if (altaUsuarioRed)
+                            {
+                                if (_debugMode)
+                                    strDebug += " | Enviando email de alta de usuario de red";
+
+                                log.Info("Se envia el mail de alta de usuario de red");
+
+                                MailAlertBusiness MailToSendBL = new MailAlertBusiness();
+
+                                MailToSendBL.AltaUsuarioRedMail(Meta4Usuarios.IdUsuarioRed, solicitudBPM.NumeroSolicitud, Meta4Usuarios.FechaNovedad);
+
+                                if (_debugMode)
+                                    strDebug += " | Email enviado";
+                            }
+                        }
+                        if (altaUsuarioRed
+                            || aplicacion.Notificable)
+                        {
+                            if (_debugMode) strDebug += " | El alta de usuario de aplicativo";
+                            // es alta de aplicativo
+                            // busca mail de la persona en Meta4, si no encuentra, no hace mas nada
+                            Meta4LegajoBusiness m4lb = new Meta4LegajoBusiness();
+
+                            log.InfoFormat("Se busca en META4 el mail del usuario (Documento {0} - {1})", ticket.TipoDocumento, ticket.Documento);
+
+                            if (_debugMode) strDebug += " | Busca mail del usuario";
+                            Meta4LegajoEntity legajo = m4lb.GetByDocumento(ticket.TipoDocumento, ticket.Documento);
+                            if (legajo != null && legajo.EMail != null && legajo.EMail != "")
+                            {
+                                log.InfoFormat("Se encontro en META4 y se envia mail a {0}", legajo.EMail);
+
+                                if (_debugMode) strDebug += " | Encontro mail del usuario";
+                                MailAlertBusiness MailToSendBL = new MailAlertBusiness();
+
+                                // enviar mail al usuario si es notificable
+                                if (ticket.UsaPasswordDominio)
+                                {
+                                    if (_debugMode) strDebug += " | Es aplicativo con seguridad integrada y va a enviar mail";
+                                    // si es aplicativo con seguridad integrada envia mail de tal fin
+                                    MailToSendBL.MailAltaUsuarioAplicativoConSegInt(solicitudBPM.Aplicacion.Nombre, solicitudBPM.Fecha.ToString("dd/MM/yyyy"), solicitudBPM.NumeroSolicitud.ToString(), legajo.EMail);
+                                }
+                                else
+                                {
+                                    // si es aplicativo con seguridad propia envia mail de tal fin
+                                    if (_debugMode) strDebug += " | Es aplicativo con seguridad propia y va a enviar mail";
+                                    MailToSendBL.MailAltaUsuarioAplicativoConSegProp(solicitudBPM.Aplicacion.Nombre, solicitudBPM.Fecha.ToString("dd/MM/yyyy"), solicitudBPM.NumeroSolicitud.ToString(), legajo.EMail);
+                                }
                             }
                         }
                     }
-                }
-                else
-                {
-                    if (_debugMode)
+                    else
                     {
-                        strDebug += " | Es alta para recurso externo";
-                    }
-
-                    if (altaUsuarioRedExterno)
-                    {
-                        log.Info("Se envia mail para recurso externo");
-
-                        string debug;
-
                         if (_debugMode)
                         {
-                            strDebug += " | Se va a enviar mail de alta de red para recurso externo";
+                            strDebug += " | Es alta para recurso externo";
                         }
-                        EnviarEmailAltaUsuarioRedExterno(solicitudBPM, out debug);
 
-                        if (debug != null)
-                            strDebug += " | " + debug;
+                        if (altaUsuarioRedExterno)
+                        {
+                            log.Info("Se envia mail para recurso externo");
+
+                            string debug;
+
+                            if (_debugMode)
+                            {
+                                strDebug += " | Se va a enviar mail de alta de red para recurso externo";
+                            }
+                            EnviarEmailAltaUsuarioRedExterno(solicitudBPM, out debug);
+
+                            if (debug != null)
+                                strDebug += " | " + debug;
+                        }
                     }
                 }
             }

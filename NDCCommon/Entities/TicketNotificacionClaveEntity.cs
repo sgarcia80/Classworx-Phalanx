@@ -512,6 +512,10 @@ namespace NDCCommon.Entities
 
         public DateTime? FechaUltimoMail { set; get; }
 
+        public int? EventoId { get; set; }
+
+        public string EventoDescr { get; set; }
+
         #endregion
 
         public string TipoDocumentoDesc
