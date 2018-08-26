@@ -134,17 +134,6 @@ namespace PhalanxAdmin
             TicketNotificacionClaveEntityCollection tnceC = new TicketNotificacionClaveEntityCollection();
             tnceC = (TicketNotificacionClaveEntityCollection) list;
 
-            //MailAlertBusiness mBL = new MailAlertBusiness();
-            //foreach (TicketNotificacionClaveEntity e in tnceC)
-            //{
-            //    MailAlertEntity mail = new MailAlertEntity();
-            //    int id = e.MailId == null ? default(int) : (int)e.MailId;
-            //    mail = mBL.GetMail(id);
-            //    if (mail != null)
-            //        e.FechaUltimoMail = mail.CreationDate;
-            //}
-
-
             _entities = list;
         }
 
