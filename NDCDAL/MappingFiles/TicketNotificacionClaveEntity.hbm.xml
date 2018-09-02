@@ -42,5 +42,7 @@
     <property column="tnc_fecha_eliminacion_marca_AD" type="DateTime" name="FechaEliminacionMarcaAD" not-null="false" />
     <property column="tnc_fecha_expiracion_token" type="DateTime" name="FechaExpiracionToken" not-null="false" />
     <property column="tnc_reclamos" type="Int32" name="Reclamos" not-null="false" />
+    <property column="tnc_evento_id" type="Int32" name="EventoId" not-null="false" />
+    <property column="tnc_evento_descr" type="String" name="EventoDescr" not-null="false" />
   </class>
 </hibernate-mapping>

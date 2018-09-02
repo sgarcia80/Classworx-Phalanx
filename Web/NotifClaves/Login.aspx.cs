@@ -37,21 +37,36 @@ public partial class Login : System.Web.UI.Page
         string dominio = ddlDominio.SelectedValue;
         string usuario = tbUsuario.Text.Trim();
         string password = tbPassword.Text;
+        string error = string.Empty;
 
-        if (Autenticar(dominio, usuario, password))
+        lbMensaje.Visible = false;
+
+        if (string.IsNullOrEmpty(usuario) || string.IsNullOrEmpty(password))
         {
-            string nombreUsuario = string.Format(@"{0}\{1}", dominio, usuario);
-
-            FormsAuthentication.SetAuthCookie(nombreUsuario, false);
-            Session["Usuario"] = usuario;
-            Session["Dominio"] = dominio;
-
-            //FormsAuthentication.RedirectFromLoginPage(nombreUsuario, false);
-            Response.Redirect("ClavesAplicativos.aspx");
+            error = "Debe ingresar el Usuario y Contraseña";
         }
         else
         {
-            lbMensaje.Text = "Usuario o Contraseña incorrecto";
+            if (Autenticar(dominio, usuario, password))
+            {
+                string nombreUsuario = string.Format(@"{0}\{1}", dominio, usuario);
+
+                FormsAuthentication.SetAuthCookie(nombreUsuario, false);
+                Session["Usuario"] = usuario;
+                Session["Dominio"] = dominio;
+
+                //FormsAuthentication.RedirectFromLoginPage(nombreUsuario, false);
+                Response.Redirect("ClavesAplicativos.aspx");
+            }
+            else
+            {
+                error = "Usuario o Contraseña incorrecto";
+            }
+        }
+
+        if (!string.IsNullOrEmpty(error))
+        {
+            lbMensaje.Text = error;
             lbMensaje.Visible = true;
         }
     }

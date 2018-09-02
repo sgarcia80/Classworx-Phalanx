@@ -23,7 +23,7 @@ namespace TestWSInterfaceClaves.WSTickets {
     
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Web.Services.WebServiceBindingAttribute(Name="TicketsDeClavesSoap", Namespace="http://tempuri.org/")]
@@ -157,7 +157,7 @@ namespace TestWSInterfaceClaves.WSTickets {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -167,6 +167,10 @@ namespace TestWSInterfaceClaves.WSTickets {
         private string stringAutenticacionField;
         
         private int idSolicitudField;
+        
+        private string eventoIdField;
+        
+        private string eventoDescrField;
         
         private string codigoAplicacionField;
         
@@ -227,6 +231,26 @@ namespace TestWSInterfaceClaves.WSTickets {
             }
             set {
                 this.idSolicitudField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string EventoId {
+            get {
+                return this.eventoIdField;
+            }
+            set {
+                this.eventoIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string EventoDescr {
+            get {
+                return this.eventoDescrField;
+            }
+            set {
+                this.eventoDescrField = value;
             }
         }
         
@@ -444,7 +468,7 @@ namespace TestWSInterfaceClaves.WSTickets {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -477,11 +501,11 @@ namespace TestWSInterfaceClaves.WSTickets {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     public delegate void AgregarTicketCompletedEventHandler(object sender, AgregarTicketCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class AgregarTicketCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -503,11 +527,11 @@ namespace TestWSInterfaceClaves.WSTickets {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     public delegate void TestLDAPConfigCompletedEventHandler(object sender, TestLDAPConfigCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class TestLDAPConfigCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {

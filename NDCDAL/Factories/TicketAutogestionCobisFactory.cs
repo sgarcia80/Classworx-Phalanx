@@ -1,10 +1,13 @@
 using System;
+using System.Data;
+using System.Configuration;
 using NHibernate;
 using NDCCommon.Entities;
+using NDCDAL;
 using NDCCommon.Collections;
 using System.Collections.Generic;
-using NHibernate.Criterion;
 using PhalanxDAL;
+using NHibernate.Criterion;
 
 /// <summary>
 /// Summary description for BPMSolicitudFactory
@@ -84,10 +87,10 @@ namespace NDCDAL.Factories
                     DataSearch = DataSearch.Add(Restrictions.InsensitiveLike("TAC.Usuario", string.Format("%{0}%", _filUsuario)));
 
                 if (_filFechaDesde != null)
-                    DataSearch = DataSearch.Add(Restrictions.Ge("TAC.Fecha", _filFechaDesde));
+                    DataSearch = DataSearch.Add(Restrictions.Ge("TAC.Fecha", _filFechaDesde.Value.Date));
 
                 if (_filFechaHasta != null)
-                    DataSearch = DataSearch.Add(Restrictions.Le("TAC.Fecha", _filFechaHasta));
+                    DataSearch = DataSearch.Add(Restrictions.Le("TAC.Fecha", _filFechaHasta.Value.Date.AddDays(1).AddSeconds(-1)));
 
                 if (_filTipoNotif > 0)
                     DataSearch = DataSearch.Add(Restrictions.Eq("TAC.TipoNotificacion", _filTipoNotif));

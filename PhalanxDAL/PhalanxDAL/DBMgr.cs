@@ -257,6 +257,8 @@ namespace PhalanxDAL
             }
             catch (Exception e)
             {
+                TraceHelper.Error("Error al inicializar la configuracion", e);
+
                 return false;
                 //string InnerEx = e.InnerException.ToString();
             }

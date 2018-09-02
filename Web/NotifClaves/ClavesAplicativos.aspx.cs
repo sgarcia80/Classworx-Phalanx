@@ -6,6 +6,7 @@ using System.Web.UI.WebControls;
 using NDCBL;
 using NDCCommon.Collections;
 using NDCCommon.Entities;
+using System.Web.Security;
 
 public partial class ClavesAplicativos : System.Web.UI.Page
 {
@@ -60,7 +61,16 @@ public partial class ClavesAplicativos : System.Web.UI.Page
     
     protected void btnVolver_Click(object sender, EventArgs e)
     {
-        Response.Redirect("Login.aspx");
+        Session["Usuario"] = null;
+        Session["Dominio"] = null;
+        Session["ticketId"] = null;
+        Session["externo"] = null;
+
+        Session.Remove("externo");
+
+        FormsAuthentication.SignOut();
+
+        Response.Redirect(FormsAuthentication.LoginUrl); 
     }
     
     protected void btnNotifClaves_Click(object sender, EventArgs e)

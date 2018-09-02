@@ -25,11 +25,22 @@ namespace NotifClavesWeb
             {
                 string tipo = string.Empty;
 
+                int vigencia = GetVigencia();
+
                 Session["TipoNotif"] = chkNotifAlta.SelectedValue;
+
+                Session["FechaDesde"] = DateTime.Now.Date.AddDays(vigencia * -1);
+                Session["FechaHasta"] = DateTime.Now.Date;
 
                 Session["sortdirection"] = SortDirection.Descending;
                 Session["sortcolumn"] = "Fecha";
             }
+        }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            //Session["TipoNotif"] = chkNotifAlta.SelectedValue;
+            gvTickets.DataBind();
         }
 
         protected void btnVolver_Click(object sender, EventArgs e)
@@ -38,9 +49,10 @@ namespace NotifClavesWeb
 
         }
 
-        protected void ddlTipoNotificacion_SelectedIndexChanged(object sender, EventArgs e)
+        protected void ddlVigencia_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            int vigencia = GetVigencia();
+            Session["FechaDesde"] = DateTime.Now.Date.AddDays(vigencia * -1);
         }
 
         protected void chkNotifAlta_SelectedIndexChanged(object sender, EventArgs e)
@@ -52,6 +64,15 @@ namespace NotifClavesWeb
         {
             Session["sortdirection"] = e.SortDirection;
             Session["sortcolumn"] = e.SortExpression;
+        }
+
+        protected int GetVigencia()
+        {
+            int vigencia = 30;
+
+            int.TryParse(ddlVigencia.SelectedValue, out vigencia);
+
+            return vigencia;
         }
     }
 }
