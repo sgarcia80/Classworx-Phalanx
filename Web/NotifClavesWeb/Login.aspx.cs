@@ -1,13 +1,21 @@
-﻿using PhalanxBL;
-using PhalanxCommon.Entities;
 using System;
-using System.Collections.Generic;
-using System.DirectoryServices;
-using System.Linq;
+using System.Data;
+using System.Configuration;
+using System.Collections;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using System.DirectoryServices;
+using PhalanxBL;
+using PhalanxCommon.Entities;
+using NDCCommon.Entities;
+using NDCCommon.Collections;
+using NDCBL;
+using PhalanxCommon.Collections;
+using Classworx.Common.Trace;
 
 namespace NotifClavesWeb
 {
@@ -44,11 +52,12 @@ namespace NotifClavesWeb
             }
             else
             {
-                lbMensaje.Text = "Usuario o Contraseña incorrecto";
+                lbMensaje.Text = "Usuario o Contrase�a incorrecto";
                 lbMensaje.Visible = true;
             }
         }
-        
+
+
         protected void btnNotificacion_Click(object sender, EventArgs e)
         {
             Response.Redirect("NotificacionClave.aspx");
@@ -81,12 +90,13 @@ namespace NotifClavesWeb
                 object nativeObject = entry.NativeObject;
                 authentic = true;
 
-                string name = PhalanxNAL.ActiveDirectoryHelper.BuscarNombrePorUsername(usuario, path);
+                string legajo = PhalanxNAL.ActiveDirectoryHelper.BuscarEmployeeID(usuario, path);
 
-                if (!string.IsNullOrEmpty(name))
-                {
-                    esExterno = name.ToUpper().Contains("EXTERNO");
-                }
+                esExterno = string.IsNullOrEmpty(legajo);
+                //if (!string.IsNullOrEmpty(legajo))
+                //{
+                //    esExterno = legajo.ToUpper().Contains("EXTERNO");
+                //}
 
                 auditLoginBusiness.LogAccOK(null, nombreUsuario, null, Request.ServerVariables["REMOTE_ADDR"], PhalanxCommon.Entities.App.NotificacionClaves);
             }
@@ -97,15 +107,19 @@ namespace NotifClavesWeb
             }
             catch (Exception ex)
             {
-
+                TraceHelper.Error(ex, "Error al autenticar el usuario");
             }
 
             if (esExterno)
             {
-               Session["externo"] = (esExterno) ? "S" : "N";
+                //TODO
+                //Session["externo"] = "N";
+                Session["externo"] = (esExterno) ? "S" : "N";
             }
             return authentic;
         }
+
+
 
         protected void btnAlta_Click(object sender, EventArgs e)
         {

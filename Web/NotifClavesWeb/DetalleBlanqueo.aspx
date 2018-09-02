@@ -1,22 +1,23 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="DetalleBlanqueo.aspx.cs" Inherits="NotifClavesWeb.DetalleBlanqueo" %>
-
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+﻿<%@ Page Language="C#" MasterPageFile="~/Principal.master" AutoEventWireup="true" CodeBehind="DetalleBlanqueo.aspx.cs" Inherits="NotifClavesWeb.DetalleBlanqueo" Title="Macro SA - Notificación de Claves" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <div style="text-align: left">
         <br />
         <table id="Table3" width="100%" cellspacing="1" cellpadding="1" border="0">
             <tr style="height: 5px">
-                <td style="width: 20%; height: auto; background-color: #b0e0e6;"></td>
-                <td style="background-color: #b0e0e6; height: auto; padding-left: 1"></td>
+                <td style="width: 20%; height: auto; background-color: #b0e0e6;">
+                </td>
+                <td style="background-color: #b0e0e6; height: auto; padding-left: 1">
+                </td>
             </tr>
             <tr style="background-color: #f0f8ff">
-                <td style="width: 7px; height: 19px;"></td>
+                <td style="width: 7px; height: 19px;">
+                </td>
                 <td style="text-align: right; width: auto; height: 19px;">
                     <asp:Label ID="lblPwdType" runat="server" CssClass="tdTituloSub">Blanqueo de Clave</asp:Label></td>
             </tr>
             <tr style="background-color: White;">
-                <td style="width: 7px; height: 19px;"></td>
+                <td style="width: 7px; height: 19px;">
+                </td>
                 <td style="width: auto; height: 19px;">
                     <asp:Label ID="LTitulo" runat="server" CssClass="tdTituloSub">Información Solicitada</asp:Label></td>
             </tr>
@@ -26,7 +27,8 @@
         <table border="0" cellspacing="1" cellpadding="1" style="width: 100%; background-color: White">
             <tr id="row_Data_1" runat="server">
                 <td id="colImage" align="center" rowspan="7" style="width: 20%; vertical-align: top; text-align: center;"
-                    valign="top" runat="server">&nbsp;</td>
+                    valign="top" runat="server">
+                    &nbsp;</td>
                 <td style="height: 16px; width: auto; text-align: left; vertical-align: middle">
                     <asp:Label ID="lblField1" runat="server" CssClass="LabelNormal">Fecha</asp:Label>
                 </td>
@@ -63,32 +65,41 @@
             <tr>
                 <td colspan="2">
                     <br />
-                    <asp:Label ID="Label2" runat="server" Style="color: Red" CssClass="LabelNormal">Importante: Tome nota de su nueva contraseña. De perder esta información deberá volver a realizar el procedimiento de Blanqueo</asp:Label>
+                    <asp:Label ID="Label2" runat="server" style="color: Red" CssClass="LabelNormal">Importante: Tome nota de su nueva contraseña. De perder esta información deberá volver a realizar el procedimiento de Blanqueo</asp:Label> 
                 </td>
             </tr>
             <tr>
-                <td align="center" colspan="1" style="vertical-align: top; width: 20%; text-align: center"></td>
-                <td align="left" colspan="2" style="height: 10px"></td>
+                <td align="center" colspan="1" style="vertical-align: top; width: 20%; text-align: center">
+                </td>
+                <td align="left" colspan="2" style="height:10px">
+                </td>
             </tr>
         </table>
         <table id="tblSolicPwd" runat="server" cellspacing="1" cellpadding="1" border="0"
             style="width: 100%; height: auto; background-color: #f0f8ff">
             <tr style="background-color: #b0e0e6; height: 5px">
-                <td align="center" rowspan="1" style="width: 20%" valign="top"></td>
-                <td align="left"></td>
+                <td align="center" rowspan="1" style="width: 20%" valign="top">
+                </td>
+                <td align="left">
+                </td>
             </tr>
         </table>
         <table style="width: 100%; background-color: #f0f8ff;">
             <tr>
-                <td align="center" rowspan="1" style="width: 20%" valign="top"></td>
+                <td align="center" rowspan="1" style="width: 20%" valign="top">
+                    </td>
             </tr>
-            <tr id="trBotGuardar" runat="server">
-                <td align="center" colspan="1" valign="middle" style="height: 30; background-color: #f0f8ff; text-align: center;"></td>
-                <td align="left" colspan="2" valign="middle" style="height: 30">&nbsp;&nbsp;
+            <tr id="trBotGuardar" runat="server" >
+                <td align="center" colspan="1" valign="middle" style="height:30; background-color: #f0f8ff; text-align: center;">
+                </td>
+                <td align="left" colspan="2" valign="middle" style="height:30">
+                    &nbsp;&nbsp;
                     <asp:Button ID="btnVolver" runat="server" CssClass="btn" Width="75px" Text="Cerrar"
-                        ToolTip="Cerrar" CausesValidation="False" OnClick="btnVolver_Click"></asp:Button>
+                        ToolTip="Cerrar" CausesValidation="False" OnClick="btnVolver_Click">
+                    </asp:Button>
                 </td>
             </tr>
         </table>
     </div>
 </asp:Content>
+

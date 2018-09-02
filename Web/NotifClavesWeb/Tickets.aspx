@@ -1,29 +1,29 @@
-ï»¿<%@ Page Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="Tickets.aspx.cs" Inherits="NotifClavesWeb.Tickets" %>
+<%@ Page Language="C#" MasterPageFile="~/Principal.master" AutoEventWireup="true"
+    CodeBehind="Tickets.aspx.cs" Inherits="NotifClavesWeb.Tickets" Title="Macro SA - Notificación de Claves" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <br />
     <div style="width: 100%;" align="center">
         <table class="login" style="width: 70%;">
             <tr>
-                <td style="width: 160px;">
-                    <asp:Label ID="lblTitulo" runat="server" Text="Tipo de NotificaciÃ³n:"></asp:Label>
+                <td style="width:160px;">
+                    <asp:Label ID="lblTitulo" runat="server" Text="Tipo de Notificación:"></asp:Label>
                 </td>
                 <td>
-                    <asp:RadioButtonList ID="chkNotifAlta" runat="server" AutoPostBack="true"
-                        OnSelectedIndexChanged="chkNotifAlta_SelectedIndexChanged">
-                        <asp:ListItem Selected="True" Value="A" Text="Notificaciones de Claves de Alta de Usuario de AplicaciÃ³n" />
-                        <asp:ListItem Value="B" Text="Notificaciones de blanqueo de Claves solicitadas por Remedy" />
-                    </asp:RadioButtonList>
+                <asp:RadioButtonList ID="chkNotifAlta" runat="server"  AutoPostBack="true"
+                        onselectedindexchanged="chkNotifAlta_SelectedIndexChanged" >
+                   <asp:ListItem Selected="True" Value="A" Text="Notificaciones de Claves de Alta de Usuario de Aplicación" />
+                   <asp:ListItem Value="B" Text="Notificaciones de blanqueo de Claves solicitadas" />
+                </asp:RadioButtonList>
 
                 </td>
             </tr>
         </table>
-        <br />
+    <br />
         <asp:GridView ID="gvTickets" runat="server" AutoGenerateColumns="False" Width="70%"
             CellPadding="4" ForeColor="#333333" GridLines="None" EmptyDataText="No tiene tickets disponibles para Visualizar"
-            Font-Bold="False" DataSourceID="odsTickets">
+            Font-Bold="False" DataSourceID="odsTickets" 
+            AllowSorting="True" onsorting="gvTickets_Sorting">
             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
             <Columns>
                 <asp:BoundField DataField="Fecha" HeaderText="Fecha" SortExpression="Fecha" DataFormatString="{0:dd/MM/yyyy HH:mm}">
@@ -32,7 +32,7 @@
                 <asp:BoundField DataField="Tipo" HeaderText="Tipo" SortExpression="Tipo">
                     <HeaderStyle HorizontalAlign="Left" />
                 </asp:BoundField>
-                <asp:BoundField DataField="Usuario" HeaderText="Usuario" SortExpression="Usuario">
+                <asp:BoundField DataField="UsuarioAplicacion" HeaderText="Usuario" SortExpression="UsuarioAplicacion">
                     <HeaderStyle HorizontalAlign="Left" />
                 </asp:BoundField>
                 <asp:BoundField DataField="Aplicacion" HeaderText="Aplicaci&#243;n" SortExpression="Aplicacion">
@@ -53,11 +53,13 @@
             <AlternatingRowStyle BackColor="White" Font-Bold="True" Font-Names="Tahoma" Font-Size="11px" />
         </asp:GridView>
         <asp:ObjectDataSource ID="odsTickets" runat="server" SelectMethod="GetAllActiveByUser"
-            TypeName="NDCBL.TicketNotificacionBusiness">
+            TypeName="NDCBL.TicketNotificacionBusiness" SortParameterName="sortcolumn">
             <SelectParameters>
                 <asp:SessionParameter Name="dominio" SessionField="Dominio" Type="String" />
                 <asp:SessionParameter Name="usuario" SessionField="Usuario" Type="String" />
                 <asp:SessionParameter Name="tipo" SessionField="TipoNotif" Type="String" />
+                <asp:SessionParameter Name="sortcolumn" SessionField="sortcolumn" Type="String" />
+                <asp:SessionParameter Name="sortdirection" SessionField="sortdirection" Type="Int32" />
             </SelectParameters>
         </asp:ObjectDataSource>
     </div>

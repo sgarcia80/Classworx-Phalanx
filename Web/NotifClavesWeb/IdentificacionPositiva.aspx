@@ -1,8 +1,7 @@
-ï»¿<%@ Page Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="IdentificacionPositiva.aspx.cs" Inherits="NotifClavesWeb.IdentificacionPositiva" %>
+<%@ Page Language="C#" MasterPageFile="~/Principal.master" AutoEventWireup="true"
+    CodeBehind="IdentificacionPositiva.aspx.cs" Inherits="NotifClavesWeb.IdentificacionPositiva" Title="Macro SA - Notificación de Claves" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <br />
     <div class="titulo">
         Ingrese los siguientes datos
@@ -16,7 +15,8 @@
     <asp:Panel ID="pnlIdentificacion" runat="server">
         <table class="login">
             <tr>
-                <td class="choice">Direcci&oacute;n:
+                <td class="choice">
+                    Direcci&oacute;n:
                 </td>
                 <td>
                     <br />
@@ -29,7 +29,8 @@
                 </td>
             </tr>
             <tr>
-                <td class="choice">Fecha Nacimiento:
+                <td class="choice">
+                    Fecha Nacimiento:
                 </td>
                 <td>
                     <br />
@@ -38,28 +39,29 @@
                 </td>
             </tr>
             <tr>
-                <td class="choice">Documento:
+                <td class="choice">
+                    Documento:
                 </td>
                 <td>
                     <br />
                     Tipo:
                     <asp:RadioButtonList ID="rblTipoDocumento" runat="server" />
                     <br />
-                    NÃºmero:
+                    Número:
                     <asp:RadioButtonList ID="rblDocumento" runat="server" />
                 </td>
             </tr>
         </table>
     </asp:Panel>
-    <table class="login">
-        <tr>
-            <td colspan="2" align="center">
-                <br />
-                <br />
-                <asp:Button ID="btnAceptar" Text="Aceptar" CssClass="btn" runat="server" OnClick="btnAceptar_Click" />
-                <asp:Button ID="btnVolver" Text="Volver" CssClass="btn" runat="server" OnClick="btnVolver_Click" />
-            </td>
-        </tr>
-    </table>
+        <table class="login">
+            <tr>
+                <td colspan="2" align="center">
+                    <br />
+                    <br />
+                    <asp:Button ID="btnAceptar" Text="Aceptar" CssClass="btn" runat="server" OnClick="btnAceptar_Click" />
+                    <asp:Button ID="btnVolver" Text="Volver" CssClass="btn" runat="server" OnClick="btnVolver_Click" />
+                </td>
+            </tr>
+        </table>
     <asp:HiddenField ID="hfIdLegajo" runat="server" />
 </asp:Content>

@@ -1,12 +1,10 @@
-ï»¿<%@ Page Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="NotificacionClave.aspx.cs" Inherits="NotifClavesWeb.NotificacionClave" %>
+<%@ Page Language="C#" MasterPageFile="~/Principal.master" AutoEventWireup="true"
+    CodeBehind="NotificacionClave.aspx.cs" Inherits="NotifClavesWeb.NotificacionClave" Title="Macro SA - Notificación de Claves" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <br />
     <div class="tituloSeccion">
-        NotificaciÃ³n de Claves
-    </div>
+        Notificación de Claves</div>
     <br />
     <div class="titulo">
         Recursos Internos y Externos
@@ -18,7 +16,8 @@
     <br />
     <table class="login">
         <tr>
-            <td>Dominio
+            <td>
+                Dominio
             </td>
             <td colspan="3">
                 <asp:DropDownList ID="ddlDominio" runat="server"
@@ -27,20 +26,23 @@
             </td>
         </tr>
         <tr>
-            <td>Usuario
+            <td>
+                Usuario
             </td>
             <td colspan="3">
                 <asp:TextBox ID="tbLegajo" runat="server" Width="145px" />
             </td>
         </tr>
         <tr>
-            <td></td>
+            <td>
+            </td>
             <td align="left">
                 <br />
                 <br />
                 <asp:Button ID="btnAceptar" Text="Aceptar" CssClass="btn" runat="server" OnClick="btnAceptar_Click" />
             </td>
-            <td></td>
+            <td>
+            </td>
             <td align="center" style="width: 71px">
                 <br />
                 <br />

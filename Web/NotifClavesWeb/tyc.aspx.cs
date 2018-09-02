@@ -1,6 +1,14 @@
-﻿using NDCBL;
 using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
 using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using NDCBL;
 
 namespace NotifClavesWeb
 {
@@ -12,6 +20,7 @@ namespace NotifClavesWeb
             {
                 Response.Redirect("~/Login.aspx");
             }
+
         }
 
         protected void cbtyc_CheckedChanged(object sender, EventArgs e)

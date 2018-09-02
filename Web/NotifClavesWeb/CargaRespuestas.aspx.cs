@@ -1,9 +1,17 @@
-﻿using NDCBL;
-using NDCCommon.Collections;
-using NDCCommon.Entities;
 using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
 using System.Collections.Generic;
+using System.Web;
 using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using NDCCommon.Entities;
+using NDCBL;
+using NDCCommon.Collections;
 
 namespace NotifClavesWeb
 {
@@ -61,11 +69,6 @@ namespace NotifClavesWeb
 
         }
 
-        protected void btnVolver_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/AltaTemprana.aspx");
-        }
-
         private bool Validar()
         {
             try
@@ -111,7 +114,7 @@ namespace NotifClavesWeb
                         {
                             if (k > 0)
                             {
-                                lblInfo.Text = "No puede seleccionar la misma pregunta más de una vez.";
+                                lblInfo.Text = "No puede seleccionar la misma pregunta m�s de una vez.";
                                 return false;
                             }
                             k++;

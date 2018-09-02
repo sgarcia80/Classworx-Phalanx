@@ -1,13 +1,14 @@
-﻿using NDCBL;
-using NDCCommon.Collections;
-using NDCCommon.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using NDCCommon.Entities;
+using NDCCommon.Collections;
+using NDCBL;
+using System.Collections.Generic;
+using Classworx.Common.Trace;
 
 namespace NotifClavesWeb
 {
@@ -31,12 +32,16 @@ namespace NotifClavesWeb
         {
             try
             {
+                TraceHelper.Information("Se ingresa a ValidarRespuestas.aspx");
+
                 if (Session["Usuario"] != null)
                 {
                     if (!IsPostBack)
                     {
                         QuestionAnswerBusiness qab = new QuestionAnswerBusiness();
                         qab.FilUser = (string)Session["Usuario"];
+
+                        TraceHelper.Information("Se buscan las preguntas de {0}", qab.FilUser.Trim());
 
                         QuestionAnswerEntityCollection qaEC = qab.GetAll();
                         List<QuestionAnswerEntity> list = new List<QuestionAnswerEntity>();
@@ -148,7 +153,7 @@ namespace NotifClavesWeb
 
         protected void btnVolver_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/NotificacionClave.aspx");
+            Response.Redirect("NotificacionClave.aspx");
         }
     }
 }

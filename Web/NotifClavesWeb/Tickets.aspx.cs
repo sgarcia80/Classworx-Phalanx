@@ -1,5 +1,14 @@
-﻿using System;
+using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
 using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using NDCCommon.Collections;
 
 namespace NotifClavesWeb
 {
@@ -17,6 +26,9 @@ namespace NotifClavesWeb
                 string tipo = string.Empty;
 
                 Session["TipoNotif"] = chkNotifAlta.SelectedValue;
+
+                Session["sortdirection"] = SortDirection.Descending;
+                Session["sortcolumn"] = "Fecha";
             }
         }
 
@@ -34,6 +46,12 @@ namespace NotifClavesWeb
         protected void chkNotifAlta_SelectedIndexChanged(object sender, EventArgs e)
         {
             Session["TipoNotif"] = chkNotifAlta.SelectedValue;
+        }
+
+        protected void gvTickets_Sorting(object sender, GridViewSortEventArgs e)
+        {
+            Session["sortdirection"] = e.SortDirection;
+            Session["sortcolumn"] = e.SortExpression;
         }
     }
 }

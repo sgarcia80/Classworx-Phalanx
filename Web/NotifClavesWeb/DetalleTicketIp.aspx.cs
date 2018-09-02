@@ -1,23 +1,25 @@
-ï»¿using NDCBL;
-using NDCCommon.Entities;
-using PhalanxNAL;
 using System;
-using System.Collections.Generic;
+using System.Data;
 using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading;
+using System.Collections;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using NDCBL;
+using NDCCommon.Entities;
+using System.DirectoryServices;
+using PhalanxNAL;
+using System.Text;
+using System.Threading;
 
 namespace NotifClavesWeb
 {
     public partial class DetalleTicketIp : System.Web.UI.Page
     {
         private string UsuarioActualizarAD = "";
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["id"] != null)
@@ -37,7 +39,7 @@ namespace NotifClavesWeb
 
                 MostrarDatosTicket(ticket);
                 /// si es alta de red y es la primera vez que se ve, hay que actualizar la descripcion del usuario AD y sacar 
-                /// la leyenda que se puso cuando llegÃ³ el ticket
+                /// la leyenda que se puso cuando llegó el ticket
                 AuditTicketNotificacionBusiness AudTBL = new AuditTicketNotificacionBusiness();
 
                 AplicacionNotificacionClaveBusiness ancb = new AplicacionNotificacionClaveBusiness();
@@ -83,7 +85,7 @@ namespace NotifClavesWeb
                 return;
                 StringBuilder sb = new StringBuilder();
 
-                sb.Append("<body><script type='text/javascript'>alert('Error al agregar la descripciÃ³n'); </script></body>");
+                sb.Append("<body><script type='text/javascript'>alert('Error al agregar la descripción'); </script></body>");
 
                 HttpContext.Current.Response.Write(sb.ToString());
 
@@ -110,6 +112,5 @@ namespace NotifClavesWeb
         {
             Response.Redirect(FormsAuthentication.LoginUrl);
         }
-
     }
 }

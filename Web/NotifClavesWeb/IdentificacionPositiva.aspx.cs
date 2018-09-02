@@ -1,13 +1,16 @@
-ï»¿using NDCBL;
-using NDCCommon.Entities;
 using System;
+using System.Data;
+using System.Configuration;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using NDCBL;
+using NDCCommon.Entities;
+using System.Collections.Generic;
 
 namespace NotifClavesWeb
 {
@@ -26,21 +29,24 @@ namespace NotifClavesWeb
                     int.TryParse(Session["ticketId"].ToString(), out ticketId);
                 }
 
-                //Si no se recibiÃ³ un ticket de NOTIFICACIÃ“N DE CLAVE es de BLANQUEO.
+                //Si no se recibió un ticket de NOTIFICACIÓN DE CLAVE es de BLANQUEO.
                 bool esNotif = (Session["externo"] != null);
                 string tipodocumento = string.Empty;
                 string nrodocumento = string.Empty;
 
+                Meta4LegajoBusiness m4lb = new Meta4LegajoBusiness();
+                Meta4LegajoEntity legajo = null;
+
                 if (esNotif)
                 {
-                    Meta4ClassWorxUsuariosBusiness m4ub = new Meta4ClassWorxUsuariosBusiness();
                     string usuario = Session["Usuario"].ToString();
 
-                    IList<Meta4ClassWorxUsuariosEntity> usuarios = m4ub.GetUser(usuario);
-                    if (usuarios != null && usuarios.Count > 0)
+                    legajo = m4lb.GetByUsuario(usuario);
+
+                    if (legajo != null)
                     {
-                        tipodocumento = usuarios[0].TipoDocumento;
-                        nrodocumento = usuarios[0].Num_Documento;
+                        tipodocumento = legajo.TipoDocumento;
+                        nrodocumento = legajo.Numero;
                     }
 
                     btnVolver.PostBackUrl = Request.UrlReferrer.AbsolutePath;
@@ -50,34 +56,32 @@ namespace NotifClavesWeb
                     TicketNotificacionClaveBusiness tncb = new TicketNotificacionClaveBusiness();
                     TicketNotificacionClaveEntity ticket = tncb.GetById(ticketId);
 
+                    if (ticket == null ||
+                        (ticket != null && string.IsNullOrEmpty(ticket.TipoDocumento) && string.IsNullOrEmpty(ticket.Documento)))
+                    {
+                        lbMensaje.Text = "No se ha encontrado el ticket de notificacion de clave";
+
+                        pnlIdentificacion.Visible = false;
+                        btnAceptar.Visible = false;
+
+                        return;
+                    }
+
                     if (ticket.Errado)
                     {
                         Response.Redirect(FormsAuthentication.LoginUrl);
-
                         return;
                     }
 
                     tipodocumento = ticket.TipoDocumento;
                     nrodocumento = ticket.Documento;
+
+                    legajo = m4lb.GetByDocumento(tipodocumento, nrodocumento);
                 }
-
-                if (string.IsNullOrEmpty(tipodocumento) && string.IsNullOrEmpty(nrodocumento))
-                {
-                    lbMensaje.Text = esNotif ? "No se ha encontrado la informaciÃ³n del Empleado en RRHH" :
-                        "No se ha encontrado el ticket de notificacion de clave";
-
-                    pnlIdentificacion.Visible = false;
-                    btnAceptar.Visible = false;
-
-                    return;
-                }
-
-                Meta4LegajoBusiness m4lb = new Meta4LegajoBusiness();
-                Meta4LegajoEntity legajo = m4lb.GetByDocumento(tipodocumento, nrodocumento);
 
                 if (legajo == null)
                 {
-                    lbMensaje.Text = "No se ha encontrado la informaciÃ³n del Empleado en RRHH";
+                    lbMensaje.Text = "No se ha encontrado la información del Empleado en RRHH";
 
                     pnlIdentificacion.Visible = false;
                     btnAceptar.Visible = false;
@@ -234,17 +238,15 @@ namespace NotifClavesWeb
             //Si ingreso por Notificacion
             bool esNotif = (Session["externo"] != null);
 
+            Meta4LegajoBusiness m4lb = new Meta4LegajoBusiness();
+            Meta4LegajoEntity legajo = null;
+
             if (esNotif)
             {
                 Meta4ClassWorxUsuariosBusiness m4ub = new Meta4ClassWorxUsuariosBusiness();
                 string usuario = Session["Usuario"].ToString();
 
-                IList<Meta4ClassWorxUsuariosEntity> usuarios = m4ub.GetUser(usuario);
-                if (usuarios != null && usuarios.Count > 0)
-                {
-                    tipodocumento = usuarios[0].TipoDocumento;
-                    nrodocumento = usuarios[0].Num_Documento;
-                }
+                legajo = m4lb.GetByUsuario(usuario);
             }
             else
             {
@@ -254,46 +256,53 @@ namespace NotifClavesWeb
 
                 tipodocumento = ticket.TipoDocumento;
                 nrodocumento = ticket.Documento;
+                legajo = m4lb.GetByDocumento(tipodocumento, nrodocumento);
             }
 
-            Meta4LegajoBusiness m4lb = new Meta4LegajoBusiness();
-            Meta4LegajoEntity legajo = m4lb.GetByDocumento(tipodocumento, nrodocumento);
-
-            if (VerificarRespuestas(legajo))
+            try
             {
-                if (esNotif)
+                if (VerificarRespuestas(legajo))
                 {
-                    string url = string.Format("DetalleTicket.aspx?id={0}&tipo={1}", ticketId, "BLANQUEO");
-                    Response.Redirect(url);
+                    if (esNotif)
+                    {
+                        string url = string.Format("DetalleTicket.aspx?id={0}&tipo={1}", ticketId, "BLANQUEO");
+                        Response.Redirect(url);
+                    }
+                    else
+                    {
+                        Session["id"] = ticketId;
+
+                        Response.Redirect("tycip.aspx");
+                    }
                 }
                 else
                 {
-                    Session["id"] = ticketId;
+                    TicketNotificacionBlanqueoEntity ticket = null;
 
-                    Response.Redirect("tycip.aspx");
+                    if (esNotif)
+                    {
+                        TicketNotificacionBlanqueoBusiness tnb = new TicketNotificacionBlanqueoBusiness();
+                        ticket = tnb.Cancelar(ticketId);
+                    }
+
+                    if (ticket != null && ticket.FechaCancelado.HasValue)
+                    {
+                        lbMensaje.Text = "Se ha superado los intentos. Debe solicitar el blanqueo nuevamente.";
+                        btnAceptar.Enabled = false;
+                    }
+                    else
+                    {
+                        lbMensaje.Text = "No se pudo realizar la identificación positiva con éxito";
+                    }
+
+                    btnAceptar.Visible = false;
                 }
+
             }
-            else
+            catch (Exception ex)
             {
-                TicketNotificacionBlanqueoEntity ticket = null;
 
-                if (esNotif)
-                {
-                    TicketNotificacionBlanqueoBusiness tnb = new TicketNotificacionBlanqueoBusiness();
-                    ticket = tnb.Cancelar(ticketId);
-                }
-
-                if (ticket != null && ticket.FechaCancelado.HasValue)
-                {
-                    lbMensaje.Text = "Se ha superado los intentos. Debe solicitar el blanqueo nuevamente.";
-                    btnAceptar.Enabled = false;
-                }
-                else
-                {
-                    lbMensaje.Text = "No se pudo realizar la identificaciÃ³n positiva con Ã©xito";
-                }
-
-                btnAceptar.Visible = false;
+                throw;
             }
         }
 
@@ -332,10 +341,31 @@ namespace NotifClavesWeb
             return OutputArray;
         }
 
+        /*
+        private class RandomComparer : IComparer
+        {
+            private static Random random = new Random();
+
+            #region IComparer Members
+
+            public int Compare(object x, object y)
+            {
+                string xs = (string) x;
+                string ys = (string)y;
+
+                if (xs.Equals(ys))
+                    return 0;
+
+                return random.Next(-1, 1);
+            }
+
+            #endregion
+        }
+         * */
+
         protected void btnVolver_Click(object sender, EventArgs e)
         {
             Response.Redirect("AltaTemprana.aspx");
         }
-
     }
 }

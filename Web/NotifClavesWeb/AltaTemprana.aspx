@@ -1,12 +1,8 @@
-ï»¿<%@ Page Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="AltaTemprana.aspx.cs" Inherits="NotifClavesWeb.AltaTemprana" %>
-
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+<%@ Page Language="C#" MasterPageFile="~/Principal.master" AutoEventWireup="true" CodeBehind="AltaTemprana.aspx.cs" Inherits="NotifClavesWeb.AltaTemprana" Title="Macro SA - Notificación de Claves" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <br />
     <div class="tituloSeccion">
-        Alta Temprana
-    </div>
+        Alta Temprana</div>
     <br />
     <div class="titulo">
         Recursos Internos
@@ -18,14 +14,16 @@
     <br />
     <table class="login">
         <tr>
-            <td>Legajo
+            <td>
+                Legajo
             </td>
             <td>
                 <asp:TextBox ID="tbLegajo" runat="server" />
             </td>
         </tr>
         <tr>
-            <td>Sociedad
+            <td>
+                Sociedad
             </td>
             <td>
                 <asp:DropDownList ID="ddlSociedad" DataValueField="Id" DataTextField="Nombre" runat="server" />
@@ -46,14 +44,15 @@
     <div class="titulo">
         Recursos Externos
     </div>
-    <br />
+        <br />
     <div class="mensaje">
         <asp:Label ID="lbMensajeToken" runat="server" />
     </div>
     <br />
     <table class="login">
         <tr>
-            <td>Token
+            <td>
+                Token
             </td>
             <td>
                 <asp:TextBox ID="tbToken" Width="270px" runat="server" />
@@ -63,9 +62,9 @@
             <td colspan="2" align="center">
                 <br />
                 <br />
-                <asp:Button ID="btnAceptarToken" Text="Aceptar" CssClass="btn" runat="server"
-                    OnClick="btnAceptarToken_Click" />
-
+                <asp:Button ID="btnAceptarToken" Text="Aceptar" CssClass="btn" runat="server" 
+                    onclick="btnAceptarToken_Click" />
+                
             </td>
         </tr>
     </table>
@@ -75,11 +74,13 @@
 
     <br />
 
-    <table class="login" style="width: 100%">
+    <table class="login" style="width:100%">
         <tr>
             <td align="center">
                 <asp:Button ID="btnVolver" Text="Volver" CssClass="btn" runat="server" OnClick="btnVolver_Click" />
             </td>
         </tr>
     </table>
+
 </asp:Content>
+

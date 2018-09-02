@@ -1,11 +1,11 @@
-ï»¿<%@ Page Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="NotifClavesWeb.Login" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-<br />
+<%@ Page Language="C#" MasterPageFile="~/Principal.master" AutoEventWireup="true"
+    CodeBehind="Login.aspx.cs" Inherits="NotifClavesWeb.Login" Title="Macro SA - Notificación de Claves" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <br />
     <asp:Panel ID="pnlAltaRed" runat="server"  DefaultButton="btnAlta">
     <div class="titulo">
-        Obten&eacute; tu clave inicial de red
+        Obten&eacute; tu clave inicial de RED
     </div>
     <table class="login">
         <tr>
@@ -21,13 +21,13 @@
     </div>
     <br />
     <div class="titulo">
-        Obten&eacute; tu clave de red
+        Obten&eacute; tu clave de RED
     </div>
     <table class="login">
         <tr>
             <td align="center">
                 <br />
-                <asp:Button ID="btnNotificacionClave" Text="NotificaciÃ³n de Clave" CssClass="btn" runat="server" OnClick="btnNotificacion_Click" />
+                <asp:Button ID="btnNotificacionClave" Text="Notificación de Clave" CssClass="btn" runat="server" OnClick="btnNotificacion_Click" />
             </td>
         </tr>
     </table>
@@ -37,7 +37,7 @@
     </div>
     <br />
     <div class="titulo">
-        Acced&eacute; a tus claves de aplicativos
+        Acced&eacute; a tus claves de APLICATIVOS
     </div>
     <br />
     <div class="mensaje">
@@ -83,4 +83,5 @@
             </td>
         </tr>
     </table>
-    </asp:Panel></asp:Content>
+    </asp:Panel>
+</asp:Content>

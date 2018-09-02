@@ -1,11 +1,10 @@
-﻿using NDCBL;
-using NDCCommon.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using NDCCommon.Entities;
+using NDCBL;
 
 namespace NotifClavesWeb
 {
@@ -18,20 +17,23 @@ namespace NotifClavesWeb
                 Response.Redirect("~/Login.aspx");
             }
 
-        }
+            BloqueoBusiness bloqueoBus = new BloqueoBusiness();
+            bool bloqueoCobis = bloqueoBus.IsBloqueoActivo(BloqueoEntity.TipoBLoqueo.AutogestionCobis);
 
+            lblBloqueoCobis.Visible = bloqueoCobis;
+            btnCambioClave.Enabled = !bloqueoCobis;
+            btnDesbloqueoCOBIS.Enabled = !bloqueoCobis;
+        }
         protected void btnVolver_Click(object sender, EventArgs e)
         {
             Response.Redirect("ClavesAplicativos.aspx");
 
         }
-
         protected void btnDesbloqueoCOBIS_Click(object sender, EventArgs e)
         {
             Response.Redirect("DesbloqueoUsuarioCOBIS.aspx");
 
         }
-
         protected void btnCambioClave_Click(object sender, EventArgs e)
         {
             //bool notificado = ValidarAutogestion();
@@ -53,7 +55,7 @@ namespace NotifClavesWeb
             string usuario = Session["Usuario"].ToString();
             string dominio = Session["Dominio"].ToString();
 
-            AplicacionNotificacionClaveBusiness appBL = new AplicacionNotificacionClaveBusiness();
+            NDCBL.AplicacionNotificacionClaveBusiness appBL = new NDCBL.AplicacionNotificacionClaveBusiness();
             AplicacionNotificacionClaveEntity app = appBL.GetAppCobis();
 
             NDCBL.TicketNotificacionClaveBusiness ticketBL = new NDCBL.TicketNotificacionClaveBusiness();
