@@ -6,7 +6,7 @@ using NDCCommon.Entities;
 using NHibernate;
 using PhalanxDAL;
 using Common;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 
 namespace NDCDAL.Factories
 {
@@ -31,7 +31,7 @@ namespace NDCDAL.Factories
                         DataSearch = DataSearch.Add(Expression.Eq("Activo", activo));
                     }
 
-                    DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("Clave"));
+                    DataSearch = DataSearch.AddOrder(Order.Asc("Clave"));
 
                     Lst.Add(DataSearch.List<MacroClaveEntity>());
                 }

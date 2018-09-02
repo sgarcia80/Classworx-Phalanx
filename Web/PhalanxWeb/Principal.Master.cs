@@ -1,10 +1,17 @@
-﻿using PhalanxBL;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Data;
+using System.Configuration;
+using System.Collections;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using PhalanxBL;
+using PhalanxCommon.Entities;
+using System.Threading;
+using Classworx.Common.Trace;
 
 namespace PhalanxWeb
 {
@@ -26,6 +33,23 @@ namespace PhalanxWeb
             {
                 Response.Redirect("OutOfService.aspx");
             }
+
+        }
+        protected void loginstatus_LoggingOut(object sender, LoginCancelEventArgs e)
+        {
+            TraceHelper.Information("Se elimina la session");
+            Session.Abandon();
+            Session.Clear();
+
+            TraceHelper.Information("Se desloguea el usuario");
+            FormsAuthentication.SignOut();
+
+            HttpCookie cookie1 = new HttpCookie(FormsAuthentication.FormsCookieName, "");
+            cookie1.Expires = DateTime.Now.AddYears(-1);
+            Response.Cookies.Add(cookie1);
+
+            TraceHelper.Information("Se redirecciona al login");
+            Response.Redirect(FormsAuthentication.LoginUrl);
         }
     }
 }

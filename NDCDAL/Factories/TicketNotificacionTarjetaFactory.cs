@@ -6,7 +6,7 @@ using NDCCommon.Entities;
 using NDCDAL;
 using NDCCommon.Collections;
 using System.Collections.Generic;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using PhalanxDAL;
 
 /// <summary>

@@ -8,11 +8,11 @@ using System.Windows.Forms;
 using NDCCommon.Collections;
 using NDCCommon.Entities;
 using NDCBL;
-using log4net;
 using PhalanxBL;
 using PhalanxCommon.Collections;
 using PhalanxCommon.Entities;
 using System.IO;
+using Classworx.Common.Trace;
 
 namespace PhalanxAdmin
 {
@@ -25,8 +25,6 @@ namespace PhalanxAdmin
                 return GetTitlePath(base.Titulo, "Blanqueo de Tarj. Créd.");
             }
         }
-
-        private static readonly ILog log = LogManager.GetLogger(typeof(FNotifBlanqueos));
 
         protected TicketNotificacionTarjetaEntityCollection _entities;
         protected AplicacionNotificacionClaveEntityCollection _aplicaciones;
@@ -420,7 +418,7 @@ namespace PhalanxAdmin
             Form form = null;
 
             //TODO
-            form = new FABMDetalleBlanqueoTC(ticket.Id, false, FABMDetalleBlanqueoTC.FormType.View, this .Usuario);
+            form = new FABMDetalleBlanqueoTC(ticket.Id, false, FABMDetalleBlanqueoTC.FormType.View, this.Usuario);
 
             return form.ShowDialog();
         }
@@ -472,14 +470,14 @@ namespace PhalanxAdmin
 
                 TicketNotificacionTarjetaEntity ticket = null;
 
-                log.Info("Se buscan los aplicativos de las notificaciones seleccionadas");
+                TraceHelper.Information("Se buscan los aplicativos de las notificaciones seleccionadas");
                 List<string> invalidas = new List<string>();
 
                 foreach (ListViewItem item in lvLista.SelectedItems)
                 {
                     ticket = item.Tag as TicketNotificacionTarjetaEntity;
 
-                    log.InfoFormat("Ticket '{0}' seleccionado de la aplicacion '{1}'", ticket.Id, ticket.Aplicacion.Codigo);
+                    TraceHelper.Information("Ticket '{0}' seleccionado de la aplicacion '{1}'", ticket.Id, ticket.Aplicacion.Codigo);
 
                     if (!ticket.Aplicacion.EsEmuladores)
                     {
@@ -506,11 +504,11 @@ namespace PhalanxAdmin
                 }
 
                 TicketNotificacionTarjetaBusiness business = new TicketNotificacionTarjetaBusiness();
-                log.Info("Se procesan las notificaciones seleccionadas para generar los archivos");
+                TraceHelper.Information("Se procesan las notificaciones seleccionadas para generar los archivos");
 
                 List<MacroArchivoEntity> archivos = business.Generar(list, apps);
 
-                log.Info("Se proceden a generar los archivos fisicos");
+                TraceHelper.Information("Se proceden a generar los archivos fisicos");
 
                 foreach (MacroArchivoEntity archivo in archivos)
                 {
@@ -534,12 +532,12 @@ namespace PhalanxAdmin
             }
             catch (UnauthorizedAccessException ex)
             {
-                log.Error("Error en la ubicacion de destino", ex);
+                TraceHelper.Error(ex, "Error en la ubicacion de destino");
                 MessageBox.Show("No tiene permisos en la Carpeta destino para generar los archivos", "Generación de Archivos", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                log.Error("Error al generar los archivos", ex);
+                TraceHelper.Error(ex, "Error al generar los archivos");
                 MessageBox.Show("Error al generar los archivos", "Generación de Archivos", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -596,7 +594,7 @@ namespace PhalanxAdmin
             }
             catch (Exception ex)
             {
-                log.Error("Error al procesar las Notificaciones", ex);
+                TraceHelper.Error(ex, "Error al procesar las Notificaciones");
                 MessageBox.Show("Error al procesar las Notificaciones", "Notificaciones Procesadas", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -658,7 +656,7 @@ namespace PhalanxAdmin
             }
             catch (Exception ex)
             {
-                log.Error("Error al actualizar las Notificaciones con Error", ex);
+                TraceHelper.Error(ex, "Error al actualizar las Notificaciones con Error");
                 MessageBox.Show("Error al actualizar las Notificaciones con Error", "Notificaciones con Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

@@ -8,7 +8,6 @@ using System.Windows.Forms;
 using NDCCommon.Collections;
 using NDCCommon.Entities;
 using NDCBL;
-using log4net;
 using PhalanxBL;
 using PhalanxCommon.Collections;
 using PhalanxCommon.Entities;
@@ -24,8 +23,6 @@ namespace PhalanxAdmin
                 return GetTitlePath(base.Titulo, "Empleados Meta4");
             }
         }
-
-        private static readonly ILog log = LogManager.GetLogger(typeof(FNotifBlanqueos));
 
         protected Meta4LegajoEntityCollection _entities;
 

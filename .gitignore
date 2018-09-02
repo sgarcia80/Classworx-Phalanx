@@ -47,3 +47,9 @@ bin
 /Web/WSInterfaceClaves/Properties/PublishProfiles
 /Web/WSInterfaceConectores/Properties/PublishProfiles
 *.pubxml
+/PhalanxNAL/obj
+/PhalanxCommon/obj
+/PhalanxMAL/obj
+/phxBlowfish/obj
+/phxLog/obj
+/phxCryptMgr/obj

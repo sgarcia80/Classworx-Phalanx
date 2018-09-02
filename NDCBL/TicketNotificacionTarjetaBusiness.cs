@@ -7,8 +7,8 @@ using NDCCommon.Collections;
 using NDCDAL.Factories;
 using System.Collections.Generic;
 using PhalanxBL;
-using log4net;
 using System.Text;
+using Classworx.Common.Trace;
 
 namespace NDCBL
 {
@@ -17,8 +17,6 @@ namespace NDCBL
     /// </summary>
     public class TicketNotificacionTarjetaBusiness
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(TicketNotificacionTarjetaBusiness));
-
         private TicketNotificacionTarjetaFactory factory;
 
         private TicketNotificacionTarjetaFactory Factory
@@ -116,19 +114,19 @@ namespace NDCBL
                 throw new Common.CwxException("No se encontraron Claves definidas");
             }
 
-            log.Info("Se procesa cada una de las aplicaciones seleccionadas");
+            TraceHelper.Information("Se procesa cada una de las aplicaciones seleccionadas");
             
             foreach (AplicacionNotificacionClaveEntity aplicacion in apps)
             {
                 usuarioprincipal = null;
                 usuariosecundario = null;
 
-                log.InfoFormat("Se busca la información de la Macro asociada a la aplicación '{0}'", aplicacion.Codigo);
+                TraceHelper.Information("Se busca la información de la Macro asociada a la aplicación '{0}'", aplicacion.Codigo);
                 macro = macrobusiness.Load(aplicacion.Macro.Id);
 
                 try
                 {
-                    log.InfoFormat("Se toman los usuarios login de la Macro asociada a la aplicación '{0}'", aplicacion.Codigo);
+                    TraceHelper.Information("Se toman los usuarios login de la Macro asociada a la aplicación '{0}'", aplicacion.Codigo);
                     //Se obtienen los usuarios para la cabecera.
                     foreach (MacroUsuarioEntity us in macro.UsuariosList)
                     {
@@ -145,7 +143,7 @@ namespace NDCBL
                 catch (Exception ex)
                 {
                     string mensaje = string.Format("Error al obtener los Usuarios Login de la Macro '{0}'", macro.Name);
-                    log.Error(mensaje, ex);
+                    TraceHelper.Error(ex, mensaje);
 
                     throw new Common.CwxException(mensaje);
                 }
@@ -158,22 +156,22 @@ namespace NDCBL
 
                 try
                 {
-                    log.InfoFormat("Se reemplaza la cabecera de la macro para la aplicacion '{0}'", aplicacion.Codigo);
+                    TraceHelper.Information("Se reemplaza la cabecera de la macro para la aplicacion '{0}'", aplicacion.Codigo);
 
                     header = macrobusiness.ReplaceHeader(macro.Header,
                                                         usuarioprincipal,
                                                         usuariosecundario);
 
-                    log.InfoFormat("Se blanquea el footer de la macro para la aplicacion '{0}'", aplicacion.Codigo);
+                    TraceHelper.Information("Se blanquea el footer de la macro para la aplicacion '{0}'", aplicacion.Codigo);
                     body = new StringBuilder();
 
-                    log.InfoFormat("Se toma el footer de la macro para la aplicacion '{0}'", aplicacion.Codigo); 
+                    TraceHelper.Information("Se toma el footer de la macro para la aplicacion '{0}'", aplicacion.Codigo); 
                     footer = macro.Footer;
 
                     //Se resetea el flag
                     generar = false;
 
-                    log.Info("Se agregan los usuarios de cada notificacion"); 
+                    TraceHelper.Information("Se agregan los usuarios de cada notificacion"); 
                     //Se recorren los tickets
                     foreach (TicketNotificacionTarjetaEntity item in list)
                     {
@@ -186,7 +184,7 @@ namespace NDCBL
                             //Si el ticket está Ingresado
                             if (item.Estado == TicketNotificacionTarjetaEntity.EstadoTicket.Ingresado)
                             {
-                                log.InfoFormat("Se obtiene una clave al azar para el usuario '{0}'", item.UsuarioAplicacion); 
+                                TraceHelper.Information("Se obtiene una clave al azar para el usuario '{0}'", item.UsuarioAplicacion); 
                                 //Se calcula al azar una clave
                                 indice = rnd.Next(claves.Count);
 
@@ -197,7 +195,7 @@ namespace NDCBL
                                 item.Clave = claves[indice];
                             }
 
-                            log.Info("Se formatea el usuario en el cuerpo");
+                            TraceHelper.Information("Se formatea el usuario en el cuerpo");
 
                             if (body.Length > 0)
                             {
@@ -212,7 +210,7 @@ namespace NDCBL
                 {
                     string mensaje = string.Format("Se detecto un error en la macro de la aplicación '{0}'", aplicacion.Codigo);
 
-                    log.Error(mensaje, ex);
+                    TraceHelper.Error(ex, mensaje);
                     throw new Common.CwxException(mensaje);
                 }
 
@@ -241,7 +239,7 @@ namespace NDCBL
             catch (Exception ex)
             {
                 string mensaje = "Error al grabar los tickets luego de generar las macros";
-                log.Error(mensaje, ex);
+                TraceHelper.Error(ex, mensaje);
 
                 throw new Common.CwxException(mensaje);
             }
@@ -305,7 +303,7 @@ namespace NDCBL
                 }
                 catch (Exception ex)
                 {
-                    log.Error(string.Format("Error al enviar el mail del ticket {0}", ticket.Id), ex);
+                    TraceHelper.Error(ex, "Error al enviar el mail del ticket {0}", ticket.Id);
                 }
             }
 

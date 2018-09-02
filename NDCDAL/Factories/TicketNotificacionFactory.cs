@@ -7,7 +7,6 @@ using NHibernate.Transform;
 using NHibernate.Criterion;
 using Classworx.Common.Trace;
 using System;
-using log4net;
 
 /// <summary>
 /// Summary description for BPMSolicitudFactory
@@ -16,8 +15,6 @@ namespace NDCDAL.Factories
 {
     public class TicketNotificacionFactory
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(TicketNotificacionFactory));
-
         private static readonly IResultTransformer ResultTransformer;
 
         private string _filUsuario;
@@ -139,7 +136,7 @@ namespace NDCDAL.Factories
                 }
                 catch (Exception e)
                 {
-                    log.Error("Error al consultar el Ticket de Notificacion de Clave", e);
+                    TraceHelper.Error(e, "Error al consultar el Ticket de Notificacion de Clave");
                 }
             }
 

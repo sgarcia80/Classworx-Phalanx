@@ -6,7 +6,7 @@ using NDCCommon.Entities;
 using NHibernate;
 using PhalanxDAL;
 using Common;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 
 namespace NDCDAL.Factories
 {
@@ -20,7 +20,7 @@ namespace NDCDAL.Factories
                 using (ISession session = DBMgr.factory.OpenSession())
                 {
                     ICriteria DataSearch = session.CreateCriteria(typeof(MacroUsuarioEntity));
-                    DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("Id"));
+                    DataSearch = DataSearch.AddOrder(Order.Asc("Id"));
 
                     if (macroid > 0)
                     {

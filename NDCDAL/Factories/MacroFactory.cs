@@ -6,7 +6,7 @@ using NDCCommon.Entities;
 using NHibernate;
 using PhalanxDAL;
 using Common;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 
 namespace NDCDAL.Factories
 {
@@ -26,7 +26,7 @@ namespace NDCDAL.Factories
                         DataSearch = DataSearch.Add(Expression.InsensitiveLike("Name", nombre, MatchMode.Exact));
                     }
 
-                    DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("Name"));
+                    DataSearch = DataSearch.AddOrder(Order.Asc("Name"));
 
                     Lst.Add(DataSearch.List<MacroEntity>());
                 }
@@ -64,7 +64,7 @@ namespace NDCDAL.Factories
                         DataSearch = DataSearch.Add(Expression.Like("Name", nombre, MatchMode.Anywhere));
                     }
 
-                    DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("Name"));
+                    DataSearch = DataSearch.AddOrder(Order.Asc("Name"));
 
                     Lst.Add(DataSearch.List<MacroEntity>());
                 }

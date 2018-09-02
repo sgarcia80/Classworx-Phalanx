@@ -297,19 +297,19 @@ namespace PhalanxNAL
                         {
                             name = usuario.Properties[NOMBRE_PROPIEDAD_EMPLOYEEID].Value.ToString();
 
-                            log.InfoFormat("Se consulta la propiedad {0} con valor '{1}'", NOMBRE_PROPIEDAD_EMPLOYEEID, name);
+                            TraceHelper.Information("Se consulta la propiedad {0} con valor '{1}'", NOMBRE_PROPIEDAD_EMPLOYEEID, name);
                         }
                     }
                 }
 
                 if (string.IsNullOrEmpty(name))
                 {
-                    log.InfoFormat("No se encontró la propiedad '{0}'", NOMBRE_PROPIEDAD_EMPLOYEEID);
+                    TraceHelper.Information("No se encontró la propiedad '{0}'", NOMBRE_PROPIEDAD_EMPLOYEEID);
                 }
             }
             catch (Exception ex)
             {
-                log.Error(ex);
+                TraceHelper.Error(ex, "Error al buscar el EmployeeID");
                 throw new Exception("Error al validar el usuario en el Dominio", ex);
             }
 

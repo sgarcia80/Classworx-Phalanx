@@ -6,7 +6,7 @@ using NDCCommon.Entities;
 using NHibernate;
 using PhalanxDAL;
 using Common;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 
 namespace NDCDAL.Factories
 {
@@ -26,7 +26,7 @@ namespace NDCDAL.Factories
                         DataSearch = DataSearch.Add(Expression.Like("Descripcion", descripcion, MatchMode.Anywhere));
                     }
 
-                    DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("Descripcion"));
+                    DataSearch = DataSearch.AddOrder(Order.Asc("Descripcion"));
 
                     Lst.Add(DataSearch.List<MacroErrorEntity>());
                 }

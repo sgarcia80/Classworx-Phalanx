@@ -6,7 +6,7 @@ using NDCCommon.Entities;
 using NDCDAL;
 using NDCCommon.Collections;
 using System.Collections.Generic;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using PhalanxDAL;
 
 /// <summary>
@@ -184,13 +184,13 @@ namespace NDCDAL.Factories
                 try
                 {
                     tickets = DataSearch.List<TicketNotificacionBlanqueoEntity>();
+
+                    TiNotClaEC.Add(tickets);
                 }
                 catch
                 {
                     tickets = null;
                 }
-
-                TiNotClaEC.Add(tickets);
             }
 
             return TiNotClaEC;
@@ -214,13 +214,13 @@ namespace NDCDAL.Factories
                 try
                 {
                     tickets = DataSearch.List<TicketNotificacionBlanqueoEntity>();
+
+                    TiNotClaEC.Add(tickets);
                 }
                 catch
                 {
                     tickets = null;
                 }
-
-                TiNotClaEC.Add(tickets);
             }
 
             return TiNotClaEC;
@@ -298,13 +298,13 @@ namespace NDCDAL.Factories
                 try
                 {
                     tickets = DataSearch.List<TicketNotificacionBlanqueoEntity>();
+
+                    TiNotClaEC.Add(tickets);
                 }
                 catch
                 {
                     tickets = null;
                 }
-
-                TiNotClaEC.Add(tickets);
             }
 
             return TiNotClaEC;

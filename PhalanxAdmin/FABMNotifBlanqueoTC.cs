@@ -13,14 +13,11 @@ using PhalanxCommon.Entities;
 using PhalanxCommon;
 using PhalanxBL;
 using PhalanxCommon.Collections;
-using log4net;
 
 namespace PhalanxAdmin
 {
     public partial class FABMNotifBlanqueoTC : PhalanxAdmin.FModalBase
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(FABMNotifBlanqueoTC));
-
         TicketNotificacionTarjetaEntity _entity = new TicketNotificacionTarjetaEntity();
         WinDomainEntityCollection _dominios = new WinDomainEntityCollection();
 

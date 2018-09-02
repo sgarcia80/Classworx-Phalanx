@@ -13,15 +13,13 @@ using PhalanxCommon.Entities;
 using PhalanxCommon;
 using PhalanxBL;
 using PhalanxCommon.Collections;
-using log4net;
 using PhalanxNAL;
+using Classworx.Common.Trace;
 
 namespace PhalanxAdmin
 {
     public partial class FABMNotifBlanqueoRed : PhalanxAdmin.FModalBase
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(FABMNotifBlanqueoRed));
-
         TicketNotificacionBlanqueoEntity _entity = new TicketNotificacionBlanqueoEntity();
         WinDomainEntityCollection _dominios = new WinDomainEntityCollection();
 
@@ -386,13 +384,13 @@ namespace PhalanxAdmin
 
             TicketNotificacionClaveBusiness tncb = new TicketNotificacionClaveBusiness();
 
-            log.InfoFormat("Se consulta Altas Tempranas del usuario {0}/{1} que estén pendientes", dominio, usuario);
+            TraceHelper.Information("Se consulta Altas Tempranas del usuario {0}/{1} que estén pendientes", dominio, usuario);
 
             TicketNotificacionClaveEntityCollection tickets = tncb.GetAltaTempranaPendientes(dominio, usuario);
 
             if (tickets != null)
             {
-                log.InfoFormat("Se encontraron {0} notificaciones de alta temprana pendientes", tickets.Count);
+                TraceHelper.Information("Se encontraron {0} notificaciones de alta temprana pendientes", tickets.Count);
 
                 if (tickets.Count > 0)
                 {
@@ -468,15 +466,15 @@ namespace PhalanxAdmin
 
                 if (usuario.Exception || !usuario.Found)
                 {
-                    log.InfoFormat(usuario.Log);
+                    TraceHelper.Information(usuario.Log);
 
                     if (usuario.Found)
                     {
-                        log.InfoFormat("Se encontró el usuario '{0}' pero hubo un error.", txtSolicitante.Text.Trim());
+                        TraceHelper.Information("Se encontró el usuario '{0}' pero hubo un error.", txtSolicitante.Text.Trim());
                     }
                     else
                     {
-                        log.InfoFormat("No se encontró el usuario '{0}'", txtSolicitante.Text.Trim());
+                        TraceHelper.Information("No se encontró el usuario '{0}'", txtSolicitante.Text.Trim());
                     }
                 }
                 else

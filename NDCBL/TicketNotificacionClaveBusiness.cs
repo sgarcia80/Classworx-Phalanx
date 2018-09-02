@@ -493,14 +493,14 @@ namespace NDCBL
                 {
                     bool envio = this.ReenviarEmailReclamo(ticket, out debug);
 
-                    log.Info("Debug de ticket id " + ticket.Id.ToString() + ".");
-                    log.Info(debug);
+                    TraceHelper.Information("Debug de ticket id " + ticket.Id.ToString() + ".");
+                    TraceHelper.Information(debug);
 
                     sent++;
                 }
                 catch (Exception ex)
                 {
-                    log.Error(string.Format("Error al reclamar la notificación (Id {0}) de alta de usuario", ticket.Id), ex);
+                    TraceHelper.Error(ex, "Error al reclamar la notificación (Id {0}) de alta de usuario", ticket.Id);
                 }
             }
 

@@ -6,7 +6,7 @@ using NDCCommon.Entities;
 using NHibernate;
 using PhalanxDAL;
 using Common;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 
 namespace NDCDAL.Factories
 {
@@ -25,7 +25,7 @@ namespace NDCDAL.Factories
 
                     DataSearch = DataSearch.Add(Expression.Eq("Activo", true));
 
-                    DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("FechaInicio"));
+                    DataSearch = DataSearch.AddOrder(Order.Asc("FechaInicio"));
 
                     Lst.Add(DataSearch.List<BloqueoEntity>());
                 }
@@ -72,7 +72,7 @@ namespace NDCDAL.Factories
                         DataSearch = DataSearch.Add(Expression.Lt("FechaInicio", fechahasta.Value.AddDays(1).AddSeconds(-1)));
                     }
 
-                    DataSearch = DataSearch.AddOrder(NHibernate.Expression.Order.Asc("FechaInicio"));
+                    DataSearch = DataSearch.AddOrder(Order.Asc("FechaInicio"));
 
                     Lst.Add(DataSearch.List<BloqueoEntity>());
                 }

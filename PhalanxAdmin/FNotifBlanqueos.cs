@@ -8,7 +8,6 @@ using System.Windows.Forms;
 using NDCCommon.Collections;
 using NDCCommon.Entities;
 using NDCBL;
-using log4net;
 using PhalanxBL;
 using PhalanxCommon.Collections;
 using PhalanxCommon.Entities;
@@ -24,8 +23,6 @@ namespace PhalanxAdmin
                 return GetTitlePath(base.Titulo, "Blanqueos de App/Red");
             }
         }
-
-        private static readonly ILog log = LogManager.GetLogger(typeof(FNotifBlanqueos));
 
         protected TicketNotificacionBlanqueoEntityCollection _entities;
         protected AplicacionNotificacionClaveEntityCollection _aplicaciones;

@@ -1,26 +1,34 @@
-ï»¿using PhalanxBL;
-using PhalanxCommon.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
+using System.Data;
+using System.Configuration;
+using System.Collections;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using PhalanxBL;
+using PhalanxCommon.Entities;
+using System.Threading;
+using Classworx.Common.Trace;
 
 namespace PhalanxWeb
 {
     public partial class Default : System.Web.UI.Page
     {
         protected string m_DomUser;
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
             bool internalError = false;
             if (!Page.IsPostBack)
             {
+                TraceHelper.Information("Se valida si el usuario '{0}' tiene acceso a Phalanx Web", m_DomUser);
+
                 m_DomUser = HttpContext.Current.User.Identity.Name;
-                //m_DomUser = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+                TraceHelper.Information("Se obtiene el usuario autenticado '{0}'", m_DomUser);
 
                 if (Page.Request["testing_user"] != null)
                     m_DomUser = Page.Request["testing_user"];
@@ -40,10 +48,17 @@ namespace PhalanxWeb
                 }
                 else
                 {
+                    TraceHelper.Information("Se validan los permisos del usuario");
+
                     PhxUserBusiness PhxUsrBL = new PhxUserBusiness();
                     PhxUserEntity IdentUser = PhxUsrBL.GetUserByDomUsr(m_DomUser);
+
+                    TraceHelper.Information("Se obtuvieron los permisos del usuario");
+
                     if (IdentUser != null && PhxUsrBL.ChkAccWebApp(IdentUser) && IdentUser.Active)
                     {
+                        TraceHelper.Information("Acceso permitido");
+
                         Session["PhxUser"] = IdentUser;
                         Session["phxUserID"] = IdentUser.Id;
                         Session["phxUserName"] = IdentUser.Username;
@@ -51,6 +66,8 @@ namespace PhalanxWeb
                     }
                     else
                     {
+                        TraceHelper.Information("EL usuario no tiene permisos para acceder");
+
                         try
                         {
                             Response.Redirect("noAutho.aspx");
@@ -60,24 +77,34 @@ namespace PhalanxWeb
                         }
 
                     }
-                    // si no tiene permisos para solicitar contraseÃ±as oculta el acceso
-                    //bool NotPwdRqstRole = false;
-                    if (!PhxUsrBL.ChkPwdsRequest(IdentUser))
+
+                    if (IdentUser != null)
                     {
-                        this.tbMenu.Rows[0].Visible = false;
-                        this.tbMenu.Rows[2].Visible = false;
-                        this.tbMenu.Rows[3].Visible = false;
-                        //NotPwdRqstRole = true;
-                    }
-                    // si no tiene permisos para autorizar pedidos
-                    if (!PhxUsrBL.ChkAuthPwdRequest(IdentUser))
-                    {
-                        this.tbMenu.Rows[1].Visible = false;
-                        this.tbMenu.Rows[4].Visible = false;
-                        this.tbMenu.Rows[5].Visible = false;
+                        TraceHelper.Information("Se controla si el usuario puede solicitar contraseñas");
+
+                        // si no tiene permisos para solicitar contraseñas oculta el acceso
+                        //bool NotPwdRqstRole = false;
+                        if (!PhxUsrBL.ChkPwdsRequest(IdentUser))
+                        {
+                            this.tbMenu.Rows[0].Visible = false;
+                            this.tbMenu.Rows[2].Visible = false;
+                            this.tbMenu.Rows[3].Visible = false;
+                            //NotPwdRqstRole = true;
+                        }
+
+                        TraceHelper.Information("Se controla si el usuario puede autorizar solicitudes");
+
+                        // si no tiene permisos para autorizar pedidos
+                        if (!PhxUsrBL.ChkAuthPwdRequest(IdentUser))
+                        {
+                            this.tbMenu.Rows[1].Visible = false;
+                            this.tbMenu.Rows[4].Visible = false;
+                            this.tbMenu.Rows[5].Visible = false;
+                        }
                     }
                 }
             }
+
             if (!internalError)
             {
                 //Session["CtrlTitle"] = "Menu Principal";
@@ -85,6 +112,7 @@ namespace PhalanxWeb
                 Session["CtrlUser"] = "Usuario: " + (string)Session["phxWinUser"];
             }
         }
+
         protected void LBConsContras_Click(object sender, System.EventArgs e)
         {
             try
@@ -116,6 +144,7 @@ namespace PhalanxWeb
             {
             }
         }
+
         protected void lblGetPwdBack_Click(object sender, System.EventArgs e)
         {
             try
@@ -136,6 +165,7 @@ namespace PhalanxWeb
             {
             }
         }
+
         protected void lnkSolicExp_Click(object sender, System.EventArgs e)
         {
             try

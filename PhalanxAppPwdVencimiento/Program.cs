@@ -6,8 +6,7 @@ using System.Collections;
 using PhalanxCommon.Entities;
 using PhalanxCommon.Collections;
 using PhalanxDAL.Factories;
-
-
+using Classworx.Common.Trace;
 
 namespace PhalanxAppPwdVencimiento
 {
@@ -46,6 +45,7 @@ namespace PhalanxAppPwdVencimiento
             catch (Exception ex)
             {
                 string mensaje = string.Format("Error al obtener vencimientos. Error interno: {0}", ex.ToString());
+                TraceHelper.Error(ex, "Error al obtener vencimientos");
 
                 Console.WriteLine(mensaje);
                 LogError(mensaje);
@@ -130,6 +130,7 @@ namespace PhalanxAppPwdVencimiento
             catch (Exception ex)
             {
                 string mensaje = string.Format("Error al procesar vencimientos. Error interno: {0}", ex.ToString());
+                TraceHelper.Error(ex, "Error al procesar vencimientos");
 
                 Console.WriteLine(mensaje);
                 LogError(mensaje);
@@ -163,6 +164,7 @@ namespace PhalanxAppPwdVencimiento
             catch (Exception ex)
             {
                 string mensaje = string.Format("Error al guardar log. Error interno: {0}", ex.ToString());
+                TraceHelper.Error(ex, "Error al guardar log");
 
                 Console.WriteLine(mensaje);
                 LogError(mensaje);
@@ -183,6 +185,7 @@ namespace PhalanxAppPwdVencimiento
             catch (Exception ex)
             {
                 string mensaje = string.Format("Error al guardar detalle de log. Error interno: {0}", ex.ToString());
+                TraceHelper.Error(ex, "Error al obtener vencimientos");
 
                 Console.WriteLine(mensaje);
                 LogError(mensaje);
