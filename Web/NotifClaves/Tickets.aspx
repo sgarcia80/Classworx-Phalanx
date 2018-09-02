@@ -34,7 +34,7 @@
             </tr>
         </table>
     <br />
-        <asp:GridView ID="gvTickets" runat="server" AutoGenerateColumns="False" Width="70%"
+        <asp:GridView ID="gvTickets" runat="server" AutoGenerateColumns="False" Width="50%"
             CellPadding="4" ForeColor="#333333" GridLines="None" EmptyDataText="No tiene tickets disponibles para Visualizar"
             Font-Bold="False" DataSourceID="odsTickets" 
             AllowSorting="True" onsorting="gvTickets_Sorting">
@@ -42,20 +42,23 @@
             <Columns>
                 <asp:BoundField DataField="Fecha" HeaderText="Fecha" SortExpression="Fecha" DataFormatString="{0:dd/MM/yyyy HH:mm}">
                     <HeaderStyle HorizontalAlign="Left" />
+                    <ItemStyle Width="22%" />
                 </asp:BoundField>
                 <asp:BoundField DataField="Tipo" HeaderText="Tipo" SortExpression="Tipo">
                     <HeaderStyle HorizontalAlign="Left" />
+                    <ItemStyle Width="15%"/>
                 </asp:BoundField>
                 <asp:BoundField DataField="UsuarioAplicacion" HeaderText="Usuario" SortExpression="UsuarioAplicacion">
                     <HeaderStyle HorizontalAlign="Left" />
+                    <ItemStyle Width="25%" />
                 </asp:BoundField>
                 <asp:BoundField DataField="Aplicacion" HeaderText="Aplicaci&#243;n" SortExpression="Aplicacion">
-                    <ItemStyle Width="150px" />
                     <HeaderStyle HorizontalAlign="Left" />
+                    <ItemStyle Width="28%" />
                 </asp:BoundField>
                 <asp:HyperLinkField Text="Ver" DataNavigateUrlFields="Id,Tipo" DataNavigateUrlFormatString="~/DetalleTicket.aspx?id={0}&tipo={1}">
-                    <ItemStyle HorizontalAlign="Center" />
                     <HeaderStyle HorizontalAlign="Center" />
+                    <ItemStyle Width="10%" HorizontalAlign="Center" />
                 </asp:HyperLinkField>
             </Columns>
             <RowStyle BackColor="#EFF3FB" Font-Bold="True" Font-Names="Tahoma" Font-Size="11px" />
