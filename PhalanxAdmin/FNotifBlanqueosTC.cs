@@ -65,7 +65,7 @@ namespace PhalanxAdmin
             CargaComboAplicaciones();
             CargaComboDominios();
             CargaComboEstados();
-            ExecEntitiesRefresh();
+            //ExecEntitiesRefresh();
         }
 
         //protected virtual void InicializaFiltros

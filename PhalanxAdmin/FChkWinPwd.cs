@@ -267,7 +267,7 @@ namespace PhalanxAdmin
 
         private void FChkWinPwd_Load(object sender, EventArgs e)
         {
-            ExecEntitiesRefresh();
+            //ExecEntitiesRefresh();
         }
 
         private void lvLista_DoubleClick(object sender, EventArgs e)

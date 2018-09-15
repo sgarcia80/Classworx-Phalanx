@@ -310,7 +310,7 @@ namespace PhalanxAdmin
             this.cbCritico.SelectedIndex = 0;
             CargaComboTiposBD();
 
-            ExecEntitiesRefresh();
+            //ExecEntitiesRefresh();
 
         }
         private void CargaComboTiposBD()

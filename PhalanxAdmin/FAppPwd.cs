@@ -290,7 +290,7 @@ namespace PhalanxAdmin
             this.cboExpirado.SelectedIndex = 2;
             this.cboEstado.SelectedIndex = 0;
             this.cbCritico.SelectedIndex = 0;
-            ExecEntitiesRefresh();
+            //ExecEntitiesRefresh();
 
         }
 

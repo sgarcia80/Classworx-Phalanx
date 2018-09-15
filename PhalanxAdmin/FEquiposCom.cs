@@ -51,7 +51,7 @@ namespace PhalanxAdmin
 
             CargaComboTiposEC();
             
-            ExecEntitiesRefresh();
+            //ExecEntitiesRefresh();
         }
 
         //protected virtual void InicializaFiltros
