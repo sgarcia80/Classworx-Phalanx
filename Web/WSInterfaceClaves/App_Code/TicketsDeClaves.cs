@@ -118,8 +118,8 @@ public class TicketsDeClaves : System.Web.Services.WebService
         log.InfoFormat("NombreEmpresaSubsidiaria: '{0}'", string.IsNullOrEmpty(ticket.NomSubsidiaria) ? string.Empty : ticket.NomSubsidiaria);
         log.InfoFormat("NombreSolicitante: '{0}'", string.IsNullOrEmpty(ticket.NomSolicitante) ? string.Empty : ticket.NomSolicitante);
         log.InfoFormat("ApellidoSolicitante: '{0}'", string.IsNullOrEmpty(ticket.ApeSolicitante) ? string.Empty : ticket.ApeSolicitante);
-        log.InfoFormat("EventoId: '{0}'", string.IsNullOrEmpty(ticket.EventoId) ? string.Empty : ticket.EventoId);
-        log.InfoFormat("EventoDescr: '{0}'", string.IsNullOrEmpty(ticket.EventoDescr) ? string.Empty : ticket.EventoDescr);
+        //log.InfoFormat("EventoId: '{0}'", string.IsNullOrEmpty(ticket.EventoId) ? string.Empty : ticket.EventoId);
+        //log.InfoFormat("EventoDescr: '{0}'", string.IsNullOrEmpty(ticket.EventoDescr) ? string.Empty : ticket.EventoDescr);
         log.InfoFormat("{0}", "-".PadLeft(80, '-'));
 
         AgregarTicketResultado resultado = new AgregarTicketResultado();
@@ -243,11 +243,11 @@ public class TicketsDeClaves : System.Web.Services.WebService
         solicitudBPM.NombreSolicitante = ticket.NomSolicitante;
         solicitudBPM.ApellidoSolicitante = ticket.ApeSolicitante;
 
-        int eventoid = 0;
-        int.TryParse(ticket.EventoId, out eventoid);
+        //int eventoid = 0;
+        //int.TryParse(ticket.EventoId, out eventoid);
 
-        solicitudBPM.EventoId = eventoid > 0 ? eventoid : (int?)null;
-        solicitudBPM.EventoDescr = ticket.EventoDescr;
+        //solicitudBPM.EventoId = eventoid > 0 ? eventoid : (int?)null;
+        //solicitudBPM.EventoDescr = ticket.EventoDescr;
 
         log.InfoFormat("Se valida si existe una solicitud con el numero {0}", ticket.IdSolicitud);
 

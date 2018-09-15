@@ -61,17 +61,17 @@ public class TicketNotificacionClave
         get { return m_solicitud_id; }
     }
     
-    public string EventoId
-    {
-        set { m_evento_id = value; }
-        get { return m_evento_id; }
-    }
+    //public string EventoId
+    //{
+    //    set { m_evento_id = value; }
+    //    get { return m_evento_id; }
+    //}
 
-    public string EventoDescr
-    {
-        set { m_evento_descr = value; }
-        get { return m_evento_descr; }
-    }
+    //public string EventoDescr
+    //{
+    //    set { m_evento_descr = value; }
+    //    get { return m_evento_descr; }
+    //}
 
     public string CodigoAplicacion
     {
