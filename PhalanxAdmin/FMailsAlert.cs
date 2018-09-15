@@ -163,7 +163,7 @@ namespace PhalanxAdmin
             this.pbDB.Visible = false;
             CargaComboTiposMails();
             cbEstadoMail.SelectedIndex = 0;
-            ExecEntitiesRefresh();
+            //ExecEntitiesRefresh();
         }
         /// <summary>
         /// Llama a la función que genera el array de LV Items y si hay items llama a la que hace el llenado

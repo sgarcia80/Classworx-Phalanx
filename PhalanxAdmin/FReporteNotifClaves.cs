@@ -99,6 +99,7 @@ namespace PhalanxAdmin
         /// </example>
         private void SetQueryFilters()
         {
+            aplicacion = null;
             if (cbAplicacion.SelectedIndex > 0)
             {
                 aplicacion = (AplicacionNotificacionClaveEntity)cbAplicacion.SelectedItem;

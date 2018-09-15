@@ -245,7 +245,7 @@ namespace PhalanxAdmin
             lnkDelete.Enabled = UsrBL.AccParamEdificiosRW(this.Usuario);
             this.lnkCancelar.Visible = false;
             this.pbDB.Visible = false;
-            ExecEntitiesRefresh();
+            //ExecEntitiesRefresh();
 
         }
 

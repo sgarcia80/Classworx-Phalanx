@@ -247,7 +247,7 @@ namespace PhalanxAdmin
 
             this.lnkCancelar.Visible = false;
             this.pbDB.Visible = false;
-            ExecEntitiesRefresh();
+            //ExecEntitiesRefresh();
 
         }
 

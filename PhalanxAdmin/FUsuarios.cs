@@ -48,7 +48,7 @@ namespace PhalanxAdmin
             this.lnkCancelar.Visible = false;
             this.pbDB.Visible = false;
             cbEstado.SelectedIndex = 0; // por defecto se selecciona Activos
-            ExecEntitiesRefresh();
+            //ExecEntitiesRefresh();
 
         }
 

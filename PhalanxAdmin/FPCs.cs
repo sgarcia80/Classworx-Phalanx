@@ -45,7 +45,7 @@ namespace PhalanxAdmin
             this.lnkCancelar.Visible = false;
             this.pbDB.Visible = false;
             CargaComboDominios();
-            ExecEntitiesRefresh();
+            //ExecEntitiesRefresh();
         }
 
 

@@ -253,7 +253,7 @@ namespace PhalanxAdmin
             this.lnkCancelar.Visible = false;
             this.cboEstado.SelectedIndex = 0;
             this.pbDB.Visible = false;
-            ExecEntitiesRefresh();
+            //ExecEntitiesRefresh();
 
         }
 

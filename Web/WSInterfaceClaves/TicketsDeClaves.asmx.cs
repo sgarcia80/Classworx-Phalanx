@@ -113,8 +113,8 @@ namespace WSInterfaceClaves
             TraceHelper.Information("NombreEmpresaSubsidiaria: '{0}'", string.IsNullOrEmpty(ticket.NomSubsidiaria) ? string.Empty : ticket.NomSubsidiaria);
             TraceHelper.Information("NombreSolicitante: '{0}'", string.IsNullOrEmpty(ticket.NomSolicitante) ? string.Empty : ticket.NomSolicitante);
             TraceHelper.Information("ApellidoSolicitante: '{0}'", string.IsNullOrEmpty(ticket.ApeSolicitante) ? string.Empty : ticket.ApeSolicitante);
-            TraceHelper.Information("EventoId: '{0}'", string.IsNullOrEmpty(ticket.EventoId) ? string.Empty : ticket.EventoId);
-            TraceHelper.Information("EventoDescr: '{0}'", string.IsNullOrEmpty(ticket.EventoDescr) ? string.Empty : ticket.EventoDescr);
+            //TraceHelper.Information("EventoId: '{0}'", string.IsNullOrEmpty(ticket.EventoId) ? string.Empty : ticket.EventoId);
+            //TraceHelper.Information("EventoDescr: '{0}'", string.IsNullOrEmpty(ticket.EventoDescr) ? string.Empty : ticket.EventoDescr);
             TraceHelper.Information("{0}", "-".PadLeft(80, '-'));
 
             AgregarTicketResultado resultado = new AgregarTicketResultado();
@@ -238,11 +238,11 @@ namespace WSInterfaceClaves
             solicitudBPM.NombreSolicitante = ticket.NomSolicitante;
             solicitudBPM.ApellidoSolicitante = ticket.ApeSolicitante;
 
-            int eventoid = 0;
-            int.TryParse(ticket.EventoId, out eventoid);
+            //int eventoid = 0;
+            //int.TryParse(ticket.EventoId, out eventoid);
 
-            solicitudBPM.EventoId = eventoid > 0 ? eventoid : (int?)null;
-            solicitudBPM.EventoDescr = ticket.EventoDescr;
+            //solicitudBPM.EventoId = eventoid > 0 ? eventoid : (int?)null;
+            //solicitudBPM.EventoDescr = ticket.EventoDescr;
 
             TraceHelper.Information("Se valida si existe una solicitud con el numero {0}", ticket.IdSolicitud);
 

@@ -286,7 +286,7 @@ namespace PhalanxAdmin
             this.cbCritico.SelectedIndex = 0;
             CargaComboTiposEC();
 
-            ExecEntitiesRefresh();
+            //ExecEntitiesRefresh();
 
         }
         private void CargaComboTiposEC()

@@ -65,7 +65,7 @@ namespace PhalanxAdmin
             CargaComboAplicaciones();
             CargaComboDominios();
             CargaComboTiposNotif();
-            ExecEntitiesRefresh();
+            //ExecEntitiesRefresh();
         }
         //protected virtual void InicializaFiltros
         /* Proceso de acceso a DB

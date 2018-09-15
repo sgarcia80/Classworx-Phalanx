@@ -22,36 +22,50 @@ namespace NotifClavesWeb
             //    Response.Redirect("~/Login.aspx");
             //}
 
-            int id = 0;
-            string tipo = "ALTA";
-
-            if (Request["id"] != null)
+            if (!IsPostBack)
             {
-                int.TryParse(Request["id"], out id);
-            }
-            if (Request["tipo"] != null)
-            {
-                tipo = Request["tipo"].ToString().ToUpper();
-            }
+                bool salir = !Request.UrlReferrer.AbsolutePath.Contains("Tickets.aspx");
 
-            string redirect = string.Empty;
+                if (salir)
+                {
+                    btnVolver.PostBackUrl = "~/Login.aspx";
+                }
+                else
+                {
+                    btnVolver.PostBackUrl = "~/Tickets.aspx";
+                }
 
-            tbTipoSolicitud.Text = "Alta de Usuario";
+                int id = 0;
+                string tipo = "ALTA";
 
-            if (id > 0 && tipo == "ALTA")
-            {
-                redirect = ConsultarTicketNotificacionClave(id);
-            }
+                if (Request["id"] != null)
+                {
+                    int.TryParse(Request["id"], out id);
+                }
+                if (Request["tipo"] != null)
+                {
+                    tipo = Request["tipo"].ToString().ToUpper();
+                }
 
-            if (id > 0 && tipo == "BLANQUEO")
-            {
-                redirect = ConsultarTicketNotificacion(id, tipo);
-            }
+                string redirect = string.Empty;
 
-            Session["tipoticket"] = tipo;
-            if (!string.IsNullOrEmpty(redirect))
-            {
-                Response.Redirect(redirect);
+                tbTipoSolicitud.Text = "Alta de Usuario";
+
+                if (id > 0 && tipo == "ALTA")
+                {
+                    redirect = ConsultarTicketNotificacionClave(id);
+                }
+
+                if (id > 0 && tipo == "BLANQUEO")
+                {
+                    redirect = ConsultarTicketNotificacion(id, tipo);
+                }
+
+                Session["tipoticket"] = tipo;
+                if (!string.IsNullOrEmpty(redirect))
+                {
+                    Response.Redirect(redirect);
+                }
             }
         }
 
