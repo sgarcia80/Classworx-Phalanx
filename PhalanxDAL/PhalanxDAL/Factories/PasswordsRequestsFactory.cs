@@ -12,11 +12,11 @@ using Classworx.Common.Trace;
 
 namespace PhalanxDAL.Factories
 {
-	/// <summary>
-	/// Summary description for PasswordsRequestsFactory.
-	/// </summary>
-	public class PasswordsRequestsFactory
-	{
+    /// <summary>
+    /// Summary description for PasswordsRequestsFactory.
+    /// </summary>
+    public class PasswordsRequestsFactory
+    {
         private int? _fil_pwdrqst_id;
         public int FilPwdRqst
         {
@@ -25,147 +25,147 @@ namespace PhalanxDAL.Factories
                 _fil_pwdrqst_id = value;
             }
         }
-		public PasswordsRequestsFactory()
-		{
-			//
-			// TODO: Add constructor logic here
-			//
-		}
-		/// <summary>
-		/// Guarda la solicitud de consulta de contraseña
-		/// </summary>
-		/// <param name="UserId">Id del usuario que se quiere consultar la contraseña</param>
-		/// <param name="RequestDesc">Descripción de la solicitud</param>
-		/// <param name="RqstUserId">Usuario que realizó la consulta</param>
-		/// <param name="Auth1UserId">Usuario autorizador 1</param>
-		/// <example>
-		/// PasswordsRequestsFactory PRF = new PasswordsRequestsFactory();
-		/// luego se PRF.CreateRequest(1,"deseo el psfd",1);
-		/// </example>
-		/// deberá implementar para Usuario Autorizador2
-		public uint CreateRequest(int UserId, string RequestDesc, int RqstUserId) //, int Auth1UserId)
-		{
-			DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 5, 0
-				, "Entro a PasswordsRequestsFactory.CreateRequest(int UserId, string RequestDesc, int RqstUserId)"
-				, "UserId: " + UserId.ToString() + " - RequestDesc: " + RequestDesc + "RqstUserId: " + RqstUserId.ToString()
-				, true, false);
-			// busca el obj Usuario a raíz del UserId para traer el obj Password
-			UsersFactory UF = new UsersFactory();
-			UserEntity objU = UF.GetUserByID(UserId);
-			if (objU == null)
-			{
-				return PhxDALUtil.NO_DATA_FOUND;
-			}
-			PasswordRequestEntity objRqst = new PasswordRequestEntity();
+        public PasswordsRequestsFactory()
+        {
+            //
+            // TODO: Add constructor logic here
+            //
+        }
+        /// <summary>
+        /// Guarda la solicitud de consulta de contraseña
+        /// </summary>
+        /// <param name="UserId">Id del usuario que se quiere consultar la contraseña</param>
+        /// <param name="RequestDesc">Descripción de la solicitud</param>
+        /// <param name="RqstUserId">Usuario que realizó la consulta</param>
+        /// <param name="Auth1UserId">Usuario autorizador 1</param>
+        /// <example>
+        /// PasswordsRequestsFactory PRF = new PasswordsRequestsFactory();
+        /// luego se PRF.CreateRequest(1,"deseo el psfd",1);
+        /// </example>
+        /// deberá implementar para Usuario Autorizador2
+        public uint CreateRequest(int UserId, string RequestDesc, int RqstUserId) //, int Auth1UserId)
+        {
+            DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 5, 0
+                , "Entro a PasswordsRequestsFactory.CreateRequest(int UserId, string RequestDesc, int RqstUserId)"
+                , "UserId: " + UserId.ToString() + " - RequestDesc: " + RequestDesc + "RqstUserId: " + RqstUserId.ToString()
+                , true, false);
+            // busca el obj Usuario a raíz del UserId para traer el obj Password
+            UsersFactory UF = new UsersFactory();
+            UserEntity objU = UF.GetUserByID(UserId);
+            if (objU == null)
+            {
+                return PhxDALUtil.NO_DATA_FOUND;
+            }
+            PasswordRequestEntity objRqst = new PasswordRequestEntity();
 
             objRqst.UserPassword.Id = objU.UserPassword.Id;
-			objRqst.RequestDesc = RequestDesc;
-			objRqst.RequestDate = DateTime.Now;
+            objRqst.RequestDesc = RequestDesc;
+            objRqst.RequestDate = DateTime.Now;
 
-			// busca el Auth1 autorizador del PWD
-			RqstGrpsPwdsFactory RGPF = new RqstGrpsPwdsFactory();
-			int Auth1UserId = RGPF.GetAuth1User(RqstUserId, objU.UserPassword.Id);
-			if (Auth1UserId == 0)
-			{
-				return PhxDALUtil.NO_DATA_FOUND;
-			}
-			// busca el obj PhxUser correspondiente al usuario que hizo la solicitud
-			
-			PhxUsersFactory PUF = new PhxUsersFactory();
-			PhxUserEntity objPU = PUF.GetPhxUserByID(RqstUserId);
-			if (objPU == null)
-			{
-				return PhxDALUtil.NO_DATA_FOUND;
-			}
-			objRqst.RqstUser = objPU;
-            
-			// si son el mismo Id de la misma tabla no instancio un objeto nuevo sino que uso el mismo
-			// lo mismo va a pasar cuando agregue auth2
-			// si no se hace esto PINCHAAAAAAA!!!
-			if (RqstUserId == Auth1UserId)
-			{
-				objRqst.Auth1Usr = objPU;
-			}
-			else
-			{
-				PhxUserEntity objPUAuth1 = PUF.GetPhxUserByID(Auth1UserId);
-				objRqst.Auth1Usr = objPUAuth1;
-			}
+            // busca el Auth1 autorizador del PWD
+            RqstGrpsPwdsFactory RGPF = new RqstGrpsPwdsFactory();
+            int Auth1UserId = RGPF.GetAuth1User(RqstUserId, objU.UserPassword.Id);
+            if (Auth1UserId == 0)
+            {
+                return PhxDALUtil.NO_DATA_FOUND;
+            }
+            // busca el obj PhxUser correspondiente al usuario que hizo la solicitud
 
-			// busca el obj Request State correspondiente al Estado que tiene que pasar
-			RequestStatesFactory RSF = new RequestStatesFactory();
-			RequestStateEntity objRS = RSF.GetRqstStateByID((int)PhxDALUtil.RequestStates.Pending);
-			if (objRS == null)
-			{
-				return PhxDALUtil.NO_DATA_FOUND;
-			}
-			objRqst.RqstState = objRS;
+            PhxUsersFactory PUF = new PhxUsersFactory();
+            PhxUserEntity objPU = PUF.GetPhxUserByID(RqstUserId);
+            if (objPU == null)
+            {
+                return PhxDALUtil.NO_DATA_FOUND;
+            }
+            objRqst.RqstUser = objPU;
 
-			// otrosssss para prueba
-			//objRqst.Auth1Date = DateTime.Now;
-			//objRqst.Auth2Date = DateTime.Now;
-			
-			
-			ITransaction tx = null;
-			using(ISession session = DBMgr.factory.OpenSession())
-			{
-				try
-				{
-					tx = session.BeginTransaction();
-					
-					//session.Lock(objPU, LockMode.Read);
-					/*
+            // si son el mismo Id de la misma tabla no instancio un objeto nuevo sino que uso el mismo
+            // lo mismo va a pasar cuando agregue auth2
+            // si no se hace esto PINCHAAAAAAA!!!
+            if (RqstUserId == Auth1UserId)
+            {
+                objRqst.Auth1Usr = objPU;
+            }
+            else
+            {
+                PhxUserEntity objPUAuth1 = PUF.GetPhxUserByID(Auth1UserId);
+                objRqst.Auth1Usr = objPUAuth1;
+            }
+
+            // busca el obj Request State correspondiente al Estado que tiene que pasar
+            RequestStatesFactory RSF = new RequestStatesFactory();
+            RequestStateEntity objRS = RSF.GetRqstStateByID((int)PhxDALUtil.RequestStates.Pending);
+            if (objRS == null)
+            {
+                return PhxDALUtil.NO_DATA_FOUND;
+            }
+            objRqst.RqstState = objRS;
+
+            // otrosssss para prueba
+            //objRqst.Auth1Date = DateTime.Now;
+            //objRqst.Auth2Date = DateTime.Now;
+
+
+            ITransaction tx = null;
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                try
+                {
+                    tx = session.BeginTransaction();
+
+                    //session.Lock(objPU, LockMode.Read);
+                    /*
 					session.Lock(objU, LockMode.None);
 					session.Lock(objRS, LockMode.None);
 					//session.Save(objPU);
 					*/
-					//objPU.RequestsList.Add(objRqst);
-					session.SaveOrUpdate(objRqst);
-					tx.Commit();
-				}
-				catch (Exception)
-				{
-					tx.Rollback();
-					return PhxDALUtil.ERROR;
-				}
-			}
-			return PhxDALUtil.SUCCESS;
-		}
+                    //objPU.RequestsList.Add(objRqst);
+                    session.SaveOrUpdate(objRqst);
+                    tx.Commit();
+                }
+                catch (Exception)
+                {
+                    tx.Rollback();
+                    return PhxDALUtil.ERROR;
+                }
+            }
+            return PhxDALUtil.SUCCESS;
+        }
 
         //public PasswordRequestEntityCollection GetRequestsToAuthByAuth(PhxUserEntity Auth)
         //{
         //    return this.GetRequestsToAuthByAuth(Auth.Id);
         //}
 
-		/// <summary>
-		/// Busca las solicitudes pendientes de autorización. Inicialmente sería para un autorizador
+        /// <summary>
+        /// Busca las solicitudes pendientes de autorización. Inicialmente sería para un autorizador
         /// pero ahora supone que el usuario tiene rol de autorizador y con eso suficiente
-		/// </summary>
-		/// <param name="AuthId">Id del usuario Autorizador</param>
-		/// <returns>Lista de Solicitudes. Devuelve null si no encuentra nada</returns>
-		/// <example>
-		/// PasswordsRequestsFactory PRF = new PasswordsRequestsFactory();
-		/// foreach (PasswordRequestEntity objPR in PRF.GetRequestsToAuthByAuth(3))
-		/// {
-		/// 	int i = objPR.RequestId;
-		/// }
-		/// </example>
-		//public PasswordRequestEntityCollection GetRequestsToAuthByAuth(int AuthId)
+        /// </summary>
+        /// <param name="AuthId">Id del usuario Autorizador</param>
+        /// <returns>Lista de Solicitudes. Devuelve null si no encuentra nada</returns>
+        /// <example>
+        /// PasswordsRequestsFactory PRF = new PasswordsRequestsFactory();
+        /// foreach (PasswordRequestEntity objPR in PRF.GetRequestsToAuthByAuth(3))
+        /// {
+        /// 	int i = objPR.RequestId;
+        /// }
+        /// </example>
+        //public PasswordRequestEntityCollection GetRequestsToAuthByAuth(int AuthId)
         public PasswordRequestEntityCollection GetRequestsToAuthByAuth(PhxUserEntity Auth)
-		{
+        {
             PasswordRequestEntityCollection PwdRqstEC = new PasswordRequestEntityCollection();
-			DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 5, 0
-				, "Entro a PasswordsRequestsFactory.GetRequestsToAuthByAuth(int AuthId)"
-				, "AuthId: " + Auth.Key
-				, true, false);
-			IList<PasswordRequestEntity> lstRqsts = null;
-			try
-			{
-				//ITransaction tx = null;
-				using(ISession session = DBMgr.factory.OpenSession())
-				{
+            DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 5, 0
+                , "Entro a PasswordsRequestsFactory.GetRequestsToAuthByAuth(int AuthId)"
+                , "AuthId: " + Auth.Key
+                , true, false);
+            IList<PasswordRequestEntity> lstRqsts = null;
+            try
+            {
+                //ITransaction tx = null;
+                using (ISession session = DBMgr.factory.OpenSession())
+                {
                     // esto es para cumplir con el autorizador asignado. Por ahora lo comento
-					/*lstRqsts = session.CreateCriteria(typeof(PasswordRequestEntity))
+                    /*lstRqsts = session.CreateCriteria(typeof(PasswordRequestEntity))
 						//.Add(Expression.Eq("Auth1UsrId.PhxUserId",AuthId))
 						.Add(Expression.Or(Expression.Eq("Auth1Usr.Id",AuthId),Expression.Eq("Auth2Usr.Id",AuthId)))
 						.Add(Expression.Eq("RqstState.Id",(int)PhxDALUtil.RequestStates.Pending))
@@ -187,14 +187,14 @@ namespace PhalanxDAL.Factories
                         .AddOrder(Order.Asc("RequestDate"))
                         .List<PasswordRequestEntity>();*/
 
-                    lstRqsts = session.CreateCriteria(typeof(PasswordRequestEntity),"PwdRqst")
+                    lstRqsts = session.CreateCriteria(typeof(PasswordRequestEntity), "PwdRqst")
                         .Add(Expression.Eq("RqstState.Id", (int)PhxDALUtil.RequestStates.Pending))
-                        .CreateCriteria("UserPassword","UP")
-                        .CreateCriteria("UP.FollowupRqstGrpsPwdsList","FRQP")
-                        .CreateCriteria("FRQP.FollowupRqstGrp","FRG")
+                        .CreateCriteria("UserPassword", "UP")
+                        .CreateCriteria("UP.FollowupRqstGrpsPwdsList", "FRQP")
+                        .CreateCriteria("FRQP.FollowupRqstGrp", "FRG")
                         .Add(Expression.Eq("FRG.Active", true))
-                        .CreateCriteria("FRG.FollowupGroupUsersList","FRGU")
-                        .Add(Expression.Eq("FRGU.PhxUser",Auth))
+                        .CreateCriteria("FRG.FollowupGroupUsersList", "FRGU")
+                        .Add(Expression.Eq("FRGU.PhxUser", Auth))
                         .AddOrder(Order.Asc("PwdRqst.RequestDate"))
                         .List<PasswordRequestEntity>();
                     foreach (PasswordRequestEntity PwdRqstE in lstRqsts)
@@ -211,120 +211,120 @@ namespace PhalanxDAL.Factories
                         //}
                         //if (pwdInGroup)
                         //{
-                            int i = PwdRqstE.UserPassword.UsersList.Count;
-                            PwdRqstEC.Add(PwdRqstE);
+                        int i = PwdRqstE.UserPassword.UsersList.Count;
+                        PwdRqstEC.Add(PwdRqstE);
                         //}
                     }
-				}
-			}
-			catch (Exception)
-			{
+                }
+            }
+            catch (Exception)
+            {
                 return null;
-			}
-			return PwdRqstEC;
+            }
+            return PwdRqstEC;
 
-		}
-		/// <summary>
-		/// Pasa a estado autorizado la solicitud
-		/// </summary>
-		/// <param name="PwdRequestId">Id de la solicitud</param>
-		/// <param name="AuthID">Id del Autorizador</param>
-		/// <param name="AuthDesc">Descripción del autorizador</param>
-		/// <example>
-		/// PasswordsRequestsFactory PRF = new PasswordsRequestsFactory();
-		/// PRF.AuthorizeRequest(1,2);
-		/// </example>
-		public uint AuthorizeRequest(int PwdRequestId, int AuthID, string AuthDesc)
-		{
-			return AuthRejectRequest(PwdRequestId, AuthID, AuthDesc, (int)PhxDALUtil.RequestStates.Authorized);
-		}
-		/// <summary>
-		/// Pasa a estado no autorizado la solicitud
-		/// </summary>
-		/// <param name="PwdRequestId">Id de la solicitud</param>
-		/// <param name="AuthID">Id del Autorizador</param>
-		/// <param name="AuthDesc">Descripción del autorizador</param>
-		public uint RejectRequest(int PwdRequestId, int AuthID, string AuthDesc)
-		{
-			return AuthRejectRequest(PwdRequestId, AuthID, AuthDesc, (int)PhxDALUtil.RequestStates.NotAuthorized);
-		}
-		/// <summary>
-		/// Pasa del estado Pendiente al estado indicado (debería ser autorizado / rechazado)
-		/// </summary>
-		/// <param name="PwdRequestId">Id de la solicitud</param>
-		/// <param name="AuthID">Id del Autorizador</param>
-		/// <param name="AuthDesc">Descripción del autorizador</param>
-		/// <param name="NewStateId">Id del nuevo estado al que pasa</param>
-		/// <returns></returns>
-		private uint AuthRejectRequest(int PwdRequestId, int AuthID, string AuthDesc, int NewStateId)
-		{
-			DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 5, 0
-				, "Entro a PasswordsRequestsFactory.AuthRejectRequest(int PwdRequestId, int AuthID, string AuthDesc, int NewStateId)"
-				, "PwdRequestId: " + PwdRequestId.ToString() + "AuthID: " + AuthID.ToString() + "AuthDesc: " + AuthDesc + "NewStateId: " + NewStateId.ToString()
-				, true, false);
-			PasswordRequestEntity PwdRqst = null;
-			ITransaction tx = null;
-			try
-			{
-				//ITransaction tx = null;
-				using(ISession session = DBMgr.factory.OpenSession())
-				{
-					// Retrieve data here (with the session)
-					//ICriteria myCrit = session.CreateCriteria(typeof(WinLocalUsers));
-				
-				
-					PwdRqst = (PasswordRequestEntity)session.Load(typeof(PasswordRequestEntity), PwdRequestId);
-					if (AuthID != PwdRqst.Auth1Usr.Id && AuthID != PwdRqst.Auth2Usr.Id)
-					{
-						// salir con excepcion
-						return PhxDALUtil.NO_DATA_FOUND;
-					}
-					if (PwdRqst.Auth1Usr != null && AuthID == PwdRqst.Auth1Usr.Id)
-					{					
-						PwdRqst.Auth1Date = DateTime.Now;
-					}
-					if (PwdRqst.Auth2Usr != null && AuthID == PwdRqst.Auth2Usr.Id)
-					{					
-						PwdRqst.Auth2Date = DateTime.Now;
-					}
-					
-					RequestStateEntity newRqstState = null;
-					RequestStatesFactory RSF = new RequestStatesFactory();
-					newRqstState = RSF.GetRqstStateByID(NewStateId);
-					if (newRqstState == null)
-					{
-						return PhxDALUtil.NO_DATA_FOUND;
-					}
-					PwdRqst.RqstState = newRqstState;
-					PwdRqst.AuthDesc = AuthDesc;
-					try
-					{
-						tx = session.BeginTransaction();
-						session.Update(PwdRqst);
-						tx.Commit();
-					}
-					catch (Exception ex)
-					{
-						tx.Rollback();
-						throw(ex);
-					}
-                    
-				}
-				int i = PwdRqst.Id;
-				int x = 0;
-			}
-			catch (NHibernate.ObjectNotFoundException ONFex)
-			{
-				return PhxDALUtil.NO_DATA_FOUND;
-                
-			}
-			catch (Exception)
-			{
-				
-				return PhxDALUtil.ERROR;
-			}
-			return PhxDALUtil.SUCCESS;
-		}
+        }
+        /// <summary>
+        /// Pasa a estado autorizado la solicitud
+        /// </summary>
+        /// <param name="PwdRequestId">Id de la solicitud</param>
+        /// <param name="AuthID">Id del Autorizador</param>
+        /// <param name="AuthDesc">Descripción del autorizador</param>
+        /// <example>
+        /// PasswordsRequestsFactory PRF = new PasswordsRequestsFactory();
+        /// PRF.AuthorizeRequest(1,2);
+        /// </example>
+        public uint AuthorizeRequest(int PwdRequestId, int AuthID, string AuthDesc)
+        {
+            return AuthRejectRequest(PwdRequestId, AuthID, AuthDesc, (int)PhxDALUtil.RequestStates.Authorized);
+        }
+        /// <summary>
+        /// Pasa a estado no autorizado la solicitud
+        /// </summary>
+        /// <param name="PwdRequestId">Id de la solicitud</param>
+        /// <param name="AuthID">Id del Autorizador</param>
+        /// <param name="AuthDesc">Descripción del autorizador</param>
+        public uint RejectRequest(int PwdRequestId, int AuthID, string AuthDesc)
+        {
+            return AuthRejectRequest(PwdRequestId, AuthID, AuthDesc, (int)PhxDALUtil.RequestStates.NotAuthorized);
+        }
+        /// <summary>
+        /// Pasa del estado Pendiente al estado indicado (debería ser autorizado / rechazado)
+        /// </summary>
+        /// <param name="PwdRequestId">Id de la solicitud</param>
+        /// <param name="AuthID">Id del Autorizador</param>
+        /// <param name="AuthDesc">Descripción del autorizador</param>
+        /// <param name="NewStateId">Id del nuevo estado al que pasa</param>
+        /// <returns></returns>
+        private uint AuthRejectRequest(int PwdRequestId, int AuthID, string AuthDesc, int NewStateId)
+        {
+            DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 5, 0
+                , "Entro a PasswordsRequestsFactory.AuthRejectRequest(int PwdRequestId, int AuthID, string AuthDesc, int NewStateId)"
+                , "PwdRequestId: " + PwdRequestId.ToString() + "AuthID: " + AuthID.ToString() + "AuthDesc: " + AuthDesc + "NewStateId: " + NewStateId.ToString()
+                , true, false);
+            PasswordRequestEntity PwdRqst = null;
+            ITransaction tx = null;
+            try
+            {
+                //ITransaction tx = null;
+                using (ISession session = DBMgr.factory.OpenSession())
+                {
+                    // Retrieve data here (with the session)
+                    //ICriteria myCrit = session.CreateCriteria(typeof(WinLocalUsers));
+
+
+                    PwdRqst = (PasswordRequestEntity)session.Load(typeof(PasswordRequestEntity), PwdRequestId);
+                    if (AuthID != PwdRqst.Auth1Usr.Id && AuthID != PwdRqst.Auth2Usr.Id)
+                    {
+                        // salir con excepcion
+                        return PhxDALUtil.NO_DATA_FOUND;
+                    }
+                    if (PwdRqst.Auth1Usr != null && AuthID == PwdRqst.Auth1Usr.Id)
+                    {
+                        PwdRqst.Auth1Date = DateTime.Now;
+                    }
+                    if (PwdRqst.Auth2Usr != null && AuthID == PwdRqst.Auth2Usr.Id)
+                    {
+                        PwdRqst.Auth2Date = DateTime.Now;
+                    }
+
+                    RequestStateEntity newRqstState = null;
+                    RequestStatesFactory RSF = new RequestStatesFactory();
+                    newRqstState = RSF.GetRqstStateByID(NewStateId);
+                    if (newRqstState == null)
+                    {
+                        return PhxDALUtil.NO_DATA_FOUND;
+                    }
+                    PwdRqst.RqstState = newRqstState;
+                    PwdRqst.AuthDesc = AuthDesc;
+                    try
+                    {
+                        tx = session.BeginTransaction();
+                        session.Update(PwdRqst);
+                        tx.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        tx.Rollback();
+                        throw (ex);
+                    }
+
+                }
+                int i = PwdRqst.Id;
+                int x = 0;
+            }
+            catch (NHibernate.ObjectNotFoundException ONFex)
+            {
+                return PhxDALUtil.NO_DATA_FOUND;
+
+            }
+            catch (Exception)
+            {
+
+                return PhxDALUtil.ERROR;
+            }
+            return PhxDALUtil.SUCCESS;
+        }
 
         /// <summary>
         /// Mediante este método se devolverá una contraseña ya visualizada o expirada
@@ -338,11 +338,11 @@ namespace PhalanxDAL.Factories
         {
             return GetRequestPwdBack(pwdRequestId, newStateId, note, adminUserId, false);
         }
-        public uint GetRequestPwdBack(int pwdRequestId, int newStateId, string note, int adminUserId, bool DisableUser )
+        public uint GetRequestPwdBack(int pwdRequestId, int newStateId, string note, int adminUserId, bool DisableUser)
         {
             DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 5, 0
                 , "Entro a PasswordsRequestsFactory.GetRequestPwdBack(int pwdRequestId, int newStateId, string note, int adminUserId, bool DisableUser )"
-                , "PwdRequestId: " + pwdRequestId.ToString()  + "NewStateId: " + newStateId.ToString()
+                , "PwdRequestId: " + pwdRequestId.ToString() + "NewStateId: " + newStateId.ToString()
                 , true, false);
             PasswordRequestEntity PwdRqst = null;
             ITransaction tx = null;
@@ -361,11 +361,11 @@ namespace PhalanxDAL.Factories
                         PwdRqst.ReturnUser = PwdRqst.RqstUser;
                     else
                         PwdRqst.ReturnUser = null;
-                   
+
                     RequestStateEntity newRqstState = null;
                     RequestStatesFactory RSF = new RequestStatesFactory();
                     newRqstState = RSF.GetRqstStateByID(newStateId);
-                    
+
                     if (newRqstState == null)
                     {
                         return PhxDALUtil.NO_DATA_FOUND;
@@ -431,7 +431,7 @@ namespace PhalanxDAL.Factories
                     PwdRqst.UserPassword.DInUseUntil = null;
 
                     if (adminUserId > 0)
-                        PwdRqst.CloseUser = new PhxUsersFactory().GetPhxUserByID ( adminUserId );
+                        PwdRqst.CloseUser = new PhxUsersFactory().GetPhxUserByID(adminUserId);
 
 
                     RequestStateEntity newRqstState = new RequestStatesFactory().GetRqstStateByID(newStateId);
@@ -457,7 +457,7 @@ namespace PhalanxDAL.Factories
                             }
                             newUserEntity.ActiveUser = false;
                             */
-                            
+
                         }
                         tx.Commit();
                     }
@@ -481,68 +481,68 @@ namespace PhalanxDAL.Factories
             return PhxDALUtil.SUCCESS;
         }
 
-		/// <summary>
-		/// Busca la solicitud de contraseña correspondiente al ID
-		/// </summary>
-		/// <param name="PassRqstId">Id de la solicitud de contraseña</param>
-		/// <returns>Devuelve la Solicitud de Contraseña. Null si no encuentra datos</returns>
-		public PasswordRequestEntity GetPassRqstByID(int PassRqstId)
-		{
-			try
-			{
-				PasswordRequestEntity objPassRqst = null;
-				using(ISession session = DBMgr.factory.OpenSession())
-				{
-					objPassRqst = (PasswordRequestEntity)session.Load(typeof(PasswordRequestEntity),PassRqstId);
-				}
-				return objPassRqst;
-			}
-			catch(NHibernate.ObjectNotFoundException)
-			{
-				return null;
-			}
-			catch(NHibernate.HibernateException)
-			{
-				return null;
-			}
-			catch(Exception ex)
-			{
-				return null;
-			}
-		}
+        /// <summary>
+        /// Busca la solicitud de contraseña correspondiente al ID
+        /// </summary>
+        /// <param name="PassRqstId">Id de la solicitud de contraseña</param>
+        /// <returns>Devuelve la Solicitud de Contraseña. Null si no encuentra datos</returns>
+        public PasswordRequestEntity GetPassRqstByID(int PassRqstId)
+        {
+            try
+            {
+                PasswordRequestEntity objPassRqst = null;
+                using (ISession session = DBMgr.factory.OpenSession())
+                {
+                    objPassRqst = (PasswordRequestEntity)session.Load(typeof(PasswordRequestEntity), PassRqstId);
+                }
+                return objPassRqst;
+            }
+            catch (NHibernate.ObjectNotFoundException)
+            {
+                return null;
+            }
+            catch (NHibernate.HibernateException)
+            {
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
 
-		public PasswordRequestEntity GetFullPassRqstByID(int PassRqstId)
-		{
-			try
-			{
-				PasswordRequestEntity objPassRqst = null;
-				using(ISession session = DBMgr.factory.OpenSession())
-				{
-					objPassRqst = (PasswordRequestEntity)session.Load(typeof(PasswordRequestEntity),PassRqstId);
+        public PasswordRequestEntity GetFullPassRqstByID(int PassRqstId)
+        {
+            try
+            {
+                PasswordRequestEntity objPassRqst = null;
+                using (ISession session = DBMgr.factory.OpenSession())
+                {
+                    objPassRqst = (PasswordRequestEntity)session.Load(typeof(PasswordRequestEntity), PassRqstId);
                     int i = objPassRqst.UserPassword.UsersList.Count;
-				}
-				return objPassRqst;
-			}
-			catch(NHibernate.ObjectNotFoundException)
-			{
-				return null;
-			}
-			catch(NHibernate.HibernateException)
-			{
-				return null;
-			}
-			catch(Exception ex)
-			{
-				return null;
-			}
-		}
+                }
+                return objPassRqst;
+            }
+            catch (NHibernate.ObjectNotFoundException)
+            {
+                return null;
+            }
+            catch (NHibernate.HibernateException)
+            {
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
 
         /// <summary>
         /// Busca las solicitudes de contraseña que estén en estado Pendiente de autorización, autorizadas y no autorizadas por usuario solicitante
         /// </summary>
         /// <param name="arrayStates">Id del usuario solicitante</param>
         /// <returns>Devuelve la lista de Solicitudes de Contraseña. Si no hay datos devuelve null</returns>
-        public PasswordRequestEntityCollection GetPassRqst(UserEntity User, ArrayList arrayStates, string NumeroSolicitud, ArrayList arrayGroups )
+        public PasswordRequestEntityCollection GetPassRqst(UserEntity User, ArrayList arrayStates, string NumeroSolicitud, ArrayList arrayGroups)
         {
             PasswordRequestEntityCollection PwdRqstEC = new PasswordRequestEntityCollection();
             IList<PasswordRequestEntity> lstRqsts = null;
@@ -767,7 +767,7 @@ namespace PhalanxDAL.Factories
                             }
                             else
                             {
-                                if (arrayGroups!= null)
+                                if (arrayGroups != null)
                                 {
                                     lstRqsts = DataSearch
                                    .CreateCriteria("UserPassword", "UsrPwd")
@@ -780,7 +780,7 @@ namespace PhalanxDAL.Factories
                                 }
                             }
 
-                        
+
                         }
 
                         /*RqstGrpPwdEntity a;
@@ -799,7 +799,7 @@ namespace PhalanxDAL.Factories
             }
             catch (Exception ex)
             {
-         
+
                 return null;
             }
             return PwdRqstEC;
@@ -809,7 +809,7 @@ namespace PhalanxDAL.Factories
         /// Devuelve todas las solicitudes de contraseña
         /// </summary>
         /// <returns>Devuelve la lista de Solicitudes de Contraseña. Si no hay datos devuelve null</returns>
-        public PasswordRequestEntityCollection GetAllPassRqst ()
+        public PasswordRequestEntityCollection GetAllPassRqst()
         {
             PasswordRequestEntityCollection PwdRqstEC = new PasswordRequestEntityCollection();
             IList<PasswordRequestEntity> lstRqsts = null;
@@ -843,58 +843,58 @@ namespace PhalanxDAL.Factories
             return PwdRqstEC;
         }
 
-		/// <summary>
-		/// Busca las solicitudes de contraseña que estén en estado Pendiente de autorización, autorizadas y no autorizadas por usuario solicitante
-		/// </summary>
-		/// <param name="PhxUsrId">Id del usuario solicitante</param>
-		/// <returns>Devuelve la lista de Solicitudes de Contraseña. Si no hay datos devuelve null</returns>
+        /// <summary>
+        /// Busca las solicitudes de contraseña que estén en estado Pendiente de autorización, autorizadas y no autorizadas por usuario solicitante
+        /// </summary>
+        /// <param name="PhxUsrId">Id del usuario solicitante</param>
+        /// <returns>Devuelve la lista de Solicitudes de Contraseña. Si no hay datos devuelve null</returns>
         public PasswordRequestEntityCollection GetPassRqstByPhxUsr(PhxUserEntity PhxUser)
         {
             PasswordRequestEntityCollection PwdRqstEC = new PasswordRequestEntityCollection();
-			IList<PasswordRequestEntity> lstRqsts = null;
-			try
-			{
-				using(ISession session = DBMgr.factory.OpenSession())
-				{
+            IList<PasswordRequestEntity> lstRqsts = null;
+            try
+            {
+                using (ISession session = DBMgr.factory.OpenSession())
+                {
                     //UserTypeEntity WinUsrType = new UserTypesFactory().GetWinLocalUserType();
 
-					ArrayList arrStates = new ArrayList();
-					arrStates.Add((int)PhxDALUtil.RequestStates.Pending);
-					arrStates.Add((int)PhxDALUtil.RequestStates.Authorized);
-					arrStates.Add((int)PhxDALUtil.RequestStates.NotAuthorized);
+                    ArrayList arrStates = new ArrayList();
+                    arrStates.Add((int)PhxDALUtil.RequestStates.Pending);
+                    arrStates.Add((int)PhxDALUtil.RequestStates.Authorized);
+                    arrStates.Add((int)PhxDALUtil.RequestStates.NotAuthorized);
                     arrStates.Add((int)PhxDALUtil.RequestStates.Visualized);
                     arrStates.Add((int)PhxDALUtil.RequestStates.DelDone);
                     arrStates.Add((int)PhxDALUtil.RequestStates.DelFailed);
                     arrStates.Add((int)PhxDALUtil.RequestStates.DelReverseDone);
-				
-					lstRqsts = session.CreateCriteria(typeof(PasswordRequestEntity),"PwdRqst")
+
+                    lstRqsts = session.CreateCriteria(typeof(PasswordRequestEntity), "PwdRqst")
                         .Add(Expression.Eq("RqstUser", PhxUser))
-						.Add(Expression.In("RqstState.Id",arrStates))
+                        .Add(Expression.In("RqstState.Id", arrStates))
                         .Add(Expression.Eq("RqstUser", PhxUser))
                         .CreateCriteria("UserPassword", "UsrPwd")
                         .CreateCriteria("UsersList", "Usr")
                         .AddOrder(Order.Asc("PwdRqst.RequestDate"))
-						.List<PasswordRequestEntity>();
+                        .List<PasswordRequestEntity>();
                     foreach (PasswordRequestEntity PwdRqstE in lstRqsts)
                     {
                         int i = PwdRqstE.UserPassword.UsersList.Count;
                         if ((PwdRqstE.RqstState.Id == (int)PhxDALUtil.RequestStates.NotAuthorized) && (PwdRqstE.RequestDate < DateTime.Now.AddDays(-7)))
-                        { 
+                        {
                         }
                         else
                         {
                             PwdRqstEC.Add(PwdRqstE);
                         }
                     }
-				}
-			}
-			catch (Exception)
-			{
-				return null;
-			}
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
             //lstRqsts[0].UserPassword.UsersList
             return PwdRqstEC;
-		}
+        }
         public PasswordRequestEntityCollection GetCriticalPassRqstList(DateTime fechaDesde, DateTime fechaHasta, bool orderByFecha)
         {
             PasswordRequestEntityCollection PwdRqstEC = new PasswordRequestEntityCollection();
@@ -903,14 +903,14 @@ namespace PhalanxDAL.Factories
             {
                 string orderBy = "PwdRqst.UserPassword";
                 if (orderByFecha)
-                    orderBy = "PwdRqst.RequestDate"; 
+                    orderBy = "PwdRqst.RequestDate";
 
                 using (ISession session = DBMgr.factory.OpenSession())
                 {
-                   lstRqsts = session.CreateCriteria(typeof(PasswordRequestEntity), "PwdRqst")
-                     .Add(Expression.Between("RequestDate", fechaDesde, fechaHasta))
-                        .AddOrder(Order.Asc(orderBy))
-                        .List<PasswordRequestEntity>();
+                    lstRqsts = session.CreateCriteria(typeof(PasswordRequestEntity), "PwdRqst")
+                      .Add(Expression.Between("RequestDate", fechaDesde, fechaHasta))
+                         .AddOrder(Order.Asc(orderBy))
+                         .List<PasswordRequestEntity>();
                     foreach (PasswordRequestEntity PwdRqstE in lstRqsts)
                     {
                         int i = PwdRqstE.UserPassword.UsersList.Count;
@@ -1124,95 +1124,95 @@ namespace PhalanxDAL.Factories
             }
         }
 
-		/// <summary>
-		/// Devuelve la solicitud de contraseña autorizada para visualizarse al usuario que la solicitó. Pasa la contraseña al
-		/// estado visualizada. Establece la nueva fecha de cambio indicada en la solicitud.
-		/// </summary>
-		/// <param name="PwdRequestId">Id de la solicitud de contraseña</param>
-		/// <param name="RqstUsrId">Id del usuario solicitante</param>
-		/// <returns>Devuelve la lista de Solicitudes de Contraseña. Si no hay datos devuelve null</returns>
-		/// <example>
-		/// 	PasswordsRequestsFactory PRF = new PasswordsRequestsFactory();
-		///		PasswordRequestEntity objPR = PRF.GetPassRqstForView(8,2);
-		///		if (objPR != null)
-		///		{
-		///			string strpwd = objPR.UserPassword.Password;
-		///		}
-		/// </example>
-		public PasswordRequestEntity GetPassRqstForView(int PwdRequestId, int RqstUsrId)
-		{
-			IList lstRqsts = null;
-			PasswordRequestEntity objPwdRqst = null;
-			try
-			{
-				using(ISession session = DBMgr.factory.OpenSession())
-				{
-					lstRqsts = session.CreateCriteria(typeof(PasswordRequestEntity))
-						.Add(Expression.Eq("Id",PwdRequestId))
-						.Add(Expression.Eq("RqstUser.Id",RqstUsrId))
-						.Add(Expression.Eq("RqstState.Id",(int)PhxDALUtil.RequestStates.Authorized))
-						.List();
-					if (lstRqsts.Count == 0)
-					{
-						objPwdRqst = null;
-					}
-					else
-					{
-						PwdLockTypesFactory pltf = new PwdLockTypesFactory();
-						PwdLockTypeEntity InUseType = pltf.GetInUseType();
-						if (InUseType == null)
-						{
-							return null;
-						}
+        /// <summary>
+        /// Devuelve la solicitud de contraseña autorizada para visualizarse al usuario que la solicitó. Pasa la contraseña al
+        /// estado visualizada. Establece la nueva fecha de cambio indicada en la solicitud.
+        /// </summary>
+        /// <param name="PwdRequestId">Id de la solicitud de contraseña</param>
+        /// <param name="RqstUsrId">Id del usuario solicitante</param>
+        /// <returns>Devuelve la lista de Solicitudes de Contraseña. Si no hay datos devuelve null</returns>
+        /// <example>
+        /// 	PasswordsRequestsFactory PRF = new PasswordsRequestsFactory();
+        ///		PasswordRequestEntity objPR = PRF.GetPassRqstForView(8,2);
+        ///		if (objPR != null)
+        ///		{
+        ///			string strpwd = objPR.UserPassword.Password;
+        ///		}
+        /// </example>
+        public PasswordRequestEntity GetPassRqstForView(int PwdRequestId, int RqstUsrId)
+        {
+            IList lstRqsts = null;
+            PasswordRequestEntity objPwdRqst = null;
+            try
+            {
+                using (ISession session = DBMgr.factory.OpenSession())
+                {
+                    lstRqsts = session.CreateCriteria(typeof(PasswordRequestEntity))
+                        .Add(Expression.Eq("Id", PwdRequestId))
+                        .Add(Expression.Eq("RqstUser.Id", RqstUsrId))
+                        .Add(Expression.Eq("RqstState.Id", (int)PhxDALUtil.RequestStates.Authorized))
+                        .List();
+                    if (lstRqsts.Count == 0)
+                    {
+                        objPwdRqst = null;
+                    }
+                    else
+                    {
+                        PwdLockTypesFactory pltf = new PwdLockTypesFactory();
+                        PwdLockTypeEntity InUseType = pltf.GetInUseType();
+                        if (InUseType == null)
+                        {
+                            return null;
+                        }
 
-						// asigno el primer pwdrqst de la lista. Debería traer 1 solo
-						objPwdRqst = (PasswordRequestEntity)lstRqsts[0];
-						// agrego las horas asignadas a la fecha de próximo cambio de pwd
-						//objPwdRqst.UserPassword.DNextChange= DateTime.Now.AddHours(Convert.ToDouble(objPwdRqst.HoursGiven));
-						// seteo la fecha de uso
-						objPwdRqst.UserPassword.DInUseUntil= DateTime.Now.AddHours(Convert.ToDouble(objPwdRqst.HoursGiven));
-						// establezco que la contraseña está en uso
-						objPwdRqst.UserPassword.PwdLockType = InUseType;
-						// se va a buscar el nuevo estado del request, de visualizado
-						RequestStateEntity newRqstState = null;
-						RequestStatesFactory RSF = new RequestStatesFactory();
-						newRqstState = RSF.GetRqstStateByID((int)PhxDALUtil.RequestStates.Visualized);
-						if (newRqstState == null)
-						{
-							// si no encuentra el estado debe devolver null
-							objPwdRqst = null;
-						}
-						else
-						{
-							// asigno el nuevo estado al pwd rqst
-							objPwdRqst.RqstState = newRqstState;
+                        // asigno el primer pwdrqst de la lista. Debería traer 1 solo
+                        objPwdRqst = (PasswordRequestEntity)lstRqsts[0];
+                        // agrego las horas asignadas a la fecha de próximo cambio de pwd
+                        //objPwdRqst.UserPassword.DNextChange= DateTime.Now.AddHours(Convert.ToDouble(objPwdRqst.HoursGiven));
+                        // seteo la fecha de uso
+                        objPwdRqst.UserPassword.DInUseUntil = DateTime.Now.AddHours(Convert.ToDouble(objPwdRqst.HoursGiven));
+                        // establezco que la contraseña está en uso
+                        objPwdRqst.UserPassword.PwdLockType = InUseType;
+                        // se va a buscar el nuevo estado del request, de visualizado
+                        RequestStateEntity newRqstState = null;
+                        RequestStatesFactory RSF = new RequestStatesFactory();
+                        newRqstState = RSF.GetRqstStateByID((int)PhxDALUtil.RequestStates.Visualized);
+                        if (newRqstState == null)
+                        {
+                            // si no encuentra el estado debe devolver null
+                            objPwdRqst = null;
+                        }
+                        else
+                        {
+                            // asigno el nuevo estado al pwd rqst
+                            objPwdRqst.RqstState = newRqstState;
 
-							ITransaction tx = null;
+                            ITransaction tx = null;
 
-							// actualizo la DB
-							try
-							{
-								tx = session.BeginTransaction();
-								session.Update(objPwdRqst);
-								tx.Commit();
-							}
-							catch (Exception ex)
-							{
-								tx.Rollback();
-								throw(ex);
-							}
+                            // actualizo la DB
+                            try
+                            {
+                                tx = session.BeginTransaction();
+                                session.Update(objPwdRqst);
+                                tx.Commit();
+                            }
+                            catch (Exception ex)
+                            {
+                                tx.Rollback();
+                                throw (ex);
+                            }
 
-						}
+                        }
 
-					}
-				}
-			}
-			catch (Exception)
-			{
-				return null;
-			}
-			return objPwdRqst;
-		}
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            return objPwdRqst;
+        }
         public int Save(PasswordRequestEntity PasswordRequest)
         {
             ITransaction tx = null;
@@ -1243,7 +1243,7 @@ namespace PhalanxDAL.Factories
             {
                 using (ISession session = DBMgr.factory.OpenSession())
                 {
-                    PwdRqst = session.Load <PasswordRequestEntity>(Id);
+                    PwdRqst = session.Load<PasswordRequestEntity>(Id);
                     int i = PwdRqst.UserPassword.UsersList.Count;
                     i = PwdRqst.UserPassword.PasswordsRequestsList.Count;
                     if (PwdRqst.UserPassword.PwdLockType == null)
@@ -1269,7 +1269,7 @@ namespace PhalanxDAL.Factories
             DateTime expirationDate = (PwdRqst.UnitGiven == "H" ? DateTime.Now.AddHours(Convert.ToDouble(PwdRqst.HoursGiven))
                 : DateTime.Now.AddDays(Convert.ToDouble(PwdRqst.HoursGiven)));
 
-            
+
             PwdRqst.UserPassword.DInUseUntil = expirationDate;
 
             PwdLockTypesFactory pltf = new PwdLockTypesFactory();
@@ -1280,7 +1280,7 @@ namespace PhalanxDAL.Factories
 
             // establezco que la contraseña está en uso
             PwdRqst.UserPassword.PwdLockType = InUseType;
-            
+
             // se va a buscar el nuevo estado del request, de visualizado
             RequestStateEntity newRqstState = null;
             RequestStatesFactory RSF = new RequestStatesFactory();
@@ -1379,7 +1379,7 @@ namespace PhalanxDAL.Factories
                 using (ISession session = DBMgr.factory.OpenSession())
                 {
                     tx = session.BeginTransaction();
-                    
+
                     WinPwdRqst.RqstState = newRqstState;
                     WinPwdRqst.AuthDesc = ObsAuth;
                     WinPwdRqst.Auth1Usr = Autorizador;
@@ -1462,12 +1462,14 @@ namespace PhalanxDAL.Factories
 
                         TraceHelper.Information("Se procesaran {0} solicitudes visualizadas", lstRqsts.Count);
 
+                        UserTypeEntity atmType = new UserTypesFactory().GetATMUserType();
+
                         foreach (PasswordRequestEntity PwdRqstE in lstRqsts)
                         {
                             PhxDALUtil.RequestStates state;
 
                             // si la solicitud fue de contraseña de ATM y fue vista y expirada, la contraseña se inactiva
-                            if (PwdRqstE.User.UserType.Equals(new UserTypesFactory().GetATMUserType()))
+                            if (PwdRqstE.User.UserType.Equals(atmType))
                             {
                                 TraceHelper.Information("Se cierra una Contraseña de ATM con Id {0}", PwdRqstE.Id);
 
@@ -1492,8 +1494,12 @@ namespace PhalanxDAL.Factories
                             PwdRqstE.RqstState = new RequestStatesFactory().GetRqstStateByID((int)state);
                             session.Update(PwdRqstE);
 
-                            // guarda en colección a devolver
-                            PwdRqstExpired.Add(PwdRqstE);
+                            //Se agrega para los avisos por mail si no es ATM
+                            if (!PwdRqstE.User.UserType.Equals(atmType))
+                            {
+                                // guarda en colección a devolver
+                                PwdRqstExpired.Add(PwdRqstE);
+                            }
                         }
 
                         TraceHelper.Information("Se consultan las Contraseñas que no fueron visualizadas dentro de las 24h de autorizadas");
@@ -1518,9 +1524,13 @@ namespace PhalanxDAL.Factories
                             session.Update(PwdRqstE);
 
                             TraceHelper.Information("Se cambia la contraseña {0} a {1}", PwdRqstE.UserDesc, PwdRqstE.RqstState.RqstStateDesc);
-
-                            // guarda en colección a devolver
-                            PwdRqstExpired.Add(PwdRqstE);
+                            
+                            //Se agrega para los avisos por mail si no es ATM
+                            if (!PwdRqstE.User.UserType.Equals(atmType))
+                            {
+                                // guarda en colección a devolver
+                                PwdRqstExpired.Add(PwdRqstE);
+                            }
                         }
                         tx.Commit();
 
