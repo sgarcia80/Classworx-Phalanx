@@ -287,12 +287,29 @@ namespace WSInterfaceClaves
             //Nuevo control: Usuario ya notificado
             if (altaUsuarioRed || aplicacion.Notificable)
             {
+                TraceHelper.Information("Es Alta de Red o App Notificable");
+
+                TraceHelper.Information("Se consulta si el usuario '{0}' ya se notifico para la aplicacion '{1}'", ticket.UsuarioAplicacion, ticket.CodigoAplicacion);
+
                 //Se buscan si la aplicacion/usuario ya tienen algun ticket previo donde se haya notificado
                 TicketNotificacionClaveEntityCollection notificados = bsolb.GetTickesByUser(solicitudBPM.Aplicacion, solicitudBPM.DominioUsuario, solicitudBPM.Usuario, solicitudBPM.UsuarioAplicacion, true);
 
                 if (notificados != null && notificados.Count > 0)
                 {
+                    TraceHelper.Information("El usuario '{0}' tiene un Alta para la app ya notificada, se cancela la nueva con 01/01/1900", ticket.UsuarioAplicacion);
                     solicitudBPM.FechaAceptacionTyC = new DateTime(1900, 1, 1);
+                }
+                else
+                {
+                    TraceHelper.Information("Se consulta si el usuario '{0}' tiene una notificacion pendiente para la app '{1}'", ticket.UsuarioAplicacion, ticket.CodigoAplicacion);
+
+                    TicketNotificacionClaveEntityCollection sinnotificar = bsolb.GetTickesByUser(solicitudBPM.Aplicacion, solicitudBPM.DominioUsuario, solicitudBPM.Usuario, solicitudBPM.UsuarioAplicacion, false);
+
+                    if (sinnotificar != null && sinnotificar.Count > 0)
+                    {
+                        TraceHelper.Information("El usuario '{0}' tiene un Alta pendiente para la app, se cancela la nueva con 01/01/1900", ticket.UsuarioAplicacion);
+                        solicitudBPM.FechaAceptacionTyC = new DateTime(1900, 1, 1);
+                    }
                 }
             }
 
@@ -527,7 +544,6 @@ namespace WSInterfaceClaves
 
             return resultado;
         }
-
         private bool Autenticar(string dominio, string usuario, string password)
         {
             bool authentic = false;

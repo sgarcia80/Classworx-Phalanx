@@ -1,9 +1,9 @@
-<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Principal.master.cs" Inherits="PhalanxWeb.Principal" %>
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Principal.master.cs" Inherits="PhalanxWeb.Principal" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Untitled Page</title>
+    <title>Phalanx Web</title>
     <link href="phalanx.css" type="text/css" rel="stylesheet">
 </head>
 <body>
