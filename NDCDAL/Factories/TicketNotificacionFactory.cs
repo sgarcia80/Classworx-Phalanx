@@ -134,7 +134,7 @@ namespace NDCDAL.Factories
             return TiNotClaEC;
         }
 
-        public TicketNotificacionEntity Load(int id, string tipo)
+        public TicketNotificacionEntity Load(string usuario, int id, string tipo)
         {
             TicketNotificacionEntity ticket = null;
             IList<TicketNotificacionEntity> tickets;
@@ -148,9 +148,24 @@ namespace NDCDAL.Factories
 
                 try
                 {
-                    tickets = DataSearch.List<TicketNotificacionEntity>();
+                    //tickets = DataSearch.List<TicketNotificacionEntity>();
 
-                    if (tickets.Count > 0)
+                    //if (tickets.Count > 0)
+                    //{
+                    //    ticket = tickets[0];
+                    //}
+
+                    IQuery query = session.GetNamedQuery("GetNotificacionById");
+
+                    query.SetParameter("usuario", usuario);
+                    query.SetParameter("id", id);
+                    query.SetParameter("tipo", tipo);
+
+                    query.SetResultTransformer(ResultTransformer);
+
+                    tickets = query.List<TicketNotificacionEntity>();
+
+                    if (tickets != null && tickets.Count > 0)
                     {
                         ticket = tickets[0];
                     }

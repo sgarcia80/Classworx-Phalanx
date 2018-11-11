@@ -97,9 +97,10 @@ public partial class DetalleTicket : System.Web.UI.Page
     private string ConsultarTicketNotificacion(int id, string tipo)
     {
         string redirect = string.Empty;
+        string usuario = Session["Usuario"].ToString().ToLower();
 
         TicketNotificacionBusiness business = new TicketNotificacionBusiness();
-        TicketNotificacionEntity ticket = business.Load(id, tipo);
+        TicketNotificacionEntity ticket = business.Load(usuario, id, tipo);
 
         if (ticket != null)
         {
@@ -115,6 +116,11 @@ public partial class DetalleTicket : System.Web.UI.Page
 
                 redirect = ConsultarTicketNotificacionBlanqueo(id);
             }
+        }
+        else
+        {
+            tbTipoSolicitud.Text = "ERROR";
+            tbContra.Text = "Notificacion no encontrada";
         }
 
         return redirect;
