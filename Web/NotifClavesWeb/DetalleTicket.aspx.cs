@@ -99,9 +99,10 @@ namespace NotifClavesWeb
         private string ConsultarTicketNotificacion(int id, string tipo)
         {
             string redirect = string.Empty;
+            string usuario = Session["Usuario"].ToString().ToLower();
 
             TicketNotificacionBusiness business = new TicketNotificacionBusiness();
-            TicketNotificacionEntity ticket = business.Load(id, tipo);
+            TicketNotificacionEntity ticket = business.Load(usuario, id, tipo);
 
             if (ticket != null)
             {
@@ -117,6 +118,11 @@ namespace NotifClavesWeb
 
                     redirect = ConsultarTicketNotificacionBlanqueo(id);
                 }
+            }
+            else
+            {
+                tbTipoSolicitud.Text = "ERROR";
+                tbContra.Text = "Notificacion no encontrada";
             }
 
             return redirect;
