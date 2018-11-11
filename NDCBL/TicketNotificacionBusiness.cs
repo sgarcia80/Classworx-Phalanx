@@ -83,11 +83,11 @@ namespace NDCBL
             return tmpCollection;
         }
 
-        public TicketNotificacionEntity Load(int id, string tipo)
+        public TicketNotificacionEntity Load(string usuario, int id, string tipo)
         {
             TicketNotificacionFactory factory = new TicketNotificacionFactory();
 
-            TicketNotificacionEntity entity = factory.Load(id, tipo);
+            TicketNotificacionEntity entity = factory.Load(usuario, id, tipo);
 
             return entity;
         }

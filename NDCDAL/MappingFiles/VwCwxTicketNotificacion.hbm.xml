@@ -17,6 +17,19 @@
     <property column="fecha" type="DateTime" name="Fecha"/>
 
   </class>
+  <sql-query name="GetNotificacionById">
+    <return-scalar column="Tipo" type="String" />
+    <return-scalar column="Subtipo" type="String" />
+    <return-scalar column="Id" type="Int32" />
+    <return-scalar column="Numero" type="Int32" />
+    <return-scalar column="UsuarioAplicacion" type="String" />
+    <return-scalar column="Usuario" type="String" />
+    <return-scalar column="Dominio" type="String" />
+    <return-scalar column="Aplicacion" type="String" />
+    <return-scalar column="Fecha" type="DateTime" />
+
+    exec SP_TICKETNOTIFICACION_ID :usuario, :id, :tipo
+  </sql-query>
   <sql-query name="GetNotificacionByUser">
     <return-scalar column="Tipo" type="String" />
     <return-scalar column="Subtipo" type="String" />
