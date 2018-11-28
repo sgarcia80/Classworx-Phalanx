@@ -175,6 +175,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Content Include="SolicitudBlanqueoTarjeta.aspx" />
     <Content Include="Styles\common.css" />
     <Content Include="Tickets.aspx" />
     <Content Include="tyc.aspx" />
@@ -303,6 +304,13 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="SolicitudBlanqueoTarjeta.aspx.cs">
+      <DependentUpon>SolicitudBlanqueoTarjeta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SolicitudBlanqueoTarjeta.aspx.designer.cs">
+      <DependentUpon>SolicitudBlanqueoTarjeta.aspx</DependentUpon>
     </Compile>
     <Compile Include="Tickets.aspx.cs">
       <DependentUpon>Tickets.aspx</DependentUpon>

@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/Principal.master" AutoEventWireup="true" CodeFile="SolicitudBlanqueoTarjeta.aspx.cs" Inherits="SolicitudBlanqueoTarjeta" Title="Macro SA - Notificación de Claves" %>
+<%@ Page Language="C#" MasterPageFile="~/Principal.master" AutoEventWireup="true" CodeBehind="SolicitudBlanqueoTarjeta.aspx.cs" Inherits="NotifClavesWeb.SolicitudBlanqueoTarjeta" Title="Macro SA - Notificación de Claves" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <div style="text-align: left">
         <br />
