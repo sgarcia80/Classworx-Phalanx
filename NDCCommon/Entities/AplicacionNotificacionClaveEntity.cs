@@ -22,6 +22,7 @@ namespace NDCCommon.Entities
 
         public AplicacionNotificacionClaveEntity()
         {
+            this.PrefijoUsuarioTC = string.Empty;
         }
 
         #region Public Properties
