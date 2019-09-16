@@ -106,7 +106,7 @@ namespace NDCBL
 
         public TicketNotificacionClaveEntityCollection GetAllUsrExt(DateTime? fechaDesde, DateTime? fechaHasta, AplicacionNotificacionClaveEntity aplicacion, string dominio, string usuario, int? ticket, bool? vencido, bool? notificado)
         {
-            return this.GetAll(fechaDesde, fechaHasta, aplicacion, dominio, usuario, ticket, true, false, vencido, notificado);
+            return this.GetAll(fechaDesde, fechaHasta, aplicacion, dominio, usuario, ticket, true, false, null, vencido, notificado);
         }
 
         public TicketNotificacionClaveEntityCollection GetAll(DateTime? fechaDesde, DateTime? fechaHasta, AplicacionNotificacionClaveEntity aplicacion, string dominio, string usuario)
@@ -127,6 +127,7 @@ namespace NDCBL
             factory.FilTicket = null;
             factory.FilCorregido = false;
             factory.FilVencido = null;
+            factory.FilFechaBaja = false;
 
             factory.FilReporteNotif = true;
 
@@ -139,10 +140,15 @@ namespace NDCBL
 
         public TicketNotificacionClaveEntityCollection GetAll(DateTime? fechaDesde, DateTime? fechaHasta, AplicacionNotificacionClaveEntity aplicacion, string dominio, string usuario, int? ticket, bool? SinLegajo, bool? corregido)
         {
-            return GetAll(fechaDesde, fechaHasta, aplicacion, dominio, usuario, ticket, SinLegajo, corregido, null, null);
+            return GetAll(fechaDesde, fechaHasta, aplicacion, dominio, usuario, ticket, SinLegajo, corregido, null, null, null);
         }
 
-        public TicketNotificacionClaveEntityCollection GetAll(DateTime? fechaDesde, DateTime? fechaHasta, AplicacionNotificacionClaveEntity aplicacion, string dominio, string usuario, int? ticket, bool? SinLegajo, bool? corregido, bool? vencido, bool? notificado)
+        public TicketNotificacionClaveEntityCollection GetAll(DateTime? fechaDesde, DateTime? fechaHasta, AplicacionNotificacionClaveEntity aplicacion, string dominio, string usuario, int? ticket, bool? SinLegajo, bool? corregido, bool? anulado)
+        {
+            return GetAll(fechaDesde, fechaHasta, aplicacion, dominio, usuario, ticket, SinLegajo, corregido, anulado, null, null);
+        }
+
+        public TicketNotificacionClaveEntityCollection GetAll(DateTime? fechaDesde, DateTime? fechaHasta, AplicacionNotificacionClaveEntity aplicacion, string dominio, string usuario, int? ticket, bool? SinLegajo, bool? corregido, bool? anulado, bool? vencido, bool? notificado)
         {
             TicketNotificacionClaveFactory factory = new TicketNotificacionClaveFactory();
 
@@ -155,6 +161,7 @@ namespace NDCBL
             factory.FilTicket = ticket;
             factory.FilCorregido = corregido;
             factory.FilVencido = vencido;
+            factory.FilFechaBaja = anulado;
 
             if (notificado != null)
                 factory.FilFechaTyCNull = !notificado.Value;
@@ -270,6 +277,11 @@ namespace NDCBL
         public void Save(TicketNotificacionClaveEntity ticket)
         {
             Factory.SaveBPMSolicitud(ticket);
+        }
+
+        public void Save(TicketNotificacionClaveEntityCollection tickets)
+        {
+            Factory.Save(tickets);
         }
         public TicketNotificacionClaveEntity Load(int Id)
         {

@@ -12,6 +12,7 @@ using NDCCommon.Collections;
 using NDCBL;
 using NDCCommon.Entities;
 using System.IO;
+using Classworx.Common.Trace;
 
 namespace PhalanxAdmin
 {
@@ -26,6 +27,9 @@ namespace PhalanxAdmin
         }
 
         protected AplicacionNotificacionClaveEntity _filApp = null;
+        DateTime? _filfechaDesde;
+        DateTime? _filfechaHasta;
+        int _filEstado = 0;
 
         public override string Id
         {
@@ -35,12 +39,13 @@ namespace PhalanxAdmin
             }
         }
 
+
         protected TicketNotificacionClaveEntityCollection _entities;
-        
+
         public FRptTicketsClaves()
         {
             InitializeComponent();
-            lvLista.ListViewItemSorter = new cwxSorter(); 
+            lvLista.ListViewItemSorter = new cwxSorter();
 
             PhxUserBusiness UsrBL = new PhxUserBusiness();
             btnVer.Visible = UsrBL.AccTickets(this.Usuario);
@@ -85,8 +90,11 @@ namespace PhalanxAdmin
                 _filApp = cbFilApp.SelectedItem as AplicacionNotificacionClaveEntity;
             else
                 _filApp = null;
-            //_filNombre = txtFilNombre.Text.Trim();
 
+            _filfechaDesde = dtpFechaDesde.Checked ? dtpFechaDesde.Value : (DateTime?)null;
+            _filfechaHasta = dtpFechaHasta.Checked ? dtpFechaHasta.Value : (DateTime?)null;
+
+            _filEstado = cbEstado.SelectedIndex;
         }
 
         private void bwRefreshEntities_DoWork(object sender, DoWorkEventArgs e)
@@ -123,8 +131,34 @@ namespace PhalanxAdmin
 
             if (usuario == string.Empty)
                 usuario = null;
-            
-            _entities = TicketNotificacionClaveBL.GetAll(ObtenerFecha(txtFDesde.Text), ObtenerFecha(txtFHasta.Text), _filApp, dominio, usuario, null, null, null);
+
+            bool? anulado = null;
+            bool? notificado = null;
+            bool? vencido = null;
+
+            switch (_filEstado)
+            {
+                case 0: //Todos
+                    break;
+                case 1: //Anulado
+                    anulado = true;
+                    break;
+                case 2: //Notificado
+                    notificado = true;
+                    break;
+                case 3: //Pendiente
+                    notificado = false;
+                    anulado = false;
+                    break;
+                case 4: //Vencido
+                    notificado = false;
+                    anulado = false;
+                    vencido = true;
+                    break;
+            }
+
+
+            _entities = TicketNotificacionClaveBL.GetAll(_filfechaDesde, _filfechaHasta, _filApp, dominio, usuario, null, null, null, anulado, vencido, notificado);
         }
 
         /// <summary>
@@ -183,7 +217,7 @@ namespace PhalanxAdmin
                 lviArr[i].Text = ticket.NumeroSolicitud.ToString();
                 lviArr[i].SubItems.Add(ticket.Aplicacion.ToString());
                 lviArr[i].SubItems.Add(ticket.UsuarioAplicacion);
-                lviArr[i].SubItems.Add(ticket.DominioUsuario+@"\"+ticket.Usuario);
+                lviArr[i].SubItems.Add(ticket.DominioUsuario + @"\" + ticket.Usuario);
                 lviArr[i].SubItems.Add(ticket.Fecha.ToString("dd/MM/yyyy HH:m:ss")); // HistChgPwdEnt.User.Username;
                 string strLegajo = "";
                 if (ticket.Legajo != null)
@@ -193,8 +227,19 @@ namespace PhalanxAdmin
                 lviArr[i].SubItems.Add(strLegajo);
                 // lviArr[i].SubItems.Add(ticket.TipoDocumento); // se eliminó en versión 3.2
                 lviArr[i].SubItems.Add(ticket.Documento);
-                lviArr[i].SubItems.Add(ticket.FechaAceptacionTyC == null ? string.Empty : ticket.FechaAceptacionTyC.Value.ToString("dd/MM/yyyy HH:m:ss"));
+
+                DateTime? fechaTyC = ticket.FechaAceptacionTyC;
+                lviArr[i].SubItems.Add(fechaTyC == null || (fechaTyC.HasValue && fechaTyC.Value.ToString("dd/MM/yyyy") == "01/01/1900") ? string.Empty : ticket.FechaAceptacionTyC.Value.ToString("dd/MM/yyyy HH:m:ss"));
                 lviArr[i].SubItems.Add(ticket.Corregido ? "Sí" : "No");
+
+                DateTime? fechabaja = ticket.FechaBaja;
+                if (!fechabaja.HasValue && fechaTyC.HasValue && fechaTyC.Value.ToString("dd/MM/yyyy") == "01/01/1900")
+                {
+                    fechabaja = fechaTyC;
+                }
+                lviArr[i].SubItems.Add(fechabaja.HasValue ? fechabaja.Value.ToString("dd/MM/yyyy HH:mm") : string.Empty);
+                lviArr[i].SubItems.Add(string.IsNullOrEmpty(ticket.ComentariosBaja) ? string.Empty : ticket.ComentariosBaja);
+
                 lviArr[i].Tag = ticket;
                 i++;
             }
@@ -252,6 +297,12 @@ namespace PhalanxAdmin
             apps.Insert(0, todos);
 
             cbFilApp.DataSource = apps;
+
+            cbEstado.SelectedIndex = 0;
+
+            DateTime fecha = DateTime.Today;
+            dtpFechaHasta.Value = fecha;
+            dtpFechaDesde.Value = fecha.AddMonths(-1);
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -259,19 +310,19 @@ namespace PhalanxAdmin
             string strErrorMsg = "Verifique el formato de la fecha de inicio (dd/mm/aaaa)";
             try
             {
-                System.Globalization.DateTimeFormatInfo dtfi = new
-                    System.Globalization.DateTimeFormatInfo();
-                dtfi.ShortDatePattern = "dd/MM/yyyy";
-                DateTime dTest;
-                if (txtFDesde.Text.Trim() != "/  /")
-                {
-                    dTest = Convert.ToDateTime(txtFDesde.Text, dtfi);
-                }
-                if (txtFHasta.Text.Trim() != "/  /")
-                {
-                    strErrorMsg = "Verifique el formato de la fecha de fin (dd/mm/aaaa)";
-                    dTest = Convert.ToDateTime(txtFHasta.Text, dtfi);
-                }
+                //System.Globalization.DateTimeFormatInfo dtfi = new
+                //    System.Globalization.DateTimeFormatInfo();
+                //dtfi.ShortDatePattern = "dd/MM/yyyy";
+                //DateTime dTest;
+                //if (txtFDesde.Text.Trim() != "/  /")
+                //{
+                //    dTest = Convert.ToDateTime(txtFDesde.Text, dtfi);
+                //}
+                //if (txtFHasta.Text.Trim() != "/  /")
+                //{
+                //    strErrorMsg = "Verifique el formato de la fecha de fin (dd/mm/aaaa)";
+                //    dTest = Convert.ToDateTime(txtFHasta.Text, dtfi);
+                //}
 
                 //DateTime FDesde = Convert.ToDateTime(txtFDesde.Text,
                 ExecEntitiesRefresh();
@@ -289,8 +340,15 @@ namespace PhalanxAdmin
 
         private void CleanFilters()
         {
-            txtFDesde.Text = "";
-            txtFHasta.Text = "";
+            txtFilDominio.Text = string.Empty;
+            txtFilUsuario.Text = string.Empty;
+            cbFilApp.SelectedIndex = 0;
+
+            cbEstado.SelectedIndex = 0;
+
+            DateTime fecha = DateTime.Today;
+            dtpFechaHasta.Value = fecha;
+            dtpFechaDesde.Value = fecha.AddMonths(-1);
 
         }
 
@@ -301,7 +359,7 @@ namespace PhalanxAdmin
                 System.Globalization.DateTimeFormatInfo dtfi = new
                    System.Globalization.DateTimeFormatInfo();
                 dtfi.ShortDatePattern = "dd/MM/yyyy";
-                
+
                 return Convert.ToDateTime(fecha, dtfi);
             }
 
@@ -362,7 +420,7 @@ namespace PhalanxAdmin
                     StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
                     sw.Write(sb.ToString());
                     sw.Close();
-                MessageBox.Show("La exportación ha sido completada", "Exportación a CSV", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("La exportación ha sido completada", "Exportación a CSV", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
@@ -395,6 +453,110 @@ namespace PhalanxAdmin
             }
         }
 
+        private void btnAnular_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (lvLista.SelectedItems != null && lvLista.SelectedItems.Count > 0)
+                {
+                    if (string.IsNullOrEmpty(txtComentarios.Text))
+                    {
+                        MessageBox.Show("Debe ingresar un Motivo de anulación", "Advertencia");
+                        txtComentarios.Focus();
+                        return;
+                    }
+
+                    TicketNotificacionClaveEntity ticket = null;
+                    List<TicketNotificacionClaveEntity> tickets = new List<TicketNotificacionClaveEntity>();
+                    DateTime fechabaja = DateTime.Now;
+
+                    foreach (ListViewItem item in lvLista.SelectedItems)
+                    {
+                        ticket = item.Tag as TicketNotificacionClaveEntity;
+
+                        if (!ticket.FechaBaja.HasValue && !ticket.FechaAceptacionTyC.HasValue)
+                        {
+                            ticket.FechaBaja = fechabaja;
+                            ticket.ComentariosBaja = txtComentarios.Text.Trim();
+                            tickets.Add(ticket);
+                        }
+                    }
+
+                    if (MessageBox.Show(string.Format("Se anularán {0} tickets de los {1} seleccionados.{2}¿Desea continuar?", tickets.Count, lvLista.SelectedItems.Count, System.Environment.NewLine), "Advertencia", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                    {
+                        return;
+                    }
+
+                    TicketNotificacionClaveEntityCollection list = new TicketNotificacionClaveEntityCollection();
+                    list.Add(tickets);
+
+                    TicketNotificacionClaveBusiness business = new TicketNotificacionClaveBusiness();
+                    business.Save(list);
+
+                    MessageBox.Show("Los tickets se anularon correctamente");
+                }
+            }
+            catch (Exception ex)
+            {
+                string mensaje = "Error al anular los tickets";
+                TraceHelper.Error(ex, mensaje);
+
+                MessageBox.Show(mensaje, "Error");
+            }
+        }
+
+        private void btnValidar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (lvLista.SelectedItems != null && lvLista.SelectedItems.Count > 0)
+                {
+                    string user = "";
+                    TicketNotificacionClaveEntity ticket = null;
+                    List<TicketNotificacionClaveEntity> tickets = new List<TicketNotificacionClaveEntity>();
+                    DateTime fechabaja = DateTime.Now;
+
+                    foreach (ListViewItem item in lvLista.SelectedItems)
+                    {
+                        ticket = item.Tag as TicketNotificacionClaveEntity;
+
+                        if (!ticket.FechaBaja.HasValue && ticket.Aplicacion.EsAplicacionRed && !ticket.FechaAceptacionTyC.HasValue)
+                        {
+                            user = ticket.UsuarioAplicacion;
+
+                            string nombreUser = PhalanxNAL.ActiveDirectoryHelper.BuscarNombrePorUsername(user);
+
+                            if (string.IsNullOrEmpty(nombreUser))
+                            {
+                                ticket.FechaBaja = fechabaja;
+                                ticket.ComentariosBaja = "Usuario no encontrado en Dominio";
+                                tickets.Add(ticket);
+                            }
+                        }
+                    }
+
+                    if (MessageBox.Show(string.Format("Se anularán {0} tickets de los {1} seleccionados.{2}¿Desea continuar?", tickets.Count, lvLista.SelectedItems.Count, System.Environment.NewLine), "Advertencia", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                    {
+                        return;
+                    }
+
+                    TicketNotificacionClaveEntityCollection list = new TicketNotificacionClaveEntityCollection();
+                    list.Add(tickets);
+
+                    TicketNotificacionClaveBusiness business = new TicketNotificacionClaveBusiness();
+                    business.Save(list);
+
+                    MessageBox.Show("Los tickets se anularon correctamente");
+                }
+            }
+            catch (Exception ex)
+            {
+                string mensaje = "Error al validar los usuarios en el Dominio";
+                TraceHelper.Error(ex, mensaje);
+
+                MessageBox.Show(mensaje, "Error");
+            }
+        }
     }
 }
 

@@ -13,6 +13,7 @@ using System.Collections;
 using NDCBL;
 using NDCCommon.Entities;
 using NDCCommon.Collections;
+using Classworx.Common.Trace;
 
 namespace PhalanxAdmin
 {
@@ -133,7 +134,7 @@ namespace PhalanxAdmin
         {
             IList list = new TicketNotificacionClaveBusiness().GetReporteNotif(fechaDesde, fechaHasta, aplicacion, string.Empty, string.Empty);
             TicketNotificacionClaveEntityCollection tnceC = new TicketNotificacionClaveEntityCollection();
-            tnceC = (TicketNotificacionClaveEntityCollection) list;
+            tnceC = (TicketNotificacionClaveEntityCollection)list;
 
             _entities = list;
         }
@@ -189,7 +190,7 @@ namespace PhalanxAdmin
                 lviArr[i].ImageIndex = HistChgPwdEnt.ActiveUser ? 0 : 1;*/
 
 
-                lviArr[i].Text = entidad.Id.ToString(); // HistChgPwdEnt.User.Username;
+                lviArr[i].Text = entidad.NumeroSolicitud.ToString(); // HistChgPwdEnt.User.Username;
                 //lviArr[i].SubItems.Add(entidad.TipoNotificacionDescr);
                 lviArr[i].SubItems.Add("Alta de Usuario");
                 lviArr[i].SubItems.Add(entidad.Aplicacion.Nombre);
@@ -391,7 +392,7 @@ namespace PhalanxAdmin
             AplicacionNotificacionClaveEntityCollection aplicaciones = new AplicacionNotificacionClaveEntityCollection();
 
             AplicacionNotificacionClaveEntity app = null;
-            
+
             app = business.GetAppCobis();
             if (app != null)
             {
@@ -460,6 +461,111 @@ namespace PhalanxAdmin
                     mensaje = string.Format("Error al reenviar los mails. {0}{1}", System.Environment.NewLine, ex.Message);
                     MessageBox.Show(mensaje, "Reenvio", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
                 }
+            }
+        }
+
+        private void btnAnular_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (lvLista.SelectedItems != null && lvLista.SelectedItems.Count > 0)
+                {
+                    if (string.IsNullOrEmpty(txtComentarios.Text))
+                    {
+                        MessageBox.Show("Debe ingresar un Motivo de anulación", "Advertencia");
+                        txtComentarios.Focus();
+                        return;
+                    }
+
+                    TicketNotificacionClaveEntity ticket = null;
+                    List<TicketNotificacionClaveEntity> tickets = new List<TicketNotificacionClaveEntity>();
+                    DateTime fechabaja = DateTime.Now;
+
+                    foreach (ListViewItem item in lvLista.SelectedItems)
+                    {
+                        ticket = item.Tag as TicketNotificacionClaveEntity;
+
+                        if (!ticket.FechaBaja.HasValue && !ticket.FechaAceptacionTyC.HasValue)
+                        {
+                            ticket.FechaBaja = fechabaja;
+                            ticket.ComentariosBaja = txtComentarios.Text.Trim();
+                            tickets.Add(ticket);
+                        }
+                    }
+
+                    if (MessageBox.Show(string.Format("Se anularán {0} tickets de los {1} seleccionados.{2}¿Desea continuar?", tickets.Count, lvLista.SelectedItems.Count, System.Environment.NewLine), "Advertencia", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                    {
+                        return;
+                    }
+
+                    TicketNotificacionClaveEntityCollection list = new TicketNotificacionClaveEntityCollection();
+                    list.Add(tickets);
+
+                    TicketNotificacionClaveBusiness business = new TicketNotificacionClaveBusiness();
+                    business.Save(list);
+
+                    MessageBox.Show("Los tickets se anularon correctamente");
+                }
+            }
+            catch (Exception ex)
+            {
+                string mensaje = "Error al anular los tickets";
+                TraceHelper.Error(ex, mensaje);
+
+                MessageBox.Show(mensaje, "Error");
+            }
+        }
+
+        private void btnValidar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (lvLista.SelectedItems != null && lvLista.SelectedItems.Count > 0)
+                {
+                    string user = "";
+                    TicketNotificacionClaveEntity ticket = null;
+                    List<TicketNotificacionClaveEntity> tickets = new List<TicketNotificacionClaveEntity>();
+                    DateTime fechabaja = DateTime.Now;
+
+                    foreach (ListViewItem item in lvLista.SelectedItems)
+                    {
+                        ticket = item.Tag as TicketNotificacionClaveEntity;
+
+                        if (!ticket.FechaBaja.HasValue && ticket.Aplicacion.EsAplicacionRed && !ticket.FechaAceptacionTyC.HasValue)
+                        {
+                            user = ticket.UsuarioAplicacion;
+
+                            string nombreUser = PhalanxNAL.ActiveDirectoryHelper.BuscarNombrePorUsername(user);
+
+                            if (string.IsNullOrEmpty(nombreUser))
+                            {
+                                ticket.FechaBaja = fechabaja;
+                                ticket.ComentariosBaja = "Usuario no encontrado en Dominio";
+                                tickets.Add(ticket);
+                            }
+                        }
+                    }
+
+                    if (MessageBox.Show(string.Format("Se anularán {0} tickets de los {1} seleccionados.{2}¿Desea continuar?", tickets.Count, lvLista.SelectedItems.Count, System.Environment.NewLine), "Advertencia", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                    {
+                        return;
+                    }
+
+                    TicketNotificacionClaveEntityCollection list = new TicketNotificacionClaveEntityCollection();
+                    list.Add(tickets);
+
+                    TicketNotificacionClaveBusiness business = new TicketNotificacionClaveBusiness();
+                    business.Save(list);
+
+                    MessageBox.Show("Los tickets se anularon correctamente");
+                }
+            }
+            catch (Exception ex)
+            {
+                string mensaje = "Error al validar los usuarios en el Dominio";
+                TraceHelper.Error(ex, mensaje);
+
+                MessageBox.Show(mensaje, "Error");
             }
         }
     }

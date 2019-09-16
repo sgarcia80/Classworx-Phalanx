@@ -33,11 +33,15 @@ namespace PhalanxAdmin
             System.Windows.Forms.ColumnHeader colAplicacion;
             System.Windows.Forms.ColumnHeader colUsuario;
             this.pnlFilters = new System.Windows.Forms.Panel();
-            this.btnExportar = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnValidar = new System.Windows.Forms.Button();
+            this.btnAnular = new System.Windows.Forms.Button();
             this.btnReenviar = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtFilUsuario = new System.Windows.Forms.TextBox();
             this.dtpFechaHasta = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnExportar = new System.Windows.Forms.Button();
             this.dtpFechaDesde = new System.Windows.Forms.DateTimePicker();
             this.cbAplicacion = new System.Windows.Forms.ComboBox();
             this.labelApp = new System.Windows.Forms.Label();
@@ -55,6 +59,9 @@ namespace PhalanxAdmin
             this.colFechaUltimoReclamo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.bwRefreshEntities = new System.ComponentModel.BackgroundWorker();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtComentarios = new System.Windows.Forms.TextBox();
             colTipoNotif = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             colNroTicket = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             colAplicacion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -66,7 +73,14 @@ namespace PhalanxAdmin
             this.groupBox1.SuspendLayout();
             this.statusbar.SuspendLayout();
             this.pnlList.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // xppnlTC
+            // 
+            this.xppnlTC.ImageItems.ImageSet = null;
+            this.xppnlTC.Location = new System.Drawing.Point(8, 120);
+            this.xppnlTC.TabIndex = 1;
             // 
             // pnlXPGrps
             // 
@@ -79,6 +93,7 @@ namespace PhalanxAdmin
             // xppnlMenu
             // 
             this.xppnlMenu.ImageItems.ImageSet = null;
+            this.xppnlMenu.Location = new System.Drawing.Point(8, 8);
             // 
             // colTipoNotif
             // 
@@ -105,30 +120,55 @@ namespace PhalanxAdmin
             // 
             // pnlFilters
             // 
-            this.pnlFilters.Controls.Add(this.btnExportar);
+            this.pnlFilters.Controls.Add(this.groupBox2);
             this.pnlFilters.Controls.Add(this.groupBox1);
             this.pnlFilters.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlFilters.Location = new System.Drawing.Point(200, 0);
             this.pnlFilters.Name = "pnlFilters";
-            this.pnlFilters.Size = new System.Drawing.Size(803, 118);
-            this.pnlFilters.TabIndex = 19;
+            this.pnlFilters.Size = new System.Drawing.Size(803, 139);
+            this.pnlFilters.TabIndex = 0;
             // 
-            // btnExportar
+            // btnValidar
             // 
-            this.btnExportar.BackColor = System.Drawing.SystemColors.Control;
-            this.btnExportar.Location = new System.Drawing.Point(554, 84);
-            this.btnExportar.Name = "btnExportar";
-            this.btnExportar.Size = new System.Drawing.Size(94, 21);
-            this.btnExportar.TabIndex = 6;
-            this.btnExportar.Text = "Exportar a CSV";
-            this.btnExportar.UseVisualStyleBackColor = false;
-            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
+            this.btnValidar.BackColor = System.Drawing.SystemColors.Control;
+            this.btnValidar.Location = new System.Drawing.Point(577, 18);
+            this.btnValidar.Name = "btnValidar";
+            this.btnValidar.Size = new System.Drawing.Size(76, 21);
+            this.btnValidar.TabIndex = 3;
+            this.btnValidar.Text = "Validar";
+            this.btnValidar.UseVisualStyleBackColor = false;
+            this.btnValidar.Click += new System.EventHandler(this.btnValidar_Click);
+            // 
+            // btnAnular
+            // 
+            this.btnAnular.BackColor = System.Drawing.SystemColors.Control;
+            this.btnAnular.Location = new System.Drawing.Point(495, 18);
+            this.btnAnular.Name = "btnAnular";
+            this.btnAnular.Size = new System.Drawing.Size(76, 21);
+            this.btnAnular.TabIndex = 2;
+            this.btnAnular.Text = "Anular";
+            this.btnAnular.UseVisualStyleBackColor = false;
+            this.btnAnular.Click += new System.EventHandler(this.btnAnular_Click);
+            // 
+            // btnReenviar
+            // 
+            this.btnReenviar.BackColor = System.Drawing.SystemColors.Control;
+            this.btnReenviar.Location = new System.Drawing.Point(495, 49);
+            this.btnReenviar.Name = "btnReenviar";
+            this.btnReenviar.Size = new System.Drawing.Size(76, 21);
+            this.btnReenviar.TabIndex = 10;
+            this.btnReenviar.Text = "Reenviar";
+            this.btnReenviar.UseVisualStyleBackColor = false;
+            this.btnReenviar.Click += new System.EventHandler(this.btnReenviar_Click);
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.btnReenviar);
+            this.groupBox1.Controls.Add(this.txtFilUsuario);
             this.groupBox1.Controls.Add(this.dtpFechaHasta);
             this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.btnExportar);
             this.groupBox1.Controls.Add(this.dtpFechaDesde);
             this.groupBox1.Controls.Add(this.cbAplicacion);
             this.groupBox1.Controls.Add(this.labelApp);
@@ -137,21 +177,27 @@ namespace PhalanxAdmin
             this.groupBox1.Controls.Add(this.btnBuscar);
             this.groupBox1.Location = new System.Drawing.Point(18, 8);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(530, 104);
+            this.groupBox1.Size = new System.Drawing.Size(669, 77);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de búsqueda";
             // 
-            // btnReenviar
+            // label3
             // 
-            this.btnReenviar.BackColor = System.Drawing.SystemColors.Control;
-            this.btnReenviar.Location = new System.Drawing.Point(449, 76);
-            this.btnReenviar.Name = "btnReenviar";
-            this.btnReenviar.Size = new System.Drawing.Size(76, 21);
-            this.btnReenviar.TabIndex = 22;
-            this.btnReenviar.Text = "Reenviar";
-            this.btnReenviar.UseVisualStyleBackColor = false;
-            this.btnReenviar.Click += new System.EventHandler(this.btnReenviar_Click);
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(45, 27);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(43, 13);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Usuario";
+            // 
+            // txtFilUsuario
+            // 
+            this.txtFilUsuario.Location = new System.Drawing.Point(94, 23);
+            this.txtFilUsuario.MaxLength = 25;
+            this.txtFilUsuario.Name = "txtFilUsuario";
+            this.txtFilUsuario.Size = new System.Drawing.Size(99, 20);
+            this.txtFilUsuario.TabIndex = 1;
             // 
             // dtpFechaHasta
             // 
@@ -161,7 +207,7 @@ namespace PhalanxAdmin
             this.dtpFechaHasta.Name = "dtpFechaHasta";
             this.dtpFechaHasta.ShowCheckBox = true;
             this.dtpFechaHasta.Size = new System.Drawing.Size(99, 20);
-            this.dtpFechaHasta.TabIndex = 21;
+            this.dtpFechaHasta.TabIndex = 7;
             // 
             // label2
             // 
@@ -169,8 +215,19 @@ namespace PhalanxAdmin
             this.label2.Location = new System.Drawing.Point(199, 54);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(68, 13);
-            this.label2.TabIndex = 20;
+            this.label2.TabIndex = 6;
             this.label2.Text = "Fecha Hasta";
+            // 
+            // btnExportar
+            // 
+            this.btnExportar.BackColor = System.Drawing.SystemColors.Control;
+            this.btnExportar.Location = new System.Drawing.Point(577, 49);
+            this.btnExportar.Name = "btnExportar";
+            this.btnExportar.Size = new System.Drawing.Size(76, 21);
+            this.btnExportar.TabIndex = 11;
+            this.btnExportar.Text = "Exportar (csv)";
+            this.btnExportar.UseVisualStyleBackColor = false;
+            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
             // 
             // dtpFechaDesde
             // 
@@ -180,24 +237,24 @@ namespace PhalanxAdmin
             this.dtpFechaDesde.Name = "dtpFechaDesde";
             this.dtpFechaDesde.ShowCheckBox = true;
             this.dtpFechaDesde.Size = new System.Drawing.Size(99, 20);
-            this.dtpFechaDesde.TabIndex = 19;
+            this.dtpFechaDesde.TabIndex = 5;
             // 
             // cbAplicacion
             // 
             this.cbAplicacion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbAplicacion.FormattingEnabled = true;
-            this.cbAplicacion.Location = new System.Drawing.Point(94, 23);
+            this.cbAplicacion.Location = new System.Drawing.Point(276, 23);
             this.cbAplicacion.Name = "cbAplicacion";
-            this.cbAplicacion.Size = new System.Drawing.Size(176, 21);
-            this.cbAplicacion.TabIndex = 17;
+            this.cbAplicacion.Size = new System.Drawing.Size(201, 21);
+            this.cbAplicacion.TabIndex = 3;
             // 
             // labelApp
             // 
             this.labelApp.AutoSize = true;
-            this.labelApp.Location = new System.Drawing.Point(32, 26);
+            this.labelApp.Location = new System.Drawing.Point(214, 26);
             this.labelApp.Name = "labelApp";
             this.labelApp.Size = new System.Drawing.Size(56, 13);
-            this.labelApp.TabIndex = 18;
+            this.labelApp.TabIndex = 2;
             this.labelApp.Text = "Aplicacion";
             // 
             // label1
@@ -206,17 +263,17 @@ namespace PhalanxAdmin
             this.label1.Location = new System.Drawing.Point(17, 54);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 13);
-            this.label1.TabIndex = 11;
+            this.label1.TabIndex = 4;
             this.label1.Text = "Fecha Desde";
             // 
             // btnLimpiar
             // 
             this.btnLimpiar.BackColor = System.Drawing.SystemColors.Control;
             this.btnLimpiar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnLimpiar.Location = new System.Drawing.Point(448, 22);
+            this.btnLimpiar.Location = new System.Drawing.Point(577, 22);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(76, 21);
-            this.btnLimpiar.TabIndex = 6;
+            this.btnLimpiar.TabIndex = 9;
             this.btnLimpiar.Text = "&Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = false;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
@@ -224,10 +281,10 @@ namespace PhalanxAdmin
             // btnBuscar
             // 
             this.btnBuscar.BackColor = System.Drawing.SystemColors.Control;
-            this.btnBuscar.Location = new System.Drawing.Point(449, 50);
+            this.btnBuscar.Location = new System.Drawing.Point(495, 22);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(76, 21);
-            this.btnBuscar.TabIndex = 7;
+            this.btnBuscar.TabIndex = 8;
             this.btnBuscar.Text = "&Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
@@ -241,7 +298,7 @@ namespace PhalanxAdmin
             this.statusbar.Location = new System.Drawing.Point(200, 486);
             this.statusbar.Name = "statusbar";
             this.statusbar.Size = new System.Drawing.Size(803, 22);
-            this.statusbar.TabIndex = 20;
+            this.statusbar.TabIndex = 2;
             this.statusbar.Text = "statusStrip1";
             // 
             // pbDB
@@ -271,10 +328,10 @@ namespace PhalanxAdmin
             // 
             this.pnlList.Controls.Add(this.lvLista);
             this.pnlList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlList.Location = new System.Drawing.Point(200, 118);
+            this.pnlList.Location = new System.Drawing.Point(200, 139);
             this.pnlList.Name = "pnlList";
-            this.pnlList.Size = new System.Drawing.Size(803, 368);
-            this.pnlList.TabIndex = 21;
+            this.pnlList.Size = new System.Drawing.Size(803, 347);
+            this.pnlList.TabIndex = 1;
             // 
             // lvLista
             // 
@@ -294,9 +351,9 @@ namespace PhalanxAdmin
             this.lvLista.HideSelection = false;
             this.lvLista.Location = new System.Drawing.Point(18, 16);
             this.lvLista.Name = "lvLista";
-            this.lvLista.Size = new System.Drawing.Size(773, 345);
+            this.lvLista.Size = new System.Drawing.Size(773, 324);
             this.lvLista.Sorting = System.Windows.Forms.SortOrder.Ascending;
-            this.lvLista.TabIndex = 1;
+            this.lvLista.TabIndex = 0;
             this.lvLista.UseCompatibleStateImageBehavior = false;
             this.lvLista.View = System.Windows.Forms.View.Details;
             this.lvLista.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvLista_ColumnClick);
@@ -326,6 +383,36 @@ namespace PhalanxAdmin
             this.bwRefreshEntities.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwRefreshEntities_DoWork);
             this.bwRefreshEntities.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwRefreshEntities_RunWorkerCompleted);
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Controls.Add(this.btnValidar);
+            this.groupBox2.Controls.Add(this.txtComentarios);
+            this.groupBox2.Controls.Add(this.btnAnular);
+            this.groupBox2.Location = new System.Drawing.Point(18, 91);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(669, 45);
+            this.groupBox2.TabIndex = 1;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Anulación";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(45, 22);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(39, 13);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Motivo";
+            // 
+            // txtComentarios
+            // 
+            this.txtComentarios.Location = new System.Drawing.Point(94, 18);
+            this.txtComentarios.MaxLength = 1000;
+            this.txtComentarios.Name = "txtComentarios";
+            this.txtComentarios.Size = new System.Drawing.Size(383, 20);
+            this.txtComentarios.TabIndex = 1;
+            // 
             // FReporteNotifClaves
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -348,6 +435,8 @@ namespace PhalanxAdmin
             this.statusbar.ResumeLayout(false);
             this.statusbar.PerformLayout();
             this.pnlList.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -378,6 +467,12 @@ namespace PhalanxAdmin
         private System.Windows.Forms.DateTimePicker dtpFechaDesde;
         protected System.Windows.Forms.Button btnReenviar;
         private System.Windows.Forms.ColumnHeader colFechaUltimoReclamo;
-
+        protected System.Windows.Forms.Button btnValidar;
+        protected System.Windows.Forms.Button btnAnular;
+        private System.Windows.Forms.Label label3;
+        protected System.Windows.Forms.TextBox txtFilUsuario;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label4;
+        protected System.Windows.Forms.TextBox txtComentarios;
     }
 }

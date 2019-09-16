@@ -290,6 +290,10 @@ namespace NDCCommon.Entities
             }
         }
 
+        public DateTime? FechaBaja { get; set; }
+
+        public string ComentariosBaja { get; set; }
+
         /// <summary>
         /// 
         /// </summary>

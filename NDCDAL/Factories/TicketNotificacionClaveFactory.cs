@@ -112,6 +112,8 @@ namespace NDCDAL.Factories
 
         public bool? FilVisualizado { set; private get; }
 
+        public bool? FilFechaBaja { set; private get; }
+
         public bool? FilVencido { set; private get; }
 
         public bool FilReporteNotif { set; private get; }
@@ -136,6 +138,39 @@ namespace NDCDAL.Factories
                     //session.Refresh(entidad);
                     tx.Commit();
                     session.Refresh(entidad);
+                }
+                catch (Exception e)
+                {
+                    if (tx != null)
+                        tx.Rollback();
+                    throw e; //new SystemException(e.Message);
+                }
+            }
+        }
+
+        public void Save(TicketNotificacionClaveEntityCollection list)
+        {
+            ITransaction tx = null;
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                try
+                {
+                    // crear la PC
+                    tx = session.BeginTransaction();
+
+                    foreach (TicketNotificacionClaveEntity entity in list)
+                    {
+                        //Si se anula pero no tiene fecha de Aceptación de TyC
+                        if (entity.FechaBaja.HasValue && !entity.FechaAceptacionTyC.HasValue)
+                        {
+                            //Se asigna la fecha mínima para evitar que lo levante NotifClaves.
+                            entity.FechaAceptacionTyC = new DateTime(1900, 1, 1);
+                        }
+
+                        session.SaveOrUpdate(entity);
+                    }
+
+                    tx.Commit();
                 }
                 catch (Exception e)
                 {
@@ -226,13 +261,24 @@ namespace NDCDAL.Factories
                     else
                     {
                         DataSearch = DataSearch.Add(Expression.IsNotNull("TNC.FechaAceptacionTyC"));
-                        DataSearch = DataSearch.Add(Expression.Not(Expression.Eq("TNC.FechaAceptacionTyC", new DateTime(1900,1,1))));
+                        DataSearch = DataSearch.Add(Expression.Not(Expression.Eq("TNC.FechaAceptacionTyC", new DateTime(1900, 1, 1))));
 
                     }
                 }
                 if (_filErrado != null)
                 {
                     DataSearch = DataSearch.Add(Expression.Eq("TNC.Errado", _filErrado));
+                }
+                if (this.FilFechaBaja.HasValue)
+                {
+                    if (this.FilFechaBaja.Value)
+                    {
+                        DataSearch = DataSearch.Add(Expression.IsNotNull("TNC.FechaBaja"));
+                    }
+                    else
+                    {
+                        DataSearch = DataSearch.Add(Expression.IsNull("TNC.FechaBaja"));
+                    }
                 }
                 if (_filFilFechaVigencia != null)
                 {
@@ -278,18 +324,18 @@ namespace NDCDAL.Factories
                        ? DataSearch.Add(Expression.IsNotNull("TNC.FechaEliminacionMarcaAD"))
                        : DataSearch.Add(Expression.IsNull("TNC.FechaEliminacionMarcaAD"));
                 }
-                if (FilVisualizado != null)
+                if (FilVisualizado.HasValue)
                 {
                     if (FilVisualizado.Value)
                     {
-                        DataSearch = DataSearch.Add(Expression.IsNull("TNC.FechaAceptacionTyC"));
+                        DataSearch = DataSearch.Add(Expression.IsNotNull("TNC.FechaAceptacionTyC"));
+                        DataSearch = DataSearch.Add(Expression.Not(Expression.Eq("TNC.FechaAceptacionTyC", new DateTime(1900, 1, 1))));
                     }
                     else
                     {
-                        DataSearch = DataSearch.Add(Expression.IsNotNull("TNC.FechaAceptacionTyC"));
-                        DataSearch = DataSearch.Add(Expression.Not(Expression.Eq("TNC.FechaAceptacionTyC", new DateTime(1900, 1, 1))));
+                        DataSearch = DataSearch.Add(Expression.IsNull("TNC.FechaAceptacionTyC"));
 
-                    } 
+                    }
                 }
                 if (FilVencido != null)
                 {
@@ -314,17 +360,17 @@ namespace NDCDAL.Factories
             return TiNotClaEC;
         }
 
-		public TicketNotificacionClaveEntityCollection GetAllByUser(string dominio, string usuario)
-		{
-			return GetAllByUser(dominio, usuario, null);
-		}
+        public TicketNotificacionClaveEntityCollection GetAllByUser(string dominio, string usuario)
+        {
+            return GetAllByUser(dominio, usuario, null);
+        }
 
-		public TicketNotificacionClaveEntityCollection GetAllActiveByUser(string dominio, string usuario)
-		{
-			return GetAllByUser(dominio, usuario, DateTime.Now.Date);
-		}
+        public TicketNotificacionClaveEntityCollection GetAllActiveByUser(string dominio, string usuario)
+        {
+            return GetAllByUser(dominio, usuario, DateTime.Now.Date);
+        }
 
-        public TicketNotificacionClaveEntityCollection GetAllActiveByUser(string dominio, string usuario ,string aplicacion)
+        public TicketNotificacionClaveEntityCollection GetAllActiveByUser(string dominio, string usuario, string aplicacion)
         {
             return GetAllByUser(dominio, usuario, DateTime.Now.Date, aplicacion);
         }
@@ -332,7 +378,7 @@ namespace NDCDAL.Factories
         private TicketNotificacionClaveEntityCollection GetAllByUser(string dominio, string usuario, DateTime? fechaVigenciaDesde)
         {
             return GetAllByUser(dominio, usuario, fechaVigenciaDesde, string.Empty);
-		}
+        }
 
         private TicketNotificacionClaveEntityCollection GetAllByUser(string dominio, string usuario, DateTime? fechaVigenciaDesde, string aplicacion)
         {
@@ -349,15 +395,15 @@ namespace NDCDAL.Factories
                 if (_filCorregido != null)
                     DataSearch = DataSearch.Add(Expression.Eq("TNC.Corregido", _filCorregido.Value));
 
-                DataSearch.CreateCriteria("Aplicacion","APP")
+                DataSearch.CreateCriteria("Aplicacion", "APP")
                             .Add(Expression.Eq("APP.Notificable", true));
 
                 if (!string.IsNullOrEmpty(aplicacion))
                     DataSearch = DataSearch.Add(Expression.Eq("APP.Codigo", aplicacion));
-                
+
                 if (fechaVigenciaDesde != null)
-					DataSearch = DataSearch.Add(Expression.Or(Expression.IsNull("TNC.FechaVigencia"), 
-						Expression.Le("TNC.FechaVigencia", fechaVigenciaDesde)));
+                    DataSearch = DataSearch.Add(Expression.Or(Expression.IsNull("TNC.FechaVigencia"),
+                        Expression.Le("TNC.FechaVigencia", fechaVigenciaDesde)));
 
 
                 try
@@ -434,7 +480,7 @@ namespace NDCDAL.Factories
                 {
                     if (tx != null)
                         tx.Rollback();
-                    
+
                     throw; //new SystemException(e.Message);
                 }
             }
