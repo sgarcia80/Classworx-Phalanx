@@ -199,7 +199,7 @@ namespace PhalanxAdmin
                 lviArr[i].SubItems.Add(PxhUsrEnt.Fullname);
                 lviArr[i].SubItems.Add(PxhUsrEnt.Email);
                 lviArr[i].SubItems.Add((PxhUsrEnt.Active ? "Activo" : "Inactivo"));
-				lviArr[i].SubItems.Add(PxhUsrEnt.PhxUserSuperior != null ? PxhUsrEnt.PhxUserSuperior.Name : string.Empty);
+                lviArr[i].SubItems.Add(PxhUsrEnt.PhxUserSuperior != null ? PxhUsrEnt.PhxUserSuperior.Name : string.Empty);
                 lviArr[i].Text = PxhUsrEnt.Username;
                 lviArr[i].Tag = PxhUsrEnt;
                 i++;
@@ -429,35 +429,64 @@ namespace PhalanxAdmin
 
         }
 
-		private void btnInactivar_Click(object sender, EventArgs e)
-		{
+        private void btnInactivar_Click(object sender, EventArgs e)
+        {
             Cursor.Current = Cursors.WaitCursor;
-			PhxUserBusiness pub = new PhxUserBusiness();
+            PhxUserBusiness pub = new PhxUserBusiness();
 
-			IList<PhxUserEntity> inactivados = pub.InactivarInexistentesEnAD(this.Usuario);
+            List<PhxUserEntity> list = new List<PhxUserEntity>();
+            PhxUserEntity entity = null;
 
-			string message = "";
+            if (lvLista.SelectedItems != null)
+            {
+                foreach (ListViewItem item in lvLista.SelectedItems)
+                {
+                    entity = item.Tag as PhxUserEntity;
+
+                    if (entity != null && entity.Active)
+                    {
+                        list.Add(entity);
+                    }
+
+                }
+            }
+
+            string message = "";
+
+            if (list.Count == 0)
+            {
+                Cursor.Current = Cursors.Default;
+                message = "Debe seleccionar usuarios activos";
+                MessageBox.Show(message);
+
+                return;
+            }
+
+            IList<PhxUserEntity> inactivados = pub.InactivarInexistentesEnAD(list, this.Usuario);
+
             bool bInactivados = false;
             //if (inactivados.Count > 0)
             if (pub.UsuariosInactivadosOK != "")
-			{
-				message = "Se inactivaron los siguientes usuarios de Phalanx por no existir en el Active Directory:" + Environment.NewLine;
+            {
+                message = "Se inactivaron los siguientes usuarios de Phalanx por no existir en el Active Directory:" + Environment.NewLine;
                 message += pub.UsuariosInactivadosOK + Environment.NewLine;
                 bInactivados = true;
             }
             if (pub.UsuariosInactivadosNOK != "")
-			{
-				message += "Hubo problemas con los siguientes usuarios de Phalanx:" + Environment.NewLine;
+            {
+                message += "Hubo problemas con los siguientes usuarios de Phalanx:" + Environment.NewLine;
                 message += pub.UsuariosInactivadosNOK + Environment.NewLine;
             }
-                //foreach (PhxUserEntity usuario in inactivados)
-                //    message += usuario.Domain + @"\" + usuario.Username + " - " + usuario.Fullname +  Environment.NewLine; 
-			if(message == "")
-				message = "Todos los usuarios activos de Phalanx existen en el Active Directory";
+            //foreach (PhxUserEntity usuario in inactivados)
+            //    message += usuario.Domain + @"\" + usuario.Username + " - " + usuario.Fullname +  Environment.NewLine; 
+            if (message == "")
+                message = "Todos los usuarios activos de Phalanx existen en el Active Directory";
             Cursor.Current = Cursors.Default;
-			MessageBox.Show(message);
+            MessageBox.Show(message);
             if (bInactivados)
-            { ExecEntitiesRefresh(); }
+            {
+                ExecEntitiesRefresh();
+            }
         }
     }
 }

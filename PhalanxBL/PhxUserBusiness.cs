@@ -6,6 +6,7 @@ using PhalanxCommon.Entities;
 using PhalanxDAL.Factories;
 using System.Collections;
 using PhalanxNAL;
+using Classworx.Common.Trace;
 
 namespace PhalanxBL
 {
@@ -961,21 +962,22 @@ namespace PhalanxBL
         private string _UsuariosInactivadosNOK = "";
         public string UsuariosInactivadosOK { get { return _UsuariosInactivadosOK; } }
         public string UsuariosInactivadosNOK { get { return _UsuariosInactivadosNOK; } }
-        public IList<PhxUserEntity> InactivarInexistentesEnAD(string username)
+        public IList<PhxUserEntity> InactivarInexistentesEnAD(List<PhxUserEntity> users, string username)
         {
             IList<PhxUserEntity> listaUsuariosInactivados = new List<PhxUserEntity>();
 
             PhxUsersFactory WDF = new PhxUsersFactory();
 
-            WDF.FilActive = true; // solo los activos
+            //WDF.FilActive = true; // solo los activos
 
             PhxLogUsuarioInactivadoBusiness luib = new PhxLogUsuarioInactivadoBusiness();
 
             WinDomainBusiness wdb = new WinDomainBusiness();
 
             IDictionary<string, string> ldapPaths = new Dictionary<string, string>();
+            string nombreUser = string.Empty;
 
-            foreach (PhxUserEntity usuario in WDF.GetAll())
+            foreach (PhxUserEntity usuario in users) //WDF.GetAll())
             {
                 try
                 {
@@ -992,7 +994,9 @@ namespace PhalanxBL
                     {
                         if (ActiveDirectoryHelper.LDAPPathExists(ldapPath))
                         {
-                            if (!ActiveDirectoryHelper.UsuarioExiste(ldapPath, usuario.Username))
+                            nombreUser = PhalanxNAL.ActiveDirectoryHelper.BuscarNombrePorUsername(usuario.Username.Trim(), ldapPath);
+
+                            if (string.IsNullOrEmpty(nombreUser))
                             {
                                 InactivateUser(usuario, username);
 
@@ -1008,15 +1012,23 @@ namespace PhalanxBL
                                 _UsuariosInactivadosOK += usuario.Domain + @"\" + usuario.Username + " - " + usuario.Fullname + Environment.NewLine;
 
                             }
+                            else
+                            {
+                                TraceHelper.Information("Resultado: Usuario existente, '{0}' es '{1}'", usuario.Username, nombreUser);
+                            }
                         }
                         else
                         {
+                            TraceHelper.Information("Resultado: Usuario '{0}' sin ruta configurada en dominio", usuario.Username);
+
                             _UsuariosInactivadosNOK += usuario.Domain + @"\" + usuario.Username + " - " + usuario.Fullname + Environment.NewLine;
                         }
                     }
                 }
-                catch
+                catch(Exception ex)
                 {
+                    TraceHelper.Error(ex, "Error al validar el usuario '{0}'", usuario.Username);
+
                     _UsuariosInactivadosNOK += usuario.Domain + @"\" + usuario.Username + " - " + usuario.Fullname + Environment.NewLine;
                 }
             }

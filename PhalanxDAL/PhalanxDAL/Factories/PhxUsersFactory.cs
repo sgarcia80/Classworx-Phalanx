@@ -8,6 +8,7 @@ using NHibernate;
 using NHibernate.Criterion;
 using System.Collections.Generic;
 using PhalanxCommon;
+using Classworx.Common.Trace;
 
 namespace PhalanxDAL.Factories
 {
@@ -353,6 +354,7 @@ namespace PhalanxDAL.Factories
             }
             catch (Exception ex)
             {
+                TraceHelper.Error(ex, "Error al actualizar un usuario");
                 tx.Rollback();
                 return 0;
                 // handle exception
@@ -405,6 +407,7 @@ namespace PhalanxDAL.Factories
             }
             catch (Exception ex)
             {
+                TraceHelper.Error(ex, "Error al actualizar un usuario");
                 tx.Rollback();
                 return 0;
                 // handle exception
