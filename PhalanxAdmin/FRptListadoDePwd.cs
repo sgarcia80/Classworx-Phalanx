@@ -11,6 +11,7 @@ using PhalanxCommon.Entities;
 using System.IO;
 using Microsoft.Reporting.WinForms;
 using phxCryptMgr;
+using Classworx.Common.Trace;
 
 namespace PhalanxAdmin
 {
@@ -100,98 +101,113 @@ namespace PhalanxAdmin
         private void LoadEntities()
         {
             _entities = new List<FRptListadoDePwdEntity>();
-
-            DatabaseUserBusiness dbb = new DatabaseUserBusiness();
-
-            AgregarMensaje("Consultando las Contraseñas de Base de Datos");
-            DatabaseUserEntityCollection dbList = dbb.GetAll();
-
-            foreach (DatabaseUserEntity user in dbList)
+            try
             {
-                string p = dbb.GetPassword(user);
-                user.User_RealPassword = p;
-                //databaseUsers.Add(user);			
-                _entities.Add(new FRptListadoDePwdEntity(user));
+                DatabaseUserBusiness dbb = new DatabaseUserBusiness();
+
+                AgregarMensaje("Consultando las Contraseñas de Base de Datos");
+                DatabaseUserEntityCollection dbList = dbb.GetAll();
+
+                foreach (DatabaseUserEntity user in dbList)
+                {
+                    string p = dbb.GetPassword(user);
+                    user.User_RealPassword = p;
+                    //databaseUsers.Add(user);			
+                    _entities.Add(new FRptListadoDePwdEntity(user));
+                }
+
+                ApplicationUserBusiness appb = new ApplicationUserBusiness();
+
+                AgregarMensaje("Consultando las Contraseñas de Aplicativos");
+                ApplicationUserEntityCollection appList = appb.GetAll();
+
+                foreach (ApplicationUserEntity user in appList)
+                {
+                    try
+                    {
+                        string p = appb.GetPassword(user);
+                        user.User_RealPassword = p;
+                        //applicationUsers.Add(user);
+                        _entities.Add(new FRptListadoDePwdEntity(user));
+                    }
+                    catch (Exception)
+                    {
+                        TraceHelper.Information("Ultima usuario leido: Aplicativo - '{0}' - Usuario '{1}'", user.Desc, user.Username);
+                        throw;
+                    }
+                }
+
+                UnixUserBusiness unixb = new UnixUserBusiness();
+
+                AgregarMensaje("Consultando las Contraseñas de Unix");
+                UnixUserEntityCollection unixList = unixb.GetAll();
+
+                foreach (UnixUserEntity user in unixList)
+                {
+                    string p = unixb.GetPassword(user);
+                    user.User_RealPassword = p;
+                    user.Server_Name = user.Unix.ServerName;
+                    //unixUsers.Add(user);
+                    _entities.Add(new FRptListadoDePwdEntity(user));
+                }
+
+                AS400UserBusiness AS400b = new AS400UserBusiness();
+
+                AgregarMensaje("Consultando las Contraseñas de AS400");
+                AS400UserEntityCollection AS400List = AS400b.GetAll();
+
+                foreach (AS400UserEntity user in AS400List)
+                {
+                    string p = AS400b.GetPassword(user);
+                    user.User_RealPassword = p;
+                    user.Server_Name = user.AS400.ServerName;
+                    //AS400Users.Add(user);
+                    _entities.Add(new FRptListadoDePwdEntity(user));
+                }
+
+                ATMUserBusiness ATMb = new ATMUserBusiness();
+
+                AgregarMensaje("Consultando las Contraseñas de ATMs");
+                ATMUserEntityCollection ATMList = ATMb.GetAll();
+
+                foreach (ATMUserEntity user in ATMList)
+                {
+                    string p = ATMb.GetPassword(user);
+                    user.User_RealPassword = p;
+                    //ATMUsers.Add(user);
+                    _entities.Add(new FRptListadoDePwdEntity(user));
+                }
+
+                WinLocalUserBusiness wlub = new WinLocalUserBusiness();
+
+                AgregarMensaje("Consultando las Contraseñas de Windows");
+                WinLocalUserEntityCollection list = wlub.GetAll();
+
+                foreach (WinLocalUserEntity user in list)
+                {
+                    string p = wlub.GetPassword(user);
+                    user.User_RealPassword = p;
+                    //WinLocalUsers.Add(user);
+                    _entities.Add(new FRptListadoDePwdEntity(user));
+                }
+
+                CommunicationDeviceUserBusiness cdb = new CommunicationDeviceUserBusiness();
+
+                AgregarMensaje("Consultando las Contraseñas de Equipos de Comunicación");
+                CommunicationDeviceUserEntityCollection cdList = cdb.GetAll();
+
+                foreach (CommunicationDeviceUserEntity user in cdList)
+                {
+                    string p = cdb.GetPassword(user);
+                    user.User_RealPassword = p;
+                    //CommunicationDeviceUsers.Add(user);
+                    _entities.Add(new FRptListadoDePwdEntity(user));
+                }
             }
-
-            ApplicationUserBusiness appb = new ApplicationUserBusiness();
-
-            AgregarMensaje("Consultando las Contraseñas de Aplicativos");
-            ApplicationUserEntityCollection appList = appb.GetAll();
-
-            foreach (ApplicationUserEntity user in appList)
+            catch (Exception ex)
             {
-                string p = appb.GetPassword(user);
-                user.User_RealPassword = p;
-                //applicationUsers.Add(user);
-                _entities.Add(new FRptListadoDePwdEntity(user));
-            }
 
-            UnixUserBusiness unixb = new UnixUserBusiness();
-
-            AgregarMensaje("Consultando las Contraseñas de Unix");
-            UnixUserEntityCollection unixList = unixb.GetAll();
-
-            foreach (UnixUserEntity user in unixList)
-            {
-                string p = unixb.GetPassword(user);
-                user.User_RealPassword = p;
-                user.Server_Name = user.Unix.ServerName;
-                //unixUsers.Add(user);
-                _entities.Add(new FRptListadoDePwdEntity(user));
-            }
-
-            AS400UserBusiness AS400b = new AS400UserBusiness();
-
-            AgregarMensaje("Consultando las Contraseñas de AS400");
-            AS400UserEntityCollection AS400List = AS400b.GetAll();
-
-            foreach (AS400UserEntity user in AS400List)
-            {
-                string p = AS400b.GetPassword(user);
-                user.User_RealPassword = p;
-                user.Server_Name = user.AS400.ServerName;
-                //AS400Users.Add(user);
-                _entities.Add(new FRptListadoDePwdEntity(user));
-            }
-
-            ATMUserBusiness ATMb = new ATMUserBusiness();
-
-            AgregarMensaje("Consultando las Contraseñas de ATMs");
-            ATMUserEntityCollection ATMList = ATMb.GetAll();
-
-            foreach (ATMUserEntity user in ATMList)
-            {
-                string p = ATMb.GetPassword(user);
-                user.User_RealPassword = p;
-                //ATMUsers.Add(user);
-                _entities.Add(new FRptListadoDePwdEntity(user));
-            }
-
-            WinLocalUserBusiness wlub = new WinLocalUserBusiness();
-
-            AgregarMensaje("Consultando las Contraseñas de Windows");
-            WinLocalUserEntityCollection list = wlub.GetAll();
-
-            foreach (WinLocalUserEntity user in list)
-            {
-                string p = wlub.GetPassword(user);
-                user.User_RealPassword = p;
-                //WinLocalUsers.Add(user);
-                _entities.Add(new FRptListadoDePwdEntity(user));
-            }
-
-            CommunicationDeviceUserBusiness cdb = new CommunicationDeviceUserBusiness();
-
-            AgregarMensaje("Consultando las Contraseñas de Equipos de Comunicación");
-            CommunicationDeviceUserEntityCollection cdList = cdb.GetAll();
-
-            foreach (CommunicationDeviceUserEntity user in cdList)
-            {
-                string p = cdb.GetPassword(user);
-                user.User_RealPassword = p;
-                //CommunicationDeviceUsers.Add(user);
-                _entities.Add(new FRptListadoDePwdEntity(user));
+                throw;
             }
         }
 
@@ -434,6 +450,7 @@ namespace PhalanxAdmin
             }
             catch (Exception ex)
             {
+                TraceHelper.Error(ex, "Error al consultar contraseñas");
                 MessageBox.Show("Error al consultar las Contraseñas de Aplicaciones", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -520,7 +537,7 @@ namespace PhalanxAdmin
         public FRptListadoDePwdEntity(UserEntity user)
         {
             Folio = user.Id.ToString();
-            Ambiente = user.UserType.Desc;
+            Ambiente = user.UserType != null ? user.UserType.Desc : string.Empty;
             Username = ObtenerUsuario(user);
             User_RealPassword = user.User_RealPassword;
             State = user.State;

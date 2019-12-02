@@ -325,7 +325,13 @@ namespace PhalanxBL
         public string GetPassword(WinLocalUserEntity user)
         {
             string passEncrypt= m_WinUserFactory.RefreshPassword(user);
-            return DecryptPassword(passEncrypt);
+
+            if (!string.IsNullOrEmpty(passEncrypt))
+            {
+                passEncrypt = DecryptPassword(passEncrypt);
+            }
+
+            return passEncrypt;
         }
 
         public void RefrechGroupsList(WinLocalUserEntity user)

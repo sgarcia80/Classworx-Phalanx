@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using PhalanxCommon.Collections;
@@ -7,6 +8,7 @@ using PhalanxCommon.Entities;
 using PhalanxDAL.Factories;
 using Phalanx.Util;
 using PhalanxMAL;
+using Classworx.Common.Trace;
 
 namespace PhalanxBL
 {
@@ -175,7 +177,7 @@ namespace PhalanxBL
         /// <param name="administrador">Usuario que devolvió la contraseña</param>
         /// <returns>Devolverá true si la devolución se efectuó exitosamente, sino devolverá false</returns>
         public uint GetRequestPwdBack(PasswordRequestEntity pwdRequest, int newResquestState, string note, PhxUserEntity administrador)
-        { 
+        {
             bool DisableUser = false;
             /// si es contraseña de ATM hay que desactivarla cuando se devuelve por el usuario y la solicitud se cierra.
             /// Queda pendiente ver si también pasa lo mismo con la expiración
@@ -220,7 +222,7 @@ namespace PhalanxBL
             return new PasswordsRequestsFactory().CloseRequestPwd(pwdRequest.Id, 11, note, authUserId, disableUser);
         }
 
-         
+
 
         /// <summary>
         /// Busca la solicitud por la cual una contraseña no concurrente está en uso
@@ -282,7 +284,7 @@ namespace PhalanxBL
                 }*/
             }
         }
-         
+
         public uint ReturnRequestPwdByAdmin(PasswordRequestEntity pwdRequest, string note, int authUserId)
         {
             //Si es un ATM, se cierra automaticamente.
@@ -297,6 +299,8 @@ namespace PhalanxBL
         }
         public PasswordRequestEntityCollection GetPassRqstByState(ArrayList states, string IdPwdRqst, ArrayList groups, bool LoadChangePostReturn)
         {
+            bool oldway = true;
+
             PasswordRequestEntityCollection PwdReqEC = new PasswordRequestEntityCollection();
             if (IdPwdRqst == "")
             {
@@ -310,20 +314,58 @@ namespace PhalanxBL
             }
             if (LoadChangePostReturn)
             {
-                for (int i = 0; i < PwdReqEC.Count; i++)
+                TraceHelper.Information("Change Start: {0}", DateTime.UtcNow);
+
+                //PasswordRequestEntity[] array = (PasswordRequestEntity[])PwdReqEC.OfType<PasswordRequestEntity>();
+
+                if (!oldway)
                 {
-                    HistPasswordChangeBusiness HPCBL = new HistPasswordChangeBusiness();
-                    /// puede que no haya sido devuelto todavia, ahi no se carga el cambio post devolucion
-                    if (PwdReqEC[i].ReturnDate != null)
+                    var list = PwdReqEC.OfType<PasswordRequestEntity>().ToList();
+                    var requestClosed = (from p in list
+                                             // puede que no haya sido devuelto todavia, ahi no se carga el cambio post devolucion
+                                         where p.ReturnDate.HasValue && p.CloseDate.HasValue
+                                         select p).ToList();
+
+                    HistPasswordChangeEntity changedate = null;
+
+                    if (requestClosed.Count > 0)
                     {
-                        DateTime? ClosingDate = null;
-                        if (PwdReqEC[i].CloseDate != null && PwdReqEC[i].CloseDate.HasValue)
-                        { ClosingDate = PwdReqEC[i].CloseDate.Value; }
-                        PwdReqEC[i].ChangePostReturn = HPCBL.GetChangePostReturn(PwdReqEC[i].User.Id, PwdReqEC[i].ReturnDate.Value, ClosingDate);
+                        HistPasswordChangeBusiness HPCBL = new HistPasswordChangeBusiness();
+
+                        for (int i = 0; i < requestClosed.Count; i++)
+                        {
+                            changedate = null;
+
+                            if (PwdReqEC[i].ReturnDate != null)
+                            {
+                                changedate = HPCBL.GetChangePostReturn(PwdReqEC[i].User.Id, PwdReqEC[i].ReturnDate.Value, PwdReqEC[i].CloseDate);
+                            }
+                            /// indica que se buscó el cambio
+                            PwdReqEC[i].ChangePostReturn = changedate;
+                            PwdReqEC[i].CambioLoaded = true;
+                        }
                     }
-                    /// indica que se buscó el cambio
-                    PwdReqEC[i].CambioLoaded = true;
                 }
+                else
+                {
+                    for (int i = 0; i < PwdReqEC.Count; i++)
+                    {
+                        HistPasswordChangeBusiness HPCBL = new HistPasswordChangeBusiness();
+                        /// puede que no haya sido devuelto todavia, ahi no se carga el cambio post devolucion
+                        if (PwdReqEC[i].ReturnDate != null)
+                        {
+                            DateTime? ClosingDate = null;
+                            if (PwdReqEC[i].CloseDate != null && PwdReqEC[i].CloseDate.HasValue)
+                            { ClosingDate = PwdReqEC[i].CloseDate.Value; }
+                            PwdReqEC[i].ChangePostReturn = HPCBL.GetChangePostReturn(PwdReqEC[i].User.Id, PwdReqEC[i].ReturnDate.Value, ClosingDate);
+                        }
+                        /// indica que se buscó el cambio
+                        PwdReqEC[i].CambioLoaded = true;
+                    }
+
+                }
+
+                TraceHelper.Information("Change End:   {0}", DateTime.UtcNow);
             }
             return PwdReqEC;
         }

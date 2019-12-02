@@ -170,7 +170,13 @@ namespace PhalanxBL
         public string GetPassword(CommunicationDeviceUserEntity user)
         {
             string passEncrypt = m_CDUserFactory.RefreshPassword(user);
-            return DecryptPassword(passEncrypt);
+
+            if (!string.IsNullOrEmpty(passEncrypt))
+            {
+                passEncrypt = DecryptPassword(passEncrypt);
+            }
+
+            return passEncrypt;
         }
 
         public string EncryptPassword(string password)

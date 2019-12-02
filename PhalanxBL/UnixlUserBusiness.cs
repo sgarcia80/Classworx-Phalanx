@@ -238,7 +238,13 @@ namespace PhalanxBL
         public string GetPassword(UnixUserEntity user)
         {
             string passEncrypt= m_UnixUserFactory.RefreshPassword(user);
-            return DecryptPassword(passEncrypt);
+
+            if (!string.IsNullOrEmpty(passEncrypt))
+            {
+                passEncrypt = DecryptPassword(passEncrypt);
+            }
+
+            return passEncrypt;
         }
 
         public void RefrechGroupsList(UnixUserEntity user)

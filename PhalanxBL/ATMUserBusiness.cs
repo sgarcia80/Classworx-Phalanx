@@ -150,7 +150,13 @@ namespace PhalanxBL
         public string GetPassword(ATMUserEntity user)
         {
             string passEncrypt = m_ATMUserFactory.RefreshPassword(user);
-            return DecryptPassword(passEncrypt);
+
+            if (!string.IsNullOrEmpty(passEncrypt))
+            {
+                passEncrypt = DecryptPassword(passEncrypt);
+            }
+
+            return passEncrypt;
         }
 
         public string EncryptPassword(string password)

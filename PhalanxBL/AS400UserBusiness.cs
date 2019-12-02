@@ -208,7 +208,13 @@ namespace PhalanxBL
         public string GetPassword(AS400UserEntity user)
         {
             string passEncrypt = m_AS400UserFactory.RefreshPassword(user);
-            return DecryptPassword(passEncrypt);
+
+            if (!string.IsNullOrEmpty(passEncrypt))
+            {
+                passEncrypt = DecryptPassword(passEncrypt);
+            }
+
+            return passEncrypt;
         }
 
         public void RefrechGroupsList(AS400UserEntity user)

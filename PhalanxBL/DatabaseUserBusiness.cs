@@ -155,7 +155,13 @@ namespace PhalanxBL
         public string GetPassword(DatabaseUserEntity user)
         {
             string passEncrypt = m_DBUserFactory.RefreshPassword(user);
-            return DecryptPassword(passEncrypt);
+
+            if (!string.IsNullOrEmpty(passEncrypt))
+            {
+                passEncrypt = DecryptPassword(passEncrypt);
+            }
+
+            return passEncrypt;
         }
 
         public string EncryptPassword(string password)

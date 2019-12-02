@@ -10,8 +10,8 @@ using System.Collections;
 
 namespace PhalanxDAL.Factories
 {
-    public class ApplicationUserFactory: BaseFactory
-    {   
+    public class ApplicationUserFactory : BaseFactory
+    {
         private string _filUserName = "";
         private ApplicationEntity _filApp;
         private bool _orderName = false;
@@ -51,7 +51,7 @@ namespace PhalanxDAL.Factories
         private bool _AvoidInactiveGrps = false;
         public bool SetAvoidInactiveGrps
         { set { _AvoidInactiveGrps = value; } }
-        
+
         public bool GetGruposAsignados = false;
         public bool GetGruposSeguimAsignados = false;
 
@@ -404,7 +404,11 @@ namespace PhalanxDAL.Factories
                 using (ISession session = DBMgr.factory.OpenSession())
                 {
                     session.Refresh(AppUser);
-                    pwd = AppUser.UserPassword.Password;
+
+                    if (AppUser.UserPassword != null)
+                    {
+                        pwd = AppUser.UserPassword.Password;
+                    }
                 }
             }
             catch (NHibernate.ObjectNotFoundException ObjNotFoundEx)

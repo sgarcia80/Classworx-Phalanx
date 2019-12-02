@@ -700,6 +700,11 @@ namespace PhalanxDAL.Factories
             IList<PasswordRequestEntity> lstRqsts = null;
             try
             {
+                bool pass = false;
+                DateTime timestart = DateTime.Now;
+                DateTime timeend = DateTime.Now;
+
+                TraceHelper.Information("Start:        {0}", timestart);
 
                 ArrayList arrStates = new ArrayList();
                 ArrayList arrGroups = new ArrayList();
@@ -742,6 +747,8 @@ namespace PhalanxDAL.Factories
                         PasswordRequestEntity a;
                         a.UserPassword.RqstGrpsPwdsList;
                         */
+                        TraceHelper.Information("Execution:    {0}", DateTime.Now);
+
                         if (arrayStates != null && arrayGroups != null)
                         {
                             lstRqsts = DataSearch.Add(Expression.In("RqstState", arrStates))
@@ -785,11 +792,21 @@ namespace PhalanxDAL.Factories
 
                         /*RqstGrpPwdEntity a;
                         a.RqstGrp.*/
-                        foreach (PasswordRequestEntity PwdRqstE in lstRqsts)
+                        if (pass)
                         {
-                            int i = PwdRqstE.UserPassword.UsersList.Count;
-                            PwdRqstEC.Add(PwdRqstE);
+                            foreach (PasswordRequestEntity PwdRqstE in lstRqsts)
+                            {
+                                int i = PwdRqstE.UserPassword.UsersList.Count;
+                                PwdRqstEC.Add(PwdRqstE);
+                            }
                         }
+                        else
+                        {
+                            PwdRqstEC.Add(lstRqsts);
+                        }
+
+                        timeend = DateTime.Now;
+                        TraceHelper.Information("Finish:       {0}", timeend);
                     }
                 }
                 else
@@ -1524,7 +1541,7 @@ namespace PhalanxDAL.Factories
                             session.Update(PwdRqstE);
 
                             TraceHelper.Information("Se cambia la contraseña {0} a {1}", PwdRqstE.UserDesc, PwdRqstE.RqstState.RqstStateDesc);
-                            
+
                             //Se agrega para los avisos por mail si no es ATM
                             if (!PwdRqstE.User.UserType.Equals(atmType))
                             {

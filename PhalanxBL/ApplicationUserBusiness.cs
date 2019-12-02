@@ -160,7 +160,13 @@ namespace PhalanxBL
         public string GetPassword(ApplicationUserEntity user)
         {
             string passEncrypt = m_AppUserFactory.RefreshPassword(user);
-            return DecryptPassword(passEncrypt);
+
+            if (!string.IsNullOrEmpty(passEncrypt))
+            {
+                passEncrypt = DecryptPassword(passEncrypt);
+            }
+
+            return passEncrypt;
         }
 
         public string EncryptPassword(string password)
