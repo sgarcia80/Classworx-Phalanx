@@ -11,6 +11,7 @@ using NDCBL;
 using PhalanxBL;
 using PhalanxCommon.Collections;
 using PhalanxCommon.Entities;
+using Classworx.Common.Trace;
 
 namespace PhalanxAdmin
 {
@@ -203,7 +204,9 @@ namespace PhalanxAdmin
             // First, handle the case where an exception was thrown.
             if (e.Error != null)
             {
+                TraceHelper.Error(e.Error,"Error en reporte Empleados Meta4.");
                 //MessageBox.Show(e.Error.Message);
+                this.lblStatus.Text = "Error";
             }
             else if (e.Cancelled)
             {
@@ -241,6 +244,19 @@ namespace PhalanxAdmin
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             CleanFilters();
+        }
+
+        private void lnkCancelar_Click(object sender, EventArgs e)
+        {
+            this.bwRefreshEntities.CancelAsync();
+            this.lnkCancelar.Visible = false;
+            this.pbDB.Visible = false;
+            this.lblStatus.Text = "Cancelado";
+            this.lvLista.Items.Clear();
+            this.pnlFilters.Enabled = true;
+            this.pnlList.Enabled = true;
+            this.Cursor = Cursors.Default;
+
         }
 
         private void CleanFilters()

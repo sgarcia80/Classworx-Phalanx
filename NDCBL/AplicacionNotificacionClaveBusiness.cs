@@ -70,6 +70,17 @@ namespace NDCBL
 
             return AppFac.GetAll();
         }
+        public AplicacionNotificacionClaveEntityCollection GetAllByType()
+        {
+            AplicacionNotificacionClaveFactory AppFac = new AplicacionNotificacionClaveFactory();
+
+            AppFac.FilNombre = _filNombre;
+            AppFac.FilNotificable = _filNotificable;
+            AppFac.FilEsEmuladores = this.FilEsEmuladores;
+            AppFac.FilAppRed = _filEsAppRed;
+
+            return AppFac.GetAll();
+        }
 
         public void Create(AplicacionNotificacionClaveEntity entidad)
         {

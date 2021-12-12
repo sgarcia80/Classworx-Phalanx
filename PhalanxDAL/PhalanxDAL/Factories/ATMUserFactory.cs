@@ -7,7 +7,7 @@ using NHibernate;
 using NHibernate.Criterion;
 using PhalanxCommon;
 using System.Collections;
- 
+
 namespace PhalanxDAL.Factories
 {
     public class ATMUserFactory : BaseFactory
@@ -49,7 +49,7 @@ namespace PhalanxDAL.Factories
             set { _filATMName = value; }
         }
 
-        
+
         public bool GetGruposAsignados = false;
         public bool GetGruposSeguimAsignados = false;
 
@@ -152,7 +152,7 @@ namespace PhalanxDAL.Factories
             set { _filFiltroNombreGeneral = value; }
         }
 
-        public ATMUserEntityCollection GetAllForRqst(PhxUserEntity PhxUserRqst)
+        public ATMUserEntityCollection GetAllForRqst(PhxUserEntity PhxUserRqst, bool approvepwd)
         {
             IList<ATMUserEntity> lstDBUs;
             ATMUserEntityCollection ApplicationUsrEC = new ATMUserEntityCollection();
@@ -161,21 +161,43 @@ namespace PhalanxDAL.Factories
                 ICriteria DataSearch = session.CreateCriteria(typeof(ATMUserEntity), "ATMUser");
                 if (_filFiltroNombreGeneral != "")
                 {
-                    DataSearch.Add(Expression.Like("ATMUser.Username", _filFiltroNombreGeneral, MatchMode.Anywhere));
+                    DataSearch.Add(Expression.Or(Expression.Like("ATMUser.ATMName", _filFiltroNombreGeneral, MatchMode.Anywhere),
+                                                Expression.Or(Expression.Like("ATMUser.Username", _filFiltroNombreGeneral, MatchMode.Anywhere),
+                                                             Expression.Like("ATMUser.Desc", _filFiltroNombreGeneral, MatchMode.Anywhere)
+                                                             )
+                                                )
+                        );
                 }
                 DataSearch = DataSearch.Add(Expression.Eq("ATMUser.ActiveUser", true));
-                DataSearch = DataSearch.CreateCriteria("UserPassword", "USRPWD");
-                DataSearch = DataSearch.CreateCriteria("RqstGrpsPwdsList", "RQSTGRPSPWD");
-                DataSearch = DataSearch.CreateCriteria("RqstGrp", "RQSTGRP");
-                DataSearch.Add(Expression.Eq("RQSTGRP.Active", true));
-                DataSearch = DataSearch.CreateCriteria("PhxUsersGroupsList", "USRRQSTGRP");
-                DataSearch = DataSearch.Add(Expression.Eq("PhxUser", PhxUserRqst));
+                DataSearch = DataSearch.CreateCriteria("ATMUser.UserPassword", "USRPWD");
+
+                if (approvepwd)
+                {
+                    //DataSearch = DataSearch.CreateCriteria("FollowupRqstGrpsPwdsList", "RQSTGRPSPWD");
+                    //DataSearch = DataSearch.CreateCriteria("FollowupRqstGrp", "RQSTGRP");
+                    //DataSearch.Add(Expression.Eq("RQSTGRP.Active", true));
+                    //DataSearch = DataSearch.CreateCriteria("FollowupGroupUsersList", "USRRQSTGRP");
+                }
+                else
+                {
+                    DataSearch = DataSearch.CreateCriteria("RqstGrpsPwdsList", "RQSTGRPSPWD");
+                    DataSearch = DataSearch.CreateCriteria("RqstGrp", "RQSTGRP");
+                    DataSearch.Add(Expression.Eq("RQSTGRP.Active", true));
+                    DataSearch = DataSearch.CreateCriteria("PhxUsersGroupsList", "USRRQSTGRP");
+
+                    //Solo se busca por usuario si no tiene permisos en PHX Admin / Contraseñas
+                    DataSearch = DataSearch.Add(Expression.Eq("PhxUser", PhxUserRqst));
+                }
+
                 if (_orderName)
                 {
                     DataSearch = DataSearch.AddOrder(Order.Asc("ATMUser.ATMName"));
                     DataSearch = DataSearch.AddOrder(Order.Asc("ATMUser.Username"));
 
                 }
+
+                DataSearch.SetResultTransformer(new NHibernate.Transform.DistinctRootEntityResultTransformer());
+
                 //DataSearch.AddOrder(Order.Asc("WLU.Username"));
                 lstDBUs = DataSearch.List<ATMUserEntity>();
                 ApplicationUsrEC.AddUnique(lstDBUs);
@@ -212,7 +234,7 @@ namespace PhalanxDAL.Factories
             }
         }
 
-        public ATMUserEntity GetAppPwdForRqst(PhxUserEntity PhxUserRqst, int AppUserID)
+        public ATMUserEntity GetAppPwdForRqst(PhxUserEntity PhxUserRqst, int AppUserID, bool approvepwd)
         {
             ATMUserEntity AppUsrE = null;
             //AppUsrE.UserPassword.
@@ -223,11 +245,19 @@ namespace PhalanxDAL.Factories
                 ICriteria DataSearch = session.CreateCriteria(typeof(ATMUserEntity), "ATMUser");
                 DataSearch = DataSearch.Add(Expression.Eq("ATMUser.Id", AppUserID));
                 DataSearch = DataSearch.Add(Expression.Eq("ATMUser.ActiveUser", true));
-                DataSearch = DataSearch.CreateCriteria("UserPassword", "USRPWD");
-                DataSearch = DataSearch.CreateCriteria("RqstGrpsPwdsList", "RQSTGRPSPWD");
-                DataSearch = DataSearch.CreateCriteria("RqstGrp", "RQSTGRP");
-                DataSearch = DataSearch.CreateCriteria("PhxUsersGroupsList", "USRRQSTGRP");
-                DataSearch = DataSearch.Add(Expression.Eq("PhxUser", PhxUserRqst));
+
+                if (approvepwd)
+                {
+                }
+                else
+                {
+                    DataSearch = DataSearch.CreateCriteria("UserPassword", "USRPWD");
+                    DataSearch = DataSearch.CreateCriteria("RqstGrpsPwdsList", "RQSTGRPSPWD");
+                    DataSearch = DataSearch.CreateCriteria("RqstGrp", "RQSTGRP");
+                    DataSearch = DataSearch.CreateCriteria("PhxUsersGroupsList", "USRRQSTGRP");
+                    DataSearch = DataSearch.Add(Expression.Eq("PhxUser", PhxUserRqst));
+                }
+
                 // agregar que esté activo y no esté en uso!!!!!
                 try
                 {
@@ -248,7 +278,7 @@ namespace PhalanxDAL.Factories
             return AppUsrE;
         }
 
-        public RqstGrpPwdEntityCollection  GetGruposSolicitudes(ATMUserEntity CurrentUser)
+        public RqstGrpPwdEntityCollection GetGruposSolicitudes(ATMUserEntity CurrentUser)
         {
             IList<RqstGrpPwdEntity> lstRequestGroups;
             RqstGrpPwdEntityCollection colRequestGroups = new RqstGrpPwdEntityCollection();
@@ -469,28 +499,32 @@ namespace PhalanxDAL.Factories
             }
         }
 
-		public IList GetAll(bool? critico, bool? estadoUsuario, string nombre)
-		{
-			using (ISession session = DBMgr.factory.OpenSession())
-			{
-				IQuery query = session.GetNamedQuery("getAllATMUsers");
+        public IList GetAll(bool? critico, bool? estadoUsuario, string nombre, int tipoCuenta)
+        {
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                IQuery query = session.GetNamedQuery("getAllATMUsers");
 
-				int criticoParam = -1;
-				int estadoUsuarioParam = -1;
+                int criticoParam = -1;
+                int estadoUsuarioParam = -1;
 
-				if (critico != null)
-					criticoParam = critico.Value ? 1 : 0;
+                if (critico != null)
+                    criticoParam = critico.Value ? 1 : 0;
 
-				if (estadoUsuario != null)
-					estadoUsuarioParam = estadoUsuario.Value ? 1 : 0;
+                if (estadoUsuario != null)
+                    estadoUsuarioParam = estadoUsuario.Value ? 1 : 0;
 
-				query.SetString("nombre", nombre != null ? "%" + nombre.ToUpper() + "%" : null);
-				query.SetParameter("critico", criticoParam);
-				query.SetInt32("estadoUsuario", estadoUsuarioParam);
+                query.SetString("nombre", nombre != null ? "%" + nombre.ToUpper() + "%" : null);
+                query.SetParameter("critico", criticoParam);
+                query.SetInt32("estadoUsuario", estadoUsuarioParam);
 
-				return query.List();
-			}
-		}
+                query.SetInt32("tipocuenta", tipoCuenta);
+                //query.SetParameter("alertam", alertaModif.HasValue ? Convert.ToInt32(alertaModif.Value) : -1);
+                //query.SetParameter("alertav", alertaVisual.HasValue ? Convert.ToInt32(alertaVisual.Value) : -1);
+
+                return query.List();
+            }
+        }
 
         public ATMUserEntity Load(int ID)
         {

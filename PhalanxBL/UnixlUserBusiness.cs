@@ -93,19 +93,29 @@ namespace PhalanxBL
         }
         public UnixUserEntityCollection GetAllForRqst(PhxUserEntity PhxUserRqst, string Filtro)
         {
+            PhxUserBusiness PhxUsrBL = new PhxUserBusiness();
+
+            bool approvepwd = PhxUsrBL.AccPwdUnix(PhxUserRqst);
+
             m_UnixUserFactory.OrderByName = true;
             m_UnixUserFactory.FilFiltroNombreGeneral = Filtro;
-            return m_UnixUserFactory.GetAllForRqst(PhxUserRqst);
+            return m_UnixUserFactory.GetAllForRqst(PhxUserRqst, approvepwd);
         }
         public UnixUserEntityCollection GetAllForRqst(PhxUserEntity PhxUserRqst)
         {
+            PhxUserBusiness PhxUsrBL = new PhxUserBusiness();
+
+            bool approvepwd = PhxUsrBL.ChkAuthPwdRequest(PhxUserRqst);
+
             m_UnixUserFactory.OrderByName = true;
-            return m_UnixUserFactory.GetAllForRqst(PhxUserRqst);
+            return m_UnixUserFactory.GetAllForRqst(PhxUserRqst, approvepwd);
         }
 
         public UnixUserEntity GetUnixPwdForRqst(PhxUserEntity PhxUserRqst, int WLUID)
         {
-            return m_UnixUserFactory.GetUnixPwdForRqst(PhxUserRqst, WLUID);
+            bool approvepwd = new PhxUserBusiness().AccPwdUnix(PhxUserRqst);
+
+            return m_UnixUserFactory.GetUnixPwdForRqst(PhxUserRqst, WLUID, approvepwd);
         }
 
         public string EncryptPassword(string password)
@@ -270,9 +280,9 @@ namespace PhalanxBL
             SaveUser(unixUser, UpdatePassword, GruposSolicitudes, GruposSeguimiento);
         }
 
-		public IList GetAll(bool? critico, bool? estadoUsuario, string nombre)
+		public IList GetAll(bool? critico, bool? estadoUsuario, string nombre, int tipoCuenta)
 		{
-			return new UnixUsersFactory().GetAll(critico, estadoUsuario, nombre);
+			return new UnixUsersFactory().GetAll(critico, estadoUsuario, nombre, tipoCuenta);
 		}
 
         public UnixUserEntity Load(int ID)

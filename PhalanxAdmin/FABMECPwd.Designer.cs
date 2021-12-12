@@ -38,7 +38,7 @@ namespace PhalanxAdmin
             System.Windows.Forms.ColumnHeader columnHeader1;
             System.Windows.Forms.ColumnHeader columnHeader3;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FABMECPwd));
-            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("ListViewGroup1", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("ListViewGroup1", System.Windows.Forms.HorizontalAlignment.Left);
             this.bwRefreshEntities = new System.ComponentModel.BackgroundWorker();
             this.bwRefreshEntitiesSolicitudes = new System.ComponentModel.BackgroundWorker();
             this.chkActivo = new System.Windows.Forms.CheckBox();
@@ -70,6 +70,8 @@ namespace PhalanxAdmin
             this.lblModifying = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpGeneral = new System.Windows.Forms.TabPage();
+            this.label14 = new System.Windows.Forms.Label();
+            this.cbTipoCuenta = new System.Windows.Forms.ComboBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.tpGrpSolic = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -214,6 +216,7 @@ namespace PhalanxAdmin
             // 
             // columnHeader1
             // 
+            columnHeader1.Tag = "Numeric";
             columnHeader1.Text = "Nro Solicitud";
             columnHeader1.Width = 80;
             // 
@@ -240,7 +243,7 @@ namespace PhalanxAdmin
             this.chkActivo.AutoSize = true;
             this.chkActivo.Checked = true;
             this.chkActivo.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkActivo.Location = new System.Drawing.Point(440, 65);
+            this.chkActivo.Location = new System.Drawing.Point(440, 60);
             this.chkActivo.Name = "chkActivo";
             this.chkActivo.Size = new System.Drawing.Size(56, 17);
             this.chkActivo.TabIndex = 2;
@@ -253,7 +256,7 @@ namespace PhalanxAdmin
             this.picDesactivo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.picDesactivo.ErrorImage = null;
             this.picDesactivo.Image = ((System.Drawing.Image)(resources.GetObject("picDesactivo.Image")));
-            this.picDesactivo.Location = new System.Drawing.Point(490, 38);
+            this.picDesactivo.Location = new System.Drawing.Point(490, 33);
             this.picDesactivo.Name = "picDesactivo";
             this.picDesactivo.Size = new System.Drawing.Size(20, 17);
             this.picDesactivo.TabIndex = 31;
@@ -265,7 +268,7 @@ namespace PhalanxAdmin
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(437, 42);
+            this.label5.Location = new System.Drawing.Point(437, 37);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(50, 13);
             this.label5.TabIndex = 30;
@@ -275,7 +278,7 @@ namespace PhalanxAdmin
             // 
             this.txtDescrip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txtDescrip.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.txtDescrip.Location = new System.Drawing.Point(100, 214);
+            this.txtDescrip.Location = new System.Drawing.Point(100, 209);
             this.txtDescrip.MaxLength = 4000;
             this.txtDescrip.Multiline = true;
             this.txtDescrip.Name = "txtDescrip";
@@ -288,7 +291,7 @@ namespace PhalanxAdmin
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(19, 221);
+            this.label2.Location = new System.Drawing.Point(14, 216);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(78, 13);
             this.label2.TabIndex = 28;
@@ -298,7 +301,7 @@ namespace PhalanxAdmin
             // 
             this.txtUsername.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txtUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.txtUsername.Location = new System.Drawing.Point(100, 182);
+            this.txtUsername.Location = new System.Drawing.Point(100, 177);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(320, 20);
             this.txtUsername.TabIndex = 4;
@@ -308,7 +311,7 @@ namespace PhalanxAdmin
             this.cbEC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbEC.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbEC.FormattingEnabled = true;
-            this.cbEC.Location = new System.Drawing.Point(100, 65);
+            this.cbEC.Location = new System.Drawing.Point(100, 60);
             this.cbEC.Name = "cbEC";
             this.cbEC.Size = new System.Drawing.Size(320, 21);
             this.cbEC.Sorted = true;
@@ -320,7 +323,7 @@ namespace PhalanxAdmin
             this.cbTipoEC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbTipoEC.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTipoEC.FormattingEnabled = true;
-            this.cbTipoEC.Location = new System.Drawing.Point(100, 38);
+            this.cbTipoEC.Location = new System.Drawing.Point(100, 33);
             this.cbTipoEC.Name = "cbTipoEC";
             this.cbTipoEC.Size = new System.Drawing.Size(320, 21);
             this.cbTipoEC.TabIndex = 0;
@@ -331,7 +334,7 @@ namespace PhalanxAdmin
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(19, 189);
+            this.label6.Location = new System.Drawing.Point(14, 184);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(54, 13);
             this.label6.TabIndex = 24;
@@ -349,7 +352,7 @@ namespace PhalanxAdmin
             this.lps.Controls.Add(this.label1);
             this.lps.Location = new System.Drawing.Point(17, 340);
             this.lps.Name = "lps";
-            this.lps.Size = new System.Drawing.Size(496, 116);
+            this.lps.Size = new System.Drawing.Size(496, 100);
             this.lps.TabIndex = 8;
             this.lps.TabStop = false;
             this.lps.Text = "Contraseña del Usuario";
@@ -368,10 +371,10 @@ namespace PhalanxAdmin
             // chkPwdConcurrente
             // 
             this.chkPwdConcurrente.AutoSize = true;
-            this.chkPwdConcurrente.Location = new System.Drawing.Point(319, 81);
+            this.chkPwdConcurrente.Location = new System.Drawing.Point(86, 78);
             this.chkPwdConcurrente.Name = "chkPwdConcurrente";
             this.chkPwdConcurrente.Size = new System.Drawing.Size(84, 17);
-            this.chkPwdConcurrente.TabIndex = 3;
+            this.chkPwdConcurrente.TabIndex = 2;
             this.chkPwdConcurrente.Text = "Concurrente";
             this.chkPwdConcurrente.UseVisualStyleBackColor = true;
             // 
@@ -379,11 +382,11 @@ namespace PhalanxAdmin
             // 
             this.chkVisualizar.AutoSize = true;
             this.chkVisualizar.Enabled = false;
-            this.chkVisualizar.Location = new System.Drawing.Point(86, 81);
+            this.chkVisualizar.Location = new System.Drawing.Point(176, 78);
             this.chkVisualizar.Name = "chkVisualizar";
-            this.chkVisualizar.Size = new System.Drawing.Size(127, 17);
-            this.chkVisualizar.TabIndex = 2;
-            this.chkVisualizar.Text = "Visualizar Contraseña";
+            this.chkVisualizar.Size = new System.Drawing.Size(70, 17);
+            this.chkVisualizar.TabIndex = 3;
+            this.chkVisualizar.Text = "Visualizar";
             this.chkVisualizar.UseVisualStyleBackColor = true;
             this.chkVisualizar.CheckedChanged += new System.EventHandler(this.chkVisualizar_CheckedChanged);
             // 
@@ -427,7 +430,7 @@ namespace PhalanxAdmin
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(19, 71);
+            this.label3.Location = new System.Drawing.Point(14, 66);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(50, 13);
             this.label3.TabIndex = 22;
@@ -438,7 +441,7 @@ namespace PhalanxAdmin
             this.lTitleDominio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lTitleDominio.AutoSize = true;
             this.lTitleDominio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lTitleDominio.Location = new System.Drawing.Point(19, 42);
+            this.lTitleDominio.Location = new System.Drawing.Point(14, 37);
             this.lTitleDominio.Name = "lTitleDominio";
             this.lTitleDominio.Size = new System.Drawing.Size(36, 13);
             this.lTitleDominio.TabIndex = 21;
@@ -449,7 +452,7 @@ namespace PhalanxAdmin
             this.picActivo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.picActivo.ErrorImage = null;
             this.picActivo.Image = ((System.Drawing.Image)(resources.GetObject("picActivo.Image")));
-            this.picActivo.Location = new System.Drawing.Point(490, 38);
+            this.picActivo.Location = new System.Drawing.Point(490, 33);
             this.picActivo.Margin = new System.Windows.Forms.Padding(0);
             this.picActivo.Name = "picActivo";
             this.picActivo.Size = new System.Drawing.Size(22, 17);
@@ -460,7 +463,7 @@ namespace PhalanxAdmin
             // 
             this.chkUsuarioCritico.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkUsuarioCritico.AutoSize = true;
-            this.chkUsuarioCritico.Location = new System.Drawing.Point(100, 293);
+            this.chkUsuarioCritico.Location = new System.Drawing.Point(440, 83);
             this.chkUsuarioCritico.Name = "chkUsuarioCritico";
             this.chkUsuarioCritico.Size = new System.Drawing.Size(57, 17);
             this.chkUsuarioCritico.TabIndex = 6;
@@ -493,7 +496,7 @@ namespace PhalanxAdmin
             this.lblFolioTit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblFolioTit.AutoSize = true;
             this.lblFolioTit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFolioTit.Location = new System.Drawing.Point(20, 12);
+            this.lblFolioTit.Location = new System.Drawing.Point(14, 12);
             this.lblFolioTit.Name = "lblFolioTit";
             this.lblFolioTit.Size = new System.Drawing.Size(38, 13);
             this.lblFolioTit.TabIndex = 49;
@@ -504,7 +507,7 @@ namespace PhalanxAdmin
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(19, 98);
+            this.label7.Location = new System.Drawing.Point(14, 93);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(71, 13);
             this.label7.TabIndex = 52;
@@ -518,12 +521,12 @@ namespace PhalanxAdmin
             | System.Windows.Forms.AnchorStyles.Right)));
             this.clbCDProtocols.CheckBoxes = true;
             this.clbCDProtocols.FullRowSelect = true;
-            listViewGroup1.Header = "ListViewGroup1";
-            listViewGroup1.Name = "listViewGroup1";
+            listViewGroup3.Header = "ListViewGroup1";
+            listViewGroup3.Name = "listViewGroup1";
             this.clbCDProtocols.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup1});
+            listViewGroup3});
             this.clbCDProtocols.HideSelection = false;
-            this.clbCDProtocols.Location = new System.Drawing.Point(100, 98);
+            this.clbCDProtocols.Location = new System.Drawing.Point(100, 93);
             this.clbCDProtocols.MultiSelect = false;
             this.clbCDProtocols.Name = "clbCDProtocols";
             this.clbCDProtocols.Size = new System.Drawing.Size(320, 78);
@@ -558,6 +561,8 @@ namespace PhalanxAdmin
             // 
             // tpGeneral
             // 
+            this.tpGeneral.Controls.Add(this.label14);
+            this.tpGeneral.Controls.Add(this.cbTipoCuenta);
             this.tpGeneral.Controls.Add(this.textBox1);
             this.tpGeneral.Controls.Add(this.lblFolioTit);
             this.tpGeneral.Controls.Add(this.cbTipoEC);
@@ -585,6 +590,27 @@ namespace PhalanxAdmin
             this.tpGeneral.TabIndex = 0;
             this.tpGeneral.Text = "General";
             this.tpGeneral.UseVisualStyleBackColor = true;
+            // 
+            // label14
+            // 
+            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(14, 290);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(80, 13);
+            this.label14.TabIndex = 63;
+            this.label14.Text = "Tipo Cuenta:";
+            // 
+            // cbTipoCuenta
+            // 
+            this.cbTipoCuenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cbTipoCuenta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTipoCuenta.FormattingEnabled = true;
+            this.cbTipoCuenta.Location = new System.Drawing.Point(100, 287);
+            this.cbTipoCuenta.Name = "cbTipoCuenta";
+            this.cbTipoCuenta.Size = new System.Drawing.Size(320, 21);
+            this.cbTipoCuenta.TabIndex = 62;
             // 
             // textBox1
             // 
@@ -1429,7 +1455,7 @@ namespace PhalanxAdmin
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button btnCopyHist;
         private System.Windows.Forms.TextBox textBox2;
-
-
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ComboBox cbTipoCuenta;
     }
 }

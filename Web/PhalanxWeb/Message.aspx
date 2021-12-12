@@ -8,7 +8,7 @@
             <td align="center" height="*">
                 <div align="center">
                     <br>
-                    <table style="height: 94px" width="50%" border="0">
+                    <table style="height: 94px" width="330PX" border="0">
                         <tr>
                             <td width="*" align="center" colspan="2">
                                 <asp:Label ID="Label2" runat="server" CssClass="LabelNormal"></asp:Label></td>

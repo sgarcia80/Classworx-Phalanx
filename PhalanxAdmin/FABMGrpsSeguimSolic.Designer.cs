@@ -149,7 +149,7 @@ namespace PhalanxAdmin
             this.btnAppAddAllRoles = new System.Windows.Forms.Button();
             this.btnAppAddRole = new System.Windows.Forms.Button();
             this.lvAppPwdDB = new System.Windows.Forms.ListView();
-            this.columnHeader67 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader67 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tpUnixPwd = new System.Windows.Forms.TabPage();
             this.pnlUnixPwdGrupo = new System.Windows.Forms.Panel();
             this.label8 = new System.Windows.Forms.Label();
@@ -162,12 +162,12 @@ namespace PhalanxAdmin
             this.btnUnixAddAllRoles = new System.Windows.Forms.Button();
             this.btnUnixAddRole = new System.Windows.Forms.Button();
             this.lvUnixPwdDB = new System.Windows.Forms.ListView();
-            this.columnHeader66 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader66 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tpDBPwd = new System.Windows.Forms.TabPage();
             this.pnlDbPwdGrupo = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
             this.lvDbPwdGrupo = new System.Windows.Forms.ListView();
-            this.columnHeader17 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader17 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pnlDbPwdDB = new System.Windows.Forms.Panel();
             this.btnCargarBaseDatos = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -176,7 +176,7 @@ namespace PhalanxAdmin
             this.btnDbAddAllRoles = new System.Windows.Forms.Button();
             this.btnDbAddRole = new System.Windows.Forms.Button();
             this.lvDbPwdDB = new System.Windows.Forms.ListView();
-            this.columnHeader65 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader65 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tpWinPwd = new System.Windows.Forms.TabPage();
             this.pnlWinPwdGrp = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
@@ -189,7 +189,7 @@ namespace PhalanxAdmin
             this.btnAddAllRoles = new System.Windows.Forms.Button();
             this.btnAddRole = new System.Windows.Forms.Button();
             this.lvWinPwdDB = new System.Windows.Forms.ListView();
-            this.columnHeader64 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader64 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tpECPwd = new System.Windows.Forms.TabControl();
             this.tbAS400Pwd = new System.Windows.Forms.TabPage();
             this.pnlAS400PwdGrupo = new System.Windows.Forms.Panel();
@@ -203,7 +203,7 @@ namespace PhalanxAdmin
             this.btnAS400AddAllRoles = new System.Windows.Forms.Button();
             this.btnAS400AddRole = new System.Windows.Forms.Button();
             this.lvAS400PwdDB = new System.Windows.Forms.ListView();
-            this.columnHeader68 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader68 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Eq = new System.Windows.Forms.TabPage();
             this.pnlECPwdGrupo = new System.Windows.Forms.Panel();
             this.label20 = new System.Windows.Forms.Label();
@@ -216,7 +216,7 @@ namespace PhalanxAdmin
             this.btnECAddAllRoles = new System.Windows.Forms.Button();
             this.btnECAddRole = new System.Windows.Forms.Button();
             this.lvECPwdDB = new System.Windows.Forms.ListView();
-            this.columnHeader89 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader89 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tbATMPwd = new System.Windows.Forms.TabPage();
             this.pnlATMPwdGrupo = new System.Windows.Forms.Panel();
             this.label25 = new System.Windows.Forms.Label();
@@ -229,7 +229,7 @@ namespace PhalanxAdmin
             this.btnATMAddAllRoles = new System.Windows.Forms.Button();
             this.btnATMAddRole = new System.Windows.Forms.Button();
             this.lvATMPwdDB = new System.Windows.Forms.ListView();
-            this.columnHeader101 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader101 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tpUsuarios = new System.Windows.Forms.TabPage();
             this.pnlUsuariosGrupo = new System.Windows.Forms.Panel();
             this.label23 = new System.Windows.Forms.Label();
@@ -257,7 +257,7 @@ namespace PhalanxAdmin
             this.panel5 = new System.Windows.Forms.Panel();
             this.label12 = new System.Windows.Forms.Label();
             this.listView3 = new System.Windows.Forms.ListView();
-            this.columnHeader31 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader31 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel6 = new System.Windows.Forms.Panel();
             this.label13 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
@@ -265,7 +265,7 @@ namespace PhalanxAdmin
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.listView4 = new System.Windows.Forms.ListView();
-            this.columnHeader39 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader39 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel7 = new System.Windows.Forms.Panel();
             this.label14 = new System.Windows.Forms.Label();
@@ -292,112 +292,116 @@ namespace PhalanxAdmin
             this.chkActivo = new System.Windows.Forms.CheckBox();
             this.picDesactivo = new System.Windows.Forms.PictureBox();
             this.label26 = new System.Windows.Forms.Label();
-            colAppName = new System.Windows.Forms.ColumnHeader();
-            colAppUser = new System.Windows.Forms.ColumnHeader();
-            colAppDesc = new System.Windows.Forms.ColumnHeader();
-            colAppInfoAdd = new System.Windows.Forms.ColumnHeader();
-            columnHeader24 = new System.Windows.Forms.ColumnHeader();
-            columnHeader25 = new System.Windows.Forms.ColumnHeader();
-            columnHeader26 = new System.Windows.Forms.ColumnHeader();
-            columnHeader27 = new System.Windows.Forms.ColumnHeader();
-            colServer = new System.Windows.Forms.ColumnHeader();
-            colUsername = new System.Windows.Forms.ColumnHeader();
-            colIpAddress = new System.Windows.Forms.ColumnHeader();
-            colServerDescrip = new System.Windows.Forms.ColumnHeader();
-            columnHeader13 = new System.Windows.Forms.ColumnHeader();
-            columnHeader14 = new System.Windows.Forms.ColumnHeader();
-            columnHeader15 = new System.Windows.Forms.ColumnHeader();
-            columnHeader16 = new System.Windows.Forms.ColumnHeader();
-            colDbUserName = new System.Windows.Forms.ColumnHeader();
-            colDbType = new System.Windows.Forms.ColumnHeader();
-            colDbDescription = new System.Windows.Forms.ColumnHeader();
-            colDbServer = new System.Windows.Forms.ColumnHeader();
-            columnHeader9 = new System.Windows.Forms.ColumnHeader();
-            columnHeader10 = new System.Windows.Forms.ColumnHeader();
-            columnHeader11 = new System.Windows.Forms.ColumnHeader();
-            columnHeader12 = new System.Windows.Forms.ColumnHeader();
-            columnHeader1 = new System.Windows.Forms.ColumnHeader();
-            columnHeader3 = new System.Windows.Forms.ColumnHeader();
-            columnHeader4 = new System.Windows.Forms.ColumnHeader();
-            columnHeader5 = new System.Windows.Forms.ColumnHeader();
-            columnHeader2 = new System.Windows.Forms.ColumnHeader();
-            columnHeader6 = new System.Windows.Forms.ColumnHeader();
-            columnHeader7 = new System.Windows.Forms.ColumnHeader();
-            columnHeader8 = new System.Windows.Forms.ColumnHeader();
-            columnHeader18 = new System.Windows.Forms.ColumnHeader();
-            columnHeader19 = new System.Windows.Forms.ColumnHeader();
-            columnHeader20 = new System.Windows.Forms.ColumnHeader();
-            columnHeader21 = new System.Windows.Forms.ColumnHeader();
-            columnHeader22 = new System.Windows.Forms.ColumnHeader();
-            columnHeader23 = new System.Windows.Forms.ColumnHeader();
-            columnHeader28 = new System.Windows.Forms.ColumnHeader();
-            columnHeader29 = new System.Windows.Forms.ColumnHeader();
-            columnHeader30 = new System.Windows.Forms.ColumnHeader();
-            columnHeader32 = new System.Windows.Forms.ColumnHeader();
-            columnHeader33 = new System.Windows.Forms.ColumnHeader();
-            columnHeader34 = new System.Windows.Forms.ColumnHeader();
-            columnHeader35 = new System.Windows.Forms.ColumnHeader();
-            columnHeader36 = new System.Windows.Forms.ColumnHeader();
-            columnHeader37 = new System.Windows.Forms.ColumnHeader();
-            columnHeader38 = new System.Windows.Forms.ColumnHeader();
-            columnHeader40 = new System.Windows.Forms.ColumnHeader();
-            columnHeader41 = new System.Windows.Forms.ColumnHeader();
-            columnHeader42 = new System.Windows.Forms.ColumnHeader();
-            columnHeader43 = new System.Windows.Forms.ColumnHeader();
-            columnHeader44 = new System.Windows.Forms.ColumnHeader();
-            columnHeader45 = new System.Windows.Forms.ColumnHeader();
-            columnHeader46 = new System.Windows.Forms.ColumnHeader();
-            columnHeader47 = new System.Windows.Forms.ColumnHeader();
-            columnHeader48 = new System.Windows.Forms.ColumnHeader();
-            columnHeader49 = new System.Windows.Forms.ColumnHeader();
-            columnHeader50 = new System.Windows.Forms.ColumnHeader();
-            columnHeader51 = new System.Windows.Forms.ColumnHeader();
-            columnHeader52 = new System.Windows.Forms.ColumnHeader();
-            columnHeader53 = new System.Windows.Forms.ColumnHeader();
-            columnHeader54 = new System.Windows.Forms.ColumnHeader();
-            columnHeader55 = new System.Windows.Forms.ColumnHeader();
-            columnHeader56 = new System.Windows.Forms.ColumnHeader();
-            columnHeader57 = new System.Windows.Forms.ColumnHeader();
-            columnHeader58 = new System.Windows.Forms.ColumnHeader();
-            columnHeader59 = new System.Windows.Forms.ColumnHeader();
-            columnHeader60 = new System.Windows.Forms.ColumnHeader();
-            columnHeader61 = new System.Windows.Forms.ColumnHeader();
-            columnHeader62 = new System.Windows.Forms.ColumnHeader();
-            columnHeader63 = new System.Windows.Forms.ColumnHeader();
-            columnHeader69 = new System.Windows.Forms.ColumnHeader();
-            columnHeader70 = new System.Windows.Forms.ColumnHeader();
-            columnHeader71 = new System.Windows.Forms.ColumnHeader();
-            columnHeader72 = new System.Windows.Forms.ColumnHeader();
-            columnHeader73 = new System.Windows.Forms.ColumnHeader();
-            columnHeader74 = new System.Windows.Forms.ColumnHeader();
-            columnHeader75 = new System.Windows.Forms.ColumnHeader();
-            columnHeader76 = new System.Windows.Forms.ColumnHeader();
-            columnHeader77 = new System.Windows.Forms.ColumnHeader();
-            columnHeader78 = new System.Windows.Forms.ColumnHeader();
-            columnHeader79 = new System.Windows.Forms.ColumnHeader();
-            columnHeader80 = new System.Windows.Forms.ColumnHeader();
-            columnHeader81 = new System.Windows.Forms.ColumnHeader();
-            columnHeader82 = new System.Windows.Forms.ColumnHeader();
-            columnHeader83 = new System.Windows.Forms.ColumnHeader();
-            columnHeader84 = new System.Windows.Forms.ColumnHeader();
-            columnHeader85 = new System.Windows.Forms.ColumnHeader();
-            columnHeader86 = new System.Windows.Forms.ColumnHeader();
-            columnHeader87 = new System.Windows.Forms.ColumnHeader();
-            columnHeader88 = new System.Windows.Forms.ColumnHeader();
-            columnHeader90 = new System.Windows.Forms.ColumnHeader();
-            columnHeader91 = new System.Windows.Forms.ColumnHeader();
-            columnHeader92 = new System.Windows.Forms.ColumnHeader();
-            columnHeader96 = new System.Windows.Forms.ColumnHeader();
-            columnHeader97 = new System.Windows.Forms.ColumnHeader();
-            columnHeader98 = new System.Windows.Forms.ColumnHeader();
-            columnHeader93 = new System.Windows.Forms.ColumnHeader();
-            columnHeader94 = new System.Windows.Forms.ColumnHeader();
-            columnHeader95 = new System.Windows.Forms.ColumnHeader();
-            columnHeader99 = new System.Windows.Forms.ColumnHeader();
-            columnHeader102 = new System.Windows.Forms.ColumnHeader();
-            columnHeader103 = new System.Windows.Forms.ColumnHeader();
-            columnHeader104 = new System.Windows.Forms.ColumnHeader();
-            columnHeader105 = new System.Windows.Forms.ColumnHeader();
+            this.label27 = new System.Windows.Forms.Label();
+            this.chkAprobAutomatica = new System.Windows.Forms.CheckBox();
+            this.txtResponsible = new System.Windows.Forms.TextBox();
+            this.btnSearchUser = new System.Windows.Forms.Button();
+            colAppName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            colAppUser = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            colAppDesc = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            colAppInfoAdd = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader24 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader25 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader26 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader27 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            colServer = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            colUsername = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            colIpAddress = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            colServerDescrip = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader14 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader15 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader16 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            colDbUserName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            colDbType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            colDbDescription = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            colDbServer = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader18 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader19 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader20 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader21 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader22 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader23 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader28 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader29 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader30 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader32 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader33 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader34 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader35 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader36 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader37 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader38 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader40 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader41 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader42 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader43 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader44 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader45 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader46 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader47 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader48 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader49 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader50 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader51 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader52 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader53 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader54 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader55 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader56 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader57 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader58 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader59 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader60 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader61 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader62 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader63 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader69 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader70 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader71 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader72 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader73 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader74 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader75 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader76 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader77 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader78 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader79 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader80 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader81 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader82 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader83 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader84 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader85 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader86 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader87 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader88 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader90 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader91 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader92 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader96 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader97 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader98 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader93 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader94 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader95 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader99 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader102 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader103 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader104 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader105 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tpAppPwd.SuspendLayout();
             this.pnlAppPwdGrupo.SuspendLayout();
             this.pnlAppPwdDB.SuspendLayout();
@@ -443,6 +447,7 @@ namespace PhalanxAdmin
             // 
             this.groupBox1.Location = new System.Drawing.Point(0, 414);
             this.groupBox1.Size = new System.Drawing.Size(912, 43);
+            this.groupBox1.TabIndex = 9;
             // 
             // btnAceptar
             // 
@@ -908,7 +913,7 @@ namespace PhalanxAdmin
             this.txtGroupName.Location = new System.Drawing.Point(80, 34);
             this.txtGroupName.Name = "txtGroupName";
             this.txtGroupName.Size = new System.Drawing.Size(217, 20);
-            this.txtGroupName.TabIndex = 6;
+            this.txtGroupName.TabIndex = 1;
             // 
             // label1
             // 
@@ -916,7 +921,7 @@ namespace PhalanxAdmin
             this.label1.Location = new System.Drawing.Point(21, 37);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 13);
-            this.label1.TabIndex = 5;
+            this.label1.TabIndex = 0;
             this.label1.Text = "Nombre";
             // 
             // tpAppPwd
@@ -951,8 +956,8 @@ namespace PhalanxAdmin
             // 
             // lvAppPwdGrupo
             // 
-            this.lvAppPwdGrupo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvAppPwdGrupo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvAppPwdGrupo.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             columnHeader76,
             columnHeader24,
@@ -968,8 +973,8 @@ namespace PhalanxAdmin
             this.lvAppPwdGrupo.TabIndex = 1;
             this.lvAppPwdGrupo.UseCompatibleStateImageBehavior = false;
             this.lvAppPwdGrupo.View = System.Windows.Forms.View.Details;
-            this.lvAppPwdGrupo.DoubleClick += new System.EventHandler(this.lvAppPwdGrupo_DoubleClick);
             this.lvAppPwdGrupo.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvs_ColumnClick);
+            this.lvAppPwdGrupo.DoubleClick += new System.EventHandler(this.lvAppPwdGrupo_DoubleClick);
             // 
             // pnlAppPwdDB
             // 
@@ -1059,9 +1064,9 @@ namespace PhalanxAdmin
             // 
             // lvAppPwdDB
             // 
-            this.lvAppPwdDB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvAppPwdDB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvAppPwdDB.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             columnHeader75,
             colAppName,
@@ -1078,8 +1083,8 @@ namespace PhalanxAdmin
             this.lvAppPwdDB.TabIndex = 0;
             this.lvAppPwdDB.UseCompatibleStateImageBehavior = false;
             this.lvAppPwdDB.View = System.Windows.Forms.View.Details;
-            this.lvAppPwdDB.DoubleClick += new System.EventHandler(this.lvAppPwdDB_DoubleClick);
             this.lvAppPwdDB.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvs_ColumnClick);
+            this.lvAppPwdDB.DoubleClick += new System.EventHandler(this.lvAppPwdDB_DoubleClick);
             // 
             // columnHeader67
             // 
@@ -1117,8 +1122,8 @@ namespace PhalanxAdmin
             // 
             // lvUnixPwdGrupo
             // 
-            this.lvUnixPwdGrupo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvUnixPwdGrupo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvUnixPwdGrupo.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             columnHeader74,
             columnHeader13,
@@ -1134,8 +1139,8 @@ namespace PhalanxAdmin
             this.lvUnixPwdGrupo.TabIndex = 1;
             this.lvUnixPwdGrupo.UseCompatibleStateImageBehavior = false;
             this.lvUnixPwdGrupo.View = System.Windows.Forms.View.Details;
-            this.lvUnixPwdGrupo.DoubleClick += new System.EventHandler(this.lvUnixPwdGrupo_DoubleClick);
             this.lvUnixPwdGrupo.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvs_ColumnClick);
+            this.lvUnixPwdGrupo.DoubleClick += new System.EventHandler(this.lvUnixPwdGrupo_DoubleClick);
             // 
             // pnlUnixPwdDB
             // 
@@ -1225,9 +1230,9 @@ namespace PhalanxAdmin
             // 
             // lvUnixPwdDB
             // 
-            this.lvUnixPwdDB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvUnixPwdDB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvUnixPwdDB.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             columnHeader73,
             colServer,
@@ -1244,8 +1249,8 @@ namespace PhalanxAdmin
             this.lvUnixPwdDB.TabIndex = 0;
             this.lvUnixPwdDB.UseCompatibleStateImageBehavior = false;
             this.lvUnixPwdDB.View = System.Windows.Forms.View.Details;
-            this.lvUnixPwdDB.DoubleClick += new System.EventHandler(this.lvUnixPwdDB_DoubleClick);
             this.lvUnixPwdDB.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvs_ColumnClick);
+            this.lvUnixPwdDB.DoubleClick += new System.EventHandler(this.lvUnixPwdDB_DoubleClick);
             // 
             // columnHeader66
             // 
@@ -1283,8 +1288,8 @@ namespace PhalanxAdmin
             // 
             // lvDbPwdGrupo
             // 
-            this.lvDbPwdGrupo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvDbPwdGrupo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDbPwdGrupo.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             columnHeader72,
             columnHeader9,
@@ -1301,8 +1306,8 @@ namespace PhalanxAdmin
             this.lvDbPwdGrupo.TabIndex = 1;
             this.lvDbPwdGrupo.UseCompatibleStateImageBehavior = false;
             this.lvDbPwdGrupo.View = System.Windows.Forms.View.Details;
-            this.lvDbPwdGrupo.DoubleClick += new System.EventHandler(this.lvDbPwdGrupo_DoubleClick);
             this.lvDbPwdGrupo.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvs_ColumnClick);
+            this.lvDbPwdGrupo.DoubleClick += new System.EventHandler(this.lvDbPwdGrupo_DoubleClick);
             // 
             // columnHeader17
             // 
@@ -1397,9 +1402,9 @@ namespace PhalanxAdmin
             // 
             // lvDbPwdDB
             // 
-            this.lvDbPwdDB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvDbPwdDB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDbPwdDB.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             columnHeader71,
             colDbUserName,
@@ -1416,8 +1421,8 @@ namespace PhalanxAdmin
             this.lvDbPwdDB.TabIndex = 0;
             this.lvDbPwdDB.UseCompatibleStateImageBehavior = false;
             this.lvDbPwdDB.View = System.Windows.Forms.View.Details;
-            this.lvDbPwdDB.DoubleClick += new System.EventHandler(this.lvDbPwdDB_DoubleClick);
             this.lvDbPwdDB.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvs_ColumnClick);
+            this.lvDbPwdDB.DoubleClick += new System.EventHandler(this.lvDbPwdDB_DoubleClick);
             // 
             // columnHeader65
             // 
@@ -1455,8 +1460,8 @@ namespace PhalanxAdmin
             // 
             // lvWinPwdGrupo
             // 
-            this.lvWinPwdGrupo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvWinPwdGrupo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvWinPwdGrupo.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             columnHeader70,
             columnHeader2,
@@ -1472,8 +1477,8 @@ namespace PhalanxAdmin
             this.lvWinPwdGrupo.TabIndex = 1;
             this.lvWinPwdGrupo.UseCompatibleStateImageBehavior = false;
             this.lvWinPwdGrupo.View = System.Windows.Forms.View.Details;
-            this.lvWinPwdGrupo.DoubleClick += new System.EventHandler(this.lvWinPwdGrupo_DoubleClick);
             this.lvWinPwdGrupo.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvs_ColumnClick);
+            this.lvWinPwdGrupo.DoubleClick += new System.EventHandler(this.lvWinPwdGrupo_DoubleClick);
             // 
             // pnlWinPwdDB
             // 
@@ -1495,7 +1500,7 @@ namespace PhalanxAdmin
             this.btnCargarWindows.Location = new System.Drawing.Point(312, 3);
             this.btnCargarWindows.Name = "btnCargarWindows";
             this.btnCargarWindows.Size = new System.Drawing.Size(74, 22);
-            this.btnCargarWindows.TabIndex = 0;
+            this.btnCargarWindows.TabIndex = 2;
             this.btnCargarWindows.Text = "Cargar";
             this.btnCargarWindows.UseVisualStyleBackColor = true;
             this.btnCargarWindows.Click += new System.EventHandler(this.btnCargarWindows_Click);
@@ -1506,7 +1511,7 @@ namespace PhalanxAdmin
             this.label3.Location = new System.Drawing.Point(11, 12);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(61, 13);
-            this.label3.TabIndex = 1;
+            this.label3.TabIndex = 0;
             this.label3.Text = "Disponibles";
             // 
             // btnDelRole
@@ -1563,9 +1568,9 @@ namespace PhalanxAdmin
             // 
             // lvWinPwdDB
             // 
-            this.lvWinPwdDB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvWinPwdDB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvWinPwdDB.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             columnHeader69,
             columnHeader1,
@@ -1579,11 +1584,11 @@ namespace PhalanxAdmin
             this.lvWinPwdDB.Name = "lvWinPwdDB";
             this.lvWinPwdDB.Size = new System.Drawing.Size(376, 260);
             this.lvWinPwdDB.Sorting = System.Windows.Forms.SortOrder.Ascending;
-            this.lvWinPwdDB.TabIndex = 2;
+            this.lvWinPwdDB.TabIndex = 1;
             this.lvWinPwdDB.UseCompatibleStateImageBehavior = false;
             this.lvWinPwdDB.View = System.Windows.Forms.View.Details;
-            this.lvWinPwdDB.DoubleClick += new System.EventHandler(this.lvWinPwdDB_DoubleClick);
             this.lvWinPwdDB.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvs_ColumnClick);
+            this.lvWinPwdDB.DoubleClick += new System.EventHandler(this.lvWinPwdDB_DoubleClick);
             // 
             // columnHeader64
             // 
@@ -1591,9 +1596,9 @@ namespace PhalanxAdmin
             // 
             // tpECPwd
             // 
-            this.tpECPwd.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tpECPwd.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tpECPwd.Controls.Add(this.tpWinPwd);
             this.tpECPwd.Controls.Add(this.tpDBPwd);
             this.tpECPwd.Controls.Add(this.tpUnixPwd);
@@ -1606,7 +1611,7 @@ namespace PhalanxAdmin
             this.tpECPwd.Name = "tpECPwd";
             this.tpECPwd.SelectedIndex = 0;
             this.tpECPwd.Size = new System.Drawing.Size(878, 330);
-            this.tpECPwd.TabIndex = 7;
+            this.tpECPwd.TabIndex = 8;
             // 
             // tbAS400Pwd
             // 
@@ -1640,8 +1645,8 @@ namespace PhalanxAdmin
             // 
             // lvAS400PwdGrupo
             // 
-            this.lvAS400PwdGrupo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvAS400PwdGrupo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvAS400PwdGrupo.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             columnHeader78,
             columnHeader56,
@@ -1657,8 +1662,8 @@ namespace PhalanxAdmin
             this.lvAS400PwdGrupo.TabIndex = 1;
             this.lvAS400PwdGrupo.UseCompatibleStateImageBehavior = false;
             this.lvAS400PwdGrupo.View = System.Windows.Forms.View.Details;
-            this.lvAS400PwdGrupo.DoubleClick += new System.EventHandler(this.lvAS400PwdGrupo_DoubleClick);
             this.lvAS400PwdGrupo.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvs_ColumnClick);
+            this.lvAS400PwdGrupo.DoubleClick += new System.EventHandler(this.lvAS400PwdGrupo_DoubleClick);
             // 
             // pnlAS400PwdDB
             // 
@@ -1748,9 +1753,9 @@ namespace PhalanxAdmin
             // 
             // lvAS400PwdDB
             // 
-            this.lvAS400PwdDB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvAS400PwdDB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvAS400PwdDB.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             columnHeader77,
             columnHeader60,
@@ -1767,8 +1772,8 @@ namespace PhalanxAdmin
             this.lvAS400PwdDB.TabIndex = 0;
             this.lvAS400PwdDB.UseCompatibleStateImageBehavior = false;
             this.lvAS400PwdDB.View = System.Windows.Forms.View.Details;
-            this.lvAS400PwdDB.DoubleClick += new System.EventHandler(this.lvAS400PwdDB_DoubleClick);
             this.lvAS400PwdDB.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvs_ColumnClick);
+            this.lvAS400PwdDB.DoubleClick += new System.EventHandler(this.lvAS400PwdDB_DoubleClick);
             // 
             // columnHeader68
             // 
@@ -1806,8 +1811,8 @@ namespace PhalanxAdmin
             // 
             // lvECPwdGrupo
             // 
-            this.lvECPwdGrupo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvECPwdGrupo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvECPwdGrupo.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             columnHeader79,
             columnHeader80,
@@ -1823,8 +1828,8 @@ namespace PhalanxAdmin
             this.lvECPwdGrupo.TabIndex = 1;
             this.lvECPwdGrupo.UseCompatibleStateImageBehavior = false;
             this.lvECPwdGrupo.View = System.Windows.Forms.View.Details;
-            this.lvECPwdGrupo.DoubleClick += new System.EventHandler(this.lvECPwdGrupo_DoubleClick);
             this.lvECPwdGrupo.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvs_ColumnClick);
+            this.lvECPwdGrupo.DoubleClick += new System.EventHandler(this.lvECPwdGrupo_DoubleClick);
             // 
             // pnlECPwdDB
             // 
@@ -1914,9 +1919,9 @@ namespace PhalanxAdmin
             // 
             // lvECPwdDB
             // 
-            this.lvECPwdDB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvECPwdDB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvECPwdDB.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             columnHeader84,
             columnHeader85,
@@ -1933,8 +1938,8 @@ namespace PhalanxAdmin
             this.lvECPwdDB.TabIndex = 0;
             this.lvECPwdDB.UseCompatibleStateImageBehavior = false;
             this.lvECPwdDB.View = System.Windows.Forms.View.Details;
-            this.lvECPwdDB.DoubleClick += new System.EventHandler(this.lvECPwdDB_DoubleClick);
             this.lvECPwdDB.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvs_ColumnClick);
+            this.lvECPwdDB.DoubleClick += new System.EventHandler(this.lvECPwdDB_DoubleClick);
             // 
             // columnHeader89
             // 
@@ -1973,8 +1978,8 @@ namespace PhalanxAdmin
             // 
             // lvATMPwdGrupo
             // 
-            this.lvATMPwdGrupo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvATMPwdGrupo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvATMPwdGrupo.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             columnHeader102,
             columnHeader103,
@@ -2073,9 +2078,9 @@ namespace PhalanxAdmin
             // 
             // lvATMPwdDB
             // 
-            this.lvATMPwdDB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvATMPwdDB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvATMPwdDB.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             columnHeader93,
             columnHeader94,
@@ -2128,8 +2133,8 @@ namespace PhalanxAdmin
             // 
             // lvUsuariosGrupo
             // 
-            this.lvUsuariosGrupo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvUsuariosGrupo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvUsuariosGrupo.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             columnHeader96,
             columnHeader97,
@@ -2143,8 +2148,8 @@ namespace PhalanxAdmin
             this.lvUsuariosGrupo.TabIndex = 1;
             this.lvUsuariosGrupo.UseCompatibleStateImageBehavior = false;
             this.lvUsuariosGrupo.View = System.Windows.Forms.View.Details;
-            this.lvUsuariosGrupo.DoubleClick += new System.EventHandler(this.lvUsuariosGrupo_DoubleClick);
             this.lvUsuariosGrupo.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvs_ColumnClick);
+            this.lvUsuariosGrupo.DoubleClick += new System.EventHandler(this.lvUsuariosGrupo_DoubleClick);
             // 
             // pnlUsuarios
             // 
@@ -2234,9 +2239,9 @@ namespace PhalanxAdmin
             // 
             // lvUsuariosDB
             // 
-            this.lvUsuariosDB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvUsuariosDB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvUsuariosDB.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             columnHeader90,
             columnHeader91,
@@ -2250,8 +2255,8 @@ namespace PhalanxAdmin
             this.lvUsuariosDB.TabIndex = 3;
             this.lvUsuariosDB.UseCompatibleStateImageBehavior = false;
             this.lvUsuariosDB.View = System.Windows.Forms.View.Details;
-            this.lvUsuariosDB.DoubleClick += new System.EventHandler(this.lvUsuariosDB_DoubleClick);
             this.lvUsuariosDB.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvs_ColumnClick);
+            this.lvUsuariosDB.DoubleClick += new System.EventHandler(this.lvUsuariosDB_DoubleClick);
             // 
             // tabPage1
             // 
@@ -2286,8 +2291,8 @@ namespace PhalanxAdmin
             // 
             // listView1
             // 
-            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             columnHeader18,
             columnHeader19,
@@ -2419,8 +2424,8 @@ namespace PhalanxAdmin
             // 
             // listView3
             // 
-            this.listView3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.listView3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listView3.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             columnHeader30,
             this.columnHeader31,
@@ -2559,8 +2564,8 @@ namespace PhalanxAdmin
             // 
             // listView5
             // 
-            this.listView5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.listView5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listView5.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             columnHeader40,
             columnHeader41,
@@ -2692,8 +2697,8 @@ namespace PhalanxAdmin
             // 
             // listView7
             // 
-            this.listView7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.listView7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listView7.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             columnHeader48,
             columnHeader49,
@@ -2814,7 +2819,7 @@ namespace PhalanxAdmin
             this.chkActivo.Location = new System.Drawing.Point(328, 52);
             this.chkActivo.Name = "chkActivo";
             this.chkActivo.Size = new System.Drawing.Size(56, 17);
-            this.chkActivo.TabIndex = 51;
+            this.chkActivo.TabIndex = 3;
             this.chkActivo.Text = "Activo";
             this.chkActivo.UseVisualStyleBackColor = true;
             this.chkActivo.CheckedChanged += new System.EventHandler(this.chkActivo_CheckedChanged);
@@ -2839,13 +2844,57 @@ namespace PhalanxAdmin
             this.label26.Location = new System.Drawing.Point(325, 29);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(50, 13);
-            this.label26.TabIndex = 52;
+            this.label26.TabIndex = 2;
             this.label26.Text = "Estado:";
+            // 
+            // label27
+            // 
+            this.label27.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(441, 37);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(80, 13);
+            this.label27.TabIndex = 4;
+            this.label27.Text = "Responsable";
+            // 
+            // chkAprobAutomatica
+            // 
+            this.chkAprobAutomatica.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkAprobAutomatica.AutoSize = true;
+            this.chkAprobAutomatica.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkAprobAutomatica.Location = new System.Drawing.Point(788, 36);
+            this.chkAprobAutomatica.Name = "chkAprobAutomatica";
+            this.chkAprobAutomatica.Size = new System.Drawing.Size(113, 17);
+            this.chkAprobAutomatica.TabIndex = 7;
+            this.chkAprobAutomatica.Text = "Aprob. Automática";
+            this.chkAprobAutomatica.UseVisualStyleBackColor = true;
+            // 
+            // txtResponsible
+            // 
+            this.txtResponsible.Location = new System.Drawing.Point(527, 34);
+            this.txtResponsible.Name = "txtResponsible";
+            this.txtResponsible.Size = new System.Drawing.Size(208, 20);
+            this.txtResponsible.TabIndex = 5;
+            // 
+            // btnSearchUser
+            // 
+            this.btnSearchUser.Location = new System.Drawing.Point(741, 32);
+            this.btnSearchUser.Name = "btnSearchUser";
+            this.btnSearchUser.Size = new System.Drawing.Size(28, 22);
+            this.btnSearchUser.TabIndex = 6;
+            this.btnSearchUser.Text = "...";
+            this.btnSearchUser.UseVisualStyleBackColor = true;
+            this.btnSearchUser.Click += new System.EventHandler(this.btnSearchUser_Click);
             // 
             // FABMGrpsSeguimSolic
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(912, 457);
+            this.Controls.Add(this.btnSearchUser);
+            this.Controls.Add(this.txtResponsible);
+            this.Controls.Add(this.label27);
+            this.Controls.Add(this.chkAprobAutomatica);
             this.Controls.Add(this.picActivo);
             this.Controls.Add(this.chkActivo);
             this.Controls.Add(this.picDesactivo);
@@ -2858,11 +2907,15 @@ namespace PhalanxAdmin
             this.Controls.SetChildIndex(this.label1, 0);
             this.Controls.SetChildIndex(this.txtGroupName, 0);
             this.Controls.SetChildIndex(this.tpECPwd, 0);
-            this.Controls.SetChildIndex(this.groupBox1, 0);
             this.Controls.SetChildIndex(this.label26, 0);
             this.Controls.SetChildIndex(this.picDesactivo, 0);
             this.Controls.SetChildIndex(this.chkActivo, 0);
             this.Controls.SetChildIndex(this.picActivo, 0);
+            this.Controls.SetChildIndex(this.chkAprobAutomatica, 0);
+            this.Controls.SetChildIndex(this.label27, 0);
+            this.Controls.SetChildIndex(this.txtResponsible, 0);
+            this.Controls.SetChildIndex(this.groupBox1, 0);
+            this.Controls.SetChildIndex(this.btnSearchUser, 0);
             this.tpAppPwd.ResumeLayout(false);
             this.pnlAppPwdGrupo.ResumeLayout(false);
             this.pnlAppPwdGrupo.PerformLayout();
@@ -3090,5 +3143,9 @@ namespace PhalanxAdmin
         private System.Windows.Forms.Button btnATMAddRole;
         private System.Windows.Forms.ListView lvATMPwdDB;
         private System.Windows.Forms.ColumnHeader columnHeader101;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.CheckBox chkAprobAutomatica;
+        private System.Windows.Forms.TextBox txtResponsible;
+        private System.Windows.Forms.Button btnSearchUser;
     }
 }

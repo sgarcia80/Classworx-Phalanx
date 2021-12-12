@@ -5,7 +5,9 @@ using System.Collections;
 using PhalanxCommon.Entities;
 using NHibernate;
 using NHibernate.Criterion;
-
+using PhalanxCommon.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PhalanxDAL.Factories
 {
@@ -20,7 +22,46 @@ namespace PhalanxDAL.Factories
 			// TODO: Add constructor logic here
 			//
 		}
-		public IList GetPasswordsToCheck(DateTime dChkDate)
+
+        public UserPasswordEntityCollection GetPasswordToAuthByAutomatic(PhxUserEntity Auth, UserPasswordEntity userpwd)
+        {
+            UserPasswordEntityCollection PwdRqstEC = new UserPasswordEntityCollection();
+
+            IList<UserPasswordEntity> list = null;
+            try
+            {
+                //ITransaction tx = null;
+                using (ISession session = DBMgr.factory.OpenSession())
+                {
+                    list = session.CreateCriteria(typeof(UserPasswordEntity), "UP")
+                        .Add(Expression.Eq("UP.Id", userpwd.Id))
+                        .CreateCriteria("UP.FollowupRqstGrpsPwdsList", "FRQP")
+                        .CreateCriteria("FRQP.FollowupRqstGrp", "FRG")
+                        .Add(Expression.Eq("FRG.Active", true))
+                        .Add(Expression.Eq("FRG.AutoApproval", true))
+                        .Add(Expression.IsNotNull("FRG.Approver"))
+                        //.CreateCriteria("FRG.FollowupGroupUsersList", "FRGU")
+                        //.Add(Expression.Eq("FRGU.PhxUser", Auth))
+                        .List<UserPasswordEntity>();
+
+                    foreach (UserPasswordEntity PwdRqstE in list)
+                    {
+                        int j = PwdRqstE.FollowupRqstGrpsPwdsList.Count;
+                        int i = PwdRqstE.UsersList.Count;
+                        PwdRqstEC.Add(PwdRqstE);
+                        //}
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            return PwdRqstEC;
+
+        }
+
+        public IList GetPasswordsToCheck(DateTime dChkDate)
 		{
 			DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 5, 0
 				, "Entros a UsersPasswordsFactory.GetPasswordsToCheck(DateTime dChkDate)"

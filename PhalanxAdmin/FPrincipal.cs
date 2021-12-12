@@ -35,8 +35,7 @@ namespace PhalanxAdmin
 
         private void FPrincipal_Load(object sender, EventArgs e)
         {
-            //string Version = "3.17.8.19";
-            string Version = "3.17.10.18";
+            string Version = "3.17.12.21";
 
             this.Text += " v" + Version;
             try

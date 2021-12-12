@@ -23,9 +23,16 @@ namespace PhalanxWeb
                 //TextBox1.Attributes.Add("onclick", "ClickMe(this, '" + TextBox1.ClientID + "', '" + TextBox2.ClientID + "')");
                 btnSolicitar.Attributes.Add("onclick", "this.disabled = true; this.value = 'Procesando...'; " + btnCancel.ClientID + ".disabled = true;");
                 btnCancel.Attributes.Add("onclick", "this.disabled = true; " + btnSolicitar.ClientID + ".disabled = true;");
+
                 PhxUserBusiness PhxUsrBL = new PhxUserBusiness();
                 PhxUserEntity IdentUser = (PhxUserEntity)Session["PhxUser"];
-                if (IdentUser != null && PhxUsrBL.ChkPwdsRequest(IdentUser) &&
+
+                //bool requestpwd = PhxUsrBL.ChkPwdsRequest(IdentUser);
+                //bool approvepwd = PhxUsrBL.ChkAuthPwdRequest(IdentUser);
+                bool phxweb = PhxUsrBL.ChkAccWebApp(IdentUser);
+
+                //if (IdentUser != null && (requestpwd || approvepwd)) &&
+                if (IdentUser != null && (phxweb) &&
                     Page.Request["wpid"] != null)
                 {
                     currentUser = this.GetUserEntity(Int32.Parse(Page.Request["wpid"]));
@@ -56,6 +63,17 @@ namespace PhalanxWeb
                 {
                     Fill_UserData(currentUser);
                     Session["CtrlUser"] = "Usuario: " + (string)Session["phxWinUser"];
+
+                    UsersPasswordBusiness passwordBL = new UsersPasswordBusiness();
+                    bool approved = passwordBL.CheckAutoApproval(IdentUser, currentUser.UserPassword);
+
+                    if (approved)
+                    {
+                        txtHsRequested.Text = "1";
+                        txtDesc.Text = "Solicitado por GSI";
+                        chkAcceptPolicies.Checked = true;
+                        btnSolicitar.Enabled = true;
+                    }
 
                     // determina si la contraseña está en uso y si es asi, si es no concurrente
                     //return;
@@ -301,17 +319,32 @@ namespace PhalanxWeb
                 PwdRqstE.RequestDate = DateTime.Now;
                 int PwdRqstID = PwdRqstBL.CreateRequest(PwdRqstE);
 
+
+                bool approved = false;
+
+                approved = PwdRqstBL.AutomaticApproval(PwdRqstE.RqstUser, PwdRqstE);
+
                 if (PwdRqstID > 0)
                 {
 
                     Session["phxMsgError"] = 0;
-                    Session["phxMessage"] = "Se ha solicitado la contraseña con exito";
-                    try
+
+                    if (approved)
                     {
-                        Response.Redirect("Message.aspx");
+                        Session["phxMessage"] = "La solicitud se ha aprobado automáticamente";
+
+                        Response.Redirect(string.Format("authformview.aspx?prid={0}", PwdRqstID));
                     }
-                    catch (ThreadAbortException)
+                    else
                     {
+                        Session["phxMessage"] = "Se ha solicitado la contraseña con exito";
+                        try
+                        {
+                            Response.Redirect("Message.aspx");
+                        }
+                        catch (ThreadAbortException)
+                        {
+                        }
                     }
                 }
                 else

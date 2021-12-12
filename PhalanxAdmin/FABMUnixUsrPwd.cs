@@ -16,10 +16,10 @@ namespace PhalanxAdmin
     {
         private UnixEntity _unixPCSel = null;
         private UnixUserBusiness m_UnixUserBusiness = null;
-        private UnixUserEntity m_CurrentUser= null;
+        private UnixUserEntity m_CurrentUser = null;
         private const string cAsterisk = "**********";
 
-        
+
         public enum FormType
         {
             New,
@@ -30,10 +30,13 @@ namespace PhalanxAdmin
 
         private FormType m_FormType = FormType.View;
 
-        public FABMUnixUsrPwd(FormType formType, string userlogon):base()
+        public FABMUnixUsrPwd(FormType formType, string userlogon) : base()
         {
             InitializeComponent();
             lvLista.ListViewItemSorter = new cwxSorter(0, SortOrder.Descending);
+
+            lvListaSolicitudes.ListViewItemSorter = new cwxSorter(0, SortOrder.Descending);
+
             m_FormType = formType;
 
             this.Usuario = userlogon;
@@ -63,7 +66,7 @@ namespace PhalanxAdmin
                         {
                             user.ModifyingDate = new PhalanxDAL.Factories.GetDateFactory().GetDate().GetDate;
                             user.ModifyingUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario);
-                            m_UnixUserBusiness.Update(user,  this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
+                            m_UnixUserBusiness.Update(user, this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
                         }
                     }
                 }
@@ -75,7 +78,7 @@ namespace PhalanxAdmin
                     {
                         user.ModifyingDate = new PhalanxDAL.Factories.GetDateFactory().GetDate().GetDate;
                         user.ModifyingUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario);
-                        m_UnixUserBusiness.Update(user,  this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
+                        m_UnixUserBusiness.Update(user, this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
                     }
                 }
             }
@@ -86,7 +89,7 @@ namespace PhalanxAdmin
                 {
                     user.ModifyingDate = new PhalanxDAL.Factories.GetDateFactory().GetDate().GetDate;
                     user.ModifyingUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario);
-                    m_UnixUserBusiness.Update(user,  this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
+                    m_UnixUserBusiness.Update(user, this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
                 }
             }
             m_FormType = formType;
@@ -105,6 +108,11 @@ namespace PhalanxAdmin
 
         public void ConfigureScreen()
         {
+            PhxUserBusiness phxUser = new PhxUserBusiness();
+            this.chkVisualizar.Visible = phxUser.AccParamConfigViewPassword(this.Usuario);
+            this.btnCopy.Visible = this.chkVisualizar.Visible;
+            this.btnCopyHist.Visible = this.btnCopy.Visible;
+
             switch (m_FormType)
             {
                 case FormType.New:
@@ -112,7 +120,7 @@ namespace PhalanxAdmin
                         pNetFind.Visible = false;
                         chkChgPwd.Checked = true;
                         chkChgPwd.Enabled = false;
-                        this.checkBoxVisualizar.Enabled = true;
+                        this.chkVisualizar.Enabled = true;
                         this.Title = "Nuevo Usuario y Contraseña";
                         this.Info = "";
                         CargarGruposSolicitudes();
@@ -159,6 +167,9 @@ namespace PhalanxAdmin
                         // deshabilita boton cancelar
                         chkPwdConcurrente.Enabled = false;
                         chkUsuarioCritico.Enabled = false;
+
+                        cbTipoCuenta.Enabled = false;
+
                         btnCancelar.Enabled = false;
                         chkChgPwd.Checked = false;
                         chkChgPwd.Enabled = false;
@@ -183,6 +194,9 @@ namespace PhalanxAdmin
                         cBoxActivo.Enabled = true;
                         chkPwdConcurrente.Enabled = false;
                         chkUsuarioCritico.Enabled = false;
+
+                        cbTipoCuenta.Enabled = false;
+
                         btnSelEquipo.Visible = false;
                         this.Title = "Baja de Usuario y Contraseña";
                         this.Info = m_CurrentUser.Unix.ServerName + " / " + m_CurrentUser.Username;
@@ -210,7 +224,7 @@ namespace PhalanxAdmin
         }
         public string Password
         {
-            set 
+            set
             {
                 tPassword1.Text = m_UnixUserBusiness.DecryptPassword(value);
                 tPassword2.Text = tPassword1.Text;
@@ -218,7 +232,7 @@ namespace PhalanxAdmin
         }
         public bool UserActive
         {
-            set { cBoxActivo.Checked = value; } 
+            set { cBoxActivo.Checked = value; }
         }
 
         public bool PasswordConcurrente
@@ -248,14 +262,14 @@ namespace PhalanxAdmin
                 }
             }
         }*/
-        
+
         /*private void PopulatePcs()
         {
            UnixPCBusiness unixPCBus = new UnixPCBusiness();
            unixPCBus.FilNombre = string.Empty;
            cBPC.DataSource = unixPCBus.GetAll();
         }*/
-       
+
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             if (m_FormType == FormType.View)
@@ -287,7 +301,7 @@ namespace PhalanxAdmin
                 }
             }
         }
-        
+
         private bool verificarDatos()
         {
             if (_unixPCSel == null)
@@ -346,7 +360,7 @@ namespace PhalanxAdmin
             m_CurrentUser.ModifyingDate = null;
             try
             {
-                m_UnixUserBusiness.Update(m_CurrentUser,  this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
+                m_UnixUserBusiness.Update(m_CurrentUser, this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
                 if (cBoxActivo.Checked)
                     MessageBox.Show("El Usuario ha sido Activado");
                 else
@@ -357,10 +371,10 @@ namespace PhalanxAdmin
                 MessageBox.Show("Ha ocurrido un error al modificar los datos: " + Environment.NewLine + exp.Message);
             }
         }
-        
+
         private string GetPassword()
         {
-            string auxstr= tPassword1.Text.Replace((char)4, new char());
+            string auxstr = tPassword1.Text.Replace((char)4, new char());
             auxstr = auxstr.Replace((char)5, new char());
             return auxstr.Replace("\0", string.Empty).Trim();
         }
@@ -405,9 +419,19 @@ namespace PhalanxAdmin
             m_CurrentUser.Critical = chkUsuarioCritico.Checked;
             //m_CurrentUser.Unix = _unixPCSel;
 
+
+            if (cbTipoCuenta.SelectedIndex > 0)
+            {
+                m_CurrentUser.UserSubType = cbTipoCuenta.SelectedItem as UserSubTypeEntity;
+            }
+            else
+            {
+                m_CurrentUser.UserSubType = null;
+            }
+
             try
             {
-                m_UnixUserBusiness.Update(m_CurrentUser, chkChgPwd.Checked,  this.GetGruposSolicitudes(), this.GetGruposSeguimientos(), true);
+                m_UnixUserBusiness.Update(m_CurrentUser, chkChgPwd.Checked, this.GetGruposSolicitudes(), this.GetGruposSeguimientos(), true);
                 MessageBox.Show("Se han modificado los datos satisfactoriamente");
             }
             catch (Exception exp)
@@ -449,7 +473,7 @@ namespace PhalanxAdmin
                     actualiza = true;
                 }
             }
-            
+
             userEntity.Username = tBUsuario.Text.Trim();
             userEntity.Unix = _unixPCSel;
             userEntity.UserPassword = userPassword;
@@ -458,9 +482,19 @@ namespace PhalanxAdmin
             userEntity.Desc = tBUserDescript.Text.Trim();
             userEntity.Critical = chkUsuarioCritico.Checked;
 
+
+            if (cbTipoCuenta.SelectedIndex > 0)
+            {
+                userEntity.UserSubType = cbTipoCuenta.SelectedItem as UserSubTypeEntity;
+            }
+            else
+            {
+                userEntity.UserSubType = null;
+            }
+
             try
             {
-                m_UnixUserBusiness.Create(userEntity, true,  this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
+                m_UnixUserBusiness.Create(userEntity, true, this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
                 if (actualiza)
                     MessageBox.Show("Usuario actualizado satisfactoriamente");
                 else
@@ -474,14 +508,14 @@ namespace PhalanxAdmin
 
         private void checkBoxVisualizar_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBoxVisualizar.Checked)
+            if (chkVisualizar.Checked)
             {
                 tPassword1.PasswordChar = new char();
                 tPassword2.PasswordChar = new char();
                 tPassword1.Text = GetPassword();
                 tPassword2.Text = tPassword1.Text;
             }
-            else 
+            else
             {
                 tPassword1.PasswordChar = '*';
                 tPassword2.PasswordChar = '*';
@@ -489,17 +523,17 @@ namespace PhalanxAdmin
             tPassword1.Refresh();
             tPassword2.Refresh();
 
-            if (checkBoxVisualizar.Checked)
+            if (chkVisualizar.Checked)
             {
                 int id = LoguearVisualizacion();
             }
-            btnCopy.Enabled = checkBoxVisualizar.Checked;
+            btnCopy.Enabled = chkVisualizar.Checked;
         }
 
         private void cBoxActivo_CheckedChanged(object sender, EventArgs e)
         {
-             picDesactivo.Visible = !cBoxActivo.Checked;
-             picActivo.Visible = cBoxActivo.Checked;
+            picDesactivo.Visible = !cBoxActivo.Checked;
+            picActivo.Visible = cBoxActivo.Checked;
         }
 
         private void pNetFind_Click(object sender, EventArgs e)
@@ -529,16 +563,32 @@ namespace PhalanxAdmin
                 checkBoxRealUser.Enabled = true;
                 tPassword1.Enabled = true;
                 tPassword2.Enabled = true;
-                this.checkBoxVisualizar.Enabled = true;
+
+                if (!chkVisualizar.Visible)
+                {
+                    tPassword1.Text = string.Empty;
+                    tPassword2.Text = string.Empty;
+
+                    tPassword1.PasswordChar = new char();
+                    tPassword2.PasswordChar = new char();
+                }
+
+                this.chkVisualizar.Enabled = true;
             }
             else
             {
                 checkBoxRealUser.Enabled = false;
+                tPassword1.PasswordChar = '*';
+                tPassword2.PasswordChar = '*';
+
+                string strPwd = m_UnixUserBusiness.DecryptPassword(m_CurrentUser.UserPassword.Password);
+                tPassword1.Text = strPwd;
+                tPassword2.Text = strPwd;
+
                 tPassword1.Enabled = false;
                 tPassword2.Enabled = false;
-                this.checkBoxVisualizar.Enabled = false;
+                this.chkVisualizar.Enabled = false;
             }
-
         }
 
         private void btnSelEquipo_Click(object sender, EventArgs e)
@@ -555,8 +605,14 @@ namespace PhalanxAdmin
 
         private void FABMUnixUsrPwd_Load(object sender, EventArgs e)
         {
-            ConfigureScreen();
+            CargaUserSubTypes();
 
+            if (m_CurrentUser != null && m_CurrentUser.UserSubType != null)
+            {
+                cbTipoCuenta.SelectedItem = m_CurrentUser.UserSubType;
+            }
+
+            ConfigureScreen();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -569,11 +625,22 @@ namespace PhalanxAdmin
                 {
                     m_CurrentUser.ModifyingDate = null;
                     m_CurrentUser.ModifyingUser = null;
-                    m_UnixUserBusiness.Update(m_CurrentUser,  this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
+                    m_UnixUserBusiness.Update(m_CurrentUser, this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
                 }
             }
-
         }
+
+        private void CargaUserSubTypes()
+        {
+            UserSubTypeBusiness UserSubTypeBL = new UserSubTypeBusiness();
+
+            cbTipoCuenta.DisplayMember = "Desc";
+            cbTipoCuenta.ValueMember = "Id";
+
+            cbTipoCuenta.Items.Clear();
+            cbTipoCuenta.DataSource = UserSubTypeBL.FillSelect();
+        }
+
         #region GruposSolicitudes
 
         private void CargarGruposSolicitudes()
@@ -1324,6 +1391,9 @@ namespace PhalanxAdmin
                 if (((ListView)sender).SelectedItems[0].SubItems[2].Text != cAsterisk)
                     return;
 
+                if (!btnCopyHist.Visible)
+                    return;
+
                 int Id = LoguearVisualizacion(((vwHistPwdChgEntity)((ListView)sender).SelectedItems[0].Tag).Id);
 
                 if (Id > 0)
@@ -1346,17 +1416,29 @@ namespace PhalanxAdmin
             return LoguearVisualizacion(0);
         }
 
-        private int LoguearVisualizacion(int id)
+         private int LoguearVisualizacion(int id)
         {
-            if (id == 0)
+
+            vwHistPwdChgEntity histpwdchange = null;
+            if (this._entities != null && this._entities.Count > 0)
             {
-                if (this._entities != null && this._entities.Count > 0)
+                foreach (vwHistPwdChgEntity entity in this._entities)
                 {
-                    //Se obtiene el ultimo historial
-                    foreach (vwHistPwdChgEntity entity in this._entities)
+                    if (id == 0)
                     {
+                        //Se obtiene el ultimo historial
                         if (entity.Id > id)
+                        {
                             id = entity.Id;
+                            histpwdchange = entity;
+                        }
+                    }
+                    else
+                    {
+                        if (entity.Id == id)
+                        {
+                            histpwdchange = entity;
+                        }
                     }
                 }
             }
@@ -1365,7 +1447,11 @@ namespace PhalanxAdmin
             HistPasswordChangeAccessEntity accessE = new HistPasswordChangeAccessEntity();
 
             accessE.HistChgPwd = new HistPasswordChangeEntity();
-            accessE.HistChgPwd.Id = id;
+            accessE.HistChgPwd.Id = histpwdchange.Id;
+            accessE.HistChgPwd.User = this.m_CurrentUser;
+            accessE.HistChgPwd.Password = histpwdchange.Password;
+            accessE.HistChgPwd.PhxUser = histpwdchange.PhxUser;
+            accessE.HistChgPwd.DChange = histpwdchange.DChange;
             accessE.PhxUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario);
             accessE.AccessDate = DateTime.Now;
 
@@ -1380,7 +1466,7 @@ namespace PhalanxAdmin
 
         private void btnCopy_Click(object sender, EventArgs e)
         {
-            if (checkBoxVisualizar.Checked)
+            if (chkVisualizar.Checked)
             {
                 System.Windows.Forms.Clipboard.SetText(tPassword1.Text);
             }

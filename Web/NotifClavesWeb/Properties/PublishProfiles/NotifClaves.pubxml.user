@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+Este archivo es utilizado por el proceso de paquete/publicación de nuestro proyecto Web. Puede personalizar el comportamiento de este proceso
+editando este archivo MSBuild. Para conocer más acerca de esto, visite http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>C:\SVN\Classworkx\Phalanx\Documentos\Ruben\Classworx_NotifClaves</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="AltaTemprana.aspx">
+      <publishTime>09/02/2018 15:33:02</publishTime>
+    </File>
+    <File Include="ApplicationInsights.config">
+      <publishTime>03/04/2017 19:40:51</publishTime>
+    </File>
+    <File Include="AutogestionCOBIS.aspx">
+      <publishTime>09/02/2018 15:33:01</publishTime>
+    </File>
+    <File Include="bin/ApplicationInsights.config">
+      <publishTime>03/04/2017 19:40:51</publishTime>
+    </File>
+    <File Include="bin/Classworx.Common.Trace.dll">
+      <publishTime>10/31/2016 22:31:55</publishTime>
+    </File>
+    <File Include="bin/Common.dll">
+      <publishTime>06/15/2021 19:17:55</publishTime>
+    </File>
+    <File Include="bin/Common.pdb">
+      <publishTime>06/15/2021 19:17:55</publishTime>
+    </File>
+    <File Include="bin/Desbloqueo.xml">
+      <publishTime>08/13/2017 17:24:54</publishTime>
+    </File>
+    <File Include="bin/Iesi.Collections.dll">
+      <publishTime>10/27/2012 18:50:12</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
+      <publishTime>11/30/2016 16:07:42</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.DependencyCollector.dll">
+      <publishTime>12/07/2016 11:45:42</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.PerfCounterCollector.dll">
+      <publishTime>12/07/2016 11:50:34</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.ServerTelemetryChannel.dll">
+      <publishTime>12/06/2016 15:15:48</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.Web.dll">
+      <publishTime>12/07/2016 11:49:10</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.WindowsServer.dll">
+      <publishTime>12/07/2016 11:50:34</publishTime>
+    </File>
+    <File Include="bin/Microsoft.ApplicationInsights.dll">
+      <publishTime>12/06/2016 15:09:52</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Diagnostics.Tracing.EventSource.dll">
+      <publishTime>12/01/2015 14:31:46</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Threading.Tasks.dll">
+      <publishTime>04/07/2014 12:26:14</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Threading.Tasks.Extensions.Desktop.dll">
+      <publishTime>04/07/2014 12:26:14</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Threading.Tasks.Extensions.dll">
+      <publishTime>04/07/2014 12:26:14</publishTime>
+    </File>
+    <File Include="bin/NDCBL.dll">
+      <publishTime>06/21/2021 12:37:46</publishTime>
+    </File>
+    <File Include="bin/NDCBL.pdb">
+      <publishTime>06/21/2021 12:37:46</publishTime>
+    </File>
+    <File Include="bin/NDCCommon.dll">
+      <publishTime>06/15/2021 19:17:56</publishTime>
+    </File>
+    <File Include="bin/NDCCommon.pdb">
+      <publishTime>06/15/2021 19:17:56</publishTime>
+    </File>
+    <File Include="bin/NDCDAL.dll">
+      <publishTime>06/21/2021 12:37:45</publishTime>
+    </File>
+    <File Include="bin/NDCDAL.pdb">
+      <publishTime>06/21/2021 12:37:45</publishTime>
+    </File>
+    <File Include="bin/NHibernate.dll">
+      <publishTime>02/02/2017 12:35:28</publishTime>
+    </File>
+    <File Include="bin/NotifClavesWeb.dll">
+      <publishTime>08/29/2021 18:38:22</publishTime>
+    </File>
+    <File Include="bin/NotifClavesWeb.pdb">
+      <publishTime>08/29/2021 18:38:22</publishTime>
+    </File>
+    <File Include="bin/PhalanxBL.dll">
+      <publishTime>06/15/2021 19:27:25</publishTime>
+    </File>
+    <File Include="bin/PhalanxBL.dll.config">
+      <publishTime>02/25/2017 18:23:03</publishTime>
+    </File>
+    <File Include="bin/PhalanxBL.pdb">
+      <publishTime>06/15/2021 19:27:25</publishTime>
+    </File>
+    <File Include="bin/PhalanxCommon.dll">
+      <publishTime>06/15/2021 19:17:55</publishTime>
+    </File>
+    <File Include="bin/PhalanxCommon.pdb">
+      <publishTime>06/15/2021 19:17:55</publishTime>
+    </File>
+    <File Include="bin/PhalanxDAL.dll">
+      <publishTime>06/15/2021 19:27:24</publishTime>
+    </File>
+    <File Include="bin/PhalanxDAL.pdb">
+      <publishTime>06/15/2021 19:27:24</publishTime>
+    </File>
+    <File Include="bin/PhalanxMAL.dll">
+      <publishTime>06/15/2021 19:17:55</publishTime>
+    </File>
+    <File Include="bin/PhalanxMAL.pdb">
+      <publishTime>06/15/2021 19:17:55</publishTime>
+    </File>
+    <File Include="bin/PhalanxNAL.dll">
+      <publishTime>06/15/2021 19:27:25</publishTime>
+    </File>
+    <File Include="bin/PhalanxNAL.pdb">
+      <publishTime>06/15/2021 19:27:25</publishTime>
+    </File>
+    <File Include="bin/phxBlowfish.dll">
+      <publishTime>06/15/2021 19:17:55</publishTime>
+    </File>
+    <File Include="bin/phxBlowfish.pdb">
+      <publishTime>06/15/2021 19:17:55</publishTime>
+    </File>
+    <File Include="bin/phxCryptMgr.dll">
+      <publishTime>06/15/2021 19:17:55</publishTime>
+    </File>
+    <File Include="bin/phxCryptMgr.pdb">
+      <publishTime>06/15/2021 19:17:55</publishTime>
+    </File>
+    <File Include="bin/phxLog.dll">
+      <publishTime>06/15/2021 19:17:55</publishTime>
+    </File>
+    <File Include="bin/phxLog.pdb">
+      <publishTime>06/15/2021 19:17:55</publishTime>
+    </File>
+    <File Include="bin/System.IO.dll">
+      <publishTime>02/18/2015 17:07:08</publishTime>
+    </File>
+    <File Include="bin/System.Runtime.dll">
+      <publishTime>02/18/2015 17:07:08</publishTime>
+    </File>
+    <File Include="bin/System.Threading.Tasks.dll">
+      <publishTime>02/18/2015 17:07:08</publishTime>
+    </File>
+    <File Include="CambioContrasenia.aspx">
+      <publishTime>09/02/2018 15:33:00</publishTime>
+    </File>
+    <File Include="CargaRespuestas.aspx">
+      <publishTime>09/02/2018 15:32:59</publishTime>
+    </File>
+    <File Include="CargaRespuestasUsr.aspx">
+      <publishTime>09/02/2018 15:32:58</publishTime>
+    </File>
+    <File Include="ClavesAplicativos.aspx">
+      <publishTime>09/02/2018 15:32:58</publishTime>
+    </File>
+    <File Include="CobisCambio.xml">
+      <publishTime>08/19/2017 17:39:46</publishTime>
+    </File>
+    <File Include="CobisDesbloqueo.xml">
+      <publishTime>08/19/2017 17:33:50</publishTime>
+    </File>
+    <File Include="Desbloqueo.xml">
+      <publishTime>08/13/2017 17:32:31</publishTime>
+    </File>
+    <File Include="DesbloqueoUsuarioCOBIS.aspx">
+      <publishTime>09/02/2018 15:32:57</publishTime>
+    </File>
+    <File Include="DetalleBlanqueo.aspx">
+      <publishTime>09/02/2018 15:32:56</publishTime>
+    </File>
+    <File Include="DetalleTicket.aspx">
+      <publishTime>09/15/2018 18:36:15</publishTime>
+    </File>
+    <File Include="DetalleTicketIp.aspx">
+      <publishTime>09/02/2018 15:32:54</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>02/25/2017 17:14:11</publishTime>
+    </File>
+    <File Include="IdentificacionPositiva.aspx">
+      <publishTime>09/02/2018 15:32:54</publishTime>
+    </File>
+    <File Include="image/logo.png">
+      <publishTime>03/10/2017 18:42:42</publishTime>
+    </File>
+    <File Include="image/PhxFoot1.gif">
+      <publishTime>03/10/2017 18:42:42</publishTime>
+    </File>
+    <File Include="image/PhxFoot2.gif">
+      <publishTime>03/10/2017 18:42:42</publishTime>
+    </File>
+    <File Include="image/PhxFoot3.gif">
+      <publishTime>03/10/2017 18:42:42</publishTime>
+    </File>
+    <File Include="image/PhxHead1.gif">
+      <publishTime>03/10/2017 18:42:42</publishTime>
+    </File>
+    <File Include="image/PhxHead21.gif">
+      <publishTime>03/10/2017 18:42:42</publishTime>
+    </File>
+    <File Include="image/PhxHead23.gif">
+      <publishTime>03/10/2017 18:42:42</publishTime>
+    </File>
+    <File Include="image/PhxHead31.gif">
+      <publishTime>03/10/2017 18:42:42</publishTime>
+    </File>
+    <File Include="image/PhxHead33.gif">
+      <publishTime>03/10/2017 18:42:42</publishTime>
+    </File>
+    <File Include="image/PhxHead41.gif">
+      <publishTime>03/10/2017 18:42:42</publishTime>
+    </File>
+    <File Include="image/PhxHead43.gif">
+      <publishTime>03/10/2017 18:42:42</publishTime>
+    </File>
+    <File Include="image/PhxHead51.gif">
+      <publishTime>03/10/2017 18:42:42</publishTime>
+    </File>
+    <File Include="image/PhxHead52.gif">
+      <publishTime>03/10/2017 18:42:42</publishTime>
+    </File>
+    <File Include="image/PhxHead53.gif">
+      <publishTime>03/10/2017 18:42:42</publishTime>
+    </File>
+    <File Include="Login.aspx">
+      <publishTime>09/02/2018 15:32:53</publishTime>
+    </File>
+    <File Include="NoPermitido.aspx">
+      <publishTime>09/02/2018 15:32:52</publishTime>
+    </File>
+    <File Include="NotificacionClave.aspx">
+      <publishTime>09/02/2018 15:32:51</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>03/04/2017 19:40:52</publishTime>
+    </File>
+    <File Include="Principal.Master">
+      <publishTime>09/02/2018 15:46:27</publishTime>
+    </File>
+    <File Include="Service References/ADCambioContrasenia/NotifClavesWeb.ADCambioContrasenia.ADCambioContraseniaRes.datasource">
+      <publishTime>03/11/2017 16:26:07</publishTime>
+    </File>
+    <File Include="Service References/COBISDesbloqueo/NotifClavesWeb.COBISDesbloqueo.ExecuteRet.datasource">
+      <publishTime>03/11/2017 16:05:22</publishTime>
+    </File>
+    <File Include="SolicitudBlanqueoTarjeta.aspx">
+      <publishTime>11/28/2018 12:47:30</publishTime>
+    </File>
+    <File Include="Styles/common.css">
+      <publishTime>03/10/2017 18:42:42</publishTime>
+    </File>
+    <File Include="Tickets.aspx">
+      <publishTime>09/02/2018 17:02:56</publishTime>
+    </File>
+    <File Include="tyc.aspx">
+      <publishTime>09/02/2018 15:33:46</publishTime>
+    </File>
+    <File Include="tycip.aspx">
+      <publishTime>09/02/2018 15:33:40</publishTime>
+    </File>
+    <File Include="ValidaRespuestas.aspx">
+      <publishTime>09/02/2018 15:33:25</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>08/09/2021 18:59:20</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

@@ -13,12 +13,12 @@ using System.Collections.Generic;
 
 namespace PhalanxDAL.Factories
 {
-	/// <summary>
-	/// 
-	/// </summary>
+    /// <summary>
+    /// 
+    /// </summary>
     public class WinLocalUsersFactory : BaseFactory
-	{
-		/*
+    {
+        /*
 		Configuration config;
 		ISessionFactory factory;
 		ISession session;
@@ -87,9 +87,9 @@ namespace PhalanxDAL.Factories
         public bool SetAvoidInactiveGrps
         { set { _AvoidInactiveGrps = value; } }
 
-		public WinLocalUsersFactory()
-		{
-			/*
+        public WinLocalUsersFactory()
+        {
+            /*
 			config = new Configuration();
 			IDictionary props = new Hashtable();
 
@@ -118,203 +118,203 @@ namespace PhalanxDAL.Factories
 
 			factory = config.BuildSessionFactory();
 			session = factory.OpenSession();*/
-            
-		}
+
+        }
         public WinLocalUsersFactory(string userlogon) : base(userlogon)
-        { 
+        {
         }
 
-		/// <summary>
-		/// Make sure we clean up session etc.
-		/// </summary>
-		public void Dispose()
-		{
-			/*
+        /// <summary>
+        /// Make sure we clean up session etc.
+        /// </summary>
+        public void Dispose()
+        {
+            /*
 			session.Dispose();
 			factory.Close();
 			*/
-		}
-		/// <summary>
-		/// Get All Users, should rarely be used...
-		/// </summary>
-		/// <returns>Complete list of customers</returns>
-		public IList GetWinLocalUsers()
-		{
-			IList WLUlst = null;
-			//ITransaction tx = null;
-			using(ISession session = DBMgr.factory.OpenSession())
-			{
-				// Retrieve data here (with the session)
-				WLUlst = session.CreateCriteria(typeof(WinLocalUserEntity)).List();
-			}
-			return WLUlst;
-		}
-		/// <summary>
-		/// Busca todos los usuarios Locales de windows de una PC de un dominio
-		/// </summary>
-		/// <param name="DomainName">Nombre de Dominio al que pertenece la PC</param>
-		/// <param name="PCName">Nombre de la PC</param>
-		/// <returns>La lista de Usuarios Locales de Windows</returns>
-		public IList GetWinLocalUsrs(string DomainName, string PCName)
-		{
-			IList lstWLUs = new ArrayList();
-			WinPCsFactory WPCF = new WinPCsFactory();
-			WinPCEntity objWPC = WPCF.GetWinPC(DomainName,PCName);
-			if (objWPC == null)
-			{
-				return lstWLUs;
-			}
-			return this.GetWinLocalUsrsByWinPc(objWPC.Id);
+        }
+        /// <summary>
+        /// Get All Users, should rarely be used...
+        /// </summary>
+        /// <returns>Complete list of customers</returns>
+        public IList GetWinLocalUsers()
+        {
+            IList WLUlst = null;
+            //ITransaction tx = null;
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                // Retrieve data here (with the session)
+                WLUlst = session.CreateCriteria(typeof(WinLocalUserEntity)).List();
+            }
+            return WLUlst;
+        }
+        /// <summary>
+        /// Busca todos los usuarios Locales de windows de una PC de un dominio
+        /// </summary>
+        /// <param name="DomainName">Nombre de Dominio al que pertenece la PC</param>
+        /// <param name="PCName">Nombre de la PC</param>
+        /// <returns>La lista de Usuarios Locales de Windows</returns>
+        public IList GetWinLocalUsrs(string DomainName, string PCName)
+        {
+            IList lstWLUs = new ArrayList();
+            WinPCsFactory WPCF = new WinPCsFactory();
+            WinPCEntity objWPC = WPCF.GetWinPC(DomainName, PCName);
+            if (objWPC == null)
+            {
+                return lstWLUs;
+            }
+            return this.GetWinLocalUsrsByWinPc(objWPC.Id);
 
-		}
-        
+        }
+
         public WinLocalUserEntity GetWinLocalUser(WinPCEntity winPC, string UserName)
         {
             return GetWinLocalUser(winPC.WinDomain.NtName, winPC.Name, UserName);
         }
 
         public WinLocalUserEntity GetWinLocalUser(string DomainName, string PCName, string UserName)
-		{
-			WinPCsFactory WPCF = new WinPCsFactory();
-			WinPCEntity objWPC = WPCF.GetWinPC(DomainName,PCName);
-			if (objWPC == null)
-			{
-				return null;
-			}
+        {
+            WinPCsFactory WPCF = new WinPCsFactory();
+            WinPCEntity objWPC = WPCF.GetWinPC(DomainName, PCName);
+            if (objWPC == null)
+            {
+                return null;
+            }
 
-			IList lstWLUs;
+            IList lstWLUs;
 
-			using(ISession session = DBMgr.factory.OpenSession())
-			{
-				lstWLUs = session.CreateCriteria(typeof(WinLocalUserEntity))
-					.Add(Expression.Eq("WinPc.Id",objWPC.Id))
-					.Add(Expression.Eq("Username",UserName))
-					//.Add(Expression.InsensitiveLike("Username",UserName))
-					//.Add(Expression.Sql("lower({alias}.username) = lower('"+UserName+"')"))
-					.List();
-			}
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                lstWLUs = session.CreateCriteria(typeof(WinLocalUserEntity))
+                    .Add(Expression.Eq("WinPc.Id", objWPC.Id))
+                    .Add(Expression.Eq("Username", UserName))
+                    //.Add(Expression.InsensitiveLike("Username",UserName))
+                    //.Add(Expression.Sql("lower({alias}.username) = lower('"+UserName+"')"))
+                    .List();
+            }
 
-			if (lstWLUs.Count == 1)
-			{
-				return (WinLocalUserEntity)lstWLUs[0];
-			}
-			else
-			{
-				return null;
-			}
+            if (lstWLUs.Count == 1)
+            {
+                return (WinLocalUserEntity)lstWLUs[0];
+            }
+            else
+            {
+                return null;
+            }
 
-		}
-		public bool DeleteWinLocalUser(string DomainName, string PCName, string UserName)
-		{
-			WinPCsFactory WPCF = new WinPCsFactory();
-			WinPCEntity objWPC = WPCF.GetWinPC(DomainName,PCName);
-			if (objWPC == null)
-			{
-				return false;
-			}
+        }
+        public bool DeleteWinLocalUser(string DomainName, string PCName, string UserName)
+        {
+            WinPCsFactory WPCF = new WinPCsFactory();
+            WinPCEntity objWPC = WPCF.GetWinPC(DomainName, PCName);
+            if (objWPC == null)
+            {
+                return false;
+            }
 
-			IList lstWLUs;
+            IList lstWLUs;
 
-			using(ISession session = DBMgr.factory.OpenSession())
-			{
-				lstWLUs = session.CreateCriteria(typeof(WinLocalUserEntity))
-					.Add(Expression.Eq("WinPc.Id",objWPC.Id))
-					.Add(Expression.Eq("Username",UserName))
-					//.Add(Expression.InsensitiveLike("Username",UserName))
-					//.Add(Expression.Sql("lower({alias}.username) = lower('"+UserName+"')"))
-					.List();
-				if (lstWLUs.Count != 1)
-				{
-					return false;
-				}
-				session.Delete(((WinLocalUserEntity)lstWLUs[0]).UserPassword);
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                lstWLUs = session.CreateCriteria(typeof(WinLocalUserEntity))
+                    .Add(Expression.Eq("WinPc.Id", objWPC.Id))
+                    .Add(Expression.Eq("Username", UserName))
+                    //.Add(Expression.InsensitiveLike("Username",UserName))
+                    //.Add(Expression.Sql("lower({alias}.username) = lower('"+UserName+"')"))
+                    .List();
+                if (lstWLUs.Count != 1)
+                {
+                    return false;
+                }
+                session.Delete(((WinLocalUserEntity)lstWLUs[0]).UserPassword);
 
-			}
-			return true;
-
-
-		}
+            }
+            return true;
 
 
-		/// <summary>
-		/// Busca todos los usuarios Locales de windows de una PC
-		/// </summary>
-		/// <returns>La lista de Usuarios Locales de Windows</returns>
-		public IList GetWinLocalUsrsByWinPc(int WinPCId)
-		{
-			IList lstWLUs;
+        }
 
-			using(ISession session = DBMgr.factory.OpenSession())
-			{
-				lstWLUs = session.CreateCriteria(typeof(WinLocalUserEntity))
-					.Add(Expression.Eq("WinPcId.WinPcId",WinPCId))
-					.List();
-			}
-			
-			return lstWLUs;
-		}
 
-		/// <summary>
-		/// Lockea la contraseña por chequeo inválido
-		/// </summary>
-		/// <param name="WinLocalUser"></param>
-		public void UpdateCheckedUsrPwdError(WinLocalUserEntity WinLocalUser)
-		{
-			DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 5, 0
-				, "Entra a WinLocalUsersFactory.UpdateCheckedUsrPwdError(WinLocalUserEntity WLU)"
-				, "Domain: " + WinLocalUser.WinPc.WinDomain.NtName + "PC: " + WinLocalUser.WinPc.Name + "Username: " + WinLocalUser.Username 
-				, true, false);
-			PwdLockTypesFactory pltf = new PwdLockTypesFactory();
-			PwdLockTypeEntity CheckNOKType = pltf.GetCheckNOKType();
-			if (CheckNOKType == null)
-			{
-				return;
-			}
+        /// <summary>
+        /// Busca todos los usuarios Locales de windows de una PC
+        /// </summary>
+        /// <returns>La lista de Usuarios Locales de Windows</returns>
+        public IList GetWinLocalUsrsByWinPc(int WinPCId)
+        {
+            IList lstWLUs;
 
-			ITransaction tx = null;
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                lstWLUs = session.CreateCriteria(typeof(WinLocalUserEntity))
+                    .Add(Expression.Eq("WinPcId.WinPcId", WinPCId))
+                    .List();
+            }
 
-			using(ISession session = DBMgr.factory.OpenSession())
-			{
-				WinLocalUser.UserPassword.PwdLockType = CheckNOKType;
-				WinLocalUser.ActiveUser = false;
-				tx = session.BeginTransaction();
-				session.Update(WinLocalUser);
-				session.Update(WinLocalUser.UserPassword);
-				tx.Commit();
-			}
-			DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 5, 0
-				, "Termina WinLocalUsersFactory.UpdateCheckedUsrPwdError(WinLocalUserEntity WLU)"
-				, "Sin errores"
-				, true, false);
+            return lstWLUs;
+        }
 
-		}
-		/// <summary>
-		/// Busca todos los usuarios Locales de windows de una PC cuya contraseña debe ser chequeada
-		/// </summary>
-		/// <returns>La lista de Usuarios Locales de Windows</returns>
-		public IList GetUsrsByPwdToCheck(DateTime dChkDate)
-		{
-			DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 5, 0
-				, "Entra a WinLocalUsersFactory.GetUsrsByPwdToCheck(DateTime dChkDate)"
-				, "dChkDate: " + dChkDate.ToString()
-				, true, false);
-			Nullable<DateTime> nulldtChkDate = dChkDate;
-			PwdLockTypesFactory pltf = new PwdLockTypesFactory();
-			PwdLockTypeEntity CheckingType = pltf.GetCheckingType();
-			PwdLockTypeEntity ChangingType = pltf.GetChangingType();
-			PwdLockTypeEntity InUseType = pltf.GetInUseType();
-			if (CheckingType == null || ChangingType == null || InUseType == null)
-			{
-				return null;
-			}
+        /// <summary>
+        /// Lockea la contraseña por chequeo inválido
+        /// </summary>
+        /// <param name="WinLocalUser"></param>
+        public void UpdateCheckedUsrPwdError(WinLocalUserEntity WinLocalUser)
+        {
+            DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 5, 0
+                , "Entra a WinLocalUsersFactory.UpdateCheckedUsrPwdError(WinLocalUserEntity WLU)"
+                , "Domain: " + WinLocalUser.WinPc.WinDomain.NtName + "PC: " + WinLocalUser.WinPc.Name + "Username: " + WinLocalUser.Username
+                , true, false);
+            PwdLockTypesFactory pltf = new PwdLockTypesFactory();
+            PwdLockTypeEntity CheckNOKType = pltf.GetCheckNOKType();
+            if (CheckNOKType == null)
+            {
+                return;
+            }
 
-			ITransaction tx = null;
-			string TimeOutLockChk = "3"; // expresado en minutos
+            ITransaction tx = null;
 
-			IList lstUPwd = new ArrayList();
-			using(ISession session = DBMgr.factory.OpenSession())
-			{
-				/*
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                WinLocalUser.UserPassword.PwdLockType = CheckNOKType;
+                WinLocalUser.ActiveUser = false;
+                tx = session.BeginTransaction();
+                session.Update(WinLocalUser);
+                session.Update(WinLocalUser.UserPassword);
+                tx.Commit();
+            }
+            DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 5, 0
+                , "Termina WinLocalUsersFactory.UpdateCheckedUsrPwdError(WinLocalUserEntity WLU)"
+                , "Sin errores"
+                , true, false);
+
+        }
+        /// <summary>
+        /// Busca todos los usuarios Locales de windows de una PC cuya contraseña debe ser chequeada
+        /// </summary>
+        /// <returns>La lista de Usuarios Locales de Windows</returns>
+        public IList GetUsrsByPwdToCheck(DateTime dChkDate)
+        {
+            DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 5, 0
+                , "Entra a WinLocalUsersFactory.GetUsrsByPwdToCheck(DateTime dChkDate)"
+                , "dChkDate: " + dChkDate.ToString()
+                , true, false);
+            Nullable<DateTime> nulldtChkDate = dChkDate;
+            PwdLockTypesFactory pltf = new PwdLockTypesFactory();
+            PwdLockTypeEntity CheckingType = pltf.GetCheckingType();
+            PwdLockTypeEntity ChangingType = pltf.GetChangingType();
+            PwdLockTypeEntity InUseType = pltf.GetInUseType();
+            if (CheckingType == null || ChangingType == null || InUseType == null)
+            {
+                return null;
+            }
+
+            ITransaction tx = null;
+            string TimeOutLockChk = "3"; // expresado en minutos
+
+            IList lstUPwd = new ArrayList();
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                /*
 				lstUPwd = session.CreateCriteria(typeof(WinLocalUserEntity))
 					.Add(Expression.Eq("ActiveUser",true))
 					.CreateCriteria("UserPasswordId")
@@ -332,7 +332,7 @@ namespace PhalanxDAL.Factories
 									))
 					.List();
 					*/
-				/*
+                /*
 				// esto no va porque luego que termina el uso por parte del usuario, primero vendría el cambio antes del chequeo
 				lstUPwd = session.CreateCriteria(typeof(WinLocalUserEntity))
 					.Add(Expression.Eq("ActiveUser",true)) // contraseñas activas
@@ -365,278 +365,278 @@ namespace PhalanxDAL.Factories
 							))
 					.List();
 					*/
-				lstUPwd = session.CreateCriteria(typeof(WinLocalUserEntity))
-					.Add(Expression.Eq("ActiveUser",true)) // contraseñas activas
-					.CreateCriteria("UserPasswordId")
-					.Add(Expression.Eq("ChkPwd", true)) // contraseñas no estáticas
-					.Add(Expression.And( // es no lock o TO Y prox fecha de chequeo <= ahora
-								Expression.Or( // o es (no lock o (chk o chg Time out))
-										Expression.Sql("{alias}.d_lock_pwd is null"), // * no estén lockeadas
-										Expression.And( // (chk o chg Time out)
-												Expression.Or( // que estén lockeadas por chequeo o cambio y haya pasado mas de n minutos del lockeo (se supone que hubo un error en la ejecución y no se llegó a completar la tarea)
-														Expression.Eq("PwdLockTypeId",ChangingType),
-														Expression.Eq("PwdLockTypeId", CheckingType) //	* o, que estén lockeadas por chequeo o cambio
-													),
-												Expression.Sql("dateadd(mi,"+TimeOutLockChk+",{alias}.d_lock_pwd) <= getdate() ") // y haya pasado mas de n minutos del lockeo (se supone que hubo un error en la ejecución y no se llegó a completar la tarea)
-											)
-									),
-								Expression.Le("DNextChk", nulldtChkDate) // - cuya fecha de próximo chequeo sea <= ahora
-							)
-						)
-					.List();
+                lstUPwd = session.CreateCriteria(typeof(WinLocalUserEntity))
+                    .Add(Expression.Eq("ActiveUser", true)) // contraseñas activas
+                    .CreateCriteria("UserPasswordId")
+                    .Add(Expression.Eq("ChkPwd", true)) // contraseñas no estáticas
+                    .Add(Expression.And( // es no lock o TO Y prox fecha de chequeo <= ahora
+                                Expression.Or( // o es (no lock o (chk o chg Time out))
+                                        Expression.Sql("{alias}.d_lock_pwd is null"), // * no estén lockeadas
+                                        Expression.And( // (chk o chg Time out)
+                                                Expression.Or( // que estén lockeadas por chequeo o cambio y haya pasado mas de n minutos del lockeo (se supone que hubo un error en la ejecución y no se llegó a completar la tarea)
+                                                        Expression.Eq("PwdLockTypeId", ChangingType),
+                                                        Expression.Eq("PwdLockTypeId", CheckingType) //	* o, que estén lockeadas por chequeo o cambio
+                                                    ),
+                                                Expression.Sql("dateadd(mi," + TimeOutLockChk + ",{alias}.d_lock_pwd) <= getdate() ") // y haya pasado mas de n minutos del lockeo (se supone que hubo un error en la ejecución y no se llegó a completar la tarea)
+                                            )
+                                    ),
+                                Expression.Le("DNextChk", nulldtChkDate) // - cuya fecha de próximo chequeo sea <= ahora
+                            )
+                        )
+                    .List();
 
-				//session.Lock(lstUPwd, LockMode.UpgradeNoWait);
+                //session.Lock(lstUPwd, LockMode.UpgradeNoWait);
 
-				if (lstUPwd != null)
-				{
-					foreach(WinLocalUserEntity wlu in lstUPwd)
-					{
-						wlu.UserPassword.PwdLockType = CheckingType;
-						tx = session.BeginTransaction();
-						session.Update(wlu.UserPassword);
-						tx.Commit();
-						
-					}
-					//session.Transaction.Commit();
-				}
-			}
-			DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 5, 0
-				, "Entra a WinLocalUsersFactory.GetUsrsByPwdToCheck(DateTime dChkDate)"
-				, "Devuelve " + lstUPwd.Count.ToString() + " contraseñas para chequear"
-				, true, false);
-			return lstUPwd;
+                if (lstUPwd != null)
+                {
+                    foreach (WinLocalUserEntity wlu in lstUPwd)
+                    {
+                        wlu.UserPassword.PwdLockType = CheckingType;
+                        tx = session.BeginTransaction();
+                        session.Update(wlu.UserPassword);
+                        tx.Commit();
 
-		}
+                    }
+                    //session.Transaction.Commit();
+                }
+            }
+            DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 5, 0
+                , "Entra a WinLocalUsersFactory.GetUsrsByPwdToCheck(DateTime dChkDate)"
+                , "Devuelve " + lstUPwd.Count.ToString() + " contraseñas para chequear"
+                , true, false);
+            return lstUPwd;
 
-		/// <summary>
-		/// Actualiza un usuario Locales de windows de una PC cuya contraseña fue chequeada
-		/// </summary>
-		public void UpdateCheckedUsrPwd(WinLocalUserEntity objWLU ,DateTime dChkDate)
-		{
-			DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 5, 0
-				, "Entra a WinLocalUsersFactory.UpdateCheckedUsrPwd(WinLocalUserEntity objWLU ,DateTime dChkDate)"
-				, "Username: " + objWLU.Username + " - dChkDate: " + dChkDate.ToString()
-				, true, false);
+        }
 
-			ITransaction tx = null;
-			using(ISession session = DBMgr.factory.OpenSession())
-			{
-				try
-				{
-					objWLU.UserPassword.DLastChk = dChkDate;
-					// se quita el lockeo que tenía
-					objWLU.UserPassword.PwdLockType = null;
-					// se borra la fecha de uso
-					objWLU.UserPassword.DInUseUntil = null;
-					Nullable<DateTime> nulldtChkDate = dChkDate;
-					// se setea la fecha de prox chequeo en base a la configuración siempre y cuando 
-					// sea menor a la fecha ingresada. En este caso también abarca si el chequeo fue caducidad de uso
-					// y por configuración debería haber sido chequeada durante el periodo en que coincidió el uso
-					while (objWLU.UserPassword.DNextChk.Value <= nulldtChkDate.Value)
-					{
-						switch (objWLU.UserPassword.ChkFreqUnit.ToUpper())
-						{
-							case "H":
-								objWLU.UserPassword.DNextChk = objWLU.UserPassword.DNextChk.Value.AddHours(Convert.ToDouble(objWLU.UserPassword.ChkFreq));
-								break;
-							case "D":
-								objWLU.UserPassword.DNextChk = objWLU.UserPassword.DNextChk.Value.AddDays(Convert.ToDouble(objWLU.UserPassword.ChkFreq));
-								break;
-							case "W":
-								objWLU.UserPassword.DNextChk = objWLU.UserPassword.DNextChk.Value.AddDays(7*Convert.ToDouble(objWLU.UserPassword.ChkFreq));
-								break;
-							case "M":
-								objWLU.UserPassword.DNextChk = objWLU.UserPassword.DNextChk.Value.AddMonths(Convert.ToInt32(objWLU.UserPassword.ChkFreq));
-								break;
-							case "Y":
-								objWLU.UserPassword.DNextChk = objWLU.UserPassword.DNextChk.Value.AddYears(Convert.ToInt32(objWLU.UserPassword.ChkFreq));
-								break;
-							default:
-								break;
-						}
-					}
+        /// <summary>
+        /// Actualiza un usuario Locales de windows de una PC cuya contraseña fue chequeada
+        /// </summary>
+        public void UpdateCheckedUsrPwd(WinLocalUserEntity objWLU, DateTime dChkDate)
+        {
+            DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 5, 0
+                , "Entra a WinLocalUsersFactory.UpdateCheckedUsrPwd(WinLocalUserEntity objWLU ,DateTime dChkDate)"
+                , "Username: " + objWLU.Username + " - dChkDate: " + dChkDate.ToString()
+                , true, false);
 
-					tx = session.BeginTransaction();
-					session.Update(objWLU.UserPassword);
-					tx.Commit();
-					DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 5, 0
-						, "WinLocalUsersFactory.UpdateCheckedUsrPwd(WinLocalUserEntity objWLU ,DateTime dChkDate)"
-						, "Actualizo OK"
-						, true, false);
+            ITransaction tx = null;
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                try
+                {
+                    objWLU.UserPassword.DLastChk = dChkDate;
+                    // se quita el lockeo que tenía
+                    objWLU.UserPassword.PwdLockType = null;
+                    // se borra la fecha de uso
+                    objWLU.UserPassword.DInUseUntil = null;
+                    Nullable<DateTime> nulldtChkDate = dChkDate;
+                    // se setea la fecha de prox chequeo en base a la configuración siempre y cuando 
+                    // sea menor a la fecha ingresada. En este caso también abarca si el chequeo fue caducidad de uso
+                    // y por configuración debería haber sido chequeada durante el periodo en que coincidió el uso
+                    while (objWLU.UserPassword.DNextChk.Value <= nulldtChkDate.Value)
+                    {
+                        switch (objWLU.UserPassword.ChkFreqUnit.ToUpper())
+                        {
+                            case "H":
+                                objWLU.UserPassword.DNextChk = objWLU.UserPassword.DNextChk.Value.AddHours(Convert.ToDouble(objWLU.UserPassword.ChkFreq));
+                                break;
+                            case "D":
+                                objWLU.UserPassword.DNextChk = objWLU.UserPassword.DNextChk.Value.AddDays(Convert.ToDouble(objWLU.UserPassword.ChkFreq));
+                                break;
+                            case "W":
+                                objWLU.UserPassword.DNextChk = objWLU.UserPassword.DNextChk.Value.AddDays(7 * Convert.ToDouble(objWLU.UserPassword.ChkFreq));
+                                break;
+                            case "M":
+                                objWLU.UserPassword.DNextChk = objWLU.UserPassword.DNextChk.Value.AddMonths(Convert.ToInt32(objWLU.UserPassword.ChkFreq));
+                                break;
+                            case "Y":
+                                objWLU.UserPassword.DNextChk = objWLU.UserPassword.DNextChk.Value.AddYears(Convert.ToInt32(objWLU.UserPassword.ChkFreq));
+                                break;
+                            default:
+                                break;
+                        }
+                    }
 
-				}
-				catch (Exception ex)
-				{
-					DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 4, 0
-						, "WinLocalUsersFactory.UpdateCheckedUsrPwd(WinLocalUserEntity objWLU ,DateTime dChkDate)"
-						, "Error: " + ex.Message
-						, true, false);
-					tx.Rollback();
-					// handle exception
-				}
+                    tx = session.BeginTransaction();
+                    session.Update(objWLU.UserPassword);
+                    tx.Commit();
+                    DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 5, 0
+                        , "WinLocalUsersFactory.UpdateCheckedUsrPwd(WinLocalUserEntity objWLU ,DateTime dChkDate)"
+                        , "Actualizo OK"
+                        , true, false);
 
-			}
+                }
+                catch (Exception ex)
+                {
+                    DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 4, 0
+                        , "WinLocalUsersFactory.UpdateCheckedUsrPwd(WinLocalUserEntity objWLU ,DateTime dChkDate)"
+                        , "Error: " + ex.Message
+                        , true, false);
+                    tx.Rollback();
+                    // handle exception
+                }
 
-		}
-		/// <summary>
-		/// Actualiza un usuario Local de windows de una PC cuya contraseña fue cambiada
-		/// </summary>
-		public void UpdateChangedUsrPwd(WinLocalUserEntity objWLU ,DateTime dChangeDate)
-		{
-			DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 5, 0
-				, "Entra a WinLocalUsersFactory.UpdateChangedUsrPwd(WinLocalUserEntity objWLU ,DateTime dChangeDate)"
-				, "Username: " + objWLU.Username + " - dChangeDate: " + dChangeDate.ToString()
-				, true, false);
+            }
 
-			ITransaction tx = null;
-			using(ISession session = DBMgr.factory.OpenSession())
-			{
-				try
-				{
-					objWLU.UserPassword.DLastChange = dChangeDate;
-					// se quita el lockeo que tenía
-					objWLU.UserPassword.PwdLockType = null;
-					// se borra la fecha de uso
-					objWLU.UserPassword.DInUseUntil = new DateTime();
+        }
+        /// <summary>
+        /// Actualiza un usuario Local de windows de una PC cuya contraseña fue cambiada
+        /// </summary>
+        public void UpdateChangedUsrPwd(WinLocalUserEntity objWLU, DateTime dChangeDate)
+        {
+            DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 5, 0
+                , "Entra a WinLocalUsersFactory.UpdateChangedUsrPwd(WinLocalUserEntity objWLU ,DateTime dChangeDate)"
+                , "Username: " + objWLU.Username + " - dChangeDate: " + dChangeDate.ToString()
+                , true, false);
+
+            ITransaction tx = null;
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                try
+                {
+                    objWLU.UserPassword.DLastChange = dChangeDate;
+                    // se quita el lockeo que tenía
+                    objWLU.UserPassword.PwdLockType = null;
+                    // se borra la fecha de uso
+                    objWLU.UserPassword.DInUseUntil = new DateTime();
                     Nullable<DateTime> nulldtChgDate = dChangeDate; // (NullableDateTime)dChangeDate;
-					// se setea la fecha de prox cambio en base a la configuración siempre y cuando 
-					// sea menor a la fecha ingresada. En este caso también abarca si el cambio fue caducidad de uso
-					// y por configuración debería haber sido cambiada durante el periodo en que coincidió el uso
-					while (objWLU.UserPassword.DNextChange.Value <= nulldtChgDate.Value)
-					{
-						// quizás haya que hacer un while por si el uso pasa por dos periodos de la config (while (fnextchg <= dchange))
-						switch (objWLU.UserPassword.ChangeFreqUnit.ToUpper())
-						{
-							case "H":
-								objWLU.UserPassword.DNextChange = objWLU.UserPassword.DNextChange.Value.AddHours(Convert.ToDouble(objWLU.UserPassword.ChangeFreq));
-								break;
-							case "D":
-								objWLU.UserPassword.DNextChange = objWLU.UserPassword.DNextChange.Value.AddDays(Convert.ToDouble(objWLU.UserPassword.ChangeFreq));
-								break;
-							case "W":
-								objWLU.UserPassword.DNextChange = objWLU.UserPassword.DNextChange.Value.AddDays(7*Convert.ToDouble(objWLU.UserPassword.ChangeFreq));
-								break;
-							case "M":
-								objWLU.UserPassword.DNextChange = objWLU.UserPassword.DNextChange.Value.AddMonths(Convert.ToInt32(objWLU.UserPassword.ChangeFreq));
-								break;
-							case "Y":
-								objWLU.UserPassword.DNextChange = objWLU.UserPassword.DNextChange.Value.AddYears(Convert.ToInt32(objWLU.UserPassword.ChangeFreq));
-								break;
-							default:
-								break;
-						}
-					}
+                                                                    // se setea la fecha de prox cambio en base a la configuración siempre y cuando 
+                                                                    // sea menor a la fecha ingresada. En este caso también abarca si el cambio fue caducidad de uso
+                                                                    // y por configuración debería haber sido cambiada durante el periodo en que coincidió el uso
+                    while (objWLU.UserPassword.DNextChange.Value <= nulldtChgDate.Value)
+                    {
+                        // quizás haya que hacer un while por si el uso pasa por dos periodos de la config (while (fnextchg <= dchange))
+                        switch (objWLU.UserPassword.ChangeFreqUnit.ToUpper())
+                        {
+                            case "H":
+                                objWLU.UserPassword.DNextChange = objWLU.UserPassword.DNextChange.Value.AddHours(Convert.ToDouble(objWLU.UserPassword.ChangeFreq));
+                                break;
+                            case "D":
+                                objWLU.UserPassword.DNextChange = objWLU.UserPassword.DNextChange.Value.AddDays(Convert.ToDouble(objWLU.UserPassword.ChangeFreq));
+                                break;
+                            case "W":
+                                objWLU.UserPassword.DNextChange = objWLU.UserPassword.DNextChange.Value.AddDays(7 * Convert.ToDouble(objWLU.UserPassword.ChangeFreq));
+                                break;
+                            case "M":
+                                objWLU.UserPassword.DNextChange = objWLU.UserPassword.DNextChange.Value.AddMonths(Convert.ToInt32(objWLU.UserPassword.ChangeFreq));
+                                break;
+                            case "Y":
+                                objWLU.UserPassword.DNextChange = objWLU.UserPassword.DNextChange.Value.AddYears(Convert.ToInt32(objWLU.UserPassword.ChangeFreq));
+                                break;
+                            default:
+                                break;
+                        }
+                    }
 
-					tx = session.BeginTransaction();
-					session.Update(objWLU.UserPassword);
-					tx.Commit();
-					DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 5, 0
-						, "WinLocalUsersFactory.UpdateChangedUsrPwd(WinLocalUserEntity objWLU ,DateTime dChangeDate)"
-						, "Actualizó OK"
-						, true, false);
+                    tx = session.BeginTransaction();
+                    session.Update(objWLU.UserPassword);
+                    tx.Commit();
+                    DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 5, 0
+                        , "WinLocalUsersFactory.UpdateChangedUsrPwd(WinLocalUserEntity objWLU ,DateTime dChangeDate)"
+                        , "Actualizó OK"
+                        , true, false);
 
-				}
-				catch (Exception ex)
-				{
-					DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 4, 0
-						, "WinLocalUsersFactory.UpdateChangedUsrPwd(WinLocalUserEntity objWLU ,DateTime dChangeDate)"
-						, "Error: " + ex.Message
-						, true, false);
+                }
+                catch (Exception ex)
+                {
+                    DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 4, 0
+                        , "WinLocalUsersFactory.UpdateChangedUsrPwd(WinLocalUserEntity objWLU ,DateTime dChangeDate)"
+                        , "Error: " + ex.Message
+                        , true, false);
 
-					tx.Rollback();
-					// handle exception
-				}
+                    tx.Rollback();
+                    // handle exception
+                }
 
-			}
+            }
 
-		}
-		/// <summary>
-		/// Busca todos los usuarios Locales de windows de una PC cuya contraseña debe ser cambiada
-		/// </summary>
-		/// <returns>La lista de Usuarios Locales de Windows</returns>
-		public IList GetUsrsByPwdToChange(DateTime dChgDate)
-		{
-			DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 5, 0
-				, "Entra a WinLocalUsersFactory.GetUsrsByPwdToChange(DateTime dChgDate)"
-				, "dChgDate: " + dChgDate.ToString()
-				, true, false);
+        }
+        /// <summary>
+        /// Busca todos los usuarios Locales de windows de una PC cuya contraseña debe ser cambiada
+        /// </summary>
+        /// <returns>La lista de Usuarios Locales de Windows</returns>
+        public IList GetUsrsByPwdToChange(DateTime dChgDate)
+        {
+            DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 5, 0
+                , "Entra a WinLocalUsersFactory.GetUsrsByPwdToChange(DateTime dChgDate)"
+                , "dChgDate: " + dChgDate.ToString()
+                , true, false);
             Nullable<DateTime> nulldtChgDate = dChgDate; // new NullableDateTime(dChgDate);
-			PwdLockTypesFactory pltf = new PwdLockTypesFactory();
-			PwdLockTypeEntity CheckingType = pltf.GetCheckingType();
-			PwdLockTypeEntity ChangingType = pltf.GetChangingType();
-			PwdLockTypeEntity InUseType = pltf.GetInUseType();
-			if (CheckingType == null || ChangingType == null || InUseType == null)
-			{
-				return null;
-			}
+            PwdLockTypesFactory pltf = new PwdLockTypesFactory();
+            PwdLockTypeEntity CheckingType = pltf.GetCheckingType();
+            PwdLockTypeEntity ChangingType = pltf.GetChangingType();
+            PwdLockTypeEntity InUseType = pltf.GetInUseType();
+            if (CheckingType == null || ChangingType == null || InUseType == null)
+            {
+                return null;
+            }
 
-			ITransaction tx = null;
-			string TimeOutLockChg = "3"; // expresado en minutos
+            ITransaction tx = null;
+            string TimeOutLockChg = "3"; // expresado en minutos
 
-			IList lstUPwd = null;
-			using(ISession session = DBMgr.factory.OpenSession())
-			{
-				// Precondición del Caso de Uso CU02:
-				// Que existan contraseñas no estáticas y habilitadas para ser cambiadas:
-				// - cuya fecha de próximo cambio sea <= ahora y:
-				//		* no estén lockeadas
-				//		* o, que estén lockeadas por chequeo o cambio y haya pasado mas de n minutos del lockeo (se supone que hubo un error en la ejecución y no se llegó a completar la tarea)
-				//	- o, que estén lockeadas por uso y la fecha de caducidad de uso =< ahora
+            IList lstUPwd = null;
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                // Precondición del Caso de Uso CU02:
+                // Que existan contraseñas no estáticas y habilitadas para ser cambiadas:
+                // - cuya fecha de próximo cambio sea <= ahora y:
+                //		* no estén lockeadas
+                //		* o, que estén lockeadas por chequeo o cambio y haya pasado mas de n minutos del lockeo (se supone que hubo un error en la ejecución y no se llegó a completar la tarea)
+                //	- o, que estén lockeadas por uso y la fecha de caducidad de uso =< ahora
 
-				lstUPwd = session.CreateCriteria(typeof(WinLocalUserEntity))
-					.Add(Expression.Eq("ActiveUser",true)) // contraseñas activas
-					.CreateCriteria("UserPasswordId")
-					.Add(Expression.Eq("StaticPwd", false)) // contraseñas no estáticas
-					.Add(Expression.And(
-								Expression.Or( // es InUse o es (no lock o (chk o chg Time out))
-										Expression.Eq("PwdLockTypeId",InUseType), // está en uso
-										Expression.Or( // o es (no lock o (chk o chg Time out))
-												Expression.Sql("{alias}.d_lock_pwd is null"), // * no estén lockeadas
-												Expression.And( // (chk o chg Time out)
-														Expression.Or( // que estén lockeadas por chequeo o cambio y haya pasado mas de n minutos del lockeo (se supone que hubo un error en la ejecución y no se llegó a completar la tarea)
-																Expression.Eq("PwdLockTypeId",ChangingType),
-																Expression.Eq("PwdLockTypeId", CheckingType) //	* o, que estén lockeadas por chequeo o cambio
-															),
-														Expression.Sql("dateadd(mi,"+TimeOutLockChg+",{alias}.d_lock_pwd) <= getdate() ") // y haya pasado mas de n minutos del lockeo (se supone que hubo un error en la ejecución y no se llegó a completar la tarea)
-													)
-											)
-										),
-								Expression.Or( // la FUse (si hay) o la F prox cbio (si no hay use) es menor a la fecha ingresada
-										Expression.And( // hay FUse y es menor a la fecha pasada
-												Expression.IsNotNull("DInUseUntil"),
-												Expression.Le("DInUseUntil",nulldtChgDate)
-											),
-										Expression.And( // no hay FUse y la fecha de prox cambio es menor a la pasada
-												Expression.IsNull("DInUseUntil"),
-												Expression.Le("DNextChange", nulldtChgDate) // - cuya fecha de próximo cambio sea <= ahora
-											)
-									)
-							))
-					.List();
+                lstUPwd = session.CreateCriteria(typeof(WinLocalUserEntity))
+                    .Add(Expression.Eq("ActiveUser", true)) // contraseñas activas
+                    .CreateCriteria("UserPasswordId")
+                    .Add(Expression.Eq("StaticPwd", false)) // contraseñas no estáticas
+                    .Add(Expression.And(
+                                Expression.Or( // es InUse o es (no lock o (chk o chg Time out))
+                                        Expression.Eq("PwdLockTypeId", InUseType), // está en uso
+                                        Expression.Or( // o es (no lock o (chk o chg Time out))
+                                                Expression.Sql("{alias}.d_lock_pwd is null"), // * no estén lockeadas
+                                                Expression.And( // (chk o chg Time out)
+                                                        Expression.Or( // que estén lockeadas por chequeo o cambio y haya pasado mas de n minutos del lockeo (se supone que hubo un error en la ejecución y no se llegó a completar la tarea)
+                                                                Expression.Eq("PwdLockTypeId", ChangingType),
+                                                                Expression.Eq("PwdLockTypeId", CheckingType) //	* o, que estén lockeadas por chequeo o cambio
+                                                            ),
+                                                        Expression.Sql("dateadd(mi," + TimeOutLockChg + ",{alias}.d_lock_pwd) <= getdate() ") // y haya pasado mas de n minutos del lockeo (se supone que hubo un error en la ejecución y no se llegó a completar la tarea)
+                                                    )
+                                            )
+                                        ),
+                                Expression.Or( // la FUse (si hay) o la F prox cbio (si no hay use) es menor a la fecha ingresada
+                                        Expression.And( // hay FUse y es menor a la fecha pasada
+                                                Expression.IsNotNull("DInUseUntil"),
+                                                Expression.Le("DInUseUntil", nulldtChgDate)
+                                            ),
+                                        Expression.And( // no hay FUse y la fecha de prox cambio es menor a la pasada
+                                                Expression.IsNull("DInUseUntil"),
+                                                Expression.Le("DNextChange", nulldtChgDate) // - cuya fecha de próximo cambio sea <= ahora
+                                            )
+                                    )
+                            ))
+                    .List();
 
-				if (lstUPwd != null)
-				{
-					foreach(WinLocalUserEntity wlu in lstUPwd)
-					{
-						wlu.UserPassword.PwdLockType = ChangingType;
-						tx = session.BeginTransaction();
-						session.Update(wlu.UserPassword);
-						tx.Commit();
-						
-					}
-					//session.Transaction.Commit();
-				}
-			}
-			DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 5, 0
-				, "WinLocalUsersFactory.GetUsrsByPwdToChange(DateTime dChgDate)"
-				, "Devuelve " + lstUPwd.Count.ToString() + " contraseñas para cambiar"
-				, true, false);
+                if (lstUPwd != null)
+                {
+                    foreach (WinLocalUserEntity wlu in lstUPwd)
+                    {
+                        wlu.UserPassword.PwdLockType = ChangingType;
+                        tx = session.BeginTransaction();
+                        session.Update(wlu.UserPassword);
+                        tx.Commit();
 
-			return lstUPwd;
+                    }
+                    //session.Transaction.Commit();
+                }
+            }
+            DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 5, 0
+                , "WinLocalUsersFactory.GetUsrsByPwdToChange(DateTime dChgDate)"
+                , "Devuelve " + lstUPwd.Count.ToString() + " contraseñas para cambiar"
+                , true, false);
 
-		}
+            return lstUPwd;
 
-        public RqstGrpPwdEntityCollection  GetGruposSolicitudes(WinLocalUserEntity CurrentUser)
+        }
+
+        public RqstGrpPwdEntityCollection GetGruposSolicitudes(WinLocalUserEntity CurrentUser)
         {
             IList<RqstGrpPwdEntity> lstRequestGroups;
             RqstGrpPwdEntityCollection colRequestGroups = new RqstGrpPwdEntityCollection();
@@ -669,7 +669,7 @@ namespace PhalanxDAL.Factories
 
         public void SaveUser(WinLocalUserEntity winUser, RequestGroupEntityCollection GruposSolicitudes, FollowupRequestGroupEntityCollection GruposSeguimiento)
         {
-            txSaveUser= null;
+            txSaveUser = null;
             try
             {
                 //using (ISession SessionSaveUser = DBMgr.factory.OpenSession())
@@ -750,7 +750,7 @@ namespace PhalanxDAL.Factories
                             }
                         }
                     }
-                    
+
                     // tengo que grabar el log de modificación
                     HistPasswordChangeFactory HistPwdChg = new HistPasswordChangeFactory(this.UserLogon);
                     HistPwdChg.AddLog(SessionSaveUser, (UserEntity)winUser);
@@ -765,7 +765,7 @@ namespace PhalanxDAL.Factories
         }
 
         public void SaveUserCommit()
-        { 
+        {
             txSaveUser.Commit();
             SessionSaveUser.Close();
             SessionSaveUser = null;
@@ -827,76 +827,76 @@ namespace PhalanxDAL.Factories
             }
             return User;
         }
-        
+
 
         public int CreateWinLocalUser(string DomainName, string PCName, string UserName)
-		{
-			WinPCsFactory WPCF = new WinPCsFactory();
-			WinPCEntity objWPC = WPCF.GetWinPC(DomainName,PCName);
-			if (objWPC == null)
-			{
-				//return false;
-				return 0;
-			}
-			UserTypesFactory UTF = new UserTypesFactory();
-			UserTypeEntity objUT = UTF.GetWinLocalUserType();
-			if (objUT == null)
-			{
-				//return false;
-				return 0;
-			}
-			ITransaction tx = null;
-			using(ISession session = DBMgr.factory.OpenSession())
-			{
-				try
-				{
-					tx = session.BeginTransaction();
-					UserPasswordEntity objUP = new UserPasswordEntity();
-					session.Save(objUP);
-					// crear el usuario en la base
-					WinLocalUserEntity objWLU = new WinLocalUserEntity();
-					objWLU.WinPc = objWPC;
-					objWLU.Username = UserName.ToLower();
-					objWLU.UserType = objUT;
-					objWLU.ActiveUser = false;
-					objWLU.UserPassword = objUP;
-					//tx = session.BeginTransaction();
-					session.Save(objWLU);
-					tx.Commit();
-					return objWLU.Id;
-					//return true;
-				}
-				catch (Exception ex)
-				{
-					tx.Rollback();
-					return 0;
-					//return false;
-					// handle exception
-				}
-			}
+        {
+            WinPCsFactory WPCF = new WinPCsFactory();
+            WinPCEntity objWPC = WPCF.GetWinPC(DomainName, PCName);
+            if (objWPC == null)
+            {
+                //return false;
+                return 0;
+            }
+            UserTypesFactory UTF = new UserTypesFactory();
+            UserTypeEntity objUT = UTF.GetWinLocalUserType();
+            if (objUT == null)
+            {
+                //return false;
+                return 0;
+            }
+            ITransaction tx = null;
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                try
+                {
+                    tx = session.BeginTransaction();
+                    UserPasswordEntity objUP = new UserPasswordEntity();
+                    session.Save(objUP);
+                    // crear el usuario en la base
+                    WinLocalUserEntity objWLU = new WinLocalUserEntity();
+                    objWLU.WinPc = objWPC;
+                    objWLU.Username = UserName.ToLower();
+                    objWLU.UserType = objUT;
+                    objWLU.ActiveUser = false;
+                    objWLU.UserPassword = objUP;
+                    //tx = session.BeginTransaction();
+                    session.Save(objWLU);
+                    tx.Commit();
+                    return objWLU.Id;
+                    //return true;
+                }
+                catch (Exception ex)
+                {
+                    tx.Rollback();
+                    return 0;
+                    //return false;
+                    // handle exception
+                }
+            }
 
-		}
-		public bool UpdateWinLocalUser(WinLocalUserEntity WinLocalUser)
-		{
-			ITransaction tx = null;
-			using(ISession session = DBMgr.factory.OpenSession())
-			{
-				try
-				{
-					tx = session.BeginTransaction();
-					session.Update(WinLocalUser.UserPassword);
-					session.Update(WinLocalUser);
-					tx.Commit();
-				}
-				catch (Exception ex)
-				{
-					tx.Rollback();
-					return false;
-					// handle exception
-				}
-			}
-			return true;
-		}
+        }
+        public bool UpdateWinLocalUser(WinLocalUserEntity WinLocalUser)
+        {
+            ITransaction tx = null;
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                try
+                {
+                    tx = session.BeginTransaction();
+                    session.Update(WinLocalUser.UserPassword);
+                    session.Update(WinLocalUser);
+                    tx.Commit();
+                }
+                catch (Exception ex)
+                {
+                    tx.Rollback();
+                    return false;
+                    // handle exception
+                }
+            }
+            return true;
+        }
         /*private Nullable<bool> _filActivo;
         public Nullable<bool> FilActivo
         {
@@ -953,7 +953,7 @@ namespace PhalanxDAL.Factories
                 }
                 if (_filDomain != null)
                 {
-                    
+
                     if (!CriteriaWinPCCreated)
                     {
                         CriteriaWinPCCreated = true;
@@ -1049,7 +1049,7 @@ namespace PhalanxDAL.Factories
             }
             return pwd;
         }
-        
+
         public void RefreshPwdLockTypePasswordList(WinLocalUserEntity WinUser)
         {
             try
@@ -1085,8 +1085,8 @@ namespace PhalanxDAL.Factories
                 using (ISession session = DBMgr.factory.OpenSession())
                 {
                     session.Refresh(WinUser);
-                    int i= WinUser.UserPassword.RqstGrpsPwdsList.Count;
-                    
+                    int i = WinUser.UserPassword.RqstGrpsPwdsList.Count;
+
                 }
             }
             catch (NHibernate.ObjectNotFoundException ObjNotFoundEx)
@@ -1108,47 +1108,70 @@ namespace PhalanxDAL.Factories
             return WinUser;
         }
 
-        public WinLocalUserEntityCollection GetAllForRqst(PhxUserEntity PhxUserRqst)
+        public WinLocalUserEntityCollection GetAllForRqst(PhxUserEntity PhxUserRqst, bool approvepwd)
         {
             IList<WinLocalUserEntity> lstWLUs;
-            
+
             WinLocalUserEntityCollection WinLocUsrEC = new WinLocalUserEntityCollection();
             using (ISession session = DBMgr.factory.OpenSession())
             {
                 ICriteria DataSearch = session.CreateCriteria(typeof(WinLocalUserEntity), "WLU");
                 DataSearch = DataSearch.Add(Expression.Eq("WLU.ActiveUser", true));
+
+                DataSearch = DataSearch.CreateCriteria("WLU.WinPc", "WPC");
+                DataSearch = DataSearch.CreateCriteria("WPC.WinDomain", "WD");
+
                 if (_filFiltroNombreGeneral != "")
                 {
-                    DataSearch.Add(Expression.Like("WLU.Username", _filFiltroNombreGeneral, MatchMode.Anywhere));
+
+                    DataSearch.Add(Expression.Or(Expression.Like("WLU.Username", _filFiltroNombreGeneral, MatchMode.Anywhere),
+                                                Expression.Or(Expression.Like("WD.NtName", _filFiltroNombreGeneral, MatchMode.Anywhere),
+                                                                Expression.Like("WPC.Name", _filFiltroNombreGeneral, MatchMode.Anywhere)
+                                                                )
+                                                ));
                 }
-                DataSearch = DataSearch.CreateCriteria("UserPassword", "USRPWD");
-                DataSearch = DataSearch.CreateCriteria("RqstGrpsPwdsList", "RQSTGRPSPWD");
-                DataSearch = DataSearch.CreateCriteria("RqstGrp", "RQSTGRP");
-                DataSearch.Add(Expression.Eq("RQSTGRP.Active", true));
-                DataSearch = DataSearch.CreateCriteria("PhxUsersGroupsList", "USRRQSTGRP");
-                DataSearch = DataSearch.Add(Expression.Eq("PhxUser", PhxUserRqst));
+                DataSearch = DataSearch.CreateCriteria("WLU.UserPassword", "USRPWD");
+
+                if (approvepwd)
+                {
+                    //DataSearch = DataSearch.CreateCriteria("FollowupRqstGrpsPwdsList", "RQSTGRPSPWD");
+                    //DataSearch = DataSearch.CreateCriteria("FollowupRqstGrp", "RQSTGRP");
+                    //DataSearch.Add(Expression.Eq("RQSTGRP.Active", true));
+                    //DataSearch = DataSearch.CreateCriteria("FollowupGroupUsersList", "USRRQSTGRP");
+                }
+                else
+                {
+                    DataSearch = DataSearch.CreateCriteria("RqstGrpsPwdsList", "RQSTGRPSPWD");
+                    DataSearch = DataSearch.CreateCriteria("RqstGrp", "RQSTGRP");
+                    DataSearch.Add(Expression.Eq("RQSTGRP.Active", true));
+                    DataSearch = DataSearch.CreateCriteria("PhxUsersGroupsList", "USRRQSTGRP");
+
+                    //Solo se busca por usuario si no tiene permisos en PHX Admin / Contraseñas
+                    DataSearch = DataSearch.Add(Expression.Eq("PhxUser", PhxUserRqst));
+                }
+
                 //DataSearch = DataSearch.CreateCriteria("USRPWD.PwdLockType", "RQSTLOCKTYPE");
                 if (_orderName)
                 {
-                    DataSearch = DataSearch.CreateCriteria("WLU.WinPc", "WPC");
-                    DataSearch.CreateCriteria("WPC.WinDomain", "WD");
                     DataSearch.AddOrder(Order.Asc("WD.NtName"));
                     DataSearch.AddOrder(Order.Asc("WPC.Name"));
                     DataSearch.AddOrder(Order.Asc("WLU.Username"));
                 }
-                
+
+                DataSearch.SetResultTransformer(new NHibernate.Transform.DistinctRootEntityResultTransformer());
+
                 //DataSearch.AddOrder(Order.Asc("WPC.Name"));
                 //DataSearch.AddOrder(Order.Asc("WLU.Username"));
                 try
                 {
                     lstWLUs = DataSearch.List<WinLocalUserEntity>();
+
+                    WinLocUsrEC.Add(lstWLUs);
                 }
-                catch
+                catch (Exception ex)
                 {
                     lstWLUs = null;
                 }
-                WinLocUsrEC.Add(lstWLUs);
-
             }
 
             return WinLocUsrEC;
@@ -1184,7 +1207,7 @@ namespace PhalanxDAL.Factories
         }
 
 
-        public WinLocalUserEntity GetWinPwdForRqst(PhxUserEntity PhxUserRqst, int WLUID)
+        public WinLocalUserEntity GetWinPwdForRqst(PhxUserEntity PhxUserRqst, int WLUID, bool approvepwd)
         {
             WinLocalUserEntity WinLocUsrE = null;
             IList<WinLocalUserEntity> lstWLUs;
@@ -1195,10 +1218,18 @@ namespace PhalanxDAL.Factories
                 DataSearch = DataSearch.Add(Expression.Eq("WLU.Id", WLUID));
                 DataSearch = DataSearch.Add(Expression.Eq("WLU.ActiveUser", true));
                 DataSearch = DataSearch.CreateCriteria("UserPassword", "USRPWD");
-                DataSearch = DataSearch.CreateCriteria("RqstGrpsPwdsList", "RQSTGRPSPWD");
-                DataSearch = DataSearch.CreateCriteria("RqstGrp", "RQSTGRP");
-                DataSearch = DataSearch.CreateCriteria("PhxUsersGroupsList", "USRRQSTGRP");
-                DataSearch = DataSearch.Add(Expression.Eq("PhxUser", PhxUserRqst));
+
+                if (approvepwd)
+                {
+                }
+                else
+                {
+                    DataSearch = DataSearch.CreateCriteria("RqstGrpsPwdsList", "RQSTGRPSPWD");
+                    DataSearch = DataSearch.CreateCriteria("RqstGrp", "RQSTGRP");
+                    DataSearch = DataSearch.CreateCriteria("PhxUsersGroupsList", "USRRQSTGRP");
+                    DataSearch = DataSearch.Add(Expression.Eq("PhxUser", PhxUserRqst));
+                }
+
                 // agregar que esté activo y no esté en uso!!!!!
                 //DataSearch.AddOrder(Order.Asc("WPC.Name"));
                 //DataSearch.AddOrder(Order.Asc("WLU.Username"));
@@ -1236,45 +1267,49 @@ namespace PhalanxDAL.Factories
             }
         }
 
-		public IList GetAll(bool? critico, bool? estadoUsuario, string nombre)
-		{
-			using (ISession session = DBMgr.factory.OpenSession())
-			{
-				IQuery query = session.GetNamedQuery("getAllWindowsUsers");
-
-				int criticoParam = -1;
-				int estadoUsuarioParam = -1;
-
-				if (critico != null)
-					criticoParam = critico.Value ? 1 : 0;
-
-				if (estadoUsuario != null)
-					estadoUsuarioParam = estadoUsuario.Value ? 1 : 0;
-
-				query.SetString("nombre", nombre != null ? "%" + nombre.ToUpper() + "%" : null);
-				query.SetParameter("critico", criticoParam);
-				query.SetInt32("estadoUsuario", estadoUsuarioParam);
-
-				return query.List();
-			}
-		}
-
-/*        public bool Refresh(WinLocalUserEntity winUser)
+        public IList GetAll(bool? critico, bool? estadoUsuario, string nombre, int tipoCuenta)
         {
             using (ISession session = DBMgr.factory.OpenSession())
             {
-                try
-                {
-                    session.Refresh(winUser);
-                    return true;
-                }
-                catch (Exception e)
-                {
-                    return false;
-                }
+                IQuery query = session.GetNamedQuery("getAllWindowsUsers");
+
+                int criticoParam = -1;
+                int estadoUsuarioParam = -1;
+
+                if (critico != null)
+                    criticoParam = critico.Value ? 1 : 0;
+
+                if (estadoUsuario != null)
+                    estadoUsuarioParam = estadoUsuario.Value ? 1 : 0;
+
+                query.SetString("nombre", nombre != null ? "%" + nombre.ToUpper() + "%" : null);
+                query.SetParameter("critico", criticoParam);
+                query.SetInt32("estadoUsuario", estadoUsuarioParam);
+
+                query.SetInt32("tipocuenta", tipoCuenta);
+                //query.SetParameter("alertam", alertaModif.HasValue ? Convert.ToInt32(alertaModif.Value) : -1);
+                //query.SetParameter("alertav", alertaVisual.HasValue ? Convert.ToInt32(alertaVisual.Value) : -1);
+
+                return query.List();
             }
         }
- */
+
+        /*        public bool Refresh(WinLocalUserEntity winUser)
+                {
+                    using (ISession session = DBMgr.factory.OpenSession())
+                    {
+                        try
+                        {
+                            session.Refresh(winUser);
+                            return true;
+                        }
+                        catch (Exception e)
+                        {
+                            return false;
+                        }
+                    }
+                }
+         */
 
         public WinLocalUserEntity Load(int ID)
         {

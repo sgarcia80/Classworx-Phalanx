@@ -21,7 +21,10 @@ namespace PhalanxCommon.Entities
 		private IList<FollowupRequestGroupUserEntity> m_FollowupGroupUsersList; 
 		private IList<FollowupRequestGroupPasswordEntity> m_FollowupGroupPwdsList;
 		private string m_frg_name;
-        private bool m_frg_active; 
+        private bool m_frg_active;
+
+		private PhxUserEntity m_frg_approver;
+		private bool m_frg_auto_approval;
 		#endregion
 
 		#region Default ( Empty ) Class Constuctor
@@ -117,8 +120,28 @@ namespace PhalanxCommon.Entities
                 m_isChanged |= (m_frg_active != value);
                 m_frg_active = value;
             }
-
         }
+
+		public PhxUserEntity Approver
+		{
+			get { return m_frg_approver; }
+			set
+			{
+				m_isChanged |= (m_frg_approver != value);
+				m_frg_approver = value;
+			}
+		}
+
+		public bool AutoApproval
+		{
+			get { return m_frg_auto_approval; }
+			set
+			{
+				m_isChanged |= (m_frg_auto_approval != value);
+				m_frg_auto_approval = value;
+			}
+
+		}
 
 		/// <summary>
 		/// Returns whether or not the object has changed it's values.

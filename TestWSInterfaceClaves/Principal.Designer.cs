@@ -43,6 +43,8 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.mETA4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.empleadosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -85,7 +87,8 @@
             this.serviciosMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bpmToolStripMenuItem,
             this.conectoresToolStripMenuItem,
-            this.toolStripSeparator6});
+            this.toolStripSeparator6,
+            this.mETA4ToolStripMenuItem});
             this.serviciosMenu.Name = "serviciosMenu";
             this.serviciosMenu.Size = new System.Drawing.Size(65, 20);
             this.serviciosMenu.Text = "&Servicios";
@@ -98,7 +101,7 @@
             this.bpmToolStripMenuItem.Name = "bpmToolStripMenuItem";
             this.bpmToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
             this.bpmToolStripMenuItem.ShowShortcutKeys = false;
-            this.bpmToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.bpmToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.bpmToolStripMenuItem.Text = "&BPM";
             // 
             // notificacionAltaToolStripMenuItem
@@ -117,7 +120,7 @@
             this.conectoresToolStripMenuItem.Name = "conectoresToolStripMenuItem";
             this.conectoresToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
             this.conectoresToolStripMenuItem.ShowShortcutKeys = false;
-            this.conectoresToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.conectoresToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.conectoresToolStripMenuItem.Text = "&Conectores";
             // 
             // conectorUsuarioToolStripMenuItem
@@ -137,7 +140,7 @@
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(124, 6);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(177, 6);
             // 
             // statusStrip
             // 
@@ -154,6 +157,21 @@
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
             this.toolStripStatusLabel.Size = new System.Drawing.Size(42, 17);
             this.toolStripStatusLabel.Text = "Estado";
+            // 
+            // mETA4ToolStripMenuItem
+            // 
+            this.mETA4ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.empleadosToolStripMenuItem});
+            this.mETA4ToolStripMenuItem.Name = "mETA4ToolStripMenuItem";
+            this.mETA4ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.mETA4ToolStripMenuItem.Text = "META4";
+            // 
+            // empleadosToolStripMenuItem
+            // 
+            this.empleadosToolStripMenuItem.Name = "empleadosToolStripMenuItem";
+            this.empleadosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.empleadosToolStripMenuItem.Text = "Empleados";
+            this.empleadosToolStripMenuItem.Click += new System.EventHandler(this.empleadosToolStripMenuItem_Click);
             // 
             // Principal
             // 
@@ -191,6 +209,8 @@
         private System.Windows.Forms.ToolStripMenuItem notificacionAltaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem conectorUsuarioToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem conectorConsultaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mETA4ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem empleadosToolStripMenuItem;
     }
 }
 

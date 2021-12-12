@@ -5,6 +5,7 @@ using PhalanxCommon.Collections;
 using PhalanxCommon.Entities;
 using NHibernate;
 using NHibernate.Criterion;
+using Classworx.Common.Trace;
 
 namespace PhalanxDAL.Factories
 {
@@ -21,6 +22,7 @@ namespace PhalanxDAL.Factories
                     //entity.PhxUser = PUF.GetPhxUser();
 
                     tx = session.BeginTransaction();
+
                     session.Save(entity);
                     tx.Commit();
                     return entity.Id;
@@ -28,6 +30,8 @@ namespace PhalanxDAL.Factories
                 catch (Exception ex)
                 {
                     tx.Rollback();
+
+                    TraceHelper.Error(ex,"Error al grabar historial de visualizacion de contrasenas");
                     return 0;
                 }
             }

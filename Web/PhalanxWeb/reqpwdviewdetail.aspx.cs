@@ -17,7 +17,9 @@ namespace PhalanxWeb
             {
                 PhxUserBusiness PhxUsrBL = new PhxUserBusiness();
                 PhxUserEntity IdentUser = (PhxUserEntity)Session["PhxUser"];
-                if (IdentUser != null && PhxUsrBL.ChkAccWebApp(IdentUser) && PhxUsrBL.ChkPwdsRequest(IdentUser) &&
+
+                //if (IdentUser != null && PhxUsrBL.ChkAccWebApp(IdentUser) && PhxUsrBL.ChkPwdsRequest(IdentUser) &&
+                if (IdentUser != null && PhxUsrBL.ChkAccWebApp(IdentUser) &&
                     Page.Request["prid"] != null)
                 {
                     currentUser = this.GetUserEntity(Int32.Parse(Page.Request["prid"]));

@@ -76,9 +76,13 @@ namespace PhalanxBL
 
         public DatabaseUserEntityCollection GetAllForRqst(PhxUserEntity PhxUserRqst, string Filtro)
         {
+            PhxUserBusiness PhxUsrBL = new PhxUserBusiness();
+
+            bool approvepwd = PhxUsrBL.AccPwdBD(PhxUserRqst);
+
             m_DBUserFactory.OrderByName = true;
             m_DBUserFactory.FilFiltroNombreGeneral = Filtro;
-            DatabaseUserEntityCollection tmpCollection = m_DBUserFactory.GetAllForRqst(PhxUserRqst);
+            DatabaseUserEntityCollection tmpCollection = m_DBUserFactory.GetAllForRqst(PhxUserRqst, approvepwd);
             for (int i = 0; i < tmpCollection.Count; i++)
             {
                 DatabaseUserEntity tmpUser = tmpCollection[i];
@@ -89,8 +93,12 @@ namespace PhalanxBL
 
         public DatabaseUserEntityCollection GetAllForRqst(PhxUserEntity PhxUserRqst)
         {
+            PhxUserBusiness PhxUsrBL = new PhxUserBusiness();
+
+            bool approvepwd = PhxUsrBL.ChkAuthPwdRequest(PhxUserRqst);
+
             m_DBUserFactory.OrderByName = true;
-            DatabaseUserEntityCollection tmpCollection = m_DBUserFactory.GetAllForRqst(PhxUserRqst);
+            DatabaseUserEntityCollection tmpCollection = m_DBUserFactory.GetAllForRqst(PhxUserRqst, approvepwd);
             for (int i = 0; i < tmpCollection.Count; i++)
             {
                 DatabaseUserEntity tmpUser = tmpCollection[i];
@@ -101,7 +109,9 @@ namespace PhalanxBL
 
         public DatabaseUserEntity GetDBPwdForRqst(PhxUserEntity PhxUserRqst, int DbUserID)
         {
-            return m_DBUserFactory.GetDBPwdForRqst(PhxUserRqst, DbUserID);
+            bool approvepwd = new PhxUserBusiness().AccPwdBD(PhxUserRqst);
+
+            return m_DBUserFactory.GetDBPwdForRqst(PhxUserRqst, DbUserID, approvepwd);
         }
 
         public DatabaseUserEntityCollection GetAll()
@@ -206,9 +216,9 @@ namespace PhalanxBL
             return m_DBUserFactory.Refresh(User);
         }
 
-		public System.Collections.IList GetAll(bool? critico, bool? estadoUsuario, DatabaseTypeEntity tipo, string nombre)
+		public System.Collections.IList GetAll(bool? critico, bool? estadoUsuario, DatabaseTypeEntity tipo, string nombre, int tipoCuenta, bool? alertaModif, bool? alertaVisual)
 		{
-			return new DatabaseUserFactory().GetAll(critico, estadoUsuario, tipo != null ? new int?(tipo.Id) : null, nombre);
+			return new DatabaseUserFactory().GetAll(critico, estadoUsuario, tipo != null ? new int?(tipo.Id) : null, nombre, tipoCuenta, alertaModif, alertaVisual);
 		}
 
         public DatabaseUserEntity Load(int ID)

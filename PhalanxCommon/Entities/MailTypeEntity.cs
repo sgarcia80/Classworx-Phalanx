@@ -14,12 +14,14 @@ namespace PhalanxCommon.Entities
     public sealed class MailTypeEntity : BaseEntity
 	{
 
-		#region Private Members
-		private bool m_isChanged;
+        #region Private Members
+
+        private bool m_isChanged;
 
         private int m_mail_type_id; 
 		private IList<MailAlertEntity> m_MailsList; 
 		private string m_mail_type_name; 		
+        
 		#endregion
 
 		#region Default ( Empty ) Class Constuctor
@@ -44,14 +46,26 @@ namespace PhalanxCommon.Entities
 		{
             m_mail_type_name = mail_type_name;
 		}
-		#endregion // End Required Fields Only Constructor
 
-		#region Public Properties
-			
-		/// <summary>
-		/// 
-		/// </summary>
-		public int Id
+        public MailTypeEntity(int id, string title, string description,
+            PhxConfigEntity subject, PhxConfigEntity body, MailGroupEntity group)
+            : this()
+        {
+            this.Id = id;
+            this.Name = title;
+            this.Description = description;
+            this.Body = body;
+            this.Subject = subject;
+            this.Group = group;
+        }
+        #endregion // End Required Fields Only Constructor
+
+        #region Public Properties
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int Id
 		{
 			get { return m_mail_type_id; }
 			set
@@ -59,7 +73,6 @@ namespace PhalanxCommon.Entities
 				m_isChanged |= ( m_mail_type_id != value ); 
 				m_mail_type_id = value;
 			}
-
 		}
 
         public IList<MailAlertEntity> MailsList
@@ -89,12 +102,18 @@ namespace PhalanxCommon.Entities
 				if( value == null )
 					throw new ArgumentOutOfRangeException("Null value not allowed for Name", value, "null");
 				
-				if(  value.Length > 50)
-					throw new ArgumentOutOfRangeException("Invalid value for Name", value, value.ToString());
+				//if(  value.Length > 50)
+				//	throw new ArgumentOutOfRangeException("Invalid value for Name", value, value.ToString());
 				
 				m_isChanged |= (m_mail_type_name != value); m_mail_type_name = value;
 			}
 		}
+
+        public string Description { get; set; }
+        public PhxConfigEntity Body { get; set; }
+        public PhxConfigEntity Subject { get; set; }
+
+        public MailGroupEntity Group { get; set; }
 			
 		/// <summary>
 		/// Returns whether or not the object has changed it's values.

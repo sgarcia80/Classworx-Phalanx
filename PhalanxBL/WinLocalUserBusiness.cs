@@ -117,8 +117,12 @@ namespace PhalanxBL
         }
         public WinLocalUserEntityCollection GetAllForRqst(PhxUserEntity PhxUserRqst)
         {
+            PhxUserBusiness PhxUsrBL = new PhxUserBusiness();
+
+            bool approvepwd = PhxUsrBL.ChkAuthPwdRequest(PhxUserRqst);
+
             m_WinUserFactory.OrderByName = true;
-            WinLocalUserEntityCollection tmpCollection = m_WinUserFactory.GetAllForRqst(PhxUserRqst);
+            WinLocalUserEntityCollection tmpCollection = m_WinUserFactory.GetAllForRqst(PhxUserRqst, approvepwd);
             for (int i = 0; i < tmpCollection.Count; i++)
             {
                 WinLocalUserEntity tmpUser = tmpCollection[i];
@@ -129,9 +133,13 @@ namespace PhalanxBL
 
         public WinLocalUserEntityCollection GetAllForRqst(PhxUserEntity PhxUserRqst, string Filtro)
         {
+            PhxUserBusiness PhxUsrBL = new PhxUserBusiness();
+
+            bool approvepwd = PhxUsrBL.AccPwdWin(PhxUserRqst);
+
             m_WinUserFactory.OrderByName = true;
             m_WinUserFactory.FilFiltroNombreGeneral = Filtro;
-            WinLocalUserEntityCollection tmpCollection = m_WinUserFactory.GetAllForRqst(PhxUserRqst);
+            WinLocalUserEntityCollection tmpCollection = m_WinUserFactory.GetAllForRqst(PhxUserRqst, approvepwd);
             for (int i = 0; i < tmpCollection.Count; i++)
             {
                 WinLocalUserEntity tmpUser = tmpCollection[i];
@@ -142,7 +150,9 @@ namespace PhalanxBL
 
         public WinLocalUserEntity GetWinPwdForRqst(PhxUserEntity PhxUserRqst, int WLUID)
         {
-            return m_WinUserFactory.GetWinPwdForRqst(PhxUserRqst, WLUID);
+            bool approvepwd = new PhxUserBusiness().AccPwdWin(PhxUserRqst);
+
+            return m_WinUserFactory.GetWinPwdForRqst(PhxUserRqst, WLUID, approvepwd);
         }
 
         public string EncryptPassword(string password)
@@ -364,9 +374,9 @@ namespace PhalanxBL
             return m_WinUserFactory.Refresh(User);
         }
 
-		public IList GetAll(bool? critico, bool? estadoUsuario, string nombre)
+		public IList GetAll(bool? critico, bool? estadoUsuario, string nombre, int tipoCuenta)
 		{
-            return m_WinUserFactory.GetAll(critico, estadoUsuario, nombre);
+            return m_WinUserFactory.GetAll(critico, estadoUsuario, nombre, tipoCuenta);
 		}
 
         public WinLocalUserEntity Load(int ID)

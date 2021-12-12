@@ -9,16 +9,19 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 
-public partial class noAutho : System.Web.UI.Page
+namespace PhalanxWeb
 {
-    protected void Page_Load(object sender, EventArgs e)
+    public partial class noAutho : System.Web.UI.Page
     {
+        protected void Page_Load(object sender, EventArgs e)
+        {
 
-    }
-    protected void Bcancel_Click(object sender, EventArgs e)
-    {
-        //Server.Transfer("default.aspx");	
-        ClientScript.RegisterClientScriptBlock(typeof(noAutho),"myclose", "<script language='JavaScript'>window.close();</script>");
+        }
+        protected void Bcancel_Click(object sender, EventArgs e)
+        {
+            //Server.Transfer("default.aspx");	
+            //ClientScript.RegisterClientScriptBlock(typeof(noAutho),"myclose", "<script language='JavaScript'>window.close();</script>");
 
+        }
     }
 }

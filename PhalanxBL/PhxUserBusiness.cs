@@ -310,6 +310,12 @@ namespace PhalanxBL
         private const string CONF_BLOQUEO_SRV_RW = "@CONF_BLOQUEO_SRV_RW@"; //Bloqueo de Servicios - Escritura
         private const string CONF_BLOQUEO_SRV_R = "@CONF_BLOQUEO_SRV_R@"; //Bloqueo de Servicios - Lectura
 
+        private const string BLANQUEO_APP_RW = "@BLANQUEO_APP_RW@";
+        private const string BLANQUEO_RED_RW = "@BLANQUEO_RED_RW@";
+        private const string BLANQUEO_TARJ_RW = "@BLANQUEO_TARJ_RW@";
+
+        private const string CONF_VIEW_PASSWORD = "@VIEW_PASSWORD@"; //Visualización de Contraseñas
+
         private const string RPT_USR_GRP_SOL = "@RPT_USR_GRP_SOL@";
         private const string RPT_USR_GRP_SEG_SOL = "@RPT_USR_GRP_SEG_SOL@";
         private const string RPT_PWD_GRP_SOL = "@RPT_PWD_GRP_SOL@";
@@ -324,7 +330,16 @@ namespace PhalanxBL
         /// <returns>True si el usuario tiene acceso. False si no lo tiene</returns>
         public bool ChkAccWebApp(PhxUserEntity PhxUser)
         {
-            string[] PrivilegiosAccesoAppAdmin = new string[] { SEGUIMIENTO_SOLIC, CONSULTA_PWD };
+            //Se agregan los permisos de
+            // Phalanx Admin - Contraseñas
+            string[] PrivilegiosAccesoAppAdmin = new string[] { SEGUIMIENTO_SOLIC, CONSULTA_PWD,
+                                                        PWD_WIN_R, PWD_WIN_RW,
+                                                        PWD_UNIX_RW, PWD_UNIX_R,
+                                                        PWD_AS400_RW, PWD_AS400_R,
+                                                        PWD_BD_RW, PWD_BD_R,
+                                                        PWD_APP_RW, PWD_APP_R,
+                                                        PWD_EQ_COM_RW, PWD_EQ_COM_R,
+                                                        PWD_ATM_RW, PWD_ATM_R};
             return this.UsrHasAnyPrivilege(PhxUser, PrivilegiosAccesoAppAdmin);
 
             //return this.CheckRole(PhxUser, WEBAPP_ACCESS);
@@ -454,6 +469,33 @@ namespace PhalanxBL
             string[] PrivilegiosAcceso = new string[] { ADM_PERFILES_R, ADM_PERFILES_RW };
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
+
+        public bool AccPwdAll(PhxUserEntity userEntity)
+        {
+            string[] PrivilegiosAcceso = new string[] { PWD_WIN_R, PWD_WIN_RW,
+                                                        PWD_UNIX_RW, PWD_UNIX_R,
+                                                        PWD_AS400_RW, PWD_AS400_R,
+                                                        PWD_BD_RW, PWD_BD_R,
+                                                        PWD_APP_RW, PWD_APP_R,
+                                                        PWD_EQ_COM_RW, PWD_EQ_COM_R,
+                                                        PWD_ATM_RW, PWD_ATM_R };
+
+            return this.UsrHasAnyPrivilege(userEntity, PrivilegiosAcceso);
+        }
+
+        public bool AccPwdAll (string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { PWD_WIN_R, PWD_WIN_RW,
+                                                        PWD_UNIX_RW, PWD_UNIX_R,
+                                                        PWD_AS400_RW, PWD_AS400_R,
+                                                        PWD_BD_RW, PWD_BD_R,
+                                                        PWD_APP_RW, PWD_APP_R,
+                                                        PWD_EQ_COM_RW, PWD_EQ_COM_R,
+                                                        PWD_ATM_RW, PWD_ATM_R };
+
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+
         public bool AccPwdWin(string usernamedomain)
         {
             string[] PrivilegiosAcceso = new string[] { PWD_WIN_R, PWD_WIN_RW };
@@ -479,17 +521,52 @@ namespace PhalanxBL
             string[] PrivilegiosAcceso = new string[] { PWD_APP_RW, PWD_APP_R };
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
-
         public bool AccPwdEqCom(string usernamedomain)
         {
             string[] PrivilegiosAcceso = new string[] { PWD_EQ_COM_RW, PWD_EQ_COM_R };
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
-
-        public bool AccATM(string usernamedomain)
+        public bool AccPwdATM(string usernamedomain)
         {
             string[] PrivilegiosAcceso = new string[] { PWD_ATM_RW, PWD_ATM_R };
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+
+
+        public bool AccPwdWin(PhxUserEntity user)
+        {
+            string[] PrivilegiosAcceso = new string[] { PWD_WIN_R, PWD_WIN_RW };
+            return this.UsrHasAnyPrivilege(user, PrivilegiosAcceso);
+        }
+        public bool AccPwdUnix(PhxUserEntity user)
+        {
+            string[] PrivilegiosAcceso = new string[] { PWD_UNIX_RW, PWD_UNIX_R };
+            return this.UsrHasAnyPrivilege(user, PrivilegiosAcceso);
+        }
+        public bool AccPwdAS400(PhxUserEntity user)
+        {
+            string[] PrivilegiosAcceso = new string[] { PWD_AS400_RW, PWD_AS400_R };
+            return this.UsrHasAnyPrivilege(user, PrivilegiosAcceso);
+        }
+        public bool AccPwdBD(PhxUserEntity user)
+        {
+            string[] PrivilegiosAcceso = new string[] { PWD_BD_RW, PWD_BD_R };
+            return this.UsrHasAnyPrivilege(user, PrivilegiosAcceso);
+        }
+        public bool AccPwdApp(PhxUserEntity user)
+        {
+            string[] PrivilegiosAcceso = new string[] { PWD_APP_RW, PWD_APP_R };
+            return this.UsrHasAnyPrivilege(user, PrivilegiosAcceso);
+        }
+        public bool AccPwdEqCom(PhxUserEntity user)
+        {
+            string[] PrivilegiosAcceso = new string[] { PWD_EQ_COM_RW, PWD_EQ_COM_R };
+            return this.UsrHasAnyPrivilege(user, PrivilegiosAcceso);
+        }
+        public bool AccPwdATM(PhxUserEntity user)
+        {
+            string[] PrivilegiosAcceso = new string[] { PWD_ATM_RW, PWD_ATM_R };
+            return this.UsrHasAnyPrivilege(user, PrivilegiosAcceso);
         }
 
         public bool AccATMRW(string usernamedomain)
@@ -672,7 +749,6 @@ namespace PhalanxBL
             string[] PrivilegiosAcceso = new string[] { ADM_EQ_COM_RW };
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
-
         public bool AccPwdAS400RW(string usernamedomain)
         {
             string[] PrivilegiosAcceso = new string[] { PWD_AS400_RW };
@@ -698,7 +774,6 @@ namespace PhalanxBL
             string[] PrivilegiosAcceso = new string[] { PWD_BD_RW };
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
-
         public bool AccPwdEqComRW(string usernamedomain)
         {
             string[] PrivilegiosAcceso = new string[] { PWD_EQ_COM_RW };
@@ -828,6 +903,11 @@ namespace PhalanxBL
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
 
+        public bool AccParamConfigViewPassword(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { CONF_VIEW_PASSWORD};
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
 
         public bool AccParamConfigTC(string usernamedomain)
         {
@@ -908,6 +988,32 @@ namespace PhalanxBL
         public bool AccParamConfigWSConectores(string usernamedomain)
         {
             string[] PrivilegiosAcceso = new string[] { CONF_CONECTORES_RW, CONF_CONECTORES_R };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+
+        public bool AccBlanqueo(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { BLANQUEO_APP_RW, BLANQUEO_RED_RW, BLANQUEO_TARJ_RW };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+        public bool AccBlanqueoAppRed(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { BLANQUEO_APP_RW, BLANQUEO_RED_RW };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+        public bool AccBlanqueoApp(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { BLANQUEO_APP_RW};
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+        public bool AccBlanqueoRed(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { BLANQUEO_RED_RW };
+            return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
+        }
+        public bool AccBlanqueoTarjeta(string usernamedomain)
+        {
+            string[] PrivilegiosAcceso = new string[] { BLANQUEO_TARJ_RW };
             return this.UsrHasAnyPrivilege(usernamedomain, PrivilegiosAcceso);
         }
 

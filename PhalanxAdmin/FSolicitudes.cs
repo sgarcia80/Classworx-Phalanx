@@ -11,6 +11,7 @@ using PhalanxBL;
 using PhalanxCommon.Entities;
 using System.Globalization;
 using System.IO;
+using Classworx.Common.Trace;
 
 namespace PhalanxAdmin
 {
@@ -100,10 +101,10 @@ namespace PhalanxAdmin
                 _filEstados = new ArrayList();
                 _filEstados.Add(cboEstados.SelectedItem);
             }
-            _filGrupos= null;
+            _filGrupos = null;
             if (cboGrupos.Items.Count > 0 && cboGrupos.SelectedIndex > 0)
             {
-                _filGrupos= new ArrayList();
+                _filGrupos = new ArrayList();
                 _filGrupos.Add(cboGrupos.SelectedItem);
             }
 
@@ -134,14 +135,22 @@ namespace PhalanxAdmin
             //if (true) //
             //    if(_filEstados == null && _filGrupos == null && txtFilNroSolic.Text.Trim() == "")
             //{
-                //_entities = null;
-                //_PwdRqst = reqpwdBL.GetAll();
+            //_entities = null;
+            //_PwdRqst = reqpwdBL.GetAll();
             //}
             //else
             //{
             _PwdRqst = null;
             // seteo filtros
-            _entities = reqpwdBL.GetPassRqstByState(_filEstados, txtFilNroSolic.Text, _filGrupos, true);
+
+            try
+            {
+                _entities = reqpwdBL.GetPassRqstByState(_filEstados, txtFilNroSolic.Text, _filGrupos, true);
+            }
+            catch (Exception ex)
+            {
+                TraceHelper.Error(ex, "Error al cargar la Planilla de Control de Utilization de Contrasenas en Custodia");
+            }
             //}
         }
 
@@ -271,7 +280,7 @@ namespace PhalanxAdmin
                     if (reqpwd.User is WinLocalUserEntity)
                     {
                         tmpString = "Dominio: " + ((WinLocalUserEntity)reqpwd.User).Domain + " - Server: " + ((WinLocalUserEntity)reqpwd.User).WinPc.Name; // +" - Usuario: " + reqpwd.User.Username;
-                        sCritical = ((WinLocalUserEntity)reqpwd.User).Critical ? "Crítico" : "No Crítico"; 
+                        sCritical = ((WinLocalUserEntity)reqpwd.User).Critical ? "Crítico" : "No Crítico";
                         imgIndex = 3;
                     }
 
@@ -542,10 +551,10 @@ namespace PhalanxAdmin
 
         private void cboEstados_DrawItem(object sender, DrawItemEventArgs e)
         {
-            for (int i=0;i< cboEstados.Items.Count; i++ )
+            for (int i = 0; i < cboEstados.Items.Count; i++)
             {
-                e.Graphics.DrawString(cboEstados.Items[i].ToString(), cboEstados.Font, Brushes.Black, new Rectangle( 16, i * cboEstados.ItemHeight, cboEstados.Width, cboEstados.ItemHeight) );
-                if (((int)Math.Pow(((RequestStateEntity)cboEstados.Items[i]).Id, 2) & (int.Parse ( cboEstados.Tag.ToString()))) > 0)
+                e.Graphics.DrawString(cboEstados.Items[i].ToString(), cboEstados.Font, Brushes.Black, new Rectangle(16, i * cboEstados.ItemHeight, cboEstados.Width, cboEstados.ItemHeight));
+                if (((int)Math.Pow(((RequestStateEntity)cboEstados.Items[i]).Id, 2) & (int.Parse(cboEstados.Tag.ToString()))) > 0)
                 {
                     e.Graphics.DrawImage(imageList.Images[1], 0, i * cboEstados.ItemHeight);
                 }
@@ -559,7 +568,7 @@ namespace PhalanxAdmin
 
         private void cboEstados_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Delete || e.KeyCode == Keys.Back || e.KeyCode == Keys.Escape )
+            if (e.KeyCode == Keys.Delete || e.KeyCode == Keys.Back || e.KeyCode == Keys.Escape)
             {
                 cboEstados.SelectedIndex = -1;
             }
@@ -688,7 +697,7 @@ namespace PhalanxAdmin
                     StreamWriter sw = new StreamWriter(saveFileDialog1.FileName, false, Encoding.Unicode);
                     sw.Write(sb.ToString());
                     sw.Close();
-                MessageBox.Show("La exportación ha sido completada", "Exportación a CSV", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("La exportación ha sido completada", "Exportación a CSV", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)

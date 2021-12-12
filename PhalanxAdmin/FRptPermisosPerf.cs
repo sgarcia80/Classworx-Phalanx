@@ -206,7 +206,7 @@ namespace PhalanxAdmin
         }
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            string strErrorMsg = "Verifique el formato de la fecha de inicio (dd/mm/aaaa)";
+            string strErrorMsg = string.Empty;
             try
             {
                 System.Globalization.DateTimeFormatInfo dtfi = new
@@ -215,11 +215,12 @@ namespace PhalanxAdmin
                 DateTime dTest;
                 if (txtFDesde.Text.Trim() != "/  /")
                 {
+                    strErrorMsg = "Verifique el formato de la Fecha Desde (dd/mm/aaaa)";
                     dTest = Convert.ToDateTime(txtFDesde.Text, dtfi);
                 }
                 if (txtFHasta.Text.Trim() != "/  /")
                 {
-                    strErrorMsg = "Verifique el formato de la fecha de fin (dd/mm/aaaa)";
+                    strErrorMsg = "Verifique el formato de la Fecha Hasta (dd/mm/aaaa)";
                     dTest = Convert.ToDateTime(txtFHasta.Text, dtfi);
                 }
 

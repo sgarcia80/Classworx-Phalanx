@@ -238,23 +238,22 @@ namespace PhalanxBL
         /// 
         /// </summary>
         /// <returns></returns>
-        public PhxConfigEntityCollection GetMailsParams()
+        public PhxConfigEntityCollection GetMails()
         {
             PhxConfigEntityCollection ConfEC = new PhxConfigEntityCollection();
-            ConfEC.Add(this.GetConfigParam(ConfigCodes.AdmMailGrp));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.AdmMailGrp));
             ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyExpMails));
             ConfEC.Add(this.GetConfigParam(ConfigCodes.FromExpMails));
-            //ConfEC.Add(this.GetConfigParam(ConfigCodes.SMTPExpMails));
             ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectExpMails));
-            ConfEC.Add(this.GetConfigParam(ConfigCodes.SMTPDir));
-            ConfEC.Add(this.GetConfigParam(ConfigCodes.SMTPPort));
-            ConfEC.Add(this.GetConfigParam(ConfigCodes.SMTPUsr));
-            ConfEC.Add(this.GetConfigParam(ConfigCodes.SMTPPwd));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.SMTPDir));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.SMTPPort));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.SMTPUsr));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.SMTPPwd));
             ConfEC.Add(this.GetConfigParam(ConfigCodes.BodySolicPwdMails));
             ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectPwdRqstMails));
             ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectRespPwdRqstMails));
             ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyRespSolicPwdMails));
-            ConfEC.Add(this.GetConfigParam(ConfigCodes.TecMicroEmail));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.TecMicroEmail));
             ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectAltaUsuarioRedMail));
             ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyAltaUsuarioRedMail));
             ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectAltaUsuarioAplicativoSeguridadIntegradaMail));
@@ -281,8 +280,60 @@ namespace PhalanxBL
             ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectVencPwdAppMails));
             ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyVencPwdAppMails));
 
-            ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectPwdAppMailsExp));
-            ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyPwdAppMailsExp));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectPwdAppMailsExp));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyPwdAppMailsExp));
+
+            return ConfEC;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public PhxConfigEntityCollection GetMailsParams()
+        {
+            PhxConfigEntityCollection ConfEC = new PhxConfigEntityCollection();
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.AdmMailGrp));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyExpMails));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.FromExpMails));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectExpMails));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.SMTPDir));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.SMTPPort));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.SMTPUsr));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.SMTPPwd));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.BodySolicPwdMails));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectPwdRqstMails));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectRespPwdRqstMails));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyRespSolicPwdMails));
+            ConfEC.Add(this.GetConfigParam(ConfigCodes.TecMicroEmail));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectAltaUsuarioRedMail));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyAltaUsuarioRedMail));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectAltaUsuarioAplicativoSeguridadIntegradaMail));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyAltaUsuarioAplicativoSeguridadIntegradaMail));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectAltaUsuarioAplicativoSeguridadPropiaMail));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyAltaUsuarioAplicativoSeguridadPropiaMail));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectDevMails));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyDevMails));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectAltaUsuarioRedExternoMail));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyAltaUsuarioRedExternoMail));
+
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectNotificacionBlanqueoMail));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyNotificacionBlanqueoMail));
+
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectNotificacionBlanqueoRedMail));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyNotificacionBlanqueoRedMail));
+
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectReclamoNotificacionBlanqueoMail));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyReclamoNotificacionBlanqueoMail));
+
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectDevMailsNoCritic));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyDevMailsNoCritic));
+
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectVencPwdAppMails));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyVencPwdAppMails));
+
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.SubjectPwdAppMailsExp));
+            //ConfEC.Add(this.GetConfigParam(ConfigCodes.BodyPwdAppMailsExp));
             
             return ConfEC;
         }
@@ -339,6 +390,11 @@ namespace PhalanxBL
         {
             PhxConfigFactory ConfFac = new PhxConfigFactory();
             ConfFac.Save(ConfigParam);
+        }
+        public void Save(List<PhxConfigEntity> configs)
+        {
+            PhxConfigFactory ConfFac = new PhxConfigFactory();
+            ConfFac.Save(configs);
         }
     }
 }

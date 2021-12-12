@@ -16,5 +16,7 @@
 		<property column="frg_name" type="String" name="Name" not-null="true" length="50" />
 		<property column="frg_active" type="Boolean" name="Active" />
 
-	</class>
+    <many-to-one name="Approver" column="frg_approver_id" class="PhalanxCommon.Entities.PhxUserEntity,PhalanxCommon" />
+    <property column="frg_auto_approval" type="Boolean" name="AutoApproval" />
+  </class>
 </hibernate-mapping>

@@ -22,5 +22,13 @@
     <property column="tnb_intentos" type="Int32" name="Intentos" not-null="false" />
     <property column="tnb_fecha_cancelado" type="DateTime" name="FechaCancelado" not-null="false" />
     <property column="tnb_solicitante_puesto" type="String" name="SolicitantePuesto" not-null="false" length="500" />
+    <property column="tnb_solicitante_nombre" type="String" name="SolicitanteNombre" not-null="false" length="500" />
+    <property column="tnb_solicitante_depto" type="String" name="SolicitanteDepto" not-null="false" length="500" />
+    <property column="tnb_solicitante_oficina" type="String" name="SolicitanteOficina" not-null="false" length="500" />
+    <property column="tnb_solicitante_prov" type="String" name="SolicitanteProvincia" not-null="false" length="500" />
+    <property column="tnb_usuario_nombre" type="String" name="UsuarioNombre" not-null="false" length="500" />
+    <property column="tnb_usuario_depto" type="String" name="UsuarioDepto" not-null="false" length="500" />
+    <property column="tnb_usuario_oficina" type="String" name="UsuarioOficina" not-null="false" length="500" />
+    <property column="tnb_usuario_prov" type="String" name="UsuarioProvincia" not-null="false" length="500" />
   </class>
 </hibernate-mapping>

@@ -51,6 +51,16 @@ namespace NDCCommon.Entities
         private DateTime m_tnb_fecha;
         private string m_tnb_solicitante_puesto;
 
+        private string m_tnb_solicitante_nombre;
+        private string m_tnb_solicitante_depto;
+        private string m_tnb_solicitante_oficina;
+        private string m_tnb_solicitante_provincia;
+
+        private string m_tnb_usuario_nombre;
+        private string m_tnb_usuario_depto;
+        private string m_tnb_usuario_oficina;
+        private string m_tnb_usuario_provincia;
+
         #endregion
 
         #region Default ( Empty ) Class Constuctor
@@ -237,6 +247,63 @@ namespace NDCCommon.Entities
         /// <summary>
         /// 
         /// </summary>
+        public string UsuarioNombre
+        {
+            get { return m_tnb_usuario_nombre; }
+
+            set
+            {
+                m_isChanged |= (m_tnb_usuario_nombre != value);
+                m_tnb_usuario_nombre = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string UsuarioDepto
+        {
+            get { return m_tnb_usuario_depto; }
+
+            set
+            {
+                m_isChanged |= (m_tnb_usuario_depto != value);
+                m_tnb_usuario_depto = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string UsuarioOficina
+        {
+            get { return m_tnb_usuario_oficina; }
+
+            set
+            {
+                m_isChanged |= (m_tnb_usuario_oficina != value);
+                m_tnb_usuario_oficina = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string UsuarioProvincia
+        {
+            get { return m_tnb_usuario_provincia; }
+
+            set
+            {
+                m_isChanged |= (m_tnb_usuario_provincia != value);
+                m_tnb_usuario_provincia = value;
+            }
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string Solicitante
         {
             get { return m_tnb_solicitante; }
@@ -265,6 +332,62 @@ namespace NDCCommon.Entities
             {
                 m_isChanged |= (m_tnb_solicitante_puesto != value);
                 m_tnb_solicitante_puesto = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string SolicitanteNombre
+        {
+            get { return m_tnb_solicitante_nombre; }
+
+            set
+            {
+                m_isChanged |= (m_tnb_solicitante_nombre != value);
+                m_tnb_solicitante_nombre = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string SolicitanteDepto
+        {
+            get { return m_tnb_solicitante_depto; }
+
+            set
+            {
+                m_isChanged |= (m_tnb_solicitante_depto != value);
+                m_tnb_solicitante_depto = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string SolicitanteOficina
+        {
+            get { return m_tnb_solicitante_oficina; }
+
+            set
+            {
+                m_isChanged |= (m_tnb_solicitante_oficina != value);
+                m_tnb_solicitante_oficina = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string SolicitanteProvincia
+        {
+            get { return m_tnb_solicitante_provincia; }
+
+            set
+            {
+                m_isChanged |= (m_tnb_solicitante_provincia != value);
+                m_tnb_solicitante_provincia = value;
             }
         }
 

@@ -44,7 +44,7 @@ namespace PhalanxCommon.Entities
         public AuditPermisosEntity(PhxUserEntity Responsable, PhxUserEntity Usuario, bool Otorga, PhxRoleEntity Rol)
         {
             this.Recurso = "Phalanx";
-            //this.Fecha = DateTime.Now;
+            this.Fecha = DateTime.Now;
             this.IdUsuario = Usuario.Id;
             this.Username = Usuario.Username;
             this.Fullname = Usuario.Fullname;

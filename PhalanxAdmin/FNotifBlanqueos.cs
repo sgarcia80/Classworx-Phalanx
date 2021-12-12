@@ -51,10 +51,10 @@ namespace PhalanxAdmin
 
         private void FEquiposWin_Load(object sender, EventArgs e)
         {
-            //NDCBL.TicketNotificacionBlanqueoBusiness business = new TicketNotificacionBlanqueoBusiness();
-            //lnkAdd.Enabled = UsrBL.AccAdmEqWinRW(this.Usuario);
-            //lnkModify.Enabled = UsrBL.AccAdmEqWinRW(this.Usuario);
-            //lnkDelete.Enabled = UsrBL.AccAdmEqWinRW(this.Usuario);
+            PhxUserBusiness UsrBL = new PhxUserBusiness();
+            lnkAdd.Enabled = UsrBL.AccBlanqueoApp(this.Usuario);
+            lnkAddBlanqueoRed.Enabled = UsrBL.AccBlanqueoRed(this.Usuario);
+            lnkAddDesbloqueoRed.Enabled = UsrBL.AccBlanqueoRed(this.Usuario);
 
             this.lvLista.ListViewItemSorter = new cwxSorter();
             cwxSorter s = (cwxSorter)this.lvLista.ListViewItemSorter;
@@ -66,6 +66,9 @@ namespace PhalanxAdmin
             CargaComboDominios();
             CargaComboTiposNotif();
             //ExecEntitiesRefresh();
+
+            cbDominio.Enabled = lnkAddBlanqueoRed.Enabled;
+            txtFilUsuario.Enabled = lnkAddBlanqueoRed.Enabled;
         }
         //protected virtual void InicializaFiltros
         /* Proceso de acceso a DB
@@ -187,7 +190,13 @@ namespace PhalanxAdmin
         {
             TicketNotificacionBlanqueoBusiness business = new TicketNotificacionBlanqueoBusiness();
 
-            _entities = business.GetAll(_filTipoNotif, _fechaDesde, _fechaHasta, _filAplicacion, txtFilUsuarioApp.Text, _filDominio, txtFilUsuario.Text, chkPendiente.Checked, _filCargadoPor);
+            bool? soloAppRed = null;
+            if (!lnkAdd.Enabled || !lnkAddBlanqueoRed.Enabled)
+            {
+                soloAppRed = lnkAddBlanqueoRed.Enabled;
+            }
+
+            _entities = business.GetAll(_filTipoNotif, _fechaDesde, _fechaHasta, _filAplicacion, txtFilUsuarioApp.Text, _filDominio, txtFilUsuario.Text, chkPendiente.Checked, _filCargadoPor, soloAppRed);
         }
         /// <summary>
         /// Llama a la función que genera el array de LV Items y si hay items llama a la que hace el llenado
@@ -339,7 +348,16 @@ namespace PhalanxAdmin
         {
             AplicacionNotificacionClaveBusiness business = new AplicacionNotificacionClaveBusiness();
             business.FilNotificable = true;
-            this._aplicaciones = business.GetAll();
+
+            if (!lnkAdd.Enabled || !lnkAddBlanqueoRed.Enabled)
+            {
+                business.FilEsAppRed = lnkAddBlanqueoRed.Enabled;
+                this._aplicaciones = business.GetAllByType();
+            }
+            else
+            {
+                this._aplicaciones = business.GetAll();
+            }
 
             this._aplicaciones.Insert(0, new AplicacionNotificacionClaveEntity { Id = 0, Nombre = "Todas" });
 
@@ -362,10 +380,19 @@ namespace PhalanxAdmin
         {
             this._tiposNotificaciones = new DominioLoginEntityCollection();
 
-            this._tiposNotificaciones.Add(new DominioLoginEntity { Id = 0, Nombre = "Todos" });
-            this._tiposNotificaciones.Add(new DominioLoginEntity { Id = 1, Nombre = "Blanqueo de App" });
-            this._tiposNotificaciones.Add(new DominioLoginEntity { Id = 2, Nombre = "Blanqueo de Red" });
-            this._tiposNotificaciones.Add(new DominioLoginEntity { Id = 3, Nombre = "Desbloqueo de Red" });
+            if (lnkAddBlanqueoRed.Enabled)
+            {
+                this._tiposNotificaciones.Add(new DominioLoginEntity { Id = 0, Nombre = "Todos" });
+            }
+            if (lnkAdd.Enabled)
+            {
+                this._tiposNotificaciones.Add(new DominioLoginEntity { Id = 1, Nombre = "Blanqueo de App" });
+            }
+            if (lnkAddBlanqueoRed.Enabled)
+            {
+                this._tiposNotificaciones.Add(new DominioLoginEntity { Id = 2, Nombre = "Blanqueo de Red" });
+                this._tiposNotificaciones.Add(new DominioLoginEntity { Id = 3, Nombre = "Desbloqueo de Red" });
+            }
 
             cbTipoNotif.DataSource = this._tiposNotificaciones;
             cbTipoNotif.DisplayMember = "Nombre";

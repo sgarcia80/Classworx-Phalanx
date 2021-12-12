@@ -28,7 +28,8 @@ namespace PhalanxAdmin
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
 
-            //linkLabel1.Enabled = UsrBL.AccRptUsrGrpSol(this.Usuario);
+            linkNotifBlanqueos.Enabled = UsrBL.AccBlanqueoAppRed(this.Usuario);
+            linkNotifBlanqueosTC.Enabled = UsrBL.AccBlanqueoTarjeta(this.Usuario);
         }
 
         private void linkNotifBlanqueos_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

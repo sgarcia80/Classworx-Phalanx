@@ -64,7 +64,7 @@ namespace PhalanxAdmin
             lnkUnixPwd.Enabled = UsrBL.AccPwdUnix(this.Usuario);
             lnkChkWin.Enabled = UsrBL.AccChkWinPwd(this.Usuario);
             linkEcPwd.Enabled = UsrBL.AccPwdEqCom(this.Usuario);
-            lnkATMPwd.Enabled = UsrBL.AccATM(this.Usuario);
+            lnkATMPwd.Enabled = UsrBL.AccPwdATM(this.Usuario);
         }
 
         private void lnkChkWin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

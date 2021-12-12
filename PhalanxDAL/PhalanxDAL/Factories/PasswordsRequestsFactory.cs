@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Linq;
+using System.Collections.Generic;
 //using PhalanxDAL.Data;
 using PhalanxCommon.Entities;
 using NHibernate;
@@ -224,6 +226,93 @@ namespace PhalanxDAL.Factories
             return PwdRqstEC;
 
         }
+
+
+        public PasswordRequestEntityCollection GetRequestsToAuthByAuth(PhxUserEntity Auth, PasswordRequestEntity PwdRqst)
+        {
+            PasswordRequestEntityCollection PwdRqstEC = new PasswordRequestEntityCollection();
+            DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 5, 0
+                , "Entro a PasswordsRequestsFactory.GetRequestsToAuthByAuth(int AuthId)"
+                , "AuthId: " + Auth.Key
+                , true, false);
+            IList<PasswordRequestEntity> lstRqsts = null;
+            try
+            {
+                //ITransaction tx = null;
+                using (ISession session = DBMgr.factory.OpenSession())
+                {
+                    lstRqsts = session.CreateCriteria(typeof(PasswordRequestEntity), "PwdRqst")
+                        .Add(Expression.Eq("PwdRqst.Id", PwdRqst.Id))
+                        .Add(Expression.Eq("RqstState.Id", (int)PhxDALUtil.RequestStates.Pending))
+                        .CreateCriteria("UserPassword", "UP")
+                        .CreateCriteria("UP.FollowupRqstGrpsPwdsList", "FRQP")
+                        .CreateCriteria("FRQP.FollowupRqstGrp", "FRG")
+                        .Add(Expression.Eq("FRG.Active", true))
+                        .CreateCriteria("FRG.FollowupGroupUsersList", "FRGU")
+                        .Add(Expression.Eq("FRGU.PhxUser", Auth))
+                        .AddOrder(Order.Asc("PwdRqst.RequestDate"))
+                        .List<PasswordRequestEntity>();
+                    foreach (PasswordRequestEntity PwdRqstE in lstRqsts)
+                    {
+                        bool pwdInGroup = false;
+                        int j = PwdRqstE.UserPassword.FollowupRqstGrpsPwdsList.Count;
+                        int i = PwdRqstE.UserPassword.UsersList.Count;
+                        PwdRqstEC.Add(PwdRqstE);
+                        //}
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            return PwdRqstEC;
+
+        }
+
+        public PasswordRequestEntityCollection GetRequestsToAuthByAutomatic(PhxUserEntity Auth, PasswordRequestEntity PwdRqst)
+        {
+            PasswordRequestEntityCollection PwdRqstEC = new PasswordRequestEntityCollection();
+            DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 5, 0
+                , "Entro a PasswordsRequestsFactory.GetRequestsToAuthByAutomatic(PhxUserEntity, PasswordRequestEntity)"
+                , "AuthId: " + Auth.Key
+                , true, false);
+            IList<PasswordRequestEntity> lstRqsts = null;
+            try
+            {
+                //ITransaction tx = null;
+                using (ISession session = DBMgr.factory.OpenSession())
+                {
+                    lstRqsts = session.CreateCriteria(typeof(PasswordRequestEntity), "PwdRqst")
+                        .Add(Expression.Eq("PwdRqst.Id", PwdRqst.Id))
+                        .CreateCriteria("UserPassword", "UP")
+                        .CreateCriteria("UP.FollowupRqstGrpsPwdsList", "FRQP")
+                        .CreateCriteria("FRQP.FollowupRqstGrp", "FRG")
+                        .Add(Expression.Eq("FRG.Active", true))
+                        .Add(Expression.Eq("FRG.AutoApproval", true))
+                        .Add(Expression.IsNotNull("FRG.Approver"))
+                        //.CreateCriteria("FRG.FollowupGroupUsersList", "FRGU")
+                        //.Add(Expression.Eq("FRGU.PhxUser", Auth))
+                        .AddOrder(Order.Asc("PwdRqst.RequestDate"))
+                        .List<PasswordRequestEntity>();
+
+                    foreach (PasswordRequestEntity PwdRqstE in lstRqsts)
+                    {
+                        int j = PwdRqstE.UserPassword.FollowupRqstGrpsPwdsList.Count;
+                        int i = PwdRqstE.UserPassword.UsersList.Count;
+                        PwdRqstEC.Add(PwdRqstE);
+                        //}
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            return PwdRqstEC;
+
+        }
+
         /// <summary>
         /// Pasa a estado autorizado la solicitud
         /// </summary>
@@ -412,7 +501,7 @@ namespace PhalanxDAL.Factories
         /// <param name="note">Nota relativa al cierre</param>
         /// <param name="adminUserId">Identificador del administrador que cerró la contraseña</param>
         /// <returns>Devolverá un 0 si el cierre se efectuó exitosamente, sino devolverá otro valor</returns>
-        public uint CloseRequestPwd(int pwdRequestId, int newStateId, string note, int adminUserId, bool disableUser)
+        public uint CloseRequestPwd(int pwdRequestId, int newStateId, string note, int adminUserId, bool disableUser, bool automatic)
         {
             DBMgr.DBLog.registerLog(phxLog.CLogger.TYPE_INFORMATION, 5, 0
                 , "Entro a CloseRequestPwd (int pwdRequestId, string note, int adminUserId, bool disableUser)"
@@ -427,8 +516,12 @@ namespace PhalanxDAL.Factories
 
                     PwdRqst.CloseDate = DateTime.Now;
                     PwdRqst.CloseNote = note;
-                    PwdRqst.UserPassword.PwdLockType = null;
-                    PwdRqst.UserPassword.DInUseUntil = null;
+
+                    if (!automatic)
+                    {
+                        PwdRqst.UserPassword.PwdLockType = null;
+                        PwdRqst.UserPassword.DInUseUntil = null;
+                    }
 
                     if (adminUserId > 0)
                         PwdRqst.CloseUser = new PhxUsersFactory().GetPhxUserByID(adminUserId);
@@ -588,15 +681,16 @@ namespace PhalanxDAL.Factories
                         .CreateCriteria("FRQP.RqstGrp", "FRG")
                         .Add(Expression.Eq("Usr.Id", User.Id))
                         .AddOrder(Order.Asc("PwdRqst.RequestDate"));
-                        DataSearch.SetProjection(Projections.Distinct(Projections.ProjectionList().Add(Projections.Property("PwdRqst.Id"), "Id")
-                         .Add(Projections.Property("RqstUser"), "RqstUser")
-                         .Add(Projections.Property("RequestDate"), "RequestDate")
-                         .Add(Projections.Property("RqstState"), "RqstState")
-                         .Add(Projections.Property("Auth1Date"), "Auth1Date")
-                         .Add(Projections.Property("ReturnDate"), "ReturnDate")
-                         .Add(Projections.Property("ExpirationDate"), "ExpirationDate")
-                         .Add(Projections.Property("CloseDate"), "CloseDate")
-                         ));
+
+                        //DataSearch.SetProjection(Projections.Distinct(Projections.ProjectionList().Add(Projections.Property("PwdRqst.Id"), "Id")
+                        // .Add(Projections.Property("RqstUser"), "RqstUser")
+                        // .Add(Projections.Property("RequestDate"), "RequestDate")
+                        // .Add(Projections.Property("RqstState"), "RqstState")
+                        // .Add(Projections.Property("Auth1Date"), "Auth1Date")
+                        // .Add(Projections.Property("ReturnDate"), "ReturnDate")
+                        // .Add(Projections.Property("ExpirationDate"), "ExpirationDate")
+                        // .Add(Projections.Property("CloseDate"), "CloseDate")
+                        // ));
                     }
                     else
                     {
@@ -640,27 +734,34 @@ namespace PhalanxDAL.Factories
                                 {
                                     DataSearch.CreateCriteria("UserPassword", "UsrPwd")
                                     .CreateCriteria("UsrPwd.UsersList", "Usr")
-                                    .CreateCriteria("UsrPwd.RqstGrpsPwdsList", "FRQP")
-                                    .CreateCriteria("FRQP.RqstGrp", "FRG")
+                                    //.CreateCriteria("UsrPwd.RqstGrpsPwdsList", "FRQP")
+                                    //.CreateCriteria("FRQP.RqstGrp", "FRG")
                                     .Add(Expression.Eq("Usr.Id", User.Id))
                                     .AddOrder(Order.Asc("PwdRqst.RequestDate"));
                                 }
                             }
                         }
-                        DataSearch.SetProjection(Projections.Distinct(Projections.ProjectionList().Add(Projections.Property("PwdRqst.Id"), "Id")
-                         .Add(Projections.Property("PwdRqst.RqstUser"), "RqstUser")
-                         .Add(Projections.Property("PwdRqst.RequestDate"), "RequestDate")
-                         .Add(Projections.Property("PwdRqst.RqstState"), "RqstState")
-                         .Add(Projections.Property("PwdRqst.Auth1Date"), "Auth1Date")
-                         .Add(Projections.Property("PwdRqst.ReturnDate"), "ReturnDate")
-                         .Add(Projections.Property("PwdRqst.ExpirationDate"), "ExpirationDate")
-                         .Add(Projections.Property("PwdRqst.CloseDate"), "CloseDate")
-                         ));
+                        //DataSearch.SetProjection(Projections.Distinct(Projections.ProjectionList()
+                        //    .Add(Projections.Property("PwdRqst.Id"), "Id")
+                        //    .Add(Projections.Property("PwdRqst.UserPassword"), "UserPassword")
+                        //    .Add(Projections.Property("PwdRqst.RqstUser"), "RqstUser")
+                        //    .Add(Projections.Property("PwdRqst.RequestDate"), "RequestDate")
+                        //    .Add(Projections.Property("PwdRqst.RqstState"), "RqstState")
+                        //    .Add(Projections.Property("PwdRqst.Auth1Date"), "Auth1Date")
+                        //    .Add(Projections.Property("PwdRqst.ReturnDate"), "ReturnDate")
+                        //    .Add(Projections.Property("PwdRqst.ExpirationDate"), "ExpirationDate")
+                        //    .Add(Projections.Property("PwdRqst.CloseDate"), "CloseDate")
+                        // ));
 
                     }
-                    DataSearch.SetResultTransformer(new NHibernate.Transform.AliasToBeanResultTransformer(typeof(PasswordRequestEntity)));
+                    //DataSearch.SetResultTransformer(new NHibernate.Transform.AliasToBeanResultTransformer(typeof(PasswordRequestEntity)));
 
                     lstRqsts = DataSearch.List<PasswordRequestEntity>();
+
+                    if (lstRqsts != null && lstRqsts.Count > 0)
+                    {
+                        lstRqsts = lstRqsts.Distinct<PasswordRequestEntity>().ToList();
+                    }
 
                     foreach (PasswordRequestEntity PwdRqstE in lstRqsts)
                     {
@@ -700,7 +801,7 @@ namespace PhalanxDAL.Factories
             IList<PasswordRequestEntity> lstRqsts = null;
             try
             {
-                bool pass = false;
+                bool pass = true;
                 DateTime timestart = DateTime.Now;
                 DateTime timeend = DateTime.Now;
 
@@ -790,6 +891,12 @@ namespace PhalanxDAL.Factories
 
                         }
 
+
+                        if (lstRqsts != null && lstRqsts.Count > 0)
+                        {
+                            lstRqsts = lstRqsts.Distinct<PasswordRequestEntity>().ToList();
+                        }
+
                         /*RqstGrpPwdEntity a;
                         a.RqstGrp.*/
                         if (pass)
@@ -845,6 +952,11 @@ namespace PhalanxDAL.Factories
                         .AddOrder(Order.Asc("PwdRqst.RequestDate"))
                         .List<PasswordRequestEntity>();
 
+
+                    if (lstRqsts != null && lstRqsts.Count > 0)
+                    {
+                        lstRqsts = lstRqsts.Distinct<PasswordRequestEntity>().ToList();
+                    }
 
                     foreach (PasswordRequestEntity PwdRqstE in lstRqsts)
                     {
@@ -1295,8 +1407,20 @@ namespace PhalanxDAL.Factories
             if (PwdRqst.ExpirationDate == null)
                 PwdRqst.ExpirationDate = expirationDate;
 
-            // establezco que la contraseña está en uso
-            PwdRqst.UserPassword.PwdLockType = InUseType;
+            //Se busca si en los Grupos de Seguimientos asociados al request, esta el usuario 
+            //y si tiene la marca de aprobacion automatica
+            var requests = this.GetRequestsToAuthByAutomatic(PwdRqst.RqstUser, PwdRqst);
+
+            if (requests != null && requests.Count > 0)
+            {
+                PwdRqst.UserPassword.PwdLockType = null;
+                PwdRqst.UserPassword.DInUseUntil = null;
+            }
+            else
+            {
+                // establezco que la contraseña está en uso
+                PwdRqst.UserPassword.PwdLockType = InUseType;
+            }
 
             // se va a buscar el nuevo estado del request, de visualizado
             RequestStateEntity newRqstState = null;
@@ -1321,7 +1445,7 @@ namespace PhalanxDAL.Factories
                     session.SaveOrUpdate(PwdRqst.UserPassword);
                     tx.Commit();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     tx.Rollback();
                     return false;

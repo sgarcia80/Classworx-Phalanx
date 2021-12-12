@@ -1,4 +1,5 @@
-﻿using PhalanxBL;
+﻿using Phalanx.Util;
+using PhalanxBL;
 using PhalanxCommon.Entities;
 using phxCryptMgr;
 using System;
@@ -24,10 +25,18 @@ namespace PhalanxWeb
                 }
                 PhxUserBusiness PhxUsrBL = new PhxUserBusiness();
                 PhxUserEntity IdentUser = (PhxUserEntity)Session["PhxUser"];
-                if (IdentUser != null && PhxUsrBL.ChkPwdsRequest(IdentUser) &&
+
+                PasswordRequestBusiness pwdBL = new PasswordRequestBusiness();
+                PasswordRequestEntity PwdRqst = null;
+
+                bool accrequest = PhxUsrBL.ChkPwdsRequest(IdentUser);
+                bool accadmin = PhxUsrBL.AccPwdAll(IdentUser);
+
+                if (IdentUser != null && (accrequest || accadmin) &&
                     Page.Request["prid"] != null)
                 {
-                    Session["PwdRqst"] = new PasswordRequestBusiness().Load(Convert.ToInt32(Page.Request["prid"]));
+                    PwdRqst = pwdBL.Load(Convert.ToInt32(Page.Request["prid"]));
+                    Session["PwdRqst"] = PwdRqst;
                 }
                 else
                 {
@@ -44,12 +53,17 @@ namespace PhalanxWeb
                 {
 
                     Session["CtrlUser"] = "Usuario: " + (string)Session["phxWinUser"];
-                    PasswordRequestEntity PwdRqst = (PasswordRequestEntity)Session["PwdRqst"];
+
                     // muestro todos los datos
 
                     TbUsuarioSolicitado.Text = PwdRqst.UserName;
                     TbContrasenia.Text = "*******";
                     TbDesc.Text = PwdRqst.UserDesc;
+
+                    bool automaticapproval = pwdBL.CheckAutoApproval(PwdRqst.RqstUser, PwdRqst);
+
+                    BDevolver.Visible = automaticapproval;
+                    Bcancel.Visible = !automaticapproval;
 
                     if (PwdRqst.UserPassword.UsersList[0] is WinLocalUserEntity)
                     {
@@ -201,6 +215,62 @@ namespace PhalanxWeb
             }
             catch (ThreadAbortException tae)
             {
+            }
+        }
+
+        protected void BDevolver_Click(object sender, EventArgs e)
+        {
+            Session["phxButtonBack"] = "default.aspx";
+            try
+            {
+
+                PasswordRequestBusiness tmpPwdReq = new PasswordRequestBusiness();
+                PasswordRequestEntity currentPwdRqst = (PasswordRequestEntity)Session["PwdRqst"];
+                PhxUserEntity IdentUser = (PhxUserEntity)Session["PhxUser"];
+
+                // se devuelve la contraseña. Y en la BL es donde para ATM se cierra directamente la solicitud y se inactiva la pwd
+                uint result = new PasswordRequestBusiness().CloseRequestPwdAutomatic(currentPwdRqst, "Visualizado y cerrado por GSI", IdentUser.Id,false);
+
+                if (result == PhxDALUtil.SUCCESS)
+                {
+                    Session["phxMsgError"] = 0;
+                    Session["phxMessage"] = "Se ha cerrado la solicitud de contraseña con exito";
+                    try
+                    {
+                        Response.Redirect("Message.aspx");
+                    }
+                    catch (ThreadAbortException)
+                    {
+                    }
+                }
+                else
+                {
+                    Session["phxMsgError"] = 1;
+                    Session["phxMessage"] = "Error al cerrar la solicitud de contraseña";
+                    try
+                    {
+                        Response.Redirect("Message.aspx");
+                    }
+                    catch (ThreadAbortException)
+                    {
+                    }
+
+                }
+            }
+            catch (ThreadAbortException)
+            {
+            }
+            catch
+            {
+                try
+                {
+                    Session["phxMsgError"] = 1;
+                    Session["phxMessage"] = "Error en la aplicación";
+                    Response.Redirect("Message.aspx");
+                }
+                catch (ThreadAbortException)
+                {
+                }
             }
         }
 

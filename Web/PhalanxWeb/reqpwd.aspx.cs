@@ -19,7 +19,13 @@ namespace PhalanxWeb
             {
                 PhxUserBusiness PhxUsrBL = new PhxUserBusiness();
                 PhxUserEntity IdentUser = (PhxUserEntity)Session["PhxUser"];
-                if (IdentUser != null && PhxUsrBL.ChkPwdsRequest(IdentUser))
+
+                //bool requestpwd = PhxUsrBL.ChkPwdsRequest(IdentUser);
+                //bool approvepwd = PhxUsrBL.ChkAuthPwdRequest(IdentUser);
+                bool phxweb = PhxUsrBL.ChkAccWebApp(IdentUser);
+
+                //if (IdentUser != null && (requestpwd || approvepwd))
+                if (IdentUser != null && (phxweb))
                 {
                 }
                 else
@@ -46,6 +52,49 @@ namespace PhalanxWeb
         protected void cbPwdTypes_SelectedIndexChanged(object sender, EventArgs e)
         {
             MostrarPwdPnls();
+
+            switch (cbPwdTypes.SelectedValue)
+            {
+                case "1": //Win
+                    HideGrid(gvWinPwd);
+                    break;
+                case "2": //DB
+                    HideGrid(gvDBPwd);
+                    break;
+                case "3": //App
+                    HideGrid(gvAppPwd);
+                    break;
+                case "4": //Unix
+                    HideGrid(gvUnixPwd);
+                    break;
+                case "5": //AS400
+                    HideGrid(gvAS400Pwd);
+                    break;
+                case "6": //Equip. Com.
+                    HideGrid(gvCDPwd);
+                    break;
+                case "7": //ATM
+                    HideGrid(gvATMPwd);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void HideGrid(GridView grid)
+        {
+            grid.EmptyDataText = "";
+            grid.ShowHeaderWhenEmpty = true;
+            grid.DataSourceID = "";
+            grid.DataSource = new PhalanxCommon.Collections.ApplicationUserEntityCollection();
+            grid.DataBind();
+        }
+        private void ShowGrid(GridView grid, string objdatasource)
+        {
+            grid.EmptyDataText = "No tiene contraseñas disponibles para Visualizar";
+            grid.ShowHeaderWhenEmpty = false;
+            grid.DataSourceID = objdatasource;
+            grid.DataBind();
         }
 
         private void MostrarPwdPnls()
@@ -74,7 +123,7 @@ namespace PhalanxWeb
             {
                 string imageUrl = string.Empty;
                 bool isInUseByMe = false;
-                int linkOrdinalNumber = 5;
+                int linkOrdinalNumber = 1;
                 Image tmpImage = (Image)e.Row.FindControl("imgTemp");
 
                 UserEntity tmpUser = (UserEntity)e.Row.DataItem;
@@ -82,39 +131,40 @@ namespace PhalanxWeb
                 if (tmpUser is DatabaseUserEntity)
                 {
                     DatabaseUserEntity dbUser = ((DatabaseUserEntity)tmpUser);
-                    e.Row.Cells[2].Text = ((DatabaseUserEntity)tmpUser).Db.Type.Name;
+                    e.Row.Cells[3].Text = ((DatabaseUserEntity)tmpUser).Db.Type.Name;
                     //e.Row.Cells[3].Text = ((DatabaseUserEntity)tmpUser).Db.ServerName;
-                    e.Row.Cells[3].Text = ((DatabaseUserEntity)tmpUser).Db.PCName;
-                    linkOrdinalNumber = 6;
+                    e.Row.Cells[4].Text = ((DatabaseUserEntity)tmpUser).Db.PCName;
+                    //linkOrdinalNumber = 6;
                 }
                 if (tmpUser is ApplicationUserEntity)
                 {
                     ApplicationUserEntity appUser = (ApplicationUserEntity)tmpUser;
 
-                    string tempString = (appUser.Application.Field1Desc != string.Empty
-                                ? appUser.Application.Field1Desc : string.Empty);
-                    tempString += (appUser.Application.Field2Desc != string.Empty
-                        ? " " + appUser.Application.Field2Desc : string.Empty);
-                    tempString += (appUser.Application.Field3Desc != string.Empty
-                        ? " " + appUser.Application.Field3Desc : string.Empty);
+                    //string tempString = (appUser.Application.Field1Desc != string.Empty
+                    //            ? appUser.Application.Field1Desc : string.Empty);
+                    //tempString += (appUser.Application.Field2Desc != string.Empty
+                    //    ? " " + appUser.Application.Field2Desc : string.Empty);
+                    //tempString += (appUser.Application.Field3Desc != string.Empty
+                    //    ? " " + appUser.Application.Field3Desc : string.Empty);
 
-                    e.Row.Cells[4].Text = tempString;
+                    //e.Row.Cells[4].Text = tempString;
+                    //linkOrdinalNumber = 4;
                 }
                 if (tmpUser is UnixUserEntity)
                 {
-                    e.Row.Cells[2].Text = ((UnixUserEntity)tmpUser).Unix.Ip;
+                    e.Row.Cells[3].Text = ((UnixUserEntity)tmpUser).Unix.Ip;
                 }
                 if (tmpUser is AS400UserEntity)
                 {
-                    e.Row.Cells[2].Text = ((AS400UserEntity)tmpUser).AS400.Ip;
+                    e.Row.Cells[3].Text = ((AS400UserEntity)tmpUser).AS400.Ip;
                 }
                 if (tmpUser is CommunicationDeviceUserEntity)
                 {
-                    e.Row.Cells[3].Text = ((CommunicationDeviceUserEntity)tmpUser).CommunicationDevice.IP;
+                    e.Row.Cells[4].Text = ((CommunicationDeviceUserEntity)tmpUser).CommunicationDevice.IP;
                 }
                 if (tmpUser is ATMUserEntity)
                 {
-                    linkOrdinalNumber = 4;
+                    //linkOrdinalNumber = 4;
                 }
 
                 if (tmpUser.UserPassword.PwdLockType == null)
@@ -177,27 +227,38 @@ namespace PhalanxWeb
         {
             if (pnlAppPwd.Visible)
             {
-                gvAppPwd.DataBind();
+                ShowGrid(gvAppPwd, "odsAppPwd");
+                //gvAppPwd.DataBind();
             }
             else if (pnlAS400Pwd.Visible)
             {
-                gvAS400Pwd.DataBind();
+                ShowGrid(gvAS400Pwd, "odsAS400Pwd");
+                //gvAS400Pwd.DataBind();
             }
             else if (pnlCDPwd.Visible)
             {
-                gvCDPwd.DataBind();
+                ShowGrid(gvCDPwd, "odsCDPwd");
+                //gvCDPwd.DataBind();
             }
             else if (pnlDBPwd.Visible)
             {
-                gvDBPwd.DataBind();
+                ShowGrid(gvDBPwd, "odsDBPwd");
+                //gvDBPwd.DataBind();
             }
             else if (pnlUnixPwd.Visible)
             {
-                gvUnixPwd.DataBind();
+                ShowGrid(gvUnixPwd, "odsUnixPwd");
+                //gvUnixPwd.DataBind();
             }
             else if (pnlWinPwd.Visible)
             {
-                gvWinPwd.DataBind();
+                ShowGrid(gvWinPwd, "odsWinPWD");
+                //gvWinPwd.DataBind();
+            }
+            else if (pnlATMPwd.Visible)
+            {
+                ShowGrid(gvATMPwd, "odsATMPWD");
+                //gvATMPwd.DataBind();
             }
 
         }

@@ -141,6 +141,7 @@ namespace PhalanxDAL
                 config.AddResource("PhalanxDAL.MappingFiles.PhxConfig.hbm.xml", nhAssembly);
                 config.AddResource("PhalanxDAL.MappingFiles.VwDate.hbm.xml", nhAssembly);
                 config.AddResource("PhalanxDAL.MappingFiles.UserTypes.hbm.xml", nhAssembly);
+                config.AddResource("PhalanxDAL.MappingFiles.UserSubTypes.hbm.xml", nhAssembly);
                 config.AddResource("PhalanxDAL.MappingFiles.PwdLockTypes.hbm.xml", nhAssembly);
                 config.AddResource("PhalanxDAL.MappingFiles.Users.hbm.xml", nhAssembly);
                 config.AddResource("PhalanxDAL.MappingFiles.WinPCs.hbm.xml", nhAssembly);
@@ -395,6 +396,7 @@ namespace PhalanxDAL
             Assembly nhAssembly = Assembly.Load("PhalanxDAL");
             //config.AddAssembly(nhAssembly); 
             config.AddResource("PhalanxDAL.BLL.UserTypes.hbm.xml", nhAssembly);
+            config.AddResource("PhalanxDAL.BLL.UserSubTypes.hbm.xml", nhAssembly);
             config.AddResource("PhalanxDAL.BLL.PwdLockTypes.hbm.xml", nhAssembly);
             config.AddResource("PhalanxDAL.BLL.Users.hbm.xml", nhAssembly);
             config.AddResource("PhalanxDAL.BLL.WinPCs.hbm.xml", nhAssembly);

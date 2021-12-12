@@ -107,6 +107,8 @@ namespace PhalanxAdmin
             InitializeComponent();
             lvLista.ListViewItemSorter = new cwxSorter(0, SortOrder.Descending);
 
+            lvListaSolicitudes.ListViewItemSorter = new cwxSorter(0, SortOrder.Descending);
+
             this.Usuario = userlogon;
             CDUsrBL = new CommunicationDeviceUserBusiness(this.Usuario);
             m_FormType = formType;
@@ -169,6 +171,11 @@ namespace PhalanxAdmin
 
         public void ConfigureScreen()
         {
+            PhxUserBusiness phxUser = new PhxUserBusiness();
+            this.chkVisualizar.Visible = phxUser.AccParamConfigViewPassword(this.Usuario);
+            this.btnCopy.Visible = this.chkVisualizar.Visible;
+            this.btnCopyHist.Visible = this.btnCopy.Visible;
+
             switch (m_FormType)
             {
                 case FormType.New:
@@ -233,6 +240,8 @@ namespace PhalanxAdmin
         {
             base.Title = "Contraseña de Equipo de Comunicación";
 
+            CargaUserSubTypes();
+
             if (_entity.Id > 0)
                 base.Info = _entity.CommunicationDeviceType + " / " +
                             _entity.CommunicationDevice.Name + " / " +
@@ -267,7 +276,12 @@ namespace PhalanxAdmin
                 Concurrente = _entity.UserPassword.Concurrent;
                 Critico = _entity.Critical;
                 CommunicationDevice = _entity.CommunicationDevice;
-                
+
+                if (_entity.UserSubType != null)
+                {
+                    cbTipoCuenta.SelectedItem = _entity.UserSubType;
+                }
+
                 lblFolioNro.Text = _entity.Key;
             }
             
@@ -303,6 +317,8 @@ namespace PhalanxAdmin
             tPassword2.ReadOnly = true;
             chkPwdConcurrente.Enabled = false;
 
+            cbTipoCuenta.Enabled = false;
+
             // deshabilita boton cancelar
             btnCancelar.Enabled = false;
         }
@@ -337,6 +353,17 @@ namespace PhalanxAdmin
         {
             CommunicationDeviceTypeBusiness CDTypeBL = new CommunicationDeviceTypeBusiness();
             cbTipoEC.DataSource = CDTypeBL.GetAll();
+        }
+
+        private void CargaUserSubTypes()
+        {
+            UserSubTypeBusiness UserSubTypeBL = new UserSubTypeBusiness();
+
+            cbTipoCuenta.DisplayMember = "Desc";
+            cbTipoCuenta.ValueMember = "Id";
+
+            cbTipoCuenta.Items.Clear();
+            cbTipoCuenta.DataSource = UserSubTypeBL.FillSelect();
         }
 
         private void cbTipoEC_SelectedIndexChanged(object sender, EventArgs e)
@@ -469,6 +496,15 @@ namespace PhalanxAdmin
                     _entity.Protocols.Remove(protocol);
             }
 
+            if (cbTipoCuenta.SelectedIndex > 0)
+            {
+                _entity.UserSubType = cbTipoCuenta.SelectedItem as UserSubTypeEntity;
+            }
+            else
+            {
+                _entity.UserSubType = null;
+            }
+
             // grabar
 
             int Id = CDUsrBL.Save(_entity, chkChgPwd.Checked, this.GetGruposSolicitudes(), this.GetGruposSeguimientos(), true);
@@ -492,15 +528,31 @@ namespace PhalanxAdmin
             {
                 tPassword1.Enabled = true;
                 tPassword2.Enabled = true;
+
+                if (!chkVisualizar.Visible)
+                {
+                    tPassword1.Text = string.Empty;
+                    tPassword2.Text = string.Empty;
+
+                    tPassword1.PasswordChar = new char();
+                    tPassword2.PasswordChar = new char();
+                }
+
                 this.chkVisualizar.Enabled = true;
             }
             else
             {
+                tPassword1.PasswordChar = '*';
+                tPassword2.PasswordChar = '*';
+
+                string strPwd = CDUsrBL.DecryptPassword(_entity.UserPassword.Password);
+                tPassword1.Text = strPwd;
+                tPassword2.Text = strPwd;
+
                 tPassword1.Enabled = false;
                 tPassword2.Enabled = false;
                 this.chkVisualizar.Enabled = false;
             }
-
         }
 
         private void cbEC_SelectedIndexChanged(object sender, EventArgs e)
@@ -1274,6 +1326,9 @@ namespace PhalanxAdmin
                 if (((ListView)sender).SelectedItems[0].SubItems[2].Text != cAsterisk)
                     return;
 
+                if (!btnCopyHist.Visible)
+                    return;
+
                 int Id = LoguearVisualizacion(((vwHistPwdChgEntity)((ListView)sender).SelectedItems[0].Tag).Id);
 
                 if (Id > 0)
@@ -1298,15 +1353,27 @@ namespace PhalanxAdmin
 
         private int LoguearVisualizacion(int id)
         {
-            if (id == 0)
+
+            vwHistPwdChgEntity histpwdchange = null;
+            if (this._entities != null && this._entities.Count > 0)
             {
-                if (this._entities != null && this._entities.Count > 0)
+                foreach (vwHistPwdChgEntity entity in this._entities)
                 {
-                    //Se obtiene el ultimo historial
-                    foreach (vwHistPwdChgEntity entity in this._entities)
+                    if (id == 0)
                     {
+                        //Se obtiene el ultimo historial
                         if (entity.Id > id)
+                        {
                             id = entity.Id;
+                            histpwdchange = entity;
+                        }
+                    }
+                    else
+                    {
+                        if (entity.Id == id)
+                        {
+                            histpwdchange = entity;
+                        }
                     }
                 }
             }
@@ -1315,7 +1382,11 @@ namespace PhalanxAdmin
             HistPasswordChangeAccessEntity accessE = new HistPasswordChangeAccessEntity();
 
             accessE.HistChgPwd = new HistPasswordChangeEntity();
-            accessE.HistChgPwd.Id = id;
+            accessE.HistChgPwd.Id = histpwdchange.Id;
+            accessE.HistChgPwd.User = this._entity;
+            accessE.HistChgPwd.Password = histpwdchange.Password;
+            accessE.HistChgPwd.PhxUser = histpwdchange.PhxUser;
+            accessE.HistChgPwd.DChange = histpwdchange.DChange;
             accessE.PhxUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario);
             accessE.AccessDate = DateTime.Now;
 

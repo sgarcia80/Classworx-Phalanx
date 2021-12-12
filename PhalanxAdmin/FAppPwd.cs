@@ -27,6 +27,10 @@ namespace PhalanxAdmin
         private bool? _filUsuariosActivos;
         private int _filExpiracion;
         private bool? _filUsuariosCriticos;
+        private bool? _filAlertaVisual;
+        private bool? _filAlertaModif;
+        private int _filTipoCuenta;
+
         public override string Id
         {
             get
@@ -110,6 +114,11 @@ namespace PhalanxAdmin
             }
 
             _filExpiracion = cboExpirado.SelectedIndex;
+
+            _filTipoCuenta = cbTipoCuenta.SelectedIndex > 0 ? ((UserSubTypeEntity)cbTipoCuenta.SelectedItem).Id : 0;
+            
+            //_filAlertaModif = cbAlertaModif.SelectedIndex == 0 ? (bool?)null : (cbAlertaModif.SelectedIndex == 1);
+            //_filAlertaVisual = cbAlertaVisual.SelectedIndex == 0 ? (bool?)null : (cbAlertaVisual.SelectedIndex == 1); 
         }
 
         private void bwRefreshEntities_DoWork(object sender, DoWorkEventArgs e)
@@ -140,7 +149,7 @@ namespace PhalanxAdmin
 			if (txtFilNombre.Text.Trim() != "")
 				nombre = txtFilNombre.Text.Trim();
 
-            _entities = DBUsrBL.GetAll(_filUsuariosCriticos, _filUsuariosActivos, nombre, _filExpiracion);
+            _entities = DBUsrBL.GetAll(_filUsuariosCriticos, _filUsuariosActivos, nombre, _filExpiracion, _filTipoCuenta);
         }
 
         /// <summary>
@@ -191,7 +200,7 @@ namespace PhalanxAdmin
 				lviArr[i].SubItems.Add(AppUsrEnt[0].ToString());
 				lviArr[i].SubItems.Add(AppUsrEnt[5].ToString());
 				lviArr[i].SubItems.Add(AppUsrEnt[1].ToString());
-				lviArr[i].SubItems.Add((bool)AppUsrEnt[2] ? "Si" : "No");
+				lviArr[i].SubItems.Add((bool)AppUsrEnt[2] ? "Si" : "");
 				lviArr[i].SubItems.Add(AppUsrEnt[4].ToString());
 
                 if (AppUsrEnt[6] != null)
@@ -201,7 +210,11 @@ namespace PhalanxAdmin
                         lviArr[i].SubItems.Add(AppUsrEnt[6].ToString());
                 else
                     lviArr[i].SubItems.Add("");
-                
+
+                lviArr[i].SubItems.Add(AppUsrEnt[7].ToString());
+                //lviArr[i].SubItems.Add((bool)AppUsrEnt[8] ? "Si" : "");
+                //lviArr[i].SubItems.Add((bool)AppUsrEnt[9] ? "Si" : "");
+
                 lviArr[i].Text = "";
 				lviArr[i].ImageIndex = (bool)AppUsrEnt[3] ? 0 : 1;
                 lviArr[i].Tag = AppUsrEnt[0].ToString();
@@ -261,6 +274,11 @@ namespace PhalanxAdmin
             txtFilNombre.Text = "";
             cboEstado.SelectedIndex = 0;
             cbCritico.SelectedIndex = 0;
+
+            //cbAlertaModif.SelectedIndex = 0;
+            //cbAlertaVisual.SelectedIndex = 0;
+            cbTipoCuenta.SelectedIndex = 0;
+            
             //rbOrdFolio.Checked = false;
             //rbOrdName.Checked = true;
         }
@@ -285,13 +303,17 @@ namespace PhalanxAdmin
             lnkModify.Enabled = UsrBL.AccPwdAppRW(this.Usuario);
             lnkDelete.Enabled = UsrBL.AccPwdAppRW(this.Usuario);
 
+            CargaUserSubTypes();
+
             this.lnkCancelar.Visible = false;
             this.pbDB.Visible = false;
             this.cboExpirado.SelectedIndex = 2;
             this.cboEstado.SelectedIndex = 0;
             this.cbCritico.SelectedIndex = 0;
+            //this.cbAlertaModif.SelectedIndex = 0;
+            //this.cbAlertaVisual.SelectedIndex = 0;
+            this.cbTipoCuenta.SelectedIndex = 0;
             //ExecEntitiesRefresh();
-
         }
 
         private void lnkAdd_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -360,6 +382,17 @@ namespace PhalanxAdmin
             }
             ((ListView)sender).Sort();
 
+        }
+
+        private void CargaUserSubTypes()
+        {
+            UserSubTypeBusiness UserSubTypeBL = new UserSubTypeBusiness();
+
+            cbTipoCuenta.DisplayMember = "Desc";
+            cbTipoCuenta.ValueMember = "Id";
+
+            cbTipoCuenta.Items.Clear();
+            cbTipoCuenta.DataSource = UserSubTypeBL.FillFilter();
         }
     }
 }

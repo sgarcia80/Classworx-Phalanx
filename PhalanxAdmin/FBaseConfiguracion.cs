@@ -26,14 +26,27 @@ namespace PhalanxAdmin
 
         private void lnkconfigMailsExpPwd_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            ((FPrincipal)this.MdiParent).OpenForm(new FConfigMailsExpPwd());
+            try
+            {
+                ((FPrincipal)this.MdiParent).OpenForm(new FConfigMails());
+            }
+            catch (Exception ex)
+            {
 
+                throw;
+            }
+        }
+
+        private void lnkconfigParamMails_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ((FPrincipal)this.MdiParent).OpenForm(new FConfigMailsExpPwd());
         }
 
         private void FBaseConfiguracion_Load(object sender, EventArgs e)
         {
             PhxUserBusiness UsrBL = new PhxUserBusiness();
             lnkconfigMailsExpPwd.Enabled = UsrBL.AccParamConfigMails(this.Usuario);
+            lnkconfigParamMails.Enabled = UsrBL.AccParamConfigMails(this.Usuario);
             lnkEsquemas.Enabled = UsrBL.PermisoActivacionEsquema(this.Usuario);
             lnkATMs.Enabled = UsrBL.AccParamGrpSeguimATM(this.Usuario);
             lnkWSBPM.Enabled = UsrBL.AccParamConfigWSBPM(this.Usuario);
@@ -77,6 +90,7 @@ namespace PhalanxAdmin
         {
             ((FPrincipal)this.MdiParent).OpenForm(new FBloqueos());
         }
+
     }
 }
 

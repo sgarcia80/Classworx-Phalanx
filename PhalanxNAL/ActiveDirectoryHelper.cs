@@ -95,7 +95,7 @@ namespace PhalanxNAL
             }
             else
             {
-                IEnumerable<string> propiedades = new string[] { "givenName", "sn", "streetAddress", "mail", "department", "physicalDeliveryOfficeName", "title" };
+                IEnumerable<string> propiedades = new string[] { "displayName", "givenName", "sn", "streetAddress", "mail", "department", "physicalDeliveryOfficeName", "title", "st" };
                 string filter = LDAPBuscarNombreFilter.Replace("[username]", username);
                 IEnumerable<string> properties = propiedades;
                 Usuario.Username = username;
@@ -126,9 +126,17 @@ namespace PhalanxNAL
                     foreach (SearchResult sr in search.FindAll())
                     {
                         Usuario.Found = true;
-                        Usuario.Log += "|givenName|";
+                        if (sr.Properties["displayName"] != null && sr.Properties["displayName"].Count > 0)
+                        {
+                            Usuario.Log += "|displayName|";
+                            Usuario.DisplayName = sr.Properties["displayName"][0].ToString();
+                        }
+
                         if (sr.Properties["givenName"] != null && sr.Properties["givenName"].Count > 0)
+                        {
+                            Usuario.Log += "|givenName|";
                             Usuario.Name = sr.Properties["givenName"][0].ToString();
+                        }
 
                         if (sr.Properties["sn"] != null && sr.Properties["sn"].Count > 0)
                         {
@@ -151,13 +159,19 @@ namespace PhalanxNAL
                         if (sr.Properties["department"] != null && sr.Properties["department"].Count > 0)
                         {
                             Usuario.Log += "|department|";
-                            Usuario.Office = sr.Properties["department"][0].ToString() + " ";
+                            Usuario.Department = sr.Properties["department"][0].ToString() + " ";
                         }
 
                         if (sr.Properties["physicalDeliveryOfficeName"] != null && sr.Properties["physicalDeliveryOfficeName"].Count > 0)
                         {
                             Usuario.Log += "|physicalDeliveryOfficeName|";
                             Usuario.Office += sr.Properties["physicalDeliveryOfficeName"][0].ToString();
+                        }
+
+                        if (sr.Properties["st"] != null && sr.Properties["st"].Count > 0)
+                        {
+                            Usuario.Log += "|st|";
+                            Usuario.State = sr.Properties["st"][0].ToString() + " ";
                         }
 
                         if (sr.Properties["title"] != null && sr.Properties["title"].Count > 0)

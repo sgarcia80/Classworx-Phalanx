@@ -152,6 +152,26 @@ namespace NDCBL
             return tmpCollection;
         }
 
+        public TicketNotificacionBlanqueoEntityCollection GetAll(int tipoNotif, DateTime? fechaDesde, DateTime? fechaHasta, AplicacionNotificacionClaveEntity aplicacion, string usuarioApp, string dominio, string usuario, bool pendientes, string cargadoPor,bool? soloAppRed)
+        {
+            TicketNotificacionBlanqueoFactory factory = new TicketNotificacionBlanqueoFactory();
+
+            factory.FilAplicacion = aplicacion;
+            factory.FilDominio = dominio;
+            factory.FilUsuario = usuario;
+            factory.FilUsuarioApp = usuarioApp;
+            factory.FilFechaDesde = fechaDesde;
+            factory.FilFechaHasta = fechaHasta;
+            factory.FilPendiente = pendientes;
+            factory.FilTipoNotif = tipoNotif;
+            factory.FilCargadoPor = cargadoPor;
+            factory.FilSoloAppRed = soloAppRed;
+
+            TicketNotificacionBlanqueoEntityCollection tmpCollection = factory.GetAll();
+
+            return tmpCollection;
+        }
+
         public TicketNotificacionBlanqueoEntity GetById(int id)
         {
             return Factory.GetById(id);
@@ -221,8 +241,10 @@ namespace NDCBL
                 string mensaje = string.Empty;
                 try
                 {
-                    if (ticket.TipoNotificacion == TicketNotificacionBlanqueoEntity.TipoNotificacionBlanqueoRed ||
-                        ticket.TipoNotificacion == TicketNotificacionBlanqueoEntity.TipoNotificacionDesbloqueo)
+                    bool local = dominio.LDAPPath.ToLower().Contains("winnt");
+
+                    if ((ticket.TipoNotificacion == TicketNotificacionBlanqueoEntity.TipoNotificacionBlanqueoRed ||
+                        ticket.TipoNotificacion == TicketNotificacionBlanqueoEntity.TipoNotificacionDesbloqueo) && !local)
                     {
                         if (string.IsNullOrEmpty(dominio.LDAPUser) ||
                             string.IsNullOrEmpty(dominio.LDAPUserPassword))

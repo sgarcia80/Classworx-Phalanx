@@ -6,7 +6,7 @@
 			<generator class="native"/>
 		</id>
 		<property column="recurso" type="String" name="Recurso" not-null="true" length="50" />
-		<property column="fecha" type="DateTime" name="Fecha" insert="false"/>
+		<property column="fecha" type="DateTime" name="Fecha" insert="true"/>
 		<property column="terminal_abm" type="String" name="TerminalABM" not-null="true" length="150" />
 		<property column="id_usuario_abm" type="Int32" name="IdUsuarioABM" not-null="true" />
 		<property column="username_abm" type="String" name="UsernameABM" not-null="true" length="50" />

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 //using PhalanxNAL;
 using PhalanxCommon.Collections;
@@ -59,6 +60,41 @@ namespace PhalanxBL
         }
 
 
+        public bool CheckAutoApproval(PhxUserEntity Auth, UserPasswordEntity userpwd)
+        {
+            bool auto = false;
+
+            PhxUserBusiness PhxUsrBL = new PhxUserBusiness();
+
+            bool phxadmin = PhxUsrBL.AccPwdAll(Auth);
+
+            if (phxadmin)
+            {
+                //Se busca el Request y si el usuario solicitante esta dentro de algun Grupo de Seguimiento asociado
+                var requests = m_UserPasswordFactory.GetPasswordToAuthByAutomatic(Auth, userpwd);
+
+                if (requests != null && requests.Count == 1)
+                {
+                    if (requests[0].FollowupRqstGrpsPwdsList != null)
+                    {
+                        var groups = (from followupgroup in requests[0].FollowupRqstGrpsPwdsList.ToList()
+                                      where followupgroup.FollowupRqstGrp.AutoApproval
+                                      select followupgroup.FollowupRqstGrp);
+
+                        foreach (FollowupRequestGroupEntity group in groups)
+                        {
+                            if (group.AutoApproval && group.Approver != null)
+                            {
+                                auto = group.AutoApproval;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return auto;
+        }
 
     }
 }

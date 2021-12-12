@@ -56,10 +56,10 @@ namespace PhalanxDAL.Factories
                 {
                     DataSearch = DataSearch.Add(Expression.Lt("DChange", m_FilFechaCambioHasta.Value));
                 }
-                if (m_SoloPrimerRegistro)
-                {
-                    DataSearch.SetMaxResults(1);
-                }
+                //if (m_SoloPrimerRegistro)
+                //{
+                //    DataSearch.SetMaxResults(1);
+                //}
 
                 if (m_OrderBy != PwdChgOrderBy.None)
                 {
@@ -74,7 +74,11 @@ namespace PhalanxDAL.Factories
                 }
 
                 lstWLUs = DataSearch.List<HistPasswordChangeEntity>();
-                DBUsrEC.Add(lstWLUs);
+
+                if (lstWLUs != null && lstWLUs.Count > 0)
+                {
+                    DBUsrEC.Add(lstWLUs);
+                }
 
             }
 

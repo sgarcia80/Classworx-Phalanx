@@ -153,6 +153,15 @@ namespace PhalanxAdmin
 
                 txtSolicitante.Text = _entity.Solicitante;
                 txtSolicitantePuesto.Text = _entity.SolicitantePuesto;
+                txtSolicitanteNombre.Text = _entity.SolicitanteNombre;
+                txtSolicitanteDpto.Text = _entity.SolicitanteDepto;
+                txtSolicitanteOfic.Text = _entity.SolicitanteOficina;
+                txtSolicitanteProv.Text = _entity.SolicitanteProvincia;
+
+                txtUsuarioNombre.Text = _entity.UsuarioNombre;
+                txtUsuarioDpto.Text = _entity.UsuarioDepto;
+                txtUsuarioOfic.Text = _entity.UsuarioOficina;
+                txtUsuarioProv.Text = _entity.UsuarioProvincia;
 
                 txtEstado.Text = _entity.FechaAceptacionTyC.HasValue ? "Notificado" : "Pendiente";
                 if (_entity.FechaCancelado.HasValue)
@@ -428,10 +437,35 @@ namespace PhalanxAdmin
 
             try
             {
-                string nombreUser = PhalanxNAL.ActiveDirectoryHelper.BuscarNombrePorUsername(txtUser.Text.Trim(), path);
+                //string nombreUser = PhalanxNAL.ActiveDirectoryHelper.BuscarNombrePorUsername(txtUser.Text.Trim(), path);
 
-                if (!string.IsNullOrEmpty(nombreUser))
+                //if (!string.IsNullOrEmpty(nombreUser))
+                //{
+                //    picActivo.Visible = true;
+                //}
+
+                DomainUser usuario = ActiveDirectoryHelper.BuscarUsuarioADPorNombre(path, txtUser.Text.Trim());
+
+                TraceHelper.Information(usuario.Log);
+
+                if (usuario.Exception || !usuario.Found)
                 {
+
+                    if (usuario.Found)
+                    {
+                        TraceHelper.Information("Se encontró el usuario '{0}' pero hubo un error.", txtUser.Text.Trim());
+                    }
+                    else
+                    {
+                        TraceHelper.Information("No se encontró el usuario '{0}'", txtUser.Text.Trim());
+                    }
+                }
+                else
+                {
+                    txtUsuarioNombre.Text = usuario.DisplayName;
+                    txtUsuarioDpto.Text = usuario.Department;
+                    txtUsuarioOfic.Text = usuario.Office;
+                    txtUsuarioProv.Text = usuario.State;
                     picActivo.Visible = true;
                 }
             }
@@ -468,11 +502,11 @@ namespace PhalanxAdmin
 
                 DomainUser usuario = ActiveDirectoryHelper.BuscarUsuarioADPorNombre(path, txtSolicitante.Text.Trim());
 
+                TraceHelper.Information(usuario.Log);
+
                 if (usuario.Exception || !usuario.Found)
                 {
-                    TraceHelper.Information(usuario.Log);
-
-                    if (usuario.Found)
+                     if (usuario.Found)
                     {
                         TraceHelper.Information("Se encontró el usuario '{0}' pero hubo un error.", txtSolicitante.Text.Trim());
                     }
@@ -484,6 +518,10 @@ namespace PhalanxAdmin
                 else
                 {
                     txtSolicitantePuesto.Text = usuario.Title;
+                    txtSolicitanteNombre.Text = usuario.DisplayName;
+                    txtSolicitanteDpto.Text = usuario.Department;
+                    txtSolicitanteOfic.Text = usuario.Office;
+                    txtSolicitanteProv.Text = usuario.State;
                     picSolicitante.Visible = true;
                 }
             }

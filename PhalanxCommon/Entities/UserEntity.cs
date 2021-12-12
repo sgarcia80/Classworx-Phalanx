@@ -25,8 +25,9 @@ namespace PhalanxCommon.Entities
 		private bool m_active_user; 
 		private DateTime? m_modifying_date;
         private PhxUserEntity m_modifying_user;
-		private UserTypeEntity m_user_type_id; 
-		private UserPasswordEntity m_user_password_id;
+        private UserTypeEntity m_user_type_id;
+        private UserSubTypeEntity m_user_subtype_id;
+        private UserPasswordEntity m_user_password_id;
         private string m_user_desc;
         private bool m_critical;
         private int m_duration;
@@ -53,8 +54,9 @@ namespace PhalanxCommon.Entities
             m_PwdChangesList = new List<HistPasswordChangeEntity>();
 			m_username = String.Empty; 
 			m_active_user = false; 
-			m_user_type_id = new UserTypeEntity(); 
-			m_user_password_id = new UserPasswordEntity();
+			m_user_type_id = new UserTypeEntity();
+            m_user_subtype_id = new UserSubTypeEntity();
+            m_user_password_id = new UserPasswordEntity();
             m_user_desc = String.Empty;
             m_critical = false;
             m_duration = 0;
@@ -73,8 +75,9 @@ namespace PhalanxCommon.Entities
 			m_user_id = user_id;
 			m_username = username;
 			m_active_user = false;
-			m_user_type_id = null;
-			m_user_password_id = null;
+            m_user_type_id = null;
+            m_user_subtype_id = null;
+            m_user_password_id = null;
 		}
 		#endregion // End Required Fields Only Constructor
 
@@ -220,11 +223,21 @@ namespace PhalanxCommon.Entities
 			}
 
 		}
-			
-		/// <summary>
-		/// 
-		/// </summary>
-		public UserPasswordEntity UserPassword
+        
+        public UserSubTypeEntity UserSubType
+        {
+            get { return m_user_subtype_id; }
+            set
+            {
+                m_isChanged |= (m_user_subtype_id != value);
+                m_user_subtype_id = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public UserPasswordEntity UserPassword
 		{
 			get { return m_user_password_id; }
 			set

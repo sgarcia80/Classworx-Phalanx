@@ -35,6 +35,9 @@ namespace PhalanxAdmin
         {
             InitializeComponent();
             lvLista.ListViewItemSorter = new cwxSorter(0, SortOrder.Descending);
+
+            lvListaSolicitudes.ListViewItemSorter = new cwxSorter(0, SortOrder.Descending);
+
             m_FormType = formType;
             this.Usuario = userlogon;
             m_WinUserBusiness = new WinLocalUserBusiness(this.Usuario);
@@ -107,11 +110,15 @@ namespace PhalanxAdmin
             chkPwdConcurrente.Checked = m_CurrentUser.UserPassword.Concurrent;
             chkCheckeable.Checked = m_CurrentUser.UserPassword.Checkeable;
             lblFolioNro.Text = m_CurrentUser.Key;
-
         }
 
         public void ConfigureScreen()
         {
+            PhxUserBusiness phxUser = new PhxUserBusiness();
+            this.chkVisualizar.Visible = phxUser.AccParamConfigViewPassword(this.Usuario);
+            this.btnCopy.Visible = this.chkVisualizar.Visible;
+            this.btnCopyHist.Visible = this.btnCopy.Visible;
+
             switch (m_FormType)
             {
                 case FormType.New:
@@ -130,7 +137,7 @@ namespace PhalanxAdmin
                             tabControl1.TabPages.Remove(tabControl1.TabPages[4]);
                             tabControl1.TabPages.Remove(tabControl1.TabPages[3]);
                         }
-                        this.checkBoxVisualizar.Enabled = true;
+                        this.chkVisualizar.Enabled = true;
                         break;
                     }
                 case FormType.Update:
@@ -175,6 +182,8 @@ namespace PhalanxAdmin
                         chkUsuarioCritico.Enabled = false;
                         chkPwdConcurrente.Enabled = false;
 
+                        cbTipoCuenta.Enabled = false;
+
                         btnSelEquipo.Visible = false;
                         //btnAceptar.Visible = false;
                         // deshabilita boton cancelar
@@ -205,6 +214,9 @@ namespace PhalanxAdmin
                         //Agregado MG
                         chkUsuarioCritico.Enabled = false;
                         chkPwdConcurrente.Enabled = false;
+
+                        cbTipoCuenta.Enabled = false;
+                        
                         btnSelEquipo.Visible = false;
                         this.Title = "Baja de Usuario y Contraseña";
                         this.Info = m_CurrentUser.WinPc.WinDomain.NtName + " / " +
@@ -471,7 +483,6 @@ namespace PhalanxAdmin
                 }
             }
 
-
             // si hay cambio de pwd
             if (chkChgPwd.Checked)
             {
@@ -490,6 +501,14 @@ namespace PhalanxAdmin
             m_CurrentUser.Critical = chkUsuarioCritico.Checked;
             m_CurrentUser.UserPassword.Concurrent = chkPwdConcurrente.Checked;
 
+            if (cbTipoCuenta.SelectedIndex > 0)
+            {
+                m_CurrentUser.UserSubType = cbTipoCuenta.SelectedItem as UserSubTypeEntity;
+            }
+            else
+            {
+                m_CurrentUser.UserSubType = null;
+            }
 
             try
             {
@@ -501,8 +520,7 @@ namespace PhalanxAdmin
                 MessageBox.Show("Ha ocurrido un error al modificar los datos: " + Environment.NewLine + exp.Message);
             }
         }
-
-
+        
         private void NewUser()
         {
             UserPasswordEntity userPassword = new UserPasswordEntity();
@@ -549,6 +567,15 @@ namespace PhalanxAdmin
             userEntity.Critical = chkUsuarioCritico.Checked;
             userEntity.UserPassword.Concurrent = chkPwdConcurrente.Checked;
 
+            if (cbTipoCuenta.SelectedIndex > 0)
+            {
+                userEntity.UserSubType = cbTipoCuenta.SelectedItem as UserSubTypeEntity;
+            }
+            else
+            {
+                userEntity.UserSubType = null;
+            }
+
             try
             {
                 m_WinUserBusiness.Create(userEntity, this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
@@ -572,7 +599,7 @@ namespace PhalanxAdmin
 
         private void checkBoxVisualizar_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBoxVisualizar.Checked)
+            if (chkVisualizar.Checked)
             {
                 tPassword1.PasswordChar = new char();
                 tPassword2.PasswordChar = new char();
@@ -587,11 +614,11 @@ namespace PhalanxAdmin
             tPassword1.Refresh();
             tPassword2.Refresh();
 
-            if (checkBoxVisualizar.Checked)
+            if (chkVisualizar.Checked)
             {
                 int id = LoguearVisualizacion();
             }
-            btnCopy.Enabled = checkBoxVisualizar.Checked;
+            btnCopy.Enabled = chkVisualizar.Checked;
         }
 
         private void cBoxActivo_CheckedChanged(object sender, EventArgs e)
@@ -629,14 +656,31 @@ namespace PhalanxAdmin
                 checkBoxRealUser.Enabled = true;
                 tPassword1.Enabled = true;
                 tPassword2.Enabled = true;
-                this.checkBoxVisualizar.Enabled = true;
+
+                if (!chkVisualizar.Visible)
+                {
+                    tPassword1.Text = string.Empty;
+                    tPassword2.Text = string.Empty;
+
+                    tPassword1.PasswordChar = new char();
+                    tPassword2.PasswordChar = new char();
+                }
+
+                this.chkVisualizar.Enabled = true;
             }
             else
             {
                 checkBoxRealUser.Enabled = false;
+                tPassword1.PasswordChar = '*';
+                tPassword2.PasswordChar = '*';
+
+                string strPwd = m_WinUserBusiness.DecryptPassword(m_CurrentUser.UserPassword.Password);
+                tPassword1.Text = strPwd;
+                tPassword2.Text = strPwd;
+
                 tPassword1.Enabled = false;
                 tPassword2.Enabled = false;
-                this.checkBoxVisualizar.Enabled = false;
+                this.chkVisualizar.Enabled = false;
             }
         }
 
@@ -663,8 +707,14 @@ namespace PhalanxAdmin
 
         private void FABMWinUsrPwd_Load(object sender, EventArgs e)
         {
-            ConfigureScreen();
+            CargaUserSubTypes();
 
+            if (m_CurrentUser != null && m_CurrentUser.UserSubType != null)
+            {
+                cbTipoCuenta.SelectedItem = m_CurrentUser.UserSubType;
+            }
+
+            ConfigureScreen();
         }
 
         private void btnChkPwd_Click(object sender, EventArgs e)
@@ -702,6 +752,17 @@ namespace PhalanxAdmin
                     m_WinUserBusiness.Update(m_CurrentUser, this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
                 }
             }
+        }
+
+        private void CargaUserSubTypes()
+        {
+            UserSubTypeBusiness UserSubTypeBL = new UserSubTypeBusiness();
+
+            cbTipoCuenta.DisplayMember = "Desc";
+            cbTipoCuenta.ValueMember = "Id";
+
+            cbTipoCuenta.Items.Clear();
+            cbTipoCuenta.DataSource = UserSubTypeBL.FillSelect();
         }
 
         #region GruposSolicitudes
@@ -1436,7 +1497,10 @@ namespace PhalanxAdmin
 
                 if (((ListView)sender).SelectedItems[0].SubItems[2].Text != cAsterisk)
                     return;
-                
+
+                if (!btnCopyHist.Visible)
+                    return;
+
                 int Id = LoguearVisualizacion(((vwHistPwdChgEntity)((ListView)sender).SelectedItems[0].Tag).Id);
 
                 if (Id > 0)
@@ -1461,15 +1525,27 @@ namespace PhalanxAdmin
 
         private int LoguearVisualizacion(int id)
         {
-            if (id == 0)
+
+            vwHistPwdChgEntity histpwdchange = null;
+            if (this._entities != null && this._entities.Count > 0)
             {
-                if (this._entities != null && this._entities.Count > 0)
+                foreach (vwHistPwdChgEntity entity in this._entities)
                 {
-                    //Se obtiene el ultimo historial
-                    foreach (vwHistPwdChgEntity entity in this._entities)
+                    if (id == 0)
                     {
+                        //Se obtiene el ultimo historial
                         if (entity.Id > id)
+                        {
                             id = entity.Id;
+                            histpwdchange = entity;
+                        }
+                    }
+                    else
+                    {
+                        if (entity.Id == id)
+                        {
+                            histpwdchange = entity;
+                        }
                     }
                 }
             }
@@ -1478,7 +1554,11 @@ namespace PhalanxAdmin
             HistPasswordChangeAccessEntity accessE = new HistPasswordChangeAccessEntity();
 
             accessE.HistChgPwd = new HistPasswordChangeEntity();
-            accessE.HistChgPwd.Id = id;
+            accessE.HistChgPwd.Id = histpwdchange.Id;
+            accessE.HistChgPwd.User = this.m_CurrentUser;
+            accessE.HistChgPwd.Password = histpwdchange.Password;
+            accessE.HistChgPwd.PhxUser = histpwdchange.PhxUser;
+            accessE.HistChgPwd.DChange = histpwdchange.DChange;
             accessE.PhxUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario);
             accessE.AccessDate = DateTime.Now;
 
@@ -1493,7 +1573,7 @@ namespace PhalanxAdmin
 
         private void btnCopy_Click(object sender, EventArgs e)
         {
-            if (checkBoxVisualizar.Checked)
+            if (chkVisualizar.Checked)
             {
                 System.Windows.Forms.Clipboard.SetText(tPassword1.Text);
             }

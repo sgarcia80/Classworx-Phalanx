@@ -263,6 +263,7 @@ namespace PhalanxAdmin
             this.lnkCancelar.Size = new System.Drawing.Size(53, 17);
             this.lnkCancelar.Text = "Cancelar";
             this.lnkCancelar.ToolTipText = "Cancela la ejecución actual";
+            this.lnkCancelar.Click += new System.EventHandler(this.lnkCancelar_Click);
             // 
             // pnlList
             // 

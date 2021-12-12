@@ -84,9 +84,13 @@ namespace PhalanxBL
 
         public CommunicationDeviceUserEntityCollection GetAllForRqst(PhxUserEntity PhxUserRqst, string Filtro)
         {
+            PhxUserBusiness PhxUsrBL = new PhxUserBusiness();
+
+            bool approvepwd = PhxUsrBL.AccPwdEqCom(PhxUserRqst);
+
             m_CDUserFactory.OrderByName = true;
             m_CDUserFactory.FilFiltroNombreGeneral = Filtro;
-            CommunicationDeviceUserEntityCollection tmpCollection = m_CDUserFactory.GetAllForRqst(PhxUserRqst);
+            CommunicationDeviceUserEntityCollection tmpCollection = m_CDUserFactory.GetAllForRqst(PhxUserRqst, approvepwd);
             
             for (int i = 0; i < tmpCollection.Count; i++)
             {
@@ -99,9 +103,13 @@ namespace PhalanxBL
 
         public CommunicationDeviceUserEntityCollection GetAllForRqst(PhxUserEntity PhxUserRqst)
         {
+            PhxUserBusiness PhxUsrBL = new PhxUserBusiness();
+
+            bool approvepwd = PhxUsrBL.ChkAuthPwdRequest(PhxUserRqst);
+
             m_CDUserFactory.OrderByName = true;
 
-            CommunicationDeviceUserEntityCollection tmpCollection = m_CDUserFactory.GetAllForRqst(PhxUserRqst);
+            CommunicationDeviceUserEntityCollection tmpCollection = m_CDUserFactory.GetAllForRqst(PhxUserRqst, approvepwd);
             
             for (int i = 0; i < tmpCollection.Count; i++)
             {
@@ -215,9 +223,9 @@ namespace PhalanxBL
             m_CDUserFactory.SetPwdState(Users, Active);
         }
 
-		public IList GetAll(bool? critico, bool? estadoUsuario, CommunicationDeviceTypeEntity tipo, string nombre)
+		public IList GetAll(bool? critico, bool? estadoUsuario, CommunicationDeviceTypeEntity tipo, string nombre, int tipoCuenta)
 		{
-            return m_CDUserFactory.GetAll(critico, estadoUsuario, tipo != null ? new int?(tipo.Id) : null, nombre);
+            return m_CDUserFactory.GetAll(critico, estadoUsuario, tipo != null ? new int?(tipo.Id) : null, nombre, tipoCuenta);
 		}
         public CommunicationDeviceUserEntity Load(int ID)
         {

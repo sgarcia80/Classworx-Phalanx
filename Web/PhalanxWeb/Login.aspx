@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Principal.master" AutoEventWireup="true"
-    CodeBehind="Login.aspx.cs" Inherits="Login" Title="Phalanx Security Manager" %>
+    CodeBehind="Login.aspx.cs" Inherits="Login" Title="Phalanx Security Manager Web" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div style="width: 280px; margin: 0 auto;">

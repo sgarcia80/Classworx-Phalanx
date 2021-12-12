@@ -87,10 +87,10 @@ namespace NDCDAL.Factories
                     DataSearch = DataSearch.Add(Expression.InsensitiveLike("ML.UsuarioRed", _filUsuario));
                
                 if (!string.IsNullOrEmpty(_filNombre))
-                    DataSearch = DataSearch.Add(Expression.InsensitiveLike("ML.Nombre", _filNombre));
+                    DataSearch = DataSearch.Add(Expression.InsensitiveLike("ML.Nombre", _filNombre, MatchMode.Anywhere));
 
                 if (!string.IsNullOrEmpty(_filApellido))
-                    DataSearch = DataSearch.Add(Expression.InsensitiveLike("ML.Apellido", _filApellido));
+                    DataSearch = DataSearch.Add(Expression.InsensitiveLike("ML.Apellido", _filApellido, MatchMode.Anywhere));
                 
                 try
                 {

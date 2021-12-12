@@ -531,6 +531,7 @@ namespace PhalanxDAL.Factories
                 }
                 catch (Exception ex)
                 {
+                    TraceHelper.Error(ex, "Error al guardar los roles");
                     tx.Rollback();
                     throw (new CwxException(ex.Message, "PhxUsersFactory.SetRoles"));
                     //return 0;

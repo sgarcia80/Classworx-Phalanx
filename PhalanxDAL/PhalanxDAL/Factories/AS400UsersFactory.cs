@@ -13,12 +13,12 @@ using System.Collections.Generic;
 
 namespace PhalanxDAL.Factories
 {
-	/// <summary>
-	/// 
-	/// </summary>
-	public class AS400UsersFactory : BaseFactory
-	{
-		/*
+    /// <summary>
+    /// 
+    /// </summary>
+    public class AS400UsersFactory : BaseFactory
+    {
+        /*
 		Configuration config;
 		ISessionFactory factory;
 		ISession session;
@@ -46,9 +46,9 @@ namespace PhalanxDAL.Factories
         public bool SetAvoidInactiveGrps
         { set { _AvoidInactiveGrps = value; } }
 
-		public AS400UsersFactory() : base()
-		{
-			/*
+        public AS400UsersFactory() : base()
+        {
+            /*
 			config = new Configuration();
 			IDictionary props = new Hashtable();
 
@@ -77,22 +77,22 @@ namespace PhalanxDAL.Factories
 
 			factory = config.BuildSessionFactory();
 			session = factory.OpenSession();*/
-            
-		}
+
+        }
         public AS400UsersFactory(string userlogon) : base(userlogon)
-        { 
+        {
         }
 
-		/// <summary>
-		/// Make sure we clean up session etc.
-		/// </summary>
-		public void Dispose()
-		{
-			/*
+        /// <summary>
+        /// Make sure we clean up session etc.
+        /// </summary>
+        public void Dispose()
+        {
+            /*
 			session.Dispose();
 			factory.Close();
 			*/
-		}
+        }
 
         private string _filUserName = "";
         public string FilUserName
@@ -216,13 +216,13 @@ namespace PhalanxDAL.Factories
 
         }
 
-        public RqstGrpPwdEntityCollection  GetGruposSolicitudes(AS400UserEntity CurrentUser)
+        public RqstGrpPwdEntityCollection GetGruposSolicitudes(AS400UserEntity CurrentUser)
         {
             IList<RqstGrpPwdEntity> lstRequestGroups;
             RqstGrpPwdEntityCollection colRequestGroups = new RqstGrpPwdEntityCollection();
             using (ISession session = DBMgr.factory.OpenSession())
             {
-                ICriteria DataSearch = session.CreateCriteria(typeof(RqstGrpPwdEntity) );
+                ICriteria DataSearch = session.CreateCriteria(typeof(RqstGrpPwdEntity));
                 DataSearch = DataSearch.Add(Expression.Eq("UserPassword", CurrentUser.UserPassword));
                 DataSearch = DataSearch.CreateCriteria("RqstGrp", "RQSTGRP");
                 lstRequestGroups = DataSearch.List<RqstGrpPwdEntity>();
@@ -238,7 +238,7 @@ namespace PhalanxDAL.Factories
             FollowupRequestGroupPasswordEntityCollection colRequestGroups = new FollowupRequestGroupPasswordEntityCollection();
             using (ISession session = DBMgr.factory.OpenSession())
             {
-                ICriteria DataSearch = session.CreateCriteria(typeof(FollowupRequestGroupPasswordEntity) );
+                ICriteria DataSearch = session.CreateCriteria(typeof(FollowupRequestGroupPasswordEntity));
                 DataSearch = DataSearch.Add(Expression.Eq("UserPassword", CurrentUser.UserPassword));
                 DataSearch = DataSearch.CreateCriteria("FollowupRqstGrp", "FOLLOWUPRQSTGRP");
                 lstRequestGroups = DataSearch.List<FollowupRequestGroupPasswordEntity>();
@@ -295,10 +295,10 @@ namespace PhalanxDAL.Factories
                             }
                         }
 
-                        IList lstUsrGrpSeg; 
+                        IList lstUsrGrpSeg;
                         ICriteria ExistUsrGroupSeg = SessionSaveUser.CreateCriteria(typeof(FollowupRequestGroupPasswordEntity));
                         ExistUsrGroupSeg = ExistUsrGroupSeg.Add(Expression.Eq("UserPassword", winUser.UserPassword));
-                        ExistUsrGroupSeg = ExistUsrGroupSeg.Add(!Expression.In("FollowupRqstGrp",GruposSeguimiento));
+                        ExistUsrGroupSeg = ExistUsrGroupSeg.Add(!Expression.In("FollowupRqstGrp", GruposSeguimiento));
                         lstUsrGrpSeg = ExistUsrGroupSeg.List();
                         foreach (FollowupRequestGroupPasswordEntity e in lstUsrGrpSeg)
                         {
@@ -363,33 +363,33 @@ namespace PhalanxDAL.Factories
 		/// </summary>
 		/// <returns>Complete list of customers</returns>
         public IList GetAS400Users()
-		{
-			IList WLUlst = null;
-			//ITransaction tx = null;
-			using(ISession session = DBMgr.factory.OpenSession())
-			{
-				// Retrieve data here (with the session)
-				WLUlst = session.CreateCriteria(typeof(AS400UserEntity)).List();
-			}
-			return WLUlst;
-		}
-		/// <summary>
-		/// Busca todos los usuarios de AS400 de una PC 
-		/// </summary>
-		/// <param name="PCName">Nombre de la PC</param>
-		/// <returns>La lista de Usuarios de AS400</returns>
-		public IList GetAS400Usrs(string PCName)
-		{
-			IList lstWLUs = new ArrayList();
-			AS400Factory WPCF = new AS400Factory();
+        {
+            IList WLUlst = null;
+            //ITransaction tx = null;
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                // Retrieve data here (with the session)
+                WLUlst = session.CreateCriteria(typeof(AS400UserEntity)).List();
+            }
+            return WLUlst;
+        }
+        /// <summary>
+        /// Busca todos los usuarios de AS400 de una PC 
+        /// </summary>
+        /// <param name="PCName">Nombre de la PC</param>
+        /// <returns>La lista de Usuarios de AS400</returns>
+        public IList GetAS400Usrs(string PCName)
+        {
+            IList lstWLUs = new ArrayList();
+            AS400Factory WPCF = new AS400Factory();
             AS400Entity objWPC = WPCF.GetAS400(PCName);
-			if (objWPC == null)
-			{
-				return lstWLUs;
-			}
-			return this.GetAS400UsrsByAS400PC(objWPC.Id);
+            if (objWPC == null)
+            {
+                return lstWLUs;
+            }
+            return this.GetAS400UsrsByAS400PC(objWPC.Id);
 
-		}
+        }
         /// <summary>
         /// Busca todos los usuarios Locales de windows de una PC
         /// </summary>
@@ -408,130 +408,153 @@ namespace PhalanxDAL.Factories
             return lstWLUs;
         }
 
-         public AS400UserEntity GetAS400LocalUser(AS400Entity AS400, string UserName)
-         {
-             return GetAS400User( AS400.ServerName, UserName);
-         }
+        public AS400UserEntity GetAS400LocalUser(AS400Entity AS400, string UserName)
+        {
+            return GetAS400User(AS400.ServerName, UserName);
+        }
 
-         public AS400UserEntity GetAS400User(string PCName, string UserName)
-         {
-             AS400Factory WPCF = new AS400Factory();
-             AS400Entity objWPC = WPCF.GetAS400(PCName);
-             if (objWPC == null)
-             {
-                 return null;
-             }
+        public AS400UserEntity GetAS400User(string PCName, string UserName)
+        {
+            AS400Factory WPCF = new AS400Factory();
+            AS400Entity objWPC = WPCF.GetAS400(PCName);
+            if (objWPC == null)
+            {
+                return null;
+            }
 
-             IList lstWLUs;
+            IList lstWLUs;
 
-             using(ISession session = DBMgr.factory.OpenSession())
-             {
-                 lstWLUs = session.CreateCriteria(typeof(AS400UserEntity))
-                     .Add(Expression.Eq("AS400.Id",objWPC.Id))
-                     .Add(Expression.Eq("Username",UserName))
-                     //.Add(Expression.InsensitiveLike("Username",UserName))
-                     //.Add(Expression.Sql("lower({alias}.username) = lower('"+UserName+"')"))
-                     .List();
-             }
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                lstWLUs = session.CreateCriteria(typeof(AS400UserEntity))
+                    .Add(Expression.Eq("AS400.Id", objWPC.Id))
+                    .Add(Expression.Eq("Username", UserName))
+                    //.Add(Expression.InsensitiveLike("Username",UserName))
+                    //.Add(Expression.Sql("lower({alias}.username) = lower('"+UserName+"')"))
+                    .List();
+            }
 
-             if (lstWLUs.Count == 1)
-             {
-                 return (AS400UserEntity)lstWLUs[0];
-             }
-             else
-             {
-                 return null;
-             }
+            if (lstWLUs.Count == 1)
+            {
+                return (AS400UserEntity)lstWLUs[0];
+            }
+            else
+            {
+                return null;
+            }
 
-         }
+        }
 
-         public string RefreshPassword(AS400UserEntity AS400User)
-         {
-             string pwd = string.Empty;
-             try
-             {
-                 using (ISession session = DBMgr.factory.OpenSession())
-                 {
-                     session.Refresh(AS400User);
-                     pwd = AS400User.UserPassword.Password;
-                 }
-             }
-             catch (NHibernate.ObjectNotFoundException ObjNotFoundEx)
-             {
-                 throw (new CwxException(ObjNotFoundEx.Message, "AS400UsersFactory RefreshPassword()"));
-             }
-             catch (NHibernate.HibernateException NHEx)
-             {
-                 throw (new CwxException(NHEx.Message, "AS400UsersFactory RefreshPassword()"));
-             }
-             catch (CwxException ex)
-             {
-                 throw (ex);
-             }
-             catch (Exception ex)
-             {
-                 throw (new CwxException(ex.Message, "AS400UsersFactory RefreshPassword()"));
-             }
-             return pwd;
-         }
+        public string RefreshPassword(AS400UserEntity AS400User)
+        {
+            string pwd = string.Empty;
+            try
+            {
+                using (ISession session = DBMgr.factory.OpenSession())
+                {
+                    session.Refresh(AS400User);
+                    pwd = AS400User.UserPassword.Password;
+                }
+            }
+            catch (NHibernate.ObjectNotFoundException ObjNotFoundEx)
+            {
+                throw (new CwxException(ObjNotFoundEx.Message, "AS400UsersFactory RefreshPassword()"));
+            }
+            catch (NHibernate.HibernateException NHEx)
+            {
+                throw (new CwxException(NHEx.Message, "AS400UsersFactory RefreshPassword()"));
+            }
+            catch (CwxException ex)
+            {
+                throw (ex);
+            }
+            catch (Exception ex)
+            {
+                throw (new CwxException(ex.Message, "AS400UsersFactory RefreshPassword()"));
+            }
+            return pwd;
+        }
 
-         public void RefreshPassRequestList(AS400UserEntity AS400User)
-         {
-             try
-             {
-                 using (ISession session = DBMgr.factory.OpenSession())
-                 {
-                     session.Refresh(AS400User);
-                     int i = AS400User.UserPassword.RqstGrpsPwdsList.Count;
-                 }
-             }
-             catch (NHibernate.ObjectNotFoundException ObjNotFoundEx)
-             {
-                 throw (new CwxException(ObjNotFoundEx.Message, "RefreshPassRequestList RefreshPassword()"));
-             }
-             catch (NHibernate.HibernateException NHEx)
-             {
-                 throw (new CwxException(NHEx.Message, "RefreshPassRequestList RefreshPassword()"));
-             }
-             catch (CwxException ex)
-             {
-                 throw (ex);
-             }
-             catch (Exception ex)
-             {
-                 throw (new CwxException(ex.Message, "RefreshPassRequestList RefreshPassword()"));
-             }
-         }
-         private string _filFiltroNombreGeneral = "";
-         public string FilFiltroNombreGeneral
-         {
-             set { _filFiltroNombreGeneral = value; }
-         }
+        public void RefreshPassRequestList(AS400UserEntity AS400User)
+        {
+            try
+            {
+                using (ISession session = DBMgr.factory.OpenSession())
+                {
+                    session.Refresh(AS400User);
+                    int i = AS400User.UserPassword.RqstGrpsPwdsList.Count;
+                }
+            }
+            catch (NHibernate.ObjectNotFoundException ObjNotFoundEx)
+            {
+                throw (new CwxException(ObjNotFoundEx.Message, "RefreshPassRequestList RefreshPassword()"));
+            }
+            catch (NHibernate.HibernateException NHEx)
+            {
+                throw (new CwxException(NHEx.Message, "RefreshPassRequestList RefreshPassword()"));
+            }
+            catch (CwxException ex)
+            {
+                throw (ex);
+            }
+            catch (Exception ex)
+            {
+                throw (new CwxException(ex.Message, "RefreshPassRequestList RefreshPassword()"));
+            }
+        }
+        private string _filFiltroNombreGeneral = "";
+        public string FilFiltroNombreGeneral
+        {
+            set { _filFiltroNombreGeneral = value; }
+        }
 
-        public AS400UserEntityCollection GetAllForRqst(PhxUserEntity PhxUserRqst)
+        public AS400UserEntityCollection GetAllForRqst(PhxUserEntity PhxUserRqst, bool approvepwd)
         {
             IList<AS400UserEntity> lstAS400Users;
             AS400UserEntityCollection AS400UsrEC = new AS400UserEntityCollection();
             using (ISession session = DBMgr.factory.OpenSession())
             {
                 ICriteria DataSearch = session.CreateCriteria(typeof(AS400UserEntity), "WLU");
+                DataSearch = DataSearch.CreateCriteria("WLU.AS400", "WPC");
+
                 if (_filFiltroNombreGeneral != "")
                 {
-                    DataSearch.Add(Expression.Like("WLU.Username", _filFiltroNombreGeneral, MatchMode.Anywhere));
+                    DataSearch.Add(Expression.Or(Expression.Like("WPC.ServerName", _filFiltroNombreGeneral, MatchMode.Anywhere),
+                                                Expression.Or(Expression.Like("WPC.Ip", _filFiltroNombreGeneral, MatchMode.Anywhere),
+                                                            Expression.Like("WLU.Username", _filFiltroNombreGeneral, MatchMode.Anywhere)
+                                                        )
+                                                )
+                        );
                 }
                 DataSearch = DataSearch.Add(Expression.Eq("WLU.ActiveUser", true));
-                DataSearch = DataSearch.CreateCriteria("UserPassword", "USRPWD");
-                DataSearch = DataSearch.CreateCriteria("RqstGrpsPwdsList", "RQSTGRPSPWD");
-                DataSearch = DataSearch.CreateCriteria("RqstGrp", "RQSTGRP");
-                DataSearch.Add(Expression.Eq("RQSTGRP.Active", true));
-                DataSearch = DataSearch.CreateCriteria("PhxUsersGroupsList", "USRRQSTGRP");
-                DataSearch = DataSearch.Add(Expression.Eq("PhxUser", PhxUserRqst));
+                DataSearch = DataSearch.CreateCriteria("WLU.UserPassword", "USRPWD");
+
+                if (approvepwd)
+                {
+                    //DataSearch = DataSearch.CreateCriteria("FollowupRqstGrpsPwdsList", "RQSTGRPSPWD");
+                    //DataSearch = DataSearch.CreateCriteria("FollowupRqstGrp", "RQSTGRP");
+                    //DataSearch.Add(Expression.Eq("RQSTGRP.Active", true));
+                    //DataSearch = DataSearch.CreateCriteria("FollowupGroupUsersList", "USRRQSTGRP");
+                }
+                else
+                {
+                    DataSearch = DataSearch.CreateCriteria("RqstGrpsPwdsList", "RQSTGRPSPWD");
+                    DataSearch = DataSearch.CreateCriteria("RqstGrp", "RQSTGRP");
+                    DataSearch.Add(Expression.Eq("RQSTGRP.Active", true));
+                    DataSearch = DataSearch.CreateCriteria("PhxUsersGroupsList", "USRRQSTGRP");
+
+                    //Solo se busca por usuario si no tiene permisos en PHX Admin / Contraseñas
+                    DataSearch = DataSearch.Add(Expression.Eq("PhxUser", PhxUserRqst));
+                }
+
                 if (_orderName)
                 {
-                    DataSearch = DataSearch.CreateCriteria("WLU.AS400", "WPC");
                     DataSearch.AddOrder(Order.Asc("WPC.ServerName"));
                     DataSearch.AddOrder(Order.Asc("WLU.Username"));
                 }
+
+                DataSearch.SetResultTransformer(new NHibernate.Transform.DistinctRootEntityResultTransformer());
+
                 //DataSearch.AddOrder(Order.Asc("WPC.Name"));
                 //DataSearch.AddOrder(Order.Asc("WLU.Username"));
                 lstAS400Users = DataSearch.List<AS400UserEntity>();
@@ -543,7 +566,7 @@ namespace PhalanxDAL.Factories
         }
 
 
-        public AS400UserEntity GetAS400PwdForRqst(PhxUserEntity PhxUserRqst, int WLUID)
+        public AS400UserEntity GetAS400PwdForRqst(PhxUserEntity PhxUserRqst, int WLUID, bool approvepwd)
         {
             AS400UserEntity AS400UserE = null;
             IList<AS400UserEntity> lstAS400Users;
@@ -552,11 +575,19 @@ namespace PhalanxDAL.Factories
                 ICriteria DataSearch = session.CreateCriteria(typeof(AS400UserEntity), "AS400");
                 DataSearch = DataSearch.Add(Expression.Eq("AS400.Id", WLUID));
                 DataSearch = DataSearch.Add(Expression.Eq("AS400.ActiveUser", true));
-                DataSearch = DataSearch.CreateCriteria("UserPassword", "USRPWD");
-                DataSearch = DataSearch.CreateCriteria("RqstGrpsPwdsList", "RQSTGRPSPWD");
-                DataSearch = DataSearch.CreateCriteria("RqstGrp", "RQSTGRP");
-                DataSearch = DataSearch.CreateCriteria("PhxUsersGroupsList", "USRRQSTGRP");
-                DataSearch = DataSearch.Add(Expression.Eq("PhxUser", PhxUserRqst));
+
+                if (approvepwd)
+                {
+                }
+                else
+                {
+                    DataSearch = DataSearch.CreateCriteria("UserPassword", "USRPWD");
+                    DataSearch = DataSearch.CreateCriteria("RqstGrpsPwdsList", "RQSTGRPSPWD");
+                    DataSearch = DataSearch.CreateCriteria("RqstGrp", "RQSTGRP");
+                    DataSearch = DataSearch.CreateCriteria("PhxUsersGroupsList", "USRRQSTGRP");
+                    DataSearch = DataSearch.Add(Expression.Eq("PhxUser", PhxUserRqst));
+                }
+
                 lstAS400Users = DataSearch.List<AS400UserEntity>();
                 if (lstAS400Users.Count > 0)
                 {
@@ -566,7 +597,7 @@ namespace PhalanxDAL.Factories
 
             return AS400UserE;
         }
- 
+
         /*
          public bool DeleteAS400User(string DomainName, string PCName, string UserName)
          {
@@ -1141,28 +1172,32 @@ namespace PhalanxDAL.Factories
 
         }
 
-		public IList GetAll(bool? critico, bool? estadoUsuario, string nombre)
-		{
-			using (ISession session = DBMgr.factory.OpenSession())
-			{
-				IQuery query = session.GetNamedQuery("getAllAS400Users");
+        public IList GetAll(bool? critico, bool? estadoUsuario, string nombre, int tipoCuenta)
+        {
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                IQuery query = session.GetNamedQuery("getAllAS400Users");
 
-				int criticoParam = -1;
-				int estadoUsuarioParam = -1;
+                int criticoParam = -1;
+                int estadoUsuarioParam = -1;
 
-				if (critico != null)
-					criticoParam = critico.Value ? 1 : 0;
+                if (critico != null)
+                    criticoParam = critico.Value ? 1 : 0;
 
-				if (estadoUsuario != null)
-					estadoUsuarioParam = estadoUsuario.Value ? 1 : 0;
+                if (estadoUsuario != null)
+                    estadoUsuarioParam = estadoUsuario.Value ? 1 : 0;
 
-				query.SetString("nombre", nombre != null ? "%" + nombre.ToUpper() + "%" : null);
-				query.SetParameter("critico", criticoParam);
-				query.SetInt32("estadoUsuario", estadoUsuarioParam);
+                query.SetString("nombre", nombre != null ? "%" + nombre.ToUpper() + "%" : null);
+                query.SetParameter("critico", criticoParam);
+                query.SetInt32("estadoUsuario", estadoUsuarioParam);
 
-				return query.List();
-			}
-		}
+                query.SetInt32("tipocuenta", tipoCuenta);
+                //query.SetParameter("alertam", alertaModif.HasValue ? Convert.ToInt32(alertaModif.Value) : -1);
+                //query.SetParameter("alertav", alertaVisual.HasValue ? Convert.ToInt32(alertaVisual.Value) : -1);
+
+                return query.List();
+            }
+        }
 
         public AS400UserEntity Load(int ID)
         {

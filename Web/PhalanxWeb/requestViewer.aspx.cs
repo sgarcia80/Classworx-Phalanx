@@ -16,7 +16,13 @@ namespace PhalanxWeb
             {
                 PhxUserBusiness PhxUsrBL = new PhxUserBusiness();
                 PhxUserEntity IdentUser = (PhxUserEntity)Session["PhxUser"];
-                if (IdentUser != null && PhxUsrBL.ChkPwdsRequest(IdentUser))
+
+
+                bool accrequest = PhxUsrBL.ChkPwdsRequest(IdentUser);
+                bool accadmin = PhxUsrBL.AccPwdAll(IdentUser);
+
+                //if (IdentUser != null && PhxUsrBL.ChkPwdsRequest(IdentUser))
+                if (IdentUser != null && (accrequest || accadmin))
                 {
                 }
                 else

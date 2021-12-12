@@ -213,7 +213,7 @@ namespace PhalanxDAL.Factories
             set { _filFiltroNombreGeneral = value; }
         }
 
-        public CommunicationDeviceUserEntityCollection GetAllForRqst(PhxUserEntity PhxUserRqst)
+        public CommunicationDeviceUserEntityCollection GetAllForRqst(PhxUserEntity PhxUserRqst, bool approvepwd)
         {
             IList<CommunicationDeviceUserEntity> lstCDUs;
             CommunicationDeviceUserEntity mlstCDUs = new CommunicationDeviceUserEntity();
@@ -223,27 +223,46 @@ namespace PhalanxDAL.Factories
             using (ISession session = DBMgr.factory.OpenSession())
             {
                 ICriteria DataSearch = session.CreateCriteria(typeof(CommunicationDeviceUserEntity), "CDUser");
+                DataSearch.CreateCriteria("CDUser.CommunicationDevice", "CD");
+                DataSearch.CreateCriteria("CD.Type", "CDT");
+
                 if (_filFiltroNombreGeneral != "")
                 {
-                    DataSearch.Add(Expression.Like("CDUser.Username", _filFiltroNombreGeneral, MatchMode.Anywhere));
+                    DataSearch.Add(Expression.Or(Expression.Like("CDUser.Username", _filFiltroNombreGeneral, MatchMode.Anywhere),
+                                                Expression.Or(Expression.Like("CD.IP", _filFiltroNombreGeneral, MatchMode.Anywhere),
+                                                             Expression.Like("CD.Name", _filFiltroNombreGeneral, MatchMode.Anywhere))
+                                                ));
                 }
 
                 DataSearch = DataSearch.Add(Expression.Eq("CDUser.ActiveUser", true));
-                DataSearch = DataSearch.CreateCriteria("UserPassword", "USRPWD");
-                DataSearch = DataSearch.CreateCriteria("RqstGrpsPwdsList", "RQSTGRPSPWD");
-                DataSearch = DataSearch.CreateCriteria("RqstGrp", "RQSTGRP");
-                DataSearch.Add(Expression.Eq("RQSTGRP.Active", true));
-                DataSearch = DataSearch.CreateCriteria("PhxUsersGroupsList", "USRRQSTGRP");
-                DataSearch = DataSearch.Add(Expression.Eq("PhxUser", PhxUserRqst));
-                
+                DataSearch = DataSearch.CreateCriteria("CDUser.UserPassword", "USRPWD");
+
+                if (approvepwd)
+                {
+                    //DataSearch = DataSearch.CreateCriteria("FollowupRqstGrpsPwdsList", "RQSTGRPSPWD");
+                    //DataSearch = DataSearch.CreateCriteria("FollowupRqstGrp", "RQSTGRP");
+                    //DataSearch.Add(Expression.Eq("RQSTGRP.Active", true));
+                    //DataSearch = DataSearch.CreateCriteria("FollowupGroupUsersList", "USRRQSTGRP");
+                }
+                else
+                {
+                    DataSearch = DataSearch.CreateCriteria("RqstGrpsPwdsList", "RQSTGRPSPWD");
+                    DataSearch = DataSearch.CreateCriteria("RqstGrp", "RQSTGRP");
+                    DataSearch.Add(Expression.Eq("RQSTGRP.Active", true));
+                    DataSearch = DataSearch.CreateCriteria("PhxUsersGroupsList", "USRRQSTGRP");
+
+                    //Solo se busca por usuario si no tiene permisos en PHX Admin / Contraseñas
+                    DataSearch = DataSearch.Add(Expression.Eq("PhxUser", PhxUserRqst));
+                }
+
                 if (_orderName)
                 {
-                    DataSearch.CreateCriteria("CDUser.CommunicationDevice", "CD");
-                    DataSearch.CreateCriteria("CD.Type", "CDT");
                     DataSearch = DataSearch.AddOrder(Order.Asc("CDT.Name"));
                     DataSearch = DataSearch.AddOrder(Order.Asc("CD.Name"));
                     DataSearch = DataSearch.AddOrder(Order.Asc("CDUser.Username"));
                 }
+
+                DataSearch.SetResultTransformer(new NHibernate.Transform.DistinctRootEntityResultTransformer());
 
                 lstCDUs = DataSearch.List<CommunicationDeviceUserEntity>();
 
@@ -549,7 +568,7 @@ namespace PhalanxDAL.Factories
         }
 
 
-		public IList GetAll(bool? critico, bool? estadoUsuario, int? tipo, string nombre)
+		public IList GetAll(bool? critico, bool? estadoUsuario, int? tipo, string nombre, int tipoCuenta)
 		{
 			using (ISession session = DBMgr.factory.OpenSession())
 			{
@@ -573,7 +592,11 @@ namespace PhalanxDAL.Factories
 				query.SetInt32("estadoUsuario", estadoUsuarioParam);
 				query.SetInt32("tipo", tipoParam);
 
-				return query.List();
+                query.SetInt32("tipocuenta", tipoCuenta);
+                //query.SetParameter("alertam", alertaModif.HasValue ? Convert.ToInt32(alertaModif.Value) : -1);
+                //query.SetParameter("alertav", alertaVisual.HasValue ? Convert.ToInt32(alertaVisual.Value) : -1);
+
+                return query.List();
 			}
 		}
         public CommunicationDeviceUserEntity Load(int ID)

@@ -121,6 +121,7 @@
     <Compile Include="Collections\ApplicationUserEntityCollection.cs" />
     <Compile Include="Collections\AS400EntityCollection.cs" />
     <Compile Include="Collections\AS400UserEntityCollection.cs" />
+    <Compile Include="Collections\BaseEntityCollectionExtension.cs" />
     <Compile Include="Collections\BuildingEntityCollection.cs" />
     <Compile Include="Collections\AuditUsuariosEntityCollection.cs" />
     <Compile Include="Collections\AuditLoginEntityCollection.cs" />
@@ -132,6 +133,7 @@
     <Compile Include="Collections\CommunicationDeviceTypeEntityCollection.cs" />
     <Compile Include="Collections\CommunicationDeviceUserEntityCollection.cs" />
     <Compile Include="Collections\ATMUserEntityCollection.cs" />
+    <Compile Include="Collections\UserSubTypeEntityCollection.cs" />
     <Compile Include="Collections\VencPwdAppLogDetEntityCollection.cs" />
     <Compile Include="Collections\VencPwdAppLogEntityCollection.cs" />
     <Compile Include="Collections\vwHistPwdVisEntityCollection.cs" />
@@ -202,6 +204,9 @@
     <Compile Include="Entities\CommunicationDeviceTypeEntity.cs" />
     <Compile Include="Entities\CommunicationDeviceUserEntity.cs" />
     <Compile Include="Entities\ATMUserEntity.cs" />
+    <Compile Include="Entities\MailGroupEntity.cs" />
+    <Compile Include="Entities\MailTagEntity.cs" />
+    <Compile Include="Entities\UserSubTypeEntity.cs" />
     <Compile Include="Entities\VencPwdAppLogDetEntity.cs" />
     <Compile Include="Entities\VencPwdAppLogEntity.cs" />
     <Compile Include="Entities\vwHistPwdVisEntity.cs" />

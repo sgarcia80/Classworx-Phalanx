@@ -42,10 +42,11 @@ namespace PhalanxAdmin
             this.bwRefreshEntitiesSolicitudes = new System.ComponentModel.BackgroundWorker();
             this.label3 = new System.Windows.Forms.Label();
             this.lps = new System.Windows.Forms.GroupBox();
+            this.btnCopy = new System.Windows.Forms.Button();
             this.chkPwdConcurrente = new System.Windows.Forms.CheckBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.checkBoxRealUser = new System.Windows.Forms.CheckBox();
-            this.checkBoxVisualizar = new System.Windows.Forms.CheckBox();
+            this.chkVisualizar = new System.Windows.Forms.CheckBox();
             this.tPassword2 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.tPassword1 = new System.Windows.Forms.TextBox();
@@ -69,6 +70,9 @@ namespace PhalanxAdmin
             this.lblModifying = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpGeneral = new System.Windows.Forms.TabPage();
+            this.label13 = new System.Windows.Forms.Label();
+            this.cbTipoCuenta = new System.Windows.Forms.ComboBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.tpGrpSolic = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label9 = new System.Windows.Forms.Label();
@@ -101,6 +105,8 @@ namespace PhalanxAdmin
             this.lvLista = new System.Windows.Forms.ListView();
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pnlFilters = new System.Windows.Forms.Panel();
+            this.btnCopyHist = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtFHasta = new System.Windows.Forms.MaskedTextBox();
             this.btnBuscar = new System.Windows.Forms.Button();
@@ -129,10 +135,6 @@ namespace PhalanxAdmin
             this.label15 = new System.Windows.Forms.Label();
             this.btnBuscarSolicitudes = new System.Windows.Forms.Button();
             this.btnLimpiarSolicitudes = new System.Windows.Forms.Button();
-            this.btnCopy = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.btnCopyHist = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             columnHeader18 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -216,6 +218,7 @@ namespace PhalanxAdmin
             // 
             // columnHeader1
             // 
+            columnHeader1.Tag = "Numeric";
             columnHeader1.Text = "Nro Solicitud";
             columnHeader1.Width = 80;
             // 
@@ -241,7 +244,7 @@ namespace PhalanxAdmin
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(20, 52);
+            this.label3.Location = new System.Drawing.Point(8, 52);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(50, 13);
             this.label3.TabIndex = 9;
@@ -254,7 +257,7 @@ namespace PhalanxAdmin
             this.lps.Controls.Add(this.chkPwdConcurrente);
             this.lps.Controls.Add(this.pictureBox2);
             this.lps.Controls.Add(this.checkBoxRealUser);
-            this.lps.Controls.Add(this.checkBoxVisualizar);
+            this.lps.Controls.Add(this.chkVisualizar);
             this.lps.Controls.Add(this.tPassword2);
             this.lps.Controls.Add(this.label4);
             this.lps.Controls.Add(this.tPassword1);
@@ -266,13 +269,24 @@ namespace PhalanxAdmin
             this.lps.TabStop = false;
             this.lps.Text = "Contraseña del Usuario";
             // 
+            // btnCopy
+            // 
+            this.btnCopy.Enabled = false;
+            this.btnCopy.Location = new System.Drawing.Point(412, 45);
+            this.btnCopy.Name = "btnCopy";
+            this.btnCopy.Size = new System.Drawing.Size(75, 23);
+            this.btnCopy.TabIndex = 54;
+            this.btnCopy.Text = "Copiar";
+            this.btnCopy.UseVisualStyleBackColor = true;
+            this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
+            // 
             // chkPwdConcurrente
             // 
             this.chkPwdConcurrente.AutoSize = true;
-            this.chkPwdConcurrente.Location = new System.Drawing.Point(322, 107);
+            this.chkPwdConcurrente.Location = new System.Drawing.Point(86, 104);
             this.chkPwdConcurrente.Name = "chkPwdConcurrente";
             this.chkPwdConcurrente.Size = new System.Drawing.Size(84, 17);
-            this.chkPwdConcurrente.TabIndex = 4;
+            this.chkPwdConcurrente.TabIndex = 3;
             this.chkPwdConcurrente.Text = "Concurrente";
             this.chkPwdConcurrente.UseVisualStyleBackColor = true;
             // 
@@ -301,17 +315,17 @@ namespace PhalanxAdmin
             this.checkBoxRealUser.UseVisualStyleBackColor = true;
             this.checkBoxRealUser.Visible = false;
             // 
-            // checkBoxVisualizar
+            // chkVisualizar
             // 
-            this.checkBoxVisualizar.AutoSize = true;
-            this.checkBoxVisualizar.Enabled = false;
-            this.checkBoxVisualizar.Location = new System.Drawing.Point(86, 107);
-            this.checkBoxVisualizar.Name = "checkBoxVisualizar";
-            this.checkBoxVisualizar.Size = new System.Drawing.Size(127, 17);
-            this.checkBoxVisualizar.TabIndex = 3;
-            this.checkBoxVisualizar.Text = "Visualizar Contraseña";
-            this.checkBoxVisualizar.UseVisualStyleBackColor = true;
-            this.checkBoxVisualizar.CheckedChanged += new System.EventHandler(this.checkBoxVisualizar_CheckedChanged);
+            this.chkVisualizar.AutoSize = true;
+            this.chkVisualizar.Enabled = false;
+            this.chkVisualizar.Location = new System.Drawing.Point(176, 104);
+            this.chkVisualizar.Name = "chkVisualizar";
+            this.chkVisualizar.Size = new System.Drawing.Size(70, 17);
+            this.chkVisualizar.TabIndex = 4;
+            this.chkVisualizar.Text = "Visualizar";
+            this.chkVisualizar.UseVisualStyleBackColor = true;
+            this.chkVisualizar.CheckedChanged += new System.EventHandler(this.checkBoxVisualizar_CheckedChanged);
             // 
             // tPassword2
             // 
@@ -353,7 +367,7 @@ namespace PhalanxAdmin
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(20, 83);
+            this.label6.Location = new System.Drawing.Point(8, 83);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(54, 13);
             this.label6.TabIndex = 11;
@@ -363,7 +377,7 @@ namespace PhalanxAdmin
             // 
             this.tBUsuario.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.tBUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.tBUsuario.Location = new System.Drawing.Point(101, 76);
+            this.tBUsuario.Location = new System.Drawing.Point(94, 76);
             this.tBUsuario.Name = "tBUsuario";
             this.tBUsuario.Size = new System.Drawing.Size(320, 20);
             this.tBUsuario.TabIndex = 2;
@@ -372,7 +386,7 @@ namespace PhalanxAdmin
             // 
             this.tBUserDescript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.tBUserDescript.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.tBUserDescript.Location = new System.Drawing.Point(101, 108);
+            this.tBUserDescript.Location = new System.Drawing.Point(94, 108);
             this.tBUserDescript.MaxLength = 4000;
             this.tBUserDescript.Multiline = true;
             this.tBUserDescript.Name = "tBUserDescript";
@@ -385,7 +399,7 @@ namespace PhalanxAdmin
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(20, 115);
+            this.label2.Location = new System.Drawing.Point(8, 115);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(78, 13);
             this.label2.TabIndex = 15;
@@ -396,7 +410,7 @@ namespace PhalanxAdmin
             this.picActivo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.picActivo.ErrorImage = null;
             this.picActivo.Image = ((System.Drawing.Image)(resources.GetObject("picActivo.Image")));
-            this.picActivo.Location = new System.Drawing.Point(491, 51);
+            this.picActivo.Location = new System.Drawing.Point(574, 54);
             this.picActivo.Margin = new System.Windows.Forms.Padding(0);
             this.picActivo.Name = "picActivo";
             this.picActivo.Size = new System.Drawing.Size(22, 17);
@@ -408,7 +422,7 @@ namespace PhalanxAdmin
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(438, 55);
+            this.label5.Location = new System.Drawing.Point(521, 58);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(50, 13);
             this.label5.TabIndex = 18;
@@ -419,7 +433,7 @@ namespace PhalanxAdmin
             this.picDesactivo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.picDesactivo.ErrorImage = null;
             this.picDesactivo.Image = ((System.Drawing.Image)(resources.GetObject("picDesactivo.Image")));
-            this.picDesactivo.Location = new System.Drawing.Point(491, 51);
+            this.picDesactivo.Location = new System.Drawing.Point(574, 54);
             this.picDesactivo.Name = "picDesactivo";
             this.picDesactivo.Size = new System.Drawing.Size(20, 17);
             this.picDesactivo.TabIndex = 19;
@@ -432,7 +446,7 @@ namespace PhalanxAdmin
             this.cBoxActivo.AutoSize = true;
             this.cBoxActivo.Checked = true;
             this.cBoxActivo.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cBoxActivo.Location = new System.Drawing.Point(441, 73);
+            this.cBoxActivo.Location = new System.Drawing.Point(524, 76);
             this.cBoxActivo.Name = "cBoxActivo";
             this.cBoxActivo.Size = new System.Drawing.Size(56, 17);
             this.cBoxActivo.TabIndex = 3;
@@ -445,7 +459,7 @@ namespace PhalanxAdmin
             this.pNetFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pNetFind.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pNetFind.Image = ((System.Drawing.Image)(resources.GetObject("pNetFind.Image")));
-            this.pNetFind.Location = new System.Drawing.Point(441, 102);
+            this.pNetFind.Location = new System.Drawing.Point(420, 76);
             this.pNetFind.Name = "pNetFind";
             this.pNetFind.Size = new System.Drawing.Size(25, 26);
             this.pNetFind.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -466,7 +480,7 @@ namespace PhalanxAdmin
             // 
             this.chkUsuarioCritico.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkUsuarioCritico.AutoSize = true;
-            this.chkUsuarioCritico.Location = new System.Drawing.Point(101, 186);
+            this.chkUsuarioCritico.Location = new System.Drawing.Point(524, 99);
             this.chkUsuarioCritico.Name = "chkUsuarioCritico";
             this.chkUsuarioCritico.Size = new System.Drawing.Size(57, 17);
             this.chkUsuarioCritico.TabIndex = 5;
@@ -490,7 +504,7 @@ namespace PhalanxAdmin
             // 
             this.btnSelEquipo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnSelEquipo.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSelEquipo.Location = new System.Drawing.Point(397, 45);
+            this.btnSelEquipo.Location = new System.Drawing.Point(390, 45);
             this.btnSelEquipo.Name = "btnSelEquipo";
             this.btnSelEquipo.Size = new System.Drawing.Size(24, 23);
             this.btnSelEquipo.TabIndex = 1;
@@ -502,7 +516,7 @@ namespace PhalanxAdmin
             // 
             this.txtEquipo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txtEquipo.BackColor = System.Drawing.Color.White;
-            this.txtEquipo.Location = new System.Drawing.Point(101, 46);
+            this.txtEquipo.Location = new System.Drawing.Point(94, 46);
             this.txtEquipo.Name = "txtEquipo";
             this.txtEquipo.ReadOnly = true;
             this.txtEquipo.Size = new System.Drawing.Size(290, 20);
@@ -521,7 +535,7 @@ namespace PhalanxAdmin
             this.lblFolioTit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblFolioTit.AutoSize = true;
             this.lblFolioTit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFolioTit.Location = new System.Drawing.Point(20, 24);
+            this.lblFolioTit.Location = new System.Drawing.Point(8, 24);
             this.lblFolioTit.Name = "lblFolioTit";
             this.lblFolioTit.Size = new System.Drawing.Size(38, 13);
             this.lblFolioTit.TabIndex = 51;
@@ -553,6 +567,8 @@ namespace PhalanxAdmin
             // 
             // tpGeneral
             // 
+            this.tpGeneral.Controls.Add(this.label13);
+            this.tpGeneral.Controls.Add(this.cbTipoCuenta);
             this.tpGeneral.Controls.Add(this.textBox1);
             this.tpGeneral.Controls.Add(this.lblFolioTit);
             this.tpGeneral.Controls.Add(this.lblFolioNro);
@@ -578,6 +594,39 @@ namespace PhalanxAdmin
             this.tpGeneral.TabIndex = 0;
             this.tpGeneral.Text = "General";
             this.tpGeneral.UseVisualStyleBackColor = true;
+            // 
+            // label13
+            // 
+            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(8, 189);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(80, 13);
+            this.label13.TabIndex = 63;
+            this.label13.Text = "Tipo Cuenta:";
+            // 
+            // cbTipoCuenta
+            // 
+            this.cbTipoCuenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cbTipoCuenta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTipoCuenta.FormattingEnabled = true;
+            this.cbTipoCuenta.Location = new System.Drawing.Point(94, 186);
+            this.cbTipoCuenta.Name = "cbTipoCuenta";
+            this.cbTipoCuenta.Size = new System.Drawing.Size(320, 21);
+            this.cbTipoCuenta.TabIndex = 62;
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.textBox1.ForeColor = System.Drawing.Color.Blue;
+            this.textBox1.Location = new System.Drawing.Point(524, 280);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(244, 34);
+            this.textBox1.TabIndex = 54;
+            this.textBox1.Text = "Si visualiza la Contraseña se grabará un registro de log con este evento";
             // 
             // tpGrpSolic
             // 
@@ -959,6 +1008,29 @@ namespace PhalanxAdmin
             this.pnlFilters.Size = new System.Drawing.Size(776, 68);
             this.pnlFilters.TabIndex = 23;
             // 
+            // btnCopyHist
+            // 
+            this.btnCopyHist.Enabled = false;
+            this.btnCopyHist.Location = new System.Drawing.Point(495, 25);
+            this.btnCopyHist.Name = "btnCopyHist";
+            this.btnCopyHist.Size = new System.Drawing.Size(75, 23);
+            this.btnCopyHist.TabIndex = 57;
+            this.btnCopyHist.Text = "Copiar";
+            this.btnCopyHist.UseVisualStyleBackColor = true;
+            this.btnCopyHist.Click += new System.EventHandler(this.btnCopyHist_Click);
+            // 
+            // textBox2
+            // 
+            this.textBox2.BackColor = System.Drawing.SystemColors.Control;
+            this.textBox2.ForeColor = System.Drawing.Color.Blue;
+            this.textBox2.Location = new System.Drawing.Point(576, 19);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(192, 34);
+            this.textBox2.TabIndex = 56;
+            this.textBox2.Text = "Si visualiza la Contraseña se grabará un registro de log con este evento";
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.txtFHasta);
@@ -1243,52 +1315,6 @@ namespace PhalanxAdmin
             this.btnLimpiarSolicitudes.UseVisualStyleBackColor = false;
             this.btnLimpiarSolicitudes.Click += new System.EventHandler(this.btnLimpiarSolicitudes_Click);
             // 
-            // btnCopy
-            // 
-            this.btnCopy.Enabled = false;
-            this.btnCopy.Location = new System.Drawing.Point(412, 45);
-            this.btnCopy.Name = "btnCopy";
-            this.btnCopy.Size = new System.Drawing.Size(75, 23);
-            this.btnCopy.TabIndex = 54;
-            this.btnCopy.Text = "Copiar";
-            this.btnCopy.UseVisualStyleBackColor = true;
-            this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
-            // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.textBox1.ForeColor = System.Drawing.Color.Blue;
-            this.textBox1.Location = new System.Drawing.Point(524, 280);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(244, 34);
-            this.textBox1.TabIndex = 54;
-            this.textBox1.Text = "Si visualiza la Contraseña se grabará un registro de log con este evento";
-            // 
-            // btnCopyHist
-            // 
-            this.btnCopyHist.Enabled = false;
-            this.btnCopyHist.Location = new System.Drawing.Point(495, 25);
-            this.btnCopyHist.Name = "btnCopyHist";
-            this.btnCopyHist.Size = new System.Drawing.Size(75, 23);
-            this.btnCopyHist.TabIndex = 57;
-            this.btnCopyHist.Text = "Copiar";
-            this.btnCopyHist.UseVisualStyleBackColor = true;
-            this.btnCopyHist.Click += new System.EventHandler(this.btnCopyHist_Click);
-            // 
-            // textBox2
-            // 
-            this.textBox2.BackColor = System.Drawing.SystemColors.Control;
-            this.textBox2.ForeColor = System.Drawing.Color.Blue;
-            this.textBox2.Location = new System.Drawing.Point(576, 19);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(192, 34);
-            this.textBox2.TabIndex = 56;
-            this.textBox2.Text = "Si visualiza la Contraseña se grabará un registro de log con este evento";
-            // 
             // FABMUnixUsrPwd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1351,7 +1377,7 @@ namespace PhalanxAdmin
         protected System.Windows.Forms.TextBox tBUsuario;
         protected System.Windows.Forms.TextBox tBUserDescript;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.CheckBox checkBoxVisualizar;
+        private System.Windows.Forms.CheckBox chkVisualizar;
         private System.Windows.Forms.PictureBox picActivo;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.PictureBox picDesactivo;
@@ -1436,5 +1462,7 @@ namespace PhalanxAdmin
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button btnCopyHist;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ComboBox cbTipoCuenta;
     }
 }

@@ -138,9 +138,24 @@ namespace NotifClavesWeb
                 ticket.RespuestaCodigo = 0;
                 ticket.RespuestaMensaje = string.Empty;
 
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
+                ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+                //ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
                 ServicePointManager.Expect100Continue = false;
                 ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback(AllwaysGoodCertificate);
+
+                //TraceHelper.Information("Configuracion:", loginASBlanqueoWSCOBIS);
+                //TraceHelper.Information("i_u_login_adminseg = {0}",loginASBlanqueoWSCOBIS);
+                //TraceHelper.Information("i_c_clave_adminseg = {0}", claveASBlanqueoWSCOBIS);
+                //TraceHelper.Information("i_rol_adminseg = {0}", rolASBlanqueoWSCOBIS);
+                //TraceHelper.Information("i_oficina_adminseg = {0}", oficinaASBlanqueoWSCOBIS);
+                //TraceHelper.Information("i_servidor_adminseg = {0}", servidorASBlanqueoWSCOBIS);
+                //TraceHelper.Information("i_c_clave = {0}", tbPassword.Text.ToLower());
+                //TraceHelper.Information("i_u_login = {0}", Session["Usuario"].ToString().ToLower());
+
+                TraceHelper.Information("Parametros:", loginASBlanqueoWSCOBIS);
+                TraceHelper.Information("Usuario = {0}", filtro.i_u_login);
+
+                TraceHelper.Information("Se ejecuta el WS CambioContrasena de Cobis");
 
                 error = "Ejecutando WS... ";
 
@@ -158,6 +173,9 @@ namespace NotifClavesWeb
                     ErrorExec = false;
 
                     ticket.RespuestaCodigo = resultado.serviceError.code.GetValueOrDefault();
+
+                    TraceHelper.Error("Response de Cobis:");
+                    TraceHelper.Error("Code = {0}", resultado.serviceError.code.GetValueOrDefault());
                 }
 
                 if (resultado != null &&
@@ -169,6 +187,10 @@ namespace NotifClavesWeb
 
                     ticket.RespuestaCodigo = resultado.serviceError.code.GetValueOrDefault();
                     ticket.RespuestaMensaje = resultado.serviceError.message;
+
+                    TraceHelper.Error("Response de Cobis:");
+                    TraceHelper.Error("Code = {0}", resultado.serviceError.code.GetValueOrDefault());
+                    TraceHelper.Error("Message = {0}", resultado.serviceError.message);
                 }
 
                 if (ticket.RespuestaCodigo == 151125)

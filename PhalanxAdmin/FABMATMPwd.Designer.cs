@@ -59,6 +59,8 @@ namespace PhalanxAdmin
             this.lblModifying = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpGeneral = new System.Windows.Forms.TabPage();
+            this.label8 = new System.Windows.Forms.Label();
+            this.cbTipoCuenta = new System.Windows.Forms.ComboBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.txtGrpSeguim = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -159,6 +161,7 @@ namespace PhalanxAdmin
             // 
             // columnHeader1
             // 
+            columnHeader1.Tag = "Numeric";
             columnHeader1.Text = "Nro Solicitud";
             columnHeader1.Width = 80;
             // 
@@ -283,10 +286,10 @@ namespace PhalanxAdmin
             // chkPwdConcurrente
             // 
             this.chkPwdConcurrente.AutoSize = true;
-            this.chkPwdConcurrente.Location = new System.Drawing.Point(319, 81);
+            this.chkPwdConcurrente.Location = new System.Drawing.Point(86, 78);
             this.chkPwdConcurrente.Name = "chkPwdConcurrente";
             this.chkPwdConcurrente.Size = new System.Drawing.Size(84, 17);
-            this.chkPwdConcurrente.TabIndex = 3;
+            this.chkPwdConcurrente.TabIndex = 2;
             this.chkPwdConcurrente.Text = "Concurrente";
             this.chkPwdConcurrente.UseVisualStyleBackColor = true;
             // 
@@ -294,11 +297,11 @@ namespace PhalanxAdmin
             // 
             this.chkVisualizar.AutoSize = true;
             this.chkVisualizar.Enabled = false;
-            this.chkVisualizar.Location = new System.Drawing.Point(86, 81);
+            this.chkVisualizar.Location = new System.Drawing.Point(176, 78);
             this.chkVisualizar.Name = "chkVisualizar";
-            this.chkVisualizar.Size = new System.Drawing.Size(127, 17);
-            this.chkVisualizar.TabIndex = 2;
-            this.chkVisualizar.Text = "Visualizar Contraseña";
+            this.chkVisualizar.Size = new System.Drawing.Size(70, 17);
+            this.chkVisualizar.TabIndex = 3;
+            this.chkVisualizar.Text = "Visualizar";
             this.chkVisualizar.UseVisualStyleBackColor = true;
             this.chkVisualizar.CheckedChanged += new System.EventHandler(this.chkVisualizar_CheckedChanged);
             // 
@@ -351,7 +354,7 @@ namespace PhalanxAdmin
             // chkUsuarioCritico
             // 
             this.chkUsuarioCritico.AutoSize = true;
-            this.chkUsuarioCritico.Location = new System.Drawing.Point(120, 214);
+            this.chkUsuarioCritico.Location = new System.Drawing.Point(460, 96);
             this.chkUsuarioCritico.Name = "chkUsuarioCritico";
             this.chkUsuarioCritico.Size = new System.Drawing.Size(57, 17);
             this.chkUsuarioCritico.TabIndex = 5;
@@ -374,10 +377,11 @@ namespace PhalanxAdmin
             // lblFolioNro
             // 
             this.lblFolioNro.AutoSize = true;
-            this.lblFolioNro.Location = new System.Drawing.Point(108, 20);
+            this.lblFolioNro.Location = new System.Drawing.Point(120, 20);
             this.lblFolioNro.Name = "lblFolioNro";
-            this.lblFolioNro.Size = new System.Drawing.Size(0, 13);
+            this.lblFolioNro.Size = new System.Drawing.Size(10, 13);
             this.lblFolioNro.TabIndex = 0;
+            this.lblFolioNro.Text = "-";
             // 
             // lblFolioTit
             // 
@@ -416,6 +420,8 @@ namespace PhalanxAdmin
             // 
             // tpGeneral
             // 
+            this.tpGeneral.Controls.Add(this.label8);
+            this.tpGeneral.Controls.Add(this.cbTipoCuenta);
             this.tpGeneral.Controls.Add(this.textBox1);
             this.tpGeneral.Controls.Add(this.txtGrpSeguim);
             this.tpGeneral.Controls.Add(this.label7);
@@ -445,6 +451,27 @@ namespace PhalanxAdmin
             this.tpGeneral.TabIndex = 0;
             this.tpGeneral.Text = "General";
             this.tpGeneral.UseVisualStyleBackColor = true;
+            // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(24, 216);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(80, 13);
+            this.label8.TabIndex = 63;
+            this.label8.Text = "Tipo Cuenta:";
+            // 
+            // cbTipoCuenta
+            // 
+            this.cbTipoCuenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cbTipoCuenta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTipoCuenta.FormattingEnabled = true;
+            this.cbTipoCuenta.Location = new System.Drawing.Point(120, 213);
+            this.cbTipoCuenta.Name = "cbTipoCuenta";
+            this.cbTipoCuenta.Size = new System.Drawing.Size(320, 21);
+            this.cbTipoCuenta.TabIndex = 62;
             // 
             // textBox1
             // 
@@ -1059,7 +1086,7 @@ namespace PhalanxAdmin
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button btnCopyHist;
         private System.Windows.Forms.TextBox textBox2;
-
-
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox cbTipoCuenta;
     }
 }

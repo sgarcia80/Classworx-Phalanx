@@ -75,7 +75,7 @@ namespace PhalanxAdmin
             this.lnkAppPwd.AutoSize = true;
             this.lnkAppPwd.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.lnkAppPwd.LinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkAppPwd.Location = new System.Drawing.Point(18, 129);
+            this.lnkAppPwd.Location = new System.Drawing.Point(18, 45);
             this.lnkAppPwd.Name = "lnkAppPwd";
             this.lnkAppPwd.Size = new System.Drawing.Size(69, 13);
             this.lnkAppPwd.TabIndex = 10;
@@ -105,7 +105,7 @@ namespace PhalanxAdmin
             this.lnkWinPwd.AutoSize = true;
             this.lnkWinPwd.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.lnkWinPwd.LinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkWinPwd.Location = new System.Drawing.Point(18, 45);
+            this.lnkWinPwd.Location = new System.Drawing.Point(18, 171);
             this.lnkWinPwd.Name = "lnkWinPwd";
             this.lnkWinPwd.Size = new System.Drawing.Size(58, 13);
             this.lnkWinPwd.TabIndex = 8;
@@ -121,7 +121,7 @@ namespace PhalanxAdmin
             this.lnkUnixPwd.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lnkUnixPwd.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.lnkUnixPwd.LinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkUnixPwd.Location = new System.Drawing.Point(18, 66);
+            this.lnkUnixPwd.Location = new System.Drawing.Point(18, 150);
             this.lnkUnixPwd.Name = "lnkUnixPwd";
             this.lnkUnixPwd.Size = new System.Drawing.Size(32, 13);
             this.lnkUnixPwd.TabIndex = 7;
@@ -137,7 +137,7 @@ namespace PhalanxAdmin
             this.lnkAS400Pwd.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lnkAS400Pwd.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.lnkAS400Pwd.LinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkAS400Pwd.Location = new System.Drawing.Point(18, 87);
+            this.lnkAS400Pwd.Location = new System.Drawing.Point(18, 66);
             this.lnkAS400Pwd.Name = "lnkAS400Pwd";
             this.lnkAS400Pwd.Size = new System.Drawing.Size(44, 13);
             this.lnkAS400Pwd.TabIndex = 13;
@@ -195,7 +195,7 @@ namespace PhalanxAdmin
             this.linkEcPwd.AutoSize = true;
             this.linkEcPwd.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.linkEcPwd.LinkColor = System.Drawing.Color.MidnightBlue;
-            this.linkEcPwd.Location = new System.Drawing.Point(18, 151);
+            this.linkEcPwd.Location = new System.Drawing.Point(18, 129);
             this.linkEcPwd.Name = "linkEcPwd";
             this.linkEcPwd.Size = new System.Drawing.Size(153, 13);
             this.linkEcPwd.TabIndex = 14;
@@ -210,7 +210,7 @@ namespace PhalanxAdmin
             this.lnkATMPwd.AutoSize = true;
             this.lnkATMPwd.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.lnkATMPwd.LinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkATMPwd.Location = new System.Drawing.Point(18, 173);
+            this.lnkATMPwd.Location = new System.Drawing.Point(18, 87);
             this.lnkATMPwd.Name = "lnkATMPwd";
             this.lnkATMPwd.Size = new System.Drawing.Size(39, 13);
             this.lnkATMPwd.TabIndex = 15;
@@ -222,7 +222,7 @@ namespace PhalanxAdmin
             // FBaseContrasenas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(727, 486);
+            this.ClientSize = new System.Drawing.Size(954, 486);
             this.Name = "FBaseContrasenas";
             this.Load += new System.EventHandler(this.FBaseContrasenas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).EndInit();

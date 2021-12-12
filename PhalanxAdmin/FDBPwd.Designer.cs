@@ -64,6 +64,15 @@ namespace PhalanxAdmin
             this.btnBuscar = new System.Windows.Forms.Button();
             this.txtFilNombre = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.cbAlertaVisual = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.cbAlertaModif = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.cbTipoCuenta = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -83,6 +92,7 @@ namespace PhalanxAdmin
             // 
             this.pnlchk.ImageItems.ImageSet = null;
             this.pnlchk.Location = new System.Drawing.Point(8, 365);
+            this.pnlchk.TabIndex = 2;
             // 
             // pnlXPGrps
             // 
@@ -100,6 +110,7 @@ namespace PhalanxAdmin
             // 
             this.xppnlMenu.ImageItems.ImageSet = null;
             this.xppnlMenu.Location = new System.Drawing.Point(8, 157);
+            this.xppnlMenu.TabIndex = 1;
             // 
             // columnHeader3
             // 
@@ -150,7 +161,7 @@ namespace PhalanxAdmin
             this.xppnlDBPwd.PanelGradient.Start = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(223)))), ((int)(((byte)(247)))));
             this.xppnlDBPwd.PanelGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
             this.xppnlDBPwd.Size = new System.Drawing.Size(184, 141);
-            this.xppnlDBPwd.TabIndex = 5;
+            this.xppnlDBPwd.TabIndex = 0;
             this.xppnlDBPwd.TextColors.Foreground = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(93)))), ((int)(((byte)(198)))));
             this.xppnlDBPwd.TextHighlightColors.Foreground = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(142)))), ((int)(((byte)(255)))));
             this.xppnlDBPwd.VertAlignment = System.Drawing.StringAlignment.Center;
@@ -165,7 +176,7 @@ namespace PhalanxAdmin
             this.lnkView.Location = new System.Drawing.Point(17, 92);
             this.lnkView.Name = "lnkView";
             this.lnkView.Size = new System.Drawing.Size(61, 13);
-            this.lnkView.TabIndex = 11;
+            this.lnkView.TabIndex = 2;
             this.lnkView.TabStop = true;
             this.lnkView.Text = "Visualizar";
             this.lnkView.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
@@ -181,7 +192,7 @@ namespace PhalanxAdmin
             this.lnkDelete.Location = new System.Drawing.Point(17, 113);
             this.lnkDelete.Name = "lnkDelete";
             this.lnkDelete.Size = new System.Drawing.Size(32, 13);
-            this.lnkDelete.TabIndex = 10;
+            this.lnkDelete.TabIndex = 3;
             this.lnkDelete.TabStop = true;
             this.lnkDelete.Text = "Baja";
             this.lnkDelete.Visible = false;
@@ -197,7 +208,7 @@ namespace PhalanxAdmin
             this.lnkModify.Location = new System.Drawing.Point(17, 71);
             this.lnkModify.Name = "lnkModify";
             this.lnkModify.Size = new System.Drawing.Size(59, 13);
-            this.lnkModify.TabIndex = 9;
+            this.lnkModify.TabIndex = 1;
             this.lnkModify.TabStop = true;
             this.lnkModify.Text = "Modificar";
             this.lnkModify.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
@@ -213,7 +224,7 @@ namespace PhalanxAdmin
             this.lnkAdd.Location = new System.Drawing.Point(18, 50);
             this.lnkAdd.Name = "lnkAdd";
             this.lnkAdd.Size = new System.Drawing.Size(51, 13);
-            this.lnkAdd.TabIndex = 8;
+            this.lnkAdd.TabIndex = 0;
             this.lnkAdd.TabStop = true;
             this.lnkAdd.Text = "Agregar";
             this.lnkAdd.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
@@ -227,8 +238,8 @@ namespace PhalanxAdmin
             this.lnkCancelar});
             this.statusbar.Location = new System.Drawing.Point(200, 498);
             this.statusbar.Name = "statusbar";
-            this.statusbar.Size = new System.Drawing.Size(619, 22);
-            this.statusbar.TabIndex = 17;
+            this.statusbar.Size = new System.Drawing.Size(707, 22);
+            this.statusbar.TabIndex = 2;
             this.statusbar.Text = "statusStrip1";
             // 
             // pbDB
@@ -260,8 +271,8 @@ namespace PhalanxAdmin
             this.pnlList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlList.Location = new System.Drawing.Point(200, 120);
             this.pnlList.Name = "pnlList";
-            this.pnlList.Size = new System.Drawing.Size(619, 400);
-            this.pnlList.TabIndex = 19;
+            this.pnlList.Size = new System.Drawing.Size(707, 400);
+            this.pnlList.TabIndex = 1;
             // 
             // lvLista
             // 
@@ -278,15 +289,18 @@ namespace PhalanxAdmin
             columnHeader4,
             columnHeader7,
             this.columnHeader8,
-            this.columnHeader9});
+            this.columnHeader9,
+            this.columnHeader10,
+            this.columnHeader11,
+            this.columnHeader12});
             this.lvLista.FullRowSelect = true;
             this.lvLista.HideSelection = false;
             this.lvLista.Location = new System.Drawing.Point(18, 16);
             this.lvLista.MultiSelect = false;
             this.lvLista.Name = "lvLista";
-            this.lvLista.Size = new System.Drawing.Size(485, 323);
+            this.lvLista.Size = new System.Drawing.Size(664, 323);
             this.lvLista.SmallImageList = this.imageList;
-            this.lvLista.TabIndex = 1;
+            this.lvLista.TabIndex = 0;
             this.lvLista.UseCompatibleStateImageBehavior = false;
             this.lvLista.View = System.Windows.Forms.View.Details;
             this.lvLista.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvLista_ColumnClick);
@@ -332,13 +346,19 @@ namespace PhalanxAdmin
             this.pnlFilters.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlFilters.Location = new System.Drawing.Point(200, 0);
             this.pnlFilters.Name = "pnlFilters";
-            this.pnlFilters.Size = new System.Drawing.Size(619, 120);
-            this.pnlFilters.TabIndex = 18;
+            this.pnlFilters.Size = new System.Drawing.Size(707, 120);
+            this.pnlFilters.TabIndex = 0;
             // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox1.Controls.Add(this.cbAlertaVisual);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.cbAlertaModif);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.cbTipoCuenta);
+            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.cbCritico);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.cboEstado);
@@ -351,7 +371,7 @@ namespace PhalanxAdmin
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(18, 8);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(485, 106);
+            this.groupBox1.Size = new System.Drawing.Size(664, 106);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de búsqueda";
@@ -364,18 +384,18 @@ namespace PhalanxAdmin
             "Todos",
             "Si",
             "No"});
-            this.cbCritico.Location = new System.Drawing.Point(248, 75);
+            this.cbCritico.Location = new System.Drawing.Point(265, 46);
             this.cbCritico.Name = "cbCritico";
-            this.cbCritico.Size = new System.Drawing.Size(98, 21);
-            this.cbCritico.TabIndex = 3;
+            this.cbCritico.Size = new System.Drawing.Size(120, 21);
+            this.cbCritico.TabIndex = 7;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(204, 77);
+            this.label3.Location = new System.Drawing.Point(194, 48);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(38, 13);
-            this.label3.TabIndex = 27;
+            this.label3.TabIndex = 6;
             this.label3.Text = "Crítico";
             // 
             // cboEstado
@@ -388,8 +408,8 @@ namespace PhalanxAdmin
             "Todas"});
             this.cboEstado.Location = new System.Drawing.Point(67, 74);
             this.cboEstado.Name = "cboEstado";
-            this.cboEstado.Size = new System.Drawing.Size(98, 21);
-            this.cboEstado.TabIndex = 2;
+            this.cboEstado.Size = new System.Drawing.Size(115, 21);
+            this.cboEstado.TabIndex = 5;
             // 
             // label1
             // 
@@ -397,7 +417,7 @@ namespace PhalanxAdmin
             this.label1.Location = new System.Drawing.Point(11, 77);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 13);
-            this.label1.TabIndex = 19;
+            this.label1.TabIndex = 4;
             this.label1.Text = "Estado";
             // 
             // cbTipoBD
@@ -406,8 +426,8 @@ namespace PhalanxAdmin
             this.cbTipoBD.FormattingEnabled = true;
             this.cbTipoBD.Location = new System.Drawing.Point(67, 47);
             this.cbTipoBD.Name = "cbTipoBD";
-            this.cbTipoBD.Size = new System.Drawing.Size(143, 21);
-            this.cbTipoBD.TabIndex = 1;
+            this.cbTipoBD.Size = new System.Drawing.Size(115, 21);
+            this.cbTipoBD.TabIndex = 3;
             // 
             // label5
             // 
@@ -415,17 +435,17 @@ namespace PhalanxAdmin
             this.label5.Location = new System.Drawing.Point(11, 49);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(28, 13);
-            this.label5.TabIndex = 17;
+            this.label5.TabIndex = 2;
             this.label5.Text = "Tipo";
             // 
             // btnLimpiar
             // 
             this.btnLimpiar.BackColor = System.Drawing.SystemColors.Control;
             this.btnLimpiar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnLimpiar.Location = new System.Drawing.Point(388, 50);
+            this.btnLimpiar.Location = new System.Drawing.Point(567, 47);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(76, 21);
-            this.btnLimpiar.TabIndex = 5;
+            this.btnLimpiar.TabIndex = 15;
             this.btnLimpiar.Text = "&Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = false;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
@@ -433,10 +453,10 @@ namespace PhalanxAdmin
             // btnBuscar
             // 
             this.btnBuscar.BackColor = System.Drawing.SystemColors.Control;
-            this.btnBuscar.Location = new System.Drawing.Point(389, 22);
+            this.btnBuscar.Location = new System.Drawing.Point(568, 19);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(76, 21);
-            this.btnBuscar.TabIndex = 4;
+            this.btnBuscar.TabIndex = 14;
             this.btnBuscar.Text = "&Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
@@ -446,7 +466,7 @@ namespace PhalanxAdmin
             this.txtFilNombre.Location = new System.Drawing.Point(67, 20);
             this.txtFilNombre.Name = "txtFilNombre";
             this.txtFilNombre.Size = new System.Drawing.Size(304, 20);
-            this.txtFilNombre.TabIndex = 0;
+            this.txtFilNombre.TabIndex = 1;
             // 
             // label2
             // 
@@ -454,14 +474,89 @@ namespace PhalanxAdmin
             this.label2.Location = new System.Drawing.Point(11, 23);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 13);
-            this.label2.TabIndex = 3;
+            this.label2.TabIndex = 0;
             this.label2.Text = "Nombre";
+            // 
+            // cbAlertaVisual
+            // 
+            this.cbAlertaVisual.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbAlertaVisual.FormattingEnabled = true;
+            this.cbAlertaVisual.Items.AddRange(new object[] {
+            "Todos",
+            "Si",
+            "No"});
+            this.cbAlertaVisual.Location = new System.Drawing.Point(473, 74);
+            this.cbAlertaVisual.Name = "cbAlertaVisual";
+            this.cbAlertaVisual.Size = new System.Drawing.Size(79, 21);
+            this.cbAlertaVisual.TabIndex = 13;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(399, 77);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(68, 13);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "Alerta Visual.";
+            // 
+            // cbAlertaModif
+            // 
+            this.cbAlertaModif.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbAlertaModif.FormattingEnabled = true;
+            this.cbAlertaModif.Items.AddRange(new object[] {
+            "Todos",
+            "Si",
+            "No"});
+            this.cbAlertaModif.Location = new System.Drawing.Point(473, 47);
+            this.cbAlertaModif.Name = "cbAlertaModif";
+            this.cbAlertaModif.Size = new System.Drawing.Size(79, 21);
+            this.cbAlertaModif.TabIndex = 11;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(399, 50);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(66, 13);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "Alerta Modif.";
+            // 
+            // cbTipoCuenta
+            // 
+            this.cbTipoCuenta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTipoCuenta.FormattingEnabled = true;
+            this.cbTipoCuenta.Location = new System.Drawing.Point(265, 74);
+            this.cbTipoCuenta.Name = "cbTipoCuenta";
+            this.cbTipoCuenta.Size = new System.Drawing.Size(120, 21);
+            this.cbTipoCuenta.TabIndex = 9;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(194, 77);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(65, 13);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Tipo Cuenta";
+            // 
+            // columnHeader10
+            // 
+            this.columnHeader10.Text = "Tipo Cuenta";
+            this.columnHeader10.Width = 110;
+            // 
+            // columnHeader11
+            // 
+            this.columnHeader11.Text = "Alerta Visualiz.";
+            // 
+            // columnHeader12
+            // 
+            this.columnHeader12.Text = "Alerta Modif.";
             // 
             // FDBPwd
             // 
             this.AcceptButton = this.btnBuscar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(819, 520);
+            this.ClientSize = new System.Drawing.Size(907, 520);
             this.Controls.Add(this.statusbar);
             this.Controls.Add(this.pnlList);
             this.Controls.Add(this.pnlFilters);
@@ -518,5 +613,14 @@ namespace PhalanxAdmin
         private System.Windows.Forms.ComboBox cbCritico;
         protected System.Windows.Forms.Label label3;
         private System.Windows.Forms.ColumnHeader columnHeader9;
+        private System.Windows.Forms.ColumnHeader columnHeader10;
+        private System.Windows.Forms.ColumnHeader columnHeader11;
+        private System.Windows.Forms.ColumnHeader columnHeader12;
+        private System.Windows.Forms.ComboBox cbAlertaVisual;
+        protected System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox cbAlertaModif;
+        protected System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox cbTipoCuenta;
+        protected System.Windows.Forms.Label label4;
     }
 }

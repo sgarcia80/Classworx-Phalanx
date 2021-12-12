@@ -7,6 +7,7 @@ using NHibernate;
 using NHibernate.Criterion;
 using PhalanxCommon;
 using System.Collections;
+using Classworx.Common.Trace;
 
 namespace PhalanxDAL.Factories
 {
@@ -171,7 +172,7 @@ namespace PhalanxDAL.Factories
             set { _filFiltroNombreGeneral = value; }
         }
 
-        public ApplicationUserEntityCollection GetAllForRqst(PhxUserEntity PhxUserRqst)
+        public ApplicationUserEntityCollection GetAllForRqst(PhxUserEntity PhxUserRqst, bool approvepwd)
         {
             IList<ApplicationUserEntity> lstDBUs;
             ApplicationUserEntityCollection ApplicationUsrEC = new ApplicationUserEntityCollection();
@@ -180,22 +181,45 @@ namespace PhalanxDAL.Factories
                 ICriteria DataSearch = session.CreateCriteria(typeof(ApplicationUserEntity), "AppUser");
                 if (_filFiltroNombreGeneral != "")
                 {
-                    DataSearch.Add(Expression.Like("AppUser.Username", _filFiltroNombreGeneral, MatchMode.Anywhere));
+                    DataSearch = DataSearch.CreateCriteria("AppUser.Application", "App");
+
+                    //DataSearch.Add(Expression.Like("AppUser.Username", _filFiltroNombreGeneral, MatchMode.Anywhere));
+                    DataSearch.Add(Expression.Or(
+                        Expression.Like("AppUser.Username", _filFiltroNombreGeneral, MatchMode.Anywhere),
+                        Expression.Like("App.Name", _filFiltroNombreGeneral, MatchMode.Anywhere)
+                        ));
                 }
+
                 DataSearch = DataSearch.Add(Expression.Eq("AppUser.ActiveUser", true));
-                DataSearch = DataSearch.CreateCriteria("UserPassword", "USRPWD");
-                DataSearch = DataSearch.CreateCriteria("RqstGrpsPwdsList", "RQSTGRPSPWD");
-                DataSearch = DataSearch.CreateCriteria("RqstGrp", "RQSTGRP");
-                DataSearch.Add(Expression.Eq("RQSTGRP.Active", true));
-                DataSearch = DataSearch.CreateCriteria("PhxUsersGroupsList", "USRRQSTGRP");
-                DataSearch = DataSearch.Add(Expression.Eq("PhxUser", PhxUserRqst));
+                DataSearch = DataSearch.CreateCriteria("AppUser.UserPassword", "USRPWD");
+
+                if (approvepwd)
+                {
+                    //DataSearch = DataSearch.CreateCriteria("FollowupRqstGrpsPwdsList", "RQSTGRPSPWD");
+                    //DataSearch = DataSearch.CreateCriteria("FollowupRqstGrp", "RQSTGRP");
+                    //DataSearch.Add(Expression.Eq("RQSTGRP.Active", true));
+                    //DataSearch = DataSearch.CreateCriteria("FollowupGroupUsersList", "USRRQSTGRP");
+                }
+                else
+                {
+                    DataSearch = DataSearch.CreateCriteria("RqstGrpsPwdsList", "RQSTGRPSPWD");
+                    DataSearch = DataSearch.CreateCriteria("RqstGrp", "RQSTGRP");
+                    DataSearch.Add(Expression.Eq("RQSTGRP.Active", true));
+                    DataSearch = DataSearch.CreateCriteria("PhxUsersGroupsList", "USRRQSTGRP");
+
+                    //Solo se busca por usuario si no tiene permisos en PHX Admin / Contraseñas
+                    DataSearch = DataSearch.Add(Expression.Eq("PhxUser", PhxUserRqst));
+                }
+
                 if (_orderName)
                 {
-                    DataSearch.CreateCriteria("AppUser.Application", "App");
+                    //DataSearch.CreateCriteria("AppUser.Application", "App");
                     DataSearch = DataSearch.AddOrder(Order.Asc("App.Name"));
                     DataSearch = DataSearch.AddOrder(Order.Asc("AppUser.Username"));
-
                 }
+
+                DataSearch.SetResultTransformer(new NHibernate.Transform.DistinctRootEntityResultTransformer());
+
                 //DataSearch.AddOrder(Order.Asc("WLU.Username"));
                 lstDBUs = DataSearch.List<ApplicationUserEntity>();
                 ApplicationUsrEC.AddUnique(lstDBUs);
@@ -232,7 +256,7 @@ namespace PhalanxDAL.Factories
             }
         }
 
-        public ApplicationUserEntity GetAppPwdForRqst(PhxUserEntity PhxUserRqst, int AppUserID)
+        public ApplicationUserEntity GetAppPwdForRqst(PhxUserEntity PhxUserRqst, int AppUserID, bool approvepwd)
         {
             ApplicationUserEntity AppUsrE = null;
             //AppUsrE.UserPassword.
@@ -244,10 +268,21 @@ namespace PhalanxDAL.Factories
                 DataSearch = DataSearch.Add(Expression.Eq("AppUser.Id", AppUserID));
                 DataSearch = DataSearch.Add(Expression.Eq("AppUser.ActiveUser", true));
                 DataSearch = DataSearch.CreateCriteria("UserPassword", "USRPWD");
-                DataSearch = DataSearch.CreateCriteria("RqstGrpsPwdsList", "RQSTGRPSPWD");
-                DataSearch = DataSearch.CreateCriteria("RqstGrp", "RQSTGRP");
-                DataSearch = DataSearch.CreateCriteria("PhxUsersGroupsList", "USRRQSTGRP");
-                DataSearch = DataSearch.Add(Expression.Eq("PhxUser", PhxUserRqst));
+
+                if (approvepwd)
+                {
+                    //DataSearch = DataSearch.CreateCriteria("FollowupRqstGrpsPwdsList", "RQSTGRPSPWD");
+                    //DataSearch = DataSearch.CreateCriteria("FollowupRqstGrp", "RQSTGRP");
+                    //DataSearch = DataSearch.CreateCriteria("FollowupGroupUsersList", "USRRQSTGRP");
+                }
+                else
+                {
+                    DataSearch = DataSearch.CreateCriteria("RqstGrpsPwdsList", "RQSTGRPSPWD");
+                    DataSearch = DataSearch.CreateCriteria("RqstGrp", "RQSTGRP");
+                    DataSearch = DataSearch.CreateCriteria("PhxUsersGroupsList", "USRRQSTGRP");
+
+                    DataSearch = DataSearch.Add(Expression.Eq("PhxUser", PhxUserRqst));
+                }
                 // agregar que esté activo y no esté en uso!!!!!
                 try
                 {
@@ -389,6 +424,7 @@ namespace PhalanxDAL.Factories
             }
             catch (Exception ex)
             {
+                TraceHelper.Error(ex, "Error al actualizar la contrasena");
                 tx.Rollback();
                 throw (new CwxException(ex.Message, "ApplicationUserFactory.Save"));
                 //return 0;
@@ -507,7 +543,7 @@ namespace PhalanxDAL.Factories
             }
         }
 
-        public IList GetAll(bool? critico, bool? estadoUsuario, string nombre, int expiracion)
+        public IList GetAll(bool? critico, bool? estadoUsuario, string nombre, int expiracion, int tipoCuenta)
         {
             using (ISession session = DBMgr.factory.OpenSession())
             {
@@ -537,6 +573,10 @@ namespace PhalanxDAL.Factories
                 query.SetString("nombre", nombre != null ? "%" + nombre.ToUpper() + "%" : null);
                 query.SetParameter("critico", criticoParam);
                 query.SetInt32("estadoUsuario", estadoUsuarioParam);
+
+                query.SetInt32("tipocuenta", tipoCuenta);
+                //query.SetParameter("alertam", alertaModif.HasValue ? Convert.ToInt32(alertaModif.Value) : -1);
+                //query.SetParameter("alertav", alertaVisual.HasValue ? Convert.ToInt32(alertaVisual.Value) : -1);
 
                 return query.List();
             }

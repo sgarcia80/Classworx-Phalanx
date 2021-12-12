@@ -19,6 +19,7 @@
                 <asp:Label ID="Label7" runat="server" CssClass="LabelNormal">Búsqueda</asp:Label>
                 <asp:TextBox ID="txtFiltro" runat="server" CssClass="labelCombo" Width="196px"></asp:TextBox>&nbsp;<asp:Button
                     ID="btnSearch" runat="server" CssClass="boton" Text="Buscar" OnClick="btnSearch_Click" /></td>
+        <td></td>
         </tr>
         <tr>
             <td valign="bottom" width="50%" bgcolor="powderblue" height="5"></td>
@@ -34,27 +35,30 @@
                                     DataSourceID="odsWinPWD" ForeColor="#333333" GridLines="None" EmptyDataText="No tiene contraseñas disponibles para Visualizar" Font-Bold="False" OnRowDataBound="gvPassword_RowDataBound">
                                     <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                                     <Columns>
-                                        <asp:TemplateField>
+                                        <asp:TemplateField ItemStyle-Width="25px" HeaderStyle-Width="25px">
                                             <ItemTemplate>
                                                 <asp:Image runat="server" ID="imgTemp" /></ItemTemplate>
                                         </asp:TemplateField>
+                                        <asp:HyperLinkField Text="VER" DataNavigateUrlFields="Id" DataNavigateUrlFormatString="~/reqpwddetail.aspx?wpid={0}">
+                                            <HeaderStyle Width="70px" HorizontalAlign="Center" />
+                                            <ItemStyle Width="70px" HorizontalAlign="Center" />
+                                        </asp:HyperLinkField>
                                         <asp:BoundField DataField="Domain" HeaderText="Dominio" SortExpression="Dominio">
-                                            <HeaderStyle HorizontalAlign="Left" />
+                                            <HeaderStyle Width="120px" HorizontalAlign="Left" />
+                                            <ItemStyle Width="120px" Wrap="false" />
                                         </asp:BoundField>
                                         <asp:BoundField DataField="PCName" HeaderText="Servidor" SortExpression="PCName">
-                                            <HeaderStyle HorizontalAlign="Left" />
+                                            <HeaderStyle Width="150px" HorizontalAlign="Left" />
+                                            <ItemStyle Width="150px" Wrap="true" />
                                         </asp:BoundField>
                                         <asp:BoundField DataField="Username" HeaderText="Usuario" SortExpression="Username">
-                                            <HeaderStyle HorizontalAlign="Left" />
+                                            <HeaderStyle Width="150px" HorizontalAlign="Left" />
+                                            <ItemStyle Width="150px" Wrap="true" />
                                         </asp:BoundField>
                                         <asp:BoundField DataField="Desc" HeaderText="Descripci&#243;n" SortExpression="Desc">
-                                            <ItemStyle Width="150px" />
+                                            <ItemStyle Wrap="true"/>
                                             <HeaderStyle HorizontalAlign="Left" />
                                         </asp:BoundField>
-                                        <asp:HyperLinkField Text="Ver" DataNavigateUrlFields="Id" DataNavigateUrlFormatString="~/reqpwddetail.aspx?wpid={0}">
-                                            <ItemStyle HorizontalAlign="Right" />
-                                            <HeaderStyle HorizontalAlign="Right" />
-                                        </asp:HyperLinkField>
                                     </Columns>
                                     <RowStyle BackColor="#EFF3FB" Font-Bold="True" Font-Names="Tahoma" Font-Size="11px" />
                                     <EditRowStyle BackColor="#2461BF" />
@@ -82,29 +86,34 @@
                                     DataSourceID="odsDBPwd" ForeColor="#333333" GridLines="None" EmptyDataText="No tiene contraseñas disponibles para Visualizar" Font-Bold="False" OnRowDataBound="gvPassword_RowDataBound">
                                     <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                                     <Columns>
-                                        <asp:TemplateField>
+                                        <asp:TemplateField ItemStyle-Width="25px" HeaderStyle-Width="25px">
                                             <ItemTemplate>
                                                 <asp:Image runat="server" ID="imgTemp" /></ItemTemplate>
                                         </asp:TemplateField>
+                                        <asp:HyperLinkField Text="VER" DataNavigateUrlFields="Id" DataNavigateUrlFormatString="~/reqpwddetail.aspx?wpid={0}">
+                                            <HeaderStyle Width="70px" HorizontalAlign="Center" />
+                                            <ItemStyle Width="70px" HorizontalAlign="Center" />
+                                        </asp:HyperLinkField>
                                         <asp:BoundField DataField="Db" HeaderText="Base de Datos">
-                                            <HeaderStyle Wrap="False" HorizontalAlign="Left" />
+                                            <HeaderStyle Width="130px" Wrap="False" HorizontalAlign="Left" />
+                                            <ItemStyle Width="130px" Wrap="true" />
                                         </asp:BoundField>
                                         <asp:BoundField HeaderText="Tipo">
-                                            <HeaderStyle HorizontalAlign="Left" />
+                                            <HeaderStyle Width="100px" HorizontalAlign="Left" />
+                                            <ItemStyle Width="100px" Wrap="false" />
                                         </asp:BoundField>
                                         <asp:BoundField HeaderText="Servidor">
-                                            <HeaderStyle HorizontalAlign="Left" />
+                                            <HeaderStyle Width="150px" HorizontalAlign="Left" />
+                                            <ItemStyle Width="150px" Wrap="true" />
                                         </asp:BoundField>
                                         <asp:BoundField DataField="UserName" HeaderText="Usuario">
-                                            <HeaderStyle HorizontalAlign="Left" />
+                                            <HeaderStyle Width="120px" HorizontalAlign="Left" />
+                                            <ItemStyle Width="120px" Wrap="true" />
                                         </asp:BoundField>
                                         <asp:BoundField DataField="Desc" HeaderText="Descripci&#243;n">
                                             <HeaderStyle HorizontalAlign="Left" />
+                                            <ItemStyle Wrap="true" />
                                         </asp:BoundField>
-                                        <asp:HyperLinkField Text="Ver" DataNavigateUrlFields="Id" DataNavigateUrlFormatString="~/reqpwddetail.aspx?wpid={0}">
-                                            <ItemStyle HorizontalAlign="Right" />
-                                            <HeaderStyle HorizontalAlign="Right" />
-                                        </asp:HyperLinkField>
                                     </Columns>
                                     <RowStyle BackColor="#EFF3FB" Font-Bold="True" Font-Names="Tahoma" Font-Size="11px" />
                                     <EditRowStyle BackColor="#2461BF" />
@@ -129,31 +138,31 @@
                         <tr>
                             <td>
                                 <asp:GridView ID="gvAppPwd" runat="server" AutoGenerateColumns="False" CellPadding="4" Width="100%"
-                                    DataSourceID="odsAppPwd" ForeColor="#333333" GridLines="None" EmptyDataText="No tiene contraseñas disponibles para Visualizar" Font-Bold="False" OnRowDataBound="gvPassword_RowDataBound">
+                                    DataSourceID="odsAppPwd" ForeColor="#333333" GridLines="None" ShowFooter="true"
+                                    EmptyDataText="No tiene contraseñas disponibles para Visualizar" Font-Bold="False" 
+                                    OnRowDataBound="gvPassword_RowDataBound">
                                     <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                                     <Columns>
-                                        <asp:TemplateField>
+                                        <asp:TemplateField ItemStyle-Width="25px" HeaderStyle-Width="25px">
                                             <ItemTemplate>
                                                 <asp:Image runat="server" ID="imgTemp" /></ItemTemplate>
                                         </asp:TemplateField>
+                                        <asp:HyperLinkField Text="VER" DataNavigateUrlFields="Id" DataNavigateUrlFormatString="~/reqpwddetail.aspx?wpid={0}">
+                                            <HeaderStyle Width="70px" HorizontalAlign="Center" />
+                                            <ItemStyle Width="70px" HorizontalAlign="Center" />
+                                        </asp:HyperLinkField>
                                         <asp:BoundField DataField="Application" HeaderText="Aplicaci&#243;n" SortExpression="Application">
-                                            <ItemStyle Wrap="False" />
-                                            <HeaderStyle HorizontalAlign="Left" />
+                                            <HeaderStyle Width="150px" HorizontalAlign="Left" />
+                                            <ItemStyle Width="150px" Wrap="true" />
                                         </asp:BoundField>
                                         <asp:BoundField DataField="Username" HeaderText="Usuario" SortExpression="Username">
-                                            <ItemStyle Wrap="False" />
-                                            <HeaderStyle HorizontalAlign="Left" />
+                                            <HeaderStyle Width="150px" HorizontalAlign="Left" />
+                                            <ItemStyle Width="150px" Wrap="true" />
                                         </asp:BoundField>
                                         <asp:BoundField DataField="Desc" HeaderText="Descripci&#243;n" SortExpression="Desc">
                                             <HeaderStyle HorizontalAlign="Left" />
+                                            <ItemStyle Wrap="true" />
                                         </asp:BoundField>
-                                        <asp:BoundField HeaderText="Informaci&#243;n Adicional" Visible="false">
-                                            <HeaderStyle Wrap="True" HorizontalAlign="Left" />
-                                        </asp:BoundField>
-                                        <asp:HyperLinkField Text="Ver" DataNavigateUrlFields="Id" DataNavigateUrlFormatString="~/reqpwddetail.aspx?wpid={0}">
-                                            <ItemStyle HorizontalAlign="Right" />
-                                            <HeaderStyle HorizontalAlign="Right" />
-                                        </asp:HyperLinkField>
                                     </Columns>
                                     <RowStyle BackColor="#EFF3FB" Font-Bold="True" Font-Names="Tahoma" Font-Size="11px" />
                                     <EditRowStyle BackColor="#2461BF" />
@@ -181,29 +190,30 @@
                                     DataSourceID="odsUnixPwd" ForeColor="#333333" GridLines="None" EmptyDataText="No tiene contraseñas disponibles para Visualizar" Font-Bold="False" OnRowDataBound="gvPassword_RowDataBound">
                                     <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                                     <Columns>
-                                        <asp:TemplateField>
+                                        <asp:TemplateField ItemStyle-Width="25px" HeaderStyle-Width="25px">
                                             <ItemTemplate>
                                                 <asp:Image runat="server" ID="imgTemp" /></ItemTemplate>
                                         </asp:TemplateField>
+                                        <asp:HyperLinkField Text="VER" DataNavigateUrlFields="Id" DataNavigateUrlFormatString="~/reqpwddetail.aspx?wpid={0}">
+                                            <HeaderStyle Width="70px" HorizontalAlign="Center" />
+                                            <ItemStyle Width="70px" HorizontalAlign="Center" />
+                                        </asp:HyperLinkField>
                                         <asp:BoundField DataField="Unix" HeaderText="Servidor" SortExpression="Unix">
-                                            <HeaderStyle HorizontalAlign="Left" />
+                                            <HeaderStyle Width="150px" HorizontalAlign="Left" />
+                                            <ItemStyle Width="150px" Wrap="false" />
                                         </asp:BoundField>
                                         <asp:BoundField HeaderText="Direcci&#243;n IP">
-                                            <ItemStyle Wrap="False" />
-                                            <HeaderStyle Wrap="False" HorizontalAlign="Left" />
+                                            <HeaderStyle Width="120px" HorizontalAlign="Left" />
+                                            <ItemStyle Width="120px" Wrap="false" />
                                         </asp:BoundField>
                                         <asp:BoundField DataField="Username" HeaderText="Usuario" SortExpression="Username">
-                                            <HeaderStyle HorizontalAlign="Left" />
+                                            <HeaderStyle Width="150px" HorizontalAlign="Left" />
+                                            <ItemStyle Width="150px" Wrap="false" />
                                         </asp:BoundField>
                                         <asp:BoundField DataField="Desc" HeaderText="Descripci&#243;n" SortExpression="Desc">
-                                            <ItemStyle Wrap="False" />
+                                            <ItemStyle Wrap="true" />
                                             <HeaderStyle HorizontalAlign="Left" />
                                         </asp:BoundField>
-                                        <asp:HyperLinkField DataNavigateUrlFields="Id" DataNavigateUrlFormatString="~/reqpwddetail.aspx?wpid={0}"
-                                            Text="Ver">
-                                            <ItemStyle HorizontalAlign="Right" />
-                                            <HeaderStyle HorizontalAlign="Right" />
-                                        </asp:HyperLinkField>
                                     </Columns>
                                     <RowStyle BackColor="#EFF3FB" Font-Bold="True" Font-Names="Tahoma" Font-Size="11px" />
                                     <EditRowStyle BackColor="#2461BF" />
@@ -231,29 +241,30 @@
                                     DataSourceID="odsAS400Pwd" ForeColor="#333333" GridLines="None" EmptyDataText="No tiene contraseñas disponibles para Visualizar" Font-Bold="False" OnRowDataBound="gvPassword_RowDataBound">
                                     <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                                     <Columns>
-                                        <asp:TemplateField>
+                                        <asp:TemplateField ItemStyle-Width="25px" HeaderStyle-Width="25px">
                                             <ItemTemplate>
                                                 <asp:Image runat="server" ID="imgTemp" /></ItemTemplate>
                                         </asp:TemplateField>
+                                        <asp:HyperLinkField Text="VER" DataNavigateUrlFields="Id" DataNavigateUrlFormatString="~/reqpwddetail.aspx?wpid={0}">
+                                            <HeaderStyle Width="70px" HorizontalAlign="Center" />
+                                            <ItemStyle Width="70px" HorizontalAlign="Center" />
+                                        </asp:HyperLinkField>
                                         <asp:BoundField DataField="AS400" HeaderText="Servidor" SortExpression="AS400">
-                                            <HeaderStyle HorizontalAlign="Left" />
+                                            <HeaderStyle Width="120px" HorizontalAlign="Left" />
+                                            <ItemStyle Width="120px" Wrap="false" />
                                         </asp:BoundField>
                                         <asp:BoundField HeaderText="Direcci&#243;n IP">
-                                            <ItemStyle Wrap="False" />
-                                            <HeaderStyle Wrap="False" HorizontalAlign="Left" />
+                                            <HeaderStyle Width="120px" HorizontalAlign="Left" />
+                                            <ItemStyle Width="120px" Wrap="false" />
                                         </asp:BoundField>
                                         <asp:BoundField DataField="Username" HeaderText="Usuario" SortExpression="Username">
-                                            <HeaderStyle HorizontalAlign="Left" />
+                                            <HeaderStyle Width="120px" HorizontalAlign="Left" />
+                                            <ItemStyle Width="120px" Wrap="false" />
                                         </asp:BoundField>
                                         <asp:BoundField DataField="Desc" HeaderText="Descripci&#243;n" SortExpression="Desc">
-                                            <ItemStyle Wrap="False" />
                                             <HeaderStyle HorizontalAlign="Left" />
+                                            <ItemStyle Wrap="true" />
                                         </asp:BoundField>
-                                        <asp:HyperLinkField DataNavigateUrlFields="Id" DataNavigateUrlFormatString="~/reqpwddetail.aspx?wpid={0}"
-                                            Text="Ver">
-                                            <ItemStyle HorizontalAlign="Right" />
-                                            <HeaderStyle HorizontalAlign="Right" />
-                                        </asp:HyperLinkField>
                                     </Columns>
                                     <RowStyle BackColor="#EFF3FB" Font-Bold="True" Font-Names="Tahoma" Font-Size="11px" />
                                     <EditRowStyle BackColor="#2461BF" />
@@ -281,29 +292,34 @@
                                     DataSourceID="odsCDPwd" ForeColor="#333333" GridLines="None" EmptyDataText="No tiene contraseñas disponibles para Visualizar" Font-Bold="False" OnRowDataBound="gvPassword_RowDataBound">
                                     <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                                     <Columns>
-                                        <asp:TemplateField>
+                                        <asp:TemplateField ItemStyle-Width="25px" HeaderStyle-Width="25px">
                                             <ItemTemplate>
                                                 <asp:Image runat="server" ID="imgTemp" /></ItemTemplate>
                                         </asp:TemplateField>
+                                        <asp:HyperLinkField Text="VER" DataNavigateUrlFields="Id" DataNavigateUrlFormatString="~/reqpwddetail.aspx?wpid={0}">
+                                            <HeaderStyle Width="70px" HorizontalAlign="Center" />
+                                            <ItemStyle Width="70px" HorizontalAlign="Center" />
+                                        </asp:HyperLinkField>
                                         <asp:BoundField DataField="CommunicationDeviceName" HeaderText="Nombre equipo">
-                                            <HeaderStyle Wrap="False" HorizontalAlign="Left" />
+                                            <HeaderStyle Width="200px" HorizontalAlign="Left" />
+                                            <ItemStyle Width="200px" Wrap="true" />
                                         </asp:BoundField>
                                         <asp:BoundField DataField="CommunicationDeviceType" HeaderText="Tipo">
-                                            <HeaderStyle HorizontalAlign="Left" />
+                                            <HeaderStyle Width="100px" HorizontalAlign="Left" />
+                                            <ItemStyle Width="100px" Wrap="false" />
                                         </asp:BoundField>
                                         <asp:BoundField HeaderText="Direcci&#243;n IP">
-                                            <HeaderStyle HorizontalAlign="Left" />
+                                            <HeaderStyle Width="120px" HorizontalAlign="Left" />
+                                            <ItemStyle Width="120px" Wrap="false" />
                                         </asp:BoundField>
                                         <asp:BoundField DataField="UserName" HeaderText="Usuario">
-                                            <HeaderStyle HorizontalAlign="Left" />
+                                            <HeaderStyle Width="120px" HorizontalAlign="Left" />
+                                            <ItemStyle Width="120px" Wrap="false" />
                                         </asp:BoundField>
                                         <asp:BoundField DataField="Desc" HeaderText="Descripci&#243;n">
                                             <HeaderStyle HorizontalAlign="Left" />
+                                            <ItemStyle Wrap="true" />
                                         </asp:BoundField>
-                                        <asp:HyperLinkField Text="Ver" DataNavigateUrlFields="Id" DataNavigateUrlFormatString="~/reqpwddetail.aspx?wpid={0}">
-                                            <ItemStyle HorizontalAlign="Right" />
-                                            <HeaderStyle HorizontalAlign="Right" />
-                                        </asp:HyperLinkField>
                                     </Columns>
                                     <RowStyle BackColor="#EFF3FB" Font-Bold="True" Font-Names="Tahoma" Font-Size="11px" />
                                     <EditRowStyle BackColor="#2461BF" />
@@ -331,23 +347,26 @@
                                     DataSourceID="odsATMPwd" ForeColor="#333333" GridLines="None" EmptyDataText="No tiene contraseñas disponibles para Visualizar" Font-Bold="False" OnRowDataBound="gvPassword_RowDataBound">
                                     <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                                     <Columns>
-                                        <asp:TemplateField>
+                                        <asp:TemplateField ItemStyle-Width="25px" HeaderStyle-Width="25px">
                                             <ItemTemplate>
                                                 <asp:Image runat="server" ID="imgTemp" /></ItemTemplate>
                                         </asp:TemplateField>
+                                        <asp:HyperLinkField Text="VER" DataNavigateUrlFields="Id" DataNavigateUrlFormatString="~/reqpwddetail.aspx?wpid={0}">
+                                            <HeaderStyle Width="70px" HorizontalAlign="Center" />
+                                            <ItemStyle Width="70px" HorizontalAlign="Center" />
+                                        </asp:HyperLinkField>
                                         <asp:BoundField DataField="ATMName" HeaderText="Nombre ATM">
-                                            <HeaderStyle Wrap="False" HorizontalAlign="Left" />
+                                            <HeaderStyle Width="120px" HorizontalAlign="Left" />
+                                            <ItemStyle Width="120px" Wrap="false" />
                                         </asp:BoundField>
                                         <asp:BoundField DataField="UserName" HeaderText="Usuario">
-                                            <HeaderStyle HorizontalAlign="Left" />
+                                            <HeaderStyle Width="150px" HorizontalAlign="Left" />
+                                            <ItemStyle Width="150px" Wrap="false" />
                                         </asp:BoundField>
                                         <asp:BoundField DataField="Desc" HeaderText="Descripci&#243;n">
                                             <HeaderStyle HorizontalAlign="Left" />
+                                            <ItemStyle Wrap="true" />
                                         </asp:BoundField>
-                                        <asp:HyperLinkField Text="Ver" DataNavigateUrlFields="Id" DataNavigateUrlFormatString="~/reqpwddetail.aspx?wpid={0}">
-                                            <ItemStyle HorizontalAlign="Right" />
-                                            <HeaderStyle HorizontalAlign="Right" />
-                                        </asp:HyperLinkField>
                                     </Columns>
                                     <RowStyle BackColor="#EFF3FB" Font-Bold="True" Font-Names="Tahoma" Font-Size="11px" />
                                     <EditRowStyle BackColor="#2461BF" />

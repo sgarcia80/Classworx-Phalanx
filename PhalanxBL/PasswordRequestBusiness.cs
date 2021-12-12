@@ -119,6 +119,86 @@ namespace PhalanxBL
             return new PasswordsRequestsFactory().GetRequestsToAuthByAuth(Auth);
         }
 
+        public bool CheckAutoApproval(PhxUserEntity Auth, PasswordRequestEntity PwdRqst)
+        {
+            bool auto = false;
+
+            PhxUserBusiness PhxUsrBL = new PhxUserBusiness();
+
+            bool phxadmin = PhxUsrBL.AccPwdAll(Auth);
+
+            if (phxadmin)
+            {
+                //Se busca el Request y si el usuario solicitante esta dentro de algun Grupo de Seguimiento asociado
+                var requests = new PasswordsRequestsFactory().GetRequestsToAuthByAutomatic(Auth, PwdRqst);
+
+                if (requests != null && requests.Count > 0)
+                {
+                    if (requests[0].UserPassword.FollowupRqstGrpsPwdsList != null)
+                    {
+                        var groups = (from followupgroup in requests[0].UserPassword.FollowupRqstGrpsPwdsList.ToList()
+                                      where followupgroup.FollowupRqstGrp.AutoApproval
+                                      select followupgroup.FollowupRqstGrp);
+
+                        foreach (FollowupRequestGroupEntity group in groups)
+                        {
+                            if (group.AutoApproval && group.Approver != null)
+                            {
+                                auto = group.AutoApproval;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return auto;
+        }
+
+        public bool AutomaticApproval(PhxUserEntity Auth, PasswordRequestEntity PwdRqst)
+        {
+            bool approved = false;
+            bool auto = false;
+            PhxUserEntity approverUser = null;
+
+            PhxUserBusiness PhxUsrBL = new PhxUserBusiness();
+
+            bool phxadmin = PhxUsrBL.AccPwdAll(Auth);
+
+            if (phxadmin)
+            {
+                //Se busca el Request y si el usuario solicitante esta dentro de algun Grupo de Seguimiento asociado
+                var requests = new PasswordsRequestsFactory().GetRequestsToAuthByAutomatic(Auth, PwdRqst);
+
+                if (requests != null && requests.Count == 1)
+                {
+                    if (requests[0].UserPassword.FollowupRqstGrpsPwdsList != null)
+                    {
+                        var groups = (from followupgroup in requests[0].UserPassword.FollowupRqstGrpsPwdsList.ToList()
+                                      where followupgroup.FollowupRqstGrp.AutoApproval
+                                      select followupgroup.FollowupRqstGrp);
+
+                        foreach (FollowupRequestGroupEntity group in groups)
+                        {
+                            if (group.AutoApproval && group.Approver != null)
+                            {
+                                auto = group.AutoApproval;
+                                approverUser = group.Approver;
+                                break;
+                            }
+                        }
+
+                        if (auto && approverUser != null)
+                        {
+                            approved = this.AcceptWinPwdRqst(PwdRqst, approverUser, "Aprobado por GSI", PwdRqst.HoursRequested.ToString(), PwdRqst.UnitRequested);
+                        }
+                    }
+                }
+            }
+
+            return approved;
+        }
+
         public bool AcceptWinPwdRqst(PasswordRequestEntity WinPwdRqst, PhxUserEntity Autorizador,
             string ObsAuth, string TimeGiven, string UnitGiven)
         {
@@ -217,11 +297,15 @@ namespace PhalanxBL
         /// <param name="note">Nota relativa al cierre</param>
         /// <param name="DisableUser">Bool que indica si se debe desactivar el usuario</param>
         /// <returns>Devolverá un 0 si el cierre se efectuó exitosamente, sino devolverá otro valor</returns>
-        public uint CloseRequestPwd(PasswordRequestEntity pwdRequest, string note, int authUserId, bool disableUser)
+        public uint CloseRequestPwdAutomatic(PasswordRequestEntity pwdRequest, string note, int authUserId, bool disableUser)
         {
-            return new PasswordsRequestsFactory().CloseRequestPwd(pwdRequest.Id, 11, note, authUserId, disableUser);
+            return new PasswordsRequestsFactory().CloseRequestPwd(pwdRequest.Id, 11, note, authUserId, disableUser, true);
         }
 
+        public uint CloseRequestPwd(PasswordRequestEntity pwdRequest, string note, int authUserId, bool disableUser)
+        {
+            return new PasswordsRequestsFactory().CloseRequestPwd(pwdRequest.Id, 11, note, authUserId, disableUser, false);
+        }
 
 
         /// <summary>

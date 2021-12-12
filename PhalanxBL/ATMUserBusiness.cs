@@ -132,19 +132,29 @@ namespace PhalanxBL
 
         public ATMUserEntityCollection GetAllForRqst(PhxUserEntity PhxUserRqst, string Filtro)
         {
+            PhxUserBusiness PhxUsrBL = new PhxUserBusiness();
+
+            bool approvepwd = PhxUsrBL.AccPwdATM(PhxUserRqst);
+
             m_ATMUserFactory.OrderByName = true;
             m_ATMUserFactory.FilFiltroNombreGeneral = Filtro;
-            return m_ATMUserFactory.GetAllForRqst(PhxUserRqst);
+            return m_ATMUserFactory.GetAllForRqst(PhxUserRqst, approvepwd);
         }
         public ATMUserEntityCollection GetAllForRqst(PhxUserEntity PhxUserRqst)
         {
+            PhxUserBusiness PhxUsrBL = new PhxUserBusiness();
+
+            bool approvepwd = PhxUsrBL.ChkAuthPwdRequest(PhxUserRqst);
+
             m_ATMUserFactory.OrderByName = true;
-            return m_ATMUserFactory.GetAllForRqst(PhxUserRqst);
+            return m_ATMUserFactory.GetAllForRqst(PhxUserRqst, approvepwd);
         }
 
         public ATMUserEntity GetATMPwdForRqst(PhxUserEntity PhxUserRqst, int AppUserID)
         {
-            return m_ATMUserFactory.GetAppPwdForRqst(PhxUserRqst, AppUserID);
+            bool approvepwd = new PhxUserBusiness().AccPwdUnix(PhxUserRqst);
+
+            return m_ATMUserFactory.GetAppPwdForRqst(PhxUserRqst, AppUserID, approvepwd);
         }
 
         public string GetPassword(ATMUserEntity user)
@@ -198,9 +208,9 @@ namespace PhalanxBL
             m_ATMUserFactory.SetPwdState(Users, Active);
         }
 
-		public IList GetAll(bool? critico, bool? estadoUsuario, string nombre)
+		public IList GetAll(bool? critico, bool? estadoUsuario, string nombre, int tipoCuenta)
 		{
-            return m_ATMUserFactory.GetAll(critico, estadoUsuario, nombre);
+            return m_ATMUserFactory.GetAll(critico, estadoUsuario, nombre, tipoCuenta);
 		}
 
         public ATMUserEntity Load(int ID)

@@ -44,6 +44,8 @@ namespace PhalanxAdmin
 
             m_FormType = formType;
             lvLista.ListViewItemSorter = new cwxSorter(0, SortOrder.Descending);
+
+            lvListaSolicitudes.ListViewItemSorter = new cwxSorter(0, SortOrder.Descending);
         }
 
 
@@ -100,10 +102,25 @@ namespace PhalanxAdmin
             _entity = ATMUsr;
             _readOnly = ReadOnly;
         }
+        
+        private void CargaUserSubTypes()
+        {
+            UserSubTypeBusiness UserSubTypeBL = new UserSubTypeBusiness();
 
+            cbTipoCuenta.DisplayMember = "Desc";
+            cbTipoCuenta.ValueMember = "Id";
+
+            cbTipoCuenta.Items.Clear();
+            cbTipoCuenta.DataSource = UserSubTypeBL.FillSelect();
+        }
 
         public void ConfigureScreen()
         {
+            PhxUserBusiness phxUser = new PhxUserBusiness();
+            this.chkVisualizar.Visible = phxUser.AccParamConfigViewPassword(this.Usuario);
+            this.btnCopy.Visible = this.chkVisualizar.Visible;
+            this.btnCopyHist.Visible = this.btnCopy.Visible;
+
             switch (m_FormType)
             {
                 case FormType.New:
@@ -152,6 +169,8 @@ namespace PhalanxAdmin
 
         private void FABMATMPwd_Load(object sender, EventArgs e)
         {
+            CargaUserSubTypes();
+
             if (m_FormType == FormType.New)
             {
                 /// chequear si está realizada la parametrización del grupo de seguimiento por defecto
@@ -237,9 +256,14 @@ namespace PhalanxAdmin
                 chkPwdConcurrente.Enabled = !_readOnly;
                 chkUsuarioCritico.Checked = _entity.Critical;
                 chkUsuarioCritico.Enabled = !_readOnly;
-
-
+                
                 lblFolioNro.Text = _entity.Key;
+                
+
+                if (_entity.UserSubType != null)
+                {
+                    cbTipoCuenta.SelectedItem = _entity.UserSubType;
+                }
 
                 if (_readOnly)
                 {
@@ -258,6 +282,8 @@ namespace PhalanxAdmin
                     {
                         cbGSRegion.Text = _GruposSolic[0].RqstGrpName;
                     }
+
+                    cbTipoCuenta.Enabled = false;
                 }
                 else
                 {
@@ -412,6 +438,15 @@ namespace PhalanxAdmin
             _entity.Critical = chkUsuarioCritico.Checked;
             _entity.UserPassword.Concurrent = chkPwdConcurrente.Checked;
 
+            if (cbTipoCuenta.SelectedIndex > 0)
+            {
+                _entity.UserSubType = cbTipoCuenta.SelectedItem as UserSubTypeEntity;
+            }
+            else
+            {
+                _entity.UserSubType = null;
+            }
+
             // grabar
 
             int Id = ATMUsrBL.Save(_entity, chkChgPwd.Checked, (int)cbGSRegion.SelectedValue, _GruposSeguimientoSolic);
@@ -435,15 +470,31 @@ namespace PhalanxAdmin
             {
                 tPassword1.Enabled = true;
                 tPassword2.Enabled = true;
+
+                if (!chkVisualizar.Visible)
+                {
+                    tPassword1.Text = string.Empty;
+                    tPassword2.Text = string.Empty;
+
+                    tPassword1.PasswordChar = new char();
+                    tPassword2.PasswordChar = new char();
+                }
+
                 this.chkVisualizar.Enabled = true;
             }
             else
             {
+                tPassword1.PasswordChar = '*';
+                tPassword2.PasswordChar = '*';
+
+                string strPwd = ATMUsrBL.DecryptPassword(_entity.UserPassword.Password);
+                tPassword1.Text = strPwd;
+                tPassword2.Text = strPwd;
+
                 tPassword1.Enabled = false;
                 tPassword2.Enabled = false;
                 this.chkVisualizar.Enabled = false;
             }
-
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -986,6 +1037,9 @@ namespace PhalanxAdmin
                 if (((ListView)sender).SelectedItems[0].SubItems[2].Text != cAsterisk)
                     return;
 
+                if (!btnCopyHist.Visible)
+                    return;
+
                 int Id = LoguearVisualizacion(((vwHistPwdChgEntity)((ListView)sender).SelectedItems[0].Tag).Id);
 
                 if (Id > 0)
@@ -1010,15 +1064,27 @@ namespace PhalanxAdmin
 
         private int LoguearVisualizacion(int id)
         {
-            if (id == 0)
+
+            vwHistPwdChgEntity histpwdchange = null;
+            if (this._entities != null && this._entities.Count > 0)
             {
-                if (this._entities != null && this._entities.Count > 0)
+                foreach (vwHistPwdChgEntity entity in this._entities)
                 {
-                    //Se obtiene el ultimo historial
-                    foreach (vwHistPwdChgEntity entity in this._entities)
+                    if (id == 0)
                     {
+                        //Se obtiene el ultimo historial
                         if (entity.Id > id)
+                        {
                             id = entity.Id;
+                            histpwdchange = entity;
+                        }
+                    }
+                    else
+                    {
+                        if (entity.Id == id)
+                        {
+                            histpwdchange = entity;
+                        }
                     }
                 }
             }
@@ -1027,7 +1093,11 @@ namespace PhalanxAdmin
             HistPasswordChangeAccessEntity accessE = new HistPasswordChangeAccessEntity();
 
             accessE.HistChgPwd = new HistPasswordChangeEntity();
-            accessE.HistChgPwd.Id = id;
+            accessE.HistChgPwd.Id = histpwdchange.Id;
+            accessE.HistChgPwd.User = this._entity;
+            accessE.HistChgPwd.Password = histpwdchange.Password;
+            accessE.HistChgPwd.PhxUser = histpwdchange.PhxUser;
+            accessE.HistChgPwd.DChange = histpwdchange.DChange;
             accessE.PhxUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario);
             accessE.AccessDate = DateTime.Now;
 

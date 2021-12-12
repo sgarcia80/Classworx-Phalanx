@@ -137,6 +137,9 @@
       <HintPath>..\packages\Microsoft.SqlServer.Types.11.0.1\lib\net20\Microsoft.SqlServer.Types.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ObjectListView">
+      <HintPath>..\Referencias\ObjectListView.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
@@ -151,6 +154,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\frmBaseMaxMdiChilds.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\frmBaseMaxMdiChilds.designer.cs">
+      <DependentUpon>frmBaseMaxMdiChilds.cs</DependentUpon>
+    </Compile>
     <Compile Include="FBaseReportesNormativos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -162,6 +171,12 @@
     </Compile>
     <Compile Include="FBaseReportesInternos.Designer.cs">
       <DependentUpon>FBaseReportesInternos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FConfigMails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FConfigMails.Designer.cs">
+      <DependentUpon>FConfigMails.cs</DependentUpon>
     </Compile>
     <Compile Include="FReporteAutogestion.cs">
       <SubType>Form</SubType>
@@ -986,14 +1001,33 @@
     <Compile Include="FWinPwd.Designer.cs">
       <DependentUpon>FWinPwd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Base\frmBaseConfigMailing.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\frmBaseConfigMailing.designer.cs">
+      <DependentUpon>frmBaseConfigMailing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mail\frmConfigPlantillasMails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Mail\frmConfigPlantillasMails.designer.cs">
+      <DependentUpon>frmConfigPlantillasMails.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Base\frmBaseMaxMdiChilds.resx">
+      <DependentUpon>frmBaseMaxMdiChilds.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FBaseReportesNormativos.resx">
       <DependentUpon>FBaseReportesNormativos.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FBaseReportesInternos.resx">
       <DependentUpon>FBaseReportesInternos.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FConfigMails.resx">
+      <DependentUpon>FConfigMails.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FReporteAutogestion.resx">
@@ -1164,6 +1198,12 @@
     <EmbeddedResource Include="FBaseAuditoria.resx">
       <DependentUpon>FBaseAuditoria.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\frmBaseConfigMailing.resx">
+      <DependentUpon>frmBaseConfigMailing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mail\frmConfigPlantillasMails.resx">
+      <DependentUpon>frmConfigPlantillasMails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UsersPasswordList_ATM.rdlc" />
     <EmbeddedResource Include="FConfATMs.resx">
@@ -1742,12 +1782,12 @@
   <ItemGroup>
     <PublishFile Include="Microsoft.Web.Services3">
       <Visible>False</Visible>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>

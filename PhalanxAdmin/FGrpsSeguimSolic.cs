@@ -273,7 +273,7 @@ namespace PhalanxAdmin
 
             if (lvLista.SelectedIndices.Count == 1)
             {
-                FABMGrpsSeguimSolic FGrpsSol = new FABMGrpsSeguimSolic((FollowupRequestGroupEntity)lvLista.SelectedItems[0].Tag, false);
+                FABMGrpsSeguimSolic FGrpsSol = new FABMGrpsSeguimSolic((FollowupRequestGroupEntity)lvLista.SelectedItems[0].Tag, false, this.Usuario);
                 FGrpsSol.ShowDialog();
                 if (FGrpsSol.DialogResult == DialogResult.OK)
                 {
@@ -288,7 +288,7 @@ namespace PhalanxAdmin
         {
             if (lvLista.SelectedIndices.Count == 1)
             {
-                FABMGrpsSeguimSolic FGrpsSol = new FABMGrpsSeguimSolic((FollowupRequestGroupEntity)lvLista.SelectedItems[0].Tag, true);
+                FABMGrpsSeguimSolic FGrpsSol = new FABMGrpsSeguimSolic((FollowupRequestGroupEntity)lvLista.SelectedItems[0].Tag, true, this.Usuario);
                 FGrpsSol.ShowDialog();
             }
 

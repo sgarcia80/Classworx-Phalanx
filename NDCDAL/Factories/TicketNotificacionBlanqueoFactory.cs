@@ -26,6 +26,7 @@ namespace NDCDAL.Factories
         private bool _filPendiente;
         private int _filTipoNotif;
         private string _filCargadoPor;
+        private bool? _filSoloAppRed;
 
         public AplicacionNotificacionClaveEntity FilAplicacion
         {
@@ -75,6 +76,11 @@ namespace NDCDAL.Factories
         public string FilCargadoPor
         {
             set { _filCargadoPor = value; }
+        }
+
+        public bool? FilSoloAppRed
+        {
+            set { _filSoloAppRed = value; }
         }
 
         public TicketNotificacionBlanqueoFactory()
@@ -144,7 +150,7 @@ namespace NDCDAL.Factories
                 {
                     DataSearch.Add(Expression.Eq("TNB.Aplicacion", _filApp));
                 }
-
+                
                 if (!string.IsNullOrEmpty(_filUsuario))
                     DataSearch = DataSearch.Add(Expression.InsensitiveLike("TNB.Usuario", string.Format("%{0}%", _filUsuario)));
 
@@ -179,7 +185,16 @@ namespace NDCDAL.Factories
                     DataSearch = DataSearch.Add(Expression.InsensitiveLike("TNB.UsuarioCarga", string.Format("%{0}%", _filCargadoPor)));
 
                 //Que el ticket no haya sido cancelado
-                
+
+                if(_filApp == null)
+                {
+                    if (_filSoloAppRed != null)
+                    {
+                        DataSearch.CreateCriteria("TNB.Aplicacion", "app");
+
+                        DataSearch.Add(Expression.Eq("app.EsAplicacionRed", _filSoloAppRed));
+                    }
+                }
 
                 try
                 {

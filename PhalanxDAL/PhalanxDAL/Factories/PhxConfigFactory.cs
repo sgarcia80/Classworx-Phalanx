@@ -48,6 +48,32 @@ namespace PhalanxDAL.Factories
                 }
             }
         }
+        public void Save(List<PhxConfigEntity> configs)
+        {
+            ITransaction tx = null;
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                try
+                {
+                    tx = session.BeginTransaction();
+
+                    foreach (var config in configs)
+                    {
+                        session.SaveOrUpdate(config);
+                    }
+
+                    tx.Commit();
+                    //return ConfigParam.Id;
+                    //return true;
+                }
+                catch (Exception ex)
+                {
+                    tx.Rollback();
+                    //return 0;
+                    // handle exception
+                }
+            }
+        }
     }
 
 }

@@ -311,14 +311,17 @@ namespace PhalanxAdmin
 
         private void PasarPermisoDeDBaUsr()
         {
-            if (lvPermisosDB.SelectedItems.Count == 1)
+            if (lvPermisosDB.SelectedItems.Count > 0)
             {
-                // crear el phxuserrole y mandarlo al otro listview y sacarlos del lvBD
-                ListViewItem lviUsrRole = new ListViewItem();
-                lviUsrRole.Tag = lvPermisosDB.SelectedItems[0].Tag;
-                lviUsrRole.Text = lvPermisosDB.SelectedItems[0].Text;
-                lvPermisosUsr.Items.Add(lviUsrRole);
-                lvPermisosDB.Items.Remove(lvPermisosDB.SelectedItems[0]);
+                foreach (ListViewItem item in lvPermisosDB.SelectedItems)
+                {
+                    // crear el phxuserrole y mandarlo al otro listview y sacarlos del lvBD
+                    ListViewItem lviUsrRole = new ListViewItem();
+                    lviUsrRole.Tag = item.Tag;
+                    lviUsrRole.Text = item.Text;
+                    lvPermisosUsr.Items.Add(lviUsrRole);
+                    lvPermisosDB.Items.Remove(item);
+                }
             }
         }
 
@@ -330,14 +333,17 @@ namespace PhalanxAdmin
 
         private void PasarPermisoDeUsraDB()
         {
-            if (lvPermisosUsr.SelectedItems.Count == 1)
+            if (lvPermisosUsr.SelectedItems.Count > 0)
             {
-                // crear el phxuserrole y mandarlo al otro listview y sacarlos del lvBD
-                ListViewItem lviUsrRole = new ListViewItem();
-                lviUsrRole.Tag = lvPermisosUsr.SelectedItems[0].Tag;
-                lviUsrRole.Text = lvPermisosUsr.SelectedItems[0].Text;
-                lvPermisosDB.Items.Add(lviUsrRole);
-                lvPermisosUsr.Items.Remove(lvPermisosUsr.SelectedItems[0]);
+                foreach (ListViewItem item in lvPermisosUsr.SelectedItems)
+                {
+                    // crear el phxuserrole y mandarlo al otro listview y sacarlos del lvBD
+                    ListViewItem lviUsrRole = new ListViewItem();
+                    lviUsrRole.Tag = item.Tag;
+                    lviUsrRole.Text = item.Text;
+                    lvPermisosDB.Items.Add(lviUsrRole);
+                    lvPermisosUsr.Items.Remove(item);
+                }
             }
         }
 

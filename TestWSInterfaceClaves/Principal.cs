@@ -54,5 +54,13 @@ namespace TestWSInterfaceClaves
             //childForm.Text = "Ventana " + childFormNumber++;
             childForm.Show();
         }
+
+        private void empleadosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormMeta4Empleados childForm = new FormMeta4Empleados();
+            childForm.MdiParent = this;
+            //childForm.Text = "Ventana " + childFormNumber++;
+            childForm.Show();
+        }
     }
 }

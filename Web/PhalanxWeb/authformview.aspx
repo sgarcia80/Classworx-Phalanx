@@ -143,6 +143,7 @@
                 </div>
                 <div align="center">
                     <br>
+                    <asp:Button ID="BDevolver" runat="server" CssClass="boton" Width="75px" Text="Cerrar" OnClick="BDevolver_Click"></asp:Button>&nbsp;&nbsp;
                     <asp:Button ID="Bcancel" runat="server" CssClass="boton" Width="75px" Text="Volver" OnClick="Bcancel_Click"></asp:Button><br>
                 </div>
                 <div>

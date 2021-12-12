@@ -142,19 +142,32 @@ namespace PhalanxBL
 
         public ApplicationUserEntityCollection GetAllForRqst(PhxUserEntity PhxUserRqst, string Filtro)
         {
+            PhxUserBusiness PhxUsrBL = new PhxUserBusiness();
+
+            bool approvepwd = PhxUsrBL.AccPwdApp(PhxUserRqst);
+
             m_AppUserFactory.OrderByName = true;
             m_AppUserFactory.FilFiltroNombreGeneral = Filtro;
-            return m_AppUserFactory.GetAllForRqst(PhxUserRqst);
+            return m_AppUserFactory.GetAllForRqst(PhxUserRqst, approvepwd);
         }
         public ApplicationUserEntityCollection GetAllForRqst(PhxUserEntity PhxUserRqst)
         {
+            PhxUserBusiness PhxUsrBL = new PhxUserBusiness();
+
+            //bool requestpwd = PhxUsrBL.ChkPwdsRequest(PhxUserRqst);
+            bool approvepwd = PhxUsrBL.AccPwdApp(PhxUserRqst);
+
             m_AppUserFactory.OrderByName = true;
-            return m_AppUserFactory.GetAllForRqst(PhxUserRqst);
+            return m_AppUserFactory.GetAllForRqst(PhxUserRqst, approvepwd);
         }
 
         public ApplicationUserEntity GetAppPwdForRqst(PhxUserEntity PhxUserRqst, int AppUserID)
         {
-            return m_AppUserFactory.GetAppPwdForRqst(PhxUserRqst, AppUserID);
+            PhxUserBusiness PhxUsrBL = new PhxUserBusiness();
+
+            bool approvepwd = PhxUsrBL.AccPwdApp(PhxUserRqst);
+
+            return m_AppUserFactory.GetAppPwdForRqst(PhxUserRqst, AppUserID, approvepwd);
         }
 
         public string GetPassword(ApplicationUserEntity user)
@@ -210,9 +223,9 @@ namespace PhalanxBL
             DBUsrF.SetPwdState(Users, Active);
         }
 
-		public IList GetAll(bool? critico, bool? estadoUsuario, string nombre, int expiracion)
+		public IList GetAll(bool? critico, bool? estadoUsuario, string nombre, int expiracion, int tipoCuenta)
 		{
-			return new ApplicationUserFactory().GetAll(critico, estadoUsuario, nombre, expiracion);
+			return new ApplicationUserFactory().GetAll(critico, estadoUsuario, nombre, expiracion, tipoCuenta);
 		}
 
         public ApplicationUserEntity Load(int ID)

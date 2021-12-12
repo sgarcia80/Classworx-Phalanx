@@ -224,18 +224,28 @@ namespace PhalanxBL
 
         public AS400UserEntityCollection GetAllForRqst(PhxUserEntity PhxUserRqst, string Filtro)
         {
+            PhxUserBusiness PhxUsrBL = new PhxUserBusiness();
+
+            bool approvepwd = PhxUsrBL.AccPwdAS400(PhxUserRqst);
+
             m_AS400UserFactory.OrderByName = true;
             m_AS400UserFactory.FilFiltroNombreGeneral = Filtro;
-            return m_AS400UserFactory.GetAllForRqst(PhxUserRqst);
+            return m_AS400UserFactory.GetAllForRqst(PhxUserRqst, approvepwd);
         }
         public AS400UserEntityCollection GetAllForRqst(PhxUserEntity PhxUserRqst)
         {
+            PhxUserBusiness PhxUsrBL = new PhxUserBusiness();
+
+            bool approvepwd = PhxUsrBL.ChkAuthPwdRequest(PhxUserRqst);
+
             m_AS400UserFactory.OrderByName = true;
-            return m_AS400UserFactory.GetAllForRqst(PhxUserRqst);
+            return m_AS400UserFactory.GetAllForRqst(PhxUserRqst, approvepwd);
         }
         public AS400UserEntity GetAS400PwdForRqst(PhxUserEntity PhxUserRqst, int WLUID)
         {
-            return m_AS400UserFactory.GetAS400PwdForRqst(PhxUserRqst, WLUID);
+            bool approvepwd = new PhxUserBusiness().AccPwdUnix(PhxUserRqst);
+
+            return m_AS400UserFactory.GetAS400PwdForRqst(PhxUserRqst, WLUID, approvepwd);
         }
 
         public AS400UserEntityCollection GetPCUsers(AS400Entity AS400PC)
@@ -251,9 +261,9 @@ namespace PhalanxBL
             AS400UsrF.SetPwdState(Users, Active);
         }
 
-		public IList GetAll(bool? critico, bool? estadoUsuario, string nombre)
+		public IList GetAll(bool? critico, bool? estadoUsuario, string nombre, int tipoCuenta)
 		{
-			return new AS400UsersFactory().GetAll(critico, estadoUsuario, nombre);
+			return new AS400UsersFactory().GetAll(critico, estadoUsuario, nombre, tipoCuenta);
 		}
         public AS400UserEntity Load(int ID)
         {

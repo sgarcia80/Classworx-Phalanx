@@ -35,6 +35,8 @@ namespace PhalanxAdmin
         {
             InitializeComponent();
 
+            lvListaSolicitudes.ListViewItemSorter = new cwxSorter(0, SortOrder.Descending);
+
             this.Usuario = userlogon;
             AppUsrBL = new ApplicationUserBusiness(userlogon);
 
@@ -108,6 +110,11 @@ namespace PhalanxAdmin
 
         public void ConfigureScreen()
         {
+            PhxUserBusiness phxUser = new PhxUserBusiness();
+            this.chkVisualizar.Visible = phxUser.AccParamConfigViewPassword(this.Usuario);
+            this.btnCopy.Visible = this.chkVisualizar.Visible;
+            this.btnCopyHist.Visible = this.btnCopy.Visible;
+
             switch (m_FormType)
             {
                 case FormType.New:
@@ -161,6 +168,8 @@ namespace PhalanxAdmin
         private void FABMAppPwd_Load(object sender, EventArgs e)
         {
             base.Title = "Contraseña de Aplicativos";
+
+            CargaUserSubTypes();
 
             if (_entity.Id > 0)
                 base.Info = _entity.Application.Name + " / " + _entity.Username;
@@ -238,6 +247,11 @@ namespace PhalanxAdmin
                 chkPwdConcurrente.Checked = _entity.UserPassword.Concurrent;
                 chkPwdConcurrente.Enabled = !_readOnly;
 
+                if (_entity.UserSubType != null)
+                {
+                    cbTipoCuenta.SelectedItem = _entity.UserSubType;
+                }
+
                 // setea campos adicionales //////////
                 if (_entity.Application.Field1Desc == "")
                 {
@@ -282,7 +296,6 @@ namespace PhalanxAdmin
                     //txtInfoAdic1.Text = _entity.Field1Value;
                 }
 
-
                 //////////////////////////////////////
 
                 if (_readOnly)
@@ -297,6 +310,8 @@ namespace PhalanxAdmin
                     txtInfoAdic3.ReadOnly = true;
                     chkActivo.Enabled = false;
                     txtDuracionClave.ReadOnly = true;
+
+                    cbTipoCuenta.Enabled = false;
 
                     // crea textbox a partir de los combos
                     TextBox txtApplication = new TextBox();
@@ -330,6 +345,17 @@ namespace PhalanxAdmin
         {
             cbAplicativos.Items.Clear();
             cbAplicativos.DataSource = DBTypeBL.GetAll();
+        }
+
+        private void CargaUserSubTypes()
+        {
+            UserSubTypeBusiness UserSubTypeBL = new UserSubTypeBusiness();
+
+            cbTipoCuenta.DisplayMember = "Desc";
+            cbTipoCuenta.ValueMember = "Id";
+
+            cbTipoCuenta.Items.Clear();
+            cbTipoCuenta.DataSource = UserSubTypeBL.FillSelect();
         }
 
         private void cbAplicativos_SelectedIndexChanged(object sender, EventArgs e)
@@ -511,6 +537,15 @@ namespace PhalanxAdmin
             _entity.Critical = chkUsuarioCritico.Checked;
             _entity.UserPassword.Concurrent = chkPwdConcurrente.Checked;
 
+            if (cbTipoCuenta.SelectedIndex > 0)
+            {
+                _entity.UserSubType = cbTipoCuenta.SelectedItem as UserSubTypeEntity;
+            }
+            else
+            {
+                _entity.UserSubType = null;
+            }
+
             //Si la duracion anterior era 999 o cero (registro viejo) y lo cambio para que ahora tenga fecha de vencimiento
             //debo completar la fecha de modificacion de clave
             if ((_entity.Duration == 999 || _entity.Duration == 0) && !txtDuracionClave.Text.Trim().Equals("999"))
@@ -571,10 +606,27 @@ namespace PhalanxAdmin
             {
                 tPassword1.Enabled = true;
                 tPassword2.Enabled = true;
+
+                if (!chkVisualizar.Visible)
+                {
+                    tPassword1.Text = string.Empty;
+                    tPassword2.Text = string.Empty;
+
+                    tPassword1.PasswordChar = new char();
+                    tPassword2.PasswordChar = new char();
+                }
+
                 this.chkVisualizar.Enabled = true;
             }
             else
             {
+                tPassword1.PasswordChar = '*';
+                tPassword2.PasswordChar = '*';
+
+                string strPwd = AppUsrBL.DecryptPassword(_entity.UserPassword.Password);
+                tPassword1.Text = strPwd;
+                tPassword2.Text = strPwd;
+
                 tPassword1.Enabled = false;
                 tPassword2.Enabled = false;
                 this.chkVisualizar.Enabled = false;
@@ -1348,6 +1400,9 @@ namespace PhalanxAdmin
                 if (((ListView)sender).SelectedItems[0].SubItems[2].Text != cAsterisk)
                     return;
 
+                if (!btnCopyHist.Visible)
+                    return;
+
                 int Id = LoguearVisualizacion(((vwHistPwdChgEntity)((ListView)sender).SelectedItems[0].Tag).Id);
 
                 if (Id > 0)
@@ -1390,15 +1445,27 @@ namespace PhalanxAdmin
 
         private int LoguearVisualizacion(int id)
         {
-            if (id == 0)
+
+            vwHistPwdChgEntity histpwdchange = null;
+            if (this._entities != null && this._entities.Count > 0)
             {
-                if (this._entities != null && this._entities.Count > 0)
+                foreach (vwHistPwdChgEntity entity in this._entities)
                 {
-                    //Se obtiene el ultimo historial
-                    foreach (vwHistPwdChgEntity entity in this._entities)
+                    if (id == 0)
                     {
+                        //Se obtiene el ultimo historial
                         if (entity.Id > id)
+                        {
                             id = entity.Id;
+                            histpwdchange = entity;
+                        }
+                    }
+                    else
+                    {
+                        if (entity.Id == id)
+                        {
+                            histpwdchange = entity;
+                        }
                     }
                 }
             }
@@ -1407,7 +1474,11 @@ namespace PhalanxAdmin
             HistPasswordChangeAccessEntity accessE = new HistPasswordChangeAccessEntity();
 
             accessE.HistChgPwd = new HistPasswordChangeEntity();
-            accessE.HistChgPwd.Id = id;
+            accessE.HistChgPwd.Id = histpwdchange.Id;
+            accessE.HistChgPwd.User = this._entity;
+            accessE.HistChgPwd.Password = histpwdchange.Password;
+            accessE.HistChgPwd.PhxUser = histpwdchange.PhxUser;
+            accessE.HistChgPwd.DChange = histpwdchange.DChange;
             accessE.PhxUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario);
             accessE.AccessDate = DateTime.Now;
 

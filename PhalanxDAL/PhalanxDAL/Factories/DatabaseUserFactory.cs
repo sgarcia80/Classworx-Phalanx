@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using PhalanxCommon.Entities;
 using PhalanxCommon.Collections;
@@ -65,10 +66,10 @@ namespace PhalanxDAL.Factories
         { set { _AvoidInactiveGrps = value; } }
 
         public DatabaseUserFactory() : base()
-        { 
+        {
         }
         public DatabaseUserFactory(string userlogon) : base(userlogon)
-        { 
+        {
         }
 
         public DatabaseUserEntity Refresh(DatabaseUserEntity User)
@@ -128,13 +129,13 @@ namespace PhalanxDAL.Factories
 
                 if (_filTipoDB != null)
                 {
-                        if (!CriteriaDB)
-                        {
-                            DataSearch.CreateCriteria("Db", "Db");
-                            CriteriaDB = true;
-                        }
-                        
-                    
+                    if (!CriteriaDB)
+                    {
+                        DataSearch.CreateCriteria("Db", "Db");
+                        CriteriaDB = true;
+                    }
+
+
                     DataSearch.Add(Expression.Eq("Db.Type", _filTipoDB));
                 }
                 /*
@@ -203,7 +204,7 @@ namespace PhalanxDAL.Factories
 
         }
 
-        public DatabaseUserEntity GetDBPwdForRqst(PhxUserEntity PhxUserRqst, int DbUserID)
+        public DatabaseUserEntity GetDBPwdForRqst(PhxUserEntity PhxUserRqst, int DbUserID, bool approvepwd)
         {
             DatabaseUserEntity DbUsrE = null;
             IList<DatabaseUserEntity> lstDbUsers;
@@ -214,10 +215,18 @@ namespace PhalanxDAL.Factories
                 DataSearch = DataSearch.Add(Expression.Eq("DbUser.ActiveUser", true));
                 DataSearch = DataSearch.CreateCriteria("UserPassword", "USRPWD");
                 //DataSearch = DataSearch.Add(Expression.Eq("DbUser.ActiveUser", true));
-                DataSearch = DataSearch.CreateCriteria("RqstGrpsPwdsList", "RQSTGRPSPWD");
-                DataSearch = DataSearch.CreateCriteria("RqstGrp", "RQSTGRP");
-                DataSearch = DataSearch.CreateCriteria("PhxUsersGroupsList", "USRRQSTGRP");
-                DataSearch = DataSearch.Add(Expression.Eq("PhxUser", PhxUserRqst));
+
+                if (approvepwd)
+                {
+                }
+                else
+                {
+                    DataSearch = DataSearch.CreateCriteria("RqstGrpsPwdsList", "RQSTGRPSPWD");
+                    DataSearch = DataSearch.CreateCriteria("RqstGrp", "RQSTGRP");
+                    DataSearch = DataSearch.CreateCriteria("PhxUsersGroupsList", "USRRQSTGRP");
+                    DataSearch = DataSearch.Add(Expression.Eq("PhxUser", PhxUserRqst));
+                }
+
                 // agregar que esté activo y no esté en uso!!!!!
                 //DataSearch.AddOrder(Order.Asc("DbUser.Username"));
                 lstDbUsers = DataSearch.List<DatabaseUserEntity>();
@@ -235,7 +244,7 @@ namespace PhalanxDAL.Factories
             set { _filFiltroNombreGeneral = value; }
         }
 
-        public DatabaseUserEntityCollection GetAllForRqst(PhxUserEntity PhxUserRqst)
+        public DatabaseUserEntityCollection GetAllForRqst(PhxUserEntity PhxUserRqst, bool approvepwd)
         {
             IList<DatabaseUserEntity> lstDBUs;
             DatabaseUserEntity mlstDBUs = new DatabaseUserEntity();
@@ -244,28 +253,49 @@ namespace PhalanxDAL.Factories
             using (ISession session = DBMgr.factory.OpenSession())
             {
                 ICriteria DataSearch = session.CreateCriteria(typeof(DatabaseUserEntity), "DbUser");
+                DataSearch.CreateCriteria("DbUser.Db", "DB");
+                DataSearch.CreateCriteria("DB.Type", "DBT");
+
                 if (_filFiltroNombreGeneral != "")
                 {
-                    DataSearch.Add(Expression.Like("DbUser.Username", _filFiltroNombreGeneral, MatchMode.Anywhere));
+                    DataSearch.Add(Expression.Or(Expression.Like("DbUser.Username", _filFiltroNombreGeneral, MatchMode.Anywhere),
+                                                Expression.Or(Expression.Like("DBT.Name", _filFiltroNombreGeneral, MatchMode.Anywhere),
+                                                            Expression.Like("DB.Name", _filFiltroNombreGeneral, MatchMode.Anywhere))
+                                                ));
                 }
                 DataSearch = DataSearch.Add(Expression.Eq("DbUser.ActiveUser", true));
-                DataSearch = DataSearch.CreateCriteria("UserPassword", "USRPWD");
-                DataSearch = DataSearch.CreateCriteria("RqstGrpsPwdsList", "RQSTGRPSPWD");
-                DataSearch = DataSearch.CreateCriteria("RqstGrp", "RQSTGRP");
-                DataSearch.Add(Expression.Eq("RQSTGRP.Active", true));
-                DataSearch = DataSearch.CreateCriteria("PhxUsersGroupsList", "USRRQSTGRP");
-                DataSearch = DataSearch.Add(Expression.Eq("PhxUser", PhxUserRqst));
+                DataSearch = DataSearch.CreateCriteria("DbUser.UserPassword", "USRPWD");
+
+                if (approvepwd)
+                {
+                    DataSearch = DataSearch.CreateCriteria("FollowupRqstGrpsPwdsList", "RQSTGRPSPWD");
+                    DataSearch = DataSearch.CreateCriteria("FollowupRqstGrp", "RQSTGRP");
+                    DataSearch.Add(Expression.Eq("RQSTGRP.Active", true));
+                    DataSearch = DataSearch.CreateCriteria("FollowupGroupUsersList", "USRRQSTGRP");
+                }
+                else
+                {
+                    DataSearch = DataSearch.CreateCriteria("RqstGrpsPwdsList", "RQSTGRPSPWD");
+                    DataSearch = DataSearch.CreateCriteria("RqstGrp", "RQSTGRP");
+                    DataSearch.Add(Expression.Eq("RQSTGRP.Active", true));
+                    DataSearch = DataSearch.CreateCriteria("PhxUsersGroupsList", "USRRQSTGRP");
+
+                    DataSearch = DataSearch.Add(Expression.Eq("PhxUser", PhxUserRqst));
+                }
+
                 if (_orderName)
                 {
-                    DataSearch.CreateCriteria("DbUser.Db", "Db");
-                    DataSearch.CreateCriteria("Db.Type", "DBT");
                     DataSearch = DataSearch.AddOrder(Order.Asc("DBT.Name"));
-                    DataSearch = DataSearch.AddOrder(Order.Asc("Db.Name"));
+                    DataSearch = DataSearch.AddOrder(Order.Asc("DB.Name"));
                     DataSearch = DataSearch.AddOrder(Order.Asc("DbUser.Username"));
                 }
+
+                DataSearch.SetResultTransformer(new NHibernate.Transform.DistinctRootEntityResultTransformer());
+
                 //DataSearch.AddOrder(Order.Asc("WPC.Name"));
                 //DataSearch.AddOrder(Order.Asc("WLU.Username"));
                 lstDBUs = DataSearch.List<DatabaseUserEntity>();
+
                 DatabaseUsrEC.Add(lstDBUs);
             }
             return DatabaseUsrEC;
@@ -300,7 +330,7 @@ namespace PhalanxDAL.Factories
             }
         }
 
-        public RqstGrpPwdEntityCollection  GetGruposSolicitudes(DatabaseUserEntity CurrentUser)
+        public RqstGrpPwdEntityCollection GetGruposSolicitudes(DatabaseUserEntity CurrentUser)
         {
             IList<RqstGrpPwdEntity> lstRequestGroups;
             RqstGrpPwdEntityCollection colRequestGroups = new RqstGrpPwdEntityCollection();
@@ -491,24 +521,24 @@ namespace PhalanxDAL.Factories
         public object GetDBUser(DataBaseEntity DBEntity, string UserName)
         {
 
-			IList lstWLUs;
+            IList lstWLUs;
 
-			using(ISession session = DBMgr.factory.OpenSession())
-			{
-				lstWLUs = session.CreateCriteria(typeof(DatabaseUserEntity))
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                lstWLUs = session.CreateCriteria(typeof(DatabaseUserEntity))
                     .Add(Expression.Eq("Db", DBEntity))
-					.Add(Expression.Eq("Username",UserName))
-					.List();
-			}
+                    .Add(Expression.Eq("Username", UserName))
+                    .List();
+            }
 
-			if (lstWLUs.Count >= 1)
-			{
+            if (lstWLUs.Count >= 1)
+            {
                 return (DatabaseUserEntity)lstWLUs[0];
-			}
-			else
-			{
-				return null;
-			}
+            }
+            else
+            {
+                return null;
+            }
 
         }
 
@@ -535,33 +565,37 @@ namespace PhalanxDAL.Factories
             }
         }
 
-		public IList GetAll(bool? critico, bool? estadoUsuario, int? tipo, string nombre)
-		{
-			using (ISession session = DBMgr.factory.OpenSession())
-			{
-				IQuery query = session.GetNamedQuery("getAllDatabaseUsers");
+        public IList GetAll(bool? critico, bool? estadoUsuario, int? tipo, string nombre, int tipoCuenta, bool? alertaModif, bool? alertaVisual)
+        {
+            using (ISession session = DBMgr.factory.OpenSession())
+            {
+                IQuery query = session.GetNamedQuery("getAllDatabaseUsers");
 
-				int criticoParam = -1;
-				int estadoUsuarioParam = -1;
-				int tipoParam = -1;
+                int criticoParam = -1;
+                int estadoUsuarioParam = -1;
+                int tipoParam = -1;
 
-				if (critico != null)
-					criticoParam = critico.Value ? 1 : 0;
+                if (critico != null)
+                    criticoParam = critico.Value ? 1 : 0;
 
-				if (estadoUsuario != null)
-					estadoUsuarioParam = estadoUsuario.Value ? 1 : 0;
+                if (estadoUsuario != null)
+                    estadoUsuarioParam = estadoUsuario.Value ? 1 : 0;
 
-				if (tipo != null)
-					tipoParam = tipo.Value;
+                if (tipo != null)
+                    tipoParam = tipo.Value;
 
-				query.SetString("nombre", nombre != null ? "%" + nombre.ToUpper() + "%" : null);
-				query.SetParameter("critico", criticoParam);
-				query.SetInt32("estadoUsuario", estadoUsuarioParam);
-				query.SetInt32("tipo", tipoParam);
+                query.SetString("nombre", nombre != null ? "%" + nombre.ToUpper() + "%" : null);
+                query.SetParameter("critico", criticoParam);
+                query.SetInt32("estadoUsuario", estadoUsuarioParam);
+                query.SetInt32("tipo", tipoParam);
 
-				return query.List();
-			}
-		}
+                query.SetInt32("tipocuenta", tipoCuenta);
+                //query.SetParameter("alertam", alertaModif.HasValue ? Convert.ToInt32(alertaModif.Value) : -1);
+                //query.SetParameter("alertav", alertaVisual.HasValue ? Convert.ToInt32(alertaVisual.Value) : -1);
+
+                return query.List();
+            }
+        }
 
         public DatabaseUserEntity Load(int ID)
         {

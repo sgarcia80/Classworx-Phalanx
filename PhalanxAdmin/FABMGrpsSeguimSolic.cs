@@ -17,6 +17,7 @@ namespace PhalanxAdmin
         bool _readOnly = false;
         bool _ModificaPwd = false;
         bool _ModificaUsrs = false;
+        PhxUserEntity m_Approver;
 
         public FABMGrpsSeguimSolic()
         {
@@ -38,11 +39,13 @@ namespace PhalanxAdmin
             lvUsuariosDB.ListViewItemSorter = new cwxSorter();
             lvUsuariosGrupo.ListViewItemSorter = new cwxSorter();
         }
-        public FABMGrpsSeguimSolic(FollowupRequestGroupEntity RqstGrp, bool ReadOnly)
+        public FABMGrpsSeguimSolic(FollowupRequestGroupEntity RqstGrp, bool ReadOnly, string userlogon)
             : this()
         {
             _entity = RqstGrp;
             _readOnly = ReadOnly;
+
+            this.Usuario = userlogon;
 
         }
 
@@ -99,7 +102,18 @@ namespace PhalanxAdmin
                 txtFullName.Text = _entity.Fullname;
                 txtEmail.Text = _entity.Email;
                 cbDominio.Text = _entity.Domain;
-                 * */
+                 */
+
+                chkAprobAutomatica.Checked = _entity.AutoApproval;
+                if (_entity.Approver != null)
+                {
+                    m_Approver = _entity.Approver;
+                    txtResponsible.Text = _entity.Approver.Fullname + " (" + _entity.Approver.Username + ")";
+                }
+
+                PhxUserBusiness UsrBL = new PhxUserBusiness();
+                //chkAprobAutomatica.Visible = UsrBL.AccParamConfigViewPassword(this.Usuario);
+
                 if (_readOnly)
                 {
                     txtGroupName.ReadOnly = true;
@@ -1368,6 +1382,17 @@ namespace PhalanxAdmin
             // si es alta o moficiación
             // grabo al usuario
             _entity.Name = txtGroupName.Text;
+            _entity.AutoApproval = chkAprobAutomatica.Checked;
+
+            if (txtResponsible.Text != "" && m_Approver != null)
+            {
+                _entity.Approver = m_Approver;
+            }
+            else
+            {
+                _entity.Approver = null;
+            }
+
             bool Desactivacion = false;
             if (_entity.Id > 0)
             {
@@ -1551,7 +1576,7 @@ namespace PhalanxAdmin
 
         private void CargarUsuarios()
         {
-            PhxUserBusiness UsrBL= new PhxUserBusiness();
+            PhxUserBusiness UsrBL = new PhxUserBusiness();
             UsrBL.FilActive = true;
             PhxUserEntityCollection Usuarios = UsrBL.GetAllWithGroupsAndRoles();
             foreach (PhxUserEntity PxhUsrEnt in Usuarios)
@@ -1765,7 +1790,21 @@ namespace PhalanxAdmin
             pnlAppPwdDB.Visible = chkActivo.Checked;
         }
 
+        private void btnSearchUser_Click(object sender, EventArgs e)
+        {
+            FSelectPhxUser selectPhxUsers = new FSelectPhxUser(); //(WinPCEntity)cBPC.SelectedValue);
+            selectPhxUsers.Title = "Busqueda de Usuarios";
 
+            if (selectPhxUsers.ShowDialog() == DialogResult.OK)
+            {
+                PhxUserEntity selectedUser = (PhxUserEntity)selectPhxUsers.GetSelectedEntity();
+                if (selectedUser != null)
+                {
+                    m_Approver = selectedUser;
+                    txtResponsible.Text = selectedUser.Fullname + " (" + selectedUser.Username + ")";
+                }
+            }
+        }
     }
 }
 

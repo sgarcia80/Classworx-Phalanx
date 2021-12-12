@@ -134,6 +134,7 @@
     <Compile Include="CommunicationDeviceTypeBusiness.cs" />
     <Compile Include="CommunicationDeviceUserBusiness.cs.cs" />
     <Compile Include="ATMUserBusiness.cs" />
+    <Compile Include="UserSubTypeBusiness.cs" />
     <Compile Include="VencPwdAppLogDetBusiness.cs" />
     <Compile Include="VencPwdAppLogBusiness.cs" />
     <Compile Include="vwHistPwdVisBusiness.cs" />

@@ -28,7 +28,8 @@ namespace PhalanxAdmin
         /// </summary>
         private void InitializeComponent()
         {
-            this.xppnlConfig = new UIComponents.XPPanel(235);
+            this.xppnlConfig = new UIComponents.XPPanel(255);
+            this.lnkBloqueo = new System.Windows.Forms.LinkLabel();
             this.lnkWSConectores = new System.Windows.Forms.LinkLabel();
             this.lnkNDC = new System.Windows.Forms.LinkLabel();
             this.lnkWSCOBIS = new System.Windows.Forms.LinkLabel();
@@ -36,7 +37,7 @@ namespace PhalanxAdmin
             this.lnkEsquemas = new System.Windows.Forms.LinkLabel();
             this.lnkATMs = new System.Windows.Forms.LinkLabel();
             this.lnkconfigMailsExpPwd = new System.Windows.Forms.LinkLabel();
-            this.lnkBloqueo = new System.Windows.Forms.LinkLabel();
+            this.lnkconfigParamMails = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pnlXPGrps)).BeginInit();
             this.pnlXPGrps.SuspendLayout();
             this.pnlIzq.SuspendLayout();
@@ -57,7 +58,7 @@ namespace PhalanxAdmin
             // xppnlMenu
             // 
             this.xppnlMenu.ImageItems.ImageSet = null;
-            this.xppnlMenu.Location = new System.Drawing.Point(8, 251);
+            this.xppnlMenu.Location = new System.Drawing.Point(8, 271);
             // 
             // xppnlConfig
             // 
@@ -70,6 +71,7 @@ namespace PhalanxAdmin
             this.xppnlConfig.CaptionGradient.Start = System.Drawing.Color.White;
             this.xppnlConfig.CaptionGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
             this.xppnlConfig.CaptionUnderline = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.xppnlConfig.Controls.Add(this.lnkconfigParamMails);
             this.xppnlConfig.Controls.Add(this.lnkBloqueo);
             this.xppnlConfig.Controls.Add(this.lnkWSConectores);
             this.xppnlConfig.Controls.Add(this.lnkNDC);
@@ -87,11 +89,27 @@ namespace PhalanxAdmin
             this.xppnlConfig.PanelGradient.End = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(223)))), ((int)(((byte)(247)))));
             this.xppnlConfig.PanelGradient.Start = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(223)))), ((int)(((byte)(247)))));
             this.xppnlConfig.PanelGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            this.xppnlConfig.Size = new System.Drawing.Size(184, 235);
+            this.xppnlConfig.Size = new System.Drawing.Size(184, 255);
             this.xppnlConfig.TabIndex = 4;
             this.xppnlConfig.TextColors.Foreground = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(93)))), ((int)(((byte)(198)))));
             this.xppnlConfig.TextHighlightColors.Foreground = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(142)))), ((int)(((byte)(255)))));
             this.xppnlConfig.VertAlignment = System.Drawing.StringAlignment.Center;
+            // 
+            // lnkBloqueo
+            // 
+            this.lnkBloqueo.ActiveLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkBloqueo.AutoSize = true;
+            this.lnkBloqueo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.lnkBloqueo.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.lnkBloqueo.LinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkBloqueo.Location = new System.Drawing.Point(18, 226);
+            this.lnkBloqueo.Name = "lnkBloqueo";
+            this.lnkBloqueo.Size = new System.Drawing.Size(115, 13);
+            this.lnkBloqueo.TabIndex = 16;
+            this.lnkBloqueo.TabStop = true;
+            this.lnkBloqueo.Text = "Bloqueos Servicios";
+            this.lnkBloqueo.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkBloqueo.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkBloqueo_LinkClicked);
             // 
             // lnkWSConectores
             // 
@@ -100,7 +118,7 @@ namespace PhalanxAdmin
             this.lnkWSConectores.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.lnkWSConectores.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.lnkWSConectores.LinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkWSConectores.Location = new System.Drawing.Point(18, 181);
+            this.lnkWSConectores.Location = new System.Drawing.Point(18, 203);
             this.lnkWSConectores.Name = "lnkWSConectores";
             this.lnkWSConectores.Size = new System.Drawing.Size(154, 13);
             this.lnkWSConectores.TabIndex = 15;
@@ -116,7 +134,7 @@ namespace PhalanxAdmin
             this.lnkNDC.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.lnkNDC.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.lnkNDC.LinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkNDC.Location = new System.Drawing.Point(18, 158);
+            this.lnkNDC.Location = new System.Drawing.Point(18, 180);
             this.lnkNDC.Name = "lnkNDC";
             this.lnkNDC.Size = new System.Drawing.Size(135, 13);
             this.lnkNDC.TabIndex = 14;
@@ -132,7 +150,7 @@ namespace PhalanxAdmin
             this.lnkWSCOBIS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.lnkWSCOBIS.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.lnkWSCOBIS.LinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkWSCOBIS.Location = new System.Drawing.Point(18, 136);
+            this.lnkWSCOBIS.Location = new System.Drawing.Point(18, 158);
             this.lnkWSCOBIS.Name = "lnkWSCOBIS";
             this.lnkWSCOBIS.Size = new System.Drawing.Size(127, 13);
             this.lnkWSCOBIS.TabIndex = 13;
@@ -148,7 +166,7 @@ namespace PhalanxAdmin
             this.lnkWSBPM.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.lnkWSBPM.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.lnkWSBPM.LinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkWSBPM.Location = new System.Drawing.Point(18, 114);
+            this.lnkWSBPM.Location = new System.Drawing.Point(18, 136);
             this.lnkWSBPM.Name = "lnkWSBPM";
             this.lnkWSBPM.Size = new System.Drawing.Size(110, 13);
             this.lnkWSBPM.TabIndex = 12;
@@ -164,7 +182,7 @@ namespace PhalanxAdmin
             this.lnkEsquemas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.lnkEsquemas.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.lnkEsquemas.LinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkEsquemas.Location = new System.Drawing.Point(18, 70);
+            this.lnkEsquemas.Location = new System.Drawing.Point(18, 92);
             this.lnkEsquemas.Name = "lnkEsquemas";
             this.lnkEsquemas.Size = new System.Drawing.Size(64, 13);
             this.lnkEsquemas.TabIndex = 11;
@@ -180,7 +198,7 @@ namespace PhalanxAdmin
             this.lnkATMs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.lnkATMs.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.lnkATMs.LinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkATMs.Location = new System.Drawing.Point(18, 92);
+            this.lnkATMs.Location = new System.Drawing.Point(18, 114);
             this.lnkATMs.Name = "lnkATMs";
             this.lnkATMs.Size = new System.Drawing.Size(39, 13);
             this.lnkATMs.TabIndex = 10;
@@ -196,7 +214,7 @@ namespace PhalanxAdmin
             this.lnkconfigMailsExpPwd.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.lnkconfigMailsExpPwd.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.lnkconfigMailsExpPwd.LinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkconfigMailsExpPwd.Location = new System.Drawing.Point(18, 50);
+            this.lnkconfigMailsExpPwd.Location = new System.Drawing.Point(18, 46);
             this.lnkconfigMailsExpPwd.Name = "lnkconfigMailsExpPwd";
             this.lnkconfigMailsExpPwd.Size = new System.Drawing.Size(36, 13);
             this.lnkconfigMailsExpPwd.TabIndex = 8;
@@ -205,21 +223,21 @@ namespace PhalanxAdmin
             this.lnkconfigMailsExpPwd.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
             this.lnkconfigMailsExpPwd.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkconfigMailsExpPwd_LinkClicked);
             // 
-            // lnkBloqueo
+            // lnkconfigParamMails
             // 
-            this.lnkBloqueo.ActiveLinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkBloqueo.AutoSize = true;
-            this.lnkBloqueo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.lnkBloqueo.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.lnkBloqueo.LinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkBloqueo.Location = new System.Drawing.Point(18, 205);
-            this.lnkBloqueo.Name = "lnkBloqueo";
-            this.lnkBloqueo.Size = new System.Drawing.Size(115, 13);
-            this.lnkBloqueo.TabIndex = 16;
-            this.lnkBloqueo.TabStop = true;
-            this.lnkBloqueo.Text = "Bloqueos Servicios";
-            this.lnkBloqueo.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
-            this.lnkBloqueo.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkBloqueo_LinkClicked);
+            this.lnkconfigParamMails.ActiveLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkconfigParamMails.AutoSize = true;
+            this.lnkconfigParamMails.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.lnkconfigParamMails.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.lnkconfigParamMails.LinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkconfigParamMails.Location = new System.Drawing.Point(18, 69);
+            this.lnkconfigParamMails.Name = "lnkconfigParamMails";
+            this.lnkconfigParamMails.Size = new System.Drawing.Size(118, 13);
+            this.lnkconfigParamMails.TabIndex = 17;
+            this.lnkconfigParamMails.TabStop = true;
+            this.lnkconfigParamMails.Text = "Parametria de Mails";
+            this.lnkconfigParamMails.VisitedLinkColor = System.Drawing.Color.MidnightBlue;
+            this.lnkconfigParamMails.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkconfigParamMails_LinkClicked);
             // 
             // FBaseConfiguracion
             // 
@@ -247,6 +265,6 @@ namespace PhalanxAdmin
         protected System.Windows.Forms.LinkLabel lnkWSConectores;
         protected UIComponents.XPPanel xppnlConfig;
         protected System.Windows.Forms.LinkLabel lnkBloqueo;
-
+        protected System.Windows.Forms.LinkLabel lnkconfigParamMails;
     }
 }

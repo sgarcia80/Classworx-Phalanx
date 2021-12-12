@@ -82,9 +82,13 @@ namespace PhalanxWeb
                     {
                         TraceHelper.Information("Se controla si el usuario puede solicitar contraseñas");
 
+                        bool requestpwd = PhxUsrBL.ChkPwdsRequest(IdentUser);
+                        bool approvepwd = PhxUsrBL.ChkAuthPwdRequest(IdentUser);
+                        bool phxadmin = PhxUsrBL.AccPwdAll(IdentUser);
+
                         // si no tiene permisos para solicitar contraseñas oculta el acceso
                         //bool NotPwdRqstRole = false;
-                        if (!PhxUsrBL.ChkPwdsRequest(IdentUser))
+                        if (!(requestpwd || phxadmin))
                         {
                             this.tbMenu.Rows[0].Visible = false;
                             this.tbMenu.Rows[2].Visible = false;
@@ -95,7 +99,7 @@ namespace PhalanxWeb
                         TraceHelper.Information("Se controla si el usuario puede autorizar solicitudes");
 
                         // si no tiene permisos para autorizar pedidos
-                        if (!PhxUsrBL.ChkAuthPwdRequest(IdentUser))
+                        if (!approvepwd)
                         {
                             this.tbMenu.Rows[1].Visible = false;
                             this.tbMenu.Rows[4].Visible = false;

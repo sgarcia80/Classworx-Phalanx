@@ -8,7 +8,7 @@
             <td align="center" height="*">
                 <div align="center">
                     <br>
-                    <table style="height: 94px" width="50%" border="0">
+                    <table style="height: 94px" width="330PX" border="0">
                         <tr>
                             <td width="*" align="center" colspan="2">
                                 <asp:Label ID="Label2" runat="server" CssClass="LabelNormal">Usuario no Identificado</asp:Label></td>
@@ -28,7 +28,7 @@
                 </div>
                 <div align="center">
                     <br>
-                    <asp:Button ID="Bcancel" runat="server" Text="Salir" Width="89px" CssClass="boton" OnClick="Bcancel_Click"></asp:Button><br>
+                    <asp:Button ID="Bcancel" runat="server" Text="Volver" Width="89px" CssClass="boton" PostBackUrl="~/Default.aspx"></asp:Button><br>
                 </div>
                 <div>
                     &nbsp;&nbsp;
