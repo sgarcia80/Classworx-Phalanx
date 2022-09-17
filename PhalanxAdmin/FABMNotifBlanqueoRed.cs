@@ -309,10 +309,20 @@ namespace PhalanxAdmin
             }
 
             _entity.Usuario = txtUser.Text.Trim().ToLower();
+            _entity.UsuarioNombre = txtUsuarioNombre.Text;
+            _entity.UsuarioDepto = txtUsuarioDpto.Text;
+            _entity.UsuarioOficina = txtUsuarioOfic.Text;
+            _entity.UsuarioProvincia = txtUsuarioProv.Text;
+
             _entity.UsuarioAplicacion = _entity.Usuario;
             _entity.PasswordUsuarioAplicacion = tPassword1.Text;
+
             _entity.Solicitante = txtSolicitante.Text.Trim();
+            _entity.SolicitanteNombre = txtSolicitanteNombre.Text;
             _entity.SolicitantePuesto = txtSolicitantePuesto.Text.Trim();
+            _entity.SolicitanteDepto = txtSolicitanteDpto.Text;
+            _entity.SolicitanteOficina = txtSolicitanteOfic.Text;
+            _entity.SolicitanteProvincia = txtSolicitanteProv.Text;
 
             _entity.UsuarioCarga = user;
 

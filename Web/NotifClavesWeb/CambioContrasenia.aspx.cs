@@ -143,15 +143,6 @@ namespace NotifClavesWeb
                 ServicePointManager.Expect100Continue = false;
                 ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback(AllwaysGoodCertificate);
 
-                //TraceHelper.Information("Configuracion:", loginASBlanqueoWSCOBIS);
-                //TraceHelper.Information("i_u_login_adminseg = {0}",loginASBlanqueoWSCOBIS);
-                //TraceHelper.Information("i_c_clave_adminseg = {0}", claveASBlanqueoWSCOBIS);
-                //TraceHelper.Information("i_rol_adminseg = {0}", rolASBlanqueoWSCOBIS);
-                //TraceHelper.Information("i_oficina_adminseg = {0}", oficinaASBlanqueoWSCOBIS);
-                //TraceHelper.Information("i_servidor_adminseg = {0}", servidorASBlanqueoWSCOBIS);
-                //TraceHelper.Information("i_c_clave = {0}", tbPassword.Text.ToLower());
-                //TraceHelper.Information("i_u_login = {0}", Session["Usuario"].ToString().ToLower());
-
                 TraceHelper.Information("Parametros:", loginASBlanqueoWSCOBIS);
                 TraceHelper.Information("Usuario = {0}", filtro.i_u_login);
 

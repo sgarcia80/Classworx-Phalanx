@@ -8,6 +8,8 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -65,6 +67,11 @@ namespace NotifClavesWeb
                 string error = string.Empty;
                 try
                 {
+                    ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+                    //ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
+                    ServicePointManager.Expect100Continue = false;
+                    ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback(AllwaysGoodCertificate);
+
                     TicketAutogestionCobisEntity ticket = TicketAutogestionCobisEntity.CreateDesbloqueo();
                     ticket.Usuario = loginFiltro.i_c_login;
                     ticket.Fecha = DateTime.Now;
@@ -152,6 +159,12 @@ namespace NotifClavesWeb
                 //txtRespuesta.Text = "Para solicitar el desbloqueo debe estar autenticado en el sistema";
             }
         }
+
+        private static bool AllwaysGoodCertificate(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors policyErrors)
+        {
+            return true;
+        }
+
         //protected void btnDesbloquear_Click(object sender, EventArgs e)
         //{
         //    if (Session["Dominio"] != null && Session["Usuario"] != null)
