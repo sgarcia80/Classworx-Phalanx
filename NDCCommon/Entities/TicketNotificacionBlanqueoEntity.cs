@@ -1,0 +1,564 @@
+using System;
+using System.Data;
+using System.Configuration;
+using Common;
+
+namespace NDCCommon.Entities
+{
+    /// <summary>
+    /// Summary description for BPMRequestEntity
+    /// </summary>
+    public class TicketNotificacionBlanqueoEntity : BaseEntity
+    {
+        public const int TipoNotificacionBlanqueoApp = 1;
+        public const int TipoNotificacionBlanqueoRed = 2;
+        public const int TipoNotificacionDesbloqueo = 3;
+
+        public static TicketNotificacionBlanqueoEntity CreateNotificacionBlanqueoApp()
+        {
+            return new TicketNotificacionBlanqueoEntity { TipoNotificacion = TipoNotificacionBlanqueoApp };
+        }
+
+        public static TicketNotificacionBlanqueoEntity CreateNotificacionBlanqueoRed()
+        {
+            return new TicketNotificacionBlanqueoEntity { TipoNotificacion = TipoNotificacionBlanqueoRed };
+        }
+
+        public static TicketNotificacionBlanqueoEntity CreateNotificacionDesbloqueoRed()
+        {
+            return new TicketNotificacionBlanqueoEntity { TipoNotificacion = TipoNotificacionDesbloqueo };
+        }
+
+        #region Private Members
+        private bool m_isChanged;
+
+        private int m_tnb_id;
+        private int m_tnb_tipo_notif;
+        private int? m_tnb_numero;
+        private AplicacionNotificacionClaveEntity m_tnb_app;
+        private string m_tnb_app_user;
+        private string m_tnb_app_user_pass;
+        private string m_tnb_user_domain;
+        private string m_tnb_solicitante;
+        private string m_tnb_user_load;
+        private DateTime? m_tnb_fecha_vigencia;
+        private DateTime? m_tnb_fecha_ace_tyc;
+        private int m_tnb_reclamos;
+        private int m_tnb_intentos;
+        private DateTime? m_tnb_fecha_cancelado;
+
+        private string m_tnb_user;
+        private DateTime m_tnb_fecha;
+        private string m_tnb_solicitante_puesto;
+
+        private string m_tnb_solicitante_nombre;
+        private string m_tnb_solicitante_depto;
+        private string m_tnb_solicitante_oficina;
+        private string m_tnb_solicitante_provincia;
+
+        private string m_tnb_usuario_nombre;
+        private string m_tnb_usuario_depto;
+        private string m_tnb_usuario_oficina;
+        private string m_tnb_usuario_provincia;
+
+        private string m_tnb_user_load_depto;
+        private string m_tnb_user_load_provincia;
+
+        private string m_email_externo;
+
+        #endregion
+
+        #region Default ( Empty ) Class Constuctor
+        /// <summary>
+        /// default constructor
+        /// </summary>
+        public TicketNotificacionBlanqueoEntity()
+        {
+            m_tnb_id = 0;
+            m_tnb_app_user = string.Empty;
+            m_tnb_app_user_pass = string.Empty;
+            m_tnb_user_domain = string.Empty;
+            m_tnb_user = string.Empty;
+        }
+        #endregion // End of Default ( Empty ) Class Constuctor
+
+        #region Public Properties
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int Id
+        {
+            get { return m_tnb_id; }
+            set
+            {
+                m_isChanged |= (m_tnb_id != value);
+                m_tnb_id = value;
+            }
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int TipoNotificacion
+        {
+            get { return m_tnb_tipo_notif; }
+            set
+            {
+                m_isChanged |= (m_tnb_tipo_notif != value);
+                m_tnb_tipo_notif = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string TipoNotificacionDescr
+        {
+            get
+            {
+                string tipo = string.Empty;
+                switch (m_tnb_tipo_notif)
+                {
+                    case TipoNotificacionBlanqueoApp:
+                        tipo = "Blanqueo Aplicación";
+                        break;
+                    case TipoNotificacionBlanqueoRed:
+                        tipo = "Blanqueo Red";
+                        break;
+                    case TipoNotificacionDesbloqueo:
+                        tipo = "Desbloqueo Red";
+                        break;
+                    default:
+                        tipo = "N/A";
+                        break;
+                }
+                return tipo;
+            }
+            set
+            {
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int? NumeroSolicitud
+        {
+            get { return m_tnb_numero; }
+            set
+            {
+                m_isChanged |= (m_tnb_numero != value);
+                m_tnb_numero = value;
+            }
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public AplicacionNotificacionClaveEntity Aplicacion
+        {
+            get { return m_tnb_app; }
+
+            set
+            {
+                m_isChanged |= (m_tnb_app != value);
+                m_tnb_app = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string UsuarioAplicacion
+        {
+            get { return m_tnb_app_user; }
+
+            set
+            {
+                if (value == null)
+                    throw new ArgumentOutOfRangeException("Null value not allowed for Usuario Aplicación", value, "null");
+
+                if (value.Length > 50)
+                    throw new ArgumentOutOfRangeException("Invalid value for Usuario Aplicación", value, value.ToString());
+
+                m_isChanged |= (m_tnb_app_user != value);
+                m_tnb_app_user = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string PasswordUsuarioAplicacion
+        {
+            get { return m_tnb_app_user_pass; }
+
+            set
+            {
+                if (value == null)
+                    throw new ArgumentOutOfRangeException("Null value not allowed for Application Password Usuario", value, "null");
+
+                if (value.Length > 50)
+                    throw new ArgumentOutOfRangeException("Invalid value for Application Password Usuario", value, value.ToString());
+
+                m_isChanged |= (m_tnb_app_user_pass != value);
+                m_tnb_app_user_pass = value;
+            }
+        }
+
+        /// <summary>
+        /// Value from AD. Not Saved in DB
+        /// </summary>
+        public string EmailExterno
+        {
+            get { return m_email_externo; }
+
+            set
+            {
+                m_isChanged |= (m_email_externo != value);
+                m_email_externo = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string UsuarioDominio
+        {
+            get { return m_tnb_user_domain; }
+
+            set
+            {
+                if (value == null)
+                    throw new ArgumentOutOfRangeException("Null value not allowed for Dominio Usuario", value, "null");
+
+                if (value.Length > 50)
+                    throw new ArgumentOutOfRangeException("Invalid value for Application Dominio Usuario", value, value.ToString());
+
+                m_isChanged |= (m_tnb_user_domain != value);
+                m_tnb_user_domain = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Usuario
+        {
+            get { return m_tnb_user; }
+
+            set
+            {
+                if (value == null)
+                    throw new ArgumentOutOfRangeException("Null value not allowed for Usuario", value, "null");
+
+                if (value.Length > 50)
+                    throw new ArgumentOutOfRangeException("Invalid value for Application Usuario", value, value.ToString());
+
+                m_isChanged |= (m_tnb_user != value);
+                m_tnb_user = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string UsuarioNombre
+        {
+            get { return m_tnb_usuario_nombre; }
+
+            set
+            {
+                m_isChanged |= (m_tnb_usuario_nombre != value);
+                m_tnb_usuario_nombre = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string UsuarioDepto
+        {
+            get { return m_tnb_usuario_depto; }
+
+            set
+            {
+                m_isChanged |= (m_tnb_usuario_depto != value);
+                m_tnb_usuario_depto = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string UsuarioOficina
+        {
+            get { return m_tnb_usuario_oficina; }
+
+            set
+            {
+                m_isChanged |= (m_tnb_usuario_oficina != value);
+                m_tnb_usuario_oficina = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string UsuarioProvincia
+        {
+            get { return m_tnb_usuario_provincia; }
+
+            set
+            {
+                m_isChanged |= (m_tnb_usuario_provincia != value);
+                m_tnb_usuario_provincia = value;
+            }
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Solicitante
+        {
+            get { return m_tnb_solicitante; }
+
+            set
+            {
+                if (value == null)
+                    throw new ArgumentOutOfRangeException("Null value not allowed for Solicitante", value, "null");
+
+                if (value.Length > 50)
+                    throw new ArgumentOutOfRangeException("Invalid value for Solicitante", value, value.ToString());
+
+                m_isChanged |= (m_tnb_solicitante != value);
+                m_tnb_solicitante = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string SolicitantePuesto
+        {
+            get { return m_tnb_solicitante_puesto; }
+
+            set
+            {
+                m_isChanged |= (m_tnb_solicitante_puesto != value);
+                m_tnb_solicitante_puesto = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string SolicitanteNombre
+        {
+            get { return m_tnb_solicitante_nombre; }
+
+            set
+            {
+                m_isChanged |= (m_tnb_solicitante_nombre != value);
+                m_tnb_solicitante_nombre = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string SolicitanteDepto
+        {
+            get { return m_tnb_solicitante_depto; }
+
+            set
+            {
+                m_isChanged |= (m_tnb_solicitante_depto != value);
+                m_tnb_solicitante_depto = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string SolicitanteOficina
+        {
+            get { return m_tnb_solicitante_oficina; }
+
+            set
+            {
+                m_isChanged |= (m_tnb_solicitante_oficina != value);
+                m_tnb_solicitante_oficina = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string SolicitanteProvincia
+        {
+            get { return m_tnb_solicitante_provincia; }
+
+            set
+            {
+                m_isChanged |= (m_tnb_solicitante_provincia != value);
+                m_tnb_solicitante_provincia = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string UsuarioCarga
+        {
+            get { return m_tnb_user_load; }
+
+            set
+            {
+                m_isChanged |= (m_tnb_user_load != value);
+                m_tnb_user_load = value;
+            }
+        }
+
+        public string UsuarioCargaDepto
+        {
+            get { return m_tnb_user_load_depto; }
+
+            set
+            {
+                m_isChanged |= (m_tnb_user_load_depto != value);
+                m_tnb_user_load_depto = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string UsuarioCargaProvincia
+        {
+            get { return m_tnb_user_load_provincia; }
+
+            set
+            {
+                m_isChanged |= (m_tnb_user_load_provincia != value);
+                m_tnb_user_load_provincia = value;
+            }
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime Fecha
+        {
+            get { return m_tnb_fecha; }
+
+            set
+            {
+                m_isChanged |= (m_tnb_fecha != value);
+                m_tnb_fecha = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime? FechaVigencia
+        {
+            get { return m_tnb_fecha_vigencia; }
+
+            set
+            {
+                m_isChanged |= (m_tnb_fecha_vigencia != value);
+                m_tnb_fecha_vigencia = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime? FechaAceptacionTyC
+        {
+            get { return m_tnb_fecha_ace_tyc; }
+
+            set
+            {
+                m_isChanged |= (m_tnb_fecha_ace_tyc != value);
+                m_tnb_fecha_ace_tyc = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int? MailId { set; get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int Reclamos
+        {
+            get { return m_tnb_reclamos; }
+            set
+            {
+                m_isChanged |= (m_tnb_reclamos != value);
+                m_tnb_reclamos = value;
+            }
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public int Intentos
+        {
+            get { return m_tnb_intentos; }
+            set
+            {
+                m_isChanged |= (m_tnb_intentos != value);
+                m_tnb_intentos = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime? FechaCancelado
+        {
+            get { return m_tnb_fecha_cancelado; }
+
+            set
+            {
+                m_isChanged |= (m_tnb_fecha_cancelado != value);
+                m_tnb_fecha_cancelado = value;
+            }
+        }
+
+        #endregion
+
+        public override string Key
+        {
+            get
+            {
+                return this.m_tnb_id.ToString();
+            }
+            set
+            {
+                this.m_tnb_id = Convert.ToInt32(value);
+            }
+        }
+
+        //public bool Equivalente(TicketNotificacionBlanqueoEntity ticket)
+        //{s
+        //    bool EsEquivalente = ticket.UsuarioAplicacion.ToLower() == UsuarioAplicacion.ToLower();
+        //    EsEquivalente = EsEquivalente && ticket.PasswordUsuarioAplicacion == PasswordUsuarioAplicacion;
+        //    EsEquivalente = EsEquivalente && ticket.DominioUsuarioAplicacion.ToLower() == DominioUsuarioAplicacion.ToLower();
+        //    EsEquivalente = EsEquivalente && ticket.Usuario.ToLower() == Usuario.ToLower();
+
+        //    return EsEquivalente;
+        //}
+    }
+}

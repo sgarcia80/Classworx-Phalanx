@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+  <class name="NDCCommon.Entities.Meta4SociedadEntity,NDCCommon" table="M4_CLASSWORX_SOCIEDADES">
+
+    <id name="Id" column="ID_SOCIEDAD" type="String">
+      <generator class="native"/>
+    </id>
+    <property column="N_SOCIEDAD" type="String" name="Nombre" />
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+  <class name="PhalanxCommon.Entities.PhxUserSuperiorEntity,PhalanxCommon" table="Phx_User_Superior">
+
+    <id name="Id" column="sup_id" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <property column="sup_name" type="String" name="Name" not-null="true" length="100" />
+    <property column="sup_mail" type="String" name="Mail" length="100" />
+    <bag name="PhxUsersList" inverse="true" lazy="true" >
+      <key column="sup_id" />
+      <one-to-many class="PhalanxCommon.Entities.PhxUserEntity,PhalanxCommon" />
+    </bag>
+
+  </class>
+</hibernate-mapping>

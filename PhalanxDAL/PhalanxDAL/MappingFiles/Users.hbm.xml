@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.UserEntity,PhalanxCommon" table="Users" dynamic-update="true">
+
+		<id name="Id" column="user_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+		<property column="username" type="String" name="Username" not-null="true" length="50" />
+		<property column="active_user" type="Boolean" name="ActiveUser" />
+		<many-to-one name="UserPassword" column="user_password_id" class="PhalanxCommon.Entities.UserPasswordEntity,PhalanxCommon" />
+		<many-to-one name="UserType" column="user_type_id" class="PhalanxCommon.Entities.UserTypeEntity,PhalanxCommon" />
+    <many-to-one name="UserSubType" column="user_subtype_id" class="PhalanxCommon.Entities.UserSubTypeEntity,PhalanxCommon" />
+    <property column="user_desc" type="String" name="Desc" length="4000" />
+    <property column="user_critical" type="Boolean" name="Critical" />
+		<property column="modifying_date" type="DateTime" name="ModifyingDate" />
+		<many-to-one name="ModifyingUser" column="modifying_user" class="PhalanxCommon.Entities.PhxUserEntity,PhalanxCommon" />
+    <property column="duration" type="Int32" name="Duration" />
+    <property column="modifying_pass_date" type="DateTime" name="ModifyingPassDate" />
+
+    <bag name="PwdChangesList" inverse="true" lazy="true" >
+			<key column="user_id" />
+			<one-to-many class="PhalanxCommon.Entities.HistPasswordChangeEntity,PhalanxCommon" />
+		</bag>
+
+		<joined-subclass name="PhalanxCommon.Entities.WinLocalUserEntity,PhalanxCommon" table="Win_Local_Users" lazy="false">
+			<key column="user_id"/>
+			<many-to-one name="WinPc" column="win_pc_id" class="PhalanxCommon.Entities.WinPCEntity,PhalanxCommon" />
+		</joined-subclass>
+
+		<joined-subclass name="PhalanxCommon.Entities.WinDomainUserEntity,PhalanxCommon" table="Win_Domain_Users" lazy="false">
+			<key column="user_id"/>
+			<bag name="WinDomainControllersList" inverse="true" lazy="true" >
+				<key column="impersonate_user_id" />
+				<one-to-many class="PhalanxCommon.Entities.WinDomainControllerEntity,PhalanxCommon" />
+			</bag>
+			<many-to-one name="WinDomainId" column="win_domain_id" class="PhalanxCommon.Entities.WinDomainEntity,PhalanxCommon" />
+			<property column="user_domain_id" type="Int32" name="UserDomainId" />
+		</joined-subclass>
+
+		<joined-subclass name="PhalanxCommon.Entities.ApplicationUserEntity,PhalanxCommon" table="Applications_Users">
+			<key column="user_id"/>
+			<many-to-one name="Application" column="app_id" class="PhalanxCommon.Entities.ApplicationEntity,PhalanxCommon" />
+			<property column="app_field1_value" type="String" name="Field1Value" length="50" />
+			<property column="app_field2_value" type="String" name="Field2Value" length="50" />
+			<property column="app_field3_value" type="String" name="Field3Value" length="50" />
+
+		</joined-subclass>
+		<joined-subclass name="PhalanxCommon.Entities.DatabaseUserEntity,PhalanxCommon" table="Databases_Users">
+			<key column="user_id"/>
+			<many-to-one name="Db" column="db_id" class="PhalanxCommon.Entities.DataBaseEntity,PhalanxCommon" />
+
+		</joined-subclass>
+
+		<joined-subclass name="PhalanxCommon.Entities.UnixUserEntity,PhalanxCommon" table="Unix_users">
+			<key column="user_id"/>
+			<many-to-one name="Unix" column="unx_id" class="PhalanxCommon.Entities.UnixEntity,PhalanxCommon" />
+
+		</joined-subclass>
+
+		<joined-subclass name="PhalanxCommon.Entities.AS400UserEntity,PhalanxCommon" table="AS400_users">
+			<key column="user_id"/>
+			<many-to-one name="AS400" column="as_id" class="PhalanxCommon.Entities.AS400Entity,PhalanxCommon" />
+
+		</joined-subclass>
+
+		<joined-subclass name="PhalanxCommon.Entities.CommunicationDeviceUserEntity,PhalanxCommon" table="Communication_Device_Users">
+			<key column="user_id"/>
+			<many-to-one name="CommunicationDevice" column="cm_dv_id" class="PhalanxCommon.Entities.CommunicationDeviceEntity,PhalanxCommon" />
+			<bag name="Protocols" table="Communication_Device_User_Protocol" cascade="all">
+				<key column="cm_dv_user_id" />
+				<many-to-many column="cm_dv_protocol_id" class="PhalanxCommon.Entities.CommunicationDeviceProtocolEntity,PhalanxCommon" />
+			</bag>
+		</joined-subclass>
+
+		<joined-subclass name="PhalanxCommon.Entities.ATMUserEntity,PhalanxCommon" table="ATMs_Users">
+			<key column="user_id"/>
+			<property column="ATM_name" type="String" name="ATMName" length="150" />
+			<property column="componente" type="String" name="Componente" length="50" />
+
+		</joined-subclass>
+
+	</class>
+
+	<sql-query name="getAllCommunicationDevicesUsers">
+		<return-scalar column="ID" type="Int32"/>
+		<return-scalar column="Username" type="String"/>
+		<return-scalar column="Critical" type="Boolean"/>
+		<return-scalar column="Active" type="Boolean"/>
+		<return-scalar column="LastChange" type="DateTime"/>
+		<return-scalar column="CDName" type="String"/>
+		<return-scalar column="IP" type="String"/>
+		<return-scalar column="CDType" type="String"/>
+    <return-scalar column="user_subtype_desc" type="String"/>
+    SELECT
+    dbo.Users.user_id AS ID,
+    dbo.Users.username AS Username,
+    dbo.Users.user_critical AS Critical,
+    dbo.Users.active_user AS Active,
+    dbo.Users_Passwords.d_last_change AS LastChange,
+    dbo.Communication_Devices.cm_dv_name AS CDName,
+    dbo.Communication_Devices.cm_dv_ip AS IP,
+    dbo.Communication_Device_Types.cm_dv_type_name AS CDType,
+    case when dbo.User_subTypes.user_subtype_desc is null then '' else dbo.User_subTypes.user_subtype_desc end as user_subtype_desc
+    FROM
+    dbo.Users
+    INNER JOIN dbo.Users_Passwords ON dbo.Users.user_password_id = dbo.Users_Passwords.user_password_id
+    INNER JOIN dbo.Communication_Device_Users ON dbo.Users.user_id = dbo.Communication_Device_Users.user_id
+    INNER JOIN dbo.Communication_Devices ON dbo.Communication_Device_Users.cm_dv_id = dbo.Communication_Devices.cm_dv_id
+    INNER JOIN dbo.Communication_Device_Types ON dbo.Communication_Devices.cm_dv_type_id = dbo.Communication_Device_Types.cm_dv_type_id
+    LEFT JOIN dbo.User_subTypes ON dbo.User_subTypes.user_subtype_id = dbo.Users.user_subtype_id
+    WHERE
+    (:critico = -1 OR dbo.Users.user_critical = :critico)
+    AND
+    (:estadoUsuario = -1 OR dbo.Users.active_user = :estadoUsuario)
+    AND
+    (:tipo = -1 OR dbo.Communication_Device_Types.cm_dv_type_id = :tipo)
+    AND
+    (:nombre IS NULL OR upper(dbo.Communication_Devices.cm_dv_name) LIKE :nombre)
+    AND
+    (:tipocuenta = 0 OR dbo.Users.user_subtype_id = :tipocuenta)
+  </sql-query>
+
+	<sql-query name="getAllUnixUsers">
+		<return-scalar column="ID" type="Int32"/>
+		<return-scalar column="Username" type="String"/>
+		<return-scalar column="Critical" type="Boolean"/>
+		<return-scalar column="Active" type="Boolean"/>
+		<return-scalar column="LastChange" type="DateTime"/>
+		<return-scalar column="UnixPCName" type="String"/>
+		<return-scalar column="IP" type="String"/>
+    <return-scalar column="user_subtype_desc" type="String"/>
+    SELECT
+    dbo.Users.user_id AS ID,
+    dbo.Users.username AS Username,
+    dbo.Users.user_critical AS Critical,
+    dbo.Users.active_user AS Active,
+    dbo.Users_Passwords.d_last_change AS LastChange,
+    dbo.Unix.unx_server_name AS UnixPCName,
+    dbo.Unix.unx_server_ip1 AS IP,
+    case when dbo.User_subTypes.user_subtype_desc is null then '' else dbo.User_subTypes.user_subtype_desc end as user_subtype_desc
+    FROM
+    dbo.Users
+    INNER JOIN dbo.Users_Passwords ON dbo.Users.user_password_id = dbo.Users_Passwords.user_password_id
+    INNER JOIN dbo.Unix_users ON dbo.Users.user_id = dbo.Unix_users.user_id
+    INNER JOIN dbo.Unix ON dbo.Unix_users.unx_id = dbo.Unix.unx_id
+    LEFT JOIN dbo.User_subTypes ON dbo.User_subTypes.user_subtype_id = dbo.Users.user_subtype_id
+    WHERE
+    (:critico = -1 OR dbo.Users.user_critical = :critico)
+    AND
+    (:estadoUsuario = -1 OR dbo.Users.active_user = :estadoUsuario)
+    AND
+    (:nombre IS NULL OR upper(dbo.Unix.unx_server_name) LIKE :nombre)
+    AND
+    (:tipocuenta = 0 OR dbo.Users.user_subtype_id = :tipocuenta)
+  </sql-query>
+
+	<sql-query name="getAllWindowsUsers">
+		<return-scalar column="ID" type="Int32"/>
+		<return-scalar column="Username" type="String"/>
+		<return-scalar column="Critical" type="Boolean"/>
+		<return-scalar column="Active" type="Boolean"/>
+		<return-scalar column="LastChange" type="DateTime"/>
+		<return-scalar column="WinDomain" type="String"/>
+		<return-scalar column="WinPCName" type="String"/>
+		<return-scalar column="IP" type="String"/>
+    <return-scalar column="user_subtype_desc" type="String"/>
+    SELECT
+    dbo.Users.user_id AS ID,
+    dbo.Users.username AS Username,
+    dbo.Users.user_critical AS Critical,
+    dbo.Users.active_user AS Active,
+    dbo.Users_Passwords.d_last_change AS LastChange,
+    dbo.Win_Domains.nt_name AS WinDomain,
+    dbo.Win_PCs.pc_name AS WinPCName,
+    dbo.Win_PCs.pc_ip AS IP,
+    case when dbo.User_subTypes.user_subtype_desc is null then '' else dbo.User_subTypes.user_subtype_desc end as user_subtype_desc
+    FROM
+    dbo.Users
+    INNER JOIN dbo.Users_Passwords ON dbo.Users.user_password_id = dbo.Users_Passwords.user_password_id
+    INNER JOIN dbo.Win_Local_Users ON dbo.Users.user_id = dbo.Win_Local_Users.user_id
+    INNER JOIN dbo.Win_PCs ON dbo.Win_Local_Users.win_pc_id = dbo.Win_PCs.win_pc_id
+    INNER JOIN dbo.Win_Domains ON dbo.Win_PCs.win_domain_id = dbo.Win_Domains.win_domain_id
+    LEFT JOIN dbo.User_subTypes ON dbo.User_subTypes.user_subtype_id = dbo.Users.user_subtype_id
+    WHERE
+    (:critico = -1 OR dbo.Users.user_critical = :critico)
+    AND
+    (:estadoUsuario = -1 OR dbo.Users.active_user = :estadoUsuario)
+    AND
+    (:nombre IS NULL OR upper(dbo.Users.username) LIKE :nombre)
+    AND
+    (:tipocuenta = 0 OR dbo.Users.user_subtype_id = :tipocuenta)
+  </sql-query>
+
+	<sql-query name="getAllAS400Users">
+		<return-scalar column="ID" type="Int32"/>
+		<return-scalar column="Username" type="String"/>
+		<return-scalar column="Critical" type="Boolean"/>
+		<return-scalar column="Active" type="Boolean"/>
+		<return-scalar column="LastChange" type="DateTime"/>
+		<return-scalar column="AS400PCName" type="String"/>
+		<return-scalar column="AS400IP" type="String"/>
+    <return-scalar column="user_subtype_desc" type="String"/>
+    SELECT
+    dbo.Users.user_id AS ID,
+    dbo.Users.username AS Username,
+    dbo.Users.user_critical AS Critical,
+    dbo.Users.active_user AS Active,
+    dbo.Users_Passwords.d_last_change AS LastChange,
+    dbo.AS400.as_server_name AS AS400PCName,
+    dbo.AS400.as_ip AS AS400IP,
+    case when dbo.User_subTypes.user_subtype_desc is null then '' else dbo.User_subTypes.user_subtype_desc end as user_subtype_desc
+    FROM
+    dbo.Users
+    INNER JOIN dbo.Users_Passwords ON dbo.Users.user_password_id = dbo.Users_Passwords.user_password_id
+    INNER JOIN dbo.AS400_users ON dbo.Users.user_id = dbo.AS400_users.user_id
+    INNER JOIN dbo.AS400 ON dbo.AS400_users.as_id = dbo.AS400.as_id
+    LEFT JOIN dbo.User_subTypes ON dbo.User_subTypes.user_subtype_id = dbo.Users.user_subtype_id
+    WHERE
+    (:critico = -1 OR dbo.Users.user_critical = :critico)
+    AND
+    (:estadoUsuario = -1 OR dbo.Users.active_user = :estadoUsuario)
+    AND
+    (:nombre IS NULL OR upper(dbo.Users.username) LIKE :nombre)
+    AND
+    (:tipocuenta = 0 OR dbo.Users.user_subtype_id = :tipocuenta)
+  </sql-query>
+
+	<sql-query name="getAllATMUsers">
+		<return-scalar column="ID" type="Int32"/>
+		<return-scalar column="Username" type="String"/>
+		<return-scalar column="Critical" type="Boolean"/>
+		<return-scalar column="Active" type="Boolean"/>
+		<return-scalar column="LastChange" type="DateTime"/>
+		<return-scalar column="ATMName" type="String"/>
+    <return-scalar column="user_subtype_desc" type="String"/>
+    SELECT
+    dbo.Users.user_id AS ID,
+    dbo.Users.username AS Username,
+    dbo.Users.user_critical AS Critical,
+    dbo.Users.active_user AS Active,
+    dbo.Users_Passwords.d_last_change AS LastChange,
+    dbo.ATMs_Users.ATM_name AS ATMName,
+    case when dbo.User_subTypes.user_subtype_desc is null then '' else dbo.User_subTypes.user_subtype_desc end as user_subtype_desc
+    FROM
+    dbo.ATMs_Users
+    INNER JOIN dbo.Users ON dbo.ATMs_Users.user_id = dbo.Users.user_id
+    INNER JOIN dbo.Users_Passwords ON dbo.Users.user_password_id = dbo.Users_Passwords.user_password_id
+    LEFT JOIN dbo.User_subTypes ON dbo.User_subTypes.user_subtype_id = dbo.Users.user_subtype_id
+    WHERE
+    (:critico = -1 OR dbo.Users.user_critical = :critico)
+    AND
+    (:estadoUsuario = -1 OR dbo.Users.active_user = :estadoUsuario)
+    AND
+    (:nombre IS NULL OR upper(dbo.Users.username) LIKE :nombre)
+    AND
+    (:tipocuenta = 0 OR dbo.Users.user_subtype_id = :tipocuenta)
+  </sql-query>
+
+	<sql-query name="getAllApplicationUsers">
+		<return-scalar column="ID" type="Int32"/>
+		<return-scalar column="Username" type="String"/>
+		<return-scalar column="Critical" type="Boolean"/>
+		<return-scalar column="Active" type="Boolean"/>
+		<return-scalar column="LastChange" type="DateTime"/>
+		<return-scalar column="AplicationName" type="String"/>
+    <return-scalar column="DiasCambioClave" type="Int32"/>
+    <return-scalar column="user_subtype_desc" type="String"/>
+    SELECT
+    dbo.Applications_Users.user_id AS ID,
+    dbo.Users.username AS Username,
+    dbo.Users.user_critical AS Critical,
+    dbo.Users.active_user AS Active,
+    dbo.Users_Passwords.d_last_change AS LastChange,
+    dbo.Applications.app_name AS AplicationName,
+    DiasCambioClave =
+    CASE dbo.Users.duration
+    WHEN 999 THEN 999
+    ELSE dbo.Users.duration - DATEDIFF(day, ISNULL(dbo.Users.modifying_pass_date, GETDATE()), GETDATE())
+    END,
+    case when dbo.User_subTypes.user_subtype_desc is null then '' else dbo.User_subTypes.user_subtype_desc end as user_subtype_desc
+    FROM
+    dbo.Applications
+    INNER JOIN dbo.Applications_Users ON dbo.Applications.app_id = dbo.Applications_Users.app_id
+    INNER JOIN dbo.Users ON dbo.Applications_Users.user_id = dbo.Users.user_id
+    INNER JOIN dbo.Users_Passwords ON dbo.Users.user_password_id = dbo.Users_Passwords.user_password_id
+    LEFT JOIN dbo.User_subTypes ON dbo.User_subTypes.user_subtype_id = dbo.Users.user_subtype_id
+    WHERE
+    (:critico = -1 OR dbo.Users.user_critical = :critico)
+    AND
+    (:tipocuenta = 0 OR dbo.Users.user_subtype_id = :tipocuenta)
+    AND
+    (:estadoUsuario = -1 OR dbo.Users.active_user = :estadoUsuario)
+    AND
+    (:nombre IS NULL OR upper(dbo.Users.username) LIKE :nombre)
+    AND
+    (:expiracion IS NULL OR
+    (:expiracion = 0 AND dbo.Users.duration &lt;&gt; 999) OR
+      (:expiracion = 1 AND dbo.Users.duration = 999)OR
+      (:expiracion = 2)
+    )
+  </sql-query>
+
+  <sql-query name="getProxVencApplicationUsers">
+    <return-scalar column="Folio" type="Int32"/>
+    <return-scalar column="Aplicativo" type="String"/>
+    <return-scalar column="Usuario" type="String"/>
+    <return-scalar column="DiasRestantes" type="Int32"/>
+    SELECT
+    dbo.Applications_Users.user_id AS Folio,
+    dbo.Applications.app_name AS Aplicativo,
+    dbo.Users.username AS Usuario,
+    dbo.Users.duration - DATEDIFF(day, dbo.Users.modifying_pass_date, GETDATE()) AS DiasRestantes
+    FROM
+    dbo.Applications_Users
+    INNER JOIN dbo.Applications ON dbo.Applications_Users.app_id = dbo.Applications.app_id
+    INNER JOIN dbo.Users ON dbo.Applications_Users.user_id = dbo.Users.user_id
+    WHERE
+    dbo.Users.duration &lt;&gt; 999
+    AND
+    dbo.Users.modifying_pass_date IS NOT NULL
+    AND
+    (dbo.Users.duration - DATEDIFF(day, dbo.Users.modifying_pass_date, GETDATE()) &lt; 6)
+	ORDER BY dbo.Applications_Users.user_id  
+</sql-query>
+
+  <sql-query name="getAllDatabaseUsers">
+		<return-scalar column="ID" type="Int32"/>
+		<return-scalar column="Username" type="String"/>
+		<return-scalar column="Critical" type="Boolean"/>
+		<return-scalar column="Active" type="Boolean"/>
+		<return-scalar column="LastChange" type="DateTime"/>
+		<return-scalar column="DBType" type="String"/>
+		<return-scalar column="DBName" type="String"/>
+		<return-scalar column="WinDomain" type="String"/>
+		<return-scalar column="WinPCName" type="String"/>
+		<return-scalar column="WinPCIP" type="String"/>
+		<return-scalar column="UnixPCName" type="String"/>
+		<return-scalar column="UnixPCIP" type="String"/>
+    <return-scalar column="user_subtype_desc" type="String"/>
+    SELECT
+    dbo.Users.user_id AS ID,
+    dbo.Users.username AS Username,
+    dbo.Users.user_critical AS Critical,
+    dbo.Users.active_user AS Active,
+    dbo.Users_Passwords.d_last_change AS LastChange,
+    dbo.Database_Types.db_type_name AS DBType,
+    dbo.Data_Bases.db_name AS DBName,
+    dbo.Win_Domains.nt_name AS WinDomain,
+    dbo.Win_PCs.pc_name AS WinPCName,
+    dbo.Win_PCs.pc_ip AS WinPCIP,
+    dbo.Unix.unx_server_name AS UnixPCName,
+    dbo.Unix.unx_ip AS UnixPCIP,
+    case when dbo.User_subTypes.user_subtype_desc is null then '' else dbo.User_subTypes.user_subtype_desc end as user_subtype_desc
+    FROM
+    dbo.Unix RIGHT
+    OUTER JOIN dbo.Users INNER JOIN dbo.Users_Passwords ON dbo.Users.user_password_id = dbo.Users_Passwords.user_password_id
+    LEFT JOIN dbo.User_subTypes ON dbo.User_subTypes.user_subtype_id = dbo.Users.user_subtype_id
+    INNER JOIN dbo.Databases_Users ON dbo.Users.user_id = dbo.Databases_Users.user_id
+    INNER JOIN dbo.Data_Bases ON dbo.Databases_Users.db_id = dbo.Data_Bases.db_id
+    INNER JOIN dbo.Database_Types ON dbo.Data_Bases.db_type_id = dbo.Database_Types.db_type_id ON dbo.Unix.unx_id = dbo.Data_Bases.unx_id
+    LEFT OUTER JOIN dbo.Win_Domains
+    RIGHT OUTER JOIN dbo.Win_PCs ON dbo.Win_Domains.win_domain_id = dbo.Win_PCs.win_domain_id ON dbo.Data_Bases.win_pc_id = dbo.Win_PCs.win_pc_id
+    WHERE
+    (:critico = -1 OR dbo.Users.user_critical = :critico)
+    AND
+    (:estadoUsuario = -1 OR dbo.Users.active_user = :estadoUsuario)
+    AND
+    (:nombre IS NULL OR upper(dbo.Users.username) LIKE :nombre)
+    AND
+    (:tipo = -1 OR dbo.Database_Types.db_type_id = :tipo)
+    AND
+    (:tipocuenta = 0 OR dbo.Users.user_subtype_id = :tipocuenta)
+  </sql-query>
+
+</hibernate-mapping>

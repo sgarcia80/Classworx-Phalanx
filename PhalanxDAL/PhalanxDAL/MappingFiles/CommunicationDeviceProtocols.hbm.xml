@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+  <class name="PhalanxCommon.Entities.CommunicationDeviceProtocolEntity,PhalanxCommon" table="Communication_Device_Protocols">
+
+    <id name="Id" column="cm_dv_protocol_id" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <property column="cm_dv_protocol_name" type="String" name="Name" not-null="true" length="50" />
+
+  </class>
+</hibernate-mapping>

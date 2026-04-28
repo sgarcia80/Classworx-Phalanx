@@ -1,0 +1,3 @@
+﻿ALTER TABLE [dbo].[audit_phx_privilege_role]
+    ADD CONSTRAINT [PK_audit_phx_privilege_role] PRIMARY KEY CLUSTERED ([audit_phx_priv_role_id] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF);
+

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.ApplicationEntity,PhalanxCommon" table="Applications">
+
+		<id name="Id" column="app_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+		<bag name="ApplicationsUsersList" inverse="true" lazy="true" >
+			<key column="app_id" />
+			<one-to-many class="PhalanxCommon.Entities.ApplicationUserEntity,PhalanxCommon" />
+		</bag>
+		<property column="app_name" type="String" name="Name" not-null="true" length="100" />
+		<property column="app_desc" type="String" name="Desc" length="200" />
+		<property column="app_field1_desc" type="String" name="Field1Desc" length="50" />
+		<property column="app_field2_desc" type="String" name="Field2Desc" length="50" />
+		<property column="app_field3_desc" type="String" name="Field3Desc" length="50" />
+		<property column="active" type="Boolean" name="Active" />
+		<property column="desactiva_pwd_cierre" type="Boolean" name="Desactiva_PWD_Cierre" />
+
+	</class>
+</hibernate-mapping>

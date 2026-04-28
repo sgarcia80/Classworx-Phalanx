@@ -1,0 +1,26 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Principal.Master.cs" Inherits="NotifClavesWeb.Principal" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>Banco Macro - Notificaci&oacute;n de Claves</title>
+    <link href="Styles/common.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+    <form id="form2" runat="server">
+    <div class="header">
+        <div id="logo">
+        </div>
+        <div id="title">
+            Notificaci&oacute;n de Claves</div>
+        <div id="usuario">
+            <asp:Label ID="LabelUser" runat="server" />
+            <asp:LinkButton ID="lbLogout" CssClass="logout" Text="[Logout]" runat="server" OnClick="lbLogout_Click" />
+        </div>
+    </div>
+    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+    </asp:ContentPlaceHolder>
+    </form>
+</body>
+</html>

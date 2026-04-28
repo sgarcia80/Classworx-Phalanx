@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+  <class name="NDCCommon.Entities.MacroUsuarioTarjetaEntity,NDCCommon" table="macro_usuario_tarjeta">
+
+    <id name="Id" column="macro_usuario_tarjeta_id" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <many-to-one column="anc_id" name="Aplicacion" class="NDCCommon.Entities.AplicacionNotificacionClaveEntity, NDCCommon" />
+
+    <property column="dominio" name="Dominio" type="String" />
+    <property column="usuario_red" name="UsuarioRed" type="String" />
+    <property column="usuario_tc" name="UsuarioTC" type="String" />
+    <property column="aplicacion_codigo" name="AplicacionCodigo" type="String" />
+  </class>
+</hibernate-mapping>

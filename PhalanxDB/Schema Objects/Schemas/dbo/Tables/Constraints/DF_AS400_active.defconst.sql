@@ -1,0 +1,3 @@
+﻿ALTER TABLE [dbo].[AS400]
+    ADD CONSTRAINT [DF_AS400_active] DEFAULT (1) FOR [active];
+

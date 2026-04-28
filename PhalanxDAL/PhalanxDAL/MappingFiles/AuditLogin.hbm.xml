@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.AuditLoginEntity,PhalanxCommon" table="audit_login">
+	
+		<id name="Id" column="aud_login_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+		<property column="fecha" type="DateTime" name="Fecha" insert="false"/>
+		<property column="terminal" type="String" name="Terminal" not-null="true" length="150" />
+		<property column="id_usuario" type="Int32" name="IdUsuario" not-null="false" />
+		<property column="username" type="String" name="Username" not-null="true" length="50" />
+		<property column="fullname" type="String" name="Fullname" not-null="false" length="100" />
+		<many-to-one name="Evento" column="evento_login_id" class="PhalanxCommon.Entities.EventoLoginEntity,PhalanxCommon" not-null="false" />
+    <property column="app_id" name="Application" not-null="false" />
+  </class>
+
+  <sql-query name="DepurarAuditLogin">
+    <return-scalar column="resultado" type="int"/>
+    exec DepurarAuditLogin :fecha
+  </sql-query>
+</hibernate-mapping>

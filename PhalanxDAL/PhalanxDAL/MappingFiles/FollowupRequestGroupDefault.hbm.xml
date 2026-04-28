@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.FollowupRequestGroupDefaultEntity,PhalanxCommon" table="followup_request_group_default">
+
+		<id name="Id" column="frgd_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+		<many-to-one name="UserType" column="user_type_id" class="PhalanxCommon.Entities.UserTypeEntity,PhalanxCommon" />
+		<many-to-one name="FollowupRqstGrp" column="frg_id" class="PhalanxCommon.Entities.FollowupRequestGroupEntity,PhalanxCommon" />
+		
+	</class>
+</hibernate-mapping>

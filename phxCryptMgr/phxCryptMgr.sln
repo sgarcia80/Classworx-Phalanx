@@ -1,0 +1,30 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phxCryptMgr", "phxCryptMgr.csproj", "{F0941A5C-7856-42E9-9544-CDAC11F3C285}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 2
+		SccLocalPath0 = .
+		CanCheckoutShared = false
+		SolutionUniqueID = {0E63EAD6-5414-4E50-BEBD-241317EB0C2F}
+		SccProjectUniqueName1 = phxCryptMgr.csproj
+		SccLocalPath1 = .
+		CanCheckoutShared = false
+	EndGlobalSection
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{F0941A5C-7856-42E9-9544-CDAC11F3C285}.Debug.ActiveCfg = Debug|.NET
+		{F0941A5C-7856-42E9-9544-CDAC11F3C285}.Debug.Build.0 = Debug|.NET
+		{F0941A5C-7856-42E9-9544-CDAC11F3C285}.Release.ActiveCfg = Release|.NET
+		{F0941A5C-7856-42E9-9544-CDAC11F3C285}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

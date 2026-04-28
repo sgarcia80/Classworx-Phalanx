@@ -1,0 +1,1599 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+using PhalanxCommon.Collections;
+using PhalanxCommon.Entities;
+using PhalanxBL;
+using phxCryptMgr;
+using System.Collections;
+
+namespace PhalanxAdmin
+{
+    public partial class FABMWinUsrPwd : PhalanxAdmin.FModalBase
+    {
+        private WinLocalUserBusiness m_WinUserBusiness = null;
+        private WinLocalUserEntity m_CurrentUser = null;
+        private WinPCEntity _winPCSel = null;
+        private const string cAsterisk = "**********";
+
+        public enum FormType
+        {
+            New,
+            Update,
+            View,
+            Delete
+        }
+
+        private FormType m_FormType = FormType.View;
+
+        public FABMWinUsrPwd(FormType formType, string userlogon)
+            : base()
+        {
+            InitializeComponent();
+            lvLista.ListViewItemSorter = new cwxSorter(0, SortOrder.Descending);
+
+            lvListaSolicitudes.ListViewItemSorter = new cwxSorter(0, SortOrder.Descending);
+
+            m_FormType = formType;
+            this.Usuario = userlogon;
+            m_WinUserBusiness = new WinLocalUserBusiness(this.Usuario);
+        }
+
+        public FABMWinUsrPwd(WinLocalUserEntity user, FormType formType, string userlogon) : this(formType, userlogon)
+        {
+            user = m_WinUserBusiness.Refresh(user);
+            if (user.ModifyingDate != null && user.ModifyingUser != null)
+            {
+                if (user.ModifyingUser.Username != new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario).Username)
+                {
+                    if (user.ModifyingDate.Value.AddMinutes(10) > new PhalanxDAL.Factories.GetDateFactory().GetDate().GetDate)
+                    {
+                        lblModifying.Text = "Esta contraseña está siendo modificada por " + user.ModifyingUser.Fullname + " desde el " + user.ModifyingDate.Value.ToShortDateString() + " a las " + user.ModifyingDate.Value.ToShortTimeString();
+                        lblModifying.Visible = true;
+                        formType = FormType.View;
+                    }
+                    else
+                    {
+                        lblModifying.Text = "Esta contraseña estuvo siendo modificada por " + user.ModifyingUser.Fullname + " desde el " + user.ModifyingDate.Value.ToShortDateString() + " a las " + user.ModifyingDate.Value.ToShortTimeString() + " pero no se finalizó la sesión";
+                        lblModifying.Visible = true;
+                        if (formType == FormType.Update || m_FormType == FormType.Delete)
+                        {
+                            user.ModifyingDate = new PhalanxDAL.Factories.GetDateFactory().GetDate().GetDate;
+                            user.ModifyingUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario);
+                            m_WinUserBusiness.Update(user, this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
+                        }
+                    }
+                }
+                else
+                {
+                    lblModifying.Text = "Esta contraseña estuvo siendo modificada por usted el " + user.ModifyingDate.Value.ToShortDateString() + " a las " + user.ModifyingDate.Value.ToShortTimeString() + " pero no se finalizó la sesión";
+                    lblModifying.Visible = true;
+                    if (formType == FormType.Update || m_FormType == FormType.Delete)
+                    {
+                        user.ModifyingDate = new PhalanxDAL.Factories.GetDateFactory().GetDate().GetDate;
+                        user.ModifyingUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario);
+                        m_WinUserBusiness.Update(user, this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
+                    }
+                }
+            }
+            else
+            {
+                lblModifying.Visible = false;
+                if (formType == FormType.Update || m_FormType == FormType.Delete)
+                {
+                    user.ModifyingDate = new PhalanxDAL.Factories.GetDateFactory().GetDate().GetDate;
+                    user.ModifyingUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario);
+                    m_WinUserBusiness.Update(user, this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
+                }
+            }
+
+            m_FormType = formType;
+            m_CurrentUser = user;
+            UserDomainText = m_CurrentUser.WinPc.WinDomain.NtName;
+            //UserPCText = m_CurrentUser.WinPc.Name;
+            if ((m_FormType == FormType.Update) || (m_FormType == FormType.View) || (m_FormType == FormType.Delete))
+            {
+                btnSelEquipo.Visible = false;
+                txtEquipo.Text = m_CurrentUser.WinPc.Name;
+            }
+            UserActive = m_CurrentUser.ActiveUser;
+            UserName = m_CurrentUser.Username;
+            UserDescription = m_CurrentUser.Desc;
+            Password = m_CurrentUser.UserPassword.Password;
+
+            // Agregado MG
+            chkUsuarioCritico.Checked = m_CurrentUser.Critical;
+            chkPwdConcurrente.Checked = m_CurrentUser.UserPassword.Concurrent;
+            chkCheckeable.Checked = m_CurrentUser.UserPassword.Checkeable;
+            lblFolioNro.Text = m_CurrentUser.Key;
+        }
+
+        public void ConfigureScreen()
+        {
+            PhxUserBusiness phxUser = new PhxUserBusiness();
+            this.chkVisualizar.Visible = phxUser.AccParamConfigViewPassword(this.Usuario);
+            this.btnCopy.Visible = this.chkVisualizar.Visible;
+            this.btnCopyHist.Visible = this.btnCopy.Visible;
+
+            switch (m_FormType)
+            {
+                case FormType.New:
+                    {
+                        PopulateDomains();
+                        pNetFind.Visible = true;
+                        chkChgPwd.Checked = true;
+                        chkChgPwd.Enabled = false;
+                        this.Title = "Nuevo Usuario y Contraseña";
+                        this.Info = "";
+                        CargarGruposSolicitudes();
+                        CargarGruposSeguimiento();
+
+                        if (tabControl1.TabCount == 5)
+                        {
+                            tabControl1.TabPages.Remove(tabControl1.TabPages[4]);
+                            tabControl1.TabPages.Remove(tabControl1.TabPages[3]);
+                        }
+                        this.chkVisualizar.Enabled = true;
+                        break;
+                    }
+                case FormType.Update:
+                    {
+                        PopulateRequestStates();
+                        PopulateGrupoTareas();
+                        ExecEntitiesSolicitudesRefresh();
+                        chkChgPwd.Checked = false;
+                        chkChgPwd.Enabled = true;
+                        chkChgPwd_CheckedChanged(null, null);
+                        // Si el equipo no está habilitado no se puede habilitar
+                        if (m_CurrentUser.WinPc.Active == false)
+                        {
+                            cBoxActivo.Enabled = false;
+                        }
+                        this.Title = "Modificación de Usuario y Contraseña";
+                        this.Info = m_CurrentUser.WinPc.WinDomain.NtName + " / " +
+                                    m_CurrentUser.WinPc.Name + " / " +
+                                    m_CurrentUser.Username;
+                        CargarGruposSolicitudes();
+                        CargarGruposSeguimiento();
+                        ExecEntitiesRefresh();
+                        break;
+                    }
+                case FormType.View:
+                    {
+                        PopulateRequestStates();
+                        PopulateGrupoTareas();
+                        ExecEntitiesSolicitudesRefresh();
+                        tBUsuario.ReadOnly = true;
+                        tBUserDescript.ReadOnly = true;
+                        tPassword1.ReadOnly = true;
+                        tPassword2.ReadOnly = true;
+                        cBoxActivo.Enabled = false;
+                        checkBoxRealUser.Enabled = false;
+                        chkCheckeable.Enabled = false;
+
+                        chkChgPwd.Checked = false;
+                        chkChgPwd.Enabled = false;
+
+                        //Agregado MG
+                        chkUsuarioCritico.Enabled = false;
+                        chkPwdConcurrente.Enabled = false;
+
+                        cbTipoCuenta.Enabled = false;
+
+                        btnSelEquipo.Visible = false;
+                        //btnAceptar.Visible = false;
+                        // deshabilita boton cancelar
+                        btnCancelar.Enabled = false;
+                        this.Title = "Visualización de Usuario y Contraseña";
+                        this.Info = m_CurrentUser.WinPc.WinDomain.NtName + " / " +
+                                    m_CurrentUser.WinPc.Name + " / " +
+                                    m_CurrentUser.Username;
+                        CargarGruposSolicitudes();
+                        CargarGruposSeguimiento();
+                        ExecEntitiesRefresh();
+                        pnlGruposSolicitudes.Visible = false;
+                        pnlGruposSeguimientos.Visible = false;
+                        break;
+                    }
+                case FormType.Delete:
+                    {
+                        chkChgPwd.Checked = false;
+                        chkChgPwd.Enabled = false;
+                        tBUsuario.ReadOnly = true;
+                        tBUserDescript.ReadOnly = true;
+                        tPassword1.ReadOnly = true;
+                        tPassword2.ReadOnly = true;
+                        cBoxActivo.Enabled = true;
+                        checkBoxRealUser.Enabled = false;
+                        chkCheckeable.Enabled = false;
+
+                        //Agregado MG
+                        chkUsuarioCritico.Enabled = false;
+                        chkPwdConcurrente.Enabled = false;
+
+                        cbTipoCuenta.Enabled = false;
+                        
+                        btnSelEquipo.Visible = false;
+                        this.Title = "Baja de Usuario y Contraseña";
+                        this.Info = m_CurrentUser.WinPc.WinDomain.NtName + " / " +
+                                    m_CurrentUser.WinPc.Name + " / " +
+                                    m_CurrentUser.Username;
+                        CargarGruposSolicitudes();
+                        CargarGruposSeguimiento();
+                        ExecEntitiesRefresh();
+                        pnlGruposSolicitudes.Visible = false;
+                        pnlGruposSeguimientos.Visible = false;
+
+                        if (tabControl1.TabCount == 5)
+                        {
+                            tabControl1.TabPages.Remove(tabControl1.TabPages[4]);
+                        }
+                        break;
+                    }
+            }
+        }
+        
+        public string UserName
+        {
+            set { tBUsuario.Text = value; }
+        }
+        public string UserDescription
+        {
+            set { tBUserDescript.Text = value; }
+        }
+        public string Password
+        {
+            set
+            {
+                tPassword1.Text = m_WinUserBusiness.DecryptPassword(value);
+                tPassword2.Text = tPassword1.Text;
+            }
+        }
+        public bool UserActive
+        {
+            set { cBoxActivo.Checked = value; }
+        }
+
+        /*        public string UserPCText
+                {
+                    set
+                    {
+                        if ((m_FormType == FormType.Update) || (m_FormType == FormType.View) || (m_FormType == FormType.Delete))
+                        {
+                            cBPC.Visible = false;
+                            TextBox tBPC = new TextBox();
+                            tBPC.Parent = cBPC.Parent;
+                            tBPC.Location = cBPC.Location;
+                            tBPC.Size = cBPC.Size;
+                            tBPC.Text = value;
+                            tBPC.ReadOnly = true;
+                            this.Controls.Add(tBPC);
+                        }
+                    }
+                }
+        */
+        public string UserDomainText
+        {
+            set
+            {
+                if ((m_FormType == FormType.Update) || (m_FormType == FormType.View) || (m_FormType == FormType.Delete))
+                {
+                    cbDominio.Visible = false;
+                    TextBox tBDominio = new TextBox();
+                    tBDominio.Parent = cbDominio.Parent;
+                    tBDominio.Location = cbDominio.Location;
+                    tBDominio.Size = cbDominio.Size;
+                    tBDominio.Text = value;
+                    tBDominio.ReadOnly = true;
+                    this.tpGeneral.Controls.Add(tBDominio);
+                }
+            }
+        }
+
+        /*public WinDomainEntity UserDomain
+        {
+            get { return m_DomainEntity; }
+            set
+            {
+                if (m_FormType == FormType.New)
+                {
+                    m_DomainEntity = value;
+                    if (value != null)
+                    {
+                        for (int i = 0; i < cbDominio.Items.Count; i++)
+                        {
+                            if (value.NtName.ToUpper() == cbDominio.Items[i].ToString().ToUpper())
+                            {
+                                cbDominio.SelectedIndex = i;
+                                PopulatePcs(value);
+                                break;
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+        */
+
+
+
+        private void PopulateDomains()
+        {
+            WinDomainBusiness winDomBus = new WinDomainBusiness();
+            cbDominio.DataSource = winDomBus.GetAll();
+            //PopulatePcs((WinDomainEntity)cbDominio.SelectedValue);
+        }
+
+        /*private void PopulatePcs(WinDomainEntity domain)
+        {
+            WinPCBusiness winPCBus = new WinPCBusiness();
+            winPCBus.FilDominio = domain;
+            winPCBus.FilNombre = string.Empty;
+            cBPC.DataSource = winPCBus.GetAll();
+        }*/
+
+        public void SetDomains(WinDomainEntityCollection domains)
+        {
+            domains.Remove("0");
+            cbDominio.DataSource = domains;
+        }
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            if (m_FormType == FormType.View)
+            {
+                this.DialogResult = DialogResult.OK;
+                return;
+            }
+            if (!verificarDatos())
+                this.DialogResult = DialogResult.None;
+            else
+            {
+                if (chkChgPwd.Checked && checkBoxRealUser.Checked)
+                {
+                    if (MessageBox.Show("Se va a impactar la contraseña en el equipo. Desea continuar?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No)
+                    {
+                        this.DialogResult = DialogResult.None;
+                        return;
+                    }
+                }
+                switch (m_FormType)
+                {
+                    case FormType.New:
+                        {
+                            NewUser();
+                            break;
+                        }
+                    case FormType.Update:
+                        {
+                            UpdateUser();
+                            break;
+                        }
+                    case FormType.Delete:
+                        {
+                            ChangeUserState();
+                            break;
+                        }
+                }
+            }
+        }
+
+        private bool verificarDatos()
+        {
+            if (tBUsuario.Text.Length == 0)
+            {
+                MessageBox.Show("Debe Ingresar el Nombre de Usuario");
+                return false;
+            }
+            else if (tPassword1.Text.Length == 0)
+            {
+                MessageBox.Show("Debe Ingresar un Password Válido");
+                return false;
+            }
+            else if (tPassword2.Text.Length == 0)
+            {
+                MessageBox.Show("Debe Ingresar la confirmación de la Contraseña");
+                return false;
+            }
+            else if (tPassword1.Text != tPassword2.Text)
+            {
+                MessageBox.Show("Confirmación de Contraseña incorrecta");
+                return false;
+            }
+            if (lvGruposSolicitudesAsociados.Items.Count == 0)
+            {
+                MessageBox.Show("Debe seleccionar al menos un Grupo de Solicitudes asociado a este usuario");
+                return false;
+            }
+            if (lvGruposSeguimientoAsociados.Items.Count == 0)
+            {
+                MessageBox.Show("Debe seleccionar al menos un Grupo de Seguimiento de Solicitudes asociado a este usuario");
+                return false;
+            }
+            if (tBUserDescript.Text.Length > 4000)
+            {
+                MessageBox.Show("La descripción no puede exceder los 4000 caracteres");
+                return false;
+            }
+
+            return true;
+        }
+
+        private void ChangeUserState()
+        {
+            m_CurrentUser = m_WinUserBusiness.Refresh(m_CurrentUser);
+            if (m_CurrentUser.ModifyingUser.Username != new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario).Username)
+            {
+                MessageBox.Show("Su sesión de edición expiró y la contraseña fue tomada por " + m_CurrentUser.ModifyingUser.Fullname + " el " + m_CurrentUser.ModifyingDate.Value.ToShortDateString() + " a las " + m_CurrentUser.ModifyingDate.Value.ToShortTimeString());
+                return;
+            }
+
+            m_CurrentUser.ActiveUser = cBoxActivo.Checked;
+            m_CurrentUser.ModifyingUser = null;
+            m_CurrentUser.ModifyingDate = null;
+            try
+            {
+                m_WinUserBusiness.Update(m_CurrentUser, this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
+                if (cBoxActivo.Checked)
+                    MessageBox.Show("El Usuario ha sido Activado");
+                else
+                    MessageBox.Show("El Usuario ha sido Desactivado");
+            }
+            catch (Exception exp)
+            {
+                MessageBox.Show("Ha ocurrido un error al modificar los datos: " + Environment.NewLine + exp.Message);
+            }
+        }
+
+        private string GetPassword(string texto)
+        {
+            string auxstr = texto.Replace((char)4, new char());
+            auxstr = auxstr.Replace((char)5, new char());
+            return auxstr.Replace("\0", string.Empty).Trim();
+        }
+
+        private void UpdateUser()
+        {
+            // si hay cambio de nombre de usuario se verifica que no exista
+
+            m_CurrentUser = m_WinUserBusiness.Refresh(m_CurrentUser);
+            if (m_CurrentUser.ModifyingUser.Username != new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario).Username)
+            {
+                MessageBox.Show("Su sesión de edición expiró y la contraseña fue tomada por " + m_CurrentUser.ModifyingUser.Fullname + " el " + m_CurrentUser.ModifyingDate.Value.ToShortDateString() + " a las " + m_CurrentUser.ModifyingDate.Value.ToShortTimeString());
+                return;
+            }
+            m_CurrentUser.ModifyingDate = null;
+            m_CurrentUser.ModifyingUser = null;
+
+            if (m_CurrentUser.Username != tBUsuario.Text)
+            {
+                if (m_WinUserBusiness.Exists(m_CurrentUser.WinPc, tBUsuario.Text))
+                {
+                    MessageBox.Show("El usuario ya existe");
+                    this.DialogResult = DialogResult.None;
+                    tBUsuario.SelectionStart = 0;
+                    tBUsuario.SelectionLength = tBUsuario.Text.Length;
+                    tBUsuario.Focus();
+                    return;
+                }
+            }
+
+            // si hay cambio de pwd
+            if (chkChgPwd.Checked)
+            {
+                string pass = GetPassword(tPassword1.Text);
+                m_CurrentUser.UserPassword.Password = m_WinUserBusiness.EncryptPassword(pass);
+                m_CurrentUser.UserPassword.ApplyRealUser = checkBoxRealUser.Checked;
+                m_CurrentUser.UserPassword.RealPassword = pass;
+            }
+
+            m_CurrentUser.Username = tBUsuario.Text;
+            m_CurrentUser.Desc = tBUserDescript.Text.Trim();
+            m_CurrentUser.ActiveUser = cBoxActivo.Checked;
+            m_CurrentUser.UserPassword.Checkeable = chkCheckeable.Checked;
+
+            // Agregado MG
+            m_CurrentUser.Critical = chkUsuarioCritico.Checked;
+            m_CurrentUser.UserPassword.Concurrent = chkPwdConcurrente.Checked;
+
+            if (cbTipoCuenta.SelectedIndex > 0)
+            {
+                m_CurrentUser.UserSubType = cbTipoCuenta.SelectedItem as UserSubTypeEntity;
+            }
+            else
+            {
+                m_CurrentUser.UserSubType = null;
+            }
+
+            try
+            {
+                m_WinUserBusiness.Update(m_CurrentUser, chkChgPwd.Checked, this.GetGruposSolicitudes(), this.GetGruposSeguimientos(), true);
+                MessageBox.Show("Se han modificado los datos satisfactoriamente");
+            }
+            catch (Exception exp)
+            {
+                MessageBox.Show("Ha ocurrido un error al modificar los datos: " + Environment.NewLine + exp.Message);
+            }
+        }
+        
+        private void NewUser()
+        {
+            UserPasswordEntity userPassword = new UserPasswordEntity();
+            userPassword.StaticPwd = true;
+            string password = GetPassword(tPassword1.Text);
+            userPassword.Password = m_WinUserBusiness.EncryptPassword(password);
+            userPassword.ApplyRealUser = checkBoxRealUser.Checked;
+            userPassword.RealPassword = password;
+
+            WinLocalUserEntity userEntity = new WinLocalUserEntity(); //Nuevo
+            bool actualiza = false;
+            if (m_WinUserBusiness.Exists(_winPCSel, tBUsuario.Text))
+            {
+                MessageBox.Show("El usuario ya existe");
+                this.DialogResult = DialogResult.None;
+                tBUsuario.SelectionStart = 0;
+                tBUsuario.SelectionLength = tBUsuario.Text.Length;
+                tBUsuario.Focus();
+                return;
+            }
+            /*if (m_WinUserBusiness.Exists((WinPCEntity)cBPC.SelectedValue, tBUsuario.Text))
+            {
+                if (MessageBox.Show("El usuario ya existe en el sistemas. ¿Desea modificarlo?", "Usuario Existente", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
+                    == DialogResult.No)
+                {
+                    this.DialogResult = DialogResult.None;
+                    return;
+                }
+                if (m_CurrentUser != null) //Se ha obtenido un usuario por medio de la busqueda
+                {
+                    userEntity = m_WinUserBusiness.FillData(m_CurrentUser);
+                    actualiza = true;
+                }
+            }*/
+
+            userEntity.Username = tBUsuario.Text;
+            userEntity.WinPc = _winPCSel; //(WinPCEntity)cBPC.SelectedValue;
+            userEntity.UserPassword = userPassword;
+            userEntity.UserType = m_WinUserBusiness.WinLocalUserType;
+            userEntity.ActiveUser = cBoxActivo.Checked;
+            userEntity.Desc = tBUserDescript.Text.Trim();
+
+            // Agregado MG
+            userEntity.Critical = chkUsuarioCritico.Checked;
+            userEntity.UserPassword.Concurrent = chkPwdConcurrente.Checked;
+
+            if (cbTipoCuenta.SelectedIndex > 0)
+            {
+                userEntity.UserSubType = cbTipoCuenta.SelectedItem as UserSubTypeEntity;
+            }
+            else
+            {
+                userEntity.UserSubType = null;
+            }
+
+            try
+            {
+                m_WinUserBusiness.Create(userEntity, this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
+                if (actualiza)
+                    MessageBox.Show("Usuario actualizado satisfactoriamente");
+                else
+                    MessageBox.Show("Usuario y Contraseña creada satisfactoriamente");
+            }
+            catch (Exception exp)
+            {
+                MessageBox.Show("Ha ocurrido un error al crear Usuario y Contraseña: " + Environment.NewLine + exp.Message);
+            }
+        }
+
+        private void cbDominio_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //PopulatePcs((WinDomainEntity)cbDominio.SelectedItem);
+            _winPCSel = null;
+            txtEquipo.Text = "";
+        }
+
+        private void checkBoxVisualizar_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkVisualizar.Checked)
+            {
+                tPassword1.PasswordChar = new char();
+                tPassword2.PasswordChar = new char();
+                tPassword1.Text = GetPassword(tPassword1.Text);
+                tPassword2.Text = GetPassword(tPassword2.Text);
+            }
+            else
+            {
+                tPassword1.PasswordChar = '*';
+                tPassword2.PasswordChar = '*';
+            }
+            tPassword1.Refresh();
+            tPassword2.Refresh();
+
+            if (chkVisualizar.Checked)
+            {
+                int id = LoguearVisualizacion();
+            }
+            btnCopy.Enabled = chkVisualizar.Checked;
+        }
+
+        private void cBoxActivo_CheckedChanged(object sender, EventArgs e)
+        {
+            picDesactivo.Visible = !cBoxActivo.Checked;
+            picActivo.Visible = cBoxActivo.Checked;
+        }
+
+        private void pNetFind_Click(object sender, EventArgs e)
+        {
+            //FSelectWinUsers selectWinUsers = new FSelectWinUsers((WinPCEntity)cBPC.SelectedValue);
+            //selectWinUsers.Title = "Busqueda de Usuarios en " + (WinPCEntity)cBPC.SelectedValue;
+
+            FSelectWinUsers selectWinUsers = new FSelectWinUsers(_winPCSel);
+            selectWinUsers.Title = "Busqueda de Usuarios en " + _winPCSel.Name;
+
+            if (selectWinUsers.ShowDialog() == DialogResult.OK)
+            {
+                WinLocalUserEntity selectedUser = (WinLocalUserEntity)selectWinUsers.GetSelectedEntity();
+                if (selectedUser != null)
+                {
+                    m_CurrentUser = selectedUser;
+                    this.UserName = selectedUser.Username;
+                    this.UserDescription = selectedUser.Desc;
+                    this.UserActive = true;
+                }
+            }
+
+        }
+
+        private void chkChgPwd_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkChgPwd.Checked)
+            {
+                checkBoxRealUser.Enabled = true;
+                tPassword1.Enabled = true;
+                tPassword2.Enabled = true;
+
+                if (!chkVisualizar.Visible)
+                {
+                    tPassword1.Text = string.Empty;
+                    tPassword2.Text = string.Empty;
+
+                    tPassword1.PasswordChar = new char();
+                    tPassword2.PasswordChar = new char();
+                }
+
+                this.chkVisualizar.Enabled = true;
+            }
+            else
+            {
+                checkBoxRealUser.Enabled = false;
+                tPassword1.PasswordChar = '*';
+                tPassword2.PasswordChar = '*';
+
+                string strPwd = m_WinUserBusiness.DecryptPassword(m_CurrentUser.UserPassword.Password);
+                tPassword1.Text = strPwd;
+                tPassword2.Text = strPwd;
+
+                tPassword1.Enabled = false;
+                tPassword2.Enabled = false;
+                this.chkVisualizar.Enabled = false;
+            }
+        }
+
+        private void btnSelEquipo_Click(object sender, EventArgs e)
+        {
+            if (cbDominio.SelectedItem is WinDomainEntity)
+            {
+                FSelEquipo FormSelWinPC = new FSelEquipo();
+                FormSelWinPC.OnlyWinPc = true;
+                FormSelWinPC.WinDomain = (WinDomainEntity)cbDominio.SelectedItem;
+                if (FormSelWinPC.ShowDialog() == DialogResult.OK)
+                {
+                    _winPCSel = FormSelWinPC.WinPCSelected;
+                    txtEquipo.Text = _winPCSel.Name;
+                }
+            }
+
+        }
+
+        private void txtEquipo_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FABMWinUsrPwd_Load(object sender, EventArgs e)
+        {
+            CargaUserSubTypes();
+
+            if (m_CurrentUser != null && m_CurrentUser.UserSubType != null)
+            {
+                cbTipoCuenta.SelectedItem = m_CurrentUser.UserSubType;
+            }
+
+            ConfigureScreen();
+        }
+
+        private void btnChkPwd_Click(object sender, EventArgs e)
+        {
+            string Dominio = "";
+            if (cbDominio.Visible)
+            {
+                Dominio = ((WinDomainEntity)cbDominio.SelectedItem).NtName;
+            }
+            else
+            {
+                Dominio = this.m_CurrentUser.Domain;
+            }
+            //string Equipo = txtEquipo.Text;
+            //Equipo = @"sistemas\\casmobile";
+            //MessageBox.Show(new WinPCBusiness().Ping(Equipo));
+            //Equipo = @"sistemas\casmobile";
+            //MessageBox.Show(new WinPCBusiness().Ping(Equipo));
+            //Equipo = @"\\sistemas\casmobile";
+            //MessageBox.Show(new WinPCBusiness().Ping(Equipo));
+
+            //MessageBox.Show(m_WinUserBusiness.ManualPwdCheck(Dominio, Equipo , tBUsuario.Text, tPassword1.Text));
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            if (m_FormType == FormType.Update || m_FormType == FormType.Delete)
+            {
+                m_CurrentUser = m_WinUserBusiness.Refresh(m_CurrentUser);
+                if (m_CurrentUser.ModifyingUser != null &&
+                    m_CurrentUser.ModifyingUser.Username == new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario).Username)
+                {
+                    m_CurrentUser.ModifyingDate = null;
+                    m_CurrentUser.ModifyingUser = null;
+                    m_WinUserBusiness.Update(m_CurrentUser, this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
+                }
+            }
+        }
+
+        private void CargaUserSubTypes()
+        {
+            UserSubTypeBusiness UserSubTypeBL = new UserSubTypeBusiness();
+
+            cbTipoCuenta.DisplayMember = "Desc";
+            cbTipoCuenta.ValueMember = "Id";
+
+            cbTipoCuenta.Items.Clear();
+            cbTipoCuenta.DataSource = UserSubTypeBL.FillSelect();
+        }
+
+        #region GruposSolicitudes
+
+        private void CargarGruposSolicitudes()
+        {
+            RequestGroupBusiness RqstGrpBL = new RequestGroupBusiness();
+            RequestGroupEntityCollection _GruposSolicitudes;
+            RqstGrpBL.FilActivos = true;
+            _GruposSolicitudes = RqstGrpBL.GetAll(true);
+            lvGruposSolicitudesNoAsociados.Items.Clear();
+            foreach (RequestGroupEntity RqstGrpEnt in _GruposSolicitudes)
+            {
+                ListViewItem lviNuevo = new ListViewItem();
+                lviNuevo.ImageIndex = RqstGrpEnt.Active ? 0 : 1;
+                lviNuevo.Tag = RqstGrpEnt;
+                lviNuevo.Text = RqstGrpEnt.RqstGrpName;
+                lviNuevo.Name = RqstGrpEnt.RqstGrpName;
+                lvGruposSolicitudesNoAsociados.Items.Add(lviNuevo);
+            }
+            lvGruposSolicitudesNoAsociados.Refresh();
+            if (m_CurrentUser != null)
+            {
+                RqstGrpPwdEntityCollection GruposAsignados = m_WinUserBusiness.GetGruposSolicitudes(m_CurrentUser);
+                lvGruposSolicitudesAsociados.Items.Clear();
+                foreach (RqstGrpPwdEntity RqstGrpEnt in GruposAsignados)
+                {
+                    if (RqstGrpEnt.RqstGrp.Active)
+                    {
+                        ListViewItem lviNuevo = new ListViewItem();
+                        lviNuevo.ImageIndex = RqstGrpEnt.RqstGrp.Active ? 0 : 1;
+                        lviNuevo.Text = RqstGrpEnt.RqstGrp.RqstGrpName;
+                        lviNuevo.Tag = RqstGrpEnt.RqstGrp;
+                        lvGruposSolicitudesAsociados.Items.Add(lviNuevo);
+                        lvGruposSolicitudesNoAsociados.Items.RemoveByKey(lviNuevo.Text);
+                    }
+                }
+                lvGruposSolicitudesAsociados.Refresh();
+                lvGruposSolicitudesNoAsociados.Refresh();
+            }
+        }
+
+        private void CargarGruposSeguimiento()
+        {
+            FollowupRequestGroupBusiness RqstGrpBL = new FollowupRequestGroupBusiness();
+            FollowupRequestGroupEntityCollection _GruposSeguimiento;
+            RqstGrpBL.FilActivos = true;
+            _GruposSeguimiento = RqstGrpBL.GetAll(true);
+            lvGruposSeguimientoNoAsociados.Items.Clear();
+            foreach (FollowupRequestGroupEntity RqstGrpEnt in _GruposSeguimiento)
+            {
+                ListViewItem lviNuevo = new ListViewItem();
+                lviNuevo.ImageIndex = RqstGrpEnt.Active ? 0 : 1;
+                lviNuevo.Tag = RqstGrpEnt;
+                lviNuevo.Text = RqstGrpEnt.Name;
+                lviNuevo.Name = RqstGrpEnt.Name;
+                lvGruposSeguimientoNoAsociados.Items.Add(lviNuevo);
+            }
+            lvGruposSeguimientoNoAsociados.Refresh();
+            if (m_CurrentUser != null)
+            {
+                FollowupRequestGroupPasswordEntityCollection GruposAsignados = m_WinUserBusiness.GetGruposSeguimiento(m_CurrentUser);
+                lvGruposSeguimientoAsociados.Items.Clear();
+                foreach (FollowupRequestGroupPasswordEntity RqstGrpEnt in GruposAsignados)
+                {
+                    if (RqstGrpEnt.FollowupRqstGrp.Active)
+                    {
+                        ListViewItem lviNuevo = new ListViewItem();
+                        lviNuevo.ImageIndex = RqstGrpEnt.FollowupRqstGrp.Active ? 0 : 1;
+                        lviNuevo.Text = RqstGrpEnt.FollowupRqstGrp.Name;
+                        lviNuevo.Tag = RqstGrpEnt.FollowupRqstGrp;
+                        lvGruposSeguimientoAsociados.Items.Add(lviNuevo);
+                        lvGruposSeguimientoNoAsociados.Items.RemoveByKey(lviNuevo.Text);
+                    }
+                }
+                lvGruposSeguimientoAsociados.Refresh();
+                lvGruposSeguimientoNoAsociados.Refresh();
+            }
+
+        }
+
+
+
+        private void btnAddGrupoSolicitud_Click(object sender, EventArgs e)
+        {
+            if (lvGruposSolicitudesNoAsociados.SelectedItems.Count <= 0)
+            {
+                return;
+            }
+            foreach (ListViewItem lviSeleccionado in lvGruposSolicitudesNoAsociados.SelectedItems)
+            {
+                ListViewItem lviNuevo = new ListViewItem();
+                lviNuevo.ImageIndex = lviSeleccionado.ImageIndex;
+                lviNuevo.Tag = lviSeleccionado.Tag;
+                lviNuevo.Text = lviSeleccionado.Text;
+                for (int i = 1; i < lviSeleccionado.SubItems.Count; i++)
+                {
+                    lviNuevo.SubItems.Add(lviSeleccionado.SubItems[i]);
+                }
+                lvGruposSolicitudesAsociados.Items.Add(lviNuevo);
+            }
+            foreach (ListViewItem lviSeleccionado in lvGruposSolicitudesNoAsociados.SelectedItems)
+            {
+                lvGruposSolicitudesNoAsociados.Items.Remove(lviSeleccionado);
+            }
+        }
+
+        private void btnAddAllGrupoSolicitud_Click(object sender, EventArgs e)
+        {
+            if (lvGruposSolicitudesNoAsociados.Items.Count <= 0)
+            {
+                return;
+            }
+            foreach (ListViewItem lviSeleccionado in lvGruposSolicitudesNoAsociados.Items)
+            {
+                ListViewItem lviNuevo = new ListViewItem();
+                lviNuevo.ImageIndex = lviSeleccionado.ImageIndex;
+                lviNuevo.Tag = lviSeleccionado.Tag;
+                lviNuevo.Text = lviSeleccionado.Text;
+                for (int i = 1; i < lviSeleccionado.SubItems.Count; i++)
+                {
+                    lviNuevo.SubItems.Add(lviSeleccionado.SubItems[i]);
+                }
+                lvGruposSolicitudesAsociados.Items.Add(lviNuevo);
+            }
+            lvGruposSolicitudesNoAsociados.Items.Clear();
+
+        }
+
+        private void btnDelAllGrupoSolicitud_Click(object sender, EventArgs e)
+        {
+            if (lvGruposSolicitudesAsociados.Items.Count <= 0)
+            {
+                return;
+            }
+            foreach (ListViewItem lviSeleccionado in lvGruposSolicitudesAsociados.Items)
+            {
+                ListViewItem lviNuevo = new ListViewItem();
+                lviNuevo.ImageIndex = lviSeleccionado.ImageIndex;
+                lviNuevo.Tag = lviSeleccionado.Tag;
+                lviNuevo.Text = lviSeleccionado.Text;
+                for (int i = 1; i < lviSeleccionado.SubItems.Count; i++)
+                {
+                    lviNuevo.SubItems.Add(lviSeleccionado.SubItems[i]);
+                }
+                lvGruposSolicitudesNoAsociados.Items.Add(lviNuevo);
+            }
+            lvGruposSolicitudesAsociados.Items.Clear();
+
+        }
+
+        private void btnDelGrupoSolicitud_Click(object sender, EventArgs e)
+        {
+            if (lvGruposSolicitudesAsociados.SelectedItems.Count <= 0)
+            {
+                return;
+            }
+            foreach (ListViewItem lviSeleccionado in lvGruposSolicitudesAsociados.SelectedItems)
+            {
+                ListViewItem lviNuevo = new ListViewItem();
+                lviNuevo.ImageIndex = lviSeleccionado.ImageIndex;
+                lviNuevo.Tag = lviSeleccionado.Tag;
+                lviNuevo.Text = lviSeleccionado.Text;
+                for (int i = 1; i < lviSeleccionado.SubItems.Count; i++)
+                {
+                    lviNuevo.SubItems.Add(lviSeleccionado.SubItems[i]);
+                }
+                lvGruposSolicitudesNoAsociados.Items.Add(lviNuevo);
+            }
+            foreach (ListViewItem lviSeleccionado in lvGruposSolicitudesAsociados.SelectedItems)
+            {
+                lvGruposSolicitudesAsociados.Items.Remove(lviSeleccionado);
+            }
+
+        }
+
+        private void btnAddGrupoSeguimiento_Click(object sender, EventArgs e)
+        {
+            if (lvGruposSeguimientoNoAsociados.SelectedItems.Count <= 0)
+            {
+                return;
+            }
+            foreach (ListViewItem lviSeleccionado in lvGruposSeguimientoNoAsociados.SelectedItems)
+            {
+                ListViewItem lviNuevo = new ListViewItem();
+                lviNuevo.ImageIndex = lviSeleccionado.ImageIndex;
+                lviNuevo.Tag = lviSeleccionado.Tag;
+                lviNuevo.Text = lviSeleccionado.Text;
+                for (int i = 1; i < lviSeleccionado.SubItems.Count; i++)
+                {
+                    lviNuevo.SubItems.Add(lviSeleccionado.SubItems[i]);
+                }
+                lvGruposSeguimientoAsociados.Items.Add(lviNuevo);
+            }
+            foreach (ListViewItem lviSeleccionado in lvGruposSeguimientoNoAsociados.SelectedItems)
+            {
+                lvGruposSeguimientoNoAsociados.Items.Remove(lviSeleccionado);
+            }
+        }
+
+        private void btnAddAllGrupoSeguimiento_Click(object sender, EventArgs e)
+        {
+            if (lvGruposSeguimientoNoAsociados.Items.Count <= 0)
+            {
+                return;
+            }
+            foreach (ListViewItem lviSeleccionado in lvGruposSeguimientoNoAsociados.Items)
+            {
+                ListViewItem lviNuevo = new ListViewItem();
+                lviNuevo.ImageIndex = lviSeleccionado.ImageIndex;
+                lviNuevo.Tag = lviSeleccionado.Tag;
+                lviNuevo.Text = lviSeleccionado.Text;
+                for (int i = 1; i < lviSeleccionado.SubItems.Count; i++)
+                {
+                    lviNuevo.SubItems.Add(lviSeleccionado.SubItems[i]);
+                }
+                lvGruposSeguimientoAsociados.Items.Add(lviNuevo);
+            }
+            lvGruposSeguimientoNoAsociados.Items.Clear();
+
+        }
+
+        private void btnDelAllGrupoSeguimiento_Click(object sender, EventArgs e)
+        {
+            if (lvGruposSeguimientoAsociados.Items.Count <= 0)
+            {
+                return;
+            }
+            foreach (ListViewItem lviSeleccionado in lvGruposSeguimientoAsociados.Items)
+            {
+                ListViewItem lviNuevo = new ListViewItem();
+                lviNuevo.ImageIndex = lviSeleccionado.ImageIndex;
+                lviNuevo.Tag = lviSeleccionado.Tag;
+                lviNuevo.Text = lviSeleccionado.Text;
+                for (int i = 1; i < lviSeleccionado.SubItems.Count; i++)
+                {
+                    lviNuevo.SubItems.Add(lviSeleccionado.SubItems[i]);
+                }
+                lvGruposSeguimientoNoAsociados.Items.Add(lviNuevo);
+            }
+            lvGruposSeguimientoAsociados.Items.Clear();
+
+        }
+
+        private void btnDelGrupoSeguimiento_Click(object sender, EventArgs e)
+        {
+            if (lvGruposSeguimientoAsociados.SelectedItems.Count <= 0)
+            {
+                return;
+            }
+            foreach (ListViewItem lviSeleccionado in lvGruposSeguimientoAsociados.SelectedItems)
+            {
+                ListViewItem lviNuevo = new ListViewItem();
+                lviNuevo.ImageIndex = lviSeleccionado.ImageIndex;
+                lviNuevo.Tag = lviSeleccionado.Tag;
+                lviNuevo.Text = lviSeleccionado.Text;
+                for (int i = 1; i < lviSeleccionado.SubItems.Count; i++)
+                {
+                    lviNuevo.SubItems.Add(lviSeleccionado.SubItems[i]);
+                }
+                lvGruposSeguimientoNoAsociados.Items.Add(lviNuevo);
+            }
+            foreach (ListViewItem lviSeleccionado in lvGruposSeguimientoAsociados.SelectedItems)
+            {
+                lvGruposSeguimientoAsociados.Items.Remove(lviSeleccionado);
+            }
+
+        }
+
+        private RequestGroupEntityCollection GetGruposSolicitudes()
+        {
+            RequestGroupEntityCollection GruposSolicitudes = new RequestGroupEntityCollection();
+            for (int i = 0; i < lvGruposSolicitudesAsociados.Items.Count; i++)
+            {
+                GruposSolicitudes.Add((RequestGroupEntity)lvGruposSolicitudesAsociados.Items[i].Tag);
+            }
+            return GruposSolicitudes;
+        }
+
+        private FollowupRequestGroupEntityCollection GetGruposSeguimientos()
+        {
+            FollowupRequestGroupEntityCollection GruposSeguimientos = new FollowupRequestGroupEntityCollection();
+            for (int i = 0; i < lvGruposSeguimientoAsociados.Items.Count; i++)
+            {
+                GruposSeguimientos.Add((FollowupRequestGroupEntity)lvGruposSeguimientoAsociados.Items[i].Tag);
+            }
+            return GruposSeguimientos;
+        }
+
+        #endregion
+
+        #region HistorialCambios
+
+        protected vwHistPwdChgEntityCollection _entities;
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            string strErrorMsg = "Verifique el formato de la fecha de inicio (dd/mm/aaaa)";
+            try
+            {
+                System.Globalization.DateTimeFormatInfo dtfi = new
+                    System.Globalization.DateTimeFormatInfo();
+                dtfi.ShortDatePattern = "dd/MM/yyyy";
+                DateTime dTest;
+                if (txtFDesde.Text.Trim() != "/  /")
+                {
+                    dTest = Convert.ToDateTime(txtFDesde.Text, dtfi);
+                }
+                if (txtFHasta.Text.Trim() != "/  /")
+                {
+                    strErrorMsg = "Verifique el formato de la fecha de fin (dd/mm/aaaa)";
+                    dTest = Convert.ToDateTime(txtFHasta.Text, dtfi);
+                }
+
+                //DateTime FDesde = Convert.ToDateTime(txtFDesde.Text,
+                ExecEntitiesRefresh();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(strErrorMsg, "Error en filtros de búsqueda");
+            }
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            CleanFilters();
+
+        }
+
+        private void CleanFilters()
+        {
+            this.txtFDesde.Text = "";
+            this.txtFHasta.Text = "";
+            this.lvLista.Items.Clear();
+            this.lvLista.Refresh();
+
+        }
+
+        private void ExecEntitiesRefresh()
+        {
+            if (lvLista.Columns.Count == 0)
+            {
+                //throw new Exception("Se deben definir las columnas del ListView");
+            }
+
+            this.Cursor = Cursors.WaitCursor;
+            this.lnkCancelar.Visible = true;
+            this.pbDB.Visible = true;
+            this.lblStatus.Text = "Buscando...";
+            this.pnlFilters.Enabled = false;
+            this.pnlList.Enabled = false;
+            if (bwRefreshEntities.IsBusy)
+            {
+                bwRefreshEntities.CancelAsync();
+            }
+            else
+            {
+                this.bwRefreshEntities.RunWorkerAsync();
+            }
+        }
+
+        private void bwRefreshEntities_DoWork(object sender, DoWorkEventArgs e)
+        {
+            this.DBRefreshEntites();
+        }
+
+        private void DBRefreshEntites()
+        {
+            LoadEntities();
+            RefreshEntitiesLV();
+        }
+        private void LoadEntities()
+        {
+            //HistPasswordChangeBusiness HistPwdChgBL = new HistPasswordChangeBusiness();
+            vwHistPwdChgBusiness HistPwdChgBL = new vwHistPwdChgBusiness();
+            // seteo filtros
+            int Folio = 0;
+            _entities = HistPwdChgBL.GetAll(null, Folio, txtFDesde.Text, txtFHasta.Text, m_CurrentUser);
+        }
+
+        /// <summary>
+        /// Llama a la función que genera el array de LV Items y si hay items llama a la que hace el llenado
+        /// usando el delegado
+        /// </summary>
+        private void RefreshEntitiesLV()
+        {
+            ListViewItem[] lviArr = GenerateLVItems();
+            SetLVItems(lviArr);
+        }
+        delegate void SetItemsAddRangeCallback(ListViewItem[] lvitems);
+
+        /// <summary>
+        /// Llena el Listview con los items pasados en el array
+        /// </summary>
+        /// <param name="lviArr">Array de Listview Items para llenar el Listview</param>
+        private void SetLVItems(ListViewItem[] lviArr)
+        {
+            if (this.lvLista.InvokeRequired)
+            {
+                SetItemsAddRangeCallback d = new SetItemsAddRangeCallback(SetLVItems);
+                this.Invoke(d, new object[] { lviArr });
+            }
+            else
+            {
+                this.lvLista.Items.Clear();
+                if (lviArr.Length > 0)
+                {
+
+                    this.lvLista.Items.AddRange(lviArr);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Genera los list view items para llenar el list view
+        /// </summary>
+        /// <returns>Devuelve el arrary de list view items para llenar el listview</returns>
+        private ListViewItem[] GenerateLVItems()
+        {
+            ListViewItem[] lviArr = new ListViewItem[this._entities.Count];
+            int i = 0;
+            foreach (vwHistPwdChgEntity HistChgPwdEnt in this._entities)
+            {
+                lviArr[i] = new ListViewItem();
+
+                /*lviArr[i].Text = HistChgPwdEnt.Usuario; // HistChgPwdEnt.User.Username;
+                lviArr[i].SubItems.Add(HistChgPwdEnt.UserType.Desc);
+                lviArr[i].SubItems.Add(HistChgPwdEnt.DChange.ToString("dd/MM/yyyy HH:m:ss"));
+                lviArr[i].SubItems.Add(HistChgPwdEnt.PhxUser.Fullname);
+                lviArr[i].SubItems.Add(HistChgPwdEnt.PlainPassword);
+                lviArr[i].Tag = HistChgPwdEnt;
+                 * */
+
+                lviArr[i].Text = HistChgPwdEnt.DChange.ToString("dd/MM/yyyy HH:m:ss");
+                lviArr[i].SubItems.Add(HistChgPwdEnt.PhxUser.Fullname);
+                lviArr[i].SubItems.Add(cAsterisk);
+                //lviArr[i].SubItems.Add(HistChgPwdEnt.PlainPassword);
+                lviArr[i].Tag = HistChgPwdEnt;
+
+
+                i++;
+            }
+            return lviArr;
+
+        }
+
+        private void bwRefreshEntities_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            // First, handle the case where an exception was thrown.
+            if (e.Error != null)
+            {
+                //MessageBox.Show(e.Error.Message);
+            }
+            else if (e.Cancelled)
+            {
+                // Next, handle the case where the user canceled 
+                // the operation.
+                // Note that due to a race condition in 
+                // the DoWork event handler, the Cancelled
+                // flag may not have been set, even though
+                // CancelAsync was called.
+                this.lblStatus.Text = "Cancelado";
+            }
+            else
+            {
+                // Finally, handle the case where the operation 
+                // succeeded.
+                this.lblStatus.Text = "Listo"; // e.Result.ToString();
+                this.lnkCancelar.Visible = false;
+                this.pbDB.Visible = false;
+                this.pnlFilters.Enabled = true;
+                this.pnlList.Enabled = true;
+                if (this.lvLista.Items.Count > 0)
+                {
+                    this.lvLista.Items[0].Selected = true;
+                    this.lvLista.Focus();
+                }
+                this.Cursor = Cursors.Default;
+            }
+        }
+        #endregion
+
+        #region Solicitudes
+
+        private ArrayList _filEstados;
+        private ArrayList _filGrupos;
+        protected PasswordRequestEntityCollection _Solicitudes;
+
+        private void PopulateRequestStates()
+        {
+            cbEstadoSolicitud.Items.Clear();
+            RequestStateEntityCollection reqStates = new RequestStateBusiness().FillFilter();
+            cbEstadoSolicitud.DataSource = reqStates;
+            cbEstadoSolicitud.SelectedIndex = 0;
+        }
+
+        private void PopulateGrupoTareas()
+        {
+            cbGrupoTareas.Items.Clear();
+            RequestGroupEntityCollection reqGroups = new RequestGroupBusiness().FillFilter();
+            cbGrupoTareas.DisplayMember = "RqstGrpName";
+            cbGrupoTareas.ValueMember = "Id";
+            cbGrupoTareas.DataSource = reqGroups;
+            cbGrupoTareas.SelectedIndex = 0;
+        }
+
+        private void btnBuscarSolicitudes_Click(object sender, EventArgs e)
+        {
+            ExecEntitiesSolicitudesRefresh();
+        }
+
+        private void SetQueryFilters()
+        {
+            _filEstados = null;
+            if (cbEstadoSolicitud.Items.Count > 0 && cbEstadoSolicitud.SelectedIndex > 0)
+            {
+                _filEstados = new ArrayList();
+                _filEstados.Add(cbEstadoSolicitud.SelectedItem);
+            }
+            _filGrupos = null;
+            if (cbGrupoTareas.Items.Count > 0 && cbGrupoTareas.SelectedIndex > 0)
+            {
+                _filGrupos = new ArrayList();
+                _filGrupos.Add(cbGrupoTareas.SelectedItem);
+            }
+
+        }
+
+
+        private void ExecEntitiesSolicitudesRefresh()
+        {
+            this.Cursor = Cursors.WaitCursor;
+            this.lnkCancelarSolicitudes.Visible = true;
+            this.pbDBSolicitudes.Visible = true;
+            this.lblStatusSolicitudes.Text = "Buscando...";
+            SetQueryFilters();
+            this.pnlFiltersSolicitudes.Enabled = false;
+            this.pnlListSolicitudes.Enabled = false;
+            if (bwRefreshEntitiesSolicitudes.IsBusy)
+            {
+                bwRefreshEntitiesSolicitudes.CancelAsync();
+            }
+            else
+            {
+                this.bwRefreshEntitiesSolicitudes.RunWorkerAsync();
+            }
+        }
+
+        private void bwRefreshEntitiesSolicitudes_DoWork(object sender, DoWorkEventArgs e)
+        {
+            this.DBRefreshEntitesSolicitudes();
+        }
+
+        private void DBRefreshEntitesSolicitudes()
+        {
+            LoadEntitiesSolicitudes();
+            RefreshEntitiesSolicitudesLV();
+        }
+        private void LoadEntitiesSolicitudes()
+        {
+            _Solicitudes = new PasswordRequestBusiness().GetPassRqst(m_CurrentUser, _filEstados, txtNroSolicitud.Text, _filGrupos);
+        }
+        private void RefreshEntitiesSolicitudesLV()
+        {
+            ListViewItem[] lviArr = GenerateLVItemsSolicitudes();
+            SetLVItemsSolicitudes(lviArr);
+        }
+        delegate void SetItemsAddRangeCallbackSolicitudes(ListViewItem[] lvitems);
+        private void SetLVItemsSolicitudes(ListViewItem[] lviArr)
+        {
+            if (this.lvListaSolicitudes.InvokeRequired)
+            {
+                SetItemsAddRangeCallbackSolicitudes d = new SetItemsAddRangeCallbackSolicitudes(SetLVItemsSolicitudes);
+                this.Invoke(d, new object[] { lviArr });
+            }
+            else
+            {
+                this.lvListaSolicitudes.Items.Clear();
+                if (lviArr.Length > 0)
+                {
+                    this.lvListaSolicitudes.Items.AddRange(lviArr);
+                }
+            }
+        }
+        private ListViewItem[] GenerateLVItemsSolicitudes()
+        {
+            ListViewItem[] lviArr = new ListViewItem[this._Solicitudes.Count];
+            int i = 0;
+            foreach (PasswordRequestEntity reqpwd in this._Solicitudes)
+            {
+                lviArr[i] = new ListViewItem();
+                lviArr[i].Text = reqpwd.Id.ToString();
+                lviArr[i].SubItems.Add(reqpwd.RqstUsrFullName);
+                lviArr[i].SubItems.Add(reqpwd.RqstDateddmmyyyy.ToString());
+                lviArr[i].SubItems.Add(reqpwd.RqstState.RqstStateDesc);
+                lviArr[i].SubItems.Add(reqpwd.RequestDate.ToString("dd/MM/yyyy HH:m:ss"));
+                string tmpString = "";
+                // Determino la fecha según el estado
+                switch (reqpwd.RqstState.Id)
+                {
+                    // Autorizada
+                    case 2:
+                    // Rechazada
+                    case 3:
+                        tmpString = ((DateTime)reqpwd.Auth1Date).ToString("dd/MM/yyyy HH:mm:ss");
+                        break;
+                    // Visualizada
+                    case 4:
+                        tmpString = ((DateTime)reqpwd.Auth1Date).ToString("dd/MM/yyyy HH:mm:ss");
+                        break;
+                    // Asignaciones
+                    case 5:
+                    case 6:
+                    case 7:
+                        tmpString = ((DateTime)reqpwd.Auth1Date).ToString("dd/MM/yyyy HH:mm:ss");
+                        break;
+                    // Devuelta por el usuario
+                    case 8:
+                    // Devuelta por el administrador
+                    case 9:
+                        tmpString = ((DateTime)reqpwd.ReturnDate).ToString("dd/MM/yyyy HH:mm:ss");
+                        break;
+                    // Expirada
+                    case 10:
+                        tmpString = ((DateTime)reqpwd.ExpirationDate).ToString("dd/MM/yyyy HH:mm:ss");
+                        break;
+                    // Cerrada
+                    case 11:
+                        tmpString = ((DateTime)reqpwd.CloseDate).ToString("dd/MM/yyyy HH:mm:ss");
+                        break;
+                }
+                lviArr[i].SubItems.Add(tmpString);
+                lviArr[i].Tag = reqpwd;
+                i++;
+            }
+            return lviArr;
+        }
+
+        private void bwRefreshEntitiesSolicitudes_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+            }
+            else if (e.Cancelled)
+            {
+                this.lblStatusSolicitudes.Text = "Cancelado";
+            }
+            else
+            {
+                this.lblStatusSolicitudes.Text = "Listo"; // e.Result.ToString();
+                this.lnkCancelarSolicitudes.Visible = false;
+                this.pbDBSolicitudes.Visible = false;
+                this.pnlFiltersSolicitudes.Enabled = true;
+                this.pnlListSolicitudes.Enabled = true;
+                if (this.lvListaSolicitudes.Items.Count > 0)
+                {
+                    this.lvListaSolicitudes.Items[0].Selected = true;
+                    this.lvListaSolicitudes.Focus();
+                }
+                this.Cursor = Cursors.Default;
+            }
+        }
+
+        private void MostrarReporteSolicitudes()
+        {
+            if (lvListaSolicitudes.SelectedItems.Count > 0)
+            {
+                ReporteDeUsoEntityCollection RptUsoLst = new ReporteDeUsoEntityCollection();
+                for (int i = 0; i < lvListaSolicitudes.SelectedItems.Count; i++)
+                {
+                    RptUsoLst.Add((PasswordRequestEntity)lvListaSolicitudes.SelectedItems[i].Tag);
+                }
+
+                FRptUso Rpt = new FRptUso(RptUsoLst);
+                Rpt.ShowDialog();
+            }
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            MostrarReporteSolicitudes();
+        }
+
+        private void lvListaSolicitudes_DoubleClick(object sender, EventArgs e)
+        {
+            MostrarReporteSolicitudes();
+        }
+
+        #endregion
+
+        private void btnLimpiarSolicitudes_Click(object sender, EventArgs e)
+        {
+            this.lvListaSolicitudes.Items.Clear();
+            this.lvListaSolicitudes.Refresh();
+            this.cbEstadoSolicitud.SelectedIndex = 0;
+            this.cbGrupoTareas.SelectedIndex = 0;
+            this.txtNroSolicitud.Text = "";
+        }
+
+        private void lvLista_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            if (((ListView)sender).Items.Count == 0)
+            {
+                return;
+            }
+            cwxSorter s = (cwxSorter)((ListView)sender).ListViewItemSorter;
+            if (s.Column == e.Column)
+            {
+                if (s.Order == System.Windows.Forms.SortOrder.Ascending)
+                {
+                    s.Order = System.Windows.Forms.SortOrder.Descending;
+                }
+                else
+                {
+                    s.Order = System.Windows.Forms.SortOrder.Ascending;
+                }
+            }
+            else
+            {
+                s.Column = e.Column;
+                s.Order = System.Windows.Forms.SortOrder.Ascending;
+            }
+            ((ListView)sender).Sort();
+
+        }
+
+        private void lvLista_DoubleClick(object sender, EventArgs e)
+        {
+            if (((ListView)sender).SelectedItems.Count == 1)
+            {
+
+                if (((ListView)sender).SelectedItems[0].SubItems[2].Text != cAsterisk)
+                    return;
+
+                if (!btnCopyHist.Visible)
+                    return;
+
+                int Id = LoguearVisualizacion(((vwHistPwdChgEntity)((ListView)sender).SelectedItems[0].Tag).Id);
+
+                if (Id > 0)
+                {
+                    ((ListView)sender).SelectedItems[0].SubItems[2].Text =
+                       ((vwHistPwdChgEntity)((ListView)sender).SelectedItems[0].Tag).PlainPassword;
+
+                    btnCopyHist.Enabled = true;
+                }
+            }
+        }
+
+        private int LoguearVisualizacion()
+        {
+            if (this.m_FormType == FormType.New)
+            {
+                return 1;
+            }
+
+            return LoguearVisualizacion(0);
+        }
+
+        private int LoguearVisualizacion(int id)
+        {
+
+            vwHistPwdChgEntity histpwdchange = null;
+            if (this._entities != null && this._entities.Count > 0)
+            {
+                foreach (vwHistPwdChgEntity entity in this._entities)
+                {
+                    if (id == 0)
+                    {
+                        //Se obtiene el ultimo historial
+                        if (entity.Id > id)
+                        {
+                            id = entity.Id;
+                            histpwdchange = entity;
+                        }
+                    }
+                    else
+                    {
+                        if (entity.Id == id)
+                        {
+                            histpwdchange = entity;
+                        }
+                    }
+                }
+            }
+
+            HistPasswordChangeAccessBusiness accessBL = new HistPasswordChangeAccessBusiness();
+            HistPasswordChangeAccessEntity accessE = new HistPasswordChangeAccessEntity();
+
+            accessE.HistChgPwd = new HistPasswordChangeEntity();
+            accessE.HistChgPwd.Id = histpwdchange.Id;
+            accessE.HistChgPwd.User = this.m_CurrentUser;
+            accessE.HistChgPwd.Password = histpwdchange.Password;
+            accessE.HistChgPwd.PhxUser = histpwdchange.PhxUser;
+            accessE.HistChgPwd.DChange = histpwdchange.DChange;
+            accessE.PhxUser = new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario);
+            accessE.AccessDate = DateTime.Now;
+
+            int Id = accessBL.Save(accessE);
+            if (Id <= 0)
+            {
+                MessageBox.Show("Hubo un error al grabar log de visualización de contraseñas", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return id;
+        }
+
+        private void btnCopy_Click(object sender, EventArgs e)
+        {
+            if (chkVisualizar.Checked)
+            {
+                System.Windows.Forms.Clipboard.SetText(tPassword1.Text);
+            }
+        }
+
+        private void btnCopyHist_Click(object sender, EventArgs e)
+        {
+            if (lvLista.SelectedItems != null &&
+                lvLista.SelectedItems.Count > 0)
+            {
+                ListViewItem item = lvLista.SelectedItems[0];
+
+                vwHistPwdChgEntity entity = ((vwHistPwdChgEntity)item.Tag);
+                string text = lvLista.SelectedItems[0].SubItems[2].Text;
+
+                if (text == entity.PlainPassword)
+                {
+                    System.Windows.Forms.Clipboard.SetText(text);
+                }
+            }
+        }
+    }
+}

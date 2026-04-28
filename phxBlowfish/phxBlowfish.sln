@@ -1,0 +1,30 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phxBlowfish", "phxBlowfish.csproj", "{78D7CC00-F303-476C-A329-0B25856A0B07}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 2
+		SccLocalPath0 = .
+		CanCheckoutShared = false
+		SolutionUniqueID = {822CB8B1-3978-408A-B665-968425459595}
+		SccProjectUniqueName1 = phxBlowfish.csproj
+		SccLocalPath1 = .
+		CanCheckoutShared = false
+	EndGlobalSection
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{78D7CC00-F303-476C-A329-0B25856A0B07}.Debug.ActiveCfg = Debug|.NET
+		{78D7CC00-F303-476C-A329-0B25856A0B07}.Debug.Build.0 = Debug|.NET
+		{78D7CC00-F303-476C-A329-0B25856A0B07}.Release.ActiveCfg = Release|.NET
+		{78D7CC00-F303-476C-A329-0B25856A0B07}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

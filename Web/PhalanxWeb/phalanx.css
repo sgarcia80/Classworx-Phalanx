@@ -1,0 +1,113 @@
+﻿body
+{
+}
+.LabelOption
+{
+	font-weight: bold;
+	font-size: 11px;
+	cursor: hand;
+	color: navy;
+	font-family: Tahoma;
+	font-variant: small-caps;
+}
+.TextoErrorValidators
+{
+	font-size: 0.6em;
+	color: red;
+	font-family: Verdana, Arial;
+}
+
+.LabelNormal
+{
+	font-weight: bold;
+	font-size: 11px;
+	color: navy;
+	font-family: Tahoma;
+	font-variant: small-caps;
+}
+
+.LabelInInfo
+{
+	font-weight: bold;
+	font-size: 11px;
+	color: gray;
+	font-family: Tahoma;
+	font-variant: normal;
+}
+
+.LabelInError
+{
+	font-weight: bold;
+	font-size: 11px;
+	color: red;
+	font-family: Tahoma;
+	font-variant: normal;
+}
+
+.LabelReadOnly
+{
+	font-weight: bold;
+	font-size: 11px;
+	color: gray;
+	font-family: Tahoma;
+	font-variant: normal;
+}
+
+.labelCombo
+{
+	font-weight: normal;
+	font-size: 11px;
+	color: #003399;
+	font-family: Tahoma;
+	font-variant: normal;
+}
+
+.boton
+{
+	font-weight: normal;
+	font-size: 11px;
+	cursor: hand;
+	color: #003399;
+	font-family: Tahoma;
+	font-variant: normal;
+}
+
+.tdTitulo
+{
+	font-weight: normal;
+	font-size: x-small;
+	color: #ffffff;
+	font-family: Arial;
+	background-color: #336699;
+	text-align: center;
+	font-variant: normal;
+}
+
+.tdTituloPage
+{
+	font-weight: bold;
+	font-size: 12px;
+	color: #4a4a4a;
+	font-family: Tahoma;
+	background-color: transparent;
+	font-weight: bold
+}
+
+.tdTituloSub
+{
+	font-weight: bold;
+	font-size: 12px;
+	color: #4a4a4a;
+	font-family: Tahoma;
+	background-color: transparent;
+	text-align: center;
+	font-variant: normal;
+}
+
+.tdDato
+{
+	font-size: x-small;
+	color: #000099;
+	font-family: Arial;
+	background-color: gainsboro;
+}

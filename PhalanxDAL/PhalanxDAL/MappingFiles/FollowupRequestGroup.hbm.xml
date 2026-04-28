@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.FollowupRequestGroupEntity,PhalanxCommon" table="followup_request_group">
+
+		<id name="Id" column="frg_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+		<bag name="FollowupGroupUsersList" inverse="true" lazy="true" >
+			<key column="frg_id" />
+			<one-to-many class="PhalanxCommon.Entities.FollowupRequestGroupUserEntity,PhalanxCommon" />
+		</bag>
+		<bag name="FollowupRequestGroupPasswordList" inverse="true" lazy="true" >
+			<key column="frg_id" />
+			<one-to-many class="PhalanxCommon.Entities.FollowupRequestGroupPasswordEntity,PhalanxCommon" />
+		</bag>
+		<property column="frg_name" type="String" name="Name" not-null="true" length="50" />
+		<property column="frg_active" type="Boolean" name="Active" />
+
+    <many-to-one name="Approver" column="frg_approver_id" class="PhalanxCommon.Entities.PhxUserEntity,PhalanxCommon" />
+    <property column="frg_auto_approval" type="Boolean" name="AutoApproval" />
+  </class>
+</hibernate-mapping>

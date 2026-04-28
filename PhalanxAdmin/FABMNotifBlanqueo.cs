@@ -1,0 +1,402 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+using NDCCommon.Entities;
+using NDCBL;
+using NDCCommon.Collections;
+using System.Collections;
+using PhalanxCommon.Entities;
+using PhalanxBL;
+using PhalanxCommon.Collections;
+
+namespace PhalanxAdmin
+{
+    public partial class FABMNotifBlanqueo : PhalanxAdmin.FModalBase
+    {
+        TicketNotificacionBlanqueoEntity _entity = new TicketNotificacionBlanqueoEntity();
+        WinDomainEntityCollection _dominios = new WinDomainEntityCollection();
+        AplicacionNotificacionClaveBusiness AplicacionBL = new AplicacionNotificacionClaveBusiness();
+        DominioLoginBusiness DominioLoginBL = new DominioLoginBusiness();
+        TicketNotificacionBlanqueoBusiness TicketBL = new TicketNotificacionBlanqueoBusiness();
+        bool _readOnly = false;
+
+        public enum FormType
+        {
+            New,
+            Update,
+            View,
+            Delete
+        }
+
+        private FormType m_FormType = FormType.View;
+        private string user = string.Empty;
+
+        public FABMNotifBlanqueo(FormType formType)
+        {
+            InitializeComponent();
+            m_FormType = formType;
+        }
+
+        public FABMNotifBlanqueo(int id, bool ReadOnly, FormType formType, string userlogon) : this(formType)
+        {
+            this.Usuario = userlogon;
+            if (id > 0)
+            {
+                this._entity = TicketBL.Load(id);
+            }
+            else
+            {
+                this._entity = TicketNotificacionBlanqueoEntity.CreateNotificacionBlanqueoApp();
+            }
+
+            m_FormType = formType;
+            this.user = this.Usuario;
+
+            _readOnly = ReadOnly;
+        }
+
+        public void ConfigureScreen()
+        {
+            string nro = string.Empty;
+
+            if (_entity != null)
+            {
+                nro = _entity.Id.ToString();
+            }
+
+            switch (m_FormType)
+            {
+                case FormType.New:
+                    {
+                        this.Title = "Nuevo Ticket de Notificación de Blanqueo";
+                        break;
+                    }
+                case FormType.Update:
+                    {
+                        this.Title = "Modificación de Ticket de Notificación de Blanqueo";
+                        break;
+                    }
+                case FormType.View:
+                    {
+                        this.Title = "Ticket de Notificación de Blanqueo Nro" + nro;
+                        break;
+                    }
+                case FormType.Delete:
+                    {
+                        this.Title = "Baja de Ticket de Notificación de Blanqueo";
+                        break;
+                    }
+            }
+        }
+
+        private void FABMDBPwd_Load(object sender, EventArgs e)
+        {
+            base.Title = "Contraseña de Base de Datos";
+
+            // si es visualización
+            if (_readOnly)
+            {
+                btnAceptar.Enabled = false;
+            }
+            else
+            {
+            }
+
+            CargarAplicaciones();
+            CargarDominios();
+
+            if (_entity.Id == 0)
+            {
+                txtFecha.Text = DateTime.Now.ToString("dd/MM/yyyy");
+                txtUsuarioCarga.Text = user;
+
+                txtEstado.Text = "Pendiente";
+            }
+            else
+            {
+                var dominio = _dominios.FindByName(_entity.UsuarioDominio);
+
+                // no es uno nuevo, cargo los datos
+
+                if (dominio != null)
+                {
+                    cbDomain.SelectedItem = dominio;
+                }
+                else
+                {
+                    cbDomain.Text = _entity.UsuarioDominio;
+                }
+
+                txtUser.Text = _entity.Usuario;
+
+                txtUsername.Text = _entity.UsuarioAplicacion;
+                string strPwd = TicketBL.DesencriptarPassword(_entity.PasswordUsuarioAplicacion);
+
+                tPassword1.Text = strPwd;
+
+                cbAplicacion.SelectedItem = _entity.Aplicacion;
+
+                txtFecha.Text = _entity.Fecha.ToString("dd/MM/yyyy HH:mm");
+                txtFechaAyC.Text = _entity.FechaAceptacionTyC.HasValue ? _entity.FechaAceptacionTyC.Value.ToString("dd/MM/yyyy HH:mm") : string.Empty;
+                txtUsuarioCarga.Text = _entity.UsuarioCarga;
+
+                txtSolicitante.Text = _entity.Solicitante;
+                txtTicketNro.Text = _entity.NumeroSolicitud.HasValue ? _entity.NumeroSolicitud.Value.ToString() : string.Empty;
+
+                txtEstado.Text = _entity.FechaAceptacionTyC.HasValue ? "Notificado" : "Pendiente";
+                if (_entity.FechaCancelado.HasValue)
+                {
+                    txtEstado.Text = "Cancelado";
+                }
+                
+                if (_entity.FechaCancelado.HasValue)
+                {
+                    txtEstado.Text = "Cancelado";
+                }
+                if (_readOnly)
+                {
+                    // hace readonly los campos
+                    txtUser.ReadOnly = true;
+                    cbDomain.Enabled = false;
+
+                    cbAplicacion.Enabled = false;
+                    txtUsername.ReadOnly = true;
+                    tPassword1.ReadOnly = true;
+
+                    txtTicketNro.ReadOnly = true;
+                    txtSolicitante.ReadOnly = true;
+
+                    txtSolicitante.BackColor = tPassword1.BackColor;
+                    txtTicketNro.BackColor = tPassword1.BackColor;
+                }
+                else
+                {
+                    // si no es readonly (visualizar) cargo los combos
+                }
+            }
+
+            this.chkVisualizar.Checked = true;
+            tPassword1.PasswordChar = new char();
+            tPassword1.Refresh();
+
+            ConfigureScreen();
+        }
+
+        private void CargarDominios()
+        {
+            WinDomainBusiness dominioLoginBL = new WinDomainBusiness();
+            dominioLoginBL.FilConfigured = true;
+
+            //_dominios = DominioLoginBL.GetAllParaCombo();
+            _dominios = dominioLoginBL.GetAll();
+
+            cbDomain.Items.Clear();
+            cbDomain.DataSource = _dominios; // WithDatabases();
+            cbDomain.ValueMember = "Id";
+            cbDomain.DisplayMember = "NtName";
+
+            var macro = _dominios.FindByName("MACRO");
+            if (macro != null)
+            {
+                cbDomain.SelectedItem = macro;
+            }
+        }
+
+        private void CargarAplicaciones()
+        {
+            AplicacionBL.FilNotificable = true;
+            var list = AplicacionBL.GetAll();
+            list.Insert(0, new AplicacionNotificacionClaveEntity { Id = 0, Codigo = string.Empty, Nombre = "" });
+
+            cbAplicacion.Items.Clear();
+            AplicacionBL.FilNotificable = true;
+            cbAplicacion.DataSource = list; // WithDatabases();
+        }
+
+        private void chkVisualizar_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkVisualizar.Checked)
+            {
+                tPassword1.PasswordChar = new char();
+            }
+            else
+            {
+                tPassword1.PasswordChar = '*';
+            }
+            tPassword1.Refresh();
+
+        }
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.None;
+
+            // si es visualización sale
+            if (_readOnly)
+            {
+                this.DialogResult = DialogResult.OK;
+                return;
+            }
+
+            // chequear campos obligatorios
+            // chequear que se hayan elegido bases de datos
+            if (_entity.Id == 0 && cbAplicacion.SelectedItem == null)
+            {
+                MessageBox.Show("Debe seleccionar una Aplicación", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.DialogResult = DialogResult.None;
+                return;
+            }
+
+            // chequear pwd no vacia
+            if (txtUser.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("Debe introducir un Usuario de Red", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else
+            {
+                if (!picActivo.Visible)
+                {
+                    bool ok = ValidarUsuarioRed();
+
+                    if (!ok)
+                    {
+                        MessageBox.Show("El Usuario de Red es inválido", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+            }
+
+            // chequear pwd no vacia
+            if (txtUsername.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("Debe introducir un Usuario", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // chequear pwd no vacia
+            if (tPassword1.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("La contraseña no es válida", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            bool esAlta = false;
+
+            // asignar datos a la entity
+            if (_entity.Id == 0)
+            {
+                var app = (AplicacionNotificacionClaveEntity)cbAplicacion.SelectedItem;
+
+                if (app.Id == 0)
+                {
+                    MessageBox.Show("Debe seleccionar una Aplicación", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                _entity.UsuarioDominio = ((WinDomainEntity)cbDomain.SelectedItem).NtName.Trim();
+                _entity.Aplicacion = app;
+                _entity.Fecha = DateTime.Now;
+
+                esAlta = true;
+            }
+
+            int nro = 0;
+            if (int.TryParse(txtTicketNro.Text, out nro))
+            {
+                _entity.NumeroSolicitud = nro;
+            }
+
+            _entity.Usuario = txtUser.Text.Trim().ToLower();
+            _entity.UsuarioAplicacion = txtUsername.Text.Trim().ToLower();
+            _entity.PasswordUsuarioAplicacion = tPassword1.Text;
+            _entity.Solicitante = txtSolicitante.Text.Trim();
+
+            _entity.UsuarioCarga = user;
+
+            // grabar
+            int Id = TicketBL.Save(_entity);
+
+            if (Id > 0)
+            {
+                if (esAlta)
+                {
+                    string debug = string.Empty;
+
+                    TicketBL.EnviarEmail(_entity, out debug);
+                }
+
+                _entity.Id = Id;
+                MessageBox.Show("La notificación se generó correctamente", "Ticket de Notificación de Blanqueo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Hubo un error al grabar el Ticket", "Ticket de Notificación de Blanqueo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.DialogResult = DialogResult.None;
+                return;
+            }
+
+            this.DialogResult = DialogResult.OK;
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            //if (m_FormType == FormType.Update || m_FormType == FormType.Delete)
+            //{
+            //    _entity = TicketBL.Refresh(_entity);
+            //    if (_entity.ModifyingUser.Username == new PhalanxDAL.Factories.PhxUsersFactory().GetPhxUser(this.Usuario).Username)
+            //    {
+            //        _entity.ModifyingDate = null;
+            //        _entity.ModifyingUser = null;
+            //        TicketBL.Save(_entity, false, this.GetGruposSolicitudes(), this.GetGruposSeguimientos());
+            //    }
+            //}
+            this.DialogResult = DialogResult.Cancel;
+        }
+
+        private void txtUser_Validating(object sender, CancelEventArgs e)
+        {
+            ValidarUsuarioRed();
+        }
+
+        private bool ValidarUsuarioRed()
+        {
+            picActivo.Visible = false;
+
+            if (string.IsNullOrEmpty(txtUser.Text.Trim()))
+            {
+                return false;
+            }
+
+            WinDomainEntity dominio = cbDomain.SelectedItem as WinDomainEntity;
+
+            string path = string.Empty;
+
+            if (!string.IsNullOrEmpty(dominio.LDAPPath))
+            {
+                path = dominio.LDAPPath;
+            }
+
+            try
+            {
+                string nombreUser = PhalanxNAL.ActiveDirectoryHelper.BuscarNombrePorUsername(txtUser.Text.Trim(), path);
+
+                if (!string.IsNullOrEmpty(nombreUser))
+                {
+                    picActivo.Visible = true;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return picActivo.Visible;
+        }
+    }
+}
+

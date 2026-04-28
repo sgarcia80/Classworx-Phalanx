@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.VencPwdAppLogEntity,PhalanxCommon" table="Phx_Log_VencPwdApp">
+
+    <id name="Id" column="batch_vencpwdapp_log_id" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <property column="cantidad_vencimientos" type="Int32" name="CantidadVencimientos" not-null="true"/>
+    <property column="fecha_ejecucion" type="DateTime" name="FechaEjecucion" not-null="true"/>
+    <property column="usuario" type="String" name="Usuario" not-null="true" length="50" />
+    <property column="resultado" type="String" name="Resultado" not-null="true" length="50" />
+    <property column="observaciones" type="String" name="Observaciones" not-null="false" length="200" />
+
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+  <class name="NDCCommon.Entities.BloqueoEntity,NDCCommon" table="bloqueo">
+
+    <id name="Id" column="bloqueo_id" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <property column="bloqueo_codigo" name="Codigo" type="Int32" />
+    <property column="bloqueo_activo" name="Activo" type="Boolean" />
+    <property column="bloqueo_fecha_inicio" name="FechaInicio" type="DateTime" />
+    <property column="bloqueo_fecha_Fin" name="FechaFin" type="DateTime" not-null="false" />
+    <property column="bloqueo_usuario" name="Usuario" type="String" />
+    
+  </class>
+</hibernate-mapping>

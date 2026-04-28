@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.AuditPermisosEntity,PhalanxCommon" table="audit_permisos">
+	
+		<id name="Id" column="audit_permisos_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+		<property column="recurso" type="String" name="Recurso" not-null="true" length="50" />
+		<property column="fecha" type="DateTime" name="Fecha" insert="true"/>
+		<property column="terminal_abm" type="String" name="TerminalABM" not-null="true" length="150" />
+		<property column="id_usuario_abm" type="Int32" name="IdUsuarioABM" not-null="true" />
+		<property column="username_abm" type="String" name="UsernameABM" not-null="true" length="50" />
+		<property column="fullname_abm" type="String" name="FullnameABM" not-null="true" length="100" />
+		<property column="id_rol" type="Int32" name="IdRol" not-null="true" />
+		<property column="rol" type="String" name="Rol" not-null="true" length="200" />
+		<property column="accion" type="String" name="Accion" length="50" />
+		<property column="accion_satisfactoria" type="Boolean" name="AccionSatisfactoria" />
+		<property column="id_usuario" type="Int32" name="IdUsuario" not-null="true" />
+		<property column="username" type="String" name="Username" not-null="true" length="50" />
+		<property column="fullname" type="String" name="Fullname" not-null="true" length="100" />
+
+
+	</class>
+</hibernate-mapping>

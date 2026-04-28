@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.PhxUserEntity,PhalanxCommon" table="Phx_Users">
+	
+		<id name="Id" column="phx_user_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+		<bag name="PhxRolesUsersList" inverse="true" lazy="true" >
+			<key column="phx_user_id" />
+			<one-to-many class="PhalanxCommon.Entities.PhxRoleUserEntity,PhalanxCommon" />
+		</bag>
+		<bag name="PhxUsersGroupsList" inverse="true" lazy="true" >
+			<key column="phx_user_id" />
+			<one-to-many class="PhalanxCommon.Entities.PhxUserGroupEntity,PhalanxCommon" />
+		</bag>
+		<bag name="PhxUsersFollowupGroupsList" inverse="true" lazy="true" >
+			<key column="phx_user_id" />
+			<one-to-many class="PhalanxCommon.Entities.FollowupRequestGroupUserEntity,PhalanxCommon" />
+		</bag>
+		<bag name="RequestsList" inverse="true" lazy="true" >
+			<key column="rqst_user_id" />
+			<one-to-many class="PhalanxCommon.Entities.RequestEntity,PhalanxCommon" />
+		</bag>
+		<bag name="RequestsListAuth1" inverse="true" lazy="true" >
+			<key column="auth1_usr_id" />
+			<one-to-many class="PhalanxCommon.Entities.RequestEntity,PhalanxCommon" />
+		</bag>
+		<bag name="RequestsListAuth2" inverse="true" lazy="true" >
+			<key column="auth2_usr_id" />
+			<one-to-many class="PhalanxCommon.Entities.RequestEntity,PhalanxCommon" />
+		</bag>
+		<bag name="RqstGrpsDelegListAuth1" inverse="true" lazy="true" >
+			<key column="auth1_usr_id" />
+			<one-to-many class="PhalanxCommon.Entities.RqstGrpDelegEntity,PhalanxCommon" />
+		</bag>
+		<bag name="RqstGrpsDelegListAuth2" inverse="true" lazy="true" >
+			<key column="auth2_usr_id" />
+			<one-to-many class="PhalanxCommon.Entities.RqstGrpDelegEntity,PhalanxCommon" />
+		</bag>
+		<bag name="RqstGrpsPwdsListAuth1" inverse="true" lazy="true" >
+			<key column="auth1_usr_id" />
+			<one-to-many class="PhalanxCommon.Entities.RqstGrpPwdEntity,PhalanxCommon" />
+		</bag>
+		<bag name="RqstGrpsPwdsListAuth2" inverse="true" lazy="true" >
+			<key column="auth2_usr_id" />
+			<one-to-many class="PhalanxCommon.Entities.RqstGrpPwdEntity,PhalanxCommon" />
+		</bag>
+		<property column="username" type="String" name="Username" not-null="true" length="50" />
+		<property column="fullname" type="String" name="Fullname" not-null="true" length="100" />
+		<property column="user_domain" type="String" name="Domain" length="50" />
+		<property column="user_email" type="String" name="Email" length="150" />
+		<property column="creation_date" type="DateTime" name="CreationDate"/>
+		<property column="delete_date" type="DateTime" name="DeleteDate" />
+
+    <property column="phx_user_file_number" type="String" name="FileNumber" not-null="false" length="10" />
+    <property column="phx_user_relation_type" type="String" name="RelationType" not-null="false" length="1" />
+    <property column="phx_user_branch" type="String" name="Branch" not-null="false" length="100" />
+    <property column="phx_user_function" type="String" name="Function" not-null="false" length="50" />
+    <property column="phx_user_building_adress" type="String" name="BuildingAdress" not-null="false" length="50" />
+    <property column="phx_user_building_floor" type="String" name="BuildingFloor" not-null="false" length="5" />
+    <property column="phx_user_extension_number" type="String" name="ExtensionNumber" not-null="false" length="4" />
+    <property column="active" type="Boolean" name="Active" />
+    <many-to-one name="PhxUserSuperior" column="sup_id" class="PhalanxCommon.Entities.PhxUserSuperiorEntity,PhalanxCommon" not-null="false" />
+
+
+  </class>
+
+	<sql-query name="usuariosGrupoSolicitud">
+		<return-scalar column="IdGrupo" type="Int32"/>
+		<return-scalar column="NombreGrupo" type="String"/>
+		<return-scalar column="GrupoActivo" type="Boolean"/>
+		<return-scalar column="IdUsuario" type="Int32"/>
+		<return-scalar column="Dominio" type="String"/>
+		<return-scalar column="UsuarioRed" type="String"/>
+		<return-scalar column="NombreCompleto" type="String"/>
+		<return-scalar column="UsuarioActivo" type="Boolean"/>
+		SELECT
+		dbo.Requests_Groups.rqst_grp_id AS IdGrupo,
+		dbo.Requests_Groups.rqst_grp_name AS NombreGrupo,
+		dbo.Requests_Groups.rqst_grp_active AS GrupoActivo,
+		dbo.Phx_Users.phx_user_id AS IdUsuario,
+		dbo.Phx_Users.user_domain AS Dominio,
+		dbo.Phx_Users.username AS UsuarioRed,
+		dbo.Phx_Users.fullname AS NombreCompleto,
+		dbo.Phx_Users.active AS UsuarioActivo
+		FROM
+		dbo.Requests_Groups
+		INNER JOIN dbo.Phx_Users_Groups ON dbo.Requests_Groups.rqst_grp_id = dbo.Phx_Users_Groups.rqst_grp_id
+		INNER JOIN dbo.Phx_Users ON dbo.Phx_Users_Groups.phx_user_id = dbo.Phx_Users.phx_user_id
+		WHERE
+		(:nombreGrupo IS NULL OR upper(dbo.Requests_Groups.rqst_grp_name) LIKE :nombreGrupo)
+		AND
+		(:estadoGrupo = -1 OR dbo.Requests_Groups.rqst_grp_active = :estadoGrupo)
+		AND
+		(:estadoUsuario = -1 OR dbo.Phx_Users.active = :estadoUsuario)
+	</sql-query>
+
+	<sql-query name="usuariosGrupoSeguimientoSolicitud">
+		<return-scalar column="IdGrupo" type="Int32"/>
+		<return-scalar column="NombreGrupo" type="String"/>
+		<return-scalar column="GrupoActivo" type="Boolean"/>
+		<return-scalar column="IdUsuario" type="Int32"/>
+		<return-scalar column="Dominio" type="String"/>
+		<return-scalar column="UsuarioRed" type="String"/>
+		<return-scalar column="NombreCompleto" type="String"/>
+		<return-scalar column="UsuarioActivo" type="Boolean"/>
+		SELECT
+		dbo.followup_request_group.frg_id AS IdGrupo,
+		dbo.followup_request_group.frg_name AS NombreGrupo,
+		dbo.followup_request_group.frg_active AS GrupoActivo,
+		dbo.Phx_Users.phx_user_id AS IdUsuario,
+		dbo.Phx_Users.user_domain AS Dominio,
+		dbo.Phx_Users.username AS UsuarioRed,
+		dbo.Phx_Users.fullname AS NombreCompleto,
+		dbo.Phx_Users.active AS UsuarioActivo
+		FROM dbo.followup_request_group
+		INNER JOIN dbo.followup_request_group_user ON dbo.followup_request_group.frg_id = dbo.followup_request_group_user.frg_id
+		INNER JOIN dbo.Phx_Users ON dbo.followup_request_group_user.phx_user_id = dbo.Phx_Users.phx_user_id
+		WHERE
+		(:nombreGrupo IS NULL OR upper(dbo.followup_request_group.frg_name) LIKE :nombreGrupo)
+		AND
+		(:estadoGrupo = -1 OR dbo.followup_request_group.frg_active = :estadoGrupo)
+		AND
+		(:estadoUsuario = -1 OR dbo.Phx_Users.active = :estadoUsuario)
+	</sql-query>
+</hibernate-mapping>

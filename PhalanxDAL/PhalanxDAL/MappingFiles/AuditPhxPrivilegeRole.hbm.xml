@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.AuditPhxPrivilegeRoleEntity,PhalanxCommon" table="audit_phx_privilege_role">
+	
+		<id name="Id" column="audit_phx_priv_role_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+
+		<property column="fecha" type="DateTime" name="Fecha" insert="false"/>
+		<property column="terminal_abm" type="String" name="TerminalABM" not-null="true" length="150" />
+		<property column="id_usuario_abm" type="Int32" name="IdUsuarioABM" not-null="true" />
+		<property column="username_abm" type="String" name="UsernameABM" not-null="true" length="50" />
+		<property column="fullname_abm" type="String" name="FullnameABM" not-null="true" length="100" />
+
+		<property column="phx_role_id" type="Int32" name="PhxRoleId" not-null="true" />
+		<property column="rolename" type="String" name="Rolename" not-null="true" length="200" />
+
+		<property column="phx_privilege_id" type="Int32" name="PhxPrivilegeId" not-null="true" />
+		<property column="phx_privilege_name" type="String" name="PrivilegeName" not-null="true" length="150" />
+		<property column="accion" type="String" name="Accion" length="50" />
+		<property column="accion_satisfactoria" type="Boolean" name="AccionSatisfactoria" />
+
+	</class>
+</hibernate-mapping>

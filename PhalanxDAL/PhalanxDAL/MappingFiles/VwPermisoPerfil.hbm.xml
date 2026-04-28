@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.VwPermisoPerfilEntity,PhalanxCommon" table="vwPermisoPerfil">
+
+		<!-- could not find a primary key for this table/view. NHibernate requires an 'id' element, so you'll have to define one manually. -->
+		<id name="Id" column="Id" type="Int32" unsaved-value="0">
+			<generator class="assigned"/>
+		</id>
+
+		<property column="RoleId" type="Int32" name="RoleId" not-null="true" />
+		<property column="RoleName" type="String" name="RoleName" not-null="true" length="200" />
+		<property column="PrivilegeId" type="Int32" name="PrivilegeId" not-null="true" />
+		<property column="PrivilegeName" type="String" name="PrivilegeName" not-null="true" length="150" />
+
+	</class>
+</hibernate-mapping>

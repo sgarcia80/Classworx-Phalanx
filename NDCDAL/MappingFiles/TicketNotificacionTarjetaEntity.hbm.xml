@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+  <class name="NDCCommon.Entities.TicketNotificacionTarjetaEntity,NDCCommon" table="ticket_notificacion_tc">
+
+    <id name="Id" column="tnt_id" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <property column="tnt_numero" type="Int32" name="NumeroSolicitud" not-null="true" />
+    <many-to-one name="Aplicacion" column="tnt_app_id" class="NDCCommon.Entities.AplicacionNotificacionClaveEntity,NDCCommon" />
+    <property column="tnt_app_user" type="String" name="UsuarioAplicacion" not-null="false" length="50" />
+    <property column="tnt_app_user_pass" type="String" name="PasswordUsuarioAplicacion" not-null="false" length="50" />
+    <property column="tnt_user_domain" type="String" name="UsuarioDominio" not-null="true" length="50" />
+    <property column="tnt_user" type="String" name="Usuario" not-null="true" length="50" />
+    <property column="tnt_solicitante" type="String" name="Solicitante" not-null="true" length="50" />
+    <property column="tnt_user_load" type="String" name="UsuarioCarga" not-null="true" length="50" />
+    <property column="tnt_fecha" type="DateTime" name="Fecha" insert="false"/>
+    <property column="tnt_fecha_procesado" type="DateTime" name="FechaProcesado" not-null="false" />
+    <property column="tnt_fecha_notificado" type="DateTime" name="FechaNotificado" not-null="false" />
+    <property column="tnt_estado_id" type="Int32" name="Estado" not-null="false" />
+    <property column="tnt_mail_id" type="Int32" name="MailId" not-null="false" />
+    <many-to-one name="Clave" column="tnt_macro_clave_id" class="NDCCommon.Entities.MacroClaveEntity,NDCCommon" />
+    <many-to-one name="Error" column="tnt_macro_error_id" class="NDCCommon.Entities.MacroErrorEntity,NDCCommon" />
+    <property column="tnt_reclamos" type="Int32" name="Reclamos" not-null="false" />
+  </class>
+</hibernate-mapping>

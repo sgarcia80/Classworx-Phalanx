@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.DataBaseEntity,PhalanxCommon" table="Data_Bases">
+
+		<id name="Id" column="db_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+		<bag name="DatabasesUsersList" inverse="true" lazy="true" >
+			<key column="db_id" />
+			<one-to-many class="PhalanxCommon.Entities.DatabaseUserEntity,PhalanxCommon" />
+		</bag>
+		<many-to-one name="Type" column="db_type_id" class="PhalanxCommon.Entities.DatabaseTypeEntity,PhalanxCommon" />
+		<property column="db_name" type="String" name="Name" not-null="true" length="100" />
+		<property column="db_desc" type="String" name="Desc" length="200" />
+		<property column="db_server_name" type="String" name="ServerName" length="100" />
+		<property column="db_server_ip1" type="Byte" name="ServerIp1" />
+		<property column="db_server_ip2" type="Byte" name="ServerIp2" />
+		<property column="db_server_ip3" type="Byte" name="ServerIp3" />
+		<property column="db_server_ip4" type="Byte" name="ServerIp4" />
+		<property column="db_port" type="Int32" name="Port" />
+    <many-to-one name="WinPc" column="win_pc_id" class="PhalanxCommon.Entities.WinPCEntity,PhalanxCommon" />
+    <many-to-one name="UnixPc" column="unx_id" class="PhalanxCommon.Entities.UnixEntity,PhalanxCommon" />
+		<property column="active" type="Boolean" name="Active" />
+
+	</class>
+</hibernate-mapping>

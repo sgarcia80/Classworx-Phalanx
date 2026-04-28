@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.WinPCEntity,PhalanxCommon" table="Win_PCs">
+	
+		<id name="Id" column="win_pc_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+		<bag name="LocalWinGroupsList" inverse="true" lazy="true" >
+			<key column="win_pc_id" />
+			<one-to-many class="PhalanxCommon.Entities.LocalWinGroupEntity,PhalanxCommon" />
+		</bag>
+		<bag name="WinDomainControllersList" inverse="true" lazy="true" >
+			<key column="win_pc_id" />
+			<one-to-many class="PhalanxCommon.Entities.WinDomainControllerEntity,PhalanxCommon" />
+		</bag>
+		<bag name="WinLocalUsersList" inverse="true" lazy="true" >
+			<key column="win_pc_id" />
+			<one-to-many class="PhalanxCommon.Entities.WinLocalUserEntity,PhalanxCommon" />
+		</bag>
+		<property  column="pc_name" type="String" name="Name" length="50" />
+    <property  column="pc_ip" type="String" name="PcIP" length="15" />
+    <property column="pc_desc" type="String" name="Desc" length="200" />
+    <many-to-one name="WinDomain" column="win_domain_id" class="PhalanxCommon.Entities.WinDomainEntity,PhalanxCommon" />
+		<property column="active" type="Boolean" name="Active" />
+		<property column="checkable" type="Boolean" name="Checkable" />
+	</class>
+</hibernate-mapping>

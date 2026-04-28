@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.PhxContingenciaEntity,PhalanxCommon" table="phx_contingencia">
+
+		<id name="Id" column="phx_cont_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+		<property column="esquema_activo" type="String" name="EsquemaActivo" not-null="true" length="50" />
+		<property name="Fecha" column="fecha" type="DateTime" insert="false" />
+
+	</class>
+</hibernate-mapping>

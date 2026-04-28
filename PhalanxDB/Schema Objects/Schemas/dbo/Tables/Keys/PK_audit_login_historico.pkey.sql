@@ -1,0 +1,3 @@
+﻿ALTER TABLE [dbo].[audit_login_historico]
+    ADD CONSTRAINT [PK_audit_login_historico] PRIMARY KEY CLUSTERED ([aud_login_id] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF);
+

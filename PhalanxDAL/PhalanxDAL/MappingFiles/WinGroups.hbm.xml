@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.WinGroupEntity,PhalanxCommon" table="Win_Groups">
+
+		<id name="Id" column="win_group_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+		<bag name="DelegationRequestsList" inverse="true" lazy="true" >
+			<key column="win_group_id" />
+			<one-to-many class="PhalanxCommon.Entities.DelegationRequestEntity,PhalanxCommon" />
+		</bag>
+		<property column="ad_group_name" type="String" name="AdGroupName" length="64" />
+		<property column="nt_group_name" type="String" name="NtGroupName" length="20" />
+		<joined-subclass name="PhalanxCommon.Entities.LocalWinGroupEntity,PhalanxCommon" table="Local_Win_Groups">
+			<key column="win_group_id"/>
+			<bag name="LocalWinGroupsList" inverse="true" lazy="true" >
+				<key column="win_group_id" />
+				<one-to-many class="PhalanxCommon.Entities.LocalWinGroupEntity,PhalanxCommon" />
+			</bag>
+			<many-to-one name="WinPc" column="win_pc_id" class="PhalanxCommon.Entities.WinPCEntity,PhalanxCommon" />
+			
+		</joined-subclass>
+		<joined-subclass name="PhalanxCommon.Entities.GlobalWinGroupEntity,PhalanxCommon" table="Global_Win_Groups">
+			<key column="win_group_id"/>
+			<bag name="GlobalWinGroupsList" inverse="true" lazy="true" >
+				<key column="win_group_id" />
+				<one-to-many class="PhalanxCommon.Entities.GlobalWinGroupEntity,PhalanxCommon" />
+			</bag>
+			<many-to-one name="WinDomain" column="win_domain_id" class="PhalanxCommon.Entities.WinDomainEntity,PhalanxCommon" />
+			
+		</joined-subclass>
+		
+	</class>
+</hibernate-mapping>

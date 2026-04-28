@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.PhxPrivilegeEntity,PhalanxCommon" table="phx_privilege">
+
+		<id name="Id" column="phx_privilege_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+		<property column="phx_privilege_name" type="String" name="Name" not-null="true" length="150" />
+		<property column="phx_privilege_code" type="String" name="Code" not-null="true" length="150" />
+		<many-to-one name="Group" column="phx_prv_grp_id" class="PhalanxCommon.Entities.PhxPrivilegeGroupEntity,PhalanxCommon" not-null="false" />
+		<bag name="PhxPrivilegeRoleList" inverse="true" lazy="true" >
+			<key column="phx_privilege_id" />
+			<one-to-many class="PhalanxCommon.Entities.PhxPrivilegeRoleEntity,PhalanxCommon" />
+		</bag>
+
+	</class>
+</hibernate-mapping>

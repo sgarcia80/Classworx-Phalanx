@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.VwInventarioEntity,PhalanxCommon" table="VwInventario">
+
+		<!-- could not find a primary key for this table/view. NHibernate requires an 'id' element, so you'll have to define one manually. -->
+		<id name="Folio" column="Folio" type="Int32" unsaved-value="0">
+			<generator class="assigned"/>
+		</id>
+
+		<property column="Ambiente" type="String" name="Ambiente" not-null="true" length="100" />
+    <property column="Usuario" type="String" name="Usuario" not-null="true" length="500" />
+    <property column="Activo" type="Boolean" name="Activo" />
+    <property column="Critico" type="Boolean" name="Critico" />
+
+  </class>
+</hibernate-mapping>

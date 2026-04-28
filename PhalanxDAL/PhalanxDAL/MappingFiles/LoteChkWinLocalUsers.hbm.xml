@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.LoteChkWinLocalUsersEntity,PhalanxCommon" table="lote_chk_win_local_users">
+	
+		<id name="Id" column="id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+
+		<property name="FechaCreacion" column="fecha_creacion" type="datetime" not-null="false"  insert="false" />
+		<property name="FechaProgramada" column="fecha_programada" type="datetime" not-null="true"  />
+		<property name="FechaInicioProceso" column="fecha_inicio_proceso" type="datetime" not-null="false"  />
+		<property name="FechaFinProceso" column="fecha_fin_proceso" type="datetime" not-null="false"  />
+
+	</class>
+</hibernate-mapping>

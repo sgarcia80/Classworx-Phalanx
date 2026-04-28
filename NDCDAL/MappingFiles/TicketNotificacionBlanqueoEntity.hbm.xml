@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+  <class name="NDCCommon.Entities.TicketNotificacionBlanqueoEntity,NDCCommon" table="ticket_notificacion_blanqueo">
+
+    <id name="Id" column="tnb_id" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <property column="tnb_tipo_notif" type="Int32" name="TipoNotificacion" not-null="false" />
+    <property column="tnb_numero" type="Int32" name="NumeroSolicitud" not-null="false" />
+    <many-to-one name="Aplicacion" column="tnb_app_id" class="NDCCommon.Entities.AplicacionNotificacionClaveEntity,NDCCommon" />
+    <property column="tnb_app_user" type="String" name="UsuarioAplicacion" not-null="false" length="50" />
+    <property column="tnb_app_user_pass" type="String" name="PasswordUsuarioAplicacion" not-null="false" length="50" />
+    <property column="tnb_user_domain" type="String" name="UsuarioDominio" not-null="true" length="50" />
+    <property column="tnb_user" type="String" name="Usuario" not-null="true" length="50" />
+    <property column="tnb_solicitante" type="String" name="Solicitante" not-null="true" length="50" />
+    <property column="tnb_user_load" type="String" name="UsuarioCarga" not-null="true" length="50" />
+    <property column="tnb_fecha" type="DateTime" name="Fecha" insert="false"/>
+    <property column="tnb_mail_id" type="Int32" name="MailId" not-null="false" />
+    <property column="tnb_fecha_vigencia" type="DateTime" name="FechaVigencia" not-null="false" />
+    <property column="tnb_fecha_ace_tyc" type="DateTime" name="FechaAceptacionTyC" not-null="false" />
+    <property column="tnb_reclamos" type="Int32" name="Reclamos" not-null="false" />
+    <property column="tnb_intentos" type="Int32" name="Intentos" not-null="false" />
+    <property column="tnb_fecha_cancelado" type="DateTime" name="FechaCancelado" not-null="false" />
+    <property column="tnb_solicitante_puesto" type="String" name="SolicitantePuesto" not-null="false" length="500" />
+    <property column="tnb_solicitante_nombre" type="String" name="SolicitanteNombre" not-null="false" length="500" />
+    <property column="tnb_solicitante_depto" type="String" name="SolicitanteDepto" not-null="false" length="500" />
+    <property column="tnb_solicitante_oficina" type="String" name="SolicitanteOficina" not-null="false" length="500" />
+    <property column="tnb_solicitante_prov" type="String" name="SolicitanteProvincia" not-null="false" length="500" />
+    <property column="tnb_usuario_nombre" type="String" name="UsuarioNombre" not-null="false" length="500" />
+    <property column="tnb_usuario_depto" type="String" name="UsuarioDepto" not-null="false" length="500" />
+    <property column="tnb_usuario_oficina" type="String" name="UsuarioOficina" not-null="false" length="500" />
+    <property column="tnb_usuario_prov" type="String" name="UsuarioProvincia" not-null="false" length="500" />
+    <property column="tnb_user_load_depto" type="String" name="UsuarioCargaDepto" not-null="false" length="500" />
+    <property column="tnb_user_load_prov" type="String" name="UsuarioCargaProvincia" not-null="false" length="500" />
+  </class>
+</hibernate-mapping>

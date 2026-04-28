@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+  <class name="NDCCommon.Entities.MacroUsuarioEntity,NDCCommon" table="macro_usuario">
+
+    <id name="Id" column="macro_usuario_id" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <many-to-one column="win_domain_id" name="Dominio" class="PhalanxCommon.Entities.WinDomainEntity,PhalanxCommon" />
+    <property column="usuario_red" name="UsuarioRed" type="String" />
+
+    <many-to-one column="macro_id" name="Macro" class="NDCCommon.Entities.MacroEntity,NDCCommon" />
+    <property column="usuario_tc" name="UsuarioTC" type="String" />
+    <property column="clave_tc" name="ClaveTC" type="String" />
+
+    <property column="principal" name="Principal" type="Boolean" />
+    <property column="activo" name="Activo" type="Boolean" />
+  </class>
+</hibernate-mapping>

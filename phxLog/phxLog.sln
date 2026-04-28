@@ -1,0 +1,30 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phxLog", "phxLog.csproj", "{E8F94161-3F1A-4491-92B4-9AE6777DF183}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 2
+		SccLocalPath0 = .
+		CanCheckoutShared = false
+		SolutionUniqueID = {018FAC29-F054-45D1-8FE0-7C90889D2AFF}
+		SccProjectUniqueName1 = phxLog.csproj
+		SccLocalPath1 = .
+		CanCheckoutShared = false
+	EndGlobalSection
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{E8F94161-3F1A-4491-92B4-9AE6777DF183}.Debug.ActiveCfg = Debug|.NET
+		{E8F94161-3F1A-4491-92B4-9AE6777DF183}.Debug.Build.0 = Debug|.NET
+		{E8F94161-3F1A-4491-92B4-9AE6777DF183}.Release.ActiveCfg = Release|.NET
+		{E8F94161-3F1A-4491-92B4-9AE6777DF183}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

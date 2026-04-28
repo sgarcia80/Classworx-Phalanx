@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+	<class name="PhalanxCommon.Entities.RqstGrpDelegEntity,PhalanxCommon" table="Rqst_Grps_Deleg">
+
+		<id name="Id" column="delrqst_grp_delg_id" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+		<many-to-one name="RqstGrp" column="rqst_grp_id" class="PhalanxCommon.Entities.RequestGroupEntity,PhalanxCommon" />
+		<many-to-one name="WinGroup" column="win_group_id" class="PhalanxCommon.Entities.WinGroupEntity,PhalanxCommon" />
+		<many-to-one name="Auth1Usr" column="auth1_usr_id" class="PhalanxCommon.Entities.PhxUserEntity,PhalanxCommon" />
+		<many-to-one name="Auth2Usr" column="auth2_usr_id" class="PhalanxCommon.Entities.PhxUserEntity,PhalanxCommon" />
+		
+	</class>
+</hibernate-mapping>

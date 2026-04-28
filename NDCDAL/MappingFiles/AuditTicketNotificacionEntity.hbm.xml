@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false">
+  <class name="NDCCommon.Entities.AuditTicketNotificacionEntity,NDCCommon" table="audit_ticket_notificacion">
+
+    <id name="Id" column="atn_id" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    <many-to-one name="Ticket" column="atn_tnc_id" class="NDCCommon.Entities.TicketNotificacionClaveEntity,NDCCommon" />
+    <property column="atn_fecha" type="DateTime" name="Fecha" insert="false"/>
+  </class>
+</hibernate-mapping>
