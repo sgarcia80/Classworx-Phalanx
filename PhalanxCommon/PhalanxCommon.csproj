@@ -213,6 +213,7 @@
     <Compile Include="Entities\CommunicationDeviceTypeEntity.cs" />
     <Compile Include="Entities\CommunicationDeviceUserEntity.cs" />
     <Compile Include="Entities\ATMUserEntity.cs" />
+    <Compile Include="Entities\CTSRestExecutorSpRequest.cs" />
     <Compile Include="Entities\MailGroupEntity.cs" />
     <Compile Include="Entities\MailTagEntity.cs" />
     <Compile Include="Entities\UserSubTypeEntity.cs" />

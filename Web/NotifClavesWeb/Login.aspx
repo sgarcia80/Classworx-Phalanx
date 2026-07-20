@@ -85,13 +85,8 @@
     </table>
     <br />
     </asp:Panel>
-    <div class="titulo">
-        Desconectar Session
-    </div>
     <br />
     <div class="mensaje">
-        <asp:Button ID="ButtonSession" Text="Cerrar session" CssClass="btn" runat="server" OnClick="btnCerrarSession_Click" />
         <br />
-        <asp:Label ID="SessionLabel" Visible="true" runat="server" Text="Response: " />
     </div>
     </asp:Content>

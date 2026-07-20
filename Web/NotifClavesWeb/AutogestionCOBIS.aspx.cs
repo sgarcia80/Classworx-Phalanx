@@ -32,7 +32,6 @@ namespace NotifClavesWeb
         protected void btnDesbloqueoCOBIS_Click(object sender, EventArgs e)
         {
             Response.Redirect("DesbloqueoUsuarioCOBIS.aspx");
-
         }
         protected void btnCambioClave_Click(object sender, EventArgs e)
         {
@@ -73,6 +72,11 @@ namespace NotifClavesWeb
             }
 
             return ok;
+        }
+
+        protected void btnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("CerrarSesion.aspx");
         }
     }
 }

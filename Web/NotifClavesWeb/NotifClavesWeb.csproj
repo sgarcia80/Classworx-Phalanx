@@ -166,6 +166,7 @@
     <Content Include="CobisDesbloqueo.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="CerrarSesion.aspx" />
     <Content Include="DesbloqueoUsuarioCOBIS.aspx" />
     <Content Include="DetalleBlanqueo.aspx" />
     <Content Include="DetalleTicket.aspx" />
@@ -261,6 +262,13 @@
     </Compile>
     <Compile Include="ClavesAplicativos.aspx.designer.cs">
       <DependentUpon>ClavesAplicativos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CerrarSesion.aspx.cs">
+      <DependentUpon>CerrarSesion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CerrarSesion.aspx.designer.cs">
+      <DependentUpon>CerrarSesion.aspx</DependentUpon>
     </Compile>
     <Compile Include="DesbloqueoUsuarioCOBIS.aspx.cs">
       <DependentUpon>DesbloqueoUsuarioCOBIS.aspx</DependentUpon>
