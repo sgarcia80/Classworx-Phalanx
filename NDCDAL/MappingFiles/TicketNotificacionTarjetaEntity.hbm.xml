@@ -5,7 +5,7 @@
     <id name="Id" column="tnt_id" type="Int32" unsaved-value="0">
       <generator class="native"/>
     </id>
-    <property column="tnt_numero" type="Int32" name="NumeroSolicitud" not-null="true" />
+    <property column="tnt_numero" type="Int32" name="NumeroSolicitud" not-null="false" />
     <many-to-one name="Aplicacion" column="tnt_app_id" class="NDCCommon.Entities.AplicacionNotificacionClaveEntity,NDCCommon" />
     <property column="tnt_app_user" type="String" name="UsuarioAplicacion" not-null="false" length="50" />
     <property column="tnt_app_user_pass" type="String" name="PasswordUsuarioAplicacion" not-null="false" length="50" />

@@ -5,6 +5,10 @@
       {
         "Path": "Web\\NotifClavesWeb\\NotifClavesWeb.csproj",
         "Action": "Start"
+      },
+      {
+        "Path": "PhalanxAdmin\\PhalanxAdmin.csproj",
+        "Action": "Start"
       }
     ]
   }

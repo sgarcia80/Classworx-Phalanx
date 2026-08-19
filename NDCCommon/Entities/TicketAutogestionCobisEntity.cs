@@ -10,6 +10,7 @@ namespace NDCCommon.Entities
     /// </summary>
     public class TicketAutogestionCobisEntity : BaseEntity
     {
+        public const int Desconexion = 3;
         public const int TipoBlanqueo = 2;
         public const int TipoDesbloqueo = 1;
 
@@ -71,6 +72,9 @@ namespace NDCCommon.Entities
                 string tipo = string.Empty;
                 switch (this.TipoNotificacion)
                 {
+                    case Desconexion:
+                        tipo = "Desconexion";
+                        break;
                     case TipoDesbloqueo:
                         tipo = "Desbloqueo";
                         break;

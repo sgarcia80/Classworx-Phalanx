@@ -13,6 +13,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Security;
+using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel.PeerResolvers;
 using System.Text;
@@ -74,6 +75,12 @@ namespace NotifClavesWeb
                 lblError.Visible = true;
             }
 
+            TicketAutogestionCobisEntity ticket = TicketAutogestionCobisEntity.CreateDesbloqueo();
+            ticket.Usuario = usuarioLogin;
+            ticket.Fecha = DateTime.Now;
+            ticket.RespuestaCodigo = 0;
+            ticket.RespuestaMensaje = string.Empty;
+
             try
             {
                 PhxConfigBusiness pcb = new PhxConfigBusiness();
@@ -83,8 +90,6 @@ namespace NotifClavesWeb
                 string idServicioCTS = ConfigurationManager.AppSettings["IdServiceCTSAuth"];
                 string AuthenticatorUrl = ConfigurationManager.AppSettings["CTSRestAuthenticationURL"];
                 string ExecutorUrl = ConfigurationManager.AppSettings["CTSRestExecutorURL"];
-
-
 
                 lblUsrName.Text = usuarioLogin;
 
@@ -169,6 +174,8 @@ namespace NotifClavesWeb
                             }
                             else
                             {
+                                ticket.RespuestaCodigo = returnCode;
+
                                 lblResp2.Text = "Error en la operación. No se han cerrado las sesiones.";
                                 if (showCobis)
                                 { 
@@ -177,6 +184,8 @@ namespace NotifClavesWeb
 
                                 string messagesSummary = messagesExecutor == null ? "<null>" : messagesExecutor.ToString(Newtonsoft.Json.Formatting.None);
                                 log.AppendLine($"[{DateTime.Now:O}] Operación fallida: returnCode={returnCode}, messages={messagesSummary}");
+
+                                ticket.RespuestaMensaje = messagesSummary;
                             }
                         }
                         catch (JsonException jex)
@@ -191,11 +200,15 @@ namespace NotifClavesWeb
                 }
                 else
                 {
+
                     lblResp2.Text = "Error en la operación. No se han cerrado las sesiones.";
                     if (showCobis)
                     { 
                         lblError.Text = $"<BR/><BR/>Error en la petición. HTTP {(int)statusCode} - {statusCode}. Contenido: {HttpUtility.HtmlEncode(responseBody)}";
                     }
+                    ticket.RespuestaCodigo = (int)statusCode;
+                    ticket.RespuestaMensaje = responseBody;
+
                     string truncated = responseBody ?? "<null>";
                     if (truncated.Length > 2000) truncated = truncated.Substring(0, 2000) + "...(truncated)";
                     log.AppendLine($"[{DateTime.Now:O}] HTTP error body (truncated to 2000 chars): {truncated}");
@@ -203,6 +216,9 @@ namespace NotifClavesWeb
             }
             catch (Exception ex)
             {
+                ticket.RespuestaCodigo = -1;
+                ticket.RespuestaMensaje = ex.Message;
+
                 log.AppendLine($"[{DateTime.Now:O}] Excepción: {ex.GetType().FullName} - {ex.Message}");
                 if (showCobis)
                 {
@@ -213,6 +229,9 @@ namespace NotifClavesWeb
             }
             finally
             {
+                TicketAutogestionCobisBusiness ticketBL = new TicketAutogestionCobisBusiness();
+                ticketBL.Save(ticket);
+
                 TraceHelper.Information($"Usuario : {usuarioLogin}." + log.ToString());
             }
         }
